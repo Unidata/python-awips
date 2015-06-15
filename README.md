@@ -4,13 +4,13 @@
 
 * easy_install argparse
 * easy_install shapely
-* yum install geos geos-devel
+* yum install geos geos-devel (ore "brew install goes" for OS X)
 
 ### Install
 
 * git clone https://github.com/mjames-upc/edexpy.git
 * cd edexpy
-* python install setup.py
+* python install install
 
 ### Use
 
