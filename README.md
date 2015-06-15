@@ -4,7 +4,7 @@
 
 * easy_install argparse
 * easy_install shapely
-* yum install geos geos-devel (ore "brew install goes" for OS X)
+* yum install geos geos-devel (or "brew install goes" for OS X)
 
 ### Install
 
