@@ -10,7 +10,7 @@
 
 * git clone https://github.com/mjames-upc/edexpy.git
 * cd edexpy
-* python install install
+* python setup.py install
 
 ### Use
 
