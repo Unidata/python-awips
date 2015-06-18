@@ -14,5 +14,5 @@
 
 ### Use
 
-./grid/gridInventory.csh HRRR T
+./data/grid/gridInventory.csh HRRR T
 
