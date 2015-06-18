@@ -141,12 +141,20 @@ while ( -e $locDir/CenterPoint.dat )
    @ lnmx = $cenlon + 20
    break
 end
+
+# Colorado bounds
+set ltmn = 37
+set ltmx = 41
+set lnmn = -109
+set lnmx = -102
+
 #
 #
 # Determine if we are using the data access framework or the uEngine.
 #
 grep DataAccessLayer $stubpy >& /dev/null
 if ( $status == 0 ) then
+    echo "/awips2/python/bin/python $stubpy -b "$1 $2" -e "$3 $4" --lat-min $ltmn --lat-max $ltmx --lon-min $lnmn --lon-max $lnmx"
     /awips2/python/bin/python $stubpy -b "$1 $2" -e "$3 $4" --lat-min $ltmn --lat-max $ltmx --lon-min $lnmn --lon-max $lnmx
 else
     #
