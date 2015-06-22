@@ -14,5 +14,14 @@
 
 ### Use
 
+#### GRID
+
 ./data/grid/gridInventory.csh HRRR T
 
+#### Radar
+
+python data/radar/a2invradStub.py --icao kftg --date 2015-06-22 --time 17:09
+
+#### Obs
+
+python data/metar/a2gtmtrStub.py -b "2015-06-18 21:40" -e "2015-06-18 22:00" -s KCLK

@@ -44,7 +44,8 @@ def get_args():
     parser.add_argument("-h", action="store", dest="host",
                         help="EDEX server hostname (optional)",
                         metavar="hostname")
-    parser.add_argument("-s", action="store", dest="stid", metavar="stid")
+    parser.add_argument("-s", action="store", dest="stationId",
+                    help="Station ID (optional)", metavar="stationId")
     parser.add_argument("-b", action="store", dest="start", 
                     help="The start of the time range in YYYY-MM-DD HH:MM",
                     metavar="start")
@@ -68,8 +69,6 @@ def main():
     if user_args.host:
         DataAccessLayer.changeEDEXHost(user_args.host)
 
-    if user_args.stid:
-        stid = user_args.stid
 
     start = user_args.start
     end = user_args.end
@@ -88,6 +87,8 @@ def main():
     timerange = TimeRange(beginRange, endRange)
 
     req = DataAccessLayer.newDataRequest("obs")
+    if user_args.stationId:
+    	req.addIdentifier("location.stationId",user_args.stationId)
     req.setParameters("stationName","timeObs","wmoId","autoStationType",
                       "elevation","seaLevelPress","temperature","dewpoint",
                       "windDir","windSpeed","altimeter" )
@@ -106,8 +107,6 @@ def main():
             continue
         ista = geo.getString("wmoId")
         sName = geo.getString("stationName")
-	if 'stid' in locals() and stid != sName:
-	    continue 
         tobs = geo.getNumber("timeObs")
         elev = geo.getNumber("elevation")
         atype = geo.getString("autoStationType")
