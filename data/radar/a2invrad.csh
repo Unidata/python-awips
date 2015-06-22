@@ -165,6 +165,7 @@ if ( $status == 0 ) then
     else 
         set userargs = "$userargs --icao $rrr --productCode $1 --angle $2 --outputTrue --outputDate"
     endif
+    echo /awips2/python/bin/python $stubpy ${userargs} | $lastcmd
     /awips2/python/bin/python $stubpy ${userargs} | $lastcmd
 else
     #
