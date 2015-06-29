@@ -1,6 +1,6 @@
-#### Below shows an example of only requesting data over a specific envelope (ie bounding box). This examples uses a request from the maps database to get the Envelope around the CWA of OUN for our request. This can be used to fine tune your request to only get the data you really need and speed up requests.
+Below shows an example of only requesting data over a specific envelope (ie bounding box). This examples uses a request from the maps database to get the Envelope around the CWA of OUN for our request. This can be used to fine tune your request to only get the data you really need and speed up requests.
 
-#### You could do this same type of request using any other geometry. For example, you could query the states table and only pull out model data over a particular state. You can also create your own Shapely geometry from scratch and use it to define your envelope.
+You could do this same type of request using any other geometry. For example, you could query the states table and only pull out model data over a particular state. You can also create your own Shapely geometry from scratch and use it to define your envelope.
 
 ```python
 #!python
