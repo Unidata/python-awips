@@ -2,7 +2,7 @@
 
 #### You could do this same type of request using any other geometry. For example, you could query the states table and only pull out model data over a particular state. You can also create your own Shapely geometry from scratch and use it to define your envelope.
 
-```
+```python
 #!python
 #!/awips2/python/bin/python
 from ufpy.dataaccess import DataAccessLayer
