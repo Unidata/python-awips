@@ -1,4 +1,4 @@
-== Using the DAF from Python to determine available model runs and available forecast steps for each model run ==
+### Using the DAF from Python to determine available model runs and available forecast steps for each model run
 
 Apr 2, 2015 - Virgil Middendorf
 

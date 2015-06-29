@@ -1,5 +1,4 @@
-
-n
+```
 #!/awips2/python/bin/python
 from ufpy.dataaccess import DataAccessLayer
 import numpy as np
