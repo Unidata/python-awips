@@ -1,5 +1,4 @@
-
-```
+```python
 #!python
 import numpy as np
 from ufpy.dataaccess import DataAccessLayer
@@ -47,17 +46,18 @@ print data.getRawData()
 ```
 
 Our response object is a list of !PyGridData objects
-```
+```python
+
 [<ufpy.dataaccess.PyGridData.PyGridData object at 0x1d39910>]
 ```
 
 Output of our print statement getting the units
-```
+```python
 Units are in K
 ```
 
 print lon
-```
+```python
 [[-118.09392548 -117.93661499 -117.77923584 ...,  -90.46847534
    -90.30672455  -90.14498901]
  [-118.06690216 -117.90976715 -117.75257111 ...,  -90.47387695
@@ -74,12 +74,12 @@ print lon
 ```
 
 Our print statement from getParameter()
-```
+```python
 Parameter we requested is T
 ```
 
 And finally our call to getRawData() gets a numpy array of the temperature values
-```
+```python
 [[ 283.88305664  284.50805664  285.25805664 ...,  280.88305664
    280.75805664  280.63305664]
  [ 284.38305664  285.00805664  285.75805664 ...,  281.00805664

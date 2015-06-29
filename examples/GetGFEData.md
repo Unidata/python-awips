@@ -1,5 +1,4 @@
-
-```
+```python
 #!python
 from ufpy.dataaccess import DataAccessLayer
 import numpy as np
@@ -38,11 +37,11 @@ print data.getRawData()
 
 ```
 
-```
+```python
 ['OUN']
 ```
 
-```
+```python
 May 03 15 18:00:00 GMT (May 03 15 18:00:00 , May 03 15 21:00:00 )
 May 03 15 21:00:00 GMT (May 03 15 21:00:00 , May 04 15 00:00:00 )
 May 04 15 00:00:00 GMT (May 04 15 00:00:00 , May 04 15 08:00:00 )
@@ -70,15 +69,15 @@ May 12 15 00:00:00 GMT (May 12 15 00:00:00 , May 12 15 12:00:00 )
 May 12 15 12:00:00 GMT (May 12 15 12:00:00 , May 12 15 13:00:00 )
 ```
 
-```
+```python
 [<ufpy.dataaccess.PyGridData.PyGridData object at 0x26f9690>]
 ```
 
-```
+```python
 Units are in %
 ```
 
-```
+```python
 [[-101.30716705 -101.27905273 -101.25093842 ...,  -95.05664062
    -95.02846527  -95.00028992]
  [-101.3058548  -101.27774811 -101.24964142 ...,  -95.056633    -95.02845764
@@ -94,11 +93,11 @@ Units are in %
    -95.02719879  -95.00027466]]
 ```
 
-```
+```python
 Parameter we requested is PoP
 ```
 
-```
+```python
 [[ 8.  8.  7. ...,  7.  7.  7.]
  [ 8.  7.  7. ...,  7.  7.  7.]
  [ 7.  7.  7. ...,  7.  7.  7.]

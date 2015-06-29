@@ -1,4 +1,4 @@
-```
+```python
 #!/awips2/python/bin/python
 from ufpy.dataaccess import DataAccessLayer
 import numpy as np
@@ -22,23 +22,23 @@ print 'Parameter we requested is',data.getParameter()
 print data.getRawData()
 ```
 
-```
+```python
 May 04 15 18:45:19 GMT
 ```
 
-```
+```python
 [<ufpy.dataaccess.PyGridData.PyGridData object at 0x157d550>]
 ```
 
-```
+```python
 Units are in None
 ```
 
-```
+```python
 Parameter we requested is Imager 6.7-6.5 micron IR (WV)
 ```
 
-```
+```python
 [[ 186.  185.  186. ...,  180.  181.  181.]
  [ 186.  185.  186. ...,  180.  181.  181.]
  [ 186.  186.  185. ...,  180.  181.  181.]

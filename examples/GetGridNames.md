@@ -1,6 +1,6 @@
-== Using the DAF to get all of the available grids ==
+#### Using the DAF to get all of the available grids
 
-```
+```python
 #!python
 from ufpy.dataaccess import DataAccessLayer
 
@@ -20,9 +20,7 @@ for grid in available_grids:
 
 And the output of the print grid statement would look something like this:
 
-```
-#!div style="font-size: 90%;font-style:italic"
-```
+```python
 RUC236
 SREF216
 ENSEMBLE
@@ -47,5 +45,4 @@ QPE-XNAV-ALR
 AK-RTMA3
 GFS212
 ...
-```
 ```
