@@ -2,7 +2,7 @@
 
 ==== You could do this same type of request using any other geometry. For example, you could query the states table and only pull out model data over a particular state. You can also create your own Shapely geometry from scratch and use it to define your envelope. ====
 
-{{{
+```
 #!python
 #!/awips2/python/bin/python
 from ufpy.dataaccess import DataAccessLayer
@@ -55,24 +55,24 @@ response = DataAccessLayer.getGridData(request, times=[t[-1]])
 data = response[0]
 coords = data.getLatLonCoords()
 print coords[0].shape,coords[1].shape
-}}}
+```
 
-{{{
+```
 (175, 175) (175, 175)
-}}}
+```
 
-{{{
+```
 OUN Envelope is POLYGON ((-100.0485000609999702 33.3954124450000336, -95.6716995239999619 33.3954124450000336, -95.6716995239999619 37.0016136170000323, -100.0485000609999702 37.0016136170000323, -100.0485000609999702 33.3954124450000336))
-}}}
+```
 
-{{{
+```
 (32, 33) (32, 33)
-}}}
+```
 
-{{{
+```
 OUN Envelope with buffer is POLYGON ((-100.5485000609999702 32.8954672430463262, -95.1716995239999619 32.8954672430463262, -95.1716995239999619 37.5016136170000323, -100.5485000609999702 37.5016136170000323, -100.5485000609999702 32.8954672430463262))
-}}}
+```
 
-{{{
+```
 (39, 41) (39, 41)
-}}}
+```

@@ -1,4 +1,4 @@
-{{{
+```
 #!python
 from ufpy.dataaccess import DataAccessLayer
 from shapely.geometry import Polygon,Point
@@ -55,28 +55,28 @@ print '\nFilter state objects to the ones that intersect polygon took %i.%i seco
 print state_intersect_polygon
 for state in state_intersect_polygon:
     print "Polygon intersects the state of",state.getString('name')
-}}}
+```
 
-{{{
+```
 Requesting all states from DAF
 DAF query to get all states took 21.915029 seconds
-}}}
+```
 
-{{{
+```
 Filter state objects to one that contains polygon took 0.382097 seconds
 [<ufpy.dataaccess.PyGeometryData.PyGeometryData object at 0x2bebdd0>]
 Polygon is in the state of Oklahoma
-}}}
+```
 
-{{{
+```
 Filter state objects to one that contains point took 0.2028 seconds 
 [<ufpy.dataaccess.PyGeometryData.PyGeometryData object at 0x2beb9d0>]
 Point is in the state of Iowa
-}}}
+```
 
-{{{
+```
 Filter state objects to the ones that intersect polygon took 0.4032 seconds 
 [<ufpy.dataaccess.PyGeometryData.PyGeometryData object at 0x2beb610>, <ufpy.dataaccess.PyGeometryData.PyGeometryData object at 0x2bebdd0>]
 Polygon intersects the state of Texas
 Polygon intersects the state of Oklahoma
-}}}
+```

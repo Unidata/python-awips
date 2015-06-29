@@ -1,6 +1,6 @@
 == Using the DAF to get all of the available grids ==
 
-{{{
+```
 #!python
 from ufpy.dataaccess import DataAccessLayer
 
@@ -16,13 +16,13 @@ request.setDatatype("grid")
 available_grids = DataAccessLayer.getAvailableLocationNames(request)
 for grid in available_grids:
     print grid
-}}}
+```
 
 And the output of the print grid statement would look something like this:
 
-{{{
+```
 #!div style="font-size: 90%;font-style:italic"
-{{{
+```
 RUC236
 SREF216
 ENSEMBLE
@@ -47,5 +47,5 @@ QPE-XNAV-ALR
 AK-RTMA3
 GFS212
 ...
-}}}
-}}}
+```
+```

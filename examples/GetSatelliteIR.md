@@ -21,25 +21,25 @@ lon,lat = data.getLatLonCoords()
 
 print 'Parameter we requested is',data.getParameter()
 print data.getRawData()
-}}}
+```
 
-{{{
+```
 May 04 15 18:45:19 GMT
-}}}
+```
 
-{{{
+```
 [<ufpy.dataaccess.PyGridData.PyGridData object at 0x157d550>]
-}}}
+```
 
-{{{
+```
 Units are in None
-}}}
+```
 
-{{{
+```
 Parameter we requested is Imager 6.7-6.5 micron IR (WV)
-}}}
+```
 
-{{{
+```
 [[ 186.  185.  186. ...,  180.  181.  181.]
  [ 186.  185.  186. ...,  180.  181.  181.]
  [ 186.  186.  185. ...,  180.  181.  181.]
@@ -47,4 +47,4 @@ Parameter we requested is Imager 6.7-6.5 micron IR (WV)
  [   0.    0.    0. ...,  145.  145.  145.]
  [   0.    0.    0. ...,  145.  145.  145.]
  [   0.    0.    0. ...,  145.  145.  144.]]
-}}}
+```

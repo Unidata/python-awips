@@ -4,7 +4,7 @@ Apr 2, 2015 - Virgil Middendorf
 
 The code below creates a Python Dictionary called ModelRunDict, where the keys are the available Model Run date/times (example key: Apr 02 15 06:00:00). Associated with each key, is a list array of Forecast Steps (in seconds after initialization) available for each Model Run.
 
-{{{
+```
 #!python
 # Getting the Model Run Date/Times and put them into a sorted dictionary, with latest run first.
 ModelRunDict = dict()
@@ -29,5 +29,5 @@ for ModelRun in ModelRunDict.keys():
 	for step in ModelRunDict[ModelRun]:
 		print "Forecast Step: {} Hours".format(int(step)/3600)
 
-}}}
+```
 
