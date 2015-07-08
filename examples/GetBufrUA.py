@@ -4,7 +4,7 @@ from ufpy.dataaccess import DataAccessLayer
 request = DataAccessLayer.newDataRequest()
 request.setDatatype("bufrua")
 #request.setParameters("temperature","dewpoint")
-request.setParameters("prMan","htMan")
+request.setParameters("tpMan","tdMan","prMan","htMan","wdMan","wsMan")
 
 
 locations = DataAccessLayer.getAvailableLocationNames(request)
@@ -13,12 +13,17 @@ print locations
 request.setLocationNames("72230")
 
 datatimes = DataAccessLayer.getAvailableTimes(request)
-print datatimes[-1].validPeriod
+print datatimes[0].validPeriod
 
 response = DataAccessLayer.getGeometryData(request,times=datatimes[-1].validPeriod)
 print response
 
-ob = response[0]
-print "KBMX observation from %s" %ob.getDataTime().getRefTime()
-print "Temperature is",ob.getString("temperature")
-print "Dewpoint is",ob.getString("dewpoint")
+for ob in response:
+	print "Pres is",ob.getString("prMan")
+	print "   KBMX observation from %s" %ob.getDataTime().getRefTime()
+	print "   Temperature is",ob.getString("tpMan")
+	print "   Dewpoint is",ob.getString("tdMan")
+	print "   Height is",ob.getString("htMan")
+	print "   Wind dir is",ob.getString("wdMan")
+	print "   Wind speed is",ob.getString("wsMan")
+
