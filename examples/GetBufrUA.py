@@ -1,6 +1,8 @@
 #!/awips2/python/bin/python
 from ufpy.dataaccess import DataAccessLayer
-et everything up
+
+
+# set everything up
 DataAccessLayer.changeEDEXHost("edex.unidata.ucar.edu")
 request = DataAccessLayer.newDataRequest()
 
