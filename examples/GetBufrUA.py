@@ -1,22 +1,35 @@
 #!/awips2/python/bin/python
 from ufpy.dataaccess import DataAccessLayer
-
+et everything up
+DataAccessLayer.changeEDEXHost("edex.unidata.ucar.edu")
 request = DataAccessLayer.newDataRequest()
+
+# set grid 
+request.setDatatype("grid")
+available_grids = DataAccessLayer.getAvailableLocationNames(request)
+for grid in available_grids:
+    print grid
+
+exit()	
+
+
+
+# set uair
 request.setDatatype("bufrua")
-#request.setParameters("temperature","dewpoint")
+# set parameters
 request.setParameters("tpMan","tdMan","prMan","htMan","wdMan","wsMan")
 
 
 locations = DataAccessLayer.getAvailableLocationNames(request)
-print locations
+#print locations
 
 request.setLocationNames("72230")
 
 datatimes = DataAccessLayer.getAvailableTimes(request)
-print datatimes[0].validPeriod
+#print datatimes[0].validPeriod
 
 response = DataAccessLayer.getGeometryData(request,times=datatimes[-1].validPeriod)
-print response
+#print response
 
 for ob in response:
 	print "Pres is",ob.getString("prMan")
