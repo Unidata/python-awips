@@ -8,7 +8,7 @@
 
 ### Install
 
-* git clone https://github.com/Unidata/awips-python.git
-* cd awips-python
+* git clone https://github.com/Unidata/python-awips.git
+* cd python-awips
 * python setup.py install
 
