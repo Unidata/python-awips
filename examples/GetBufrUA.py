@@ -1,5 +1,5 @@
 #!/awips2/python/bin/python
-from ufpy.dataaccess import DataAccessLayer
+from awips.dataaccess import DataAccessLayer
 
 
 # set everything up

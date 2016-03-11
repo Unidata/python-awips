@@ -5,7 +5,7 @@ You could do this same type of request using any other geometry. For example, yo
 ```python
 #!python
 #!/awips2/python/bin/python
-from ufpy.dataaccess import DataAccessLayer
+from awips.dataaccess import DataAccessLayer
 import numpy as np
 
 # First we will request the OUN CWA from the maps database.

@@ -2,7 +2,7 @@
 
 ```python
 #!python
-from ufpy.dataaccess import DataAccessLayer
+from awips.dataaccess import DataAccessLayer
 
 #Initiate a new DataRequest
 request = DataAccessLayer.newDataRequest()

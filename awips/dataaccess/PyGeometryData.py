@@ -35,8 +35,8 @@
 #    
 #
 
-from ufpy.dataaccess import IGeometryData
-from ufpy.dataaccess import PyData
+from awips.dataaccess import IGeometryData
+from awips.dataaccess import PyData
 
 class PyGeometryData(IGeometryData, PyData.PyData):
     

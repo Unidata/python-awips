@@ -1,6 +1,6 @@
 ```python
 #!python
-from ufpy.dataaccess import DataAccessLayer
+from awips.dataaccess import DataAccessLayer
 
 request = DataAccessLayer.newDataRequest()
 request.setDatatype("obs")
@@ -33,7 +33,7 @@ print "Dewpoint is",ob.getString("dewpoint")
 ```
 
 ```python
-[<ufpy.dataaccess.PyGeometryData.PyGeometryData object at 0x19718d0>]
+[<awips.dataaccess.PyGeometryData.PyGeometryData object at 0x19718d0>]
 ```
 
 ```python

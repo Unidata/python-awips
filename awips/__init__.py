@@ -20,14 +20,14 @@
 
 
 #
-# __init__.py for ufpy.gfe package
+# __init__.py for awips package
 #  
 #    
 #     SOFTWARE HISTORY
 #    
 #    Date            Ticket#       Engineer       Description
 #    ------------    ----------    -----------    --------------------------
-#    07/26/12                      dgilling       Initial Creation.
+#    09/21/10                      dgilling       Initial Creation.
 #    
 # 
 #

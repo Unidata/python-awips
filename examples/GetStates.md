@@ -1,7 +1,7 @@
 ```python
 #!python
 #!/awips2/python/bin/python
-from ufpy.dataaccess import DataAccessLayer
+from awips.dataaccess import DataAccessLayer
 
 #Initiate a new DataRequest
 b = DataAccessLayer.newDataRequest()
@@ -25,7 +25,7 @@ b.setLocationNames("Oklahoma","Texas","Kansas")
 #Finally lets request some data. There are two types of data (Grid, Geometry) here we are
 #requesting geometry data and therefore use the getGeometryData method. We pass it our DataRequest object 
 #that has all of our parameters and None for the DataTime object argument since maps are time agnostic
-#This returns a list of ufpy.dataaccess.PyGeometryData.PyGeometryData objects.
+#This returns a list of awips.dataaccess.PyGeometryData.PyGeometryData objects.
 c = DataAccessLayer.getGeometryData(b, None)
 print c
 
@@ -50,7 +50,7 @@ for shape in c:
 ```
 
 ```python
-[<ufpy.dataaccess.PyGeometryData.PyGeometryData object at 0x1ec4410>, <ufpy.dataaccess.PyGeometryData.PyGeometryData object at 0x1ec4510>, <ufpy.dataaccess.PyGeometryData.PyGeometryData object at 0x1ec4550>]
+[<awips.dataaccess.PyGeometryData.PyGeometryData object at 0x1ec4410>, <awips.dataaccess.PyGeometryData.PyGeometryData object at 0x1ec4510>, <awips.dataaccess.PyGeometryData.PyGeometryData object at 0x1ec4550>]
 ```
 
 ```python

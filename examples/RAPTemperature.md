@@ -1,7 +1,7 @@
 ```python
 #!python
 import numpy as np
-from ufpy.dataaccess import DataAccessLayer
+from awips.dataaccess import DataAccessLayer
 
 #Initiate a new DataRequest
 request = DataAccessLayer.newDataRequest()
@@ -23,12 +23,12 @@ t = DataAccessLayer.getAvailableTimes(request)
 #requesting gridded data and therefore use the getGridData method. We pass it our DataRequest object 
 #that has all of our model, parameter, and level information and also a list of DataTime objects we want
 #the data for. In this case just give us the data from the last DataTime in the above list (t[-1]). This returns 
-#a list of ufpy.dataaccess.PyGridData.PyGridData objects.
+#a list of awips.dataaccess.PyGridData.PyGridData objects.
 response = DataAccessLayer.getGridData(request, [t[-1]])
 print response
 
 #Since we only asked for one DataTime we only have one PyGridData object. Lets pull this out
-#into a variable named data. Then we can use functions available from ufpy.dataaccess.PyGridData.PyGridData
+#into a variable named data. Then we can use functions available from awips.dataaccess.PyGridData.PyGridData
 #objects (see module for more methods or details)
 data = response[0]
 
@@ -48,7 +48,7 @@ print data.getRawData()
 Our response object is a list of !PyGridData objects
 ```python
 
-[<ufpy.dataaccess.PyGridData.PyGridData object at 0x1d39910>]
+[<awips.dataaccess.PyGridData.PyGridData object at 0x1d39910>]
 ```
 
 Output of our print statement getting the units

@@ -52,7 +52,7 @@ class ListenThread(threading.Thread):
         threading.Thread.__init__(self)
     
     def run(self):
-        from ufpy import QpidSubscriber
+        from awips import QpidSubscriber
         self.qs = QpidSubscriber.QpidSubscriber(self.hostname, self.portNumber, True)        
         self.qs.topicSubscribe(self.topicName, self.receivedMessage)
     

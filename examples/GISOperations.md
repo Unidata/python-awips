@@ -1,6 +1,6 @@
 ```python
 #!python
-from ufpy.dataaccess import DataAccessLayer
+from awips.dataaccess import DataAccessLayer
 from shapely.geometry import Polygon,Point
 from datetime import datetime
 
@@ -64,19 +64,19 @@ DAF query to get all states took 21.915029 seconds
 
 ```python
 Filter state objects to one that contains polygon took 0.382097 seconds
-[<ufpy.dataaccess.PyGeometryData.PyGeometryData object at 0x2bebdd0>]
+[<awips.dataaccess.PyGeometryData.PyGeometryData object at 0x2bebdd0>]
 Polygon is in the state of Oklahoma
 ```
 
 ```python
 Filter state objects to one that contains point took 0.2028 seconds 
-[<ufpy.dataaccess.PyGeometryData.PyGeometryData object at 0x2beb9d0>]
+[<awips.dataaccess.PyGeometryData.PyGeometryData object at 0x2beb9d0>]
 Point is in the state of Iowa
 ```
 
 ```python
 Filter state objects to the ones that intersect polygon took 0.4032 seconds 
-[<ufpy.dataaccess.PyGeometryData.PyGeometryData object at 0x2beb610>, <ufpy.dataaccess.PyGeometryData.PyGeometryData object at 0x2bebdd0>]
+[<awips.dataaccess.PyGeometryData.PyGeometryData object at 0x2beb610>, <awips.dataaccess.PyGeometryData.PyGeometryData object at 0x2bebdd0>]
 Polygon intersects the state of Texas
 Polygon intersects the state of Oklahoma
 ```

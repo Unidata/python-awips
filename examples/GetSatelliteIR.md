@@ -1,6 +1,6 @@
 ```python
 #!/awips2/python/bin/python
-from ufpy.dataaccess import DataAccessLayer
+from awips.dataaccess import DataAccessLayer
 import numpy as np
 
 request = DataAccessLayer.newDataRequest()
@@ -27,7 +27,7 @@ May 04 15 18:45:19 GMT
 ```
 
 ```python
-[<ufpy.dataaccess.PyGridData.PyGridData object at 0x157d550>]
+[<awips.dataaccess.PyGridData.PyGridData object at 0x157d550>]
 ```
 
 ```python

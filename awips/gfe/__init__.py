@@ -20,29 +20,18 @@
 
 
 #
-# Pure python logging mechanism for logging to AlertViz from
-# pure python (ie not JEP).  DO NOT USE IN PYTHON CALLED
-# FROM JAVA.
+# __init__.py for awips.gfe package
 #  
 #    
 #     SOFTWARE HISTORY
 #    
 #    Date            Ticket#       Engineer       Description
 #    ------------    ----------    -----------    --------------------------
-#    11/03/10        5849          cjeanbap       Initial Creation.
+#    07/26/12                      dgilling       Initial Creation.
 #    
 # 
 #
 
-## to execute type python Test
 
-
-import os
-import logging
-from ufpy import AlertVizHandler
-import Record
-
-avh = AlertVizHandler.AlertVizHandler(host=os.getenv("BROKER_ADDR","localhost"), port=9581, category='LOCAL', source='ANNOUNCER', level=logging.NOTSET)
-record = Record.Record(10)
-avh.emit(record)
-        
+__all__ = [           
+           ]
