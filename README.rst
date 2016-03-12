@@ -2,12 +2,12 @@ Python Data Access Framework for AWIPS II
 =========================================
 
 .. image:: https://img.shields.io/pypi/v/python-awips.svg
-       :target: https://pypi.python.org/pypi/python-awips/
-    :alt: PyPI Package
+        :target: https://pypi.python.org/pypi/python-awips/
+        :alt: PyPI Package
 
 .. image:: https://img.shields.io/pypi/dm/python-awips.svg
-       :target: https://pypi.python.org/pypi/python-awips/
-    :alt: PyPI Downloads
+        :target: https://pypi.python.org/pypi/python-awips/
+        :alt: PyPI Downloads
 
 Install
 -------
