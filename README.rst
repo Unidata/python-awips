@@ -12,32 +12,34 @@ Python Data Access Framework for AWIPS II
 Install
 -------
 
-        pip install python-awips
+- pip install python-awips
 
 Prerequisites
 -------------
 
-        yum install geos geos-devel
-        pip install numpy shapely
+- yum install geos geos-devel
+- pip install numpy shapely
 
 
 From Github
 -----------
 
-        git clone https://github.com/Unidata/python-awips.git
-        cd python-awips
-        python setup.py install
+- git clone https://github.com/Unidata/python-awips.git
+- cd python-awips
+-  python setup.py install
 
 
 Install for AWIPS II Python
 --------------------
 
-	wget https://bootstrap.pypa.io/ez_setup.py -O - | /awips2/python/bin/python
-	easy_install pip
-	/awips2/python/bin/pip install python-awips
+- wget https://bootstrap.pypa.io/ez_setup.py -O - | /awips2/python/bin/python
+- easy_install pip
+- /awips2/python/bin/pip install python-awips
 
 Grid Inventory
 --------------
+
+A short script to request availavle grid names from an EDEX server::
 
         #!python
         from awips.dataaccess import DataAccessLayer
