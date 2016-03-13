@@ -17,9 +17,7 @@ Install
 Prerequisites
 -------------
 
-- yum install geos geos-devel
 - pip install numpy shapely
-
 
 From Github
 -----------
@@ -32,14 +30,18 @@ From Github
 Install for AWIPS II Python
 --------------------
 
+AWIPS II >=15.1.3 (March 2016) has `python-awips` installed /awips2/python, as well as a full meteorological data stack (metpy, matplotlib, numpy, etc).
+
+For AWIPS II systems 15.1.2 and lower:
+
 - wget https://bootstrap.pypa.io/ez_setup.py -O - | /awips2/python/bin/python
-- easy_install pip
+- /awips2/python/bin/easy_install pip
 - /awips2/python/bin/pip install python-awips
 
 Grid Inventory
 --------------
 
-A short script to request availavle grid names from an EDEX server::
+A short script to request available grid names from an EDEX server::
 
         #!python
         from awips.dataaccess import DataAccessLayer
