@@ -14,9 +14,10 @@ Install
 
 - pip install python-awips
 
-Prerequisites
+Requirements
 -------------
 
+- Python 2.7 or later 
 - pip install numpy shapely
 
 From Github
@@ -30,7 +31,7 @@ From Github
 Install for AWIPS II Python
 --------------------
 
-AWIPS II >=15.1.3 (March 2016) has `python-awips` installed /awips2/python, as well as a full meteorological data stack (metpy, matplotlib, numpy, etc).
+AWIPS II >=15.1.3 (March 2016) has `python-awips` installed in /awips2/python, as well as a full meteorological data stack (metpy, matplotlib, numpy, etc).
 
 For AWIPS II systems 15.1.2 and lower:
 
@@ -64,6 +65,3 @@ A short script to request available grid names from an EDEX server::
         available_grids = DataAccessLayer.getAvailableLocationNames(request)
         for grid in available_grids:
             print grid
-
-        
-
