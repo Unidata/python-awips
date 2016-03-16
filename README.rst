@@ -9,6 +9,10 @@ Python Data Access Framework for AWIPS II
         :target: https://pypi.python.org/pypi/python-awips/
         :alt: PyPI Downloads
 
+.. image:: https://readthedocs.org/projects/pip/badge/?version=latest
+        :target: http://python-awips.readthedocs.org/en/latest/
+        :alt: Latest Doc Build Status
+
 Install
 -------
 
@@ -65,3 +69,9 @@ A short script to request available grid names from an EDEX server::
         available_grids = DataAccessLayer.getAvailableLocationNames(request)
         for grid in available_grids:
             print grid
+
+Documentation
+------------------
+
+* http://python-awips.readthedocs.org/en/latest/
+* `Jupyter Notebook Examples <http://nbviewer.jupyter.org/github/Unidata/python-awips/tree/master/examples/notebooks/>`_
