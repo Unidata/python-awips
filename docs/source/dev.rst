@@ -339,8 +339,8 @@ be written in Java.
    **Envelopes** (shapely has no concept of envelopes and considers them
    as rectangular polygons)
 
-**Data Interfaces**
-~~~~~~~~~~~~~~~~~~~
+Data Interfaces
+~~~~~~~~~~~~~~~
 
 **IData**
 

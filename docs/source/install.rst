@@ -1,16 +1,16 @@
-Installation Guide
-==================
+Install python-awips
+------------------
 
 - pip install python-awips
 
 Requirements
--------------
+~~~~~~~~~~~~
 
 - Python 2.7 or later 
 - pip install numpy shapely
 
 From Github
------------
+~~~~~~~~~~~~
 
 - git clone https://github.com/Unidata/python-awips.git
 - cd python-awips
@@ -18,7 +18,7 @@ From Github
 
 
 Install for AWIPS II Python
---------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 AWIPS II >=15.1.3 (March 2016) has `python-awips` installed in /awips2/python, as well as a full meteorological data stack (metpy, matplotlib, numpy, etc).
 
