@@ -196,17 +196,17 @@ see these):
 
     com.raytheon.uf.common.dataplugin.grid.dataaccess
     com.raytheon.uf.common.dataplugin.radar.dataaccess
-    Com.raytheon.uf.common.dataplugin.satellite.dataaccess
-    Com.raytheon.uf.common.dataplugin.binlightning.dataaccess
-    Com.raytheon.uf.common.dataplugin.sfc.dataaccess
-    Com.raytheon.uf.common.dataplugin.sfcobs.dataaccess
-    Com.raytheon.uf.common.dataplugin.acars.dataaccess
-    Com.raytheon.uf.common.dataplugin.ffmp.dataaccess
-    Com.raytheon.uf.common.dataplugin.bufrua.dataaccess
-    Com.raytheon.uf.common.dataplugin.profiler.dataaccess
-    Com.raytheon.uf.common.dataplugin.moddelsounding.dataaccess
-    Com.raytheon.uf.common.dataplugin.ldadmesonet.dataaccess
-    Com.raytheon.uf.common.dataplugin.binlightning.dataaccess
+    com.raytheon.uf.common.dataplugin.satellite.dataaccess
+    com.raytheon.uf.common.dataplugin.binlightning.dataaccess
+    com.raytheon.uf.common.dataplugin.sfc.dataaccess
+    com.raytheon.uf.common.dataplugin.sfcobs.dataaccess
+    com.raytheon.uf.common.dataplugin.acars.dataaccess
+    com.raytheon.uf.common.dataplugin.ffmp.dataaccess
+    com.raytheon.uf.common.dataplugin.bufrua.dataaccess
+    com.raytheon.uf.common.dataplugin.profiler.dataaccess
+    com.raytheon.uf.common.dataplugin.moddelsounding.dataaccess
+    com.raytheon.uf.common.dataplugin.ldadmesonet.dataaccess
+    com.raytheon.uf.common.dataplugin.binlightning.dataaccess
     com.raytheon.uf.common.dataplugin.gfe.dataaccess
     com.raytheon.uf.common.hydro.dataaccess
     com.raytheon.uf.common.pointdata.dataaccess
