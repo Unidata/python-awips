@@ -66,7 +66,7 @@ dateutil                2.5.0           awips2-python-dateutil
 scipy                   0.17.0          awips2-python-scipy
 metpy                   0.3.0           awips2-python-metpy
 pygtk                   2.8.6           awips2-python-pygtk
-**awips**               **0.9.2**       **awips2-python-awips**
+**awips**               **0.9.3**       **awips2-python-awips**
 shapely                 1.5.9           awips2-python-shapely
 matplotlib              1.5.1           awips2-python-matplotlib
 cython                  0.23.4          awips2-python-cython
