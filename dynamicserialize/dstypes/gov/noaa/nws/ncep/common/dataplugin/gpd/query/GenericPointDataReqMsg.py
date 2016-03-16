@@ -15,7 +15,7 @@ class GenericPointDataReqMsg(object):
         self.queryKey = None
         self.gpdDataString = None
         self.maxNumLevel = 1
-        
+
     def getReqType(self):
         return self.reqType
 
@@ -78,7 +78,7 @@ class GenericPointDataReqMsg(object):
 
     def getGpdDataString(self):
         return self.gpdDataString
-    
+
     def setGpdDataString(self, gpdDataString):
         self.gpdDataString = gpdDataString
-    
+

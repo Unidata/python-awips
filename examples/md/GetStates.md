@@ -13,7 +13,7 @@ b.setParameters("state","fips")
 b.addIdentifier("geomField","the_geom")
 b.addIdentifier("table","mapdata.states")
 
-#getAvailableLocationNames method will return a list of all available locations 
+#getAvailableLocationNames method will return a list of all available locations
 #based off the table we have specified previously. LocationNames mean different
 #things to different plugins beware...radar is icao, satellite is sector, etc
 a = DataAccessLayer.getAvailableLocationNames(b)
@@ -23,7 +23,7 @@ print a
 b.setLocationNames("Oklahoma","Texas","Kansas")
 
 #Finally lets request some data. There are two types of data (Grid, Geometry) here we are
-#requesting geometry data and therefore use the getGeometryData method. We pass it our DataRequest object 
+#requesting geometry data and therefore use the getGeometryData method. We pass it our DataRequest object
 #that has all of our parameters and None for the DataTime object argument since maps are time agnostic
 #This returns a list of awips.dataaccess.PyGeometryData.PyGeometryData objects.
 c = DataAccessLayer.getGeometryData(b, None)

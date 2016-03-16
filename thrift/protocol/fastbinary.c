@@ -32,7 +32,7 @@
 # if defined(_MSC_VER) && _MSC_VER < 1600
    typedef int _Bool;
 #  define bool _Bool
-#  define false 0 
+#  define false 0
 #  define true 1
 # endif
 # define inline __inline
@@ -1164,7 +1164,7 @@ decode_binary(PyObject *self, PyObject *args) {
   PyObject* typeargs = NULL;
   StructTypeArgs parsedargs;
   DecodeBuffer input = {0, 0};
-  
+
   if (!PyArg_ParseTuple(args, "OOO", &output_obj, &transport, &typeargs)) {
     return NULL;
   }

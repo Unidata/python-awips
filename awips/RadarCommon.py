@@ -21,10 +21,10 @@
 #
 # Common methods for the a2gtrad and a2advrad scripts.
 #
-#  
-#    
+#
+#
 #     SOFTWARE HISTORY
-#    
+#
 #    Date            Ticket#       Engineer       Description
 #    ------------    ----------    -----------    --------------------------
 #    08/13/2014      3393          nabowle        Initial creation to contain common
@@ -91,7 +91,7 @@ def get_header(record, format, xLen, yLen, azdat, description):
         msg = str(xLen) + " " + str(yLen) + " " + mytime + " " + \
             dattyp + " " + description + " " + \
             str(record.getTrueElevationAngle()) + " " + \
-            str(record.getVolumeCoveragePattern()) + "\n" 
+            str(record.getVolumeCoveragePattern()) + "\n"
 
     return msg
 

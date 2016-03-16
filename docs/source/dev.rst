@@ -232,7 +232,7 @@ An example of the spring xml for a satellite factory is provided below:
 
 ::
 
-    <bean id="satelliteFactory" 
+    <bean id="satelliteFactory"
       class="com.raytheon.uf.common.dataplugin.satellite.SatelliteFactory" />
 
     <bean id="satelliteFactoryRegistered" factory-bean="dataFactoryRegistry" factory-method="register">

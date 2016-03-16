@@ -1,19 +1,19 @@
 ##
 # This software was developed and / or modified by Raytheon Company,
 # pursuant to Contract DG133W-05-CQ-1067 with the US Government.
-# 
+#
 # U.S. EXPORT CONTROLLED TECHNICAL DATA
 # This software product contains export-restricted data whose
 # export/transfer/disclosure is restricted by U.S. law. Dissemination
 # to non-U.S. persons whether in the United States or abroad requires
 # an export license or other authorization.
-# 
+#
 # Contractor Name:        Raytheon Company
 # Contractor Address:     6825 Pine Street, Suite 340
 #                         Mail Stop B8
 #                         Omaha, NE 68106
 #                         402.291.0100
-# 
+#
 # See the AWIPS II Master Rights File ("Master Rights File.pdf") for
 # further licensing information.
 ##
@@ -89,7 +89,7 @@ class DatabaseID(object):
 
     def setShortModelId(self, shortModelId):
         self.shortModelId = shortModelId
-        
+
     def __encodeIdentifier(self):
         if self.dbType is not None:
             self.modelId = self.siteId + "_" + self.format + "_" + self.dbType + "_" + self.modelName
@@ -107,7 +107,7 @@ class DatabaseID(object):
             self.modelId += "_" + "00000000_0000"
 
         self.shortModelId += " (" + self.siteId + ")"
-    
+
     def __decodeIdentifier(self, dbIdentifier):
         self.format = "NONE"
         self.dbType = ""
@@ -141,7 +141,7 @@ class DatabaseID(object):
                 return False
 
         return True
-    
+
     @staticmethod
     def decodeDtg(dtgString):
         dateStruct = time.gmtime(0)
@@ -150,7 +150,7 @@ class DatabaseID(object):
         except:
             return (False, dateStruct)
         return (True, dateStruct)
-    
+
     def __decodeDtg(self, dtgString):
         try:
             time.strptime(dtgString, "%Y%m%d_%H%M")
@@ -158,16 +158,16 @@ class DatabaseID(object):
         except:
             return False
         return True
-    
+
     def getModelTimeAsDate(self):
         if self.modelTime == "00000000_0000":
             return time.gmtime(0)
         else:
             return time.strptime(self.modelTime, "%Y%m%d_%H%M")
-    
+
     def __str__(self):
         return self.__repr__()
-    
+
     def __repr__(self):
         return self.modelId
 
@@ -180,25 +180,25 @@ class DatabaseID(object):
         result = prime * result + (0 if self.modelTime is None else hash(self.modelTime))
         result = prime * result + (0 if self.siteId is None else hash(self.siteId))
         return result;
-    
+
     def __cmp__(self, other):
         if not isinstance(other, DatabaseID):
             siteComp = cmp(self.siteId, other.siteId)
             if siteComp != 0:
                 return siteComp
-            
+
             formatComp = cmp(self.format, other.format)
             if formatComp != 0:
                 return formatComp
-            
+
             typeComp = cmp(self.dbType, other.dbType)
             if typeComp != 0:
                 return typeComp
-            
+
             nameComp = cmp(self.modelName, other.modelName)
             if nameComp != 0:
                 return nameComp
-            
+
             return -cmp(self.getModelTimeAsDate(), other.getModelTimeAsDate())
         else:
             return NotImplemented
@@ -207,6 +207,6 @@ class DatabaseID(object):
         if not isinstance(other, DatabaseID):
             return False
         return (str(self) == str(other))
-    
+
     def __ne__(self, other):
         return (not self.__eq__(other))

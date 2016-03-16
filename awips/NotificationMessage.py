@@ -7,7 +7,7 @@
 # export/transfer/disclosure is restricted by U.S. law. Dissemination
 # to non-U.S. persons whether in the United States or abroad requires
 # an export license or other authorization.
-# 
+#
 # Contractor Name:        Raytheon Company
 # Contractor Address:     6825 Pine Street, Suite 340
 #                         Mail Stop B8
@@ -26,19 +26,19 @@ import socket
 import sys
 import time
 import threading
-import xml.etree.ElementTree as ET 
+import xml.etree.ElementTree as ET
 
 import ThriftClient
 from dynamicserialize.dstypes.com.raytheon.uf.common.alertviz import AlertVizRequest
 from dynamicserialize import DynamicSerializationManager
 
 #
-# Provides a capability of constructing notification messages and sending 
+# Provides a capability of constructing notification messages and sending
 # them to a STOMP data source.
-#  
-#    
+#
+#
 #     SOFTWARE HISTORY
-#    
+#
 #    Date            Ticket#       Engineer       Description
 #    ------------    ----------    -----------    --------------------------
 #    09/30/08                      chammack       Initial Creation.
@@ -49,8 +49,8 @@ from dynamicserialize import DynamicSerializationManager
 #                                                 value
 #
 class NotificationMessage:
-  
-   priorityMap = { 
+
+   priorityMap = {
              0: 'CRITICAL',
              1: 'SIGNIFICANT',
              2: 'PROBLEM',
@@ -64,7 +64,7 @@ class NotificationMessage:
       self.message = message
       self.audioFile = audioFile
       self.source = source
-      self.category = category 
+      self.category = category
 
       priorityInt = None
 
@@ -86,12 +86,12 @@ class NotificationMessage:
           elif priority == 'EVENTB':
               priorityInt = int(4)
           elif priority == 'VERBOSE' or priority == 'DEBUG':
-              priorityInt = int(5)       
-      
-      if (priorityInt < 0 or priorityInt > 5):                  
+              priorityInt = int(5)
+
+      if (priorityInt < 0 or priorityInt > 5):
           print "Error occurred, supplied an invalid Priority value: " + str(priorityInt)
           print "Priority values are 0, 1, 2, 3, 4 and 5."
-          sys.exit(1)     
+          sys.exit(1)
 
       if priorityInt is not None:
           self.priority = self.priorityMap[priorityInt]
@@ -110,7 +110,7 @@ class NotificationMessage:
 
    def send(self):
        # depending on the value of the port number indicates the distribution
-       # of the message to AlertViz   
+       # of the message to AlertViz
        # 9581 is global distribution thru ThriftClient to Edex
        # 61999 is local distribution
     if (self.port == 61999):
@@ -136,7 +136,7 @@ class NotificationMessage:
         msg.text = self.message
         details = ET.SubElement(sm, "details")
         msg = ET.tostring(sm, "UTF-8")
-        
+
         try :
             conn.send(msg, destination='/queue/messages')
             time.sleep(2)
@@ -146,32 +146,32 @@ class NotificationMessage:
         # use ThriftClient
         alertVizRequest = createRequest(self.message, self.priority, self.source, self.category, self.audioFile)
         thriftClient = ThriftClient.ThriftClient(self.host, self.port, "/services")
-    
+
         serverResponse = None
         try:
             serverResponse = thriftClient.sendRequest(alertVizRequest)
         except Exception, ex:
-            print "Caught exception submitting AlertVizRequest: ", str(ex)    
-        
+            print "Caught exception submitting AlertVizRequest: ", str(ex)
+
         if (serverResponse != "None"):
             print "Error occurred submitting Notification Message to AlertViz receiver: ", serverResponse
             sys.exit(1)
         else:
-            print "Response: " + str(serverResponse)        
-        
-def createRequest(message, priority, source, category, audioFile):    
+            print "Response: " + str(serverResponse)
+
+def createRequest(message, priority, source, category, audioFile):
     obj = AlertVizRequest()
-    
-    obj.setMachine(socket.gethostname())    
+
+    obj.setMachine(socket.gethostname())
     obj.setPriority(priority)
     obj.setCategory(category)
-    obj.setSourceKey(source)    
+    obj.setSourceKey(source)
     obj.setMessage(message)
     if (audioFile is not None):
         obj.setAudioFile(audioFile)
     else:
         obj.setAudioFile('\0')
-    
+
     return obj
 
 if __name__ == '__main__':

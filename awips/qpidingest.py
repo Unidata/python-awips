@@ -60,7 +60,7 @@
 #    06/13/2013      DR 16242      D. Friedman    Add Qpid authentication info
 #    03/06/2014      DR 17907      D. Friedman    Workaround for issue QPID-5569
 #
-#===============================================================================   
+#===============================================================================
 
 import qpid
 from qpid.util import connect
@@ -77,7 +77,7 @@ class IngestViaQPID:
         @param host: string hostname of computer running EDEX and QPID (default localhost)
         @param port: integer port used to connect to QPID (default 5672)
         '''
-        
+
         try:
             #
             self.socket = connect(host, port)
@@ -88,7 +88,7 @@ class IngestViaQPID:
             print 'Connected to Qpid'
         except:
             print 'Unable to connect to Qpid'
-               
+
     def sendmessage(self, filepath, header):
         '''
         This function sends a message to the external.dropbox queue providing the path
@@ -101,7 +101,7 @@ class IngestViaQPID:
         head = self.session.message_properties(application_headers={'header':header},
                                                user_id=QPID_USERNAME) # For issue QPID-5569.  Fixed in Qpid 0.27
         self.session.message_transfer(destination='amq.direct', message=Message(props, head, filepath))
-           
+
     def close(self):
         '''
         After all messages are sent call this function to close connection and make sure

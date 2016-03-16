@@ -1,19 +1,19 @@
 ##
 # This software was developed and / or modified by Raytheon Company,
 # pursuant to Contract DG133W-05-CQ-1067 with the US Government.
-# 
+#
 # U.S. EXPORT CONTROLLED TECHNICAL DATA
 # This software product contains export-restricted data whose
 # export/transfer/disclosure is restricted by U.S. law. Dissemination
 # to non-U.S. persons whether in the United States or abroad requires
 # an export license or other authorization.
-# 
+#
 # Contractor Name:        Raytheon Company
 # Contractor Address:     6825 Pine Street, Suite 340
 #                         Mail Stop B8
 #                         Omaha, NE 68106
 #                         402.291.0100
-# 
+#
 # See the AWIPS II Master Rights File ("Master Rights File.pdf") for
 # further licensing information.
 ##
@@ -22,16 +22,16 @@
 
 class SendActiveTableRequest(object):
 
-    def __init__(self, serverHost=None, serverPort=None, serverProtocol=None, 
-                 serverSite=None, mhsId=None, sites=None, filterSites=None, 
-                 mhsSites=None, issueTime=None, countDict=None, fileName=None, 
+    def __init__(self, serverHost=None, serverPort=None, serverProtocol=None,
+                 serverSite=None, mhsId=None, sites=None, filterSites=None,
+                 mhsSites=None, issueTime=None, countDict=None, fileName=None,
                  xmlIncoming=None, transmitScript=None):
         self.serverHost = serverHost
         self.serverPort = None if serverPort is None else int(serverPort)
         self.serverProtocol = serverProtocol
         self.serverSite = serverSite
         self.mhsId = mhsId
-        self.sites = sites if sites is not None else [] 
+        self.sites = sites if sites is not None else []
         self.filterSites = filterSites if filterSites is not None else []
         self.mhsSites = mhsSites if mhsSites is not None else []
         self.issueTime = None if issueTime is None else float(issueTime)
@@ -39,24 +39,24 @@ class SendActiveTableRequest(object):
         self.fileName = fileName
         self.xmlIncoming = xmlIncoming
         self.transmitScript = transmitScript
-        
+
     def __repr__(self):
-        retVal = "SendActiveTableRequest(" 
+        retVal = "SendActiveTableRequest("
         retVal += repr(self.serverHost) + ", "
-        retVal += repr(self.serverPort) + ", " 
-        retVal += repr(self.serverProtocol) + ", " 
+        retVal += repr(self.serverPort) + ", "
+        retVal += repr(self.serverProtocol) + ", "
         retVal += repr(self.serverSite) + ", "
-        retVal += repr(self.mhsId) + ", " 
-        retVal += repr(self.sites) + ", " 
-        retVal += repr(self.filterSites) + ", " 
+        retVal += repr(self.mhsId) + ", "
+        retVal += repr(self.sites) + ", "
+        retVal += repr(self.filterSites) + ", "
         retVal += repr(self.mhsSites) + ", "
-        retVal += repr(self.issueTime) + ", " 
+        retVal += repr(self.issueTime) + ", "
         retVal += repr(self.countDict) + ", "
-        retVal += repr(self.fileName) + ", " 
+        retVal += repr(self.fileName) + ", "
         retVal += repr(self.xmlIncoming) + ", "
         retVal += repr(self.transmitScript) + ")"
         return retVal
-    
+
     def __str__(self):
         return self.__repr__()
 

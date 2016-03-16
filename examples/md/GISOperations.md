@@ -23,7 +23,7 @@ polygon = Polygon([(-97.82,35.63),(-97.21,35.63),(-97.21,35.15),(-97.82,35.15),(
 #Now lets filter the states down to the one that contains the above polygon
 #We will use the python built in filter method to accomplish this
 #the expression below goes through each state object, gets it's geometry, and calls
-#it's contains method. It in essence creates a new list, state_contain_polygon, with 
+#it's contains method. It in essence creates a new list, state_contain_polygon, with
 #only the states where the contains method evaluates to true.
 t1=datetime.utcnow()
 state_contain_polygon = filter(lambda state: state.getGeometry().contains(polygon),states)
@@ -69,13 +69,13 @@ Polygon is in the state of Oklahoma
 ```
 
 ```python
-Filter state objects to one that contains point took 0.2028 seconds 
+Filter state objects to one that contains point took 0.2028 seconds
 [<awips.dataaccess.PyGeometryData.PyGeometryData object at 0x2beb9d0>]
 Point is in the state of Iowa
 ```
 
 ```python
-Filter state objects to the ones that intersect polygon took 0.4032 seconds 
+Filter state objects to the ones that intersect polygon took 0.4032 seconds
 [<awips.dataaccess.PyGeometryData.PyGeometryData object at 0x2beb610>, <awips.dataaccess.PyGeometryData.PyGeometryData object at 0x2bebdd0>]
 Polygon intersects the state of Texas
 Polygon intersects the state of Oklahoma

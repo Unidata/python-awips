@@ -1,19 +1,19 @@
 ##
 # This software was developed and / or modified by Raytheon Company,
 # pursuant to Contract DG133W-05-CQ-1067 with the US Government.
-# 
+#
 # U.S. EXPORT CONTROLLED TECHNICAL DATA
 # This software product contains export-restricted data whose
 # export/transfer/disclosure is restricted by U.S. law. Dissemination
 # to non-U.S. persons whether in the United States or abroad requires
 # an export license or other authorization.
-# 
+#
 # Contractor Name:        Raytheon Company
 # Contractor Address:     6825 Pine Street, Suite 340
 #                         Mail Stop B8
 #                         Omaha, NE 68106
 #                         402.291.0100
-# 
+#
 # See the AWIPS II Master Rights File ("Master Rights File.pdf") for
 # further licensing information.
 ##
@@ -21,15 +21,15 @@
 # File auto-generated against equivalent DynamicSerialize Java class
 # and then modified post-generation to use AbstractGfeRequest and
 # implement str(), repr()
-#    
+#
 #     SOFTWARE HISTORY
-#    
+#
 #    Date            Ticket#       Engineer       Description
 #    ------------    ----------    -----------    --------------------------
 #    xx/xx/??                      dgilling       Initial Creation.
 #    03/13/13         1759         dgilling       Add software history header.
-#    
-# 
+#
+#
 #
 
 
@@ -38,7 +38,7 @@ from dynamicserialize.dstypes.com.raytheon.uf.common.message import WsId
 
 class ExecuteIscMosaicRequest(AbstractGfeRequest):
 
-    def __init__(self, userID=None, databaseID=None, parmsToProcess=[], 
+    def __init__(self, userID=None, databaseID=None, parmsToProcess=[],
                  blankOtherPeriods=False, startTime=None, endTime=None,
                  altMask=None, replaceOnly=False, eraseFirst=False, announce="",
                  renameWE=False, iscSends=False, inFiles=[], ignoreMask=False,
@@ -68,9 +68,9 @@ class ExecuteIscMosaicRequest(AbstractGfeRequest):
             self.workstationID = WsId(progName='iscMosaic', userName=self.userID)
         if self.databaseID is not None:
             self.siteID = self.databaseID.getSiteId()
-        
+
     def __str__(self):
-        retVal = "ExecuteIscMosaicRequest[" 
+        retVal = "ExecuteIscMosaicRequest["
         retVal += "wokstationID: " + str(self.workstationID) + ", "
         retVal += "siteID: " + str(self.siteID) + ", "
         retVal += "userID: " + str(self.userID) + ", "
@@ -93,9 +93,9 @@ class ExecuteIscMosaicRequest(AbstractGfeRequest):
         retVal += "gridDelay: " + str(self.gridDelay) + ", "
         retVal += "logFileName: " + str(self.logFileName) + "]"
         return retVal
-    
+
     def __repr__(self):
-        retVal = "ExecuteIscMosaicRequest(" 
+        retVal = "ExecuteIscMosaicRequest("
         retVal += "wokstationID= " + str(self.workstationID) + ", "
         retVal += "siteID= " + str(self.siteID) + ", "
         retVal += "userID= " + str(self.userID) + ", "

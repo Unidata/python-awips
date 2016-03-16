@@ -21,7 +21,7 @@ Install
 Requirements
 -------------
 
-- Python 2.7 or later 
+- Python 2.7 or later
 - pip install numpy shapely
 
 From Github
@@ -57,7 +57,7 @@ A short script to request available grid names from an EDEX server::
         # Init data request
         request = DataAccessLayer.newDataRequest()
 
-        # Set datatype 
+        # Set datatype
         request.setDatatype("grid")
 
         #
@@ -65,7 +65,7 @@ A short script to request available grid names from an EDEX server::
         #
         # LocationNames mean different things to different plugins beware...radar is icao,
         # satellite is sector, etc
-        # 
+        #
         available_grids = DataAccessLayer.getAvailableLocationNames(request)
         for grid in available_grids:
             print grid

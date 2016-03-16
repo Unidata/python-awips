@@ -6,7 +6,7 @@ Install python-awips
 Requirements
 ~~~~~~~~~~~~
 
-- Python 2.7 or later 
+- Python 2.7 or later
 - pip install numpy shapely
 
 From Github

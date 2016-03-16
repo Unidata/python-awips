@@ -1,19 +1,19 @@
 ##
 # This software was developed and / or modified by Raytheon Company,
 # pursuant to Contract DG133W-05-CQ-1067 with the US Government.
-# 
+#
 # U.S. EXPORT CONTROLLED TECHNICAL DATA
 # This software product contains export-restricted data whose
 # export/transfer/disclosure is restricted by U.S. law. Dissemination
 # to non-U.S. persons whether in the United States or abroad requires
 # an export license or other authorization.
-# 
+#
 # Contractor Name:        Raytheon Company
 # Contractor Address:     6825 Pine Street, Suite 340
 #                         Mail Stop B8
 #                         Omaha, NE 68106
 #                         402.291.0100
-# 
+#
 # See the AWIPS II Master Rights File ("Master Rights File.pdf") for
 # further licensing information.
 ##
@@ -33,10 +33,10 @@ class GridLocation(object):
         self.geometry = None
         self.crsWKT = None
         self.identifier = None
-        
+
     def __str__(self):
         return self.__repr__()
-    
+
     def __repr__(self):
         s = "[SiteID =" + self.siteId + ",ProjID=" + self.projection.getProjectionID() +\
             ",gridSize=(" + str(self.nx) + ',' + str(self.ny) + ")"
@@ -44,7 +44,7 @@ class GridLocation(object):
             # ,loc=" + this.geometry.getGeometryType();
         s += ']'
         return s
-    
+
     def __eq__(self, other):
         if not isinstance(other, GridLocation):
             return False
@@ -61,7 +61,7 @@ class GridLocation(object):
         if self.ny != other.ny:
             return False
         return True
-    
+
     def __ne__(self, other):
         return (not self.__eq__(other))
 
@@ -124,13 +124,13 @@ class GridLocation(object):
 
     def setIdentifier(self, identifier):
         self.identifier = identifier
-        
+
     def isValid(self):
         if self.projection is None:
             return False
         if self.nx < 2 or self.ny < 2:
             return False
         if self.origin is None or self.extent is None:
-            return False 
+            return False
         return True
 

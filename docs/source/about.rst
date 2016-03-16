@@ -71,13 +71,12 @@ shapely                 1.5.9           awips2-python-shapely
 matplotlib              1.5.1           awips2-python-matplotlib
 cython                  0.23.4          awips2-python-cython
 pil                     1.1.6           awips2-python-pil
-thrift                  20080411p1      awips2-python-thrift
+thrift                  20080411p1      **awips2-python-awips**
 cartopy                 0.13.0          awips2-python-cartopy
 nose                    0.11.1          awips2-python-nose
 pmw                     1.3.2           awips2-python-pmw
 h5py                    1.3.0           awips2-python-h5py
 tables                  2.1.2           awips2-python-tables
-dynamicserialize        15.1.2          awips2-python-dynamicserialize
 qpid                    0.32            awips2-python-qpid
 ======================  ==============  ==============================
 

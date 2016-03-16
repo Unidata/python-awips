@@ -1,19 +1,19 @@
 ##
 # This software was developed and / or modified by Raytheon Company,
 # pursuant to Contract DG133W-05-CQ-1067 with the US Government.
-# 
+#
 # U.S. EXPORT CONTROLLED TECHNICAL DATA
 # This software product contains export-restricted data whose
 # export/transfer/disclosure is restricted by U.S. law. Dissemination
 # to non-U.S. persons whether in the United States or abroad requires
 # an export license or other authorization.
-# 
+#
 # Contractor Name:        Raytheon Company
 # Contractor Address:     6825 Pine Street, Suite 340
 #                         Mail Stop B8
 #                         Omaha, NE 68106
 #                         402.291.0100
-# 
+#
 # See the AWIPS II Master Rights File ("Master Rights File.pdf") for
 # further licensing information.
 ##
@@ -39,7 +39,7 @@ import time
 # negative for time in the past.
 #
 # May still want it to be normalized to the most recent midnight.
-# 
+#
 # NOTES about synchronizing:
 # --With synchronizing on, the "current time" for all processes started
 #   within a given hour will be the same.
@@ -52,7 +52,7 @@ import time
 #     For example, if someone starts the GFE at 12:59 and someone
 #     else starts it at 1:01, they will have different offsets and
 #     current times.
-# --With synchronizing off, when the process starts, the current time 
+# --With synchronizing off, when the process starts, the current time
 #   matches the drtTime in the command line.  However, with synchronizing
 #   on, the current time will be offset by the fraction of the hour at
 #   which the process was started. Examples:
@@ -81,7 +81,7 @@ def determineDrtOffset(timeStr):
     #print "input", year, month, day, hour, minute
     gm = time.gmtime()
     cur_t = time.mktime(gm)
-    
+
     # Synchronize to most recent hour
     # i.e. "truncate" cur_t to most recent hour.
     #print "gmtime", gm
@@ -90,9 +90,9 @@ def determineDrtOffset(timeStr):
         curStr = '%4s%2s%2s_%2s00\n' % (`gm[0]`,`gm[1]`,`gm[2]`,`gm[3]`)
         curStr = curStr.replace(' ','0')
         launchStr = timeStr + "," + curStr
-    
+
     #print "drt, cur", drt_t, cur_t
-    offset = drt_t - cur_t    
+    offset = drt_t - cur_t
     #print "offset", offset, offset/3600, launchStr
     return int(offset), launchStr
 

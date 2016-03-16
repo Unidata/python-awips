@@ -1,19 +1,19 @@
 ##
 # This software was developed and / or modified by Raytheon Company,
 # pursuant to Contract DG133W-05-CQ-1067 with the US Government.
-# 
+#
 # U.S. EXPORT CONTROLLED TECHNICAL DATA
 # This software product contains export-restricted data whose
 # export/transfer/disclosure is restricted by U.S. law. Dissemination
 # to non-U.S. persons whether in the United States or abroad requires
 # an export license or other authorization.
-# 
+#
 # Contractor Name:        Raytheon Company
 # Contractor Address:     6825 Pine Street, Suite 340
 #                         Mail Stop B8
 #                         Omaha, NE 68106
 #                         402.291.0100
-# 
+#
 # See the AWIPS II Master Rights File ("Master Rights File.pdf") for
 # further licensing information.
 ##
@@ -22,8 +22,8 @@
 
 class MergeActiveTableRequest(object):
 
-    def __init__(self, incomingRecords=[], tableName='PRACTICE', site=None, 
-                 timeOffset=0.0, xmlSource=None, fromIngestAT=False, 
+    def __init__(self, incomingRecords=[], tableName='PRACTICE', site=None,
+                 timeOffset=0.0, xmlSource=None, fromIngestAT=False,
                  makeBackups=True):
         self.incomingRecords = incomingRecords
         self.site = site
@@ -32,18 +32,18 @@ class MergeActiveTableRequest(object):
         self.xmlSource = xmlSource
         self.fromIngestAT = bool(fromIngestAT)
         self.makeBackups = bool(makeBackups)
-        
+
     def __repr__(self):
-        retVal = "MergeActiveTableRequest(" 
+        retVal = "MergeActiveTableRequest("
         retVal += repr(self.incomingRecords) + ", "
         retVal += repr(self.tableName) + ", "
         retVal += repr(self.site) + ", "
         retVal += repr(self.timeOffset) + ", "
-        retVal += repr(self.xmlSource) + ", " 
+        retVal += repr(self.xmlSource) + ", "
         retVal += repr(self.fromIngestAT) + ", "
         retVal += repr(self.makeBackups) + ")"
         return retVal
-    
+
     def __str__(self):
         return self.__repr__()
 
@@ -61,7 +61,7 @@ class MergeActiveTableRequest(object):
         if value not in ['OPERATIONAL', 'PRACTICE']:
             raise ValueError("Invalid value " + tableName + " specified for ActiveTableMode.")
         self.tableName = value
-        
+
     def getSite(self):
         return self.site
 
@@ -79,13 +79,13 @@ class MergeActiveTableRequest(object):
 
     def setXmlSource(self, xmlSource):
         self.xmlSource = xmlSource
-        
+
     def getFromIngestAT(self):
         return self.fromIngestAT
 
     def setFromIngestAT(self, fromIngestAT):
         self.fromIngestAT = bool(fromIngestAT)
-        
+
     def getMakeBackups(self):
         return self.makeBackups
 
