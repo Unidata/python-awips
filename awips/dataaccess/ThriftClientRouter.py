@@ -50,7 +50,7 @@ from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request import G
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request import GetOptionalIdentifiersRequest
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request import GetSupportedDatatypesRequest
 
-from awips import ThriftClient 
+from awips import ThriftClient
 from awips.dataaccess import PyGeometryData
 from awips.dataaccess import PyGridData
 

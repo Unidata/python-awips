@@ -53,7 +53,7 @@ class ListenThread(threading.Thread):
     
     def run(self):
         from awips import QpidSubscriber
-        self.qs = QpidSubscriber.QpidSubscriber(self.hostname, self.portNumber, True)        
+        self.qs = QpidSubscriber.QpidSubscriber(self.hostname, self.portNumber, True)
         self.qs.topicSubscribe(self.topicName, self.receivedMessage)
     
     def receivedMessage(self, msg):
@@ -70,7 +70,7 @@ class ListenThread(threading.Thread):
             self.waitSecond += 1
             time.sleep(1)
         
-        print time.strftime('%H:%M:%S'), "Received", self.nMessagesReceived, "messages"                     
+        print time.strftime('%H:%M:%S'), "Received", self.nMessagesReceived, "messages"
         
     def stop(self):
         print "Stopping"
@@ -86,14 +86,14 @@ def main():
     host = 'localhost'
     port = 5672
     
-    thread = ListenThread(host, port, topic)    
+    thread = ListenThread(host, port, topic)
     try:
         thread.start()
         while True:
             time.sleep(3)
     except KeyboardInterrupt:
         pass
-    finally:        
+    finally:
         thread.stop()
     
     
