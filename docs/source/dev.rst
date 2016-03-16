@@ -1,8 +1,185 @@
+
+Dev Guide
+=========
+
+The Data Access Framework allows developers to retrieve different types
+of data without having dependencies on those types of data. It provides
+a single, unified data type that can be customized by individual
+implementing plug-ins to provide full functionality pertinent to each
+data type.
+
+Writing a New Factory
+---------------------
+
+Factories will most often be written in a dataplugin, but should always
+be written in a common plug-in. This will allow for clean dependencies
+from both CAVE and EDEX.
+
+A new plug-in’s data access class must implement IDataFactory. For ease
+of use, abstract classes have been created to combine similar methods.
+Data factories do not have to implement both types of data (grid and
+geometry). They can if they choose, but if they choose not to, they
+should do the following:
+
+::
+
+    throw new UnsupportedOutputTypeException(request.getDatatype(), "grid");
+
+This lets the code know that grid type is not supported for this data
+factory. Depending on where the data is coming from, helpers have been
+written to make writing a new data type factory easier. For example,
+PluginDataObjects can use AbstractDataPluginFactory as a start and not
+have to create everything from scratch.
+
+Each data type is allowed to implement retrieval in any manner that is
+felt necessary. The power of the framework means that the code
+retrieving data does not have to know anything of the underlying
+retrieval methods, only that it is getting data in a certain manner. To
+see some examples of ways to retrieve data, reference
+**SatelliteGridFactory** and **RadarGridFactory**.
+
+Methods required for implementation:
+
+**public DataTime[] getAvailableTimes(IDataRequest request)**
+
+-  This method returns an array of DataTime objects corresponding to
+   what times are available for the data being retrieved, based on the
+   parameters and identifiers being passed in.
+
+**public DataTime[] getAvailableTimes(IDataRequest request, BinOffset
+binOffset)**
+
+-  This method returns available times as above, only with a bin offset
+   applied.
+
+Note: Both of the preceding methods can throw TimeAgnosticDataException
+exceptions if times do not apply to the data type.
+
+**public IGridData[] getGridData(IDataRequest request,
+DataTime...times)**
+
+-  This method returns IGridData objects (an array) based on the request
+   and times to request for. There can be multiple times or a single
+   time.
+
+**public IGridData[] getGridData(IDataRequest request, TimeRange
+range)**
+
+-  Similar to the preceding method, this returns IGridData objects based
+   on a range of times.
+
+**public IGeometryData[] getGeometryData(IDataRequest request, DataTime
+times)**
+
+-  This method returns IGeometryData objects based on a request and
+   times.
+
+**public IGeometryData[] getGeometryData(IDataRequest request, TimeRange
+range)**
+
+-  Like the preceding method, this method returns IGeometryData objects
+   based on a range of times.
+
+**public String[] getAvailableLocationNames(IDataRequest request)**
+
+-  This method returns location names that match the request. If this
+   does not apply to the data type, an IncompatibleRequestException
+   should be thrown.
+
+Registering the Factory with the Framework
+------------------------------------------
+
+The following needs to be added in a spring file in the plug-in that
+contains the new factory:
+
+::
+
+    <bean id="radarGridFactory"
+        class="com.raytheon.uf.common.dataplugin.radar.dataaccess.RadarGridFactory" /> 
+    <bean factory-bean="dataAccessRegistry" factorymethod="register">
+        <constructor-arg value="radar"/>
+        <constructor-arg ref="radarGridFactory"/>
+    </bean>
+
+This takes the RadarGridFactory and registers it with the registry and
+allows it to be used any time the code makes a request for the data type
+“radar.”
+
+Retrieving Data Using the Factory
+---------------------------------
+
+For ease of use and more diverse use, there are multiple interfaces into
+the Data Access Layer. Currently, there is a Python implementation and a
+Java implementation, which have very similar method calls and work in a
+similar manner. Plug-ins that want to use the data access framework to
+retrieve data should include **com.raytheon.uf.common.dataaccess** as a
+Required Bundle in their MANIFEST.MF.
+
+To retrieve data using the Python interface :
+
+::
+
+    from ufpy.dataaccess import DataAccessLayer
+    req = DataAccessLayer.newDataRequest()
+    req.setDatatype("grid")
+    req.setParameters("T")
+    req.setLevels("2FHAG")
+    req.addIdentifier("info.datasetId", "GFS40")
+    times = DataAccessLayer.getAvailableTimes(req)
+    data = DataAccessLayer.getGridData(req, times)
+
+To retrieve data using the Java interface :
+
+::
+
+    IDataRequest req = DataAccessLayer.newDataRequest();
+    req.setDatatype("grid");
+    req.setParameters("T");
+    req.setLevels("2FHAG");
+    req.addIdentifier("info.datasetId", "GFS40");
+    DataTime[] times = DataAccessLayer.getAvailableTimes(req)
+    IData data = DataAccessLayer.getGridData(req, times);
+
+**newDataRequest()**
+
+-  This creates a new data request. Most often this is a
+   DefaultDataRequest, but saves for future implentations as well.
+
+**setDatatype(String)**
+
+-  This is the data type being retrieved. This can be found as the value
+   that is registered when creating the new factory (See section above
+   **Registering the Factory with the Framework** [radar in that case]).
+
+**setParameters(String...)**
+
+-  This can differ depending on data type. It is most often used as a
+   main difference between products.
+
+**setLevels(String...)**
+
+-  This is often used to identify the same products on different
+   mathematical angles, heights, levels, etc.
+
+**addIdentifier(String, String)**
+
+-  This differs based on data type, but is often used for more
+   fine-tuned querying.
+
+Both methods return a similar set of data and can be manipulated by
+their respective languages. See DataAccessLayer.py and
+DataAccessLayer.java for more methods that can be called to retrieve
+data and different parts of the data. Because each data type has
+different parameters, levels, and identifiers, it is best to see the
+actual data type for the available options. If it is undocumented, then
+the best way to identify what parameters are to be used is to reference
+the code.
+
 Development Background
 ----------------------
 
-In support of Hazard Services Raytheon Technical Services has built a
-generic data access framework that can be called via Java or Python. The
+In support of Hazard Services Raytheon Technical Services is building a
+generic data access framework that can be called via JAVA or Python. The
 data access framework code can be found within the AWIPS Baseline in
 
 ::
@@ -10,8 +187,8 @@ data access framework code can be found within the AWIPS Baseline in
     com.raytheon.uf.common.dataaccess
 
 As of 2016, plugins have been written for grid, radar, satellite, Hydro
-(SHEF), point data (METAR, SYNOP, Profiler, ACARS, AIREP, PIREP), and maps
-data. The Factories for each can be found in the
+(SHEF), point data (METAR, SYNOP, Profiler, ACARS, AIREP, PIREP), maps
+data, and other data types. The Factories for each can be found in the
 following packages (you may need to look at the development baseline to
 see these):
 
@@ -19,17 +196,17 @@ see these):
 
     com.raytheon.uf.common.dataplugin.grid.dataaccess
     com.raytheon.uf.common.dataplugin.radar.dataaccess
-    com.raytheon.uf.common.dataplugin.satellite.dataaccess
-    com.raytheon.uf.common.dataplugin.binlightning.dataaccess
-    com.raytheon.uf.common.dataplugin.sfc.dataaccess
-    com.raytheon.uf.common.dataplugin.sfcobs.dataaccess
-    com.raytheon.uf.common.dataplugin.acars.dataaccess
-    com.raytheon.uf.common.dataplugin.ffmp.dataaccess
-    com.raytheon.uf.common.dataplugin.bufrua.dataaccess
-    com.raytheon.uf.common.dataplugin.profiler.dataaccess
-    com.raytheon.uf.common.dataplugin.moddelsounding.dataaccess
-    com.raytheon.uf.common.dataplugin.ldadmesonet.dataaccess
-    com.raytheon.uf.common.dataplugin.binlightning.dataaccess
+    Com.raytheon.uf.common.dataplugin.satellite.dataaccess
+    Com.raytheon.uf.common.dataplugin.binlightning.dataaccess
+    Com.raytheon.uf.common.dataplugin.sfc.dataaccess
+    Com.raytheon.uf.common.dataplugin.sfcobs.dataaccess
+    Com.raytheon.uf.common.dataplugin.acars.dataaccess
+    Com.raytheon.uf.common.dataplugin.ffmp.dataaccess
+    Com.raytheon.uf.common.dataplugin.bufrua.dataaccess
+    Com.raytheon.uf.common.dataplugin.profiler.dataaccess
+    Com.raytheon.uf.common.dataplugin.moddelsounding.dataaccess
+    Com.raytheon.uf.common.dataplugin.ldadmesonet.dataaccess
+    Com.raytheon.uf.common.dataplugin.binlightning.dataaccess
     com.raytheon.uf.common.dataplugin.gfe.dataaccess
     com.raytheon.uf.common.hydro.dataaccess
     com.raytheon.uf.common.pointdata.dataaccess
@@ -49,7 +226,7 @@ The following content was taken from the design review document which is
 attached and modified slightly.
 
 Design/Implementation
-~~~~~~~~~~~~~~~~~~~~~
+---------------------
 
 The Data Access Framework is designed to provide a consistent interface
 for requesting and using geospatial data within CAVE or EDEX. Examples
@@ -113,7 +290,7 @@ The Data Access Framework can be understood as three parts:
 -  How the framework works when it receives a request
 
 How users of the framework retrieve and use the data
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------------------------
 
 When a user of the framework wishes to request data, they must
 instantiate a request object and set some of the values on that request.
@@ -166,7 +343,7 @@ making the request and returned data objects pure python it will not be
 a huge undertaking to add this support in the future.
 
 How plugin developers contribute support for new datatypes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------------------------------
 
 When a developer wishes to add support for another data type to the
 framework, they must implement one or both of the factory interfaces
@@ -232,7 +409,7 @@ An example of the spring xml for a satellite factory is provided below:
 
 ::
 
-    <bean id="satelliteFactory"
+    <bean id="satelliteFactory" 
       class="com.raytheon.uf.common.dataplugin.satellite.SatelliteFactory" />
 
     <bean id="satelliteFactoryRegistered" factory-bean="dataFactoryRegistry" factory-method="register">
@@ -242,7 +419,7 @@ An example of the spring xml for a satellite factory is provided below:
     </bean>
 
 How the framework works when it receives a request
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------------------------
 
 **IDataRequest** requires a datatype to be set on every request. The
 framework will have a registry of existing factories for each data type
@@ -275,7 +452,7 @@ be tasked to add the factories necessary to support the needed data
 types.
 
 Request interfaces
-~~~~~~~~~~~~~~~~~~
+------------------
 
 Requests and returned data interfaces will exist in both Java and
 Python. The Java interfaces are listed below and the Python interfaces
@@ -474,7 +651,4 @@ Factory Interfaces (Java only)
 -  **getAvailableLocationNames(IGeometryRequest request)** - Convenience
    method to retrieve available location names that match a request. Not
    all factories may support this.
-
-::
-
 

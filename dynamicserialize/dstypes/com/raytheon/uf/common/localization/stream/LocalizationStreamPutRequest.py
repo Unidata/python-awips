@@ -23,8 +23,6 @@
 import os
 import uuid
 from dynamicserialize.dstypes.com.raytheon.uf.common.localization.stream import AbstractLocalizationStreamRequest
-from dynamicserialize.dstypes.com.raytheon.uf.common.plugin.nwsauth.user import User
-
 
 class LocalizationStreamPutRequest(AbstractLocalizationStreamRequest):
 
