@@ -66,18 +66,18 @@ numpy                   1.10.4          awips2-python-numpy
 pil                     1.1.6           awips2-python-pil
 pint                    0.7.2           awips2-python-pint
 pmw                     1.3.2           awips2-python-pmw
+pupynere                1.0.13          awips2-python-pupynere
 pycairo                 1.2.2           awips2-python-pycairo
 pygtk                   2.8.6           awips2-python-pygtk
 pyparsing               2.1.0           awips2-python-pyparsing
-pupynere                1.0.13          awips2-python-pupynere
 qpid                    0.32            awips2-python-qpid
 scientific              2.8             awips2-python-scientific
+scipy                   0.17.0          awips2-python-scipy
+shapely                 1.5.9           awips2-python-shapely
+six                     1.10.0          awips2-python-six
 tables                  2.1.2           awips2-python-tables
 thrift                  20080411p1      **awips2-python-awips**
 tpg                     3.1.2           awips2-python-tpg
-six                     1.10.0          awips2-python-six
-scipy                   0.17.0          awips2-python-scipy
-shapely                 1.5.9           awips2-python-shapely
 werkzeug                3.1.2           awips2-python-werkzeug
 ======================  ==============  ==============================
 
