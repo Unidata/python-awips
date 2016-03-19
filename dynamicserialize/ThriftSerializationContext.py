@@ -36,6 +36,7 @@
 #    06/09/10                      njensen       Initial Creation.
 #    06/12/13         #2099        dgilling      Implement readObject() and
 #                                                writeObject().
+#    03/18/16                      mjames@ucar   Add types.UnicodeType
 #
 #
 
@@ -65,6 +66,7 @@ buildObjMap(dstypes)
 
 pythonToThriftMap = {
     types.StringType: TType.STRING,
+    types.UnicodeType: TType.STRING,
     types.IntType: TType.I32,
     types.LongType: TType.I64,
     types.ListType: TType.LIST,
@@ -237,7 +239,7 @@ class ThriftSerializationContext(object):
         return result
 
     def _lookupType(self, obj):
-        pyt = type(obj)
+        pyt = type(obj) # <type 'unicode'> for h5py 2.0+
         if pythonToThriftMap.has_key(pyt):
             return pythonToThriftMap[pyt]
         elif pyt.__module__.startswith('dynamicserialize.dstypes'):
