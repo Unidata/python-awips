@@ -58,10 +58,10 @@ cherrypy                3.1.2           awips2-python-cherrypy
 cycler                  0.10.0          awips2-python-cycler
 cython                  0.23.4          awips2-python-cython
 dateutil                2.5.0           awips2-python-dateutil
-h5py                    2.6.0           awips2-python-h5py
+h5py                    1.3.0           awips2-python-h5py
 matplotlib              1.5.1           awips2-python-matplotlib
 metpy                   0.3.0           awips2-python-metpy
-nose                    1.3.7          awips2-python-nose
+nose                    0.11.1          awips2-python-nose
 numpy                   1.10.4          awips2-python-numpy
 pil                     1.1.6           awips2-python-pil
 pint                    0.7.2           awips2-python-pint
@@ -76,7 +76,6 @@ scipy                   0.17.0          awips2-python-scipy
 shapely                 1.5.9           awips2-python-shapely
 six                     1.10.0          awips2-python-six
 tables                  2.1.2           awips2-python-tables
-thrift                  20080411p1      **awips2-python-awips**
 tpg                     3.1.2           awips2-python-tpg
 werkzeug                3.1.2           awips2-python-werkzeug
 ======================  ==============  ==============================
