@@ -35,6 +35,7 @@
 #    03/03/14         2673         bsteffen       Add ability to query only ref times.
 #    07/22/14         3185         njensen        Added optional/default args to newDataRequest
 #    07/30/14         3185         njensen        Renamed valid identifiers to optional
+#    Apr 26, 2015     4259         njensen        Updated for new JEP API
 #
 #
 #
@@ -46,7 +47,7 @@ import subprocess
 THRIFT_HOST = "edex"
 USING_NATIVE_THRIFT = False
 
-if sys.modules.has_key('JavaImporter'):
+if sys.modules.has_key('jep'):
     # intentionally do not catch if this fails to import, we want it to
     # be obvious that something is configured wrong when running from within
     # Java instead of allowing false confidence and fallback behavior
