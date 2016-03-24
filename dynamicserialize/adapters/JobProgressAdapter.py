@@ -17,40 +17,35 @@
 # See the AWIPS II Master Rights File ("Master Rights File.pdf") for
 # further licensing information.
 ##
+
+
+#
+# Adapter for com.raytheon.uf.common.dataplugin.gfe.svcbu.JobProgress
+#
 #
 #     SOFTWARE HISTORY
 #
 #    Date            Ticket#       Engineer       Description
 #    ------------    ----------    -----------    --------------------------
-#    ??/??/????       ????         njensen        Modified to add __repr__
-#    06/22/2015       4573         randerso       Change to extend GfeNotification
-#                                                 removed inventory methods
+#    06/22/2015       4573         randerso       Initial creation
 #
-##
+#
+#
 
-import GfeNotification
+from thrift.Thrift import TType
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.svcbu import JobProgress
 
-class DBInvChangeNotification(GfeNotification.GfeNotification):
+ClassAdapter = 'com.raytheon.uf.common.dataplugin.gfe.svcbu.JobProgress'
 
-    def __init__(self):
-        super(DBInvChangeNotification, self).__init__()
-        self.additions = None
-        self.deletions = None
+def serialize(context, mode):
+    context.protocol.writeFieldBegin('__enumValue__', TType.STRING, 0)
+    context.writeString(mode.value)
 
-    def getAdditions(self):
-        return self.additions
-
-    def setAdditions(self, additions):
-        self.additions = additions
-
-    def getDeletions(self):
-        return self.deletions
-
-    def setDeletions(self, deletions):
-        self.deletions = deletions
-
-    def __str__(self):
-        msg = 'Additions' + str(self.additions) + '\n'
-        msg += 'Deletions' + str(self.deletions)
-        return msg
-
+def deserialize(context):
+    result = JobProgress()
+    # Read the TType.STRING, "__enumValue__", and id.
+    # We're not interested in any of those, so just discard them.
+    context.protocol.readFieldBegin()
+    # now get the actual enum value
+    result.value = context.readString()
+    return result

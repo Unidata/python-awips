@@ -22,41 +22,40 @@
 #
 #    Date            Ticket#       Engineer       Description
 #    ------------    ----------    -----------    --------------------------
-#    06/22/2015       4573         randerso       Change to extend GfeNotification
+#    06/22/2015       4573         randerso       Initial creation (hand generated)
 #
 ##
 
 import GfeNotification
 
-class UserMessageNotification(GfeNotification.GfeNotification):
+class GridHistoryUpdateNotification(GfeNotification.GfeNotification):
 
     def __init__(self):
-        super(UserMessageNotification, self).__init__()
-        self.category = None
-        self.priority = None
-        self.message = None
+        super(GridHistoryUpdateNotification, self).__init__()
+        self.parmId = None
+        self.workstationID = None
+        self.histories = None
 
-    def getCategory(self):
-        return self.category
+    def getParmId(self):
+        return self.parmId
 
-    def setCategory(self, category):
-        self.category = category
+    def setParmId(self, parmId):
+        self.parmId = parmId
 
-    def getPriority(self):
-        return self.priority
+    def getWorkstationID(self):
+        return self.workstationID
 
-    def setPriority(self, priority):
-        self.priority = priority
+    def setWorkstationID(self, workstationID):
+        self.workstationID = workstationID
 
-    def getMessage(self):
-        return self.message
+    def getHistories(self):
+        return self.histories
 
-    def setMessage(self, message):
-        self.message = message
+    def setHistories(self, histories):
+        self.histories = histories
 
     def __str__(self):
-        msg = 'Message: ' + str(self.message) + '\n'
-        msg += 'Priority: ' + str(self.priority) + '\n'
-        msg += 'Category: ' + str(self.category) + '\n'
+        msg = "ParmID: " + str(self.parmId)
+        msg += '\n' + "Histories: " + str(self.histories)
         return msg
 

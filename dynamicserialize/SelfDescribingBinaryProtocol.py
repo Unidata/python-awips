@@ -1,7 +1,7 @@
 ##
 # This software was developed and / or modified by Raytheon Company,
 # pursuant to Contract DG133W-05-CQ-1067 with the US Government.
-# 
+#
 # U.S. EXPORT CONTROLLED TECHNICAL DATA
 # This software product contains export-restricted data whose
 # export/transfer/disclosure is restricted by U.S. law. Dissemination
@@ -13,7 +13,7 @@
 #                         Mail Stop B8
 #                         Omaha, NE 68106
 #                         402.291.0100
-# 
+#
 # See the AWIPS II Master Rights File ("Master Rights File.pdf") for
 # further licensing information.
 ##
@@ -39,6 +39,7 @@ from struct import pack, unpack
 #    ------------    ----------    -----------    --------------------------
 #    11/11/09                      chammack        Initial Creation.
 #    06/09/10                      njensen            Added float, list methods
+#    Apr 24, 2015    4425          nabowle         Add F64List support.
 #
 #
 #
@@ -52,6 +53,7 @@ floatList = numpy.dtype(numpy.float32).newbyteorder('>')
 longList = numpy.dtype(numpy.int64).newbyteorder('>')
 shortList = numpy.dtype(numpy.int16).newbyteorder('>')
 byteList = numpy.dtype(numpy.int8).newbyteorder('>')
+doubleList = numpy.dtype(numpy.float64).newbyteorder('>')
 
 class SelfDescribingBinaryProtocol(TBinaryProtocol):
 
@@ -95,6 +97,11 @@ class SelfDescribingBinaryProtocol(TBinaryProtocol):
       val = numpy.frombuffer(buff, dtype=floatList, count=sz)
       return val
 
+  def readF64List(self, sz):
+      buff = self.trans.readAll(8*sz)
+      val = numpy.frombuffer(buff, dtype=doubleList, count=sz)
+      return val
+
   def readI64List(self, sz):
       buff = self.trans.readAll(8*sz)
       val = numpy.frombuffer(buff, dtype=longList, count=sz)
@@ -118,6 +125,10 @@ class SelfDescribingBinaryProtocol(TBinaryProtocol):
       b = numpy.asarray(buff, floatList)
       self.trans.write(numpy.getbuffer(b))
 
+  def writeF64List(self, buff):
+      b = numpy.asarray(buff, doubleList)
+      self.trans.write(numpy.getbuffer(b))
+
   def writeI64List(self, buff):
       b = numpy.asarray(buff, longList)
       self.trans.write(numpy.getbuffer(b))
@@ -129,4 +140,3 @@ class SelfDescribingBinaryProtocol(TBinaryProtocol):
   def writeI8List(self, buff):
       b = numpy.asarray(buff, byteList)
       self.trans.write(numpy.getbuffer(b))
-
