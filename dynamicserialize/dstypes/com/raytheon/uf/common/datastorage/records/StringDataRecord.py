@@ -122,4 +122,3 @@ class StringDataRecord(object):
 
     def putDataObject(self, obj):
         self.setStringData(obj)
-

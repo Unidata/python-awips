@@ -81,4 +81,3 @@ class GenericPointDataReqMsg(object):
 
     def setGpdDataString(self, gpdDataString):
         self.gpdDataString = gpdDataString
-

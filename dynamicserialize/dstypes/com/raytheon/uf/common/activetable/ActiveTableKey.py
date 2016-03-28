@@ -17,40 +17,49 @@
 # See the AWIPS II Master Rights File ("Master Rights File.pdf") for
 # further licensing information.
 ##
-
-
-#
-# Adapter for com.raytheon.uf.common.localization.LocalizationContext$LocalizationLevel
-#
 #
 #     SOFTWARE HISTORY
 #
 #    Date            Ticket#       Engineer       Description
 #    ------------    ----------    -----------    --------------------------
-#    01/11/11                      dgilling       Initial Creation.
+#    05/22/2015       4522         randerso       Initial creation
 #
-#
-#
+##
+class ActiveTableKey(object):
 
+    def __init__(self):
+        self.officeid = None
+        self.phen = None
+        self.sig = None
+        self.etn = None
+        self.ugcZone = None
 
+    def getOfficeid(self):
+        return self.officeid
 
-from dynamicserialize.dstypes.com.raytheon.uf.common.localization import LocalizationLevel
+    def setOfficeid(self, officeid):
+        self.officeid = officeid
 
-ClassAdapter = [
-                 'com.raytheon.uf.common.localization.LocalizationContext$LocalizationLevel',
-                 'com.raytheon.uf.common.localization.LocalizationLevel'
-                ]
+    def getPhen(self):
+        return self.phen
 
-def serialize(context, level):
-    context.writeString(level.getText())
-    context.writeI32(level.getOrder())
-    context.writeBool(level.isSystemLevel());
+    def setPhen(self, phen):
+        self.phen = phen
 
-def deserialize(context):
-    text = context.readString()
-    order = context.readI32()
-    systemLevel = context.readBool()
-    level = LocalizationLevel(text, order, systemLevel=systemLevel)
-    return level
+    def getSig(self):
+        return self.sig
 
+    def setSig(self, sig):
+        self.sig = sig
 
+    def getEtn(self):
+        return self.etn
+
+    def setEtn(self, etn):
+        self.etn = etn
+
+    def getUgcZone(self):
+        return self.ugcZone
+
+    def setUgcZone(self, ugcZone):
+        self.ugcZone = ugcZone

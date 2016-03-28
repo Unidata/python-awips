@@ -119,7 +119,7 @@ To retrieve data using the Python interface :
 
 ::
 
-    from ufpy.dataaccess import DataAccessLayer
+    from awips.dataaccess import DataAccessLayer
     req = DataAccessLayer.newDataRequest()
     req.setDatatype("grid")
     req.setParameters("T")

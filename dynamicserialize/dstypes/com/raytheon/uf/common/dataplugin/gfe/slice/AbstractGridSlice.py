@@ -20,6 +20,7 @@
 
 import abc
 
+
 class AbstractGridSlice(object):
     __metaclass__ = abc.ABCMeta
 

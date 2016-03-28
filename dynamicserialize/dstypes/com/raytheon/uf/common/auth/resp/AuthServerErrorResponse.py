@@ -20,6 +20,7 @@
 
 # File auto-generated against equivalent DynamicSerialize Java class
 
+
 from dynamicserialize.dstypes.com.raytheon.uf.common.serialization.comm.response import ServerErrorResponse
 
 class AuthServerErrorResponse(ServerErrorResponse):

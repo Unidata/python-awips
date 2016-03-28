@@ -39,12 +39,14 @@ from dynamicserialize.dstypes.java.util import EnumSet
 
 ClassAdapter = ['java.util.EnumSet', 'java.util.RegularEnumSet']
 
+
 def serialize(context, set):
     setSize = len(set)
     context.writeI32(setSize)
     context.writeString(set.getEnumClass())
     for val in set:
         context.writeString(val)
+
 
 def deserialize(context):
     setSize = context.readI32()

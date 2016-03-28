@@ -16,7 +16,15 @@
 # See the AWIPS II Master Rights File ("Master Rights File.pdf") for
 # further licensing information.
 
-# File auto-generated against equivalent DynamicSerialize Java class
+# File auto-generated against equivalent DynamicSerialize Java class and
+# modified.
+#
+#     SOFTWARE HISTORY
+#
+#    Date            Ticket#       Engineer       Description
+#    ------------    ----------    -----------    --------------------------
+#    2015-02-27      4174          nabowle        Output full stacktrace.
+#
 
 class SerializableExceptionWrapper(object):
 
@@ -35,6 +43,9 @@ class SerializableExceptionWrapper(object):
         retVal = "" + self.exceptionClass + " exception thrown: " + self.message + "\n"
         for element in self.stackTrace:
             retVal += "\tat " + str(element) + "\n"
+
+        if self.wrapper:
+            retVal += "Caused by: " + self.wrapper.__repr__()
         return retVal
 
     def getStackTrace(self):

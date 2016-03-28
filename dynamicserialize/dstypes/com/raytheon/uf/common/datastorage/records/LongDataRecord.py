@@ -105,4 +105,3 @@ class LongDataRecord(object):
 
     def putDataObject(self, obj):
         self.setLongData(obj)
-

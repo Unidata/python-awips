@@ -33,9 +33,12 @@
 #
 #
 
+
+
 from dynamicserialize.dstypes.com.raytheon.uf.common.message import WsId
 
 ClassAdapter = 'com.raytheon.uf.common.message.WsId'
+
 
 def serialize(context, wsId):
     context.writeString(wsId.toString())
@@ -52,3 +55,4 @@ def deserialize(context):
     wsId.setThreadId(long(wsIdParts[4]))
 
     return wsId
+

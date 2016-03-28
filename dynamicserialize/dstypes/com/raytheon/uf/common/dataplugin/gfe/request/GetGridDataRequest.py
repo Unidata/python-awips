@@ -24,6 +24,7 @@ import abc
 
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.server.request import GetGridRequest
 
+
 class GetGridDataRequest(object):
     __metaclass__ = abc.ABCMeta
 

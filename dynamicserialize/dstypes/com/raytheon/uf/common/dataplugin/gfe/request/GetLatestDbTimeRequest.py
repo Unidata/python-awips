@@ -33,6 +33,7 @@
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.request import AbstractGfeRequest
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.db.objects import DatabaseID
 
+
 class GetLatestDbTimeRequest(AbstractGfeRequest):
 
     def __init__(self, dbId=None):

@@ -34,9 +34,13 @@
 
 ClassAdapter = ['java.nio.ByteBuffer', 'java.nio.HeapByteBuffer']
 
+
 def serialize(context, set):
     raise NotImplementedError("Serialization of ByteBuffers is not supported.")
 
 def deserialize(context):
     byteBuf = context.readBinary()
     return byteBuf
+
+
+

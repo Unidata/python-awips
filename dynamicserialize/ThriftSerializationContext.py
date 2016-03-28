@@ -418,4 +418,3 @@ class ThriftSerializationContext(object):
 
     def writeObject(self, obj):
         self.serializeMessage(obj)
-

@@ -37,6 +37,7 @@ from dynamicserialize.dstypes.java.lang import StackTraceElement
 
 ClassAdapter = 'java.lang.StackTraceElement'
 
+
 def serialize(context, obj):
     raise dynamicserialize.SerializationException('Not implemented yet')
 
@@ -47,3 +48,5 @@ def deserialize(context):
     result.setFileName(context.readString())
     result.setLineNumber(context.readI32())
     return result
+
+

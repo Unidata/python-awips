@@ -32,6 +32,7 @@
 
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.request import AbstractGfeRequest
 
+
 class GetLatestModelDbIdRequest(AbstractGfeRequest):
 
     def __init__(self, siteId=None, modelName=None):

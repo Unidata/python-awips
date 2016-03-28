@@ -22,6 +22,7 @@
 
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.slice import AbstractGridSlice
 
+
 class DiscreteGridSlice(AbstractGridSlice):
 
     def __init__(self):

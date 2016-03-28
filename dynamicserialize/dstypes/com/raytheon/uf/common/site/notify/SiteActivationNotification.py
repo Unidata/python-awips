@@ -86,4 +86,3 @@ class SiteActivationNotification(object):
              + self.modifiedSite.upper() + " on " \
              + self.serverName + ":" \
              + self.runMode
-
