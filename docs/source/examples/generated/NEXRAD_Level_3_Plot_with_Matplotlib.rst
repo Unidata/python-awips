@@ -99,11 +99,11 @@ NEXRAD Level 3 Plot with Matplotlib
 
 .. parsed-literal::
 
-    using time 2016-03-15 23:07:04
+    using time 2016-03-16 21:13:53
     buffer by 60
-    using range (Mar 15 16 23:06:04 , Mar 15 16 23:08:04 )
-    found 94 2016-03-15 23:07:04
-    found 99 2016-03-15 23:07:04
+    using range (Mar 16 16 21:12:53 , Mar 16 16 21:14:53 )
+    found 94 2016-03-16 21:13:53
+    found 99 2016-03-16 21:13:53
 
 
 
