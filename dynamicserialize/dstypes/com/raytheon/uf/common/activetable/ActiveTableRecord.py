@@ -26,7 +26,7 @@
 #
 ##
 
-import ActiveTableKey
+from .ActiveTableKey import ActiveTableKey
 import abc
 
 class ActiveTableRecord(object):

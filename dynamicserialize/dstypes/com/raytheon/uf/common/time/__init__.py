@@ -25,6 +25,6 @@ __all__ = [
             'TimeRange'
           ]
 
-from DataTime import DataTime
-from TimeRange import TimeRange
+from .DataTime import DataTime
+from .TimeRange import TimeRange
 

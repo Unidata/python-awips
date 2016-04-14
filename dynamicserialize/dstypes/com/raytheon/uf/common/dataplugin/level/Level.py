@@ -45,11 +45,7 @@ INVALID_VALUE = numpy.float64(-999999)
 class Level(object):
 
     def __init__(self, levelString=None):
-        try:
-            self.id = 0L
-        except SyntaxError:
-            #we are in python 3, no longer a separate long.
-            self.id=0
+        self.id = 0
         self.identifier = None
         self.masterLevel = None
         self.levelonevalue = INVALID_VALUE
