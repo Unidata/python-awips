@@ -40,8 +40,8 @@ __all__ = [
 #
 
 
-from Body import Body
-from Header import Header
-from Message import Message
-from Property import Property
-from WsId import WsId
+from .Body import Body
+from .Header import Header
+from .Message import Message
+from .Property import Property
+from .WsId import WsId

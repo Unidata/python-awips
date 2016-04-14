@@ -35,7 +35,7 @@
 __all__ = [
            ]
 
-import dstypes, adapters
+import dynamicserialize.adapters as adapters
 import DynamicSerializationManager
 
 class SerializationException(Exception):

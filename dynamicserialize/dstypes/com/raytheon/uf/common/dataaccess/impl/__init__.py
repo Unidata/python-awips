@@ -24,5 +24,5 @@ __all__ = [
             'DefaultDataRequest'
           ]
 
-from DefaultDataRequest import DefaultDataRequest
+from .DefaultDataRequest import DefaultDataRequest
 
