@@ -31,11 +31,7 @@ import struct
 import socket
 import os
 import pwd
-try:
-    import thread
-except ImportError:
-    #this means that we are in python 3.
-    import _thread as thread
+import thread
 
 class WsId(object):
 

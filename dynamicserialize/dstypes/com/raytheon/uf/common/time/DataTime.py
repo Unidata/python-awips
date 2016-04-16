@@ -40,11 +40,7 @@ import calendar
 import datetime
 import numpy
 import time
-try:
-    import StringIO
-except ImportError:
-    #python2->3
-    import io.StringIO as StringIO
+import StringIO
 
 from dynamicserialize.dstypes.java.util import Date
 from dynamicserialize.dstypes.java.util import EnumSet

@@ -26,9 +26,9 @@
 #
 ##
 
-from .ActiveTableRecord import ActiveTableRecord
+import ActiveTableRecord
 
-class PracticeActiveTableRecord(ActiveTableRecord):
+class PracticeActiveTableRecord(ActiveTableRecord.ActiveTableRecord):
 
     def __init__(self):
         super(PracticeActiveTableRecord, self).__init__()

@@ -37,4 +37,4 @@ __all__ = [
            'Point',
            ]
 
-from .Point import Point
+from Point import Point

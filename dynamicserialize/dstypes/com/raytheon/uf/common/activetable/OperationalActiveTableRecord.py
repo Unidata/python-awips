@@ -26,9 +26,9 @@
 #
 ##
 
-from .ActiveTableRecord import ActiveTableRecord
+import ActiveTableRecord
 
-class OperationalActiveTableRecord(ActiveTableRecord):
+class OperationalActiveTableRecord(ActiveTableRecord.ActiveTableRecord):
 
     def __init__(self):
         super(OperationalActiveTableRecord, self).__init__()
