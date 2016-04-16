@@ -47,7 +47,7 @@ import subprocess
 THRIFT_HOST = "edex"
 USING_NATIVE_THRIFT = False
 
-if sys.modules.has_key('jep'):
+if 'jep' in sys.modules:
     # intentionally do not catch if this fails to import, we want it to
     # be obvious that something is configured wrong when running from within
     # Java instead of allowing false confidence and fallback behavior

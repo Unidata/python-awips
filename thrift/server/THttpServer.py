@@ -17,7 +17,7 @@
 # under the License.
 #
 
-import BaseHTTPServer
+import http.server
 
 from thrift.server import TServer
 from thrift.transport import TTransport
@@ -47,7 +47,7 @@ class THttpServer(TServer.TServer):
                server_address,
                inputProtocolFactory,
                outputProtocolFactory=None,
-               server_class=BaseHTTPServer.HTTPServer):
+               server_class=http.server.HTTPServer):
     """Set up protocol factories and HTTP server.
 
     See BaseHTTPServer for server_address.
@@ -61,7 +61,7 @@ class THttpServer(TServer.TServer):
 
     thttpserver = self
 
-    class RequestHander(BaseHTTPServer.BaseHTTPRequestHandler):
+    class RequestHander(http.server.BaseHTTPRequestHandler):
       def do_POST(self):
         # Don't care about the request path.
         itrans = TTransport.TFileObjectTransport(self.rfile)

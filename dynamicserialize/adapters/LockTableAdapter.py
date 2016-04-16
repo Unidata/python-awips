@@ -45,7 +45,7 @@ def serialize(context, lockTable):
     for lock in locks:
         wsIdString = lock.getWsId().toString()
 
-        if wsIds.has_key(wsIdString):
+        if wsIdString in wsIds:
             lockWsIdIndex.append(wsIds[wsIdString])
         else:
             lockWsIdIndex.append(index)
@@ -68,12 +68,12 @@ def deserialize(context):
     parmId = context.readObject()
     numWsIds = context.readI32()
     wsIds = []
-    for x in xrange(numWsIds):
+    for x in range(numWsIds):
         wsIds.append(context.readObject())
 
     numLocks = context.readI32()
     locks = []
-    for x in xrange(numLocks):
+    for x in range(numLocks):
         startTime = context.readI64()
         endTime = context.readI64()
         wsId = wsIds[context.readI32()]

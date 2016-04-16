@@ -45,7 +45,7 @@ INVALID_VALUE = numpy.float64(-999999)
 class Level(object):
 
     def __init__(self, levelString=None):
-        self.id = 0L
+        self.id = 0
         self.identifier = None
         self.masterLevel = None
         self.levelonevalue = INVALID_VALUE

@@ -23,9 +23,7 @@
 import abc
 
 
-class AbstractGfeRequest(object):
-    __metaclass__ = abc.ABCMeta
-
+class AbstractGfeRequest(object, metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def __init__(self):
         self.siteID = None

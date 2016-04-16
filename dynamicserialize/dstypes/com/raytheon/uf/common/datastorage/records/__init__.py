@@ -43,11 +43,11 @@ __all__ = [
             'StringDataRecord'
           ]
 
-from ByteDataRecord import ByteDataRecord
-from DoubleDataRecord import DoubleDataRecord
-from FloatDataRecord import FloatDataRecord
-from IntegerDataRecord import IntegerDataRecord
-from LongDataRecord import LongDataRecord
-from ShortDataRecord import ShortDataRecord
-from StringDataRecord import StringDataRecord
+from .ByteDataRecord import ByteDataRecord
+from .DoubleDataRecord import DoubleDataRecord
+from .FloatDataRecord import FloatDataRecord
+from .IntegerDataRecord import IntegerDataRecord
+from .LongDataRecord import LongDataRecord
+from .ShortDataRecord import ShortDataRecord
+from .StringDataRecord import StringDataRecord
 

@@ -32,9 +32,7 @@
 import abc
 
 
-class AbstractDataAccessRequest(object):
-    __metaclass__ = abc.ABCMeta
-
+class AbstractDataAccessRequest(object, metaclass=abc.ABCMeta):
     def __init__(self):
         self.requestParameters = None
 

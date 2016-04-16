@@ -42,11 +42,10 @@ __all__ = [
 
 import abc
 
-class IDataRequest(object):
+class IDataRequest(object, metaclass=abc.ABCMeta):
     """
     An IDataRequest to be submitted to the DataAccessLayer to retrieve data.
     """
-    __metaclass__ = abc.ABCMeta
 
     @abc.abstractmethod
     def setDatatype(self, datatype):
@@ -164,11 +163,10 @@ class IDataRequest(object):
 
 
 
-class IData(object):
+class IData(object, metaclass=abc.ABCMeta):
     """
     An IData representing data returned from the DataAccessLayer.
     """
-    __metaclass__ = abc.ABCMeta
 
     @abc.abstractmethod
     def getAttribute(self, key):

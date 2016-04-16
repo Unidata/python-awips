@@ -26,7 +26,7 @@
 #
 ##
 
-import ActiveTableRecord
+from . import ActiveTableRecord
 
 class OperationalActiveTableRecord(ActiveTableRecord.ActiveTableRecord):
 

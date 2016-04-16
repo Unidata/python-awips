@@ -87,12 +87,13 @@ import random
 import re
 import socket
 import sys
-import thread
+import _thread
 import threading
 import time
 import types
 import xml.dom.minidom
-from cStringIO import StringIO
+from io import StringIO
+from functools import reduce
 
 #
 # stomp.py version number
@@ -106,14 +107,14 @@ def _uuid( *args ):
     (http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/213761)
     """
 
-    t = long( time.time() * 1000 )
-    r = long( random.random() * 100000000000000000L )
+    t = int( time.time() * 1000 )
+    r = int( random.random() * 100000000000000000 )
 
     try:
         a = socket.gethostbyname( socket.gethostname() )
     except:
         # if we can't get a network address, just imagine one
-        a = random.random() * 100000000000000000L
+        a = random.random() * 100000000000000000
     data = str(t) + ' ' + str(r) + ' ' + str(a) + ' ' + str(args)
     md5 = hashlib.md5()
     md5.update(data)
@@ -126,7 +127,7 @@ class DevNullLogger(object):
     dummy logging class for environments without the logging module
     """
     def log(self, msg):
-        print msg
+        print(msg)
 
     def devnull(self, msg):
         pass
@@ -371,7 +372,7 @@ class Connection(object):
         """
         self.__running = True
         self.__attempt_connection()
-        thread.start_new_thread(self.__receiver_loop, ())
+        _thread.start_new_thread(self.__receiver_loop, ())
 
     def stop(self):
         """
@@ -434,7 +435,7 @@ class Connection(object):
 
     def begin(self, headers={}, **keyword_headers):
         use_headers = self.__merge_headers([headers, keyword_headers])
-        if not 'transaction' in use_headers.keys():
+        if not 'transaction' in list(use_headers.keys()):
             use_headers['transaction'] = _uuid()
         self.__send_frame_helper('BEGIN', '', use_headers, [ 'transaction' ])
         return use_headers['transaction']
@@ -446,7 +447,7 @@ class Connection(object):
         self.__send_frame_helper('COMMIT', '', self.__merge_headers([headers, keyword_headers]), [ 'transaction' ])
 
     def connect(self, headers={}, **keyword_headers):
-        if keyword_headers.has_key('wait') and keyword_headers['wait']:
+        if 'wait' in keyword_headers and keyword_headers['wait']:
             while not self.is_connected(): time.sleep(0.1)
             del keyword_headers['wait']
         self.__send_frame_helper('CONNECT', '', self.__merge_headers([self.__connect_headers, headers, keyword_headers]), [ ])
@@ -490,7 +491,7 @@ class Connection(object):
         """
         headers = {}
         for header_map in header_map_list:
-            for header_key in header_map.keys():
+            for header_key in list(header_map.keys()):
                 headers[header_key] = header_map[header_key]
         return headers
 
@@ -532,11 +533,11 @@ class Connection(object):
             if type(required_header_key) == tuple:
                 found_alternative = False
                 for alternative in required_header_key:
-                    if alternative in headers.keys():
+                    if alternative in list(headers.keys()):
                         found_alternative = True
                 if not found_alternative:
                     raise KeyError("Command %s requires one of the following headers: %s" % (command, str(required_header_key)))
-            elif not required_header_key in headers.keys():
+            elif not required_header_key in list(headers.keys()):
                 raise KeyError("Command %s requires header %r" % (command, required_header_key))
         self.__send_frame(command, headers, payload)
 
@@ -550,7 +551,7 @@ class Connection(object):
 
         if self.__socket is not None:
             frame = '%s\n%s\n%s\x00' % (command,
-                                        reduce(lambda accu, key: accu + ('%s:%s\n' % (key, headers[key])), headers.keys(), ''),
+                                        reduce(lambda accu, key: accu + ('%s:%s\n' % (key, headers[key])), list(headers.keys()), ''),
                                         payload)
             self.__socket.sendall(frame)
             log.debug("Sent frame: type=%s, headers=%r, body=%r" % (command, headers, payload))
@@ -707,7 +708,7 @@ class Connection(object):
                 assert len(pair) == 2
                 entries[pair[0]] = pair[1]
             return entries
-        except Exception, ex:
+        except Exception as ex:
             # unable to parse message. return original
             return body
 
@@ -762,7 +763,7 @@ class Connection(object):
                     break
                 except socket.error:
                     self.__socket = None
-                    if type(sys.exc_info()[1]) == types.TupleType:
+                    if type(sys.exc_info()[1]) == tuple:
                         exc = sys.exc_info()[1][1]
                     else:
                         exc = sys.exc_info()[1]
@@ -813,20 +814,20 @@ if __name__ == '__main__':
             self.c.start()
 
         def __print_async(self, frame_type, headers, body):
-            print "\r  \r",
-            print frame_type
-            for header_key in headers.keys():
-                print '%s: %s' % (header_key, headers[header_key])
-            print
-            print body
-            print '> ',
+            print("\r  \r", end=' ')
+            print(frame_type)
+            for header_key in list(headers.keys()):
+                print('%s: %s' % (header_key, headers[header_key]))
+            print()
+            print(body)
+            print('> ', end=' ')
             sys.stdout.flush()
 
         def on_connecting(self, host_and_port):
             self.c.connect(wait=True)
 
         def on_disconnected(self):
-            print "lost connection"
+            print("lost connection")
 
         def on_message(self, headers, body):
             self.__print_async("MESSAGE", headers, body)
@@ -850,13 +851,13 @@ if __name__ == '__main__':
             self.c.abort(transaction=args[1])
 
         def begin(self, args):
-            print 'transaction id: %s' % self.c.begin()
+            print('transaction id: %s' % self.c.begin())
 
         def commit(self, args):
             if len(args) < 2:
-                print 'expecting: commit <transid>'
+                print('expecting: commit <transid>')
             else:
-                print 'committing %s' % args[1]
+                print('committing %s' % args[1])
                 self.c.commit(transaction=args[1])
 
         def disconnect(self, args):
@@ -867,35 +868,35 @@ if __name__ == '__main__':
 
         def send(self, args):
             if len(args) < 3:
-                print 'expecting: send <destination> <message>'
+                print('expecting: send <destination> <message>')
             else:
                 self.c.send(destination=args[1], message=' '.join(args[2:]))
 
         def sendtrans(self, args):
             if len(args) < 3:
-                print 'expecting: sendtrans <destination> <transid> <message>'
+                print('expecting: sendtrans <destination> <transid> <message>')
             else:
                 self.c.send(destination=args[1], message="%s\n" % ' '.join(args[3:]), transaction=args[2])
 
         def subscribe(self, args):
             if len(args) < 2:
-                print 'expecting: subscribe <destination> [ack]'
+                print('expecting: subscribe <destination> [ack]')
             elif len(args) > 2:
-                print 'subscribing to "%s" with acknowledge set to "%s"' % (args[1], args[2])
+                print('subscribing to "%s" with acknowledge set to "%s"' % (args[1], args[2]))
                 self.c.subscribe(destination=args[1], ack=args[2])
             else:
-                print 'subscribing to "%s" with auto acknowledge' % args[1]
+                print('subscribing to "%s" with auto acknowledge' % args[1])
                 self.c.subscribe(destination=args[1], ack='auto')
 
         def unsubscribe(self, args):
             if len(args) < 2:
-                print 'expecting: unsubscribe <destination>'
+                print('expecting: unsubscribe <destination>')
             else:
-                print 'unsubscribing from "%s"' % args[1]
+                print('unsubscribing from "%s"' % args[1])
                 self.c.unsubscribe(destination=args[1])
 
     if len(sys.argv) > 5:
-        print 'USAGE: stomp.py [host] [port] [user] [passcode]'
+        print('USAGE: stomp.py [host] [port] [user] [passcode]')
         sys.exit(1)
 
     if len(sys.argv) >= 2:
@@ -917,7 +918,7 @@ if __name__ == '__main__':
     st = StompTester(host, port, user, passcode)
     try:
         while True:
-            line = raw_input("\r> ")
+            line = input("\r> ")
             if not line or line.lstrip().rstrip() == '':
                 continue
             elif 'quit' in line or 'disconnect' in line:
@@ -927,7 +928,7 @@ if __name__ == '__main__':
             if not command.startswith("on_") and hasattr(st, command):
                 getattr(st, command)(split)
             else:
-                print 'unrecognized command'
+                print('unrecognized command')
     finally:
         st.disconnect(None)
 

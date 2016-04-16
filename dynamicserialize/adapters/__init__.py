@@ -66,10 +66,10 @@ classAdapterRegistry = {}
 def getAdapterRegistry():
     import sys
     for x in __all__:
-        exec 'import ' + x
+        exec('import ' + x)
         m = sys.modules['dynamicserialize.adapters.' + x]
         d = m.__dict__
-        if d.has_key('ClassAdapter'):
+        if 'ClassAdapter' in d:
             if isinstance(m.ClassAdapter, list):
                 for clz in m.ClassAdapter:
                     classAdapterRegistry[clz] = m

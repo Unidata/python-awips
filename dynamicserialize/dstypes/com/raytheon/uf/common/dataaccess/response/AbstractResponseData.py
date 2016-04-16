@@ -23,9 +23,7 @@
 import abc
 
 
-class AbstractResponseData(object):
-    __metaclass__ = abc.ABCMeta
-
+class AbstractResponseData(object, metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def __init__(self):
         self.time = None

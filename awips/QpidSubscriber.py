@@ -35,7 +35,7 @@
 import qpid
 import zlib
 
-from Queue import Empty
+from queue import Empty
 from qpid.exceptions import Closed
 
 class QpidSubscriber:
@@ -56,7 +56,7 @@ class QpidSubscriber:
         if (topicName == 'edex.alerts'):
             self.decompress = True
 
-        print "Establishing connection to broker on", self.host
+        print("Establishing connection to broker on", self.host)
         queueName = topicName + self.__session.name
         self.__session.queue_declare(queue=queueName, exclusive=True, auto_delete=True, arguments={'qpid.max_count':100, 'qpid.policy_type':'ring'})
         self.__session.exchange_bind(exchange='amq.topic', queue=queueName, binding_key=topicName)
@@ -67,7 +67,7 @@ class QpidSubscriber:
         queue = self.__session.incoming(local_queue_name)
         self.__session.message_subscribe(serverQueueName, destination=local_queue_name)
         queue.start()
-        print "Connection complete to broker on", self.host
+        print("Connection complete to broker on", self.host)
 
         while self.subscribed:
             try:
@@ -75,7 +75,7 @@ class QpidSubscriber:
                 content = message.body
                 self.__session.message_accept(qpid.datatypes.RangedSet(message.id))
                 if (self.decompress):
-                    print "Decompressing received content"
+                    print("Decompressing received content")
                     try:
                         # http://stackoverflow.com/questions/2423866/python-decompressing-gzip-chunk-by-chunk
                         d = zlib.decompressobj(16+zlib.MAX_WBITS)

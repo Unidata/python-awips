@@ -26,7 +26,7 @@
 #
 ##
 
-import GfeNotification
+from . import GfeNotification
 
 class UserMessageNotification(GfeNotification.GfeNotification):
 

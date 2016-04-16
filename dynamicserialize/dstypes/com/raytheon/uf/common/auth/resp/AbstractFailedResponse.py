@@ -23,9 +23,7 @@
 import abc
 
 
-class AbstractFailedResponse(object):
-    __metaclass__ = abc.ABCMeta
-
+class AbstractFailedResponse(object, metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def __init__(self):
         self.request = None

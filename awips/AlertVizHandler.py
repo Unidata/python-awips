@@ -35,7 +35,7 @@
 #
 
 import logging
-import NotificationMessage
+from . import NotificationMessage
 
 class AlertVizHandler(logging.Handler):
 

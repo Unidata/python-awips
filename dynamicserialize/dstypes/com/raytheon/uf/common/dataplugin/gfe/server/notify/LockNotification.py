@@ -27,7 +27,7 @@
 #
 ##
 
-import GfeNotification
+from . import GfeNotification
 
 class LockNotification(GfeNotification.GfeNotification):
 

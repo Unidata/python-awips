@@ -26,9 +26,7 @@
 ##
 import abc
 
-class GfeNotification(object):
-    __metaclass__ = abc.ABCMeta
-
+class GfeNotification(object, metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def __init__(self):
         self.siteID = None

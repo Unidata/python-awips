@@ -30,4 +30,4 @@ __all__ = [
             'JobProgress',
           ]
 
-from JobProgress import JobProgress
+from .JobProgress import JobProgress

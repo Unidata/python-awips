@@ -25,9 +25,7 @@ import abc
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.server.request import GetGridRequest
 
 
-class GetGridDataRequest(object):
-    __metaclass__ = abc.ABCMeta
-
+class GetGridDataRequest(object, metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def __init__(self):
         self.requests = []

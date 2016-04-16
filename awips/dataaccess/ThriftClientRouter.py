@@ -83,7 +83,7 @@ class ThriftClientRouter(object):
         response = self._client.sendRequest(gridDataRequest)
 
         locSpecificData = {}
-        locNames = response.getSiteNxValues().keys()
+        locNames = list(response.getSiteNxValues().keys())
         for location in locNames:
             nx = response.getSiteNxValues()[location]
             ny = response.getSiteNyValues()[location]
@@ -114,7 +114,7 @@ class ThriftClientRouter(object):
         geometries = []
         for wkb in response.getGeometryWKBs():
             # convert the wkb to a bytearray with only positive values
-            byteArrWKB = bytearray(map(lambda x: x % 256,wkb.tolist()))
+            byteArrWKB = bytearray([x % 256 for x in wkb.tolist()])
             # convert the bytearray to a byte string and load it.
             geometries.append(shapely.wkb.loads(str(byteArrWKB)))
 

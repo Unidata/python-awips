@@ -33,13 +33,13 @@ __all__ = [
             'StoreRequest'
           ]
 
-from CopyRequest import CopyRequest
-from CreateDatasetRequest import CreateDatasetRequest
-from DatasetDataRequest import DatasetDataRequest
-from DatasetNamesRequest import DatasetNamesRequest
-from DeleteFilesRequest import DeleteFilesRequest
-from DeleteRequest import DeleteRequest
-from GroupsRequest import GroupsRequest
-from RepackRequest import RepackRequest
-from RetrieveRequest import RetrieveRequest
-from StoreRequest import StoreRequest
+from .CopyRequest import CopyRequest
+from .CreateDatasetRequest import CreateDatasetRequest
+from .DatasetDataRequest import DatasetDataRequest
+from .DatasetNamesRequest import DatasetNamesRequest
+from .DeleteFilesRequest import DeleteFilesRequest
+from .DeleteRequest import DeleteRequest
+from .GroupsRequest import GroupsRequest
+from .RepackRequest import RepackRequest
+from .RetrieveRequest import RetrieveRequest
+from .StoreRequest import StoreRequest
