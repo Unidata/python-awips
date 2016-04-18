@@ -21,9 +21,10 @@
 # File auto-generated against equivalent DynamicSerialize Java class
 
 import abc
+from six import with_metaclass
 
 
-class AbstractResponseData(object, metaclass=abc.ABCMeta):
+class AbstractResponseData(with_metaclass(abc.ABCMeta, object)):
     @abc.abstractmethod
     def __init__(self):
         self.time = None

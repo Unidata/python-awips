@@ -21,9 +21,10 @@
 # File auto-generated against equivalent DynamicSerialize Java class
 
 import abc
+from six import with_metaclass
 
 
-class AbstractGfeRequest(object, metaclass=abc.ABCMeta):
+class AbstractGfeRequest(with_metaclass(abc.ABCMeta, object)):
     @abc.abstractmethod
     def __init__(self):
         self.siteID = None

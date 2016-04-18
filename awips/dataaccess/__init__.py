@@ -41,8 +41,8 @@ __all__ = [
            ]
 
 import abc
-
-class IDataRequest(object, metaclass=abc.ABCMeta):
+from six import with_metaclass
+class IDataRequest(with_metaclass(abc.ABCMeta, object)):
     """
     An IDataRequest to be submitted to the DataAccessLayer to retrieve data.
     """
@@ -163,7 +163,7 @@ class IDataRequest(object, metaclass=abc.ABCMeta):
 
 
 
-class IData(object, metaclass=abc.ABCMeta):
+class IData(with_metaclass(abc.ABCMeta, object)):
     """
     An IData representing data returned from the DataAccessLayer.
     """

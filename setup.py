@@ -11,6 +11,6 @@ setup(
     download_url='https://github.com/Unidata/python-awips/tarball/0.9.3',
     author='Unidata',
     author_email='mjames@ucar.edu',
-    requires=['argparse','shapely','numpy']
+    requires=['argparse','shapely','numpy','six']
 )
 

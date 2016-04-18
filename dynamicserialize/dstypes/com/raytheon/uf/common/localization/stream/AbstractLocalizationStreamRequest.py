@@ -23,8 +23,9 @@
 import abc
 import os
 from dynamicserialize.dstypes.com.raytheon.uf.common.plugin.nwsauth.user import User
+from six import with_metaclass
 
-class AbstractLocalizationStreamRequest(object, metaclass=abc.ABCMeta):
+class AbstractLocalizationStreamRequest(with_metaclass(abc.ABCMeta, object)):
     @abc.abstractmethod
     def __init__(self):
         self.context = None

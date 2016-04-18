@@ -19,9 +19,9 @@
 ##
 
 import abc
+from six import with_metaclass
 
-
-class AbstractGridSlice(object, metaclass=abc.ABCMeta):
+class AbstractGridSlice(with_metaclass(abc.ABCMeta, object)):
     @abc.abstractmethod
     def __init__(self):
         self.validTime = None
