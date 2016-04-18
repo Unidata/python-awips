@@ -36,7 +36,7 @@
 import numpy
 import re
 
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.level import MasterLevel
+from .MasterLevel import MasterLevel
 
 
 LEVEL_NAMING_REGEX = re.compile("^(\d*(?:\.\d*)?)(?:_(\d*(?:\.\d*)?))?([a-zA-Z]+)$")

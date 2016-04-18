@@ -27,8 +27,7 @@
 ##
 
 from . import GfeNotification
-
-class UserMessageNotification(GfeNotification.GfeNotification):
+class UserMessageNotification(GfeNotification):
 
     def __init__(self):
         super(UserMessageNotification, self).__init__()

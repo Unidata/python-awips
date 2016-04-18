@@ -44,12 +44,11 @@ from thrift.Thrift import TType
 import inspect, sys, types
 import dynamicserialize
 from dynamicserialize import dstypes, adapters
-from . import SelfDescribingBinaryProtocol
+from dynamicserialize import SelfDescribingBinaryProtocol
 import numpy
 import collections
 
 dsObjTypes = {}
-
 def buildObjMap(module):
     if '__all__' in module.__dict__:
         for i in module.__all__:
@@ -75,7 +74,7 @@ pythonToThriftMap = {
     float: SelfDescribingBinaryProtocol.FLOAT,
     #types.FloatType: TType.DOUBLE,
     bool: TType.BOOL,
-    types.InstanceType: TType.STRUCT,
+    object: TType.STRUCT,
     type(None): TType.VOID,
     numpy.float32: SelfDescribingBinaryProtocol.FLOAT,
     numpy.int32: TType.I32,
@@ -180,7 +179,7 @@ class ThriftSerializationContext(object):
         if b in self.typeDeserializationMethod:
             return self.typeDeserializationMethod[b]()
         else:
-            raise dynamicserialize.SerializationException("Unsupported type value " + str(b))
+            raise SerializationException("Unsupported type value " + str(b))
 
 
     def _deserializeField(self, structname, obj):
@@ -200,9 +199,9 @@ class ThriftSerializationContext(object):
                 if isinstance(setMethod, collections.Callable):
                     setMethod(result)
                 else:
-                    raise dynamicserialize.SerializationException("Couldn't find setter method " + lookingFor)
+                    raise SerializationException("Couldn't find setter method " + lookingFor)
             except:
-                raise dynamicserialize.SerializationException("Couldn't find setter method " + lookingFor)
+                raise SerializationException("Couldn't find setter method " + lookingFor)
 
         self.protocol.readFieldEnd()
         return True
