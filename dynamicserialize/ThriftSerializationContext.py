@@ -154,18 +154,15 @@ class ThriftSerializationContext(object):
         name = self.protocol.readStructBegin()
         name = name.replace(b'_', b'.')
         name = name.decode('cp437')
-        print(name, name in adapters.classAdapterRegistry)
         if name.isdigit():
-            print("before deserialize", name)
             obj = self._deserializeType(int(name))
-            print("Object", obj, name)
             return obj
         elif name in adapters.classAdapterRegistry:
             return adapters.classAdapterRegistry[name].deserialize(self)
         elif name.find('$') > -1:
             # it's an inner class, we're going to hope it's an enum, treat it special
             fieldName, fieldType, fieldId = self.protocol.readFieldBegin()
-            if fieldName != '__enumValue__':
+            if fieldName != b'__enumValue__':
                 raise dynamiceserialize.SerializationException("Expected to find enum payload.  Found: " + fieldName)
             obj = self.protocol.readString()
             self.protocol.readFieldEnd()
@@ -184,7 +181,7 @@ class ThriftSerializationContext(object):
         if b in self.typeDeserializationMethod:
             return self.typeDeserializationMethod[b]()
         else:
-            raise SerializationException("Unsupported type value " + str(b))
+            raise dynamiceserialize.SerializationException("Unsupported type value " + str(b))
 
 
     def _deserializeField(self, structname, obj):
