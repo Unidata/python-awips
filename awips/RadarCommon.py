@@ -60,14 +60,14 @@ def get_hdf5_data(idra):
     threshVals = []
     if len(idra) > 0:
         for ii in range(len(idra)):
-           if idra[ii].getName() == "Data":
+           if idra[ii].getName() == b"Data":
               rdat = idra[ii]
-           elif idra[ii].getName() == "Angles":
+           elif idra[ii].getName() == b"Angles":
               azdat = idra[ii]
               dattyp = "radial"
-           elif idra[ii].getName() == "DependentValues":
+           elif idra[ii].getName() == b"DependentValues":
               depVals = idra[ii].getShortData()
-           elif idra[ii].getName() == "Thresholds":
+           elif idra[ii].getName() == b"Thresholds":
               threshVals = idra[ii].getShortData()
 
     return rdat,azdat,depVals,threshVals

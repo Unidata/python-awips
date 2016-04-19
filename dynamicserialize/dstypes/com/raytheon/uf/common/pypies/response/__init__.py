@@ -28,8 +28,8 @@ __all__ = [
             'StoreResponse'
           ]
 
-from DeleteResponse import DeleteResponse
-from ErrorResponse import ErrorResponse
-from FileActionResponse import FileActionResponse
-from RetrieveResponse import RetrieveResponse
-from StoreResponse import StoreResponse
+from .DeleteResponse import DeleteResponse
+from .ErrorResponse import ErrorResponse
+from .FileActionResponse import FileActionResponse
+from .RetrieveResponse import RetrieveResponse
+from .StoreResponse import StoreResponse

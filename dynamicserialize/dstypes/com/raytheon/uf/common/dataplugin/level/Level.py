@@ -36,7 +36,7 @@
 import numpy
 import re
 
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.level import MasterLevel
+from .MasterLevel import MasterLevel
 
 
 LEVEL_NAMING_REGEX = re.compile("^(\d*(?:\.\d*)?)(?:_(\d*(?:\.\d*)?))?([a-zA-Z]+)$")
@@ -55,7 +55,7 @@ class Level(object):
             matcher = LEVEL_NAMING_REGEX.match(str(levelString))
             if matcher is not None:
                self.levelonevalue = numpy.float64(matcher.group(1))
-               self.masterLevel = MasterLevel.MasterLevel(matcher.group(3))
+               self.masterLevel = MasterLevel(matcher.group(3))
                levelTwo = matcher.group(2)
                if levelTwo:
                    self.leveltwovalue = numpy.float64(levelTwo)

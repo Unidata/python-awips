@@ -39,5 +39,5 @@ __all__ = [
             'weather'
           ]
 
-from GridDataHistory import GridDataHistory
+from .GridDataHistory import GridDataHistory
 

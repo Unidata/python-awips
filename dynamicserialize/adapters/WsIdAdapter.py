@@ -52,7 +52,7 @@ def deserialize(context):
     wsId.setUserName(wsIdParts[1])
     wsId.setProgName(wsIdParts[2])
     wsId.setPid(wsIdParts[3])
-    wsId.setThreadId(long(wsIdParts[4]))
+    wsId.setThreadId(int(wsIdParts[4]))
 
     return wsId
 

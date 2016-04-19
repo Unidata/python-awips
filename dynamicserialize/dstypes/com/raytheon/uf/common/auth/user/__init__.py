@@ -24,4 +24,4 @@ __all__ = [
             'AuthenticationData'
           ]
 
-from AuthenticationData import AuthenticationData
+from .AuthenticationData import AuthenticationData

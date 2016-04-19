@@ -32,10 +32,9 @@ import socket
 import os
 import pwd
 try:
-    import thread
+    import _thread
 except ImportError:
-    #this means that we are in python 3.
-    import _thread as thread
+    import thread as _thread
 
 class WsId(object):
 
@@ -54,7 +53,7 @@ class WsId(object):
 
         self.pid = os.getpid()
 
-        self.threadId = long(thread.get_ident())
+        self.threadId = int(_thread.get_ident())
 
     def getNetworkId(self):
         return self.networkId

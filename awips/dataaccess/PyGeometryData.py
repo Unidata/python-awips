@@ -45,14 +45,14 @@ class PyGeometryData(IGeometryData, PyData.PyData):
         self.__geometry = geometry
         self.__dataMap = {}
         tempDataMap = geoDataRecord.getDataMap()
-        for key, value in tempDataMap.items():
+        for key, value in list(tempDataMap.items()):
             self.__dataMap[key] = (value[0], value[1], value[2])
 
     def getGeometry(self):
         return self.__geometry
 
     def getParameters(self):
-        return self.__dataMap.keys()
+        return list(self.__dataMap.keys())
 
     def getString(self, param):
         value = self.__dataMap[param][0]
@@ -64,7 +64,7 @@ class PyGeometryData(IGeometryData, PyData.PyData):
         if t == 'INT':
             return int(value)
         elif t == 'LONG':
-            return long(value)
+            return int(value)
         elif t == 'FLOAT':
             return float(value)
         elif t == 'DOUBLE':

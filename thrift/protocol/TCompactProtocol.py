@@ -17,7 +17,7 @@
 # under the License.
 #
 
-from TProtocol import *
+from .TProtocol import *
 from struct import pack, unpack
 
 __all__ = ['TCompactProtocol', 'TCompactProtocolFactory']
@@ -106,7 +106,7 @@ CTYPES = {TType.STOP: CompactType.STOP,
           }
 
 TTYPES = {}
-for k, v in CTYPES.items():
+for k, v in list(CTYPES.items()):
   TTYPES[v] = k
 TTYPES[CompactType.FALSE] = TType.BOOL
 del k

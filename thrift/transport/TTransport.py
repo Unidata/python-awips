@@ -17,7 +17,7 @@
 # under the License.
 #
 
-from cStringIO import StringIO
+from six import BytesIO
 from struct import pack, unpack
 from thrift.Thrift import TException
 
@@ -52,9 +52,10 @@ class TTransportBase:
     pass
 
   def readAll(self, sz):
-    buff = ''
+    buff = b''
     have = 0
     while (have < sz):
+      #print(self)
       chunk = self.read(sz - have)
       have += len(chunk)
       buff += chunk
@@ -138,8 +139,8 @@ class TBufferedTransport(TTransportBase, CReadableTransport):
 
   def __init__(self, trans, rbuf_size=DEFAULT_BUFFER):
     self.__trans = trans
-    self.__wbuf = StringIO()
-    self.__rbuf = StringIO("")
+    self.__wbuf = BytesIO()
+    self.__rbuf = BytesIO("")
     self.__rbuf_size = rbuf_size
 
   def isOpen(self):
@@ -156,7 +157,7 @@ class TBufferedTransport(TTransportBase, CReadableTransport):
     if len(ret) != 0:
       return ret
 
-    self.__rbuf = StringIO(self.__trans.read(max(sz, self.__rbuf_size)))
+    self.__rbuf = BytesIO(self.__trans.read(max(sz, self.__rbuf_size)))
     return self.__rbuf.read(sz)
 
   def write(self, buf):
@@ -165,7 +166,7 @@ class TBufferedTransport(TTransportBase, CReadableTransport):
   def flush(self):
     out = self.__wbuf.getvalue()
     # reset wbuf before write/flush to preserve state on underlying failure
-    self.__wbuf = StringIO()
+    self.__wbuf = BytesIO()
     self.__trans.write(out)
     self.__trans.flush()
 
@@ -184,7 +185,7 @@ class TBufferedTransport(TTransportBase, CReadableTransport):
     if len(retstring) < reqlen:
       retstring += self.__trans.readAll(reqlen - len(retstring))
 
-    self.__rbuf = StringIO(retstring)
+    self.__rbuf = BytesIO(retstring)
     return self.__rbuf
 
 
@@ -203,9 +204,9 @@ class TMemoryBuffer(TTransportBase, CReadableTransport):
     If value is set, this will be a transport for reading,
     otherwise, it is for writing"""
     if value is not None:
-      self._buffer = StringIO(value)
+      self._buffer = BytesIO(value)
     else:
-      self._buffer = StringIO()
+      self._buffer = BytesIO()
 
   def isOpen(self):
     return not self._buffer.closed
@@ -220,7 +221,10 @@ class TMemoryBuffer(TTransportBase, CReadableTransport):
     return self._buffer.read(sz)
 
   def write(self, buf):
-    self._buffer.write(buf)
+    try:
+      self._buffer.write(buf)
+    except TypeError:
+      self._buffer.write(buf.encode('cp437'))
 
   def flush(self):
     pass
@@ -251,8 +255,8 @@ class TFramedTransport(TTransportBase, CReadableTransport):
 
   def __init__(self, trans,):
     self.__trans = trans
-    self.__rbuf = StringIO()
-    self.__wbuf = StringIO()
+    self.__rbuf = BytesIO()
+    self.__wbuf = BytesIO()
 
   def isOpen(self):
     return self.__trans.isOpen()
@@ -274,7 +278,7 @@ class TFramedTransport(TTransportBase, CReadableTransport):
   def readFrame(self):
     buff = self.__trans.readAll(4)
     sz, = unpack('!i', buff)
-    self.__rbuf = StringIO(self.__trans.readAll(sz))
+    self.__rbuf = BytesIO(self.__trans.readAll(sz))
 
   def write(self, buf):
     self.__wbuf.write(buf)
@@ -283,7 +287,7 @@ class TFramedTransport(TTransportBase, CReadableTransport):
     wout = self.__wbuf.getvalue()
     wsz = len(wout)
     # reset wbuf before write/flush to preserve state on underlying failure
-    self.__wbuf = StringIO()
+    self.__wbuf = BytesIO()
     # N.B.: Doing this string concatenation is WAY cheaper than making
     # two separate calls to the underlying socket object. Socket writes in
     # Python turn out to be REALLY expensive, but it seems to do a pretty
@@ -304,7 +308,7 @@ class TFramedTransport(TTransportBase, CReadableTransport):
     while len(prefix) < reqlen:
       self.readFrame()
       prefix += self.__rbuf.getvalue()
-    self.__rbuf = StringIO(prefix)
+    self.__rbuf = BytesIO(prefix)
     return self.__rbuf
 
 

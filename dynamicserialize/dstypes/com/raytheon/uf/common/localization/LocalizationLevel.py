@@ -43,7 +43,7 @@ knownLevels = {"BASE": {"text" : "BASE",
 class LocalizationLevel(object):
 
     def __init__(self, level, order=750, systemLevel=False):
-        if knownLevels.has_key(level.upper()):
+        if level.upper() in knownLevels:
             self.text = level.upper()
             self.order = knownLevels[self.text]["order"]
             self.systemLevel = knownLevels[self.text]["systemLevel"]

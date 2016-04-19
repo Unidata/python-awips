@@ -85,9 +85,9 @@ class IngestViaQPID:
             self.connection.start()
             self.session = self.connection.session(str(uuid4()))
             self.session.exchange_bind(exchange='amq.direct', queue='external.dropbox', binding_key='external.dropbox')
-            print 'Connected to Qpid'
+            print('Connected to Qpid')
         except:
-            print 'Unable to connect to Qpid'
+            print('Unable to connect to Qpid')
 
     def sendmessage(self, filepath, header):
         '''
@@ -108,4 +108,4 @@ class IngestViaQPID:
         there are no threads left open
         '''
         self.session.close(timeout=10)
-        print 'Connection to Qpid closed'
+        print('Connection to Qpid closed')

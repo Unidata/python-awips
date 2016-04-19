@@ -66,7 +66,7 @@ classAdapterRegistry = {}
 def getAdapterRegistry():
     import sys
     for x in __all__:
-        exec('import dynamicserialize.adapters.' + x)
+        exec('import dynamicserialize.adapters.' + x )
         m = sys.modules['dynamicserialize.adapters.' + x]
         d = m.__dict__
         if 'ClassAdapter' in d:

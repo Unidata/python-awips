@@ -27,9 +27,9 @@
 #
 ##
 
-import GfeNotification
+from . import GfeNotification
 
-class LockNotification(GfeNotification.GfeNotification):
+class LockNotification(GfeNotification):
 
     def __init__(self):
         super(LockNotification, self).__init__()

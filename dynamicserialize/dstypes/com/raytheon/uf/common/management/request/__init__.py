@@ -26,6 +26,6 @@ __all__ = [
             'diagnostic'
           ]
 
-from ChangeContextRequest import ChangeContextRequest
-from PassThroughRequest import PassThroughRequest
+from .ChangeContextRequest import ChangeContextRequest
+from .PassThroughRequest import PassThroughRequest
 

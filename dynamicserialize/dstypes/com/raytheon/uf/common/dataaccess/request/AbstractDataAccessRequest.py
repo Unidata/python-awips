@@ -31,10 +31,8 @@
 
 import abc
 
-
-class AbstractDataAccessRequest(object):
-    __metaclass__ = abc.ABCMeta
-
+from six import with_metaclass
+class AbstractDataAccessRequest(with_metaclass(abc.ABCMeta, object)):
     def __init__(self):
         self.requestParameters = None
 

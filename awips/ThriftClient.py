@@ -17,8 +17,10 @@
 # See the AWIPS II Master Rights File ("Master Rights File.pdf") for
 # further licensing information.
 ##
-
-import httplib
+try:
+    import http.client as httpcl
+except ImportError:
+    import httplib as httpcl
 from dynamicserialize import DynamicSerializationManager
 from dynamicserialize.dstypes.com.raytheon.uf.common.serialization.comm.response import ServerErrorResponse
 from dynamicserialize.dstypes.com.raytheon.uf.common.serialization import SerializableExceptionWrapper
@@ -54,12 +56,12 @@ class ThriftClient:
         if (len(hostParts) > 1):
             hostString = hostParts[0]
             self.__uri = "/" + hostParts[1]
-            self.__httpConn = httplib.HTTPConnection(hostString)
+            self.__httpConn = httpcl.HTTPConnection(hostString)
         else:
             if (port is None):
-                self.__httpConn = httplib.HTTPConnection(host)
+                self.__httpConn = httpcl.HTTPConnection(host)
             else:
-                self.__httpConn = httplib.HTTPConnection(host, port)
+                self.__httpConn = httpcl.HTTPConnection(host, port)
 
             self.__uri = uri
 
@@ -67,14 +69,13 @@ class ThriftClient:
 
     def sendRequest(self, request, uri="/thrift"):
         message = self.__dsm.serializeObject(request)
-
+        #message = message.decode('cp437')
         self.__httpConn.connect()
         self.__httpConn.request("POST", self.__uri + uri, message)
 
         response = self.__httpConn.getresponse()
         if (response.status != 200):
             raise ThriftRequestException("Unable to post request to server")
-
         rval = self.__dsm.deserializeBytes(response.read())
         self.__httpConn.close()
 

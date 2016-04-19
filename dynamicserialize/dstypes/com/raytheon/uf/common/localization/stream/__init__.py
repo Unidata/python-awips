@@ -26,7 +26,7 @@ __all__ = [
             'LocalizationStreamPutRequest'
           ]
 
-from AbstractLocalizationStreamRequest import AbstractLocalizationStreamRequest
-from LocalizationStreamGetRequest import LocalizationStreamGetRequest
-from LocalizationStreamPutRequest import LocalizationStreamPutRequest
+from .AbstractLocalizationStreamRequest import AbstractLocalizationStreamRequest
+from .LocalizationStreamGetRequest import LocalizationStreamGetRequest
+from .LocalizationStreamPutRequest import LocalizationStreamPutRequest
 

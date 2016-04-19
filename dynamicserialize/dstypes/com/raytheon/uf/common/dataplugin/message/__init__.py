@@ -24,5 +24,5 @@ __all__ = [
             'DataURINotificationMessage'
           ]
 
-from DataURINotificationMessage import DataURINotificationMessage
+from .DataURINotificationMessage import DataURINotificationMessage
 

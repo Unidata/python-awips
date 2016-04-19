@@ -30,10 +30,9 @@
 #
 
 import abc
+from six import with_metaclass
 
-class AbstractIdentifierRequest(object):
-    __metaclass__ = abc.ABCMeta
-
+class AbstractIdentifierRequest(with_metaclass(abc.ABCMeta, object)):
     def __init__(self):
         self.datatype = None
 

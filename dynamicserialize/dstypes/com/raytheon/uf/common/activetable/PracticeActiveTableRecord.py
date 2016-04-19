@@ -26,7 +26,7 @@
 #
 ##
 
-from .ActiveTableRecord import ActiveTableRecord
+from . import ActiveTableRecord
 
 class PracticeActiveTableRecord(ActiveTableRecord):
 

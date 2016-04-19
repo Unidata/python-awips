@@ -80,10 +80,10 @@ class TimeRange(object):
             return datetime.datetime(*timeArg[:6])
         elif isinstance(timeArg, float):
             # seconds as float, should be avoided due to floating point errors
-            totalSecs = long(timeArg)
+            totalSecs = int(timeArg)
             micros = int((timeArg - totalSecs) * MICROS_IN_SECOND)
             return self.__convertSecsAndMicros(totalSecs, micros)
-        elif isinstance(timeArg, (int, long)):
+        elif isinstance(timeArg, int):
             # seconds as integer
             totalSecs = timeArg
             return self.__convertSecsAndMicros(totalSecs, 0)
@@ -114,7 +114,7 @@ class TimeRange(object):
         return self._getInMillis(self.end)
 
     def _getInMillis(self, time):
-        rval = long(calendar.timegm(time.utctimetuple()) * 1000)
+        rval = int(calendar.timegm(time.utctimetuple()) * 1000)
         rval += time.microsecond // 1000
         return rval
 
@@ -123,7 +123,7 @@ class TimeRange(object):
 
     def duration(self):
         delta = self.end - self.start
-        return long(delta.total_seconds())
+        return int(delta.total_seconds())
 
     def contains(self, timeArg):
         if isinstance(timeArg, TimeRange):

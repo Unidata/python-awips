@@ -31,7 +31,7 @@ class Header(object):
             self.properties = properties
 
         if multimap is not None:
-            for k, l in multimap.iteritems():
+            for k, l in multimap.items():
                 for v in l:
                     self.properties.append(Property(k, v))
 

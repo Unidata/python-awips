@@ -8,7 +8,7 @@ __all__ = [
             'request'
           ]
 
-from ActivityInfo import ActivityInfo
-from DerivedProduct import DerivedProduct
-from ResponseMessageValidate import ResponseMessageValidate
+from .ActivityInfo import ActivityInfo
+from .DerivedProduct import DerivedProduct
+from .ResponseMessageValidate import ResponseMessageValidate
 
