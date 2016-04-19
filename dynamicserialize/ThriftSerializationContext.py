@@ -75,6 +75,7 @@ pythonToThriftMap = {
     #types.FloatType: TType.DOUBLE,
     bool: TType.BOOL,
     object: TType.STRUCT,
+    str: TType.STRING,
     type(None): TType.VOID,
     numpy.float32: SelfDescribingBinaryProtocol.FLOAT,
     numpy.int32: TType.I32,
@@ -151,13 +152,15 @@ class ThriftSerializationContext(object):
 
     def deserializeMessage(self):
         name = self.protocol.readStructBegin()
-        name = name.replace('_', '.')
+        #print(name)
+        name = name.replace(b'_', b'.')
+        bytes(name)
         if name.isdigit():
             obj = self._deserializeType(int(name))
             return obj
         elif name in adapters.classAdapterRegistry:
             return adapters.classAdapterRegistry[name].deserialize(self)
-        elif name.find('$') > -1:
+        elif name.find(b'$') > -1:
             # it's an inner class, we're going to hope it's an enum, treat it special
             fieldName, fieldType, fieldId = self.protocol.readFieldBegin()
             if fieldName != '__enumValue__':
@@ -166,7 +169,7 @@ class ThriftSerializationContext(object):
             self.protocol.readFieldEnd()
             return obj
         else:
-            clz = dsObjTypes[name]
+            clz = dsObjTypes[bytes.decode(name)]
             obj = clz()
 
         while self._deserializeField(name, obj):
@@ -191,7 +194,8 @@ class ThriftSerializationContext(object):
 #                result = adapters.fieldAdapterRegistry[structname][fieldName].deserialize(self)
 #            else:
             result = self._deserializeType(fieldType)
-            lookingFor = "set" + fieldName[0].upper() + fieldName[1:]
+            fn_str = bytes.decode(fieldName)
+            lookingFor = "set" + fn_str[0].upper() + fn_str[1:]
 
             try:
                 setMethod = getattr(obj, lookingFor)
@@ -244,13 +248,13 @@ class ThriftSerializationContext(object):
         if pyt in pythonToThriftMap:
             return pythonToThriftMap[pyt]
         elif pyt.__module__.startswith('dynamicserialize.dstypes'):
-            return pythonToThriftMap[types.InstanceType]
+            return pythonToThriftMap[object]
         else:
             raise dynamicserialize.SerializationException("Don't know how to serialize object of type: " + str(pyt))
 
     def serializeMessage(self, obj):
+        
         tt = self._lookupType(obj)
-
         if tt == TType.STRUCT:
             fqn = obj.__module__.replace('dynamicserialize.dstypes.', '')
             if fqn in adapters.classAdapterRegistry:
@@ -288,9 +292,11 @@ class ThriftSerializationContext(object):
             self.protocol.writeStructEnd()
 
     def _serializeField(self, fieldName, fieldType, fieldId, fieldValue):
+        #print("SERFIELD", fieldName, fieldType, fieldId, fieldValue)
         self.protocol.writeFieldBegin(fieldName, fieldType, fieldId)
         self._serializeType(fieldValue, fieldType)
         self.protocol.writeFieldEnd()
+        #print(self.protocol)
 
     def _serializeType(self, fieldValue, fieldType):
         if fieldType in self.typeSerializationMethod:

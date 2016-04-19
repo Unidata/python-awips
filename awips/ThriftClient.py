@@ -69,14 +69,13 @@ class ThriftClient:
 
     def sendRequest(self, request, uri="/thrift"):
         message = self.__dsm.serializeObject(request)
-
+        #message = message.decode('cp437')
         self.__httpConn.connect()
         self.__httpConn.request("POST", self.__uri + uri, message)
 
         response = self.__httpConn.getresponse()
         if (response.status != 200):
             raise ThriftRequestException("Unable to post request to server")
-
         rval = self.__dsm.deserializeBytes(response.read())
         self.__httpConn.close()
 

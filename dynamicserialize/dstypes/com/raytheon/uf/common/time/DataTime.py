@@ -40,7 +40,7 @@ import calendar
 import datetime
 import numpy
 import time
-import io
+from six.moves import cStringIO as StringIO
 
 from dynamicserialize.dstypes.java.util import Date
 from dynamicserialize.dstypes.java.util import EnumSet
@@ -114,7 +114,7 @@ class DataTime(object):
         self.levelValue = numpy.float64(levelValue)
 
     def __str__(self):
-        buffer = io.StringIO()
+        buffer = StringIO()
 
         if self.refTime is not None:
             refTimeInSecs = self.refTime.getTime() / 1000
