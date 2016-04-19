@@ -152,15 +152,17 @@ class ThriftSerializationContext(object):
 
     def deserializeMessage(self):
         name = self.protocol.readStructBegin()
-        #print(name)
         name = name.replace(b'_', b'.')
-        bytes(name)
+        name = name.decode('cp437')
+        print(name, name in adapters.classAdapterRegistry)
         if name.isdigit():
+            print("before deserialize", name)
             obj = self._deserializeType(int(name))
+            print("Object", obj, name)
             return obj
         elif name in adapters.classAdapterRegistry:
             return adapters.classAdapterRegistry[name].deserialize(self)
-        elif name.find(b'$') > -1:
+        elif name.find('$') > -1:
             # it's an inner class, we're going to hope it's an enum, treat it special
             fieldName, fieldType, fieldId = self.protocol.readFieldBegin()
             if fieldName != '__enumValue__':
@@ -169,7 +171,7 @@ class ThriftSerializationContext(object):
             self.protocol.readFieldEnd()
             return obj
         else:
-            clz = dsObjTypes[bytes.decode(name)]
+            clz = dsObjTypes[name]
             obj = clz()
 
         while self._deserializeField(name, obj):
