@@ -79,6 +79,7 @@ class ThriftClient:
         rval = self.__dsm.deserializeBytes(response.read())
         self.__httpConn.close()
 
+
         # let's verify we have an instance of ServerErrorResponse
         # IF we do, through an exception up to the caller along
         # with the original Java stack trace
