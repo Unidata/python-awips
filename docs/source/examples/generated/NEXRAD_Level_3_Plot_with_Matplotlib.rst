@@ -3,8 +3,12 @@ NEXRAD Level 3 Plot with Matplotlib
 ===================================
 `Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/NEXRAD_Level_3_Plot_with_Matplotlib.ipynb>`_
 
+NEXRAD Level 3 Plot with Matplotlib
+===================================
+
 .. code:: python
 
+    %matplotlib inline
     from awips.dataaccess import DataAccessLayer
     from awips import ThriftClient, RadarCommon
     
@@ -22,14 +26,10 @@ NEXRAD Level 3 Plot with Matplotlib
     from metpy.plots import ctables
     
     # Set EDEX server and radar site
-    edex = "edex-cloud.unidata.ucar.edu"
-    site = "kftg"
-    
-    DataAccessLayer.changeEDEXHost(edex)
-    
+    DataAccessLayer.changeEDEXHost("edex-cloud.unidata.ucar.edu")
     request = DataAccessLayer.newDataRequest()
     request.setDatatype("radar")
-    request.setLocationNames(site)
+    request.setLocationNames("klzk")
     
     datatimes = DataAccessLayer.getAvailableTimes(request)
     
@@ -99,14 +99,14 @@ NEXRAD Level 3 Plot with Matplotlib
 
 .. parsed-literal::
 
-    using time 2016-03-16 21:13:53
+    using time 2016-04-11 23:02:22
     buffer by 60
-    using range (Mar 16 16 21:12:53 , Mar 16 16 21:14:53 )
-    found 94 2016-03-16 21:13:53
-    found 99 2016-03-16 21:13:53
+    using range (Apr 11 16 23:01:22 , Apr 11 16 23:03:22 )
+    found 94 2016-04-11 23:02:22
+    found 99 2016-04-11 23:02:22
 
 
 
-.. image:: NEXRAD_Level_3_Plot_with_Matplotlib_files/NEXRAD_Level_3_Plot_with_Matplotlib_0_1.png
+.. image:: NEXRAD_Level_3_Plot_with_Matplotlib_files/NEXRAD_Level_3_Plot_with_Matplotlib_1_1.png
 
 

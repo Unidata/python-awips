@@ -8,8 +8,10 @@ Layout" <http://metpy.readthedocs.org/en/latest/examples/generated/Station_Plot_
 
 .. code:: python
 
+    %matplotlib inline
     import matplotlib.pyplot as plt
     import numpy as np
+    from awips.dataaccess import DataAccessLayer
     
     from metpy.calc import get_wind_components
     from metpy.cbook import get_test_data
@@ -17,9 +19,12 @@ Layout" <http://metpy.readthedocs.org/en/latest/examples/generated/Station_Plot_
     from metpy.units import units
     
     # Initialize
+    DataAccessLayer.changeEDEXHost("edex-cloud.unidata.ucar.edu")
+    
     data,latitude,longitude,stationName,temperature,dewpoint,seaLevelPress,windDir,windSpeed = [],[],[],[],[],[],[],[],[]
     request = DataAccessLayer.newDataRequest()
     request.setDatatype("obs")
+    
     
     #
     # we need to set one station to query latest time.  this is hack-y and should be fixed
@@ -34,7 +39,7 @@ Layout" <http://metpy.readthedocs.org/en/latest/examples/generated/Station_Plot_
     datatimes = DataAccessLayer.getAvailableTimes(request)
     
     # Get most recent time for location
-    time = datatimes[-1].validPeriod
+    time = datatimes[0].validPeriod
     
     # "presWeather","skyCover","skyLayerBase"
     # are multi-dimensional(??) and returned seperately (not sure why yet)... deal with those later
@@ -128,9 +133,9 @@ Layout" <http://metpy.readthedocs.org/en/latest/examples/generated/Station_Plot_
 
 .. parsed-literal::
 
-    (Mar 15 16 22:52:00 , Mar 15 16 22:52:00 )
-    430
-    86
+    (Apr 10 16 12:52:00 , Apr 10 16 12:52:00 )
+    425
+    85
 
 
 

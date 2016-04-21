@@ -3,8 +3,12 @@ Plotting a Sounding with MetPy
 ==============================
 `Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Plotting_a_Sounding_with_MetPy.ipynb>`_
 
+Plotting a Sounding with MetPy
+==============================
+
 .. code:: python
 
+    %matplotlib inline
     from awips.dataaccess import DataAccessLayer
     
     import matplotlib.tri as mtri
@@ -38,6 +42,7 @@ Plotting a Sounding with MetPy
     
     # Build ordered arrays
     for ob in response:
+        print float(ob.getString("prMan")), float(ob.getString("wsMan"))
         tpMan.append(float(ob.getString("tpMan")))
         tdMan.append(float(ob.getString("tdMan")))
         prMan.append(float(ob.getString("prMan")))
@@ -45,8 +50,7 @@ Plotting a Sounding with MetPy
         wdMan.append(float(ob.getString("wdMan")))
         wsMan.append(float(ob.getString("wsMan")))
     
-    # Convert 
-    # we can use units.* here?
+    # we can use units.* here...
     T = np.array(tpMan)-273.15
     Td = np.array(tdMan)-273.15
     p = np.array(prMan)/100
@@ -98,7 +102,33 @@ Plotting a Sounding with MetPy
     plt.show()
 
 
+.. parsed-literal::
 
-.. image:: Plotting_a_Sounding_with_MetPy_files/Plotting_a_Sounding_with_MetPy_0_0.png
+    83900.0 1.5
+    100000.0 -9999998.0
+    92500.0 -9999998.0
+    85000.0 -9999998.0
+    70000.0 0.5
+    50000.0 6.09999990463
+    40000.0 3.0
+    30000.0 7.69999980927
+    25000.0 16.8999996185
+    20000.0 7.19999980927
+    15000.0 10.1999998093
+    10000.0 13.8000001907
+    7000.0 9.19999980927
+    5000.0 7.69999980927
+    3000.0 5.59999990463
+    2000.0 6.59999990463
+    1000.0 10.8000001907
+    700.0 5.09999990463
+    500.0 -9999.0
+    300.0 -9999.0
+    200.0 -9999.0
+    100.0 -9999.0
+
+
+
+.. image:: Plotting_a_Sounding_with_MetPy_files/Plotting_a_Sounding_with_MetPy_1_1.png
 
 
