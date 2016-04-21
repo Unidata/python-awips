@@ -11,7 +11,7 @@ List Available Parameters for a Grid Name
     from awips.dataaccess import DataAccessLayer
     
     # Select HRRR
-    DataAccessLayer.changeEDEXHost("edex-cloud.unidata.ucar.edu")
+    DataAccessLayer.changeEDEXHost("edex.unidata.ucar.edu")
     request = DataAccessLayer.newDataRequest()
     request.setDatatype("grid")
     request.setLocationNames("GFS40")
