@@ -55,7 +55,6 @@ class TTransportBase:
     buff = b''
     have = 0
     while (have < sz):
-      #print(self)
       chunk = self.read(sz - have)
       have += len(chunk)
       buff += chunk
