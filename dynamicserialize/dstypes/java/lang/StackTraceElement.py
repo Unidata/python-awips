@@ -59,13 +59,13 @@ class StackTraceElement(object):
         return self.__repr__()
 
     def __repr__(self):
-        msg = self.declaringClass + "." + self.methodName
+        msg = self.declaringClass.decode('cp437') + "." + self.methodName.decode('cp437')
         if self.isNativeMethod():
             msg += "(Native Method)"
         elif self.fileName is not None and self.lineNumber >= 0:
-            msg += "(" + self.fileName + ":" + str(self.lineNumber) + ")"
+            msg += "(" + self.fileName.decode('cp437') + ":" + str(self.lineNumber) + ")"
         elif self.fileName is not None:
-            msg += "(" + self.fileName + ")"
+            msg += "(" + self.fileName.decode('cp437') + ")"
         else:
             msg += "(Unknown Source)"
         return msg

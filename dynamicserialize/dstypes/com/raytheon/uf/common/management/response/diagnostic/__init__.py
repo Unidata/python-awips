@@ -26,7 +26,7 @@ __all__ = [
             'StatusResponse'
           ]
 
-from ClusterMembersResponse import ClusterMembersResponse
-from ContextsResponse import ContextsResponse
-from StatusResponse import StatusResponse
+from .ClusterMembersResponse import ClusterMembersResponse
+from .ContextsResponse import ContextsResponse
+from .StatusResponse import StatusResponse
 

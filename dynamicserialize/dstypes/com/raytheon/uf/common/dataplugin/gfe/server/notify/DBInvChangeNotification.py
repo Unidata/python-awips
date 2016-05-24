@@ -28,7 +28,7 @@
 #
 ##
 
-import GfeNotification
+from . import GfeNotification
 
 class DBInvChangeNotification(GfeNotification.GfeNotification):
 

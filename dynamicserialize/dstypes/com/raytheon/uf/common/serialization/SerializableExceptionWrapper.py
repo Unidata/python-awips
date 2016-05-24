@@ -39,8 +39,8 @@ class SerializableExceptionWrapper(object):
 
     def __repr__(self):
         if not self.message:
-            self.message = ''
-        retVal = "" + self.exceptionClass + " exception thrown: " + self.message + "\n"
+            self.message = b''
+        retVal = b"" + self.exceptionClass + b" exception thrown: " + self.message + b"\n"
         for element in self.stackTrace:
             retVal += "\tat " + str(element) + "\n"
 

@@ -12,11 +12,11 @@ __all__ = [
             'GetGridNavRequest'
           ]
 
-from GetTimesRequest import GetTimesRequest
-from GetStationsRequest import GetStationsRequest
-from GetTimesResponse import GetTimesResponse
-from Station import Station
-from StationDataRequest import StationDataRequest
-from GetGridDataRequest import GetGridDataRequest
-from GetGridInfoRequest import GetGridInfoRequest
-from GetGridNavRequest import GetGridNavRequest
+from .GetTimesRequest import GetTimesRequest
+from .GetStationsRequest import GetStationsRequest
+from .GetTimesResponse import GetTimesResponse
+from .Station import Station
+from .StationDataRequest import StationDataRequest
+from .GetGridDataRequest import GetGridDataRequest
+from .GetGridInfoRequest import GetGridInfoRequest
+from .GetGridNavRequest import GetGridNavRequest

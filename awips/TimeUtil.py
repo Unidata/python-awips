@@ -87,7 +87,7 @@ def determineDrtOffset(timeStr):
     #print "gmtime", gm
     if synch:
         cur_t = time.mktime((gm[0], gm[1], gm[2], gm[3], 0, 0, 0, 0, 0))
-        curStr = '%4s%2s%2s_%2s00\n' % (`gm[0]`,`gm[1]`,`gm[2]`,`gm[3]`)
+        curStr = '%4s%2s%2s_%2s00\n' % (repr(gm[0]),repr(gm[1]),repr(gm[2]),repr(gm[3]))
         curStr = curStr.replace(' ','0')
         launchStr = timeStr + "," + curStr
 

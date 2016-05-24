@@ -63,10 +63,10 @@ def convertToDateTime(timeArg):
         return datetime.datetime(*timeArg[:6])
     elif isinstance(timeArg, float):
         # seconds as float, should be avoided due to floating point errors
-        totalSecs = long(timeArg)
+        totalSecs = int(timeArg)
         micros = int((timeArg - totalSecs) * MICROS_IN_SECOND)
         return _convertSecsAndMicros(totalSecs, micros)
-    elif isinstance(timeArg, (int, long)):
+    elif isinstance(timeArg, int):
         # seconds as integer
         totalSecs = timeArg
         return _convertSecsAndMicros(totalSecs, 0)

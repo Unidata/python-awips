@@ -17,17 +17,17 @@
 # under the License.
 #
 
-import httplib
+import http.client
 import os
 import socket
 import sys
-import urllib
-import urlparse
+import urllib.request, urllib.parse, urllib.error
+import urllib.parse
 import warnings
 
-from cStringIO import StringIO
+from io import StringIO
 
-from TTransport import *
+from .TTransport import *
 
 
 class THttpClient(TTransportBase):
@@ -52,13 +52,13 @@ class THttpClient(TTransportBase):
       self.path = path
       self.scheme = 'http'
     else:
-      parsed = urlparse.urlparse(uri_or_host)
+      parsed = urllib.parse.urlparse(uri_or_host)
       self.scheme = parsed.scheme
       assert self.scheme in ('http', 'https')
       if self.scheme == 'http':
-        self.port = parsed.port or httplib.HTTP_PORT
+        self.port = parsed.port or http.client.HTTP_PORT
       elif self.scheme == 'https':
-        self.port = parsed.port or httplib.HTTPS_PORT
+        self.port = parsed.port or http.client.HTTPS_PORT
       self.host = parsed.hostname
       self.path = parsed.path
       if parsed.query:
@@ -70,9 +70,9 @@ class THttpClient(TTransportBase):
 
   def open(self):
     if self.scheme == 'http':
-      self.__http = httplib.HTTP(self.host, self.port)
+      self.__http = http.client.HTTP(self.host, self.port)
     else:
-      self.__http = httplib.HTTPS(self.host, self.port)
+      self.__http = http.client.HTTPS(self.host, self.port)
 
   def close(self):
     self.__http.close()
@@ -129,11 +129,11 @@ class THttpClient(TTransportBase):
       user_agent = 'Python/THttpClient'
       script = os.path.basename(sys.argv[0])
       if script:
-        user_agent = '%s (%s)' % (user_agent, urllib.quote(script))
+        user_agent = '%s (%s)' % (user_agent, urllib.parse.quote(script))
       self.__http.putheader('User-Agent', user_agent)
 
     if self.__custom_headers:
-        for key, val in self.__custom_headers.iteritems():
+        for key, val in self.__custom_headers.items():
             self.__http.putheader(key, val)
 
     self.__http.endheaders()

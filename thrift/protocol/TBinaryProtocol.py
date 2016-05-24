@@ -17,7 +17,7 @@
 # under the License.
 #
 
-from TProtocol import *
+from .TProtocol import *
 from struct import pack, unpack
 
 
@@ -204,7 +204,11 @@ class TBinaryProtocol(TProtocolBase):
 
   def readI32(self):
     buff = self.trans.readAll(4)
-    val, = unpack('!i', buff)
+    try:
+      val, = unpack('!i', buff)
+    except TypeError:
+      #str does not support the buffer interface
+      val, = unpack('!i', buff)
     return val
 
   def readI64(self):

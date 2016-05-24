@@ -25,6 +25,6 @@ __all__ = [
             'UserId'
           ]
 
-from User import User
-from UserId import UserId
+from .User import User
+from .UserId import UserId
 

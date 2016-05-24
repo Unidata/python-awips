@@ -27,7 +27,7 @@
 ##
 
 # File auto-generated against equivalent DynamicSerialize Java class
-from SiteActivationNotification import SiteActivationNotification
+from .SiteActivationNotification import SiteActivationNotification
 class ClusterActivationNotification(SiteActivationNotification):
 
     def __init__(self):

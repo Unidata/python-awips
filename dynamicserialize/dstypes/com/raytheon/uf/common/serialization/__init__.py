@@ -38,4 +38,4 @@ __all__ = [
            'SerializableExceptionWrapper',
            ]
 
-from SerializableExceptionWrapper import SerializableExceptionWrapper
+from .SerializableExceptionWrapper import SerializableExceptionWrapper

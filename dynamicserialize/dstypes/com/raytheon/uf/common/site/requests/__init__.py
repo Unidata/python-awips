@@ -26,7 +26,7 @@ __all__ = [
             'GetActiveSitesRequest',
           ]
 
-from ActivateSiteRequest import ActivateSiteRequest
-from DeactivateSiteRequest import DeactivateSiteRequest
-from GetActiveSitesRequest import GetActiveSitesRequest
+from .ActivateSiteRequest import ActivateSiteRequest
+from .DeactivateSiteRequest import DeactivateSiteRequest
+from .GetActiveSitesRequest import GetActiveSitesRequest
 

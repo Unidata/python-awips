@@ -40,12 +40,12 @@ import calendar
 import datetime
 import numpy
 import time
-import StringIO
+from six.moves import cStringIO as StringIO
 
 from dynamicserialize.dstypes.java.util import Date
 from dynamicserialize.dstypes.java.util import EnumSet
 
-from TimeRange import TimeRange
+from .TimeRange import TimeRange
 
 class DataTime(object):
 
@@ -60,19 +60,19 @@ class DataTime(object):
 
         if self.refTime is not None:
             if isinstance(self.refTime, datetime.datetime):
-                self.refTime = long(calendar.timegm(self.refTime.utctimetuple()) * 1000)
+                self.refTime = int(calendar.timegm(self.refTime.utctimetuple()) * 1000)
             elif isinstance(self.refTime, time.struct_time):
-                self.refTime = long(calendar.timegm(self.refTime) * 1000)
+                self.refTime = int(calendar.timegm(self.refTime) * 1000)
             elif hasattr(self.refTime, 'getTime'):
                 # getTime should be returning ms, there is no way to check this
                 # This is expected for java Date
-                self.refTime = long(self.refTime.getTime())
+                self.refTime = int(self.refTime.getTime())
             else:
-                self.refTime = long(refTime)
+                self.refTime = int(refTime)
             self.refTime = Date(self.refTime)
 
             if self.validPeriod is None:
-                validTimeMillis = self.refTime.getTime() + long(self.fcstTime * 1000)
+                validTimeMillis = self.refTime.getTime() + int(self.fcstTime * 1000)
                 self.validPeriod = TimeRange()
                 self.validPeriod.setStart(validTimeMillis / 1000)
                 self.validPeriod.setEnd(validTimeMillis / 1000)
@@ -114,7 +114,7 @@ class DataTime(object):
         self.levelValue = numpy.float64(levelValue)
 
     def __str__(self):
-        buffer = StringIO.StringIO()
+        buffer = StringIO()
 
         if self.refTime is not None:
             refTimeInSecs = self.refTime.getTime() / 1000
