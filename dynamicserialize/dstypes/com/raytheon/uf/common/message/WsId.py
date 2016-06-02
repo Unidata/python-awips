@@ -30,8 +30,16 @@
 import struct
 import socket
 import os
-import pwd
-import thread
+try:
+    import pwd
+    pwd_error = False
+except ImportError:
+    pwd_error = True
+	
+try:
+    import thread
+except ImportError:
+    import thread as _thread
 
 class WsId(object):
 
@@ -42,7 +50,10 @@ class WsId(object):
 
         self.userName = userName
         if userName is None:
-            self.userName = pwd.getpwuid(os.getuid()).pw_name
+            if not pwd_error:
+               self.userName = pwd.getpwuid(os.getuid()).pw_name
+            else:
+               self.userName = "GenericUsername"
 
         self.progName = progName
         if progName is None:
@@ -50,7 +61,7 @@ class WsId(object):
 
         self.pid = os.getpid()
 
-        self.threadId = long(thread.get_ident())
+        self.threadId = int(_thread.get_ident())
 
     def getNetworkId(self):
         return self.networkId
