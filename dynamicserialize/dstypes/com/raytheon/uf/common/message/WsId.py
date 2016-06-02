@@ -61,7 +61,7 @@ class WsId(object):
 
         self.pid = os.getpid()
 
-        self.threadId = int(_thread.get_ident())
+        self.threadId = long(_thread.get_ident())
 
     def getNetworkId(self):
         return self.networkId
