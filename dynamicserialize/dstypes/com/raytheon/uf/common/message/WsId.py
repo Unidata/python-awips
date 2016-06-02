@@ -30,16 +30,13 @@
 import struct
 import socket
 import os
+import thread
+
 try:
     import pwd
     pwd_error = False
 except ImportError:
     pwd_error = True
-	
-try:
-    import thread
-except ImportError:
-    import thread as _thread
 
 class WsId(object):
 
