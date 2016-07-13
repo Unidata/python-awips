@@ -44,25 +44,27 @@ AWIPS II Python Stack
 ---------------------
 
 A number of Python packages are bundled with the AWIPS II EDEX and CAVE
-installations, on top of base Python 2.7.9.
+installations.
 
 
 ======================  ==============  ==============================
 Package                 Version         RPM Name
 ======================  ==============  ==============================
-Python                  2.7.9           awips2-python
-**awips**               **0.9.3**       **awips2-python-awips**
+Python                  2.7.10           awips2-python
+**awips**               **0.9.4**       **awips2-python-awips**
 basemap                 1.0.7           awips2-python-basemap
 cartopy                 0.13.0          awips2-python-cartopy
 cherrypy                3.1.2           awips2-python-cherrypy
 cycler                  0.10.0          awips2-python-cycler
 cython                  0.23.4          awips2-python-cython
 dateutil                2.5.0           awips2-python-dateutil
+gfe                     1.0.0           awips2-python-gfe
 h5py                    1.3.0           awips2-python-h5py
+jep                     3.4.1           awips2-python-jep
 matplotlib              1.5.1           awips2-python-matplotlib
 metpy                   0.3.0           awips2-python-metpy
 nose                    0.11.1          awips2-python-nose
-numpy                   1.10.4          awips2-python-numpy
+numpy                   1.8.0           awips2-python-numpy
 pil                     1.1.6           awips2-python-pil
 pint                    0.7.2           awips2-python-pint
 pmw                     1.3.2           awips2-python-pmw
@@ -72,7 +74,7 @@ pygtk                   2.8.6           awips2-python-pygtk
 pyparsing               2.1.0           awips2-python-pyparsing
 qpid                    0.32            awips2-python-qpid
 scientific              2.8             awips2-python-scientific
-scipy                   0.17.0          awips2-python-scipy
+scipy                   0.9.0          awips2-python-scipy
 shapely                 1.5.9           awips2-python-shapely
 six                     1.10.0          awips2-python-six
 tables                  2.1.2           awips2-python-tables
