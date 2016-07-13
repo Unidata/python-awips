@@ -1,6 +1,8 @@
 Python Data Access Framework for AWIPS II
 =========================================
 
+.. _Jupyter Notebook examples: http://nbviewer.jupyter.org/github/Unidata/python-awips/tree/master/examples/notebooks
+
 .. image:: https://img.shields.io/pypi/v/python-awips.svg
         :target: https://pypi.python.org/pypi/python-awips/
         :alt: PyPI Package
@@ -23,7 +25,13 @@ Requirements
 
 - Python 2.7 minimum
 - pip install numpy shapely
-- pip install metpy enum34 - to run Jupyter Notebook examples
+- pip install metpy enum34 - to run `Jupyter Notebook examples`_
+
+Documentation
+------------------
+
+* http://python-awips.readthedocs.org/en/latest/
+* `Jupyter Notebook examples`_
 
 Install from Github
 -----------
@@ -71,8 +79,3 @@ A short script to request available grid names from an EDEX server::
         for grid in available_grids:
             print grid
 
-Documentation
-------------------
-
-* http://python-awips.readthedocs.org/en/latest/
-* `Jupyter Notebook Examples <http://nbviewer.jupyter.org/github/Unidata/python-awips/tree/master/examples/notebooks/>`_
