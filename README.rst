@@ -1,7 +1,7 @@
 Python Data Access Framework for AWIPS II
 =========================================
 
-|PyPI| |PyPIDownloads| |LatestDocs|
+|PyPI| |LatestDocs|
 
 .. |PyPI| image:: https://img.shields.io/pypi/v/python-awips.svg
         :target: https://pypi.python.org/pypi/python-awips/
