@@ -20,28 +20,20 @@
 
 # File auto-generated against equivalent DynamicSerialize Java class
 
-import os
+class DeleteOrphansRequest(object):
 
-try:
-    import pwd
-    pwd_error = False
-except ImportError:
-    pwd_error = True
+    def __init__(self):
+        self.filename = None
+        self.oldestDate = None
 
-class UserId(object):
+    def getOldestDate(self):
+        return self.oldestDate
 
-    def __init__(self, id = None):
-        if id is None:
-           if not pwd_error:
-              self.id = pwd.getpwuid(os.getuid()).pw_name
-           else:
-              self.id = "GenericUsername"
-        else:
-           self.id = id
+    def setOldestDate(self, oldestDate):
+        self.oldestDate = oldestDate
 
-    def getId(self):
-        return self.id
+    def getFilename(self):
+        return self.filename
 
-    def setId(self, id):
-        self.id = id
-
+    def setFilename(self, filename):
+        self.filename = filename

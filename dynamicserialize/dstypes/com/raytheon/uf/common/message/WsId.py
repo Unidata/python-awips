@@ -30,11 +30,13 @@
 import struct
 import socket
 import os
-import pwd
+import thread
+
 try:
-    import _thread
+    import pwd
+    pwd_error = False
 except ImportError:
-    import thread as _thread
+    pwd_error = True
 
 class WsId(object):
 
@@ -45,7 +47,10 @@ class WsId(object):
 
         self.userName = userName
         if userName is None:
-            self.userName = pwd.getpwuid(os.getuid()).pw_name
+            if not pwd_error:
+               self.userName = pwd.getpwuid(os.getuid()).pw_name
+            else:
+               self.userName = "GenericUsername"
 
         self.progName = progName
         if progName is None:

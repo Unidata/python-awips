@@ -18,30 +18,29 @@
 # further licensing information.
 ##
 
-# File auto-generated against equivalent DynamicSerialize Java class
 
-import os
+#
+# Adapter for FormattedDate
+#
+#
+#     SOFTWARE HISTORY
+#
+#    Date            Ticket#       Engineer       Description
+#    ------------    ----------    -----------    --------------------------
+#    9/21/2015       4486          rjpeter        Initial creation.
+#
+#
+#
 
-try:
-    import pwd
-    pwd_error = False
-except ImportError:
-    pwd_error = True
+from dynamicserialize.dstypes.com.raytheon.uf.common.time import FormattedDate
 
-class UserId(object):
 
-    def __init__(self, id = None):
-        if id is None:
-           if not pwd_error:
-              self.id = pwd.getpwuid(os.getuid()).pw_name
-           else:
-              self.id = "GenericUsername"
-        else:
-           self.id = id
+ClassAdapter = 'com.raytheon.uf.common.time.FormattedDate'
 
-    def getId(self):
-        return self.id
+def serialize(context, date):
+    context.writeI64(date.getTime())
 
-    def setId(self, id):
-        self.id = id
-
+def deserialize(context):
+    result = FormattedDate()
+    result.setTime(context.readI64())
+    return result

@@ -17,3 +17,4 @@ Documentation
    examples/index
    about
    dev
+   gridparms
