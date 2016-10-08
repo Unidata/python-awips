@@ -36,6 +36,7 @@
 #    07/22/14         3185         njensen        Added optional/default args to newDataRequest
 #    07/30/14         3185         njensen        Renamed valid identifiers to optional
 #    Apr 26, 2015     4259         njensen        Updated for new JEP API
+#    10/07/16         ----         mjames@ucar    Added getForecastRun
 #
 #
 #
@@ -58,6 +59,12 @@ else:
     router = ThriftClientRouter.ThriftClientRouter(THRIFT_HOST)
     USING_NATIVE_THRIFT = True
 
+def getForecastRun(cycle, times):
+    fcstRun = []
+    for t in times:
+        if str(t)[:19] == str(cycle):
+            fcstRun.append(t)
+    return fcstRun
 
 def getAvailableTimes(request, refTimeOnly=False):
     """
