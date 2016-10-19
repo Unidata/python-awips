@@ -160,9 +160,9 @@ class ActiveTableRecord(with_metaclass(abc.ABCMeta, object)):
         return self.issueTime
 
     def setIssueTime(self, issueTime):
-	from datetime import datetime
-	date = datetime.utcfromtimestamp(issueTime.getTime()/1000)
-	self.key.setIssueYear(date.year)
+        from datetime import datetime
+        date = datetime.utcfromtimestamp(issueTime.getTime()/1000)
+        self.key.setIssueYear(date.year)
         self.issueTime = issueTime
 
     def getPurgeTime(self):

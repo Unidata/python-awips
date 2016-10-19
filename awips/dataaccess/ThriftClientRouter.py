@@ -118,6 +118,7 @@ class ThriftClientRouter(object):
             # convert the bytearray to a byte string and load it.
             geometries.append(shapely.wkb.loads(str(byteArrWKB)))
 
+
         retVal = []
         for geoDataRecord in response.getGeoData():
             geom = geometries[geoDataRecord.getGeometryWKBindex()]
