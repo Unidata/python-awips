@@ -116,7 +116,7 @@ class ThriftClientRouter(object):
             # convert the wkb to a bytearray with only positive values
             byteArrWKB = bytearray([x % 256 for x in wkb.tolist()])
             # convert the bytearray to a byte string and load it.
-            geometries.append(shapely.wkb.loads(str(byteArrWKB)))
+            geometries.append(shapely.wkb.loads(bytes(byteArrWKB)))
 
 
         retVal = []

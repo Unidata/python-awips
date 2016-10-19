@@ -162,8 +162,8 @@ class ThriftSerializationContext(object):
         elif name.find('$') > -1:
             # it's an inner class, we're going to hope it's an enum, treat it special
             fieldName, fieldType, fieldId = self.protocol.readFieldBegin()
-            if fieldName != '__enumValue__':
-                raise dynamiceserialize.SerializationException(b"Expected to find enum payload.  Found: " + fieldName)
+            if fieldName.decode('utf8') != '__enumValue__':
+                raise dynamicserialize.SerializationException(b"Expected to find enum payload.  Found: " + fieldName)
             obj = self.protocol.readString()
             self.protocol.readFieldEnd()
             return obj
