@@ -30,7 +30,7 @@
 import struct
 import socket
 import os
-import thread
+import _thread
 
 try:
     import pwd
