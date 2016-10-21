@@ -1,6 +1,6 @@
 
-Dev Guide
-=========
+Development Guide
+=================
 
 The Data Access Framework allows developers to retrieve different types
 of data without having dependencies on those types of data. It provides
@@ -266,7 +266,7 @@ contributing the necessary code for the framework to support its data.
 For example, the satellite plugin provides a factory class for
 interacting with the framework and registers itself as being compatible
 with the Data Access Framework. This concept is similar to how EDEX in
-AWIPS II expects a plugin developer to provide a decoder class and
+AWIPS expects a plugin developer to provide a decoder class and
 record class and register them, but then automatically manages the rest
 of the ingest process including routing, storing, and alerting on new
 data. This style of plugin architecture effectively enables the

@@ -1,8 +1,8 @@
 .. _examples-index:
 
-################
-  Data Plotting Examples
-################
+######################
+Data Plotting Examples
+######################
 
 .. toctree::
    :maxdepth: 1

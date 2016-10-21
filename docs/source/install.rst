@@ -1,6 +1,6 @@
 .. _Jupyter Notebook: http://nbviewer.jupyter.org/github/Unidata/python-awips/tree/master/examples/notebooks
 
-Install python-awips
+Installation
 ------------------
 
 - pip install python-awips
@@ -15,19 +15,23 @@ Requirements
 Install from Github
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- git clone https://github.com/Unidata/python-awips.git
-- cd python-awips
+- git clone https://github.com/Unidata/python-awips.git && cd python-awips
 - python setup.py install
 
 
-Install for AWIPS (/awips2/python)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Install for AWIPS
+~~~~~~~~~~~~~~~~~
 
-AWIPS II >=15.1.3 (March 2016) has `python-awips` bundled with the awips2-server and awips2-cave groups, as well as a full meteorological data stack (metpy, matplotlib, numpy, etc).
+On standalone AWIPS systems, the full `AWIPS Python Stack <about.html#awips-ii-python-stack>`_ is installed to ``/awips2/python`` as RPM packages. 
 
 Easy install on an AWIPS system
 
-- wget https://bootstrap.pypa.io/ez_setup.py -O - | /awips2/python/bin/python
-- /awips2/python/bin/easy_install pip
-- /awips2/python/bin/pip install python-awips
+* For Unidata AWIPS release **16.2.2+**:
+
+        /awips2/python/bin/easy_install pip
+        /awips2/python/bin/pip install python-awips
+  
+* For releases before and up to **16.1.5** you may need to run
+
+        yum install awips2-python-setuptools
 
