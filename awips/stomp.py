@@ -87,13 +87,17 @@ import random
 import re
 import socket
 import sys
-import _thread
 import threading
 import time
 import types
 import xml.dom.minidom
 from io import StringIO
 from functools import reduce
+
+try:
+    import _thread
+except ImportError:
+    import thread
 
 #
 # stomp.py version number
