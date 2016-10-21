@@ -44,9 +44,23 @@ from dynamicserialize.dstypes.com.raytheon.uf.common.time import TimeRange
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.radar.request import GetRadarDataRecordRequest
 
 def get_datetime_str(record):
+    """
+    Get the datetime string for a record.
+
+    :param record: the record to get data for.
+
+    :returns: datetime string.
+    """
     return str(record.getDataTime())[0:19].replace(" ","_") + ".0"
 
 def get_data_type(azdat):
+    """
+    Get the radar file type (radial or raster).
+
+    :param azdat: Boolean.
+
+    :returns: Radial or raster.
+    """
     if azdat:
         dattyp = "radial"
     else :

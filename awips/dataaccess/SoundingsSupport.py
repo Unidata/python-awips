@@ -42,24 +42,18 @@ from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.level import Lev
 
 
 def getSounding(modelName, weatherElements, levels, samplePoint, refTime=None, timeRange=None):
-    """"
+    """
     Performs a series of Data Access Framework requests to retrieve a sounding object
     based on the specified request parameters.
 
-    Args:
-            modelName: the grid model datasetid to use as the basis of the sounding.
-            weatherElements: a list of parameters to return in the sounding.
-            levels: a list of levels to sample the given weather elements at
-            samplePoint: a lat/lon pair to perform the sampling of data at.
-            refTime: (optional) the grid model reference time to use for the sounding.
-                     If not specified, the latest ref time in the system will be used.
-            timeRange: (optional) a TimeRange to specify which forecast hours to use.
-                     If not specified, will default to all forecast hours.
+    :param modelName: the grid model datasetid to use as the basis of the sounding.
+    :param weatherElements: a list of parameters to return in the sounding.
+    :param levels: a list of levels to sample the given weather elements at
+    :param samplePoint: a lat/lon pair to perform the sampling of data at.
+    :param refTime: (optional) the grid model reference time to use for the sounding. If not specified, the latest ref time in the system will be used.
+    :param timeRange: (optional) a TimeRange to specify which forecast hours to use. If not specified, will default to all forecast hours.
 
-    Returns:
-            A _SoundingCube instance, which acts a 3-tiered dictionary, keyed
-            by DataTime, then by level and finally by weather element. If no
-            data is available for the given request parameters, None is returned.
+    :returns: A _SoundingCube instance, which acts a 3-tiered dictionary, keyed by DataTime, then by level and finally by weather element. If no data is available for the given request parameters, None is returned.
     """
 
     (locationNames, parameters, levels, envelope, refTime, timeRange) = \
@@ -87,8 +81,7 @@ def setEDEXHost(host):
     """
     Changes the EDEX host the Data Access Framework is communicating with.
 
-    Args:
-            host: the EDEX host to connect to
+    :param host: the EDEX host to connect to
     """
 
     if host:
@@ -174,8 +167,7 @@ class _SoundingCube(object):
         """
         Returns the valid times for this sounding.
 
-        Returns:
-            A list containing the valid DataTimes for this sounding in order.
+        :returns: A list containing the valid DataTimes for this sounding in order.
         """
         return self._sortedTimes
 
@@ -213,8 +205,7 @@ class _SoundingTimeLayer(object):
         """
         Returns the DataTime for this sounding cube layer.
 
-        Returns:
-            The DataTime for this sounding layer.
+        :returns: The DataTime for this sounding layer.
         """
         return self._dataTime
 
@@ -222,9 +213,7 @@ class _SoundingTimeLayer(object):
         """
         Returns the valid levels for this sounding.
 
-        Returns:
-            A list containing the valid levels for this sounding in order of
-            closest to surface to highest from surface.
+        :returns: A list containing the valid levels for this sounding in order of closest to surface to highest from surface.
         """
         sortedLevels = [Level(level) for level in list(self._dataDict.keys())]
         sortedLevels.sort()
@@ -259,8 +248,7 @@ class _SoundingTimeAndLevelLayer(object):
         """
         Returns the level for this sounding cube layer.
 
-        Returns:
-            The level for this sounding layer.
+        :returns: The level for this sounding layer.
         """
         return self._level
 
@@ -268,8 +256,7 @@ class _SoundingTimeAndLevelLayer(object):
         """
         Returns the valid parameters for this sounding.
 
-        Returns:
-            A list containing the valid parameter names.
+        :returns: A list containing the valid parameter names.
         """
         return list(self._parameters.keys())
 
@@ -277,7 +264,6 @@ class _SoundingTimeAndLevelLayer(object):
         """
         Returns the DataTime for this sounding cube layer.
 
-        Returns:
-            The DataTime for this sounding layer.
+        :returns: The DataTime for this sounding layer.
         """
         return self._time

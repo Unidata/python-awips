@@ -49,13 +49,11 @@ def convertToDateTime(timeArg):
     the dynamicserialize types like Date and Timestamp. Raises TypeError
     if no conversion can be performed.
 
-    Args:
-            timeArg: a python object representing a date and time. Supported
-            types include datetime, struct_time, float, int, long and the
-            dynamicserialize types Date and Timestamp.
+    :param timeArg: a python object representing a date and time. Supported
+        types include datetime, struct_time, float, int, long and the
+        dynamicserialize types Date and Timestamp.
 
-    Returns:
-        A datetime that represents the same date/time as the passed in object.
+    :returns: A datetime that represents the same date/time as the passed in object.
     """
     if isinstance(timeArg, datetime.datetime):
         return timeArg
@@ -90,12 +88,10 @@ def constructTimeRange(*args):
     Builds a python dynamicserialize TimeRange object from the given
     arguments.
 
-    Args:
-            args*: must be a TimeRange or a pair of objects that can be
-                   converted to a datetime via convertToDateTime().
+    :param args*: must be a TimeRange or a pair of objects that can be
+         converted to a datetime via convertToDateTime().
 
-    Returns:
-        A TimeRange.
+    :returns: A TimeRange.
     """
 
     if len(args) == 1 and isinstance(args[0], TimeRange):
