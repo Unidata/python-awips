@@ -30,7 +30,10 @@
 import struct
 import socket
 import os
-import _thread
+try:
+    import _thread
+except ImportError:
+    import thread
 
 try:
     import pwd
