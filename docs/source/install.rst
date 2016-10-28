@@ -28,10 +28,10 @@ Easy install on an AWIPS system
 
 * For Unidata AWIPS release **16.2.2+**:
 
-        /awips2/python/bin/easy_install pip
-        /awips2/python/bin/pip install python-awips
+        * /awips2/python/bin/easy_install pip
+        * /awips2/python/bin/pip install python-awips
   
 * For releases before and up to **16.1.5** you may need to run
 
-        yum install awips2-python-setuptools
+        * yum install awips2-python-setuptools
 
