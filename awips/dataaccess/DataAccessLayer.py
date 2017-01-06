@@ -30,12 +30,16 @@
 #    12/10/12                      njensen        Initial Creation.
 #    Feb 14, 2013    1614          bsteffen       refactor data access framework
 #                                                 to use single request.
-#    04/10/13         1871         mnash          move getLatLonCoords to JGridData and add default args
-#    05/29/13         2023         dgilling       Hook up ThriftClientRouter.
-#    03/03/14         2673         bsteffen       Add ability to query only ref times.
-#    07/22/14         3185         njensen        Added optional/default args to newDataRequest
-#    07/30/14         3185         njensen        Renamed valid identifiers to optional
-#    Apr 26, 2015     4259         njensen        Updated for new JEP API
+#    04/10/13        1871          mnash          move getLatLonCoords to JGridData and add default args
+#    05/29/13        2023          dgilling       Hook up ThriftClientRouter.
+#    03/03/14        2673          bsteffen       Add ability to query only ref times.
+#    07/22/14        3185          njensen        Added optional/default args to newDataRequest
+#    07/30/14        3185          njensen        Renamed valid identifiers to optional
+#    Apr 26, 2015    4259          njensen        Updated for new JEP API
+#    Apr 13, 2016    5379          tgurney        Add getIdentifierValues()
+#    Jun 01, 2016    5587          tgurney        Add new signatures for
+#                                                 getRequiredIdentifiers() and
+#                                                 getOptionalIdentifiers()
 #    10/07/16         ----         mjames@ucar    Added getForecastRun
 #
 #
@@ -44,6 +48,7 @@
 
 import sys
 import subprocess
+import warnings
 
 THRIFT_HOST = "edex"
 USING_NATIVE_THRIFT = False
@@ -80,6 +85,7 @@ def getAvailableTimes(request, refTimeOnly=False):
     """
     return router.getAvailableTimes(request, refTimeOnly)
 
+
 def getGridData(request, times=[]):
     """
     Gets the grid data that matches the request at the specified times.  Each
@@ -95,6 +101,7 @@ def getGridData(request, times=[]):
             a list of IGridData
     """
     return router.getGridData(request, times)
+
 
 def getGeometryData(request, times=[]):
     """
@@ -112,6 +119,7 @@ def getGeometryData(request, times=[]):
     """
     return router.getGeometryData(request, times)
 
+
 def getAvailableLocationNames(request):
     """
     Gets the available location names that match the request without actually
@@ -124,6 +132,7 @@ def getAvailableLocationNames(request):
             a list of strings of available location names.
     """
     return router.getAvailableLocationNames(request)
+
 
 def getAvailableParameters(request):
     """
@@ -138,6 +147,7 @@ def getAvailableParameters(request):
     """
     return router.getAvailableParameters(request)
 
+
 def getAvailableLevels(request):
     """
     Gets the available levels that match the request without actually
@@ -151,30 +161,52 @@ def getAvailableLevels(request):
     """
     return router.getAvailableLevels(request)
 
-def getRequiredIdentifiers(datatype):
+
+def getRequiredIdentifiers(request):
     """
-    Gets the required identifiers for this datatype.  These identifiers
+    Gets the required identifiers for this request.  These identifiers
     must be set on a request for the request of this datatype to succeed.
 
     Args:
-            datatype: the datatype to find required identifiers for
+            request: the request to find required identifiers for
 
     Returns:
             a list of strings of required identifiers
     """
-    return router.getRequiredIdentifiers(datatype)
+    if str(request) == request:
+        warnings.warn("Use getRequiredIdentifiers(IDataRequest) instead",
+                      DeprecationWarning)
+    return router.getRequiredIdentifiers(request)
 
-def getOptionalIdentifiers(datatype):
+
+def getOptionalIdentifiers(request):
     """
-    Gets the optional identifiers for this datatype.
+    Gets the optional identifiers for this request.
 
     Args:
-            datatype: the datatype to find optional identifiers for
+            request: the request to find optional identifiers for
 
     Returns:
             a list of strings of optional identifiers
     """
-    return router.getOptionalIdentifiers(datatype)
+    if str(request) == request:
+        warnings.warn("Use getOptionalIdentifiers(IDataRequest) instead",
+                      DeprecationWarning)
+    return router.getOptionalIdentifiers(request)
+
+
+def getIdentifierValues(request, identifierKey):
+    """
+    Gets the allowed values for a particular identifier on this datatype.
+
+    Args:
+            request: the request to find identifier values for
+            identifierKey: the identifier to find values for
+
+    Returns:
+            a list of strings of allowed values for the specified identifier
+    """
+    return router.getIdentifierValues(request, identifierKey)
 
 def newDataRequest(datatype=None, **kwargs):
     """"

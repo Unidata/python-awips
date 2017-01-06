@@ -28,6 +28,7 @@
 #    Date            Ticket#       Engineer       Description
 #    ------------    ----------    -----------    --------------------------
 #    06/03/13         #2023        dgilling      Initial Creation.
+#    11/10/16         #5900        bsteffen      Correct grid shape
 #
 #
 
@@ -51,7 +52,7 @@ class PyGridData(IGridData, PyData.PyData):
         ny = ny
         self.__parameter = gridDataRecord.getParameter()
         self.__unit = gridDataRecord.getUnit()
-        self.__gridData = numpy.reshape(numpy.array(gridDataRecord.getGridData()), (nx, ny))
+        self.__gridData = numpy.reshape(numpy.array(gridDataRecord.getGridData()), (ny, nx))
         self.__latLonGrid = latLonGrid
 
     def getParameter(self):

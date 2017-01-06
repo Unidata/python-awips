@@ -24,6 +24,7 @@
 #    ------------    ----------    -----------    --------------------------
 #    05/22/2015       4522         randerso       Initial creation (hand generated)
 #    03/17/2016       5426         randerso       Add issueYear to primary key
+#    06/27/2016       5707         nabowle        Remove geometry
 #
 ##
 
@@ -48,7 +49,6 @@ class ActiveTableRecord(object):
         self.issueTime = None
         self.purgeTime = None
         self.ufn = None
-        self.geometry = None
         self.forecaster = None
         self.motdir = None
         self.motspd = None
@@ -162,9 +162,9 @@ class ActiveTableRecord(object):
         return self.issueTime
 
     def setIssueTime(self, issueTime):
-	from datetime import datetime
-	date = datetime.utcfromtimestamp(issueTime.getTime()/1000)
-	self.key.setIssueYear(date.year)
+        from datetime import datetime
+        date = datetime.utcfromtimestamp(issueTime.getTime()/1000)
+        self.key.setIssueYear(date.year)
         self.issueTime = issueTime
 
     def getPurgeTime(self):
@@ -178,12 +178,6 @@ class ActiveTableRecord(object):
 
     def setUfn(self, ufn):
         self.ufn = ufn
-
-    def getGeometry(self):
-        return self.geometry
-
-    def setGeometry(self, geometry):
-        self.geometry = geometry
 
     def getForecaster(self):
         return self.forecaster

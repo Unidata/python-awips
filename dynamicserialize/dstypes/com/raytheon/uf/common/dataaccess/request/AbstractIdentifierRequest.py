@@ -26,6 +26,8 @@
 #    Date            Ticket#       Engineer       Description
 #    ------------    ----------    -----------    --------------------------
 #    07/23/14         #3185        njensen        Initial Creation.
+#    Jun 01, 2016     5587         tgurney        Change self.datatype to
+#                                                 self.request
 #
 #
 
@@ -35,11 +37,11 @@ class AbstractIdentifierRequest(object):
     __metaclass__ = abc.ABCMeta
 
     def __init__(self):
-        self.datatype = None
+        self.request = None
 
-    def getDatatype(self):
-        return self.datatype
+    def getRequest(self):
+        return self.request
 
-    def setDatatype(self, datatype):
-        self.datatype = datatype
+    def setRequest(self, request):
+        self.request = request
 

@@ -24,6 +24,7 @@
 #    ------------    ----------    -----------    --------------------------
 #    05/22/2015       4522         randerso       Initial creation
 #    03/17/2016       5426         randerso       Add issueYear to primary key
+#    08/03/2016       19213        ryu            Add pil to primary key
 #
 ##
 class ActiveTableKey(object):
@@ -35,6 +36,7 @@ class ActiveTableKey(object):
         self.etn = None
         self.ugcZone = None
         self.issueYear = None
+        self.pil = None
 
     def getOfficeid(self):
         return self.officeid
@@ -71,3 +73,9 @@ class ActiveTableKey(object):
 
     def setIssueYear(self, issueYear):
         self.issueYear = issueYear
+
+    def getPil(self):
+        return self.pil
+
+    def setPil(self, pil):
+        self.pil = pil

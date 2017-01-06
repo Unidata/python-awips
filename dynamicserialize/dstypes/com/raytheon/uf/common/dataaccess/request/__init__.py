@@ -31,7 +31,8 @@ __all__ = [
             'GetGridDataRequest',
             'GetRequiredIdentifiersRequest',
             'GetSupportedDatatypesRequest',
-            'GetOptionalIdentifiersRequest'
+            'GetOptionalIdentifiersRequest',
+            'GetIdentifierValuesRequest'
           ]
 
 from AbstractDataAccessRequest import AbstractDataAccessRequest
@@ -45,4 +46,4 @@ from GetGridDataRequest import GetGridDataRequest
 from GetRequiredIdentifiersRequest import GetRequiredIdentifiersRequest
 from GetSupportedDatatypesRequest import GetSupportedDatatypesRequest
 from GetOptionalIdentifiersRequest import GetOptionalIdentifiersRequest
-
+from GetIdentifierValuesRequest import GetIdentifierValuesRequest
