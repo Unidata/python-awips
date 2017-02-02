@@ -50,10 +50,11 @@ help:
 
 .PHONY: clean
 clean:
-	rm -rf $(BUILDDIR)/*
+	rm -rf $(BUILDDIR)/* source/examples/generated/*
 
 .PHONY: html
 html:
+	make clean
 	$(SPHINXBUILD) -vb html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
