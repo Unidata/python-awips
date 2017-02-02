@@ -26,6 +26,7 @@ __all__ = [
             'auth',
             'dataaccess',
             'dataplugin',
+            'dataquery',
             'datastorage',
             'localization',
             'management',

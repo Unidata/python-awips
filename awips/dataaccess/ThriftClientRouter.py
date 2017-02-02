@@ -23,17 +23,22 @@
 #
 #
 #
-#     SOFTWARE HISTORY
+#    SOFTWARE HISTORY
 #
 #    Date            Ticket#       Engineer       Description
 #    ------------    ----------    -----------    --------------------------
-#    05/21/13         #2023        dgilling       Initial Creation.
-#    01/06/14         #2537        bsteffen       Share geometry WKT.
-#    03/03/14         #2673        bsteffen       Add ability to query only ref times.
-#    07/22/14         #3185        njensen        Added optional/default args to newDataRequest
-#    07/23/14         #3185        njensen        Added new methods
-#    07/30/14         #3185        njensen        Renamed valid identifiers to optional
-#    06/30/15         #4569        nabowle        Use hex WKB for geometries.
+#    05/21/13        2023          dgilling       Initial Creation.
+#    01/06/14        2537          bsteffen       Share geometry WKT.
+#    03/03/14        2673          bsteffen       Add ability to query only ref times.
+#    07/22/14        3185          njensen        Added optional/default args to newDataRequest
+#    07/23/14        3185          njensen        Added new methods
+#    07/30/14        3185          njensen        Renamed valid identifiers to optional
+#    06/30/15        4569          nabowle        Use hex WKB for geometries.
+#    04/13/15        5379          tgurney        Add getIdentifierValues()
+#    06/01/16        5587          tgurney        Add new signatures for
+#                                                 getRequiredIdentifiers() and
+#                                                 getOptionalIdentifiers()
+#    11/10/16        5900          bsteffen       Correct grid shape
 #
 
 
@@ -49,6 +54,7 @@ from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request import G
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request import GetAvailableLevelsRequest
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request import GetRequiredIdentifiersRequest
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request import GetOptionalIdentifiersRequest
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request import GetIdentifierValuesRequest
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request import GetSupportedDatatypesRequest
 
 from awips import ThriftClient
@@ -87,8 +93,8 @@ class ThriftClientRouter(object):
         for location in locNames:
             nx = response.getSiteNxValues()[location]
             ny = response.getSiteNyValues()[location]
-            latData = numpy.reshape(numpy.array(response.getSiteLatGrids()[location]), (nx, ny))
-            lonData = numpy.reshape(numpy.array(response.getSiteLonGrids()[location]), (nx, ny))
+            latData = numpy.reshape(numpy.array(response.getSiteLatGrids()[location]), (ny, nx))
+            lonData = numpy.reshape(numpy.array(response.getSiteLonGrids()[location]), (ny, nx))
             locSpecificData[location] = (nx, ny, (lonData, latData))
 
         retVal = []
@@ -143,16 +149,29 @@ class ThriftClientRouter(object):
         response = self._client.sendRequest(levelReq)
         return response
 
-    def getRequiredIdentifiers(self, datatype):
+    def getRequiredIdentifiers(self, request):
+        if str(request) == request:
+            # Handle old version getRequiredIdentifiers(str)
+            request = self.newDataRequest(request)
         idReq = GetRequiredIdentifiersRequest()
-        idReq.setDatatype(datatype)
+        idReq.setRequest(request)
         response = self._client.sendRequest(idReq)
         return response
 
-    def getOptionalIdentifiers(self, datatype):
+    def getOptionalIdentifiers(self, request):
+        if str(request) == request:
+            # Handle old version getOptionalIdentifiers(str)
+            request = self.newDataRequest(request)
         idReq = GetOptionalIdentifiersRequest()
-        idReq.setDatatype(datatype)
+        idReq.setRequest(request)
         response = self._client.sendRequest(idReq)
+        return response
+
+    def getIdentifierValues(self, request, identifierKey):
+        idValReq = GetIdentifierValuesRequest()
+        idValReq.setIdentifierKey(identifierKey)
+        idValReq.setRequestParameters(request)
+        response = self._client.sendRequest(idValReq)
         return response
 
     def newDataRequest(self, datatype, parameters=[], levels=[], locationNames = [], envelope=None, **kwargs):

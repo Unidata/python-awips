@@ -26,7 +26,6 @@ class CopyRequest(object):
         self.repack = None
         self.repackCompression = None
         self.outputDir = None
-        self.timestampCheck = None
         self.minMillisSinceLastChange = None
         self.maxMillisSinceLastChange = None
         self.filename = None
@@ -48,12 +47,6 @@ class CopyRequest(object):
 
     def setOutputDir(self, outputDir):
         self.outputDir = outputDir
-
-    def getTimestampCheck(self):
-        return self.timestampCheck
-
-    def setTimestampCheck(self, timestampCheck):
-        self.timestampCheck = timestampCheck
 
     def getMinMillisSinceLastChange(self):
         return self.minMillisSinceLastChange
