@@ -1,3 +1,26 @@
+nexrad = {
+    "N0Q" : {
+            'id': 94,
+            'unit':'dBZ',
+            'name':'0.5 deg Base Reflectivity',
+            'ctable': ['NWSStormClearReflectivity',-20., 0.5],
+            'res': 1000.,
+            'elev': '0.5'},
+    "N0U" : {
+            'id': 99,
+            'unit':'kts',
+            'name':'0.5 deg Base Velocity',
+            'ctable': ['NWS8bitVel',-100.,1.],
+            'res': 250.,
+            'elev': '0.5'},
+    "EET" : {
+            'id': 135,
+            'unit':'kft',
+            'name':'Enhanced Echo Tops',
+            'ctable': ['NWSEnhancedEchoTops',2,1],
+            'res': 1000.,
+            'elev': '0.0'}
+}
 # Dictionary that maps VTEC codes to headlines
 # Modified from com.raytheon.uf.edex.activetable/utility/common_static/base/vtec/VTECTable.py
 # Colors from https://www.weather.gov/bro/mapcolors
