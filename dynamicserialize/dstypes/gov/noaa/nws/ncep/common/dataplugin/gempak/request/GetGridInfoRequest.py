@@ -1,19 +1,19 @@
 
 # File auto-generated against equivalent DynamicSerialize Java class
+#
+#      SOFTWARE HISTORY
+#
+#     Date            Ticket#       Engineer       Description
+#     ------------    ----------    -----------    --------------------------
+#     Sep 16, 2016                  pmoyer         Generated
 
 class GetGridInfoRequest(object):
 
     def __init__(self):
-        self.pluginName = None
         self.modelId = None
         self.reftime = None
+        self.pluginName = None
         self.fcstsec = None
-
-    def getPluginName(self):
-        return self.pluginName
-
-    def setPluginName(self, pluginName):
-        self.pluginName = pluginName
 
     def getModelId(self):
         return self.modelId
@@ -26,6 +26,12 @@ class GetGridInfoRequest(object):
 
     def setReftime(self, reftime):
         self.reftime = reftime
+
+    def getPluginName(self):
+        return self.pluginName
+
+    def setPluginName(self, pluginName):
+        self.pluginName = pluginName
 
     def getFcstsec(self):
         return self.fcstsec

@@ -7,7 +7,7 @@
 #     ------------    ----------    -----------    --------------------------
 #     Sep 16, 2016                  pmoyer         Generated
 
-class StationDataRequest(object):
+class UpperAirDataRequest(object):
 
     def __init__(self):
         self.refTime = None
