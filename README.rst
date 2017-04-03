@@ -1,7 +1,11 @@
-Python Data Access Framework for AWIPS II
-=========================================
+AWIPS Python Data Access Framework
+==================================
 
-|PyPI| |LatestDocs|
+|License| |PyPI| |LatestDocs|
+
+.. |License| image:: https://img.shields.io/pypi/l/python-awips.svg
+    :target: https://pypi.python.org/pypi/python-awips/
+    :alt: License
 
 .. |PyPI| image:: https://img.shields.io/pypi/v/python-awips.svg
         :target: https://pypi.python.org/pypi/python-awips/
@@ -41,13 +45,7 @@ Install from Github
 - python setup.py install
 
 
-Install for AWIPS (/awips2/python)
------------------------------------------
+License
+-------
 
-AWIPS II >=15.1.3 (March 2016) has `python-awips` bundled with the awips2-server and awips2-cave groups, as well as a full meteorological data stack (metpy, matplotlib, numpy, etc).
-
-Easy install on an AWIPS system
-
-- wget https://bootstrap.pypa.io/ez_setup.py -O - | /awips2/python/bin/python
-- /awips2/python/bin/easy_install pip
-- /awips2/python/bin/pip install python-awips
+Unidata AWIPS source code and binaries (RPMs) are considered to be in the public domain, meaning there are no restrictions on any download, modification, or distribution in any form (original or modified). The Python AWIPS package contains no proprietery content and is therefore not subject to export controls as stated in the Master Rights licensing file and source code headers.
