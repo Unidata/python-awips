@@ -95,7 +95,7 @@ class RequestConstraint(object):
         """Build a new RequestConstraint."""
         try:
             constraintType = cls.CONSTRAINT_MAP[operator.upper()]
-        except KeyError, AttributeError:
+        except KeyError is AttributeError:
             errmsg = '{} is not a valid operator. Valid operators are: {}'
             validOperators = list(sorted(cls.CONSTRAINT_MAP.keys()))
             raise ValueError(errmsg.format(operator, validOperators))

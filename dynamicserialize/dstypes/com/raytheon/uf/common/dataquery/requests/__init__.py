@@ -7,5 +7,5 @@ __all__ = [
             'RequestConstraint'
           ]
 
-from RequestConstraint import RequestConstraint
+from .RequestConstraint import RequestConstraint
 
