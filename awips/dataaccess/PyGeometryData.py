@@ -57,7 +57,7 @@ class PyGeometryData(IGeometryData, PyData.PyData):
 
     def getString(self, param):
         value = self.__dataMap[param][0]
-        return str(value)
+        return value
 
     def getNumber(self, param):
         value = self.__dataMap[param][0]
