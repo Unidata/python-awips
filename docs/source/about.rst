@@ -64,7 +64,7 @@ installations.
 Package                 Version         RPM Name
 ======================  ==============  ==============================
 Python                  2.7.11          awips2-python
-**awips**               **0.9.9**       **awips2-python-awips**
+**awips**               **0.9.10**       **awips2-python-awips**
 cartopy                 0.15.1          awips2-python-cartopy
 cherrypy                3.8.2           awips2-python-cherrypy
 cycler                  0.10.0          awips2-python-cycler
