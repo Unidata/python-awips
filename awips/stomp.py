@@ -63,6 +63,7 @@
     * 2009/04/02 : (Fernando Ciciliati) fix overflow bug when waiting too long to connect to the broker
 
 """
+from __future__ import print_function
 
 import hashlib
 import math
