@@ -19,7 +19,7 @@ AWIPS Python Data Access Framework
         :target: http://python-awips.readthedocs.org/en/latest/
         :alt: Latest Doc Build Status
 
-.. |Codacy| image:: https://api.codacy.com/project/badge/Grade/538dc2bf39674712863e36a0f3eb3b43
+.. |Codacy| image:: https://api.codacy.com/project/badge/Grade/560b27db294449ed9484da1aadeaee91
        :target: https://www.codacy.com/app/mjames/python-awips
     :alt: Codacy issues
 
