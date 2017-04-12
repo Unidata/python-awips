@@ -20,8 +20,8 @@ AWIPS Python Data Access Framework
         :alt: Latest Doc Build Status
 
 .. |Codacy| image:: https://api.codacy.com/project/badge/Grade/560b27db294449ed9484da1aadeaee91
-       :target: https://www.codacy.com/app/mjames/python-awips
-    :alt: Codacy issues
+        :target: https://www.codacy.com/app/mjames/python-awips
+        :alt: Codacy issues
 
 
 Install
