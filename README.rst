@@ -1,7 +1,7 @@
 AWIPS Python Data Access Framework
 ==================================
 
-|License| |PyPI| |LatestDocs| [![Codacy Badge](https://api.codacy.com/project/badge/Grade/538dc2bf39674712863e36a0f3eb3b43)](https://www.codacy.com/app/mjames/python-awips?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Unidata/python-awips&amp;utm_campaign=Badge_Grade)
+|License| |PyPI| |LatestDocs| |Codacy|
 
 .. |License| image:: https://img.shields.io/pypi/l/python-awips.svg
     :target: https://pypi.python.org/pypi/python-awips/
@@ -18,6 +18,11 @@ AWIPS Python Data Access Framework
 .. |LatestDocs| image:: https://readthedocs.org/projects/pip/badge/?version=latest
         :target: http://python-awips.readthedocs.org/en/latest/
         :alt: Latest Doc Build Status
+
+.. |Codacy| image:: https://api.codacy.com/project/badge/Grade/538dc2bf39674712863e36a0f3eb3b43
+       :target: https://www.codacy.com/app/mjames/python-awips
+    :alt: Codacy issues
+
 
 Install
 -------
