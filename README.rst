@@ -1,7 +1,7 @@
 AWIPS Python Data Access Framework
 ==================================
 
-|License| |PyPI| |LatestDocs|
+|License| |PyPI| |LatestDocs| [![Codacy Badge](https://api.codacy.com/project/badge/Grade/538dc2bf39674712863e36a0f3eb3b43)](https://www.codacy.com/app/mjames/python-awips?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Unidata/python-awips&amp;utm_campaign=Badge_Grade)
 
 .. |License| image:: https://img.shields.io/pypi/l/python-awips.svg
     :target: https://pypi.python.org/pypi/python-awips/
