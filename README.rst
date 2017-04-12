@@ -38,8 +38,8 @@ Install
 Requirements
 ------------
 
-- Python 2.7 minimum
-- pip install numpy shapely
+- Python 2.7+
+- pip install numpy shapely six
 - pip install metpy enum34 - to run Jupyter Notebook examples
 
 Documentation
