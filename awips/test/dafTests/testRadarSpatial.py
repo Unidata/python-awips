@@ -40,6 +40,7 @@ import unittest
 #    06/01/16        5587          tgurney        Move testIdentifiers() to
 #                                                 superclass
 #    06/13/16        5574          tgurney        Add advanced query tests
+#    06/30/16        5725          tgurney        Add test for NOT IN
 #
 #
 
@@ -161,6 +162,12 @@ class RadarSpatialTestCase(baseDafTestCase.DafTestCase):
         geometryData = self._runConstraintTest('wfo_id', 'in', generator)
         for record in geometryData:
             self.assertIn(record.getString('wfo_id'), collection)
+
+    def testGetDataWithNotInList(self):
+        collection = ['OAX', 'GID']
+        geometryData = self._runConstraintTest('wfo_id', 'not in', collection)
+        for record in geometryData:
+            self.assertNotIn(record.getString('wfo_id'), collection)
 
     def testGetDataWithInvalidConstraintTypeThrowsException(self):
         with self.assertRaises(ValueError):

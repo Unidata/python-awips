@@ -45,6 +45,7 @@ import unittest
 #    06/01/16        5587          tgurney        Update testGetIdentifierValues
 #    06/03/16        5574          tgurney        Add advanced query tests
 #    06/13/16        5574          tgurney        Typo
+#    06/30/16        5725          tgurney        Add test for NOT IN
 #    11/08/16        5985          tgurney        Do not check data times
 #
 #
@@ -178,6 +179,11 @@ class BinLightningTestCase(baseDafTestCase.DafTestCase):
         geomData = self._runConstraintTest('source', 'in', generator)
         for record in geomData:
             self.assertIn(record.getAttribute('source'), ('NLDN', 'ENTLN'))
+
+    def testGetDataWithNotInList(self):
+        geomData = self._runConstraintTest('source', 'not in', ['NLDN', 'blah'])
+        for record in geomData:
+            self.assertNotIn(record.getAttribute('source'), ('NLDN', 'blah'))
 
     def testGetDataWithInvalidConstraintTypeThrowsException(self):
         with self.assertRaises(ValueError):

@@ -1,34 +1,17 @@
 ##
-# This software was developed and / or modified by Raytheon Company,
-# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
-#
-# U.S. EXPORT CONTROLLED TECHNICAL DATA
-# This software product contains export-restricted data whose
-# export/transfer/disclosure is restricted by U.S. law. Dissemination
-# to non-U.S. persons whether in the United States or abroad requires
-# an export license or other authorization.
-#
-# Contractor Name:        Raytheon Company
-# Contractor Address:     6825 Pine Street, Suite 340
-#                         Mail Stop B8
-#                         Omaha, NE 68106
-#                         402.291.0100
-#
-# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
-# further licensing information.
 ##
 
 from string import Template
 
 import ctypes
-import stomp
+from . import stomp
 import socket
 import sys
 import time
 import threading
 import xml.etree.ElementTree as ET
 
-import ThriftClient
+from . import ThriftClient
 from dynamicserialize.dstypes.com.raytheon.uf.common.alertviz import AlertVizRequest
 from dynamicserialize import DynamicSerializationManager
 
@@ -92,8 +75,8 @@ class NotificationMessage:
               priorityInt = int(5)
 
       if (priorityInt < 0 or priorityInt > 5):
-          print "Error occurred, supplied an invalid Priority value: " + str(priorityInt)
-          print "Priority values are 0, 1, 2, 3, 4 and 5."
+          print("Error occurred, supplied an invalid Priority value: " + str(priorityInt))
+          print("Priority values are 0, 1, 2, 3, 4 and 5.")
           sys.exit(1)
 
       if priorityInt is not None:
@@ -103,8 +86,8 @@ class NotificationMessage:
 
    def connection_timeout(self, connection):
           if (connection is not None and not connection.is_connected()):
-              print "Connection Retry Timeout"
-              for tid, tobj in threading._active.items():
+              print("Connection Retry Timeout")
+              for tid, tobj in list(threading._active.items()):
                   if tobj.name is "MainThread":
                       res = ctypes.pythonapi.PyThreadState_SetAsyncExc(tid, ctypes.py_object(SystemExit))
                       if res != 0 and res != 1:
@@ -155,14 +138,14 @@ class NotificationMessage:
         serverResponse = None
         try:
             serverResponse = thriftClient.sendRequest(alertVizRequest)
-        except Exception, ex:
-            print "Caught exception submitting AlertVizRequest: ", str(ex)
+        except Exception as ex:
+            print("Caught exception submitting AlertVizRequest: ", str(ex))
 
         if (serverResponse != "None"):
-            print "Error occurred submitting Notification Message to AlertViz receiver: ", serverResponse
+            print("Error occurred submitting Notification Message to AlertViz receiver: ", serverResponse)
             sys.exit(1)
         else:
-            print "Response: " + str(serverResponse)
+            print("Response: " + str(serverResponse))
 
 def createRequest(message, priority, source, category, audioFile, filters):
     obj = AlertVizRequest()

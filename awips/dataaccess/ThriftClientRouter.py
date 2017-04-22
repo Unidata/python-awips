@@ -38,6 +38,7 @@
 #    06/01/16        5587          tgurney        Add new signatures for
 #                                                 getRequiredIdentifiers() and
 #                                                 getOptionalIdentifiers()
+#    08/01/16        2416          tgurney        Add getNotificationFilter()
 #    11/10/16        5900          bsteffen       Correct grid shape
 #
 
@@ -56,6 +57,7 @@ from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request import G
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request import GetOptionalIdentifiersRequest
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request import GetIdentifierValuesRequest
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request import GetSupportedDatatypesRequest
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request import GetNotificationFilterRequest
 
 from awips import ThriftClient
 from awips.dataaccess import PyGeometryData
@@ -192,4 +194,10 @@ class ThriftClientRouter(object):
 
     def getSupportedDatatypes(self):
         response = self._client.sendRequest(GetSupportedDatatypesRequest())
+        return response
+
+    def getNotificationFilter(self, request):
+        notifReq = GetNotificationFilterRequest()
+        notifReq.setRequestParameters(request)
+        response = self._client.sendRequest(notifReq)
         return response

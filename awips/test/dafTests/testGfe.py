@@ -39,6 +39,7 @@ import unittest
 #    05/31/16        5587          tgurney        Add getIdentifierValues tests
 #    06/01/16        5587          tgurney        Update testGetIdentifierValues
 #    06/17/16        5574          mapeters       Add advanced query tests
+#    06/30/16        5725          tgurney        Add test for NOT IN
 #    11/07/16        5991          bsteffen       Improve vector tests
 #
 #
@@ -182,6 +183,12 @@ class GfeTestCase(baseDafTestCase.DafTestCase):
         geometryData = self._runConstraintTest('modelName', 'in', generator)
         for record in geometryData:
             self.assertIn(record.getAttribute('modelName'), collection)
+
+    def testGetDataWithNotInList(self):
+        collection = ('Fcst', 'SAT')
+        geometryData = self._runConstraintTest('modelName', 'not in', collection)
+        for record in geometryData:
+            self.assertNotIn(record.getAttribute('modelName'), collection)
 
     def testGetDataWithInvalidConstraintTypeThrowsException(self):
         with self.assertRaises(ValueError):

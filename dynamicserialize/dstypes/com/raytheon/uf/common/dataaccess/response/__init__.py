@@ -25,7 +25,8 @@ __all__ = [
             'GeometryResponseData',
             'GetGeometryDataResponse',
             'GetGridDataResponse',
-            'GridResponseData'
+            'GridResponseData',
+            'GetNotificationFilterResponse'
           ]
 
 from AbstractResponseData import AbstractResponseData
@@ -33,4 +34,4 @@ from GeometryResponseData import GeometryResponseData
 from GetGeometryDataResponse import GetGeometryDataResponse
 from GetGridDataResponse import GetGridDataResponse
 from GridResponseData import GridResponseData
-
+from GetNotificationFilterResponse import GetNotificationFilterResponse

@@ -45,6 +45,8 @@ import unittest
 #                                                 return the retrieved data
 #    06/10/16        5548          tgurney        Make testDatatypeIsSupported
 #                                                 case-insensitive
+#    08/10/16        2416          tgurney        Don't test identifier values
+#                                                 for dataURI
 #    10/05/16        5926          dgilling       Better checks in runGeometryDataTest.
 #    11/08/16        5985          tgurney        Do not check data times on
 #                                                 time-agnostic data
@@ -70,7 +72,7 @@ class DafTestCase(unittest.TestCase):
     """Name of the datatype"""
 
     @classmethod
-    def setUp(cls):
+    def setUpClass(cls):
         host = os.environ.get('DAF_TEST_HOST')
         if host is None:
             host = 'localhost'
@@ -107,6 +109,8 @@ class DafTestCase(unittest.TestCase):
 
     def runGetIdValuesTest(self, identifiers):
         for id in identifiers:
+            if id.lower() == 'datauri':
+                continue
             req = DAL.newDataRequest(self.datatype)
             idValues = DAL.getIdentifierValues(req, id)
             self.assertTrue(hasattr(idValues, '__iter__'))

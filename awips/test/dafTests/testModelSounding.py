@@ -37,6 +37,7 @@ import unittest
 #    04/18/16        5548          tgurney        More cleanup
 #    06/09/16        5587          bsteffen       Add getIdentifierValues tests
 #    06/13/16        5574          tgurney        Add advanced query tests
+#    06/30/16        5725          tgurney        Add test for NOT IN
 #    11/10/16        5985          tgurney        Mark expected failures prior
 #                                                 to 17.3.1
 #
@@ -190,6 +191,13 @@ class ModelSoundingTestCase(baseDafTestCase.DafTestCase):
         for record in geometryData:
             dataURI = record.getString('dataURI')
             self.assertTrue('/ETA/' in dataURI or '/GFS/' in dataURI)
+
+    def testGetDataWithNotInList(self):
+        collection = ['ETA', 'GFS']
+        geometryData = self._runConstraintTest('reportType', 'not in', collection)
+        for record in geometryData:
+            dataURI = record.getString('dataURI')
+            self.assertTrue('/ETA/' not in dataURI and '/GFS/' not in dataURI)
 
     def testGetDataWithInvalidConstraintTypeThrowsException(self):
         with self.assertRaises(ValueError):

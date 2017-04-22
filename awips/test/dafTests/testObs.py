@@ -37,6 +37,7 @@ import unittest
 #    04/18/16        5548          tgurney        More cleanup
 #    06/09/16        5587          bsteffen       Add getIdentifierValues tests
 #    06/13/16        5574          tgurney        Add advanced query tests
+#    06/30/16        5725          tgurney        Add test for NOT IN
 #
 #
 
@@ -149,6 +150,12 @@ class ObsTestCase(baseDafTestCase.DafTestCase):
         geometryData = self._runConstraintTest('reportType', 'in', generator)
         for record in geometryData:
             self.assertIn(record.getString('reportType'), collection)
+
+    def testGetDataWithNotInList(self):
+        collection = ['METAR', 'SPECI']
+        geometryData = self._runConstraintTest('reportType', 'not in', collection)
+        for record in geometryData:
+            self.assertNotIn(record.getString('reportType'), collection)
 
     def testGetDataWithInvalidConstraintTypeThrowsException(self):
         with self.assertRaises(ValueError):

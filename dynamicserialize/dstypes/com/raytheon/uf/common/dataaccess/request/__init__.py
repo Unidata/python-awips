@@ -29,6 +29,7 @@ __all__ = [
             'GetAvailableTimesRequest',
             'GetGeometryDataRequest',
             'GetGridDataRequest',
+            'GetNotificationFilterRequest',
             'GetRequiredIdentifiersRequest',
             'GetSupportedDatatypesRequest',
             'GetOptionalIdentifiersRequest',
@@ -43,6 +44,7 @@ from GetAvailableParametersRequest import GetAvailableParametersRequest
 from GetAvailableTimesRequest import GetAvailableTimesRequest
 from GetGeometryDataRequest import GetGeometryDataRequest
 from GetGridDataRequest import GetGridDataRequest
+from GetNotificationFilterRequest import GetNotificationFilterRequest
 from GetRequiredIdentifiersRequest import GetRequiredIdentifiersRequest
 from GetSupportedDatatypesRequest import GetSupportedDatatypesRequest
 from GetOptionalIdentifiersRequest import GetOptionalIdentifiersRequest

@@ -42,6 +42,7 @@ import unittest
 #    06/09/16        5574          mapeters       Add advanced query tests, Short parameter test
 #    06/13/16        5574          tgurney        Fix checks for None
 #    06/21/16        5548          tgurney        Skip tests that cause errors
+#    06/30/16        5725          tgurney        Add test for NOT IN
 #    10/06/16        5926          dgilling       Add additional time and location tests.
 #
 #
@@ -318,6 +319,12 @@ class ClimateTestCase(baseDafTestCase.DafTestCase):
         geometryData = self._runConstraintTest('station_code', 'in', generator)
         for record in geometryData:
             self.assertIn(record.getString('station_code'), collection)
+
+    def testGetDataWithNotInList(self):
+        collection = ['KORD', 'KABR']
+        geometryData = self._runConstraintTest('station_code', 'not in', collection)
+        for record in geometryData:
+            self.assertNotIn(record.getString('station_code'), collection)
 
     def testGetDataWithInvalidConstraintTypeThrowsException(self):
         with self.assertRaises(ValueError):

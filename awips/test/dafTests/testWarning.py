@@ -41,6 +41,7 @@ import unittest
 #                                                 of data type
 #    06/13/16        5574          tgurney        Fix checks for None
 #    06/21/16        5548          tgurney        Skip tests that cause errors
+#    06/30/16        5725          tgurney        Add test for NOT IN
 #
 #
 
@@ -209,6 +210,12 @@ class WarningTestCase(baseDafTestCase.DafTestCase):
         geometryData = self._runConstraintTest('sig', 'in', generator)
         for record in geometryData:
             self.assertIn(record.getString('sig'), collection)
+
+    def testGetDataWithNotInList(self):
+        collection = ['Y', 'W']
+        geometryData = self._runConstraintTest('sig', 'not in', collection)
+        for record in geometryData:
+            self.assertNotIn(record.getString('sig'), collection)
 
     def testGetDataWithInvalidConstraintTypeThrowsException(self):
         with self.assertRaises(ValueError):

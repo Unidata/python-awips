@@ -43,6 +43,7 @@ import unittest
 #    06/09/16        5574          tgurney        Add advanced query tests
 #    06/13/16        5574          tgurney        Fix checks for None
 #    06/21/16        5548          tgurney        Skip tests that cause errors
+#    06/30/16        5725          tgurney        Add test for NOT IN
 #    10/06/16        5926          dgilling       Add additional location tests.
 #
 #
@@ -230,6 +231,12 @@ class HydroTestCase(baseDafTestCase.DafTestCase):
         geometryData = self._runConstraintTest('value', 'in', generator)
         for record in geometryData:
             self.assertIn(record.getNumber('value'), collection)
+
+    def testGetDataWithNotInList(self):
+        collection = [3, 4]
+        geometryData = self._runConstraintTest('value', 'not in', collection)
+        for record in geometryData:
+            self.assertNotIn(record.getNumber('value'), collection)
 
     def testGetDataWithTimeRange(self):
         req = DAL.newDataRequest(self.datatype)

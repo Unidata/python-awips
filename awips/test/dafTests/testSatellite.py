@@ -41,6 +41,7 @@ import unittest
 #    06/01/16        5587          tgurney        Update testGetIdentifierValues
 #    06/07/16        5574          tgurney        Add advanced query tests
 #    06/13/16        5574          tgurney        Typo
+#    06/30/16        5725          tgurney        Add test for NOT IN
 #
 #
 
@@ -167,6 +168,12 @@ class SatelliteTestCase(baseDafTestCase.DafTestCase):
         gridData = self._runConstraintTest('creatingEntity', 'in', generator)
         for record in gridData:
             self.assertIn(record.getAttribute('creatingEntity'), collection)
+
+    def testGetDataWithNotInList(self):
+        collection = ('Composite', 'Miscellaneous')
+        gridData = self._runConstraintTest('creatingEntity', 'not in', collection)
+        for record in gridData:
+            self.assertNotIn(record.getAttribute('creatingEntity'), collection)
 
     def testGetDataWithInvalidConstraintTypeThrowsException(self):
         with self.assertRaises(ValueError):

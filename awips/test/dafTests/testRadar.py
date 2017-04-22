@@ -44,6 +44,7 @@ import unittest
 #    06/13/16        5574          tgurney        Fix checks for None
 #    06/14/16        5548          tgurney        Undo previous change (broke
 #                                                 test)
+#    06/30/16        5725          tgurney        Add test for NOT IN
 #
 #
 
@@ -183,6 +184,11 @@ class RadarTestCase(baseDafTestCase.DafTestCase):
         gridData = self._runConstraintTest('icao', 'in', generator)
         for record in gridData:
             self.assertIn(record.getAttribute('icao'), ('koax', 'tpbi'))
+
+    def testGetDataWithNotInList(self):
+        gridData = self._runConstraintTest('icao', 'not in', ['zzzz', 'koax'])
+        for record in gridData:
+            self.assertNotIn(record.getAttribute('icao'), ('zzzz', 'koax'))
 
     def testGetDataWithInvalidConstraintTypeThrowsException(self):
         with self.assertRaises(ValueError):

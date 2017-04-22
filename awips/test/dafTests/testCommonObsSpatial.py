@@ -41,6 +41,7 @@ import unittest
 #                                                 superclass
 #    06/13/16        5574          tgurney        Add advanced query tests
 #    06/21/16        5548          tgurney        Skip tests that cause errors
+#    06/30/16        5725          tgurney        Add test for NOT IN
 #
 
 
@@ -165,6 +166,12 @@ class CommonObsSpatialTestCase(baseDafTestCase.DafTestCase):
         geometryData = self._runConstraintTest('state', 'in', generator)
         for record in geometryData:
             self.assertIn(record.getString('state'), collection)
+
+    def testGetDataWithNotInList(self):
+        collection = ('NE', 'TX')
+        geometryData = self._runConstraintTest('state', 'not in', collection)
+        for record in geometryData:
+            self.assertNotIn(record.getString('state'), collection)
 
     def testGetDataWithInvalidConstraintTypeThrowsException(self):
         with self.assertRaises(ValueError):

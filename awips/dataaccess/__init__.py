@@ -33,6 +33,8 @@
 #    Apr 09, 2013    1871          njensen      Add doc strings
 #    Jun 03, 2013    2023          dgilling     Add getAttributes to IData, add
 #                                               getLatLonGrids() to IGridData.
+#    Aug 01, 2016    2416          tgurney      Add INotificationSubscriber
+#                                                 and INotificationFilter
 #
 #
 
@@ -351,3 +353,37 @@ class IGeometryData(IData):
         """
         return
 
+
+class INotificationSubscriber(object):
+    """
+    An INotificationSubscriber representing a notification filter returned from
+    the DataNotificationLayer.
+    """
+    __metaclass__ = abc.ABCMeta
+
+    @abc.abstractmethod
+    def subscribe(self, callback):
+        """
+        Subscribes to the requested data. Method will not return until close is
+        called in a separate thread.
+
+        Args:
+                callback: the method to call with the IGridData/IGeometryData
+
+        """
+        pass
+
+    @abc.abstractmethod
+    def close(self):
+        """Closes the notification subscriber"""
+        pass
+
+class INotificationFilter(object):
+    """
+    Represents data required to filter a set of URIs and
+    return a corresponding list of IDataRequest to retrieve data for.
+    """
+    __metaclass__ = abc.ABCMeta
+    @abc.abstractmethod
+    def accept(dataUri):
+        pass

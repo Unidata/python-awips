@@ -29,6 +29,7 @@
 #    ------------    ----------    -----------    --------------------------
 #    11/17/10                      njensen       Initial Creation.
 #    08/15/13        2169          bkowal        Optionally gzip decompress any data that is read.
+#    08/04/16        2416          tgurney       Add queueStarted property
 #
 #
 
@@ -49,6 +50,7 @@ class QpidSubscriber:
         self.__connection.start()
         self.__session = self.__connection.session(str(qpid.datatypes.uuid4()))
         self.subscribed = True
+        self.__queueStarted = False
 
     def topicSubscribe(self, topicName, callback):
         # if the queue is edex.alerts, set decompress to true always for now to
@@ -68,6 +70,7 @@ class QpidSubscriber:
         self.__session.message_subscribe(serverQueueName, destination=local_queue_name)
         queue.start()
         print "Connection complete to broker on", self.host
+        self.__queueStarted = True
 
         while self.subscribed:
             try:
@@ -80,7 +83,7 @@ class QpidSubscriber:
                         # http://stackoverflow.com/questions/2423866/python-decompressing-gzip-chunk-by-chunk
                         d = zlib.decompressobj(16+zlib.MAX_WBITS)
                         content = d.decompress(content)
-                    except:
+                    except Exception:
                         # decompression failed, return the original content
                         pass
                 callback(content)
@@ -90,8 +93,13 @@ class QpidSubscriber:
                 self.close()
 
     def close(self):
+        self.__queueStarted = False
         self.subscribed = False
         try:
             self.__session.close(timeout=10)
-        except:
+        except Exception:
             pass
+
+    @property
+    def queueStarted(self):
+        return self.__queueStarted

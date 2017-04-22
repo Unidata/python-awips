@@ -35,6 +35,7 @@ import unittest
 #    01/19/16        4795          mapeters       Initial Creation.
 #    04/11/16        5548          tgurney        Cleanup
 #    04/18/16        5548          tgurney        More cleanup
+#    01/20/17        6095          tgurney        Add null identifiers test
 #
 #
 
@@ -74,4 +75,11 @@ class LdadMesonetTestCase(baseDafTestCase.DafTestCase):
         req = DAL.newDataRequest(self.datatype)
         req.setParameters("highLevelCloud", "pressure")
         req.setEnvelope(self.getReqEnvelope())
+        self.runGeometryDataTest(req)
+
+    def testGetGeometryDataNullIdentifiers(self):
+        req = DAL.newDataRequest(self.datatype)
+        req.setParameters("highLevelCloud", "pressure")
+        req.setEnvelope(self.getReqEnvelope())
+        req.identifiers = None
         self.runGeometryDataTest(req)
