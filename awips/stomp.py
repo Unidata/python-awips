@@ -801,7 +801,7 @@ if __name__ == '__main__':
             self.c.start()
 
         def __print_async(self, frame_type, headers, body):
-            print("\r  \r", end=' ')
+            #print("\r  \r", end=' ')
             print(frame_type)
             for header_key in list(headers.keys()):
                 print('%s: %s' % (header_key, headers[header_key]))

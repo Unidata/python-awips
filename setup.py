@@ -6,7 +6,7 @@ import sys
 from distutils.core import setup
 from setuptools import find_packages
 
-dependencies = ['numpy','shapely','six']
+dependencies = ['numpy','six']
 if sys.version_info < (3, 4):
     dependencies.append('enum34')
 
