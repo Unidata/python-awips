@@ -1,0 +1,15 @@
+ name: python-awips
+ channels:
+   - https://conda.anaconda.org/conda-forge
+ dependencies:
+   - python=2.7
+   - numpy
+   - matplotlib
+   - cartopy
+   - jupyter
+   - metpy
+   - pint
+   - shapely
+   - pip
+   - pip:
+     - python-awips
