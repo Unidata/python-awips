@@ -30,12 +30,9 @@
 #    11/17/10                      njensen       Initial Creation.
 #    08/15/13        2169          bkowal        Optionally gzip decompress any data that is read.
 #    08/04/16        2416          tgurney       Add queueStarted property
-#    02/16/17        6084          bsteffen      Support ssl connections
 #
 #
 
-import os
-import os.path
 import qpid
 import zlib
 
@@ -44,24 +41,11 @@ from qpid.exceptions import Closed
 
 class QpidSubscriber:
 
-    def __init__(self, host='127.0.0.1', port=5672, decompress=False, ssl=None):
+    def __init__(self, host='127.0.0.1', port=5672, decompress=False):
         self.host = host
         self.port = port
         self.decompress = decompress;
         socket = qpid.util.connect(host, port)
-        if "QPID_SSL_CERT_DB" in os.environ:
-            certdb = os.environ["QPID_SSL_CERT_DB"]
-        else:
-            certdb = os.path.expanduser("~/.qpid/")
-        if "QPID_SSL_CERT_NAME" in os.environ:
-            certname = os.environ["QPID_SSL_CERT_NAME"]
-        else:
-            certname = "guest"
-        certfile = os.path.join(certdb, certname + ".crt")
-        if ssl or (ssl is None and os.path.exists(certfile)):
-            keyfile = os.path.join(certdb, certname + ".key")
-            trustfile = os.path.join(certdb, "root.crt")
-            socket = qpid.util.ssl(socket, keyfile=keyfile, certfile=certfile, ca_certs=trustfile)
         self.__connection = qpid.connection.Connection(sock=socket, username='guest', password='guest')
         self.__connection.start()
         self.__session = self.__connection.session(str(qpid.datatypes.uuid4()))
@@ -119,4 +103,3 @@ class QpidSubscriber:
     @property
     def queueStarted(self):
         return self.__queueStarted
-
