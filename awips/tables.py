@@ -1,3 +1,67 @@
+profiler = {
+	"74997" : {
+		"profilerId": "ASTC1",
+		"latitude": 46.16,
+		"longitude": -123.88,
+		"elevation": 3,
+		"profilerName": "Astoria OR"},
+	"74996" : {
+                "profilerId": "BGDC1",
+                "latitude": 38.32,
+                "longitude": -123.07,
+                "elevation": 13,
+                "profilerName": "Bodega Bay CA"},
+	"74995" : {
+                "profilerId": "FKSC1",
+                "latitude": 47.97,
+                "longitude": -124.40,
+                "elevation": 92,
+                "profilerName": "Forks WA"},
+	"74998" : {
+                "profilerId": "ACVC1",
+                "latitude": 40.97,
+                "longitude": -124.11,
+                "elevation": 56,
+                "profilerName": "McKinleyville CA"},
+	"74994" : {
+                "profilerId": "OTHC1",
+                "latitude": 43.42,
+                "longitude": -124.24,
+                "elevation": 5,
+                "profilerName": "North Bend OR"},
+	"74993" : {
+                "profilerId": "PTSC1",
+                "latitude": 36.30,
+                "longitude": -121.89,
+                "elevation": 11,
+                "profilerName": "Point Sur CA"},
+	"74992" : {
+                "profilerId": "SBAC1",
+                "latitude": 34.43,
+                "longitude": -119.85,
+                "elevation": 4,
+                "profilerName": "Santa Barbara CA"},
+	"74991" : {
+                "profilerId": "PVLC1",
+                "latitude": 40.18,
+                "longitude": -104.73,
+                "elevation": 1503,
+                "profilerName": "Platteville CO"},
+	"74990" : {
+                "profilerId": "TDEC1",
+                "latitude": 45.55,
+                "longitude": -122.39,
+                "elevation": 12,
+                "profilerName": "Troutdale OR"},
+	"74989" : {
+                "profilerId": "CCOC1",
+                "latitude": 39.70,
+                "longitude": -121.91,
+                "elevation": 42,
+                "profilerName": "Chico CA"
+	}
+}
+
 nexrad = {
     "N0Q" : {
             'id': 94,
