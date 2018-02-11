@@ -53,45 +53,6 @@ several commercial off-the-shelf (COTS) and Free or Open Source software
 (FOSS) products to assist in its operation. The following components,
 working together and communicating, compose the entire AWIPS system.
 
-AWIPS Python Stack
-------------------
-
-A number of Python packages are bundled with the AWIPS EDEX and CAVE
-installations.
-
-
-======================  ==============  ==============================
-Package                 Version         RPM Name
-======================  ==============  ==============================
-Python                  2.7.11          awips2-python
-**awips**               **0.9.10**       **awips2-python-awips**
-cartopy                 0.15.1          awips2-python-cartopy
-cherrypy                3.8.2           awips2-python-cherrypy
-cycler                  0.10.0          awips2-python-cycler
-cython                  0.25.2          awips2-python-cython
-dateutil                2.4.2           awips2-python-dateutil
-gfe                     16.4.1          awips2-python-gfe
-h5py                    1.3.0           awips2-python-h5py
-jep                     3.5.3           awips2-python-jep
-matplotlib              1.5.1           awips2-python-matplotlib
-metpy                   0.5.0           awips2-python-metpy
-nose                    1.3.7           awips2-python-nose
-numpy                   1.9.2           awips2-python-numpy
-pint                    0.7.2           awips2-python-pint
-pmw                     1.3.2           awips2-python-pmw
-pupynere                1.0.15          awips2-python-pupynere
-pyparsing               2.0.3           awips2-python-pyparsing
-qpid                    0.32            awips2-python-qpid
-scientific              2.8             awips2-python-scientific
-scipy                   0.15.1          awips2-python-scipy
-shapely                 1.4.4           awips2-python-shapely
-six                     1.10.0          awips2-python-six
-tables                  3.3.0           awips2-python-tables
-tpg                     3.2.2           awips2-python-tpg
-werkzeug                0.12.1          awips2-python-werkzeug
-======================  ==============  ==============================
-
-
 EDEX
 ----
 

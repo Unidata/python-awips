@@ -4,7 +4,7 @@ Python AWIPS Data Access Framework
 
 `AWIPS <http://unidata.github.io/awips2>`_ is a weather display and analysis package developed by the National Weather Service for operational forecasting.  UCAR's `Unidata Program Center <http://www.unidata.ucar.edu/software/awips2/>`_ supports a non-operational open-source release of the AWIPS software (`EDEX <http://unidata.github.io/awips2/#edex>`_, `CAVE <http://unidata.github.io/awips2/#cave>`_, and `python-awips <https://github.com/Unidata/python-awips>`_). 
 
-The python-awips package provides a data access framework for requesting grid and geometry datasets from an `EDEX <http://unidata.github.io/awips2>`_ server.
+The python-awips package provides a data access framework for requesting grid and geometry datasets from an `EDEX <http://unidata.github.io/awips2/#edex>`_ server.
 
 .. _Jupyter Notebook: http://nbviewer.jupyter.org/github/Unidata/python-awips/tree/master/examples/notebooks
 
@@ -20,8 +20,8 @@ Requirements
 - Shapely 1.4+
 - MetPy and enum34 to run the `Jupyter Notebook`_ examples
 
-How to Use
-~~~~~~~~~~
+Quick Example
+~~~~~~~~~~~~~
 
 ::
 
@@ -30,7 +30,7 @@ How to Use
     request = DataAccessLayer.newDataRequest()
     dataTypes = DataAccessLayer.getSupportedDatatypes()
     request.setDatatype("grid")
-    request.addLocationNames("RAP40")
+    request.addLocationNames("RAP13")
     request.setParameters("T")
     request.setLevels("0.0SFC")
     cycles = DataAccessLayer.getAvailableTimes(request, True)
