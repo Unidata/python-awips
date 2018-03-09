@@ -1,3 +1,34 @@
+class Item(object):
+    def __init__(self, *initial_data, **kwargs):
+        for dictionary in initial_data:
+            for key in dictionary:
+                setattr(self, key, dictionary[key])
+        for key in kwargs:
+            setattr(self, key, kwargs[key])
+
+
+class GenerateNexradTable(object):
+    def __init__(self, *initial_data, **kwargs):
+        import numpy as np
+        import json
+        # find this file locally and confirm location
+        filename = '~/awips2-builds/edexOsgi/com.raytheon.edex.plugin.radar/utility/common_static/base/radarInfoSimple.txt'
+        data = np.genfromtxt(
+            filename,
+            delimiter=",",
+            autostrip=True,
+            skip_header=0,
+            names=True,
+            dtype=None)
+
+        for x in data:
+            defn = Item(dict(zip(data.dtype.names, x)))
+            prod = dict(zip(data.dtype.names, x))
+            nexrad[defn.id] = prod
+
+        return json.dumps(nexrad, indent=1)
+
+
 profiler = {
 	"74997" : {
 		"profilerId": "ASTC1",
@@ -6,85 +37,1442 @@ profiler = {
 		"elevation": 3,
 		"profilerName": "Astoria OR"},
 	"74996" : {
-                "profilerId": "BGDC1",
-                "latitude": 38.32,
-                "longitude": -123.07,
-                "elevation": 13,
-                "profilerName": "Bodega Bay CA"},
+		"profilerId": "BGDC1",
+		"latitude": 38.32,
+		"longitude": -123.07,
+		"elevation": 13,
+		"profilerName": "Bodega Bay CA"},
 	"74995" : {
-                "profilerId": "FKSC1",
-                "latitude": 47.97,
-                "longitude": -124.40,
-                "elevation": 92,
-                "profilerName": "Forks WA"},
+		"profilerId": "FKSC1",
+		"latitude": 47.97,
+		"longitude": -124.40,
+		"elevation": 92,
+		"profilerName": "Forks WA"},
 	"74998" : {
-                "profilerId": "ACVC1",
-                "latitude": 40.97,
-                "longitude": -124.11,
-                "elevation": 56,
-                "profilerName": "McKinleyville CA"},
+		"profilerId": "ACVC1",
+		"latitude": 40.97,
+		"longitude": -124.11,
+		"elevation": 56,
+		"profilerName": "McKinleyville CA"},
 	"74994" : {
-                "profilerId": "OTHC1",
-                "latitude": 43.42,
-                "longitude": -124.24,
-                "elevation": 5,
-                "profilerName": "North Bend OR"},
+		"profilerId": "OTHC1",
+		"latitude": 43.42,
+		"longitude": -124.24,
+		"elevation": 5,
+		"profilerName": "North Bend OR"},
 	"74993" : {
-                "profilerId": "PTSC1",
-                "latitude": 36.30,
-                "longitude": -121.89,
-                "elevation": 11,
-                "profilerName": "Point Sur CA"},
+		"profilerId": "PTSC1",
+		"latitude": 36.30,
+		"longitude": -121.89,
+		"elevation": 11,
+		"profilerName": "Point Sur CA"},
 	"74992" : {
-                "profilerId": "SBAC1",
-                "latitude": 34.43,
-                "longitude": -119.85,
-                "elevation": 4,
-                "profilerName": "Santa Barbara CA"},
+		"profilerId": "SBAC1",
+		"latitude": 34.43,
+		"longitude": -119.85,
+		"elevation": 4,
+		"profilerName": "Santa Barbara CA"},
 	"74991" : {
-                "profilerId": "PVLC1",
-                "latitude": 40.18,
-                "longitude": -104.73,
-                "elevation": 1503,
-                "profilerName": "Platteville CO"},
+		"profilerId": "PVLC1",
+		"latitude": 40.18,
+		"longitude": -104.73,
+		"elevation": 1503,
+		"profilerName": "Platteville CO"},
 	"74990" : {
-                "profilerId": "TDEC1",
-                "latitude": 45.55,
-                "longitude": -122.39,
-                "elevation": 12,
-                "profilerName": "Troutdale OR"},
+		"profilerId": "TDEC1",
+		"latitude": 45.55,
+		"longitude": -122.39,
+		"elevation": 12,
+		"profilerName": "Troutdale OR"},
 	"74989" : {
-                "profilerId": "CCOC1",
-                "latitude": 39.70,
-                "longitude": -121.91,
-                "elevation": 42,
-                "profilerName": "Chico CA"
-	}
+		"profilerId": "CCOC1",
+		"latitude": 39.70,
+		"longitude": -121.91,
+		"elevation": 42,
+		"profilerName": "Chico CA"}
 }
 
 nexrad = {
-    "N0Q" : {
-            'id': 94,
-            'unit':'dBZ',
-            'name':'0.5 deg Base Reflectivity',
-            'ctable': ['NWSStormClearReflectivity',-20., 0.5],
-            'res': 1000.,
-            'elev': '0.5'},
-    "N0U" : {
-            'id': 99,
-            'unit':'kts',
-            'name':'0.5 deg Base Velocity',
-            'ctable': ['NWS8bitVel',-100.,1.],
-            'res': 250.,
-            'elev': '0.5'},
-    "EET" : {
-            'id': 135,
-            'unit':'kft',
-            'name':'Enhanced Echo Tops',
-            'ctable': ['NWSEnhancedEchoTops',2,1],
-            'res': 1000.,
-            'elev': '0.0'}
+	"2": {
+		"layer": 0,
+		"name": "NEXRAD Unit Status Msg",
+		"res": 0.0,
+		"mnemo": "GSM",
+		"range": 0,
+		"lvls": 0,
+		"id": 2,
+		"unit": ""
+	},
+	"3": {
+		"layer": 0,
+		"name": "Product Request Resp",
+		"res": 0.0,
+		"mnemo": "PRR",
+		"range": 0,
+		"lvls": 0,
+		"id": 3,
+		"unit": ""
+	},
+	"8": {
+		"layer": 0,
+		"name": "Product List",
+		"res": 0.0,
+		"mnemo": "PTL",
+		"range": 0,
+		"lvls": 0,
+		"id": 8,
+		"unit": ""
+	},
+	"12": {
+		"layer": 0,
+		"name": "Command Parameter Msg",
+		"res": 0.0,
+		"mnemo": "CPM",
+		"range": 0,
+		"lvls": 0,
+		"id": 12,
+		"unit": ""
+	},
+	"14": {
+		"layer": 0,
+		"name": "Command Control Msg",
+		"res": 0.0,
+		"mnemo": "CCM",
+		"range": 0,
+		"lvls": 0,
+		"id": 14,
+		"unit": ""
+	},
+	"16": {
+		"layer": 0,
+		"name": "Reflectivity",
+		"res": 1.0,
+		"mnemo": "Z",
+		"range": 230,
+		"lvls": 8,
+		"id": 16,
+		"unit": "dBZ"
+	},
+	"17": {
+		"layer": 0,
+		"name": "Reflectivity",
+		"res": 2.0,
+		"mnemo": "Z",
+		"range": 460,
+		"lvls": 8,
+		"id": 17,
+		"unit": "dBZ"
+	},
+	"18": {
+		"layer": 0,
+		"name": "Reflectivity",
+		"res": 4.0,
+		"mnemo": "Z",
+		"range": 460,
+		"lvls": 8,
+		"id": 18,
+		"unit": "dBZ"
+	},
+	"19": {
+		"layer": 0,
+		"name": "Reflectivity",
+		"res": 1.0,
+		"mnemo": "Z",
+		"range": 230,
+		"lvls": 16,
+		"id": 19,
+		"unit": "dBZ"
+	},
+	"20": {
+		"layer": 0,
+		"name": "Reflectivity",
+		"res": 2.0,
+		"mnemo": "Z",
+		"range": 460,
+		"lvls": 16,
+		"id": 20,
+		"unit": "dBZ"
+	},
+	"21": {
+		"layer": 0,
+		"name": "Reflectivity",
+		"res": 4.0,
+		"mnemo": "Z",
+		"range": 460,
+		"lvls": 16,
+		"id": 21,
+		"unit": "dBZ"
+	},
+	"22": {
+		"layer": 0,
+		"name": "Velocity",
+		"res": 0.25,
+		"mnemo": "V",
+		"ctable": ['NWS8bitVel', -100., 1.],
+		"scale": [-100, 100],
+		"range": 60,
+		"lvls": 8,
+		"id": 22,
+		"unit": "kts"
+	},
+	"23": {
+		"layer": 0,
+		"name": "Velocity",
+		"ctable": ['NWS8bitVel', -100., 1.],
+		"scale": [-100, 100],
+		"res": 0.5,
+		"mnemo": "V",
+		"range": 115,
+		"lvls": 8,
+		"id": 23,
+		"unit": "kts"
+	},
+	"24": {
+		"layer": 0,
+		"name": "Velocity",
+		"ctable": ['NWS8bitVel', -100., 1.],
+		"scale": [-100, 100],
+		"res": 1.0,
+		"mnemo": "V",
+		"range": 230,
+		"lvls": 8,
+		"id": 24,
+		"unit": "kts"
+	},
+	"25": {
+		"layer": 0,
+		"name": "Velocity",
+		"ctable": ['NWS8bitVel', -100., 1.],
+		"scale": [-100, 100],
+		"res": 0.25,
+		"mnemo": "V",
+		"range": 60,
+		"lvls": 16,
+		"id": 25,
+		"unit": "kts"
+	},
+	"26": {
+		"layer": 0,
+		"name": "Velocity",
+		"ctable": ['NWS8bitVel', -100., 1.],
+		"scale": [-100, 100],
+		"res": 0.5,
+		"mnemo": "V",
+		"range": 115,
+		"lvls": 16,
+		"id": 26,
+		"unit": "kts"
+	},
+	"27": {
+		"layer": 0,
+		"name": "Velocity",
+		"ctable": ['NWS8bitVel', -100., 1.],
+		"scale": [-100, 100],
+		"res": 1.0,
+		"mnemo": "V",
+		"range": 230,
+		"lvls": 16,
+		"id": 27,
+		"unit": "kts"
+	},
+	"28": {
+		"layer": 0,
+		"name": "Spectrum Width",
+		"res": 0.25,
+		"mnemo": "SW",
+		"range": 60,
+		"lvls": 8,
+		"id": 28,
+		"unit": "kts"
+	},
+	"29": {
+		"layer": 0,
+		"name": "Spectrum Width",
+		"res": 0.5,
+		"mnemo": "SW",
+		"range": 115,
+		"lvls": 8,
+		"id": 29,
+		"unit": "kts"
+	},
+	"30": {
+		"layer": 0,
+		"name": "Spectrum Width",
+		"res": 1.0,
+		"mnemo": "SW",
+		"range": 230,
+		"lvls": 8,
+		"id": 30,
+		"unit": "kts"
+	},
+	"31": {
+		"layer": 0,
+		"name": "User Select Precip",
+		"res": 2.0,
+		"mnemo": "USP",
+		"range": 460,
+		"lvls": 16,
+		"id": 31,
+		"unit": "in"
+	},
+	"32": {
+		"layer": 0,
+		"name": "Digital Hybrid Scan Refl",
+		"res": 1.0,
+		"mnemo": "DHR",
+		"range": 230,
+		"lvls": 256,
+		"id": 32,
+		"unit": "dBZ/10"
+	},
+	"33": {
+		"layer": 0,
+		"name": "Hybrid Scan Reflectivity",
+		"res": 1.0,
+		"mnemo": "HSR",
+		"range": 230,
+		"lvls": 16,
+		"id": 33,
+		"unit": "dBZ"
+	},
+	"34": {
+		"layer": 0,
+		"name": "Clutter Filter Control",
+		"res": 1.0,
+		"mnemo": "CFC",
+		"range": 230,
+		"lvls": 8,
+		"id": 34,
+		"unit": ""
+	},
+	"35": {
+		"layer": 0,
+		"name": "Composite Refl",
+		"res": 1.0,
+		"mnemo": "CZ",
+		"range": 230,
+		"lvls": 8,
+		"id": 35,
+		"unit": "dBZ"
+	},
+	"36": {
+		"layer": 0,
+		"name": "Composite Refl",
+		"res": 4.0,
+		"mnemo": "CZ",
+		"range": 460,
+		"lvls": 8,
+		"id": 36,
+		"unit": "dBZ"
+	},
+	"37": {
+		"layer": 0,
+		"name": "Composite Refl",
+		"res": 1.0,
+		"mnemo": "CZ",
+		"range": 230,
+		"lvls": 16,
+		"id": 37,
+		"unit": "dBZ"
+	},
+	"38": {
+		"layer": 0,
+		"name": "Composite Refl",
+		"res": 4.0,
+		"mnemo": "CZ",
+		"range": 460,
+		"lvls": 16,
+		"id": 38,
+		"unit": "dBZ"
+	},
+	"41": {
+		"layer": 0,
+		"name": "Echo Tops",
+		"res": 4.0,
+		"mnemo": "ET",
+		"range": 230,
+		"lvls": 16,
+		"id": 41,
+		"unit": "ft*1000"
+	},
+	"43": {
+		"layer": 0,
+		"name": "Svr Wx Analysis - Ref",
+		"res": 1.0,
+		"mnemo": "SWR",
+		"range": 230,
+		"lvls": 16,
+		"id": 43,
+		"unit": ""
+	},
+	"44": {
+		"layer": 0,
+		"name": "Svr Wx Analysis - Vel",
+		"res": 0.25,
+		"mnemo": "SWV",
+		"range": 230,
+		"lvls": 16,
+		"id": 44,
+		"unit": ""
+	},
+	"45": {
+		"layer": 0,
+		"name": "Svr Wx Analysis - SW",
+		"res": 0.25,
+		"mnemo": "SWW",
+		"range": 230,
+		"lvls": 8,
+		"id": 45,
+		"unit": ""
+	},
+	"46": {
+		"layer": 0,
+		"name": "Svr Wx Analysis - Shear",
+		"res": 0.5,
+		"mnemo": "SWS",
+		"range": 230,
+		"lvls": 16,
+		"id": 46,
+		"unit": ""
+	},
+	"47": {
+		"layer": 0,
+		"name": "Severe Wx Prob",
+		"res": 4.0,
+		"mnemo": "SWP",
+		"range": 230,
+		"lvls": 0,
+		"id": 47,
+		"unit": ""
+	},
+	"48": {
+		"layer": 0,
+		"name": "VAD Wind Profile",
+		"res": 0.0,
+		"mnemo": "VWP",
+		"range": 0,
+		"lvls": 8,
+		"id": 48,
+		"unit": "kts"
+	},
+	"50": {
+		"layer": 0,
+		"name": "Ref X-Sect",
+		"res": 1.0,
+		"mnemo": "RCS",
+		"range": 230,
+		"lvls": 16,
+		"id": 50,
+		"unit": "dBZ"
+	},
+	"51": {
+		"layer": 0,
+		"name": "Vel X-Sect",
+		"res": 0.5,
+		"mnemo": "VCS",
+		"range": 230,
+		"lvls": 16,
+		"id": 51,
+		"unit": "kts"
+	},
+	"55": {
+		"layer": 0,
+		"name": "Storm Rel Vel Region",
+		"res": 0.5,
+		"mnemo": "SRR",
+		"range": 230,
+		"lvls": 16,
+		"id": 55,
+		"unit": "kts"
+	},
+	"56": {
+		"layer": 0,
+		"name": "Storm Rel Velocity",
+		"ctable": ['NWS8bitVel', -100., 1.],
+		"scale": [-100, 100],
+		"res": 1.0,
+		"mnemo": "SRM",
+		"range": 230,
+		"lvls": 16,
+		"id": 56,
+		"unit": "kts"
+	},
+	"57": {
+		"layer": 0,
+		"name": "Vert Integ Liq",
+		"res": 4.0,
+		"mnemo": "VIL",
+		"range": 230,
+		"lvls": 16,
+		"id": 57,
+		"unit": "kg/m\u00b2"
+	},
+	"58": {
+		"layer": 0,
+		"name": "Storm Track",
+		"res": 0.0,
+		"mnemo": "STI",
+		"range": 345,
+		"lvls": 0,
+		"id": 58,
+		"unit": ""
+	},
+	"59": {
+		"layer": 0,
+		"name": "Hail Index",
+		"res": 0.0,
+		"mnemo": "HI",
+		"range": 230,
+		"lvls": 0,
+		"id": 59,
+		"unit": ""
+	},
+	"60": {
+		"layer": 0,
+		"name": "Legacy Meso",
+		"res": 0.0,
+		"mnemo": "M",
+		"range": 230,
+		"lvls": 0,
+		"id": 60,
+		"unit": ""
+	},
+	"61": {
+		"layer": 0,
+		"name": "Tornadic Vortex Sig",
+		"res": 0.0,
+		"mnemo": "TVS",
+		"range": 230,
+		"lvls": 0,
+		"id": 61,
+		"unit": ""
+	},
+	"62": {
+		"layer": 0,
+		"name": "Storm Structure",
+		"res": 0.0,
+		"mnemo": "SS",
+		"range": 460,
+		"lvls": 0,
+		"id": 62,
+		"unit": ""
+	},
+	"65": {
+		"layer": 1,
+		"name": "Layer 1 Max Refl",
+		"res": 4.0,
+		"mnemo": "LRM",
+		"range": 460,
+		"lvls": 8,
+		"id": 65,
+		"unit": "dBZ"
+	},
+	"66": {
+		"layer": 2,
+		"name": "Lyr 2 Comp Ref Max",
+		"res": 4.0,
+		"mnemo": "LRM",
+		"range": 460,
+		"lvls": 8,
+		"id": 66,
+		"unit": "dBZ"
+	},
+	"67": {
+		"layer": 1,
+		"name": "Lyr 1 Comp Ref Max",
+		"res": 4.0,
+		"mnemo": "APR",
+		"range": 460,
+		"lvls": 8,
+		"id": 67,
+		"unit": "dBZ"
+	},
+	"74": {
+		"layer": 0,
+		"name": "Radar Coded Message",
+		"res": 0.0,
+		"mnemo": "RCM",
+		"range": 460,
+		"lvls": 0,
+		"id": 74,
+		"unit": ""
+	},
+	"75": {
+		"layer": 0,
+		"name": "Free Text Message",
+		"res": 0.0,
+		"mnemo": "FTM",
+		"range": 0,
+		"lvls": 0,
+		"id": 75,
+		"unit": ""
+	},
+	"77": {
+		"layer": 0,
+		"name": "PUP Text Message",
+		"res": 0.0,
+		"mnemo": "PTM",
+		"range": 0,
+		"lvls": 0,
+		"id": 77,
+		"unit": ""
+	},
+	"78": {
+		"layer": 0,
+		"name": "One Hour Precip",
+		"res": 2.0,
+		"mnemo": "OHP",
+		"range": 460,
+		"lvls": 16,
+		"id": 78,
+		"unit": "in"
+	},
+	"79": {
+		"layer": 0,
+		"name": "Three Hour Precip",
+		"res": 2.0,
+		"mnemo": "THP",
+		"range": 460,
+		"lvls": 16,
+		"id": 79,
+		"unit": "in"
+	},
+	"80": {
+		"layer": 0,
+		"name": "Storm Total Precip",
+		"res": 2.0,
+		"mnemo": "STP",
+		"range": 460,
+		"lvls": 16,
+		"id": 80,
+		"unit": "in"
+	},
+	"81": {
+		"layer": 0,
+		"name": "Digital Precip Array",
+		"res": 4.0,
+		"mnemo": "DPA",
+		"range": 230,
+		"lvls": 256,
+		"id": 81,
+		"unit": ""
+	},
+	"82": {
+		"layer": 0,
+		"name": "Supplemental Precip Data",
+		"res": 40.0,
+		"mnemo": "SPD",
+		"range": 230,
+		"lvls": 8,
+		"id": 82,
+		"unit": ""
+	},
+	"83": {
+		"layer": 0,
+		"name": "Intermediate Radar Message",
+		"res": 0.0,
+		"mnemo": "IRM",
+		"range": 0,
+		"lvls": 0,
+		"id": 83,
+		"unit": ""
+	},
+	"84": {
+		"layer": 0,
+		"name": "Velocity Azimuth Disp",
+		"res": 0.0,
+		"mnemo": "VAD",
+		"range": 0,
+		"lvls": 8,
+		"id": 84,
+		"unit": "dBZ"
+	},
+	"85": {
+		"layer": 0,
+		"name": "Ref X-Sect",
+		"res": 1.0,
+		"mnemo": "RCS",
+		"range": 230,
+		"lvls": 8,
+		"id": 85,
+		"unit": "dBZ"
+	},
+	"86": {
+		"layer": 0,
+		"name": "Vel X-Sect",
+		"res": 0.5,
+		"mnemo": "VCS",
+		"range": 230,
+		"lvls": 8,
+		"id": 86,
+		"unit": "kts"
+	},
+	"87": {
+		"layer": 0,
+		"name": "Combined Shear",
+		"res": 2.0,
+		"mnemo": "CS",
+		"range": 230,
+		"lvls": 16,
+		"id": 87,
+		"unit": ""
+	},
+	"90": {
+		"layer": 3,
+		"name": "Lyr 3 Comp Ref Max",
+		"res": 4.0,
+		"mnemo": "LRM",
+		"range": 460,
+		"lvls": 8,
+		"id": 90,
+		"unit": "dBZ"
+	},
+	"93": {
+		"layer": 0,
+		"name": "ITWS Digital Velocity",
+		"res": 1.0,
+		"mnemo": "DBV",
+		"range": 115,
+		"lvls": 256,
+		"id": 93,
+		"unit": "(m/s)/10"
+	},
+	"94": {
+		"layer": 0,
+		"name": "Reflectivity",
+		"res": 1.0,
+		"mnemo": "Z",
+		"range": 460,
+		"ctable": ['NWSStormClearReflectivity', -20., 0.5],
+		"scale": [-32.0, 94.5],
+		"lvls": 256,
+		"id": 94,
+		"unit": "dBZ/10"
+	},
+	"95": {
+		"layer": 0,
+		"name": "Comp Refl Edited for AP",
+		"res": 1.0,
+		"mnemo": "CZE",
+		"range": 230,
+		"lvls": 8,
+		"id": 95,
+		"unit": "dBZ"
+	},
+	"96": {
+		"layer": 0,
+		"name": "Comp Refl Edited for AP",
+		"res": 4.0,
+		"mnemo": "CZE",
+		"range": 460,
+		"lvls": 8,
+		"id": 96,
+		"unit": "dBZ"
+	},
+	"97": {
+		"layer": 0,
+		"name": "Comp Refl Edited for AP",
+		"res": 1.0,
+		"mnemo": "CZE",
+		"range": 230,
+		"lvls": 16,
+		"id": 97,
+		"unit": "dBZ"
+	},
+	"98": {
+		"layer": 0,
+		"name": "Comp Refl Edited for AP",
+		"res": 4.0,
+		"mnemo": "CZE",
+		"range": 460,
+		"lvls": 16,
+		"id": 98,
+		"unit": "dBZ"
+	},
+	"99": {
+		"layer": 0,
+		"name": "Velocity",
+		"res": 0.25,
+		"mnemo": "V",
+		"range": 300,
+        	"ctable": ['NWS8bitVel', -100., 1.],
+        	"scale": [-100, 100],
+		"lvls": 256,
+		"id": 99,
+		"unit": "(m/s)/10"
+	},
+	"100": {
+		"layer": 0,
+		"name": "VAD Site Adapt Params",
+		"res": 0.0,
+		"mnemo": "VSDT",
+		"range": 0,
+		"lvls": 0,
+		"id": 100,
+		"unit": ""
+	},
+	"101": {
+		"layer": 0,
+		"name": "Storm Track Alpha block",
+		"res": 0.0,
+		"mnemo": "STIT",
+		"range": 0,
+		"lvls": 0,
+		"id": 101,
+		"unit": ""
+	},
+	"102": {
+		"layer": 0,
+		"name": "Hail Index Alpha block",
+		"res": 0.0,
+		"mnemo": "HIT",
+		"range": 0,
+		"lvls": 0,
+		"id": 102,
+		"unit": ""
+	},
+	"103": {
+		"layer": 0,
+		"name": "Mesocyclone Alpha block",
+		"res": 0.0,
+		"mnemo": "MT",
+		"range": 0,
+		"lvls": 0,
+		"id": 103,
+		"unit": ""
+	},
+	"104": {
+		"layer": 0,
+		"name": "TVS Alpha block",
+		"res": 0.0,
+		"mnemo": "TVST",
+		"range": 0,
+		"lvls": 0,
+		"id": 104,
+		"unit": ""
+	},
+	"105": {
+		"layer": 0,
+		"name": "Combined Shear Params",
+		"res": 0.0,
+		"mnemo": "CST",
+		"range": 0,
+		"lvls": 0,
+		"id": 105,
+		"unit": ""
+	},
+	"107": {
+		"layer": 0,
+		"name": "1hr Rainfall Params",
+		"res": 0.0,
+		"mnemo": "OHPT",
+		"range": 0,
+		"lvls": 0,
+		"id": 107,
+		"unit": ""
+	},
+	"108": {
+		"layer": 0,
+		"name": "3hr Rainfall Params",
+		"res": 0.0,
+		"mnemo": "THPT",
+		"range": 0,
+		"lvls": 0,
+		"id": 108,
+		"unit": ""
+	},
+	"109": {
+		"layer": 0,
+		"name": "Storm Total Params",
+		"res": 0.0,
+		"mnemo": "STPT",
+		"range": 0,
+		"lvls": 0,
+		"id": 109,
+		"unit": ""
+	},
+	"132": {
+		"layer": 0,
+		"name": "Clutter Likelihood Refl",
+		"res": 1.0,
+		"mnemo": "CLR",
+		"range": 230,
+		"lvls": 16,
+		"id": 132,
+		"unit": "%"
+	},
+	"133": {
+		"layer": 0,
+		"name": "Clutter Likelihood Dopp",
+		"res": 1.0,
+		"mnemo": "CLD",
+		"range": 230,
+		"lvls": 16,
+		"id": 133,
+		"unit": "%"
+	},
+	"134": {
+		"layer": 0,
+		"name": "Digital Vert Integ Liq",
+		"res": 1.0,
+		"mnemo": "DVL",
+		"range": 460,
+		"lvls": 256,
+		"id": 134,
+		"unit": "kg/m\u00b2"
+	},
+	"135": {
+		"layer": 0,
+		"name": "Enhanced Echo Tops",
+		"res": 1.0,
+		"mnemo": "EET",
+		"ctable": ['NWSEnhancedEchoTops', 2, 1],
+		"scale": [0, 255],
+		"range": 460,
+		"lvls": 256,
+		"id": 135,
+		"unit": "ft*1000"
+	},
+	"136": {
+		"layer": 0,
+		"name": "SuperOb",
+		"res": 4.0,
+		"mnemo": "SO",
+		"range": 0,
+		"lvls": 256,
+		"id": 136,
+		"unit": ""
+	},
+	"137": {
+		"layer": 9,
+		"name": "User Selectable Lyr Refl",
+		"res": 1.0,
+		"mnemo": "ULR",
+		"range": 230,
+		"lvls": 16,
+		"id": 137,
+		"unit": "dBZ"
+	},
+	"138": {
+		"layer": 0,
+		"name": "Storm Total Precip",
+		"res": 2.0,
+		"mnemo": "STP",
+		"ctable": ['NWSStormClearReflectivity', -100., 1.],
+		"scale": [0, 10],
+		"range": 460,
+		"lvls": 256,
+		"id": 138,
+		"unit": "in/100"
+	},
+	"139": {
+		"layer": 0,
+		"name": "Rapid Update Mesocyclone",
+		"res": 0.0,
+		"mnemo": "MRU",
+		"range": 230,
+		"lvls": 0,
+		"id": 139,
+		"unit": ""
+	},
+	"140": {
+		"layer": 0,
+		"name": "Gust Front MIGFA",
+		"res": 0.0,
+		"mnemo": "GFM",
+		"range": 230,
+		"lvls": 0,
+		"id": 140,
+		"unit": ""
+	},
+	"141": {
+		"layer": 0,
+		"name": "Mesocyclone",
+		"res": 0.0,
+		"mnemo": "MD",
+		"range": 230,
+		"lvls": 0,
+		"id": 141,
+		"unit": ""
+	},
+	"143": {
+		"layer": 0,
+		"name": "TVS Rapid Update",
+		"res": 0.0,
+		"mnemo": "TRU",
+		"range": 230,
+		"lvls": 0,
+		"id": 143,
+		"unit": ""
+	},
+	"144": {
+		"layer": 0,
+		"name": "1-Hour Snow-Water Equiv",
+		"res": 1.0,
+		"mnemo": "OSW",
+		"range": 230,
+		"lvls": 16,
+		"id": 144,
+		"unit": "in"
+	},
+	"145": {
+		"layer": 0,
+		"name": "1-Hour Snow Depth",
+		"res": 1.0,
+		"mnemo": "OSD",
+		"range": 230,
+		"lvls": 16,
+		"id": 145,
+		"unit": "in"
+	},
+	"146": {
+		"layer": 0,
+		"name": "Storm Tot Snow-Water Equiv",
+		"res": 1.0,
+		"mnemo": "SSW",
+		"range": 230,
+		"lvls": 16,
+		"id": 146,
+		"unit": "in"
+	},
+	"147": {
+		"layer": 0,
+		"name": "Storm Tot Snow Depth",
+		"res": 1.0,
+		"mnemo": "SSD",
+		"range": 230,
+		"lvls": 16,
+		"id": 147,
+		"unit": "in"
+	},
+	"149": {
+		"layer": 0,
+		"name": "Digital Mesocyclone Data",
+		"res": 0.0,
+		"mnemo": "DMD",
+		"range": 230,
+		"lvls": 0,
+		"id": 149,
+		"unit": ""
+	},
+	"150": {
+		"layer": 0,
+		"name": "User Sel Snow-Water Equiv",
+		"res": 1.0,
+		"mnemo": "USW",
+		"range": 230,
+		"lvls": 16,
+		"id": 150,
+		"unit": "in"
+	},
+	"151": {
+		"layer": 0,
+		"name": "User Sel Snow Depth",
+		"res": 1.0,
+		"mnemo": "USD",
+		"range": 230,
+		"lvls": 16,
+		"id": 151,
+		"unit": "in"
+	},
+	"152": {
+		"layer": 0,
+		"name": "RPG System Status",
+		"res": 0.0,
+		"mnemo": "RSS",
+		"range": 0,
+		"lvls": 0,
+		"id": 152,
+		"unit": ""
+	},
+	"153": {
+		"layer": 0,
+		"name": "Reflectivity",
+		"res": 0.25,
+		"mnemo": "HZ",
+		"range": 460,
+		"lvls": 256,
+		"id": 153,
+		"unit": "dBZ/10"
+	},
+	"154": {
+		"layer": 0,
+		"name": "Velocity",
+		"res": 0.25,
+		"mnemo": "HV",
+		"range": 300,
+		"lvls": 256,
+		"id": 154,
+		"unit": "(m/s)/10"
+	},
+	"155": {
+		"layer": 0,
+		"name": "Spec Width",
+		"res": 0.25,
+		"mnemo": "HSW",
+		"range": 300,
+		"lvls": 256,
+		"id": 155,
+		"unit": "(m/s)/10"
+	},
+	"158": {
+		"layer": 0,
+		"name": "Diff Reflectivity",
+		"res": 1.0,
+		"mnemo": "ZDR",
+		"range": 230,
+		"ctable": ['NWSStormClearReflectivity', -4.0, 5.0],
+		"lvls": 16,
+		"id": 158,
+		"unit": "dB"
+	},
+	"159": {
+		"layer": 0,
+		"name": "Diff Reflectivity",
+		"res": 0.25,
+		"mnemo": "ZDR",
+		"range": 300,
+    	"ctable": ['NWSStormClearReflectivity', -4.0, 5.0],
+		"lvls": 256,
+		"id": 159,
+		"unit": "dB"
+	},
+	"160": {
+		"layer": 0,
+		"name": "Correlation Coeff",
+		"res": 1.0,
+		"mnemo": "CC",
+		"range": 230,
+		"lvls": 16,
+		"id": 160,
+		"unit": ""
+	},
+	"161": {
+		"layer": 0,
+		"name": "Correlation Coeff",
+		"res": 0.25,
+		"mnemo": "CC",
+		"range": 300,
+		"lvls": 256,
+		"id": 161,
+		"unit": ""
+	},
+	"162": {
+		"layer": 0,
+		"name": "Specific Diff Phase",
+		"res": 1.0,
+		"mnemo": "KDP",
+		"range": 230,
+		"lvls": 16,
+		"id": 162,
+		"unit": "deg/km"
+	},
+	"163": {
+		"layer": 0,
+		"name": "Specific Diff Phase",
+		"res": 0.25,
+		"mnemo": "KDP",
+		"range": 300,
+		"lvls": 256,
+		"id": 163,
+		"unit": "deg/km"
+	},
+	"164": {
+		"layer": 0,
+		"name": "Hydrometeor Class",
+		"res": 1.0,
+		"mnemo": "HC",
+		"range": 230,
+		"lvls": 16,
+		"id": 164,
+		"unit": ""
+	},
+	"165": {
+		"layer": 0,
+		"name": "Hydrometeor Class",
+		"res": 0.25,
+		"mnemo": "HC",
+		"range": 300,
+		"lvls": 256,
+		"id": 165,
+		"unit": "/10"
+	},
+	"166": {
+		"layer": 0,
+		"name": "Melting Layer",
+		"res": 0.0,
+		"mnemo": "ML",
+		"range": 230,
+		"lvls": 0,
+		"id": 166,
+		"unit": ""
+	},
+	"167": {
+		"layer": 0,
+		"name": "Raw CC",
+		"res": 0.25,
+		"mnemo": "SDC",
+		"range": 300,
+		"lvls": 256,
+		"id": 167,
+		"unit": ""
+	},
+	"168": {
+		"layer": 0,
+		"name": "Raw PHIDP",
+		"res": 0.25,
+		"mnemo": "SDP",
+		"range": 300,
+		"lvls": 256,
+		"id": 168,
+		"unit": "deg"
+	},
+	"169": {
+		"layer": 0,
+		"name": "One Hour Accum",
+		"res": 2.0,
+		"mnemo": "OHA",
+		"ctable": ['NWSStormClearReflectivity', -100., 1.],
+		"scale": [0, 10],
+		"range": 230,
+		"lvls": 16,
+		"id": 169,
+		"unit": "in"
+	},
+	"170": {
+		"layer": 0,
+		"name": "One Hour Unbiased Accum",
+		"res": 0.25,
+		"mnemo": "DAA",
+		"ctable": ['NWSStormClearReflectivity', -100., 1.],
+		"scale": [0, 10],
+		"range": 230,
+		"lvls": 256,
+		"id": 170,
+		"unit": "in/100"
+	},
+	"171": {
+		"layer": 0,
+		"name": "Storm Total Accum",
+		"res": 2.0,
+		"mnemo": "STA",
+		"ctable": ['NWSStormClearReflectivity', -100., 1.],
+		"scale": [0, 30],
+		"range": 230,
+		"lvls": 16,
+		"id": 171,
+		"unit": "in"
+	},
+	"172": {
+		"layer": 0,
+		"name": "Storm Total Accum",
+		"res": 0.25,
+		"mnemo": "STA",
+		"ctable": ['NWSStormClearReflectivity', -100., 1.],
+		"scale": [0, 30],
+		"range": 230,
+		"lvls": 256,
+		"id": 172,
+		"unit": "in/100"
+	},
+	"173": {
+		"layer": 0,
+		"name": "User Select Accum",
+		"res": 0.25,
+		"mnemo": "DUA",
+		"ctable": ['NWSStormClearReflectivity', -100., 1.],
+		"scale": [0, 30],
+		"range": 230,
+		"lvls": 256,
+		"id": 173,
+		"unit": "in/100"
+	},
+	"174": {
+		"layer": 0,
+		"name": "One Hour Diff",
+		"res": 0.25,
+		"mnemo": "DOD",
+		"range": 230,
+		"lvls": 256,
+		"id": 174,
+		"unit": "in/100"
+	},
+	"175": {
+		"layer": 0,
+		"name": "Storm Total Diff",
+		"res": 0.25,
+		"mnemo": "DSD",
+		"range": 230,
+		"lvls": 256,
+		"id": 175,
+		"unit": "in/100"
+	},
+	"176": {
+		"layer": 0,
+		"name": "Digital Inst Precip Rate",
+		"res": 0.25,
+		"mnemo": "DPR",
+		"ctable": ['NWS8bitVel', -100., 1.],
+		"scale": [0, 16],
+		"range": 230,
+		"lvls": 65536,
+		"id": 176,
+		"unit": "in/h"
+	},
+	"177": {
+		"layer": 0,
+		"name": "Hybrid Hydrometeor Class",
+		"res": 0.25,
+		"mnemo": "HHC",
+		"ctable": ['NWS8bitVel', -100., 1.],
+		"scale": [0, 16],
+		"range": 230,
+		"lvls": 256,
+		"id": 177,
+		"unit": "/10"
+	},
+	"180": {
+		"layer": 0,
+		"name": "Reflectivity",
+		"res": 0.15,
+		"mnemo": "Z",
+		"range": 90,
+		"lvls": 256,
+		"id": 180,
+		"unit": "dBZ/10"
+	},
+	"181": {
+		"layer": 0,
+		"name": "Reflectivity",
+		"res": 0.15,
+		"mnemo": "Z",
+		"range": 90,
+		"lvls": 16,
+		"id": 181,
+		"unit": "dBZ"
+	},
+	"182": {
+		"layer": 0,
+		"name": "Velocity",
+		"res": 0.15,
+		"mnemo": "V",
+		"range": 90,
+		"lvls": 256,
+		"id": 182,
+		"unit": "(m/s)/10"
+	},
+	"183": {
+		"layer": 0,
+		"name": "Velocity",
+		"res": 0.15,
+		"mnemo": "V",
+		"range": 90,
+		"lvls": 16,
+		"id": 183,
+		"unit": "kts"
+	},
+	"184": {
+		"layer": 0,
+		"name": "Spec Width",
+		"res": 0.15,
+		"mnemo": "SW",
+		"range": 90,
+		"lvls": 256,
+		"id": 184,
+		"unit": "(m/s)/10"
+	},
+	"185": {
+		"layer": 0,
+		"name": "Spectrum Width",
+		"res": 0.15,
+		"mnemo": "SW",
+		"range": 90,
+		"lvls": 8,
+		"id": 185,
+		"unit": "kts"
+	},
+	"186": {
+		"layer": 0,
+		"name": "Long Range Refl",
+		"res": 0.3,
+		"mnemo": "Z",
+		"range": 460,
+		"lvls": 256,
+		"id": 186,
+		"unit": "dBZ/10"
+	},
+	"187": {
+		"layer": 0,
+		"name": "Long Range Refl",
+		"res": 0.3,
+		"mnemo": "Z",
+		"range": 460,
+		"lvls": 16,
+		"id": 187,
+		"unit": "dBZ"
+	},
+	"196": {
+		"layer": 0,
+		"name": "Microburst AMDA",
+		"res": 0.0,
+		"mnemo": "MBA",
+		"range": 50,
+		"lvls": 0,
+		"id": 196,
+		"unit": ""
+	},
+	"202": {
+		"layer": 0,
+		"name": "Shift Change Checklist",
+		"res": 0.0,
+		"mnemo": "SCC",
+		"range": 0,
+		"lvls": 0,
+		"id": 202,
+		"unit": ""
+	},
+	"550": {
+		"layer": 0,
+		"name": "Reflectivity",
+		"res": 0.926,
+		"mnemo": "Z",
+		"range": 111,
+		"lvls": 8,
+		"id": 550,
+		"unit": "dBZ"
+	},
+	"300": {
+		"layer": 0,
+		"name": "Level II Reflectivity",
+		"res": 1.0,
+		"mnemo": "Z",
+		"range": 460,
+		"lvls": 256,
+		"id": 300,
+		"unit": "dBZ/10"
+	},
+	"301": {
+		"layer": 0,
+		"name": "Level II Velocity",
+		"res": 0.25,
+		"mnemo": "V",
+		"range": 230,
+		"lvls": 256,
+		"id": 301,
+		"unit": "kts"
+	},
+	"500": {
+		"layer": 0,
+		"name": "Reflectivity",
+		"res": 0.463,
+		"mnemo": "Z",
+		"range": 463,
+		"lvls": 8,
+		"id": 500,
+		"unit": "dBZ"
+	}
 }
+
 # Dictionary that maps VTEC codes to headlines
 # Modified from com.raytheon.uf.edex.activetable/utility/common_static/base/vtec/VTECTable.py
 # Colors from https://www.weather.gov/bro/mapcolors
@@ -244,6 +1632,7 @@ vtec = {
               'hdln': 'Hurricane Force Wind Warning'},
     'HT.Y' : {'phen': 'HT',
               'sig': 'Y',
+              'color': '#ff7f4e',
               'hdln': 'Heat Advisory'},
     'HU.A' : {'phen': 'HU',
               'sig': 'A',
@@ -336,7 +1725,7 @@ vtec = {
               'hdln': 'High Rip Current Risk'},
     'SC.Y' : {'phen': 'SC',
               'sig': 'Y',
-              'thistle'
+              'color': 'thistle',
               'hdln': 'Small Craft Advisory'},
     'SE.A' : {'phen': 'SE',
               'sig': 'A',
@@ -346,7 +1735,7 @@ vtec = {
               'hdln': 'Hazardous Seas Warning'},
     'SI.Y' : {'phen': 'SI',
               'sig': 'Y',
-              'thistle'
+              'color': 'thistle',
               'hdln': 'Small Craft Advisory for winds'},
     'SM.Y' : {'phen': 'SM',
               'sig': 'Y',
@@ -388,7 +1777,7 @@ vtec = {
               'hdln': 'Severe Thunderstorm Warning'},
     'SW.Y' : {'phen': 'SW',
               'sig': 'Y',
-              'thistle'
+              'color': 'thistle',
               'hdln': 'Small Craft Advisory for hazardous seas'},
     'TO.A' : {'phen': 'TO',
               'sig': 'A',
