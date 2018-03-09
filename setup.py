@@ -10,7 +10,7 @@ dependencies = ['numpy','six']
 if sys.version_info < (3, 4):
     dependencies.append('enum34')
 
-ver="0.9.11"
+ver="0.9.12"
 
 setup(
     name='python-awips',
@@ -19,7 +19,7 @@ setup(
     packages=find_packages(exclude='data'),
     license='BSD',
     url='http://python-awips.readthedocs.io',
-    download_url='https://github.com/Unidata/python-awips/archive/v{}.tar.gz'.format(ver),
+    download_url='https://github.com/Unidata/python-awips/archive/{}.tar.gz'.format(ver),
     author='Unidata',
     author_email='mjames@ucar.edu',
     install_requires=dependencies,
