@@ -24,6 +24,7 @@ class SerializableExceptionWrapper(object):
         if not self.message:
             self.message = b''
         retVal = b"" + self.exceptionClass + b" exception thrown: " + self.message + b"\n"
+        retVal = retVal.decode('UTF-8')
         for element in self.stackTrace:
             retVal += "\tat " + str(element) + "\n"
 
