@@ -35,6 +35,15 @@ Install
 
 - pip install python-awips
 
+Conda Environment
+-----------------
+
+- git clone https://github.com/Unidata/python-awips.git
+- cd python-awips
+- conda env create -f environment.yml
+- source activate python-awips
+- jupyter notebook examples
+
 Requirements
 ------------
 

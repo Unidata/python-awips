@@ -27,18 +27,67 @@ Quick Example
 
     from awips.dataaccess import DataAccessLayer
     DataAccessLayer.changeEDEXHost("edex-cloud.unidata.ucar.edu")
-    request = DataAccessLayer.newDataRequest()
     dataTypes = DataAccessLayer.getSupportedDatatypes()
-    request.setDatatype("grid")
-    request.addLocationNames("RAP13")
-    request.setParameters("T")
-    request.setLevels("0.0SFC")
-    cycles = DataAccessLayer.getAvailableTimes(request, True)
-    times = DataAccessLayer.getAvailableTimes(request)
-    response = DataAccessLayer.getGridData(request, times[-1])
-    for grid in response:
-        data = grid.getRawData()
-        lons, lats = grid.getLatLonCoords()
+    list(dataTypes)
+
+    ['acars',
+    'binlightning',
+    'bufrmosavn',
+    'bufrmoseta',
+    'bufrmosgfs',
+    'bufrmoshpc',
+    'bufrmoslamp',
+    'bufrmosmrf',
+    'bufrua',
+    'climate',
+    'common_obs_spatial',
+    'gfe',
+    'grid',
+    'hydro',
+    'maps',
+    'modelsounding',
+    'obs',
+    'practicewarning',
+    'radar',
+    'radar_spatial',
+    'satellite',
+    'sfcobs',
+    'topo',
+    'warning']
+
+    request = DataAccessLayer.newDataRequest()
+    request.setDatatype("satellite")
+    availableSectors = DataAccessLayer.getAvailableLocationNames(request)
+    availableSectors.sort()
+    for sector in availableSectors:
+        print sector
+        request.setLocationNames(sector)
+        availableProducts = DataAccessLayer.getAvailableParameters(request)
+        availableProducts.sort()
+        for product in availableProducts:
+            print " - " + product
+
+    ECONUS
+     - ACTP
+     - ADP
+     - AOD
+     - CAPE
+     - CH-01-0.47um
+     - CH-02-0.64um
+     - CH-03-0.87um
+     - CH-04-1.38um
+     ...
+    EFD
+     - ACTP
+     - ADP
+     - AOD
+     - CAPE
+     - CH-01-0.47um
+     - CH-02-0.64um
+     - CH-03-0.87um
+     - CH-04-1.38um
+     ...
+
 
 See the `API Documentation <api/DataAccessLayer.html>`_ for more information.
 
