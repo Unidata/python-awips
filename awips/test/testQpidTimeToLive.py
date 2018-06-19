@@ -78,6 +78,7 @@ class ListenThread(threading.Thread):
         self.qs.close()
 
 
+
 def main():
     print "Starting up at", time.strftime('%H:%M:%S')
 
@@ -95,5 +96,9 @@ def main():
     finally:
         thread.stop()
 
+
 if __name__ == '__main__':
     main()
+
+
+

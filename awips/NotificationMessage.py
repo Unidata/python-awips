@@ -1,19 +1,33 @@
 ##
+# This software was developed and / or modified by Raytheon Company,
+# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
+#
+# U.S. EXPORT CONTROLLED TECHNICAL DATA
+# This software product contains export-restricted data whose
+# export/transfer/disclosure is restricted by U.S. law. Dissemination
+# to non-U.S. persons whether in the United States or abroad requires
+# an export license or other authorization.
+#
+# Contractor Name:        Raytheon Company
+# Contractor Address:     6825 Pine Street, Suite 340
+#                         Mail Stop B8
+#                         Omaha, NE 68106
+#                         402.291.0100
+#
+# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
+# further licensing information.
 ##
 
-from string import Template
+from __future__ import print_function
 
-import ctypes
-from . import stomp
+import stomp
 import socket
 import sys
 import time
-import threading
 import xml.etree.ElementTree as ET
 
-from . import ThriftClient
+import ThriftClient
 from dynamicserialize.dstypes.com.raytheon.uf.common.alertviz import AlertVizRequest
-from dynamicserialize import DynamicSerializationManager
 
 #
 # Provides a capability of constructing notification messages and sending
@@ -32,6 +46,7 @@ from dynamicserialize import DynamicSerializationManager
 #                                                 value
 #    07/27/15        4654          skorolev       Added filters
 #    11/11/15        5120          rferrel        Cannot serialize empty filters.
+#    03/05/18        6899          dgilling       Update to latest version of stomp.py API.
 #
 class NotificationMessage:
 
@@ -75,7 +90,7 @@ class NotificationMessage:
               priorityInt = int(5)
 
       if (priorityInt < 0 or priorityInt > 5):
-          print("Error occurred, supplied an invalid Priority value: " + str(priorityInt))
+          print("Error occurred, supplied an invalid Priority value:", str(priorityInt))
           print("Priority values are 0, 1, 2, 3, 4 and 5.")
           sys.exit(1)
 
@@ -84,16 +99,6 @@ class NotificationMessage:
       else:
           self.priority = priority
 
-   def connection_timeout(self, connection):
-          if (connection is not None and not connection.is_connected()):
-              print("Connection Retry Timeout")
-              for tid, tobj in list(threading._active.items()):
-                  if tobj.name is "MainThread":
-                      res = ctypes.pythonapi.PyThreadState_SetAsyncExc(tid, ctypes.py_object(SystemExit))
-                      if res != 0 and res != 1:
-                          # problem, reset state
-                          ctypes.pythonapi.PyThreadState_SetAsyncExc(tid, 0)
-
    def send(self):
        # depending on the value of the port number indicates the distribution
        # of the message to AlertViz
@@ -101,32 +106,26 @@ class NotificationMessage:
        # 61999 is local distribution
     if (int(self.port) == 61999):
         # use stomp.py
-        conn = stomp.Connection(host_and_ports=[(self.host, 61999)])
-        timeout = threading.Timer(5.0, self.connection_timeout, [conn])
+        conn = stomp.Connection(host_and_ports=[(self.host, 61999)],
+                                timeout=5.)
 
         try:
-            timeout.start();
             conn.start()
-        finally:
-            timeout.cancel()
+            conn.connect()
 
-        conn.connect()
+            sm = ET.Element("statusMessage")
+            sm.set("machine", socket.gethostname())
+            sm.set("priority", self.priority)
+            sm.set("category", self.category)
+            sm.set("sourceKey", self.source)
+            sm.set("audioFile", self.audioFile)
+            if self.filters:
+                sm.set("filters", self.filters)
+            msg = ET.SubElement(sm, "message")
+            msg.text = self.message
+            msg = ET.tostring(sm, "UTF-8")
 
-        sm = ET.Element("statusMessage")
-        sm.set("machine", socket.gethostname())
-        sm.set("priority", self.priority)
-        sm.set("category", self.category)
-        sm.set("sourceKey", self.source)
-        sm.set("audioFile", self.audioFile)
-        if self.filters is not None and len(self.filters) > 0:
-            sm.set("filters", self.filters)
-        msg = ET.SubElement(sm, "message")
-        msg.text = self.message
-        details = ET.SubElement(sm, "details")
-        msg = ET.tostring(sm, "UTF-8")
-
-        try :
-            conn.send(msg, destination='/queue/messages')
+            conn.send(destination='/queue/messages', body=msg, content_type='application/xml;charset=utf-8')
             time.sleep(2)
         finally:
             conn.stop()
@@ -139,13 +138,13 @@ class NotificationMessage:
         try:
             serverResponse = thriftClient.sendRequest(alertVizRequest)
         except Exception as ex:
-            print("Caught exception submitting AlertVizRequest: ", str(ex))
+            print("Caught exception submitting AlertVizRequest:", str(ex))
 
         if (serverResponse != "None"):
-            print("Error occurred submitting Notification Message to AlertViz receiver: ", serverResponse)
+            print("Error occurred submitting Notification Message to AlertViz receiver:", serverResponse)
             sys.exit(1)
         else:
-            print("Response: " + str(serverResponse))
+            print("Response:", str(serverResponse))
 
 def createRequest(message, priority, source, category, audioFile, filters):
     obj = AlertVizRequest()

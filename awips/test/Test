@@ -45,4 +45,3 @@ import Record
 avh = AlertVizHandler.AlertVizHandler(host=os.getenv("BROKER_ADDR","localhost"), port=9581, category='LOCAL', source='ANNOUNCER', level=logging.NOTSET)
 record = Record.Record(10)
 avh.emit(record)
-

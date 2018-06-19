@@ -90,6 +90,7 @@ def __getAvailableTimesForEachLocation(request, refTimeOnly=False):
     else:
         return DataAccessLayer.getAvailableTimes(request, refTimeOnly)
 
+
 def __cloneRequest(request):
     return DataAccessLayer.newDataRequest(datatype      = request.getDatatype(),
                                           parameters    = request.getParameters(),

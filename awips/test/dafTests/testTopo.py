@@ -24,7 +24,6 @@ from awips.ThriftClient import ThriftRequestException
 
 import baseDafTestCase
 import shapely.geometry
-import unittest
 
 #
 # Test DAF support for topo data
@@ -39,7 +38,9 @@ import unittest
 #    05/26/16        5587          tgurney        Add test for
 #                                                 getIdentifierValues()
 #    06/01/16        5587          tgurney        Update testGetIdentifierValues
-#
+#    07/18/17        6253          randerso       Removed referenced to GMTED
+#    02/20/18        7220          mapeters       Added tests for getting filtered
+#                                                 group/dataset identifier values
 #
 
 
@@ -61,7 +62,7 @@ class TopoTestCase(baseDafTestCase.DafTestCase):
         print("Sample grid data shape:\n" + str(gridData[0].getRawData().shape) + "\n")
         print("Sample grid data:\n" + str(gridData[0].getRawData()) + "\n")
 
-        for topoFile in ["gmted2010", "gtopo30"]:
+        for topoFile in ["gtopo30"]:
             print("\n" + topoFile)
             req.addIdentifier("topoFile", topoFile)
             gridData = DAL.getGridData(req)
@@ -88,6 +89,18 @@ class TopoTestCase(baseDafTestCase.DafTestCase):
         optionalIds = set(DAL.getOptionalIdentifiers(req))
         requiredIds = set(DAL.getRequiredIdentifiers(req))
         self.runGetIdValuesTest(optionalIds | requiredIds)
+
+    def testGetFilteredDatasetValues(self):
+        req = DAL.newDataRequest(self.datatype)
+        req.addIdentifier('group', '/')
+        datasetVals = DAL.getIdentifierValues(req, 'dataset')
+        self.assertSequenceEqual(datasetVals, ['full'])
+
+    def testGetFilteredGroupValues(self):
+        req = DAL.newDataRequest(self.datatype)
+        req.addIdentifier('dataset', '1')
+        groupVals = DAL.getIdentifierValues(req, 'group')
+        self.assertSequenceEqual(groupVals, ['/interpolated'])
 
     def testGetInvalidIdentifierValuesThrowsException(self):
         self.runInvalidIdValuesTest()
