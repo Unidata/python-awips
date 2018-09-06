@@ -42,6 +42,7 @@ Conda Environment
 - cd python-awips
 - conda env create -f environment.yml
 - source activate python-awips
+- python setup.py install --force
 - jupyter notebook examples
 
 Requirements
