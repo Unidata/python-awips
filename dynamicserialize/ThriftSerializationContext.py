@@ -256,14 +256,11 @@ class ThriftSerializationContext(object):
                 self.protocol.writeStructBegin(fqn)
                 methods = inspect.getmembers(obj, inspect.ismethod)
                 fid = 1
-                #print(methods);
                 for m in methods:
                     methodName = m[0]
                     if methodName.startswith('get'):
                         fieldname = methodName[3].lower() + methodName[4:]
                         val = m[1]()
-                        #print(val);
-                        dir(val);
                         ft = self._lookupType(val)
                         if ft == TType.STRUCT:
                             fc = val.__module__[DS_LEN:]
@@ -328,7 +325,7 @@ class ThriftSerializationContext(object):
     def _serializeMap(self, obj):
         size = len(obj)
         self.protocol.writeMapBegin(TType.VOID, TType.VOID, size)
-        for k in obj.keys():
+        for k in list(obj.keys()):
             self.typeSerializationMethod[TType.STRUCT](k)
             self.typeSerializationMethod[TType.STRUCT](obj[k])
         self.protocol.writeMapEnd()
