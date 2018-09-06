@@ -4,8 +4,12 @@ language: python
 sudo: false
 
 python:
-  - 3.6
-  - 2.7
+  - "2.7"
+  - "3.4"
+  - "3.5"
+  - "3.5-dev" # 3.5 development branch
+  - "3.6-dev" # 3.6 development branch
+  - "nightly" # currently points to 3.7-dev
 
 env:
   global:
@@ -47,4 +51,5 @@ before_install:
 install:
   - pip install ".[$EXTRA_INSTALLS]" --upgrade --no-index $PRE -f file://$PWD/$WHEELDIR $VERSIONS;
 
-script: true
+script:
+    - if [[ $TRAVIS_PYTHON_VERSION == 3.4 || $TRAVIS_PYTHON_VERSION == 3.5 ]]; then py.test;else pytest; fi
