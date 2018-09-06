@@ -1965,7 +1965,7 @@ upgradeHazardsDict = {
 def checkForUpgrade(pPhen, pSig, cPhen, cSig):
     proposed = pPhen + "." + pSig
     current = cPhen + "." + cSig
-    if upgradeHazardsDict.has_key(proposed):
+    if proposed in upgradeHazardsDict:
         if current in upgradeHazardsDict[proposed]:
             return 1
         else:
@@ -2016,7 +2016,7 @@ downgradeHazardsDict = {
 def checkForDowngrade(pPhen, pSig, cPhen, cSig):
     proposed = pPhen + "." + pSig
     current = cPhen + "." + cSig
-    if downgradeHazardsDict.has_key(proposed):
+    if proposed in downgradeHazardsDict:
         if current in downgradeHazardsDict[proposed]:
             return 1
         else:

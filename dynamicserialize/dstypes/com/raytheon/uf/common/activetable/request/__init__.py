@@ -10,8 +10,8 @@ __all__ = [
             'SendActiveTableRequest'
           ]
 
-from ClearPracticeVTECTableRequest import ClearPracticeVTECTableRequest
-from MergeActiveTableRequest import MergeActiveTableRequest
-from RetrieveRemoteActiveTableRequest import RetrieveRemoteActiveTableRequest
-from SendActiveTableRequest import SendActiveTableRequest
+from .ClearPracticeVTECTableRequest import ClearPracticeVTECTableRequest
+from .MergeActiveTableRequest import MergeActiveTableRequest
+from .RetrieveRemoteActiveTableRequest import RetrieveRemoteActiveTableRequest
+from .SendActiveTableRequest import SendActiveTableRequest
 

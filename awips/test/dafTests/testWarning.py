@@ -129,7 +129,7 @@ class WarningTestCase(baseDafTestCase.DafTestCase):
             self.assertEqual(record.getString('etn'), '1000')
 
     def testGetDataWithEqualsLong(self):
-        geometryData = self._runConstraintTest('etn', '=', 1000L)
+        geometryData = self._runConstraintTest('etn', '=', 1000)
         for record in geometryData:
             self.assertEqual(record.getString('etn'), '1000')
 

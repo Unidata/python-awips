@@ -26,13 +26,14 @@ import calendar
 import datetime
 import numpy
 import re
-import StringIO
+from six.moves import cStringIO as StringIO
+
 import time
 
 from dynamicserialize.dstypes.java.util import Date
 from dynamicserialize.dstypes.java.util import EnumSet
 
-from TimeRange import TimeRange
+from .TimeRange import TimeRange
 
 _DATE=r'(\d{4}-\d{2}-\d{2})'
 _TIME=r'(\d{2}:\d{2}:\d{2})'
@@ -70,16 +71,16 @@ class DataTime(object):
 
         if self.refTime is not None:
             if isinstance(self.refTime, datetime.datetime):
-                self.refTime = long(calendar.timegm(self.refTime.utctimetuple()) * 1000)
+                self.refTime = int(calendar.timegm(self.refTime.utctimetuple()) * 1000)
             elif isinstance(self.refTime, time.struct_time):
-                self.refTime = long(calendar.timegm(self.refTime) * 1000)
+                self.refTime = int(calendar.timegm(self.refTime) * 1000)
             elif hasattr(self.refTime, 'getTime'):
                 # getTime should be returning ms, there is no way to check this
                 # This is expected for java Date
-                self.refTime = long(self.refTime.getTime())
+                self.refTime = int(self.refTime.getTime())
             else:
                 try:
-                    self.refTime = long(self.refTime)
+                    self.refTime = int(self.refTime)
                 except ValueError:
                     # Assume first arg is a string. Attempt to parse.
                     match = STR_PATTERN.match(self.refTime)
@@ -98,9 +99,9 @@ class DataTime(object):
                     self.refTime = self._getTimeAsEpochMillis(rDate, rTime, rMillis)
 
                     if fcstTimeHr is not None:
-                        self.fcstTime = long(fcstTimeHr) * 3600
+                        self.fcstTime = int(fcstTimeHr) * 3600
                         if fcstTimeMin is not None:
-                            self.fcstTime += long(fcstTimeMin) * 60
+                            self.fcstTime += int(fcstTimeMin) * 60
 
                     if periodStart[0] is not None:
                         self.validPeriod = TimeRange()
@@ -112,7 +113,7 @@ class DataTime(object):
             self.refTime = Date(self.refTime)
 
             if self.validPeriod is None:
-                validTimeMillis = self.refTime.getTime() + long(self.fcstTime * 1000)
+                validTimeMillis = self.refTime.getTime() + int(self.fcstTime * 1000)
                 self.validPeriod = TimeRange()
                 self.validPeriod.setStart(validTimeMillis / 1000)
                 self.validPeriod.setEnd(validTimeMillis / 1000)
@@ -154,7 +155,7 @@ class DataTime(object):
         self.levelValue = numpy.float64(levelValue)
 
     def __str__(self):
-        buffer = StringIO.StringIO()
+        buffer = StringIO()
 
         if self.refTime is not None:
             refTimeInSecs = self.refTime.getTime() / 1000
@@ -269,4 +270,4 @@ class DataTime(object):
     def _getTimeAsEpochMillis(self, dateStr, timeStr, millis):
         t = time.strptime(dateStr + ' ' + timeStr, '%Y-%m-%d %H:%M:%S')
         epochSeconds = calendar.timegm(t)
-        return long(epochSeconds * 1000) + long(millis)
+        return int(epochSeconds * 1000) + int(millis)

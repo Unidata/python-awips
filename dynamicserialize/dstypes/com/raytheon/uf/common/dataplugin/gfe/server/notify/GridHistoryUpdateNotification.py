@@ -9,9 +9,9 @@
 #
 ##
 
-import GfeNotification
+from . import GfeNotification
 
-class GridHistoryUpdateNotification(GfeNotification.GfeNotification):
+class GridHistoryUpdateNotification(GfeNotification):
 
     def __init__(self):
         super(GridHistoryUpdateNotification, self).__init__()

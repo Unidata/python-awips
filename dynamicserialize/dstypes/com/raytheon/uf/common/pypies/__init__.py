@@ -10,5 +10,5 @@ __all__ = [
             'PointTest'
           ]
 
-from PointTest import PointTest
+from .PointTest import PointTest
 

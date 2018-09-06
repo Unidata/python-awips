@@ -57,7 +57,7 @@ class AlertVizRequest(object):
     def setFilters(self, filters):
         if filters is None:
            self.filters = {}
-        elif not(filters.has_key(None) or filters.values().count(None)>0 or filters.has_key('') or filters.values().count('')>0):
+        elif not(None in filters or filters.values().count(None)>0 or '' in filters or filters.values().count('')>0):
            self.filters = filters
         else:
            raise ValueError('Filters must not contain None or empty keys or values: %s' % filters)

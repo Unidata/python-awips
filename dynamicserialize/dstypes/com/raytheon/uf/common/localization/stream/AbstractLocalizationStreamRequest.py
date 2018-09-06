@@ -3,13 +3,12 @@
 
 # File auto-generated against equivalent DynamicSerialize Java class
 
+from six import with_metaclass
 import abc
 import os
 from dynamicserialize.dstypes.com.raytheon.uf.common.auth.user import User
 
-class AbstractLocalizationStreamRequest(object):
-    __metaclass__ = abc.ABCMeta
-
+class AbstractLocalizationStreamRequest(with_metaclass(abc.ABCMeta, object)):
     @abc.abstractmethod
     def __init__(self):
         self.context = None

@@ -120,7 +120,7 @@ class MapsTestCase(baseDafTestCase.DafTestCase):
             self.assertEqual(record.getNumber('reservoir'), 1)
 
     def testGetDataWithEqualsLong(self):
-        geometryData = self._runConstraintTest('reservoir', '=', 1L)
+        geometryData = self._runConstraintTest('reservoir', '=', 1)
         for record in geometryData:
             self.assertEqual(record.getNumber('reservoir'), 1)
 

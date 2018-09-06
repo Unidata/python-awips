@@ -4,14 +4,14 @@
 from string import Template
 
 import ctypes
-import stomp
+from . import stomp
 import socket
 import sys
 import time
 import threading
 import xml.etree.ElementTree as ET
 
-import ThriftClient
+from . import ThriftClient
 from dynamicserialize.dstypes.com.raytheon.uf.common.alertviz import AlertVizRequest
 from dynamicserialize import DynamicSerializationManager
 
@@ -75,8 +75,8 @@ class NotificationMessage:
               priorityInt = int(5)
 
       if (priorityInt < 0 or priorityInt > 5):
-          print "Error occurred, supplied an invalid Priority value: " + str(priorityInt)
-          print "Priority values are 0, 1, 2, 3, 4 and 5."
+          print("Error occurred, supplied an invalid Priority value: " + str(priorityInt))
+          print("Priority values are 0, 1, 2, 3, 4 and 5.")
           sys.exit(1)
 
       if priorityInt is not None:
@@ -86,7 +86,7 @@ class NotificationMessage:
 
    def connection_timeout(self, connection):
           if (connection is not None and not connection.is_connected()):
-              print "Connection Retry Timeout"
+              print("Connection Retry Timeout")
               for tid, tobj in threading._active.items():
                   if tobj.name is "MainThread":
                       res = ctypes.pythonapi.PyThreadState_SetAsyncExc(tid, ctypes.py_object(SystemExit))
@@ -138,14 +138,14 @@ class NotificationMessage:
         serverResponse = None
         try:
             serverResponse = thriftClient.sendRequest(alertVizRequest)
-        except Exception, ex:
-            print "Caught exception submitting AlertVizRequest: ", str(ex)
+        except Exception as ex:
+            print("Caught exception submitting AlertVizRequest: ", str(ex))
 
         if (serverResponse != "None"):
-            print "Error occurred submitting Notification Message to AlertViz receiver: ", serverResponse
+            print("Error occurred submitting Notification Message to AlertViz receiver: ", serverResponse)
             sys.exit(1)
         else:
-            print "Response: " + str(serverResponse)
+            print("Response: " + str(serverResponse))
 
 def createRequest(message, priority, source, category, audioFile, filters):
     obj = AlertVizRequest()

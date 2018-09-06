@@ -26,6 +26,7 @@ __all__ = [
            ]
 
 import abc
+from six import with_metaclass
 
 class IDataRequest(object):
     """
@@ -149,11 +150,10 @@ class IDataRequest(object):
 
 
 
-class IData(object):
+class IData(with_metaclass(abc.ABCMeta, object)):
     """
     An IData representing data returned from the DataAccessLayer.
     """
-    __metaclass__ = abc.ABCMeta
 
     @abc.abstractmethod
     def getAttribute(self, key):
@@ -337,12 +337,11 @@ class IGeometryData(IData):
         return
 
 
-class INotificationSubscriber(object):
+class INotificationSubscriber(with_metaclass(abc.ABCMeta, object)):
     """
     An INotificationSubscriber representing a notification filter returned from
     the DataNotificationLayer.
     """
-    __metaclass__ = abc.ABCMeta
 
     @abc.abstractmethod
     def subscribe(self, callback):
@@ -361,12 +360,11 @@ class INotificationSubscriber(object):
         """Closes the notification subscriber"""
         pass
 
-class INotificationFilter(object):
+class INotificationFilter(with_metaclass(abc.ABCMeta, object)):
     """
     Represents data required to filter a set of URIs and
     return a corresponding list of IDataRequest to retrieve data for.
     """
-    __metaclass__ = abc.ABCMeta
     @abc.abstractmethod
     def accept(dataUri):
         pass

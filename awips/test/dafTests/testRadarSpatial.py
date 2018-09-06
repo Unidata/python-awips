@@ -81,7 +81,7 @@ class RadarSpatialTestCase(baseDafTestCase.DafTestCase):
             self.assertEqual(record.getNumber('immutablex'), 57)
 
     def testGetDataWithEqualsLong(self):
-        geometryData = self._runConstraintTest('immutablex', '=', 57L)
+        geometryData = self._runConstraintTest('immutablex', '=', 57)
         for record in geometryData:
             self.assertEqual(record.getNumber('immutablex'), 57)
 

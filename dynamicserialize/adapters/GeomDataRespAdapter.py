@@ -59,13 +59,13 @@ def serialize(context, resp):
 def deserialize(context):
     size = context.readI32()
     wkbs = []
-    for i in xrange(size):
+    for i in range(size):
         wkb = context.readBinary()
         wkbs.append(wkb)
 
     geoData = []
     size = context.readI32()
-    for i in xrange(size):
+    for i in range(size):
         data = GeometryResponseData()
         # wkb index
         wkbIndex = context.readI32()
@@ -83,7 +83,7 @@ def deserialize(context):
         # parameters
         paramSize = context.readI32()
         paramMap = {}
-        for k in xrange(paramSize):
+        for k in range(paramSize):
             paramName = context.readString()
             value = context.readObject()
             tName = context.readString()

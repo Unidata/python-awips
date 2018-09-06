@@ -8,10 +8,9 @@
 #
 ##
 import abc
+from six import with_metaclass
 
-class GfeNotification(object):
-    __metaclass__ = abc.ABCMeta
-
+class GfeNotification(with_metaclass(abc.ABCMeta, object)):
     @abc.abstractmethod
     def __init__(self):
         self.siteID = None

@@ -8,6 +8,6 @@ __all__ = [
             'ServerResponse'
           ]
 
-from ServerMsg import ServerMsg
-from ServerResponse import ServerResponse
+from .ServerMsg import ServerMsg
+from .ServerResponse import ServerResponse
 

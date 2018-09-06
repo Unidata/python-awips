@@ -8,6 +8,6 @@ __all__ = [
             'WeatherSubKey'
           ]
 
-from WeatherKey import WeatherKey
-from WeatherSubKey import WeatherSubKey
+from .WeatherKey import WeatherKey
+from .WeatherSubKey import WeatherSubKey
 

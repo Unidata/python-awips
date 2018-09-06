@@ -40,7 +40,7 @@ class ListenThread(threading.Thread):
         self.qs.topicSubscribe(self.topicName, self.receivedMessage)
 
     def receivedMessage(self, msg):
-        print "Received message"
+        print("Received message")
         self.nMessagesReceived += 1
         if self.waitSecond == 0:
             fmsg = open('/tmp/rawMessage', 'w')
@@ -49,21 +49,21 @@ class ListenThread(threading.Thread):
 
         while self.waitSecond < TIME_TO_SLEEP and not self.stopped:
             if self.waitSecond % 60 == 0:
-                print time.strftime('%H:%M:%S'), "Sleeping and stuck in not so infinite while loop"
+                print(time.strftime('%H:%M:%S'), "Sleeping and stuck in not so infinite while loop")
             self.waitSecond += 1
             time.sleep(1)
 
-        print time.strftime('%H:%M:%S'), "Received", self.nMessagesReceived, "messages"
+        print(time.strftime('%H:%M:%S'), "Received", self.nMessagesReceived, "messages")
 
     def stop(self):
-        print "Stopping"
+        print("Stopping")
         self.stopped = True
         self.qs.close()
 
 
 
 def main():
-    print "Starting up at", time.strftime('%H:%M:%S')
+    print("Starting up at", time.strftime('%H:%M:%S'))
 
     topic = 'edex.alerts'
     host = 'localhost'

@@ -19,7 +19,7 @@
 #
 
 from thrift.transport import TTransport
-import SelfDescribingBinaryProtocol, ThriftSerializationContext
+from . import SelfDescribingBinaryProtocol, ThriftSerializationContext
 
 class DynamicSerializationManager:
 

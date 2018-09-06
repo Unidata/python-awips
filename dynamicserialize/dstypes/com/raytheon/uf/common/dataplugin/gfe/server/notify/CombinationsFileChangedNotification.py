@@ -9,7 +9,7 @@
 #
 ##
 
-import GfeNotification
+from . import GfeNotification
 
 class CombinationsFileChangedNotification(GfeNotification.GfeNotification):
 

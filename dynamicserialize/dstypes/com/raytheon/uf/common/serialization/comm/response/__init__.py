@@ -20,4 +20,4 @@ __all__ = [
             'ServerErrorResponse'
           ]
 
-from ServerErrorResponse import ServerErrorResponse
+from .ServerErrorResponse import ServerErrorResponse

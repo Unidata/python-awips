@@ -11,12 +11,11 @@
 #
 ##
 
-import ActiveTableKey
 import abc
+from six import with_metaclass
+from . import ActiveTableKey
 
-class ActiveTableRecord(object):
-    __metaclass__ = abc.ABCMeta
-
+class ActiveTableRecord(with_metaclass(abc.ABCMeta, object)):
     @abc.abstractmethod
     def __init__(self):
         self.key = ActiveTableKey.ActiveTableKey()

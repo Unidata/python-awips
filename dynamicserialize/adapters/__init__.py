@@ -76,10 +76,10 @@ def registerAdapters(package, modules):
     if not package.endswith('.'):
         package += '.'
     for x in modules:
-        exec 'import ' + package + x
+        exec('import ' + package + x)
         m = sys.modules[package + x]
         d = m.__dict__
-        if d.has_key('ClassAdapter'):
+        if 'ClassAdapter' in d:
             if isinstance(m.ClassAdapter, list):
                 for clz in m.ClassAdapter:
                     classAdapterRegistry[clz] = m

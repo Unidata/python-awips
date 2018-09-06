@@ -99,7 +99,7 @@ class BaseRadarTestCase(baseDafTestCase.DafTestCase):
             self.assertEqual(record.getAttribute('icao'), 1000)
 
     def testGetDataWithEqualsLong(self):
-        gridData = self.runConstraintTest('icao', '=', 1000L)
+        gridData = self.runConstraintTest('icao', '=', 1000)
         for record in gridData:
             self.assertEqual(record.getAttribute('icao'), 1000)
 

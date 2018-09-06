@@ -53,7 +53,6 @@ def determineDrtOffset(timeStr):
         times = timeStr.split(",")
         t1 = makeTime(times[0])
         t2 = makeTime(times[1])
-        #print "time offset", t1-t2, (t1-t2)/3600
         return t1-t2, launchStr
     # Check for synchronized mode
     synch = 0
@@ -61,22 +60,18 @@ def determineDrtOffset(timeStr):
         timeStr = timeStr[1:]
         synch = 1
     drt_t = makeTime(timeStr)
-    #print "input", year, month, day, hour, minute
     gm = time.gmtime()
     cur_t = time.mktime(gm)
 
     # Synchronize to most recent hour
     # i.e. "truncate" cur_t to most recent hour.
-    #print "gmtime", gm
     if synch:
         cur_t = time.mktime((gm[0], gm[1], gm[2], gm[3], 0, 0, 0, 0, 0))
-        curStr = '%4s%2s%2s_%2s00\n' % (`gm[0]`,`gm[1]`,`gm[2]`,`gm[3]`)
+        curStr = '%4s%2s%2s_%2s00\n' % (gm[0],gm[1],gm[2],gm[3])
         curStr = curStr.replace(' ','0')
         launchStr = timeStr + "," + curStr
 
-    #print "drt, cur", drt_t, cur_t
     offset = drt_t - cur_t
-    #print "offset", offset, offset/3600, launchStr
     return int(offset), launchStr
 
 def makeTime(timeStr):

@@ -16,7 +16,10 @@ import struct
 import socket
 import os
 import pwd
-import thread
+try:
+    import _thread
+except ImportError:
+    import thread
 
 class WsId(object):
 
@@ -35,7 +38,7 @@ class WsId(object):
 
         self.pid = os.getpid()
 
-        self.threadId = long(thread.get_ident())
+        self.threadId = int(thread.get_ident())
 
     def getNetworkId(self):
         return self.networkId

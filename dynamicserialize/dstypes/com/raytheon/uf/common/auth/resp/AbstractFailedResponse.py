@@ -3,12 +3,11 @@
 
 # File auto-generated against equivalent DynamicSerialize Java class
 
+from six import with_metaclass
 import abc
 
 
-class AbstractFailedResponse(object):
-    __metaclass__ = abc.ABCMeta
-
+class AbstractFailedResponse(with_metaclass(abc.ABCMeta, object)):
     @abc.abstractmethod
     def __init__(self):
         self.request = None

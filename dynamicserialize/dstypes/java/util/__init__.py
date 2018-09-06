@@ -10,8 +10,8 @@ __all__ = [
             'GregorianCalendar'
           ]
 
-from Calendar import Calendar
-from Date import Date
-from EnumSet import EnumSet
-from GregorianCalendar import GregorianCalendar
+from .Calendar import Calendar
+from .Date import Date
+from .EnumSet import EnumSet
+from .GregorianCalendar import GregorianCalendar
 

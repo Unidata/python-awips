@@ -13,7 +13,7 @@
 #
 
 import re
-from ...time import DataTime
+from dynamicserialize.dstypes.com.raytheon.uf.common.time import DataTime
 
 
 class RequestConstraint(object):
@@ -210,7 +210,7 @@ class RequestConstraint(object):
 
     @staticmethod
     def _stringify(value):
-        if type(value) in {str, int, long, bool, float, unicode}:
+        if type(value) in {str, int, int, bool, float, unicode}:
             return str(value)
         else:
             # Collections are not allowed; they are handled separately.
@@ -263,7 +263,7 @@ class RequestConstraint(object):
         """Build a new RequestConstraint."""
         try:
             constraintType = cls.CONSTRAINT_MAP[operator.upper()]
-        except KeyError, AttributeError:
+        except KeyError as AttributeError:
             errmsg = '{} is not a valid operator. Valid operators are: {}'
             validOperators = list(sorted(cls.CONSTRAINT_MAP.keys()))
             raise ValueError(errmsg.format(operator, validOperators))

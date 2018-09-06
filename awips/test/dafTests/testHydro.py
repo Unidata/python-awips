@@ -152,9 +152,9 @@ class HydroTestCase(baseDafTestCase.DafTestCase):
             self.assertEqual(record.getNumber('value'), 3)
 
     def testGetDataWithEqualsLong(self):
-        geometryData = self._runConstraintTest('value', '=', 3L)
+        geometryData = self._runConstraintTest('value', '=', 3)
         for record in geometryData:
-            self.assertEqual(record.getNumber('value'), 3L)
+            self.assertEqual(record.getNumber('value'), 3)
 
     def testGetDataWithEqualsFloat(self):
         geometryData = self._runConstraintTest('value', '=', 3.0)

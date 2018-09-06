@@ -9,9 +9,9 @@
 #
 ##
 
-import GfeNotification
+from . import GfeNotification
 
-class ServiceBackupJobStatusNotification(GfeNotification.GfeNotification):
+class ServiceBackupJobStatusNotification(GfeNotification):
 
     def __init__(self):
         super(ServiceBackupJobStatusNotification, self).__init__()

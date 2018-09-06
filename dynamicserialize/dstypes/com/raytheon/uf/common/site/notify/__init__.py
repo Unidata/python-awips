@@ -8,6 +8,6 @@ __all__ = [
             'SiteActivationNotification'
           ]
 
-from ClusterActivationNotification import ClusterActivationNotification
-from SiteActivationNotification import SiteActivationNotification
+from .ClusterActivationNotification import ClusterActivationNotification
+from .SiteActivationNotification import SiteActivationNotification
 

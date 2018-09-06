@@ -120,7 +120,7 @@ class BufrUaTestCase(baseDafTestCase.DafTestCase):
             self.assertEqual(record.getString('rptType'), '2022')
 
     def testGetDataWithEqualsLong(self):
-        geometryData = self._runConstraintTest('reportType', '=', 2022L)
+        geometryData = self._runConstraintTest('reportType', '=', 2022)
         for record in geometryData:
             self.assertEqual(record.getString('rptType'), '2022')
 

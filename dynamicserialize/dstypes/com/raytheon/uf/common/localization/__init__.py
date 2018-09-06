@@ -11,7 +11,7 @@ __all__ = [
             'LocalizationType'
           ]
 
-from LocalizationContext import LocalizationContext
-from LocalizationLevel import LocalizationLevel
-from LocalizationType import LocalizationType
+from .LocalizationContext import LocalizationContext
+from .LocalizationLevel import LocalizationLevel
+from .LocalizationType import LocalizationType
 

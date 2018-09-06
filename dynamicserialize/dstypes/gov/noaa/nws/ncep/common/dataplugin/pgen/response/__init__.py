@@ -6,6 +6,6 @@ __all__ = [
             'RetrieveActivityMapResponse'
           ]
 
-from ActivityMapData import ActivityMapData
-from RetrieveActivityMapResponse import RetrieveActivityMapResponse
+from .ActivityMapData import ActivityMapData
+from .RetrieveActivityMapResponse import RetrieveActivityMapResponse
 

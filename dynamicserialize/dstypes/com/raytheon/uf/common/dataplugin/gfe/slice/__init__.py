@@ -11,9 +11,9 @@ __all__ = [
             'WeatherGridSlice'
           ]
 
-from AbstractGridSlice import AbstractGridSlice
-from DiscreteGridSlice import DiscreteGridSlice
-from ScalarGridSlice import ScalarGridSlice
-from VectorGridSlice import VectorGridSlice
-from WeatherGridSlice import WeatherGridSlice
+from .AbstractGridSlice import AbstractGridSlice
+from .DiscreteGridSlice import DiscreteGridSlice
+from .ScalarGridSlice import ScalarGridSlice
+from .VectorGridSlice import VectorGridSlice
+from .WeatherGridSlice import WeatherGridSlice
 

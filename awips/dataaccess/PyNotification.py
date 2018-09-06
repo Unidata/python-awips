@@ -15,7 +15,7 @@
 #    Sep 07, 2017    6175          tgurney       Override messageReceived in subclasses
 #
 
-
+from six import with_metaclass
 import abc
 import time
 import traceback
@@ -28,13 +28,11 @@ from awips.ThriftClient import ThriftRequestException
 from dynamicserialize.dstypes.com.raytheon.uf.common.time import DataTime
 
 
-class PyNotification(INotificationSubscriber):
+class PyNotification(with_metaclass(abc.ABCMeta, INotificationSubscriber)):
     """
     Receives notifications for new data and retrieves the data that meets
     specified filtering criteria.
     """
-
-    __metaclass__ = abc.ABCMeta
 
     def __init__(self, request, filter, host='localhost', port=5672, requestHost='localhost'):
         self.DAL = DataAccessLayer

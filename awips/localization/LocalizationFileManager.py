@@ -15,7 +15,10 @@ import urllib2
 from json import load as loadjson
 from xml.etree.ElementTree import parse as parseXml
 from base64 import b64encode
-from StringIO import StringIO
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 from getpass import getuser
 import dateutil.parser
 import contextlib
@@ -103,7 +106,7 @@ class _LocalizationOutput(StringIO):
             urllib2.urlopen(request)
         except urllib2.HTTPError as e:
             if e.code == 409:
-                raise LocalizationFileVersionConflictException, e.read()
+                raise LocalizationFileVersionConflictException(e.read())
             else:
                 raise e
     def __enter__(self):
@@ -166,12 +169,12 @@ class LocalizationFile(object):
             if not(self.isDirectory()):
                 checksum = response.headers["Content-MD5"]
                 if self.checksum != checksum:
-                    raise RuntimeError, "Localization checksum mismatch " + self.checksum + " " + checksum
+                    raise RuntimeError("Localization checksum mismatch " + self.checksum + " " + checksum)
             return contextlib.closing(response)
         elif mode == 'w':
             return _LocalizationOutput(self._manager, self)
         else:
-            raise ValueError, "mode string must be 'r' or 'w' not " + str(r)
+            raise ValueError("mode string must be 'r' or 'w' not " + str(r))
     def delete(self):
         """Delete this file from the server"""
         request = self._manager._buildRequest(self.context, self.path, method='DELETE')
@@ -180,7 +183,7 @@ class LocalizationFile(object):
             urllib2.urlopen(request)
         except urllib2.HTTPError as e:
             if e.code == 409:
-                raise LocalizationFileVersionConflictException, e.read()
+                raise LocalizationFileVersionConflictException(e.read())
             else:
                 raise e
     def exists(self):
@@ -333,7 +336,7 @@ class LocalizationFileManager(object):
                 exists = True
                 if not(response.geturl().endswith("/")):
                     # For ordinary files the server sends a redirect to remove the slash.
-                    raise LocalizationFileIsNotDirectoryException, "Not a directory: " + path
+                    raise LocalizationFileIsNotDirectoryException("Not a directory: " + path)
                 elif response.headers["Content-Type"] == "application/xml":
                     fileList += _parseXmlList(self, response, context, path)
                 else:
@@ -342,7 +345,7 @@ class LocalizationFileManager(object):
                 if e.code != 404:
                     raise e
         if not(exists):
-            raise LocalizationFileDoesNotExistException, "No such file or directory: " + path
+            raise LocalizationFileDoesNotExistException("No such file or directory: " + path)
         return fileList
     def _get(self, context, path):
         path = self._normalizePath(path)
@@ -353,10 +356,10 @@ class LocalizationFileManager(object):
                 checksum = DIRECTORY_CHECKSUM;
             else:
                 if "Content-MD5" not in resp.headers:
-                    raise RuntimeError, "Missing Content-MD5 header in response from " + resp.geturl()
+                    raise RuntimeError("Missing Content-MD5 header in response from " + resp.geturl())
                 checksum = resp.headers["Content-MD5"]
                 if "Last-Modified" not in resp.headers:
-                    raise RuntimeError, "Missing Last-Modified header in response from " + resp.geturl()
+                    raise RuntimeError("Missing Last-Modified header in response from " + resp.geturl())
             timestamp = dateutil.parser.parse(resp.headers["Last-Modified"])
             return LocalizationFile(self, context, path, checksum, timestamp)
         except urllib2.HTTPError as e:
@@ -447,7 +450,7 @@ class LocalizationFileManager(object):
         for context in self._contexts:
             if context.level == level:
                 return self._get(context, path)
-        raise ValueError, "No context defined for level " + level
+        raise ValueError("No context defined for level " + level)
     def __str__(self):
         contextsStr = '[' + ' '.join((str(c) for c in self._contexts)) + ']'
         return '<' + self.__class__.__name__ + " for " + self._baseUrl + ' ' + contextsStr + '>'

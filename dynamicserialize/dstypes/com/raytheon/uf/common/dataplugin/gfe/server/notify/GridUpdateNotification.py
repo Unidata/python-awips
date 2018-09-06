@@ -10,9 +10,9 @@
 #
 ##
 
-import GfeNotification
+from . import GfeNotification
 
-class GridUpdateNotification(GfeNotification.GfeNotification):
+class GridUpdateNotification(GfeNotification):
 
     def __init__(self):
         super(GridUpdateNotification, self).__init__()

@@ -22,5 +22,5 @@ __all__ = [
             'GridDataHistory'
           ]
 
-from GridDataHistory import GridDataHistory
+from .GridDataHistory import GridDataHistory
 

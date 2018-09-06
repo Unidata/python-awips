@@ -255,7 +255,7 @@ class ClimateTestCase(baseDafTestCase.DafTestCase):
             self.assertEqual(record.getNumber('avg_daily_max'), 70)
 
     def testGetDataWithEqualsLong(self):
-        geometryData = self._runConstraintTest('avg_daily_max', '=', 70L)
+        geometryData = self._runConstraintTest('avg_daily_max', '=', 70)
         for record in geometryData:
             self.assertEqual(record.getNumber('avg_daily_max'), 70)
 

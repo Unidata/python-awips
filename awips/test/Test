@@ -23,7 +23,7 @@
 import os
 import logging
 from awips import AlertVizHandler
-import Record
+from . import Record
 
 avh = AlertVizHandler.AlertVizHandler(host=os.getenv("BROKER_ADDR","localhost"), port=9581, category='LOCAL', source='ANNOUNCER', level=logging.NOTSET)
 record = Record.Record(10)

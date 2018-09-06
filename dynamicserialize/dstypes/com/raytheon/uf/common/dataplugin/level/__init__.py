@@ -8,6 +8,6 @@ __all__ = [
             'MasterLevel'
           ]
 
-from Level import Level
-from MasterLevel import MasterLevel
+from .Level import Level
+from .MasterLevel import MasterLevel
 

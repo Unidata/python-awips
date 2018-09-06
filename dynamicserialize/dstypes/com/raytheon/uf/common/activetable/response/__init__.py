@@ -7,5 +7,5 @@ __all__ = [
             'ActiveTableSharingResponse'
           ]
 
-from ActiveTableSharingResponse import ActiveTableSharingResponse
+from .ActiveTableSharingResponse import ActiveTableSharingResponse
 

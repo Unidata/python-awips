@@ -7,5 +7,5 @@ __all__ = [
             'DiscreteKey'
           ]
 
-from DiscreteKey import DiscreteKey
+from .DiscreteKey import DiscreteKey
 

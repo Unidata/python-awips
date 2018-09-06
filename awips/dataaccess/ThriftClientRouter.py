@@ -106,7 +106,7 @@ class ThriftClientRouter(object):
         response = self._client.sendRequest(gridDataRequest)
 
         locSpecificData = {}
-        locNames = response.getSiteNxValues().keys()
+        locNames = list(response.getSiteNxValues().keys())
         for location in locNames:
             nx = response.getSiteNxValues()[location]
             ny = response.getSiteNyValues()[location]

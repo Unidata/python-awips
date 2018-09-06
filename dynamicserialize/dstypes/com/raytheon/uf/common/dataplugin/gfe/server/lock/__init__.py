@@ -8,6 +8,6 @@ __all__ = [
             'LockTable'
           ]
 
-from Lock import Lock
-from LockTable import LockTable
+from .Lock import Lock
+from .LockTable import LockTable
 

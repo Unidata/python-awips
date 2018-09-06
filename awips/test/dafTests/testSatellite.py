@@ -89,7 +89,7 @@ class SatelliteTestCase(baseDafTestCase.DafTestCase):
             self.assertEqual(record.getAttribute('creatingEntity'), 1000)
 
     def testGetDataWithEqualsLong(self):
-        gridData = self._runConstraintTest('creatingEntity', '=', 1000L)
+        gridData = self._runConstraintTest('creatingEntity', '=', 1000)
         for record in gridData:
             self.assertEqual(record.getAttribute('creatingEntity'), 1000)
 

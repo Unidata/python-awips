@@ -8,6 +8,6 @@ __all__ = [
             'RadarDataRecord'
           ]
 
-from GetRadarDataRecordResponse import GetRadarDataRecordResponse
-from RadarDataRecord import RadarDataRecord
+from .GetRadarDataRecordResponse import GetRadarDataRecordResponse
+from .RadarDataRecord import RadarDataRecord
 

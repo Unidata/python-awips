@@ -103,7 +103,7 @@ class BinLightningTestCase(baseDafTestCase.DafTestCase):
             self.assertEqual(record.getAttribute('source'), 1000)
 
     def testGetDataWithEqualsLong(self):
-        geomData = self._runConstraintTest('source', '=', 1000L)
+        geomData = self._runConstraintTest('source', '=', 1000)
         for record in geomData:
             self.assertEqual(record.getAttribute('source'), 1000)
 

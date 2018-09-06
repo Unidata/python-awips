@@ -12,12 +12,11 @@
 #
 #
 
+from six import with_metaclass
 import abc
 
 
-class AbstractDataAccessRequest(object):
-    __metaclass__ = abc.ABCMeta
-
+class AbstractDataAccessRequest(with_metaclass(abc.ABCMeta, object)):
     def __init__(self):
         self.requestParameters = None
 

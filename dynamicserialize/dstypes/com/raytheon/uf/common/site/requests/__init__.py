@@ -11,9 +11,9 @@ __all__ = [
             'ValidateConfigRequest'
           ]
 
-from ActivateSiteRequest import ActivateSiteRequest
-from DeactivateSiteRequest import DeactivateSiteRequest
-from GetActiveSitesRequest import GetActiveSitesRequest
-from GetPrimarySiteRequest import GetPrimarySiteRequest
-from ValidateConfigRequest import ValidateConfigRequest
+from .ActivateSiteRequest import ActivateSiteRequest
+from .DeactivateSiteRequest import DeactivateSiteRequest
+from .GetActiveSitesRequest import GetActiveSitesRequest
+from .GetPrimarySiteRequest import GetPrimarySiteRequest
+from .ValidateConfigRequest import ValidateConfigRequest
 

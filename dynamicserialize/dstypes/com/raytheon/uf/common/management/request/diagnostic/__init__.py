@@ -9,7 +9,7 @@ __all__ = [
             'StatusRequest'
           ]
 
-from GetClusterMembersRequest import GetClusterMembersRequest
-from GetContextsRequest import GetContextsRequest
-from StatusRequest import StatusRequest
+from .GetClusterMembersRequest import GetClusterMembersRequest
+from .GetContextsRequest import GetContextsRequest
+from .StatusRequest import StatusRequest
 

@@ -81,7 +81,7 @@ class CommonObsSpatialTestCase(baseDafTestCase.DafTestCase):
             self.assertEqual(record.getNumber('catalogtype'), 32)
 
     def testGetDataWithEqualsLong(self):
-        geometryData = self._runConstraintTest('elevation', '=', 0L)
+        geometryData = self._runConstraintTest('elevation', '=', 0)
         for record in geometryData:
             self.assertEqual(record.getNumber('elevation'), 0)
 

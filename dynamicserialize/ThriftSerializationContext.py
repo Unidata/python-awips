@@ -21,6 +21,7 @@
 #                                                writeObject().
 #    Apr 24, 2015    4425          nabowle       Add Double support
 #    Oct 17, 2016    5919          njensen       Optimized for speed
+#    Sep 06, 2018                  mjames@ucar   Python3 compliance
 #
 #
 
@@ -29,10 +30,10 @@ import inspect
 import sys
 import types
 import time
+import numpy
 import dynamicserialize
 from dynamicserialize import dstypes, adapters
-import SelfDescribingBinaryProtocol
-import numpy
+from . import SelfDescribingBinaryProtocol
 
 DS_LEN = len('dynamicserialize.dstypes.')
 
@@ -55,17 +56,18 @@ def buildObjMap(module):
 buildObjMap(dstypes)
 
 pythonToThriftMap = {
-    types.StringType: TType.STRING,
-    types.IntType: TType.I32,
-    types.LongType: TType.I64,
-    types.ListType: TType.LIST,
-    types.DictionaryType: TType.MAP,
+    bytes: TType.STRING,
+    int: TType.I32,
+    int: TType.I64,
+    list: TType.LIST,
+    dict: TType.MAP,
     type(set([])): TType.SET,
-    types.FloatType: SelfDescribingBinaryProtocol.FLOAT,
+    float: SelfDescribingBinaryProtocol.FLOAT,
     # types.FloatType: TType.DOUBLE,
-    types.BooleanType: TType.BOOL,
-    types.InstanceType: TType.STRUCT,
-    types.NoneType: TType.VOID,
+    bool: TType.BOOL,
+    object: TType.STRUCT,
+    str: TType.STRING,
+    type(None): TType.VOID,
     numpy.float32: SelfDescribingBinaryProtocol.FLOAT,
     numpy.int32: TType.I32,
     numpy.ndarray: TType.LIST,
@@ -142,19 +144,19 @@ class ThriftSerializationContext(object):
 
     def deserializeMessage(self):
         name = self.protocol.readStructBegin()
+        name = name.decode('cp437')
+        name = name.replace('_', '.')
         if name.isdigit():
             obj = self._deserializeType(int(name))
             return obj
-        name = name.replace('_', '.')
         if name in adapters.classAdapterRegistry:
             return adapters.classAdapterRegistry[name].deserialize(self)
         elif '$' in name:
             # it's an inner class, we're going to hope it's an enum, treat it
             # special
             fieldName, fieldType, fieldId = self.protocol.readFieldBegin()
-            if fieldName != '__enumValue__':
-                raise dynamiceserialize.SerializationException(
-                    "Expected to find enum payload.  Found: " + fieldName)
+            if fieldName.decode('utf8') != '__enumValue__':
+                raise dynamicserialize.SerializationException("Expected to find enum payload.  Found: " + fieldName)
             obj = self.protocol.readString()
             self.protocol.readFieldEnd()
             return obj
@@ -181,7 +183,8 @@ class ThriftSerializationContext(object):
             return False
         elif fieldType != TType.VOID:
             result = self._deserializeType(fieldType)
-            lookingFor = "set" + fieldName[0].upper() + fieldName[1:]
+            fn_str = bytes.decode(fieldName)
+            lookingFor = "set" + fn_str[0].upper() + fn_str[1:]
 
             try:
                 setMethod = getattr(obj, lookingFor)
@@ -199,7 +202,7 @@ class ThriftSerializationContext(object):
         if size:
             if listType not in primitiveSupport:
                 m = self.typeDeserializationMethod[listType]
-                result = [m() for n in xrange(size)]
+                result = [m() for n in range(size)]
             else:
                 result = self.listDeserializationMethod[listType](size)
         self.protocol.readListEnd()
@@ -208,7 +211,7 @@ class ThriftSerializationContext(object):
     def _deserializeMap(self):
         keyType, valueType, size = self.protocol.readMapBegin()
         result = {}
-        for n in xrange(size):
+        for n in range(size):
             # can't go off the type, due to java generics limitations dynamic serialize is
             # serializing keys and values as void
             key = self.typeDeserializationMethod[TType.STRUCT]()
@@ -220,7 +223,7 @@ class ThriftSerializationContext(object):
     def _deserializeSet(self):
         setType, setSize = self.protocol.readSetBegin()
         result = set([])
-        for n in xrange(setSize):
+        for n in range(setSize):
             result.add(self.typeDeserializationMethod[TType.STRUCT]())
         self.protocol.readSetEnd()
         return result
@@ -230,7 +233,7 @@ class ThriftSerializationContext(object):
         if pyt in pythonToThriftMap:
             return pythonToThriftMap[pyt]
         elif pyt.__module__[:DS_LEN - 1] == ('dynamicserialize.dstypes'):
-            return pythonToThriftMap[types.InstanceType]
+            return pythonToThriftMap[object]
         else:
             raise dynamicserialize.SerializationException(
                 "Don't know how to serialize object of type: " + str(pyt))
@@ -253,11 +256,14 @@ class ThriftSerializationContext(object):
                 self.protocol.writeStructBegin(fqn)
                 methods = inspect.getmembers(obj, inspect.ismethod)
                 fid = 1
+                #print(methods);
                 for m in methods:
                     methodName = m[0]
                     if methodName.startswith('get'):
                         fieldname = methodName[3].lower() + methodName[4:]
                         val = m[1]()
+                        #print(val);
+                        dir(val);
                         ft = self._lookupType(val)
                         if ft == TType.STRUCT:
                             fc = val.__module__[DS_LEN:]

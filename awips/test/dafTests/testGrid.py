@@ -138,7 +138,7 @@ class GridTestCase(baseDafTestCase.DafTestCase):
             self.assertEqual(record.getAttribute('info.level.levelonevalue'), 2000)
 
     def testGetDataWithEqualsLong(self):
-        gridData = self._runConstraintTest('info.level.levelonevalue', '=', 2000L)
+        gridData = self._runConstraintTest('info.level.levelonevalue', '=', 2000)
         for record in gridData:
             self.assertEqual(record.getAttribute('info.level.levelonevalue'), 2000)
 

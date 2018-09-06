@@ -91,7 +91,7 @@ class SfcObsTestCase(baseDafTestCase.DafTestCase):
             self.assertEqual(record.getString('reportType'), '1004')
 
     def testGetDataWithEqualsLong(self):
-        geometryData = self._runConstraintTest('reportType', '=', 1004L)
+        geometryData = self._runConstraintTest('reportType', '=', 1004)
         for record in geometryData:
             self.assertEqual(record.getString('reportType'), '1004')
 

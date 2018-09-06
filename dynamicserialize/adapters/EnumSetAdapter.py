@@ -35,6 +35,6 @@ def deserialize(context):
     setSize = context.readI32()
     enumClassName = context.readString()
     valList = []
-    for i in xrange(setSize):
+    for i in range(setSize):
         valList.append(context.readString())
     return EnumSet(enumClassName, valList)

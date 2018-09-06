@@ -23,6 +23,6 @@ __all__ = [
             'StorageStatus'
           ]
 
-from Request import Request
-from StorageProperties import StorageProperties
-from StorageStatus import StorageStatus
+from .Request import Request
+from .StorageProperties import StorageProperties
+from .StorageStatus import StorageStatus

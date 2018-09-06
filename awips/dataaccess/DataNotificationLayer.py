@@ -56,16 +56,13 @@ from awips.dataaccess.PyGeometryNotification import PyGeometryNotification
 from awips.dataaccess.PyGridNotification import PyGridNotification
 
 
-THRIFT_HOST = subprocess.check_output(
-                    "source /awips2/fxa/bin/setup.env; echo $DEFAULT_HOST",
-                    shell=True).strip()
-
+THRIFT_HOST = "edex"
 
 USING_NATIVE_THRIFT = False
 
 JMS_HOST_PATTERN=re.compile('tcp://([^:]+):([0-9]+)')
 
-if sys.modules.has_key('jep'):
+if 'jep' in sys.modules:
     # intentionally do not catch if this fails to import, we want it to
     # be obvious that something is configured wrong when running from within
     # Java instead of allowing false confidence and fallback behavior

@@ -5,5 +5,5 @@ __all__ = [
             'RetrieveAtcfDeckRequest'
           ]
 
-from RetrieveAtcfDeckRequest import RetrieveAtcfDeckRequest
+from .RetrieveAtcfDeckRequest import RetrieveAtcfDeckRequest
 
