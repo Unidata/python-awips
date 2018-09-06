@@ -52,8 +52,11 @@ fi
 mkdir -p %{_python_build_loc}
 
 %build
-AWIPS_SRC_DIR="%{_baseline_workspace}/python-awips"
-cp -R ${AWIPS_SRC_DIR} %{_python_build_loc}/
+#AWIPS_SRC_DIR="%{_baseline_workspace}/python-awips"
+#cp -R ${AWIPS_SRC_DIR} %{_python_build_loc}/
+cd %{_python_build_loc}
+wget https://github.com/Unidata/python-awips/archive/18.1.1.tar.gz
+tar -xvzf 18.1.1.tar.gz
 RC=$?
 if [ ${RC} -ne 0 ]; then
    exit 1
@@ -66,7 +69,7 @@ if [ ${RC} -ne 0 ]; then
 fi
 
 pushd . > /dev/null
-cd %{_python_build_loc}/python-awips
+cd %{_python_build_loc}/python-awips-18.1.1
 /awips2/python/bin/python setup.py clean
 RC=$?
 if [ ${RC} -ne 0 ]; then
@@ -80,11 +83,15 @@ fi
 popd > /dev/null
 
 %install
-AWIPS_SRC_DIR="%{_baseline_workspace}/python-awips"
-
 pushd . > /dev/null
-cd %{_python_build_loc}/python-awips
-export LD_LIBRARY_PATH=/awips2/python/lib
+cd %{_python_build_loc}/python-awips-18.1.1
+
+source /etc/profile.d/awips2.sh
+RC=$?
+if [ ${RC} -ne 0 ]; then
+   exit 1
+fi
+
 /awips2/python/bin/python setup.py install \
    --root=%{_build_root} \
    --prefix=/awips2/python
@@ -93,6 +100,8 @@ if [ ${RC} -ne 0 ]; then
    exit 1
 fi
 popd > /dev/null
+
+ls -altr /awips2/jenkins/buildspace/workspace/tmp/awips/awips-component/awips2/python/lib/python2.7/site-packages
 
 %pre
 
