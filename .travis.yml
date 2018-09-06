@@ -2,54 +2,11 @@
 #   http://lint.travis-ci.org/
 language: python
 sudo: false
-
 python:
-  - "2.7"
-  - "3.4"
-  - "3.5"
-  - "3.5-dev" # 3.5 development branch
-  - "3.6-dev" # 3.6 development branch
-  - "nightly" # currently points to 3.7-dev
-
-env:
-  global:
-    - secure: "tHxj3+T83TBr3gQJINw8koSUbNBikKzIiV2AaPnLBE2F+xiweRhOSt0OhyP3HB1CluKfd9Ov0gKTzUsz0+ec08SCWpflT+013A7WG0jT5wtc2umCb7HGS2tpqOifjhXA91hm/88e4NRQ1wTLklNUTFC2JC3Lgjwd912gRlgmv7nU9cMO3w2qf2AtD83HSyIcUkYroQxtQijvSHlLZJUdhZzrvOgVMCtOq7fa5dggkmOtebAVE/GQcO10DfLMmx36rdzq79zRYhXc14Te+B7NR5aQb1CfyzO3FYohkBsaYXjXlgKMMcNC2chyzjja5ajDhbrMTDaeBZORs8SXue92jpFOJCyqTbfYhgiCfiX1NfZMqPyAwn+chMKy/jhK9lXV1xKASbhbnRXv9D5TETNNGgsEM/dj71RWgUKXItRKhznrSNl4gJhehPHzs8LvQdbk3sqepV3E6vl9FtWMsrMpm/8h/U1gxznIgpPYmdqMnjW26iHoDEw0Gq+yTcyCMD9x4s9JaqqYjdkIk1bJke2dr4l4uL36LFjUgx0Kr2Vg3Su2sNHj6sw9MujTeIAhnj+lg+rNZHKvS3Y3ulNY0v0v22+tZXo6zldOpvn+D06rPE/+IJMt94TyrLFksINFetNmRZpoCKVgeImES98vF2LAl3nmRct1G+GxgwvkYcrTyxE="
-    - WHEELHOUSE="https://unidata-python.s3.amazonaws.com/wheelhouse/index.html"
-    - WHEELDIR="wheelhouse/"
-    - EXTRA_INSTALLS="test,cdm"
-    - MPLLOCALFREETYPE="1"
-
-matrix:
-  include:
-    - python: 2.7
-      env:
-        - VERSIONS="numpy==1.9.1"
-    - python: 3.4
-      env:
-    - python: 3.5
-      env:
-    - python: "3.6-dev"
-      env: PRE="--pre"
-    - python: nightly
-      env: PRE="--pre"
-  allow_failures:
-    - python: "3.6-dev"
-    - python: nightly
-
-before_install:
-  # Shapely dependency needed to keep from using Shapely's manylinux wheels
-  # which use a different geos that what we build cartopy with on Travis
-  - pip install --upgrade pip;
-  - mkdir $WHEELDIR;
-  - pip download -d $WHEELDIR ".[$EXTRA_INSTALLS]" $EXTRA_PACKAGES -f $WHEELHOUSE $PRE $VERSIONS;
-  - touch $WHEELDIR/download_marker && ls -lrt $WHEELDIR;
-  - travis_wait pip wheel -w $WHEELDIR $EXTRA_PACKAGES -f $WHEELHOUSE $PRE $VERSIONS;
-  - pip install $EXTRA_PACKAGES --upgrade --no-index -f file://$PWD/$WHEELDIR $VERSIONS;
-  - travis_wait pip wheel -w $WHEELDIR ".[$EXTRA_INSTALLS]" $EXTRA_PACKAGES -f $WHEELHOUSE $PRE $VERSIONS;
-  - rm -f $WHEELDIR/python-awips*.whl;
-
+  - 3.6
+  - 2.7
+cache: pip
 install:
-  - pip install ".[$EXTRA_INSTALLS]" --upgrade --no-index $PRE -f file://$PWD/$WHEELDIR $VERSIONS;
-
-script:
-    - if [[ $TRAVIS_PYTHON_VERSION == 3.4 || $TRAVIS_PYTHON_VERSION == 3.5 ]]; then py.test;else pytest; fi
+  - pip install -r requirements.txt
+  - python setup.py install
+script: true
