@@ -44,5 +44,5 @@ class ServerResponse(object):
     def __str__(self):
         return self.message()
 
-    def __nonzero__(self):
+    def __bool__(self):
         return self.isOkay()

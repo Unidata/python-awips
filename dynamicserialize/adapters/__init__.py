@@ -34,19 +34,32 @@
 #    01/09/2017         #5997      nabowle        Allow contribution from plugins.
 #
 
+
 __all__ = [
     'PointAdapter',
     'StackTraceElementAdapter',
+    'WsIdAdapter',
     'CalendarAdapter',
     'GregorianCalendarAdapter',
+    'ActiveTableModeAdapter',
     'DateAdapter',
+    'FormattedDateAdapter',
+    'LocalizationLevelSerializationAdapter',
+    'LocalizationTypeSerializationAdapter',
     'GeometryTypeAdapter',
     'CoordAdapter',
+    'TimeRangeTypeAdapter',
+    'ParmIDAdapter',
+    'DatabaseIDAdapter',
     'TimestampAdapter',
+    'CommutativeTimestampAdapter',
     'EnumSetAdapter',
     'FloatBufferAdapter',
     'ByteBufferAdapter',
-    'JTSEnvelopeAdapter'
+    'TimeConstraintsAdapter',
+    'LockTableAdapter',
+    'JTSEnvelopeAdapter',
+    'JobProgressAdapter'
 ]
 
 classAdapterRegistry = {}

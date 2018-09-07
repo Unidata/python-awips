@@ -66,7 +66,7 @@ class TimeRange(object):
             totalSecs = int(timeArg)
             micros = int((timeArg - totalSecs) * MICROS_IN_SECOND)
             return self.__convertSecsAndMicros(totalSecs, micros)
-        elif isinstance(timeArg, (int, int)):
+        elif isinstance(timeArg, int):
             # seconds as integer
             totalSecs = timeArg
             return self.__convertSecsAndMicros(totalSecs, 0)
