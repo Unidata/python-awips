@@ -27,7 +27,6 @@
 #    03/20/13           #1774      randerso       Added TimeConstraintsAdapter
 #    04/22/13           #1949      rjpeter        Added LockTableAdapter
 #    02/06/14           #2672      bsteffen       Added JTSEnvelopeAdapter
-#    06/22/2015         #4573      randerso       Added JobProgressAdapter
 #    09/21/2015         #4486      rjpeter        Added FormattedDateAdapter
 #    06/23/2016         #5696      rjpeter        Added CommutativeTimestampAdapter
 #    10/17/2016         #5919      njensen        Added GeomDataRespAdapter
@@ -58,8 +57,7 @@ __all__ = [
     'ByteBufferAdapter',
     'TimeConstraintsAdapter',
     'LockTableAdapter',
-    'JTSEnvelopeAdapter',
-    'JobProgressAdapter'
+    'JTSEnvelopeAdapter'
 ]
 
 classAdapterRegistry = {}
