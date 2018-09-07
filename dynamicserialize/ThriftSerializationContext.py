@@ -31,9 +31,10 @@ import sys
 import types
 import time
 import numpy
+import collections
 import dynamicserialize
 from dynamicserialize import dstypes, adapters
-from . import SelfDescribingBinaryProtocol
+from dynamicserialize import SelfDescribingBinaryProtocol
 
 DS_LEN = len('dynamicserialize.dstypes.')
 
