@@ -254,7 +254,7 @@ def _getSite(host):
 def _parseJsonList(manager, response, context, path):
     fileList = []
     jsonResponse = loadjson(response)
-    for name, jsonData in jsonResponse.items():
+    for name, jsonData in list(jsonResponse.items()):
         checksum = jsonData["checksum"]
         timestampString = jsonData["timestamp"]
         timestamp = dateutil.parser.parse(timestampString)

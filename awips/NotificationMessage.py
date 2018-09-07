@@ -87,7 +87,7 @@ class NotificationMessage:
    def connection_timeout(self, connection):
           if (connection is not None and not connection.is_connected()):
               print("Connection Retry Timeout")
-              for tid, tobj in threading._active.items():
+              for tid, tobj in list(threading._active.items()):
                   if tobj.name is "MainThread":
                       res = ctypes.pythonapi.PyThreadState_SetAsyncExc(tid, ctypes.py_object(SystemExit))
                       if res != 0 and res != 1:

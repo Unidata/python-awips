@@ -49,7 +49,7 @@ def convertToDateTime(timeArg):
         totalSecs = int(timeArg)
         micros = int((timeArg - totalSecs) * MICROS_IN_SECOND)
         return _convertSecsAndMicros(totalSecs, micros)
-    elif isinstance(timeArg, (int, int)):
+    elif isinstance(timeArg, int):
         # seconds as integer
         totalSecs = timeArg
         return _convertSecsAndMicros(totalSecs, 0)
