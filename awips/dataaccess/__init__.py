@@ -28,11 +28,10 @@ __all__ = [
 import abc
 from six import with_metaclass
 
-class IDataRequest(object):
+class IDataRequest(with_metaclass(abc.ABCMeta, object)):
     """
     An IDataRequest to be submitted to the DataAccessLayer to retrieve data.
     """
-    __metaclass__ = abc.ABCMeta
 
     @abc.abstractmethod
     def setDatatype(self, datatype):

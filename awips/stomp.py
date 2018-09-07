@@ -481,7 +481,7 @@ class Connection(object):
         """
         headers = {}
         for header_map in header_map_list:
-            for header_key in header_map.keys():
+            for header_key in list(header_map.keys()):
                 headers[header_key] = header_map[header_key]
         return headers
 
@@ -541,7 +541,7 @@ class Connection(object):
 
         if self.__socket is not None:
             frame = '%s\n%s\n%s\x00' % (command,
-                                        reduce(lambda accu, key: accu + ('%s:%s\n' % (key, list(headers[key]))), headers.keys(), ''),
+					reduce(lambda accu, key: accu + ('%s:%s\n' % (key, headers[key])), list(headers.keys()), ''),
                                         payload)
             self.__socket.sendall(frame)
             log.debug("Sent frame: type=%s, headers=%r, body=%r" % (command, headers, payload))
@@ -804,13 +804,13 @@ if __name__ == '__main__':
             self.c.start()
 
         def __print_async(self, frame_type, headers, body):
-            print("\r  \r",)
+            #print("\r  \r",)
             print(frame_type)
             for header_key in list(headers.keys()):
                 print('%s: %s' % (header_key, headers[header_key]))
-            print("")
+            print()
             print(body)
-            print('> ',)
+	    print('> ', end=' ')
             sys.stdout.flush()
 
         def on_connecting(self, host_and_port):

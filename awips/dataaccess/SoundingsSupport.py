@@ -111,7 +111,7 @@ def __buildStringList(param):
         return [str(param)]
 
 def __notStringIter(iterable):
-    if not isinstance(iterable, basestring):
+    if not isinstance(iterable, str):
         try:
             iter(iterable)
             return True
@@ -209,7 +209,7 @@ class _SoundingTimeLayer(object):
             A list containing the valid levels for this sounding in order of
             closest to surface to highest from surface.
         """
-        sortedLevels = [Level(level) for level in self._dataDict.keys()]
+        sortedLevels = [Level(level) for level in list(self._dataDict.keys())]
         sortedLevels.sort()
         return [str(level) for level in sortedLevels]
 

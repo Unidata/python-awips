@@ -28,7 +28,7 @@ class PyData(IData):
         return self.__attributes[key]
 
     def getAttributes(self):
-        return self.__attributes.keys()
+        return list(self.__attributes.keys())
 
     def getDataTime(self):
         return self.__time

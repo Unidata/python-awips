@@ -23,6 +23,7 @@
 #    Jun 01, 2016    5587          tgurney        Add new signatures for
 #                                                 getRequiredIdentifiers() and
 #                                                 getOptionalIdentifiers()
+#    Oct 07, 2016    ----          mjames@ucar    Added getForecastRun
 #    Oct 18, 2016    5916          bsteffen       Add setLazyLoadGridLatLon
 #
 #

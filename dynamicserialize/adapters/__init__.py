@@ -87,7 +87,7 @@ def registerAdapters(package, modules):
                 clzName = m.ClassAdapter
                 classAdapterRegistry[clzName] = m
         else:
-            raise LookupError('Adapter class ' + x + ' has no ClassAdapter field ' +
+            raise LookupError('Adapter class ' + x + ' has no ClassAdapter field ' + \
                               'and cannot be registered.')
 
 
