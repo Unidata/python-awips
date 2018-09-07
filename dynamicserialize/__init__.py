@@ -15,8 +15,7 @@
 #
 #
 
-__all__ = [
-           ]
+__all__ = ['SerializationException']
 
 from . import dstypes, adapters
 from . import DynamicSerializationManager

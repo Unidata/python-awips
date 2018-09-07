@@ -210,7 +210,7 @@ class RequestConstraint(object):
 
     @staticmethod
     def _stringify(value):
-        if type(value) in {str, int, int, bool, float, unicode}:
+        if type(value) in {str, int, long, bool, float, unicode}:
             return str(value)
         else:
             # Collections are not allowed; they are handled separately.
