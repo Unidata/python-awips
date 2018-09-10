@@ -52,6 +52,12 @@ fi
 mkdir -p %{_python_build_loc}
 
 %build
+source /etc/profile.d/awips2.sh
+RC=$?
+if [ ${RC} -ne 0 ]; then
+   exit 1
+fi
+
 AWIPS_SRC_DIR="%{_baseline_workspace}/python-awips"
 cp -R ${AWIPS_SRC_DIR} %{_python_build_loc}/
 RC=$?
@@ -59,14 +65,13 @@ if [ ${RC} -ne 0 ]; then
    exit 1
 fi
 
-source /etc/profile.d/awips2.sh
-RC=$?
-if [ ${RC} -ne 0 ]; then
-   exit 1
-fi
+cd %{_python_build_loc}/python-awips
+
+## Apply patch
+patch dynamicserialize/ThriftSerializationContext.py patch.diff
+cat dynamicserialize/ThriftSerializationContext.py |grep long
 
 pushd . > /dev/null
-cd %{_python_build_loc}/python-awips
 /awips2/python/bin/python setup.py clean
 RC=$?
 if [ ${RC} -ne 0 ]; then
