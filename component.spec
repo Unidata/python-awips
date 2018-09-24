@@ -8,7 +8,7 @@
 Name: awips2-python-awips
 Summary: Python AWIPS Distribution
 Version: 18.1.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Group: AWIPSII
 BuildRoot: %{_build_root}
 BuildArch: %{_build_arch}
