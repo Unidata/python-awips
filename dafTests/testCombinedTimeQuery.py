@@ -27,7 +27,7 @@ class CombinedTimeQueryTestCase(unittest.TestCase):
     def setUp(cls):
         host = os.environ.get('DAF_TEST_HOST')
         if host is None:
-            host = 'localhost'
+            host = 'edex-cloud.unidata.ucar.edu'
         DAL.changeEDEXHost(host)
 
     def testSuccessfulQuery(self):
