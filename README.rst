@@ -68,13 +68,18 @@ Install from Github
 Examples
 --------
 
-<img src="https://python-awips.readthedocs.io/en/latest/_images/AWIPS_Grids_and_Cartopy_3_0.png" height="192" hspace=5>
-<img src="https://python-awips.readthedocs.io/en/latest/_images/Map_Resources_and_Topography_17_1.png" height="192" hspace=5>
-<img src="https://python-awips.readthedocs.io/en/latest/_images/NEXRAD_Level_3_Plot_with_Matplotlib_3_0.png" height="192" hspace=5>
-<br>
-<img src="https://python-awips.readthedocs.io/en/latest/_images/Upper_Air_BUFR_Soundings_1_0.png" height="192" hspace=5>
-<img src="https://python-awips.readthedocs.io/en/latest/_images/Satellite_Imagery_7_3.png" height="192" hspace=5>
-<img src="https://python-awips.readthedocs.io/en/latest/_images/Watch_and_Warning_Polygons_5_0.png" height="192" hspace=5>
+.. image:: https://python-awips.readthedocs.io/en/latest/_images/AWIPS_Grids_and_Cartopy_3_0.png
+   :height: 192px
+.. image:: https://python-awips.readthedocs.io/en/latest/_images/Map_Resources_and_Topography_17_1.png
+   :height: 192px
+.. image:: https://python-awips.readthedocs.io/en/latest/_images/NEXRAD_Level_3_Plot_with_Matplotlib_3_0.png
+   :height: 192px
+.. image:: https://python-awips.readthedocs.io/en/latest/_images/Upper_Air_BUFR_Soundings_1_0.png
+   :height: 192px
+.. image:: https://python-awips.readthedocs.io/en/latest/_images/Satellite_Imagery_7_3.png
+   :height: 192px
+.. image:: https://python-awips.readthedocs.io/en/latest/_images/Watch_and_Warning_Polygons_5_0.png
+   :height: 192px
 
 License
 -------
