@@ -68,7 +68,7 @@ fi
 cd %{_python_build_loc}/python-awips
 
 ## Apply patch
-patch dynamicserialize/ThriftSerializationContext.py patch.diff
+patch dynamicserialize/ThriftSerializationContext.py rpm/patch.diff
 cat dynamicserialize/ThriftSerializationContext.py |grep long
 
 pushd . > /dev/null
