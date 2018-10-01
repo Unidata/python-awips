@@ -810,7 +810,7 @@ if __name__ == '__main__':
                 print('%s: %s' % (header_key, headers[header_key]))
             print()
             print(body)
-	    print('> ', end=' ')
+            print('> ', end=' ')
             sys.stdout.flush()
 
         def on_connecting(self, host_and_port):
