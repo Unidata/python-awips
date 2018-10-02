@@ -73,13 +73,6 @@ Documentation
 * http://python-awips.readthedocs.org/en/latest/
 * http://nbviewer.jupyter.org/github/Unidata/python-awips/tree/master/examples/notebooks
 
-Install from Github
--------------------
-
-- git clone https://github.com/Unidata/python-awips.git
-- cd python-awips
-- python setup.py install
-
 Examples
 --------
 
