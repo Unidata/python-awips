@@ -1,7 +1,9 @@
 AWIPS Python Data Access Framework
 ==================================
 
-|PyPI| |Conda| |License| |Travis| |LatestDocs| |Codacy| |CodeCov| |Scrutinizer| |PRWelcome|
+|License| |PyPI| |Conda| |Travis| |LatestDocs|
+
+|Codacy| |CodeCov| |Scrutinizer| |CodeClimate| |PRWelcome|
 
 .. |License| image:: https://img.shields.io/pypi/l/python-awips.svg
     :target: https://pypi.python.org/pypi/python-awips/
@@ -26,6 +28,10 @@ AWIPS Python Data Access Framework
 .. |Codacy| image:: https://api.codacy.com/project/badge/Grade/560b27db294449ed9484da1aadeaee91
         :target: https://www.codacy.com/app/mjames/python-awips
         :alt: Codacy issues
+
+.. |CodeClimate| image:: https://codeclimate.com/github/Unidata/python-awips/badges/gpa.svg
+    :target: https://codeclimate.com/github/Unidata/python-awips
+    :alt: Code Climate
 
 .. |CodeCov| image:: https://codecov.io/github/Unidata/python-awips/coverage.svg?branch=master
     :target: https://codecov.io/github/Unidata/python-awips?branch=master
