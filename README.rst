@@ -1,9 +1,7 @@
 AWIPS Python Data Access Framework
 ==================================
 
-|License| |PyPI| |LatestDocs| 
-
-|Travis| |Codacy|
+|PyPI| |Conda| |License| |Travis| |LatestDocs| |Codacy| |CodeCov| |Scrutinizer| |PRWelcome|
 
 .. |License| image:: https://img.shields.io/pypi/l/python-awips.svg
     :target: https://pypi.python.org/pypi/python-awips/
@@ -29,6 +27,22 @@ AWIPS Python Data Access Framework
         :target: https://www.codacy.com/app/mjames/python-awips
         :alt: Codacy issues
 
+.. |CodeCov| image:: https://codecov.io/github/Unidata/python-awips/coverage.svg?branch=master
+    :target: https://codecov.io/github/Unidata/python-awips?branch=master
+    :alt: Code Coverage Status
+
+.. |Scrutinizer| image:: https://scrutinizer-ci.com/g/Unidata/python-awips/badges/quality-score.png?b=master
+    :target: https://scrutinizer-ci.com/g/Unidata/python-awips/?branch=master)
+    :alt: Scrutinizer Code Quality
+
+.. |Conda| image:: https://anaconda.org/conda-forge/python-awips/badges/version.svg
+    :target: https://anaconda.org/conda-forge/python-awips
+    :alt: Conda Package
+
+.. |PRWelcome|
+    image:: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=round-square
+    :target: https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github
+    :alt: PRs Welcome
 
 Install
 -------
@@ -48,9 +62,8 @@ Conda Environment
 Requirements
 ------------
 
-- Python 2.7+
+- Python >= 2.7
 - pip install numpy shapely six
-- pip install metpy enum34 - to run Jupyter Notebook examples
 
 Documentation
 -------------
