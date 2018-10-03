@@ -1,6 +1,3 @@
-##
-##
-
 from __future__ import print_function
 import datetime
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint

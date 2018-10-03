@@ -1,7 +1,3 @@
-##
-##
-
-
 #
 # Pure python logging mechanism for logging to AlertViz from
 # pure python (ie not JEP).  DO NOT USE IN PYTHON CALLED
