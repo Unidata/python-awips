@@ -2,23 +2,37 @@
 Python AWIPS Data Access Framework
 ==================================
 
-`AWIPS <http://unidata.github.io/awips2>`_ is a weather display and analysis package developed by the National Weather Service for operational forecasting.  UCAR's `Unidata Program Center <http://www.unidata.ucar.edu/software/awips2/>`_ supports a non-operational open-source release of the AWIPS software (`EDEX <http://unidata.github.io/awips2/#edex>`_, `CAVE <http://unidata.github.io/awips2/#cave>`_, and `python-awips <https://github.com/Unidata/python-awips>`_). 
-
 The python-awips package provides a data access framework for requesting grid and geometry datasets from an `EDEX <http://unidata.github.io/awips2/#edex>`_ server.
+
+`AWIPS <http://unidata.github.io/awips2>`_ is a weather display and analysis package developed by the National Weather Service for operational forecasting.  UCAR's `Unidata Program Center <http://www.unidata.ucar.edu/software/awips2/>`_ supports a non-operational open-source release of the AWIPS software (`EDEX <http://unidata.github.io/awips2/#edex>`_, `CAVE <http://unidata.github.io/awips2/#cave>`_, and `python-awips <https://github.com/Unidata/python-awips>`_).
 
 .. _Jupyter Notebook: http://nbviewer.jupyter.org/github/Unidata/python-awips/tree/master/examples/notebooks
 
-Install 
--------
+Pip Install
+-----------
 
 - pip install python-awips
 
-Requirements
-~~~~~~~~~~~~
+Conda Environment Install
+-------------------------
 
-- Python 2.7+
-- Shapely 1.4+
-- MetPy and enum34 to run the `Jupyter Notebook`_ examples
+To install the latest version of python-awips, with all required and optional packages:
+
+- git clone https://github.com/Unidata/python-awips.git
+- cd python-awips
+- conda env create -f environment.yml
+- source activate python-awips
+- python setup.py install --force
+- jupyter notebook examples
+
+Requirements
+------------
+
+- python 2.7+
+- numpy
+- shapely
+- six
+
 
 Quick Example
 ~~~~~~~~~~~~~
@@ -31,29 +45,31 @@ Quick Example
     list(dataTypes)
 
     ['acars',
-    'binlightning',
-    'bufrmosavn',
-    'bufrmoseta',
-    'bufrmosgfs',
-    'bufrmoshpc',
-    'bufrmoslamp',
-    'bufrmosmrf',
-    'bufrua',
-    'climate',
-    'common_obs_spatial',
-    'gfe',
-    'grid',
-    'hydro',
-    'maps',
-    'modelsounding',
-    'obs',
-    'practicewarning',
-    'radar',
-    'radar_spatial',
-    'satellite',
-    'sfcobs',
-    'topo',
-    'warning']
+     'binlightning',
+     'bufrmosavn',
+     'bufrmoseta',
+     'bufrmosgfs',
+     'bufrmoshpc',
+     'bufrmoslamp',
+     'bufrmosmrf',
+     'bufrua',
+     'climate',
+     'common_obs_spatial',
+     'gfe',
+     'gfeeditarea',
+     'grid',
+     'maps',
+     'modelsounding',
+     'obs',
+     'practicewarning',
+     'profiler',
+     'radar',
+     'radar_spatial',
+     'satellite',
+     'sfcobs',
+     'topo',
+     'warning']
+
 
     request = DataAccessLayer.newDataRequest()
     request.setDatatype("satellite")
@@ -91,15 +107,15 @@ Quick Example
 
 See the `API Documentation <api/DataAccessLayer.html>`_ for more information.
 
--------------
-Documentation
--------------
+----------------------
+Read The Docs Contents
+----------------------
 
 .. toctree::
    :maxdepth: 2
 
-   install
    api/index
+   datatypes
    examples/index
    dev
    gridparms

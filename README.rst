@@ -46,6 +46,11 @@ AWIPS Python Data Access Framework
     :target: https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github
     :alt: PRs Welcome
 
+About
+-----
+
+The python-awips package provides a data access framework for requesting grid and geometry datasets from an AWIPS `EDEX <http://unidata.github.io/awips2/#edex>`_ server. AWIPS and python-awips packages are released and maintained by UCAR's `Unidata Program Center <http://www.unidata.ucar.edu/software/awips2/>`_ in Boulder, Colorado.
+
 Install
 -------
 
@@ -64,8 +69,11 @@ Conda Environment
 Requirements
 ------------
 
-- Python >= 2.7
-- pip install numpy shapely six
+- python >= 2.7
+- numpy
+- six
+- shapely
+
 
 Documentation
 -------------

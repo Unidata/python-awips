@@ -38,6 +38,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.intersphinx',
     'sphinx.ext.viewcode',
+    'sphinx.ext.autosectionlabel',
     'notebook_gen_sphinxext'
 ]
 
@@ -57,7 +58,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'python-awips'
-copyright = '2016, Unidata'
+copyright = '2018, Unidata'
 author = 'Unidata'
 
 # The version info for the project you're documenting, acts as replacement for
