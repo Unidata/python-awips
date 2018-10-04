@@ -1,11 +1,8 @@
-##
-##
-
 from awips.dataaccess import DataAccessLayer as DAL
 from shapely.geometry import box
 
-import baseDafTestCase
-import params
+from awips.test.dafTests import baseDafTestCase
+from awips.test.dafTests import params
 import unittest
 
 #
@@ -26,7 +23,7 @@ import unittest
 class BufrMosTestCase(baseDafTestCase.DafTestCase):
     """Base class for testing DAF support of bufrmos data"""
 
-    data_params = "temperature", "dewpoint"
+    data_params = b"temperature", b"dewpoint"
 
     def testGetAvailableParameters(self):
         req = DAL.newDataRequest(self.datatype)

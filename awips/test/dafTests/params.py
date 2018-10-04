@@ -1,6 +1,4 @@
-##
-##
-
+from shapely.geometry import box
 
 #
 # Site-specific parameters for DAF tests
@@ -13,8 +11,6 @@
 #    12/15/16        5981          tgurney        Add ENVELOPE
 #
 #
-
-from shapely.geometry import box
 
 AIRPORT = 'OMA'
 OBS_STATION = 'KOMA'

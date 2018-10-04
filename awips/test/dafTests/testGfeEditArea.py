@@ -1,13 +1,10 @@
-##
-##
-
 from __future__ import print_function
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
 from awips.dataaccess import DataAccessLayer as DAL
 from awips.ThriftClient import ThriftRequestException
 
-import baseDafTestCase
-import params
+from awips.test.dafTests import baseDafTestCase
+from awips.test.dafTests import params
 
 #
 # Test DAF support for GFE edit area data

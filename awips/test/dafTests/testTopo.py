@@ -1,11 +1,8 @@
-##
-##
-
 from __future__ import print_function
 from awips.dataaccess import DataAccessLayer as DAL
 from awips.ThriftClient import ThriftRequestException
 
-import baseDafTestCase
+from awips.test.dafTests import baseDafTestCase
 import shapely.geometry
 import unittest
 

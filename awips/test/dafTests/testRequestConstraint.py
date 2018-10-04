@@ -1,6 +1,3 @@
-##
-##
-
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
 
 import unittest

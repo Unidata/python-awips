@@ -1,9 +1,4 @@
-##
-##
-
-from __future__ import print_function
-
-import baseBufrMosTestCase
+from awips.test.dafTests import baseBufrMosTestCase
 import unittest
 
 #

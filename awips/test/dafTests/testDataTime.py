@@ -1,6 +1,3 @@
-##
-##
-
 from dynamicserialize.dstypes.com.raytheon.uf.common.time import DataTime
 
 import unittest

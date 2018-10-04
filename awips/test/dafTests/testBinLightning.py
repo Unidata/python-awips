@@ -1,13 +1,9 @@
-##
-##
-
 from __future__ import print_function
 from awips.dataaccess import DataAccessLayer as DAL
 from awips.ThriftClient import ThriftRequestException
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
 
-
-import baseDafTestCase
+from awips.test.dafTests import baseDafTestCase
 import unittest
 
 #

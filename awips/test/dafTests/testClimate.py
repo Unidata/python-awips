@@ -5,8 +5,8 @@ from dynamicserialize.dstypes.com.raytheon.uf.common.time import TimeRange
 from awips.dataaccess import DataAccessLayer as DAL
 from awips.ThriftClient import ThriftRequestException
 
-import baseDafTestCase
-import params
+from awips.test.dafTests import baseDafTestCase
+from awips.test.dafTests import params
 import unittest
 
 #

@@ -1,11 +1,7 @@
-##
-##
-
-from __future__ import print_function
 from awips.dataaccess import DataAccessLayer as DAL
 
-import baseBufrMosTestCase
-import params
+from awips.test.dafTests import baseBufrMosTestCase
+from awips.test.dafTests import params
 import unittest
 
 #
@@ -28,6 +24,6 @@ class BufrMosHpcTestCase(baseBufrMosTestCase.BufrMosTestCase):
     """Test DAF support for bufrmosHPC data"""
 
     datatype = "bufrmosHPC"
-    data_params = "forecastHr", "maxTemp24Hour"
+    data_params = b"forecastHr", b"maxTemp24Hour"
 
     # All tests inherited from superclass

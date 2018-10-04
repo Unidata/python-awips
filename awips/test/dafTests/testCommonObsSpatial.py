@@ -1,13 +1,10 @@
-##
-##
-
 from __future__ import print_function
 from shapely.geometry import box
 from awips.dataaccess import DataAccessLayer as DAL
 
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
-import baseDafTestCase
-import params
+from awips.test.dafTests import baseDafTestCase
+from awips.test.dafTests import params
 import unittest
 
 #

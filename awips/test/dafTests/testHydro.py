@@ -1,6 +1,3 @@
-##
-##
-
 from __future__ import print_function
 import datetime
 from awips.dataaccess import DataAccessLayer as DAL
@@ -8,7 +5,7 @@ from awips.ThriftClient import ThriftRequestException
 
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
 from dynamicserialize.dstypes.com.raytheon.uf.common.time import TimeRange
-import baseDafTestCase
+from awips.test.dafTests import baseDafTestCase
 import unittest
 
 #

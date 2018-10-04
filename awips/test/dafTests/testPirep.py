@@ -1,11 +1,8 @@
-##
-##
-
 from __future__ import print_function
 from awips.dataaccess import DataAccessLayer as DAL
 
-import baseDafTestCase
-import params
+from awips.test.dafTests import baseDafTestCase
+from awips.test.dafTests import params
 import unittest
 
 #
