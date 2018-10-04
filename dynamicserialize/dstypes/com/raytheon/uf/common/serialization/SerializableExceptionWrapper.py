@@ -23,13 +23,13 @@ class SerializableExceptionWrapper(object):
     def __repr__(self):
         if not self.message:
             self.message = ''
-        retVal = "" + self.exceptionClass + " exception thrown: " + self.message + "\n"
+        retVal = b"" + self.exceptionClass + b" exception thrown: " + self.message + b"\n"
         for element in self.stackTrace:
-            retVal += "\tat " + str(element) + "\n"
+            retVal += b"\tat " + str(element).encode('UTF-8') + b"\n"
 
         if self.wrapper:
-            retVal += "Caused by: " + self.wrapper.__repr__()
-        return retVal
+            retVal += b"Caused by: " + self.wrapper.__repr__().encode('UTF-8')
+        return str(retVal)
 
     def getStackTrace(self):
         return self.stackTrace
