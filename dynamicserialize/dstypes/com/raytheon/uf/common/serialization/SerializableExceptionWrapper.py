@@ -1,4 +1,3 @@
-
 # File auto-generated against equivalent DynamicSerialize Java class and
 # modified.
 #
@@ -7,6 +6,7 @@
 #    Date            Ticket#       Engineer       Description
 #    ------------    ----------    -----------    --------------------------
 #    2015-02-27      4174          nabowle        Output full stacktrace.
+#    2018-10-05                    mjames@ucar    Fix returned retVal encoding.
 #
 
 class SerializableExceptionWrapper(object):
@@ -23,12 +23,12 @@ class SerializableExceptionWrapper(object):
     def __repr__(self):
         if not self.message:
             self.message = ''
-        retVal = b"" + self.exceptionClass + b" exception thrown: " + self.message + b"\n"
+        retVal = "" + str(self.exceptionClass) + " exception thrown: " + str(self.message) + "\n"
         for element in self.stackTrace:
-            retVal += b"\tat " + str(element).encode('UTF-8') + b"\n"
+            retVal += "\tat " + str(element) + "\n"
 
         if self.wrapper:
-            retVal += b"Caused by: " + self.wrapper.__repr__().encode('UTF-8')
+            retVal += "Caused by: " + self.wrapper.__repr__()
         return str(retVal)
 
     def getStackTrace(self):
