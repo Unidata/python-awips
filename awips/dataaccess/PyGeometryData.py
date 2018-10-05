@@ -1,6 +1,3 @@
-##
-##
-
 #
 # Implements IGeometryData for use by native Python clients to the Data Access
 # Framework.
@@ -16,6 +13,7 @@
 #                                                 is called for data that is not a
 #                                                 numeric Type.
 #    06/09/16        5574          mapeters       Handle 'SHORT' type in getNumber().
+#    10/05/18                      mjames@ucar    Encode/decode string, number val, and type
 #
 #
 
@@ -39,25 +37,29 @@ class PyGeometryData(IGeometryData, PyData.PyData):
         return list(self.__dataMap.keys())
 
     def getString(self, param):
+        param = param.encode('utf-8')
         value = self.__dataMap[param][0]
-        return value
+        return value.decode('utf-8')
 
     def getNumber(self, param):
-        value = self.__dataMap[param][0]
         t = self.getType(param)
-        if t == 'INT' or t == 'SHORT':
-            return int(value)
-        elif t == 'LONG':
+        param = param.encode('utf-8')
+        value = self.__dataMap[param][0]
+        if t == 'INT' or t == 'SHORT' or t == 'LONG':
             return int(value)
         elif t == 'FLOAT':
             return float(value)
         elif t == 'DOUBLE':
             return float(value)
         else:
-            raise TypeError("Data for parameter " + param + " is not a numeric type.")
+            raise TypeError("Data for parameter " + param.decode('utf-8') + " is not a numeric type.")
 
     def getUnit(self, param):
-        return self.__dataMap[param][2]
+        param = param.encode('utf-8')
+        unit = self.__dataMap[param][2]
+        return unit.decode('utf-8')
 
     def getType(self, param):
-        return self.__dataMap[param][1]
+        param = param.encode('utf-8')
+        type = self.__dataMap[param][1]
+        return type.decode('utf-8')
