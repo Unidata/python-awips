@@ -34,6 +34,7 @@ class BinLightningTestCase(baseDafTestCase.DafTestCase):
     """Test DAF support for binlightning data"""
 
     datatype = "binlightning"
+    source = "GLMfl"
 
     def testGetAvailableParameters(self):
         req = DAL.newDataRequest(self.datatype)
@@ -41,18 +42,18 @@ class BinLightningTestCase(baseDafTestCase.DafTestCase):
 
     def testGetAvailableTimes(self):
         req = DAL.newDataRequest(self.datatype)
-        req.addIdentifier("source", "NLDN")
+        req.addIdentifier('source', self.source)
         self.runTimesTest(req)
 
     def testGetGeometryDataSingleSourceSingleParameter(self):
         req = DAL.newDataRequest(self.datatype)
-        req.addIdentifier("source", "NLDN")
+        req.addIdentifier('source', self.source)
         req.setParameters('intensity')
         self.runGeometryDataTest(req, checkDataTimes=False)
 
     def testGetGeometryDataInvalidParamRaisesIncompatibleRequestException(self):
         req = DAL.newDataRequest(self.datatype)
-        req.addIdentifier("source", "NLDN")
+        req.addIdentifier('source', self.source)
         req.setParameters('blahblahblah')
         with self.assertRaises(ThriftRequestException) as cm:
             self.runGeometryDataTest(req)
@@ -60,7 +61,7 @@ class BinLightningTestCase(baseDafTestCase.DafTestCase):
 
     def testGetGeometryDataSingleSourceAllParameters(self):
         req = DAL.newDataRequest(self.datatype)
-        req.addIdentifier("source", "NLDN")
+        req.addIdentifier('source', self.source)
         req.setParameters(*DAL.getAvailableParameters(req))
         self.runGeometryDataTest(req, checkDataTimes=False)
 
@@ -84,14 +85,14 @@ class BinLightningTestCase(baseDafTestCase.DafTestCase):
         return self.runGeometryDataTest(req, checkDataTimes=False)
 
     def testGetDataWithEqualsString(self):
-        geomData = self._runConstraintTest('source', '=', 'NLDN')
+        geomData = self._runConstraintTest('source', '=', self.source)
         for record in geomData:
-            self.assertEqual(record.getAttribute('source'), 'NLDN')
+            self.assertEqual(record.getAttribute('source'), self.source)
 
     def testGetDataWithEqualsUnicode(self):
-        geomData = self._runConstraintTest('source', '=', u'NLDN')
+        geomData = self._runConstraintTest('source', '=', self.source)
         for record in geomData:
-            self.assertEqual(record.getAttribute('source'), 'NLDN')
+            self.assertEqual(record.getAttribute('source'), self.source)
 
     def testGetDataWithEqualsInt(self):
         geomData = self._runConstraintTest('source', '=', 1000)
@@ -114,9 +115,9 @@ class BinLightningTestCase(baseDafTestCase.DafTestCase):
             self.assertIsNone(record.getAttribute('source'))
 
     def testGetDataWithNotEquals(self):
-        geomData = self._runConstraintTest('source', '!=', 'NLDN')
+        geomData = self._runConstraintTest('source', '!=', self.source)
         for record in geomData:
-            self.assertNotEqual(record.getAttribute('source'), 'NLDN')
+            self.assertNotEqual(record.getAttribute('source'), self.source)
 
     def testGetDataWithNotEqualsNone(self):
         geomData = self._runConstraintTest('source', '!=', None)
@@ -124,49 +125,49 @@ class BinLightningTestCase(baseDafTestCase.DafTestCase):
             self.assertIsNotNone(record.getAttribute('source'))
 
     def testGetDataWithGreaterThan(self):
-        geomData = self._runConstraintTest('source', '>', 'NLDN')
+        geomData = self._runConstraintTest('source', '>', self.source)
         for record in geomData:
-            self.assertGreater(record.getAttribute('source'), 'NLDN')
+            self.assertGreater(record.getAttribute('source'), self.source)
 
     def testGetDataWithLessThan(self):
-        geomData = self._runConstraintTest('source', '<', 'NLDN')
+        geomData = self._runConstraintTest('source', '<', self.source)
         for record in geomData:
-            self.assertLess(record.getAttribute('source'), 'NLDN')
+            self.assertLess(record.getAttribute('source'), self.source)
 
     def testGetDataWithGreaterThanEquals(self):
-        geomData = self._runConstraintTest('source', '>=', 'NLDN')
+        geomData = self._runConstraintTest('source', '>=', self.source)
         for record in geomData:
-            self.assertGreaterEqual(record.getAttribute('source'), 'NLDN')
+            self.assertGreaterEqual(record.getAttribute('source'), self.source)
 
     def testGetDataWithLessThanEquals(self):
-        geomData = self._runConstraintTest('source', '<=', 'NLDN')
+        geomData = self._runConstraintTest('source', '<=', self.source)
         for record in geomData:
-            self.assertLessEqual(record.getAttribute('source'), 'NLDN')
+            self.assertLessEqual(record.getAttribute('source'), self.source)
 
     def testGetDataWithInTuple(self):
-        geomData = self._runConstraintTest('source', 'in', ('NLDN', 'ENTLN'))
+        geomData = self._runConstraintTest('source', 'in', (self.source, 'GLMev'))
         for record in geomData:
-            self.assertIn(record.getAttribute('source'), ('NLDN', 'ENTLN'))
+            self.assertIn(record.getAttribute('source'), (self.source, 'GLMev'))
 
     def testGetDataWithInList(self):
-        geomData = self._runConstraintTest('source', 'in', ['NLDN', 'ENTLN'])
+        geomData = self._runConstraintTest('source', 'in', [self.source, 'GLMev'])
         for record in geomData:
-            self.assertIn(record.getAttribute('source'), ('NLDN', 'ENTLN'))
+            self.assertIn(record.getAttribute('source'), (self.source, 'GLMev'))
 
     def testGetDataWithInGenerator(self):
-        generator = (item for item in ('NLDN', 'ENTLN'))
+        generator = (item for item in (self.source, 'GLMev'))
         geomData = self._runConstraintTest('source', 'in', generator)
         for record in geomData:
-            self.assertIn(record.getAttribute('source'), ('NLDN', 'ENTLN'))
+            self.assertIn(record.getAttribute('source'), (self.source, 'GLMev'))
 
     def testGetDataWithNotInList(self):
-        geomData = self._runConstraintTest('source', 'not in', ['NLDN', 'blah'])
+        geomData = self._runConstraintTest('source', 'not in', [self.source, 'blah'])
         for record in geomData:
-            self.assertNotIn(record.getAttribute('source'), ('NLDN', 'blah'))
+            self.assertNotIn(record.getAttribute('source'), (self.source, 'blah'))
 
     def testGetDataWithInvalidConstraintTypeThrowsException(self):
         with self.assertRaises(ValueError):
-            self._runConstraintTest('source', 'junk', 'NLDN')
+            self._runConstraintTest('source', 'junk', self.source)
 
     def testGetDataWithInvalidConstraintValueThrowsException(self):
         with self.assertRaises(TypeError):

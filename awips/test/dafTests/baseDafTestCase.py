@@ -157,7 +157,7 @@ class DafTestCase(unittest.TestCase):
                 self.assertIn(record.getDataTime(), times[:self.numTimesToLimit])
             print("geometry=" + str(record.getGeometry()), end="")
             for p in req.getParameters():
-                print(" " + p + "=" + record.getString(p), end="")
+                print(" " + p + "=" + str(record.getString(p)), end="")
             print()
         return geomData
 
