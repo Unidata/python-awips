@@ -34,11 +34,12 @@ class PyNotification(with_metaclass(abc.ABCMeta, INotificationSubscriber)):
     specified filtering criteria.
     """
 
-    def __init__(self, request, filter, host='localhost', port=5672, requestHost='localhost'):
+    def __init__(self, request, notificationFilter, host='localhost',
+                 port=5672, requestHost='localhost'):
         self.DAL = DataAccessLayer
         self.DAL.changeEDEXHost(requestHost)
         self.request = request
-        self.notificationFilter = filter
+        self.notificationFilter = notificationFilter
         self.__topicSubscriber = QpidSubscriber(host, port, decompress=True)
         self.__topicName = "edex.alerts"
         self.callback = None

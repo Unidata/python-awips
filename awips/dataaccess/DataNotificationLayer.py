@@ -1,6 +1,3 @@
-# #
-# #
-
 #
 # Published interface for retrieving data updates via awips.dataaccess package
 #
@@ -51,7 +48,6 @@ each time a METAR is received from there.
 
 import re
 import sys
-import subprocess
 from awips.dataaccess.PyGeometryNotification import PyGeometryNotification
 from awips.dataaccess.PyGridNotification import PyGridNotification
 
@@ -95,9 +91,9 @@ def getGridDataUpdates(request):
             calling its subscribe() method
     """
     response = router.getNotificationFilter(request)
-    filter = response.getNotificationFilter()
+    notificationFilter = response.getNotificationFilter()
     jmsInfo = _getJmsConnectionInfo(response)
-    notifier = PyGridNotification(request, filter, requestHost=THRIFT_HOST, **jmsInfo)
+    notifier = PyGridNotification(request, notificationFilter, requestHost=THRIFT_HOST, **jmsInfo)
     return notifier
 
 

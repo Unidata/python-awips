@@ -60,6 +60,6 @@ class PyGeometryData(IGeometryData, PyData.PyData):
         return unit.decode('utf-8')
 
     def getType(self, param):
-        param = param.encode('utf-8')
+        param = param
         type = self.__dataMap[param][1]
-        return type.decode('utf-8')
+        return type

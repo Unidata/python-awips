@@ -1,7 +1,3 @@
-# #
-# #
-
-
 #
 # Published interface for awips.dataaccess package
 #
@@ -30,7 +26,6 @@
 
 
 import sys
-import subprocess
 import warnings
 
 THRIFT_HOST = "edex"
