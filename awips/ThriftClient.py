@@ -1,13 +1,8 @@
-##
-##
-
 try:
     import http.client as httpcl
 except ImportError:
     import httplib as httpcl
 from dynamicserialize import DynamicSerializationManager
-from dynamicserialize.dstypes.com.raytheon.uf.common.serialization.comm.response import ServerErrorResponse
-from dynamicserialize.dstypes.com.raytheon.uf.common.serialization import SerializableExceptionWrapper
 
 #
 # Provides a Python-based interface for executing Thrift requests.

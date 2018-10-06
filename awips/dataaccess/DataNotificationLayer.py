@@ -74,7 +74,7 @@ def _getJmsConnectionInfo(notifFilterResponse):
     serverString = notifFilterResponse.getJmsConnectionInfo()
     try:
         host, port = JMS_HOST_PATTERN.match(serverString).groups()
-    except AttributeError as e:
+    except AttributeError:
         raise RuntimeError('Got bad JMS connection info from server: ' + serverString)
     return {'host': host, 'port': port}
 

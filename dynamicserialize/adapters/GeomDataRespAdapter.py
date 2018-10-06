@@ -1,7 +1,3 @@
-##
-##
-
-
 #
 #    Efficient adapter for GetGeometryDataResponse
 #
@@ -15,8 +11,6 @@
 #
 #
 
-from thrift.Thrift import TType
-from dynamicserialize import SelfDescribingBinaryProtocol
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.response import GeometryResponseData
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.response import GetGeometryDataResponse
 

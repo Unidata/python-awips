@@ -1,11 +1,7 @@
-##
-##
-
 # File auto-generated against equivalent DynamicSerialize Java class
 
-import os
 from dynamicserialize.dstypes.com.raytheon.uf.common.localization.stream import AbstractLocalizationStreamRequest
-from dynamicserialize.dstypes.com.raytheon.uf.common.auth.user import User
+
 
 class LocalizationStreamGetRequest(AbstractLocalizationStreamRequest):
 

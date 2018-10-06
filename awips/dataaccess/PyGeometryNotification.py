@@ -1,6 +1,3 @@
-# #
-# #
-
 #
 # Notification object that produces geometry data
 #
@@ -15,7 +12,7 @@
 
 import dynamicserialize
 from awips.dataaccess.PyNotification import PyNotification
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
+
 
 class PyGeometryNotification(PyNotification):
 
@@ -30,7 +27,7 @@ class PyGeometryNotification(PyNotification):
             try:
                 data = self.getData(self.request, list(dataTimes))
                 self.callback(data)
-            except Exception as e:
+            except Exception:
                 traceback.print_exc()
 
     def getData(self, request, dataTimes):

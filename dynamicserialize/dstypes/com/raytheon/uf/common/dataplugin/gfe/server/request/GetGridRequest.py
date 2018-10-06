@@ -1,10 +1,6 @@
-##
-##
-
 # File auto-generated against equivalent DynamicSerialize Java class
 
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.db.objects import GFERecord
-from dynamicserialize.dstypes.com.raytheon.uf.common.message import WsId
 
 
 class GetGridRequest(object):

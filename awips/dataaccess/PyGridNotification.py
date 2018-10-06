@@ -1,6 +1,3 @@
-# #
-# #
-
 #
 # Notification object that produces grid data
 #
@@ -14,8 +11,9 @@
 #
 
 import dynamicserialize
+import traceback
 from awips.dataaccess.PyNotification import PyNotification
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
+
 
 class PyGridNotification(PyNotification):
 
@@ -35,7 +33,7 @@ class PyGridNotification(PyNotification):
                 newReq.setParameters(self.request.getParameters())
                 data = self.getData(newReq, [])
                 self.callback(data)
-            except Exception as e:
+            except Exception:
                 traceback.print_exc()
 
     def getData(self, request, dataTimes):

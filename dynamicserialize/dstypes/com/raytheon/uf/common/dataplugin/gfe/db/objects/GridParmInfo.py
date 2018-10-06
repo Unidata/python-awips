@@ -1,9 +1,4 @@
-##
-##
-
 # File auto-generated against equivalent DynamicSerialize Java class
-
-import warnings
 
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.db.objects import GridLocation
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.db.objects import ParmID
@@ -101,7 +96,7 @@ class GridParmInfo(object):
             status.append("GridParmInfo.Units are not defined.")
         if self.precision < -2 or self.precision > 5:
             status.append("GridParmInfo is invalid. Precision out of limits." +
-                          " Precision is: " + str(precision) + ". Must be between -2 and 5.")
+                          " Precision is: " + str(self.precision) + ". Must be between -2 and 5.")
 
         retVal = True
         if len(status) > 0:

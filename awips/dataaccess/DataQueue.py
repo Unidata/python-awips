@@ -29,15 +29,15 @@ else: # Python 3 module renamed to 'queue'
     from queue import Queue, Empty
 
 
-"""Used to indicate a DataQueue that will produce geometry data."""
+# Used to indicate a DataQueue that will produce geometry data.
 GEOMETRY = object()
 
 
-"""Used to indicate a DataQueue that will produce grid data."""
+# Used to indicate a DataQueue that will produce grid data.
 GRID = object()
 
 
-"""Default maximum queue size."""
+# Default maximum queue size.
 _DEFAULT_MAXSIZE = 100
 
 

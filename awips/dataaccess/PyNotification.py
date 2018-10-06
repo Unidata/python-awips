@@ -1,6 +1,3 @@
-##
-##
-
 #
 # Implements IData for use by native Python clients to the Data Access
 # Framework.
@@ -17,14 +14,10 @@
 
 from six import with_metaclass
 import abc
-import time
-import traceback
 
-import dynamicserialize
 from awips.dataaccess import DataAccessLayer
 from awips.dataaccess import INotificationSubscriber
 from awips.QpidSubscriber import QpidSubscriber
-from awips.ThriftClient import ThriftRequestException
 from dynamicserialize.dstypes.com.raytheon.uf.common.time import DataTime
 
 

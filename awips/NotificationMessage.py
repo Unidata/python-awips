@@ -1,8 +1,3 @@
-##
-##
-
-from string import Template
-
 import ctypes
 from . import stomp
 import socket
@@ -13,7 +8,6 @@ import xml.etree.ElementTree as ET
 
 from . import ThriftClient
 from dynamicserialize.dstypes.com.raytheon.uf.common.alertviz import AlertVizRequest
-from dynamicserialize import DynamicSerializationManager
 
 #
 # Provides a capability of constructing notification messages and sending
@@ -122,7 +116,7 @@ class NotificationMessage:
             sm.set("filters", self.filters)
         msg = ET.SubElement(sm, "message")
         msg.text = self.message
-        details = ET.SubElement(sm, "details")
+        # details = ET.SubElement(sm, "details")
         msg = ET.tostring(sm, "UTF-8")
 
         try :

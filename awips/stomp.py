@@ -1,6 +1,23 @@
-#!/usr/bin/env python
-##
-##
+from __future__ import print_function
+import hashlib
+import math
+import random
+import re
+import socket
+import sys
+import threading
+import time
+import xml.dom.minidom
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
+from functools import reduce
+try:
+    import _thread
+except ImportError:
+    import thread as _thread
+
 """Stomp Protocol Connectivity
 
     This provides basic connectivity to a message broker supporting the 'stomp' protocol.
@@ -63,27 +80,6 @@
     * 2009/04/02 : (Fernando Ciciliati) fix overflow bug when waiting too long to connect to the broker
 
 """
-
-from __future__ import print_function
-import hashlib
-import math
-import random
-import re
-import socket
-import sys
-import threading
-import time
-import types
-import xml.dom.minidom
-try:
-    from StringIO import StringIO
-except ImportError:
-    from io import StringIO
-from functools import reduce
-try:
-    import _thread
-except ImportError:
-    import thread
 
 #
 # stomp.py version number

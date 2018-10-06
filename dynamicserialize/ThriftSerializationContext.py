@@ -1,7 +1,3 @@
-##
-##
-
-
 #
 # A port of the Java ThriftSerializationContext, used for reading/writing
 # DynamicSerialize objects to/from thrift.
@@ -28,10 +24,7 @@
 from thrift.Thrift import TType
 import inspect
 import sys
-import types
-import time
 import numpy
-import collections
 import dynamicserialize
 from dynamicserialize import dstypes, adapters
 from dynamicserialize import SelfDescribingBinaryProtocol
