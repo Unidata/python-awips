@@ -1,4 +1,4 @@
-#===============================================================================
+# ===============================================================================
 # qpidingest.py
 #
 # @author: Aaron Anderson
@@ -38,7 +38,7 @@
 # EXAMPLE:
 # Simple example program:
 #
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # import qpidingest
 # #Tell EDEX to ingest a metar file from data_store. The filepath is
 # #/data_store/20100218/metar/00/standard/20100218_005920_SAUS46KSEW.metar
@@ -50,7 +50,7 @@
 #
 # conn.sendmessage('/data_store/20100218/metar/18/standard/20100218_185755_SAUS46KLOX.metar','SAUS46 KLOX')
 # conn.close()
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 #
 #    SOFTWARE HISTORY
 #
@@ -61,7 +61,7 @@
 #    03/06/2014      DR 17907      D. Friedman    Workaround for issue QPID-5569
 #    02/16/2017      DR 6084       bsteffen       Support ssl connections
 #
-#===============================================================================
+# ===============================================================================
 
 import os
 import os.path
@@ -73,6 +73,7 @@ from qpid.datatypes import Message, uuid4
 
 QPID_USERNAME = 'guest'
 QPID_PASSWORD = 'guest'
+
 
 class IngestViaQPID:
     def __init__(self, host='localhost', port=5672, ssl=None):

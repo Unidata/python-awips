@@ -1,7 +1,3 @@
-##
-##
-
-
 #
 # __init__.py for awips package
 #

@@ -1,6 +1,3 @@
-##
-##
-
 #
 # Provides a Python-based interface for subscribing to qpid queues and topics.
 #
@@ -25,6 +22,7 @@ import zlib
 
 from Queue import Empty
 from qpid.exceptions import Closed
+
 
 class QpidSubscriber:
 

@@ -1,6 +1,3 @@
-# #
-# #
-
 #
 # Functions for converting between the various "Java" dynamic serialize types
 # used by EDEX to the native python time datetime.
