@@ -1,6 +1,3 @@
-##
-##
-
 #
 #      SOFTWARE HISTORY
 #
@@ -9,6 +6,7 @@
 #     Jun 01, 2016    5574          tgurney        Initial creation
 #     Jun 27, 2016    5725          tgurney        Add NOT IN
 #     Jul 22, 2016    2416          tgurney        Add evaluate()
+#     Oct 05, 2018                  mjames@ucar    Python 3 types
 #
 #
 
@@ -210,7 +208,7 @@ class RequestConstraint(object):
 
     @staticmethod
     def _stringify(value):
-        if type(value) in {str, int, long, bool, float, unicode}:
+        if type(value) in {str, int, bool, float}:
             return str(value)
         else:
             # Collections are not allowed; they are handled separately.

@@ -1,7 +1,7 @@
 from awips.dataaccess import DataAccessLayer as DAL
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
 
-import baseRadarTestCase
+from awips.test.dafTests import baseRadarTestCase
 from awips.test.dafTests import params
 import unittest
 
