@@ -23,7 +23,7 @@ import unittest
 class BufrMosTestCase(baseDafTestCase.DafTestCase):
     """Base class for testing DAF support of bufrmos data"""
 
-    data_params = b"temperature", b"dewpoint"
+    data_params = "temperature", "dewpoint"
 
     def testGetAvailableParameters(self):
         req = DAL.newDataRequest(self.datatype)

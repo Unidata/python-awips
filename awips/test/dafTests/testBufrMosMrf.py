@@ -24,6 +24,6 @@ class BufrMosMrfTestCase(baseBufrMosTestCase.BufrMosTestCase):
     """Test DAF support for bufrmosMRF data"""
 
     datatype = "bufrmosMRF"
-    data_params = b"forecastHr", b"maxTempDay"
+    data_params = "forecastHr", "maxTempDay"
 
     # All tests inherited from superclass
