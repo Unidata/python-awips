@@ -11,6 +11,7 @@
 #
 
 import re
+import six
 from dynamicserialize.dstypes.com.raytheon.uf.common.time import DataTime
 
 
@@ -208,14 +209,24 @@ class RequestConstraint(object):
 
     @staticmethod
     def _stringify(value):
-        if isinstance(value, (str, int, long, float)):
-            return str(value)
+        if six.PY2:
+            if type(value) in {str, int, long, bool, float, unicode}:
+                return str(value)
+            else:
+                # Collections are not allowed; they are handled separately.
+                # Arbitrary objects are not allowed because the string
+                # representation may not be sufficient to reconstruct the object.
+                raise TypeError('Constraint values of type ' + repr(type(value)) +
+                                'are not allowed')
         else:
-            # Collections are not allowed; they are handled separately.
-            # Arbitrary objects are not allowed because the string
-            # representation may not be sufficient to reconstruct the object.
-            raise TypeError('Constraint values of type ' + repr(type(value)) +
-                            'are not allowed')
+            if isinstance(value, (str, int, long, float)):
+                return str(value)
+            else:
+                # Collections are not allowed; they are handled separately.
+                # Arbitrary objects are not allowed because the string
+                # representation may not be sufficient to reconstruct the object.
+                raise TypeError('Constraint values of type ' + repr(type(value)) +
+                                'are not allowed')
 
     @classmethod
     def _constructIn(cls, constraintType, constraintValue):
