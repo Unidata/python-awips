@@ -10,7 +10,7 @@ dependencies = ['numpy','six']
 if sys.version_info < (3, 4):
     dependencies.append('enum34')
 
-ver="18.1.2"
+ver="18.1.3"
 
 setup(
     name='python-awips',
