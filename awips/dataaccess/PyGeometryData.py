@@ -50,7 +50,10 @@ class PyGeometryData(IGeometryData, PyData.PyData):
 
     def getNumber(self, param):
         t = self.getType(param)
-        value = self.__dataMap[param.encode('utf-8')][0]
+        if six.PY2:
+            value = self.__dataMap[param][0]
+        else:
+            value = self.__dataMap[param.encode('utf-8')][0]
         if t == 'INT' or t == 'SHORT' or t == 'LONG':
             return int(value)
         elif t == 'FLOAT':

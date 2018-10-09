@@ -124,7 +124,10 @@ class ThriftClientRouter(object):
         for gridDataRecord in response.getGridData():
             locationName = gridDataRecord.getLocationName()
             if locationName is not None:
-                locData = locSpecificData[locationName.encode('utf-8')]
+                if six.PY2:
+                    locData = locSpecificData[locationName]
+                else:
+                    locData = locSpecificData[locationName.encode('utf-8')]
             else:
                 locData = locSpecificData[locationName]
             if self._lazyLoadGridLatLon:
