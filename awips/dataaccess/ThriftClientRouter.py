@@ -163,7 +163,7 @@ class ThriftClientRouter(object):
         locNamesRequest = GetAvailableLocationNamesRequest()
         locNamesRequest.setRequestParameters(request)
         response = self._client.sendRequest(locNamesRequest)
-        return response
+        return [item.decode('utf8') for item in response]
 
     def getAvailableParameters(self, request):
         paramReq = GetAvailableParametersRequest()

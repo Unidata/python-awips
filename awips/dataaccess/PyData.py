@@ -33,7 +33,7 @@ class PyData(IData):
         return self.__time
 
     def getLevel(self):
-        return self.__level
+        return self.__level.decode('utf-8')
 
     def getLocationName(self):
         return self.__locationName
