@@ -1,6 +1,3 @@
-# #
-# #
-
 #
 # Implements IGridData for use by native Python clients to the Data Access
 # Framework.
@@ -20,6 +17,7 @@
 
 import numpy
 import warnings
+import six
 
 from awips.dataaccess import IGridData
 from awips.dataaccess import PyData
@@ -46,6 +44,10 @@ class PyGridData(IGridData, PyData.PyData):
         return self.__parameter
 
     def getUnit(self):
+        if six.PY2:
+            return self.__unit
+        if self.__unit is not None and type(self.__unit) is not str:
+            return self.__unit.decode('utf-8')
         return self.__unit
 
     def getRawData(self, unit=None):

@@ -17,6 +17,7 @@ import time, sys
 import threading
 
 import dynamicserialize
+from io import open
 
 TIME_TO_SLEEP = 300
 

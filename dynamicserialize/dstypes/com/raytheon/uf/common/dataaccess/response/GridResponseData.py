@@ -1,6 +1,3 @@
-##
-##
-
 # File auto-generated against equivalent DynamicSerialize Java class
 # and then modified post-generation to use AbstractResponseData.
 #
@@ -12,8 +9,9 @@
 #
 #
 
-
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.response import AbstractResponseData
+import six
+
 
 class GridResponseData(AbstractResponseData):
 
@@ -24,12 +22,20 @@ class GridResponseData(AbstractResponseData):
         self.gridData = None
 
     def getParameter(self):
+        if six.PY2:
+            return self.parameter
+        if self.parameter is not None:
+            return self.parameter.decode('utf-8')
         return self.parameter
 
     def setParameter(self, parameter):
         self.parameter = parameter
 
     def getUnit(self):
+        if six.PY2:
+            return self.unit
+        if self.unit is not None:
+            return self.unit.decode('utf-8')
         return self.unit
 
     def setUnit(self, unit):

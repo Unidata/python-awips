@@ -1,6 +1,3 @@
-# #
-# #
-
 #
 # Routes requests to the Data Access Framework through Python Thrift.
 #
@@ -28,6 +25,7 @@
 
 
 import numpy
+import six
 import shapely.wkb
 
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.impl import DefaultDataRequest
@@ -125,7 +123,10 @@ class ThriftClientRouter(object):
         retVal = []
         for gridDataRecord in response.getGridData():
             locationName = gridDataRecord.getLocationName()
-            locData = locSpecificData[locationName]
+            if locationName is not None:
+                locData = locSpecificData[locationName.encode('utf-8')]
+            else:
+                locData = locSpecificData[locationName]
             if self._lazyLoadGridLatLon:
                 retVal.append(PyGridData.PyGridData(gridDataRecord, locData[
                               0], locData[1], latLonDelegate=locData[2]))
@@ -163,12 +164,20 @@ class ThriftClientRouter(object):
         locNamesRequest = GetAvailableLocationNamesRequest()
         locNamesRequest.setRequestParameters(request)
         response = self._client.sendRequest(locNamesRequest)
-        return [item.decode('utf8') for item in response]
+        if six.PY2:
+            return response
+        if response is not None:
+            return [x.decode('utf-8') for x in response]
+        return response
 
     def getAvailableParameters(self, request):
         paramReq = GetAvailableParametersRequest()
         paramReq.setRequestParameters(request)
         response = self._client.sendRequest(paramReq)
+        if six.PY2:
+            return response
+        if response is not None:
+            return [x.decode('utf-8') for x in response]
         return response
 
     def getAvailableLevels(self, request):
@@ -184,6 +193,10 @@ class ThriftClientRouter(object):
         idReq = GetRequiredIdentifiersRequest()
         idReq.setRequest(request)
         response = self._client.sendRequest(idReq)
+        if six.PY2:
+            return response
+        if response is not None:
+            return [x.decode('utf-8') for x in response]
         return response
 
     def getOptionalIdentifiers(self, request):
@@ -193,6 +206,10 @@ class ThriftClientRouter(object):
         idReq = GetOptionalIdentifiersRequest()
         idReq.setRequest(request)
         response = self._client.sendRequest(idReq)
+        if six.PY2:
+            return response
+        if response is not None:
+            return [x.decode('utf-8') for x in response]
         return response
 
     def getIdentifierValues(self, request, identifierKey):
@@ -200,6 +217,10 @@ class ThriftClientRouter(object):
         idValReq.setIdentifierKey(identifierKey)
         idValReq.setRequestParameters(request)
         response = self._client.sendRequest(idValReq)
+        if six.PY2:
+            return response
+        if response is not None:
+            return [x.decode('utf-8') for x in response]
         return response
 
     def newDataRequest(self, datatype, parameters=[], levels=[], locationNames=[], envelope=None, **kwargs):
@@ -221,6 +242,10 @@ class ThriftClientRouter(object):
 
     def getSupportedDatatypes(self):
         response = self._client.sendRequest(GetSupportedDatatypesRequest())
+        if six.PY2:
+            return response
+        if response is not None:
+            return [x.decode('utf-8') for x in response]
         return response
 
     def getNotificationFilter(self, request):

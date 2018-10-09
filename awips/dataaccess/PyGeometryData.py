@@ -19,6 +19,7 @@
 
 from awips.dataaccess import IGeometryData
 from awips.dataaccess import PyData
+import six
 
 class PyGeometryData(IGeometryData, PyData.PyData):
 
@@ -34,15 +35,22 @@ class PyGeometryData(IGeometryData, PyData.PyData):
         return self.__geometry
 
     def getParameters(self):
-        return list(self.__dataMap.keys())
+        if six.PY2:
+            return list(self.__dataMap.keys())
+        else:
+            return [x.decode('utf-8') for x in list(self.__dataMap.keys())]
 
     def getString(self, param):
-        value = self.__dataMap[param][0]
+        if six.PY2:
+            return self.__dataMap[param][0]
+        value = self.__dataMap[param.encode('utf-8')][0]
+        if value is not None:
+            return value.decode('utf-8')
         return value
 
     def getNumber(self, param):
         t = self.getType(param)
-        value = self.__dataMap[param][0]
+        value = self.__dataMap[param.encode('utf-8')][0]
         if t == 'INT' or t == 'SHORT' or t == 'LONG':
             return int(value)
         elif t == 'FLOAT':
@@ -54,8 +62,16 @@ class PyGeometryData(IGeometryData, PyData.PyData):
 
     def getUnit(self, param):
         unit = self.__dataMap[param][2]
+        if six.PY2:
+            return unit
+        if unit is not None:
+            return unit.decode('utf-8')
         return unit
 
     def getType(self, param):
-        type = self.__dataMap[param][1]
+        if six.PY2:
+            return self.__dataMap[param][1]
+        type = self.__dataMap[param.encode('utf-8')][1]
+        if type is not None:
+            return type.decode('utf-8')
         return type

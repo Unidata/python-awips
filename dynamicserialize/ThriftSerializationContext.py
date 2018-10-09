@@ -24,6 +24,8 @@
 from thrift.Thrift import TType
 import inspect
 import sys
+import types
+import six
 import numpy
 import dynamicserialize
 from dynamicserialize import dstypes, adapters
@@ -49,29 +51,54 @@ def buildObjMap(module):
 
 buildObjMap(dstypes)
 
-pythonToThriftMap = {
-    bytes: TType.STRING,
-    int: TType.I32,
-    int: TType.I64,
-    list: TType.LIST,
-    dict: TType.MAP,
-    type(set([])): TType.SET,
-    float: SelfDescribingBinaryProtocol.FLOAT,
-    # types.FloatType: TType.DOUBLE,
-    bool: TType.BOOL,
-    object: TType.STRUCT,
-    str: TType.STRING,
-    type(None): TType.VOID,
-    numpy.float32: SelfDescribingBinaryProtocol.FLOAT,
-    numpy.int32: TType.I32,
-    numpy.ndarray: TType.LIST,
-    numpy.object_: TType.STRING,  # making an assumption here
-    numpy.string_: TType.STRING,
-    numpy.float64: TType.DOUBLE,
-    numpy.int16: TType.I16,
-    numpy.int8: TType.BYTE,
-    numpy.int64: TType.I64
-}
+if six.PY2:
+    pythonToThriftMap = {
+        types.StringType: TType.STRING,
+        types.IntType: TType.I32,
+        types.LongType: TType.I64,
+        types.ListType: TType.LIST,
+        unicode: TType.STRING,
+        types.DictionaryType: TType.MAP,
+        type(set([])): TType.SET,
+        types.FloatType: SelfDescribingBinaryProtocol.FLOAT,
+        # types.FloatType: TType.DOUBLE,
+        types.BooleanType: TType.BOOL,
+        types.InstanceType: TType.STRUCT,
+        types.NoneType: TType.VOID,
+        numpy.float32: SelfDescribingBinaryProtocol.FLOAT,
+        numpy.int32: TType.I32,
+        numpy.ndarray: TType.LIST,
+        numpy.object_: TType.STRING,  # making an assumption here
+        numpy.string_: TType.STRING,
+        numpy.float64: TType.DOUBLE,
+        numpy.int16: TType.I16,
+        numpy.int8: TType.BYTE,
+        numpy.int64: TType.I64
+    }
+else:
+    pythonToThriftMap = {
+        bytes: TType.STRING,
+        int: TType.I32,
+        int: TType.I64,
+        list: TType.LIST,
+        dict: TType.MAP,
+        type(set([])): TType.SET,
+        float: SelfDescribingBinaryProtocol.FLOAT,
+        # types.FloatType: TType.DOUBLE,
+        bool: TType.BOOL,
+        object: TType.STRUCT,
+        str: TType.STRING,
+        type(None): TType.VOID,
+        numpy.float32: SelfDescribingBinaryProtocol.FLOAT,
+        numpy.int32: TType.I32,
+        numpy.ndarray: TType.LIST,
+        numpy.object_: TType.STRING,  # making an assumption here
+        numpy.string_: TType.STRING,
+        numpy.float64: TType.DOUBLE,
+        numpy.int16: TType.I16,
+        numpy.int8: TType.BYTE,
+        numpy.int64: TType.I64
+    }
 
 primitiveSupport = (TType.BYTE, TType.I16, TType.I32, TType.I64,
                     SelfDescribingBinaryProtocol.FLOAT, TType.DOUBLE)
@@ -227,7 +254,10 @@ class ThriftSerializationContext(object):
         if pyt in pythonToThriftMap:
             return pythonToThriftMap[pyt]
         elif pyt.__module__[:DS_LEN - 1] == ('dynamicserialize.dstypes'):
-            return pythonToThriftMap[object]
+            if six.PY2:
+                return pythonToThriftMap[types.InstanceType]
+            else:
+                return pythonToThriftMap[object]
         else:
             raise dynamicserialize.SerializationException(
                 "Don't know how to serialize object of type: " + str(pyt))

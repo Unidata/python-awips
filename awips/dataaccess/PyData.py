@@ -13,6 +13,7 @@
 #
 
 from awips.dataaccess import IData
+import six
 
 class PyData(IData):
 
@@ -33,6 +34,10 @@ class PyData(IData):
         return self.__time
 
     def getLevel(self):
+        if six.PY2:
+            return self.__level
+        if type(self.__level) is not str:
+            return self.__level.decode('utf-8')
         return self.__level
 
     def getLocationName(self):

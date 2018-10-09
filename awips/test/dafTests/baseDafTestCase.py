@@ -73,7 +73,7 @@ class DafTestCase(unittest.TestCase):
         return times
 
     def testDatatypeIsSupported(self):
-        allSupported = (item.lower().decode('utf-8') for item in DAL.getSupportedDatatypes())
+        allSupported = DAL.getSupportedDatatypes()
         self.assertIn(self.datatype.lower(), allSupported)
 
     def testGetRequiredIdentifiers(self):
