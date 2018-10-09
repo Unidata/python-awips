@@ -23,8 +23,8 @@ class PyData(IData):
         self.__attributes = dataRecord.getAttributes()
 
     def getAttribute(self, key):
-        value = self.__attributes[key.encode('utf-8')]
-        return value.decode('utf-8')
+        value = self.__attributes[key]
+        return value
 
     def getAttributes(self):
         return list(self.__attributes.keys())
@@ -33,7 +33,7 @@ class PyData(IData):
         return self.__time
 
     def getLevel(self):
-        return self.__level.decode('utf-8')
+        return self.__level
 
     def getLocationName(self):
         return self.__locationName
