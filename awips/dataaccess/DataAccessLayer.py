@@ -21,6 +21,7 @@
 #                                                 getOptionalIdentifiers()
 #    Oct 07, 2016    ----          mjames@ucar    Added getForecastRun
 #    Oct 18, 2016    5916          bsteffen       Add setLazyLoadGridLatLon
+#    Oct 11, 2018                  mjames@ucar    Added getMetarObs() getSynopticObs()
 #
 #
 
@@ -32,7 +33,6 @@ THRIFT_HOST = "edex"
 
 USING_NATIVE_THRIFT = False
 
-
 if 'jep' in sys.modules:
     # intentionally do not catch if this fails to import, we want it to
     # be obvious that something is configured wrong when running from within
@@ -43,6 +43,69 @@ else:
     from awips.dataaccess import ThriftClientRouter
     router = ThriftClientRouter.ThriftClientRouter(THRIFT_HOST)
     USING_NATIVE_THRIFT = True
+
+
+def getMetarObs(response):
+    from datetime import datetime
+    single_val_params = ["timeObs", "stationName", "longitude", "latitude",
+                         "temperature", "dewpoint", "windDir",
+                         "windSpeed", "seaLevelPress"]
+    multi_val_params = ["presWeather", "skyCover", "skyLayerBase"]
+    params = single_val_params + multi_val_params
+    station_names, pres_weather, sky_cov, sky_layer_base = [],[],[],[]
+    obs = dict({params: [] for params in params})
+    for ob in response:
+        avail_params = ob.getParameters()
+        if "presWeather" in avail_params:
+            pres_weather.append(ob.getString("presWeather"))
+        elif "skyCover" in avail_params and "skyLayerBase" in avail_params:
+            sky_cov.append(ob.getString("skyCover"))
+            sky_layer_base.append(ob.getNumber("skyLayerBase"))
+        else:
+            # If we already have a record for this stationName, skip
+            if ob.getString('stationName') not in station_names:
+                station_names.append(ob.getString('stationName'))
+                for param in single_val_params:
+                    if param in avail_params:
+                        if param == 'timeObs':
+                            obs[param].append(datetime.fromtimestamp(ob.getNumber(param) / 1000.0))
+                        else:
+                            try:
+                                obs[param].append(ob.getNumber(param))
+                            except TypeError:
+                                obs[param].append(ob.getString(param))
+                    else:
+                        obs[param].append(None)
+
+                obs['presWeather'].append(pres_weather);
+                obs['skyCover'].append(sky_cov);
+                obs['skyLayerBase'].append(sky_layer_base);
+                pres_weather = []
+                sky_cov = []
+                sky_layer_base = []
+    return obs
+
+
+def getSynopticObs(response):
+    from datetime import datetime
+    station_names = []
+    params = response[0].getParameters()
+    sfcobs = dict({params: [] for params in params})
+    for sfcob in response:
+        # If we already have a record for this stationId, skip
+        if sfcob.getString('stationId') not in station_names:
+            station_names.append(sfcob.getString('stationId'))
+            for param in params:
+                if param == 'timeObs':
+                    sfcobs[param].append(datetime.fromtimestamp(sfcob.getNumber(param) / 1000.0))
+                else:
+                    try:
+                        sfcobs[param].append(sfcob.getNumber(param))
+                    except TypeError:
+                        sfcobs[param].append(sfcob.getString(param))
+
+    return sfcobs
+
 
 def getForecastRun(cycle, times):
     """
