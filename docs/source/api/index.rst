@@ -12,7 +12,11 @@ API Documentation
    PyGeometryData
    SoundingsSupport
    ThriftClientRouter
+   ThriftClient
+   TimeUtil
    RadarCommon
+   IFPClient
    DateTimeConverter
+   CombinedTimeQuery
 
 * :ref:`genindex`

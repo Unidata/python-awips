@@ -93,7 +93,8 @@ def getGridDataUpdates(request):
     response = router.getNotificationFilter(request)
     notificationFilter = response.getNotificationFilter()
     jmsInfo = _getJmsConnectionInfo(response)
-    notifier = PyGridNotification(request, notificationFilter, requestHost=THRIFT_HOST, **jmsInfo)
+    notifier = PyGridNotification(request, notificationFilter,
+                                  requestHost=THRIFT_HOST, **jmsInfo)
     return notifier
 
 
@@ -111,7 +112,8 @@ def getGeometryDataUpdates(request):
     response = router.getNotificationFilter(request)
     notificationFilter = response.getNotificationFilter()
     jmsInfo = _getJmsConnectionInfo(response)
-    notifier = PyGeometryNotification(request, notificationFilter, requestHost=THRIFT_HOST, **jmsInfo)
+    notifier = PyGeometryNotification(request, notificationFilter,
+                                      requestHost=THRIFT_HOST, **jmsInfo)
     return notifier
 
 

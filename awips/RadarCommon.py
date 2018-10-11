@@ -30,9 +30,11 @@ def get_datetime_str(record):
     """
     Get the datetime string for a record.
 
-    :param record: the record to get data for.
+    Args:
+            record: the record to get data for.
 
-    :returns: datetime string.
+    Returns:
+            datetime string.
     """
     return str(record.getDataTime())[0:19].replace(" ","_") + ".0"
 
@@ -40,9 +42,11 @@ def get_data_type(azdat):
     """
     Get the radar file type (radial or raster).
 
-    :param azdat: Boolean.
+    Args:
+            azdat: Boolean.
 
-    :returns: Radial or raster.
+    Returns:
+            Radial or raster.
     """
     if azdat:
         dattyp = "radial"

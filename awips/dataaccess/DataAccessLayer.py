@@ -46,6 +46,17 @@ else:
 
 
 def getMetarObs(response):
+    """
+    Processes a DataAccessLayer "obs" response into a dictionary,
+    with special consideration for multi-value parameters
+    "presWeather", "skyCover", and "skyLayerBase".
+
+    Args:
+            response: DAL getGeometry() list
+
+    Returns:
+            A dictionary of METAR obs
+    """
     from datetime import datetime
     single_val_params = ["timeObs", "stationName", "longitude", "latitude",
                          "temperature", "dewpoint", "windDir",
@@ -87,6 +98,16 @@ def getMetarObs(response):
 
 
 def getSynopticObs(response):
+    """
+    Processes a DataAccessLayer "sfcobs" response into a dictionary
+    of available parameters.
+
+    Args:
+            response: DAL getGeometry() list
+
+    Returns:
+            A dictionary of synop obs
+    """
     from datetime import datetime
     station_names = []
     params = response[0].getParameters()
@@ -109,9 +130,16 @@ def getSynopticObs(response):
 
 def getForecastRun(cycle, times):
     """
-    :param cycle: Forecast cycle reference time
-    :param times: All available times/cycles
-    :return: DataTime array for a single forecast run
+    Get the latest forecast run (list of objects) from all
+    all cycles and times returned from DataAccessLayer "grid"
+    response.
+
+    Args:
+            cycle: Forecast cycle reference time
+            times: All available times/cycles
+
+    Returns:
+            DataTime array for a single forecast run
     """
     fcstRun = []
     for t in times:
