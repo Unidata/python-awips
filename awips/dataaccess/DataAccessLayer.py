@@ -154,7 +154,7 @@ def getAvailableTimes(request, refTimeOnly=False):
     Args:
             request: the IDataRequest to get data for
             refTimeOnly: optional, use True if only unique refTimes should be
-                returned (without a forecastHr)
+            returned (without a forecastHr)
 
     Returns:
             a list of DataTimes
@@ -171,7 +171,7 @@ def getGridData(request, times=[]):
     Args:
             request: the IDataRequest to get data for
             times: a list of DataTimes, a TimeRange, or None if the data is time
-                agnostic
+            agnostic
 
     Returns:
             a list of IGridData
@@ -188,10 +188,10 @@ def getGeometryData(request, times=[]):
     Args:
             request: the IDataRequest to get data for
             times: a list of DataTimes, a TimeRange, or None if the data is time
-                agnostic
+            agnostic
 
     Returns:
-            a list of IGeometryData
+       a list of IGeometryData
     """
     return router.getGeometryData(request, times)
 
@@ -295,7 +295,7 @@ def newDataRequest(datatype=None, **kwargs):
             levels: a list of levels to set on the request
             locationNames: a list of locationNames to set on the request
             envelope: an envelope to limit the request
-            **kwargs: any leftover kwargs will be set as identifiers
+            kwargs: any leftover kwargs will be set as identifiers
 
     Returns:
             a new IDataRequest

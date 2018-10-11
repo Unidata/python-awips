@@ -296,7 +296,6 @@ texinfo_documents = [
 # Set up mapping for other projects' docs
 intersphinx_mapping = {
                        'matplotlib': ('http://matplotlib.org/', None),
-                       'metpy': ('https://unidata.github.io/MetPy/', None),
                        'numpy': ('http://docs.scipy.org/doc/numpy/', None),
                        'scipy': ('http://docs.scipy.org/doc/scipy/reference/', None),
                        'pint': ('http://pint.readthedocs.org/en/stable/', None),
