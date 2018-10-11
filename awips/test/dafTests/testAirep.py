@@ -3,7 +3,6 @@ from awips.dataaccess import DataAccessLayer as DAL
 
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
 from awips.test.dafTests import baseDafTestCase
-import unittest
 
 #
 # Test DAF support for airep data

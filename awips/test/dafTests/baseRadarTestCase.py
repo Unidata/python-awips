@@ -1,11 +1,9 @@
 from __future__ import print_function
-from shapely.geometry import box
 from awips.dataaccess import DataAccessLayer as DAL
 from awips.ThriftClient import ThriftRequestException
 
 from awips.test.dafTests import baseDafTestCase
 from awips.test.dafTests import params
-import unittest
 
 #
 # Tests common to all radar factories

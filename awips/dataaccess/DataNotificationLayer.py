@@ -109,9 +109,9 @@ def getGeometryDataUpdates(request):
             calling its subscribe() method
     """
     response = router.getNotificationFilter(request)
-    filter = response.getNotificationFilter()
+    notificationFilter = response.getNotificationFilter()
     jmsInfo = _getJmsConnectionInfo(response)
-    notifier = PyGeometryNotification(request, filter, requestHost=THRIFT_HOST, **jmsInfo)
+    notifier = PyGeometryNotification(request, notificationFilter, requestHost=THRIFT_HOST, **jmsInfo)
     return notifier
 
 

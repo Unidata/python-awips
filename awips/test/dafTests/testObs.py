@@ -4,7 +4,6 @@ from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import R
 
 from awips.test.dafTests import baseDafTestCase
 from awips.test.dafTests import params
-import unittest
 
 #
 # Test DAF support for obs data

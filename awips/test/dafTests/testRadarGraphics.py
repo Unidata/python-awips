@@ -3,7 +3,6 @@ from awips.dataaccess import DataAccessLayer as DAL
 
 from awips.test.dafTests import baseRadarTestCase
 from awips.test.dafTests import params
-import unittest
 
 #
 # Test DAF support for radar graphics data
