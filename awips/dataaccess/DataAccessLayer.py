@@ -52,7 +52,7 @@ def getMetarObs(response):
                          "windSpeed", "seaLevelPress"]
     multi_val_params = ["presWeather", "skyCover", "skyLayerBase"]
     params = single_val_params + multi_val_params
-    station_names, pres_weather, sky_cov, sky_layer_base = [],[],[],[]
+    station_names, pres_weather, sky_cov, sky_layer_base = [], [], [], []
     obs = dict({params: [] for params in params})
     for ob in response:
         avail_params = ob.getParameters()
@@ -77,9 +77,9 @@ def getMetarObs(response):
                     else:
                         obs[param].append(None)
 
-                obs['presWeather'].append(pres_weather);
-                obs['skyCover'].append(sky_cov);
-                obs['skyLayerBase'].append(sky_layer_base);
+                obs['presWeather'].append(pres_weather)
+                obs['skyCover'].append(sky_cov)
+                obs['skyLayerBase'].append(sky_layer_base)
                 pres_weather = []
                 sky_cov = []
                 sky_layer_base = []
