@@ -98,9 +98,6 @@ Examples
 .. image:: https://python-awips.readthedocs.io/en/latest/_images/AWIPS_Grids_and_Cartopy_3_0.png
    :target: https://python-awips.readthedocs.io/en/latest/examples/generated/Grid_Levels_and_Parameters.html
    :height: 192px
-.. image:: https://python-awips.readthedocs.io/en/latest/_images/Map_Resources_and_Topography_17_1.png
-   :target: https://python-awips.readthedocs.io/en/latest/examples/generated/Map_Resources_and_Topography.html
-   :height: 192px
 .. image:: https://python-awips.readthedocs.io/en/latest/_images/NEXRAD_Level_3_Plot_with_Matplotlib_3_0.png
    :target: https://python-awips.readthedocs.io/en/latest/examples/generated/NEXRAD_Level_3_Plot_with_Matplotlib.html
    :height: 192px
@@ -112,6 +109,21 @@ Examples
    :height: 192px
 .. image:: https://python-awips.readthedocs.io/en/latest/_images/Watch_and_Warning_Polygons_5_0.png
    :target: https://python-awips.readthedocs.io/en/latest/examples/generated/Watch_and_Warning_Polygons.html
+   :height: 192px
+.. image:: https://python-awips.readthedocs.io/en/latest/_images/Profiler_Wind_Barb_Time-Series_1_0.png
+   :target: https://python-awips.readthedocs.io/en/latest/examples/generated/Profiler_Wind_Barb_Time-Series.html
+   :height: 192px
+.. image:: https://python-awips.readthedocs.io/en/latest/_images/Regional_Surface_Obs_Plot_14_0.png
+   :target: https://python-awips.readthedocs.io/en/latest/examples/generated/Regional_Surface_Obs_Plot.html
+   :height: 192px
+.. image:: https://python-awips.readthedocs.io/en/latest/_images/GOES_Geostationary_Lightning_Mapper_3_1.png
+   :target: https://python-awips.readthedocs.io/en/latest/examples/generated/GOES_Geostationary_Lightning_Mapper.html
+   :height: 192px
+.. image:: https://python-awips.readthedocs.io/en/latest/_images/Colored_Surface_Temperature_Plot_2_1.png
+   :target: https://python-awips.readthedocs.io/en/latest/examples/generated/Colored_Surface_Temperature_Plot.html
+   :height: 192px
+.. image:: https://python-awips.readthedocs.io/en/latest/_images/Map_Resources_and_Topography_17_1.png
+   :target: https://python-awips.readthedocs.io/en/latest/examples/generated/Map_Resources_and_Topography.html
    :height: 192px
 
 License
