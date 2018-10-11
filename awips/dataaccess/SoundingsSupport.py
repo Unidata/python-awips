@@ -25,7 +25,7 @@ from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.level import Lev
 
 
 def getSounding(modelName, weatherElements, levels, samplePoint, refTime=None, timeRange=None):
-    """"
+    """
     Performs a series of Data Access Framework requests to retrieve a sounding object
     based on the specified request parameters.
 

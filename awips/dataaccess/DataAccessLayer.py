@@ -285,7 +285,7 @@ def getIdentifierValues(request, identifierKey):
     return router.getIdentifierValues(request, identifierKey)
 
 def newDataRequest(datatype=None, **kwargs):
-    """"
+    """
     Creates a new instance of IDataRequest suitable for the runtime environment.
     All args are optional and exist solely for convenience.
 
