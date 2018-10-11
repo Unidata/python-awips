@@ -154,7 +154,7 @@ def getAvailableTimes(request, refTimeOnly=False):
     Args:
             request: the IDataRequest to get data for
             refTimeOnly: optional, use True if only unique refTimes should be
-                          returned (without a forecastHr)
+                returned (without a forecastHr)
 
     Returns:
             a list of DataTimes
@@ -171,7 +171,7 @@ def getGridData(request, times=[]):
     Args:
             request: the IDataRequest to get data for
             times: a list of DataTimes, a TimeRange, or None if the data is time
-                    agnostic
+                agnostic
 
     Returns:
             a list of IGridData
@@ -188,7 +188,7 @@ def getGeometryData(request, times=[]):
     Args:
             request: the IDataRequest to get data for
             times: a list of DataTimes, a TimeRange, or None if the data is time
-                    agnostic
+                agnostic
 
     Returns:
             a list of IGeometryData

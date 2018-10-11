@@ -30,19 +30,19 @@ def getSounding(modelName, weatherElements, levels, samplePoint, refTime=None, t
     based on the specified request parameters.
 
     Args:
-            modelName: the grid model datasetid to use as the basis of the sounding.
-            weatherElements: a list of parameters to return in the sounding.
-            levels: a list of levels to sample the given weather elements at
-            samplePoint: a lat/lon pair to perform the sampling of data at.
-            refTime: (optional) the grid model reference time to use for the sounding.
-                     If not specified, the latest ref time in the system will be used.
-            timeRange: (optional) a TimeRange to specify which forecast hours to use.
-                     If not specified, will default to all forecast hours.
+        modelName: the grid model datasetid to use as the basis of the sounding.
+        weatherElements: a list of parameters to return in the sounding.
+        levels: a list of levels to sample the given weather elements at
+        samplePoint: a lat/lon pair to perform the sampling of data at.
+        refTime: (optional) the grid model reference time to use for the sounding.
+                If not specified, the latest ref time in the system will be used.
+        timeRange: (optional) a TimeRange to specify which forecast hours to use.
+                If not specified, will default to all forecast hours.
 
     Returns:
-            A _SoundingCube instance, which acts a 3-tiered dictionary, keyed
-            by DataTime, then by level and finally by weather element. If no
-            data is available for the given request parameters, None is returned.
+        A _SoundingCube instance, which acts a 3-tiered dictionary, keyed
+        by DataTime, then by level and finally by weather element. If no
+        data is available for the given request parameters, None is returned.
     """
 
     (locationNames, parameters, levels, envelope, refTime, timeRange) = \
