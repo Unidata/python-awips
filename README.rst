@@ -1,7 +1,7 @@
 AWIPS Python Data Access Framework
 ==================================
 
-|License| |PyPI| |Conda| |Travis| |LatestDocs|
+|License| |PyPI| |Conda| |CondaDownloads| |circleci| |Travis| |LatestDocs|
 
 |Codacy| |Scrutinizer| |CodeClimate| |PRWelcome|
 
@@ -45,6 +45,17 @@ AWIPS Python Data Access Framework
     image:: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=round-square
     :target: https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github
     :alt: PRs Welcome
+
+.. |circleci|
+    image:: https://img.shields.io/circleci/project/github/conda-forge/python-awips-feedstock/master.svg?label=noarch
+    :target: https://circleci.com/gh/conda-forge/python-awips-feedstock
+    :alt: circleci
+
+.. |CondaDownloads|
+   image:: https://img.shields.io/conda/dn/conda-forge/python-awips.svg
+   :target: https://anaconda.org/conda-forge/python-awips
+   :alt: Conda Downloads
+
 
 About
 -----
