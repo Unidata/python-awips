@@ -93,7 +93,7 @@ class Level(object):
         return False
 
     def __le__(self, other):
-        if type(self) != type(other):
+        if not isinstance(self, other):
             return NotImplemented
         elif self.masterLevel.getName() != other.masterLevel.getName():
             return NotImplemented
@@ -101,7 +101,7 @@ class Level(object):
         return self.__lt__(other) or self.__eq__(other)
 
     def __gt__(self, other):
-        if type(self) != type(other):
+        if not isinstance(self, other):
             return NotImplemented
         elif self.masterLevel.getName() != other.masterLevel.getName():
             return NotImplemented
@@ -133,7 +133,7 @@ class Level(object):
         return False
 
     def __ge__(self, other):
-        if type(self) != type(other):
+        if not isinstance(self, other):
             return NotImplemented
         elif self.masterLevel.getName() != other.masterLevel.getName():
             return NotImplemented
