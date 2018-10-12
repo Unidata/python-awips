@@ -62,13 +62,12 @@ def getSounding(modelName, weatherElements, levels, samplePoint, refTime=None, t
     forecastHours = __determineForecastHours(req, refTime, timeRange)
     if not forecastHours:
         return None
-
     response = DataAccessLayer.getGeometryData(req, forecastHours)
     soundingObject = _SoundingCube(response)
 
     return soundingObject
 
-def setEDEXHost(host):
+def changeEDEXHost(host):
     """
     Changes the EDEX host the Data Access Framework is communicating with.
 
