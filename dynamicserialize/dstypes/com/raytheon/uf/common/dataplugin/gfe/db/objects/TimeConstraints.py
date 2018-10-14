@@ -22,12 +22,7 @@ class TimeConstraints(object):
         if duration == 0 and repeatInterval == 0 and startTime == 0:
             self.valid = True;
         else:
-            if repeatInterval <= 0 or repeatInterval > DAY \
-                    or DAY % repeatInterval != 0 \
-                    or repeatInterval < duration \
-                    or startTime < 0 or startTime > DAY \
-                    or duration < 0 or duration > DAY:
-
+            if self.isInvalidInterval(repeatInterval, duration, startTime):
                 logging.warning("Bad init values for TimeConstraints: ", self);
                 self.valid = False;
                 duration = 0;
@@ -81,3 +76,14 @@ class TimeConstraints(object):
 
     def getStartTime(self):
         return self.startTime
+
+    def isInvalidInterval(self, interval, duration, startTime):
+        if interval <= 0 or interval > DAY or interval < duration:
+            return False
+        if startTime < 0 or startTime > DAY:
+            return False
+        if duration < 0 or duration > DAY:
+            return False
+        if DAY % interval != 0:
+            return False
+        return True

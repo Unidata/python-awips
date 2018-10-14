@@ -1,6 +1,3 @@
-# #
-# #
-
 # File auto-generated against equivalent DynamicSerialize Java class
 # and then modified post-generation to add additional features to better
 # match Java implementation.
@@ -20,6 +17,7 @@
 #    05/26/16         2416         rjpeter        Added str based constructor.
 #    08/02/16         2416         tgurney        Forecast time regex bug fix,
 #                                                 plus misc cleanup
+#
 
 
 import calendar
@@ -42,6 +40,7 @@ REFTIME_PATTERN_STR=_DATE + '[ _]' + _TIME + _MILLIS
 FORECAST_PATTERN_STR=r'(?:[ _]\((\d+)(?::(\d{1,2}))?\))?'
 VALID_PERIOD_PATTERN_STR=r'(?:\['+ REFTIME_PATTERN_STR + '--' + REFTIME_PATTERN_STR + r'\])?'
 STR_PATTERN=re.compile(REFTIME_PATTERN_STR + FORECAST_PATTERN_STR + VALID_PERIOD_PATTERN_STR)
+
 
 class DataTime(object):
 
@@ -89,14 +88,12 @@ class DataTime(object):
                                          + str(refTime))
 
                     groups = match.groups()
-                    rDate = groups[0]
-                    rTime = groups[1]
                     rMillis = groups[2] or 0
                     fcstTimeHr = groups[3]
                     fcstTimeMin = groups[4]
                     periodStart = groups[5], groups[6], (groups[7] or 0)
                     periodEnd = groups[8], groups[9], (groups[10] or 0)
-                    self.refTime = self._getTimeAsEpochMillis(rDate, rTime, rMillis)
+                    self.refTime = self._getTimeAsEpochMillis(groups[0], groups[1], rMillis)
 
                     if fcstTimeHr is not None:
                         self.fcstTime = int(fcstTimeHr) * 3600

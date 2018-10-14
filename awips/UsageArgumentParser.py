@@ -1,5 +1,4 @@
 ##
-##
 #
 # SOFTWARE HISTORY
 #
@@ -18,6 +17,7 @@ from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.db.objects i
 
 TIME_FORMAT = "%Y%m%d_%H%M"
 
+
 class UsageArgumentParser(argparse.ArgumentParser):
     """
     A subclass of ArgumentParser that overrides error() to print the
@@ -28,6 +28,7 @@ class UsageArgumentParser(argparse.ArgumentParser):
         self.print_help()
         sys.exit(2)
 
+
 ## Custom actions for ArgumentParser objects ##
 class StoreDatabaseIDAction(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
@@ -36,6 +37,7 @@ class StoreDatabaseIDAction(argparse.Action):
             setattr(namespace, self.dest, did)
         else:
             parser.error("DatabaseID [" + values + "] not a valid identifier")
+
 
 class AppendParmNameAndLevelAction(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
@@ -48,6 +50,7 @@ class AppendParmNameAndLevelAction(argparse.Action):
                 setattr(namespace, self.dest, currentValues)
         else:
             setattr(namespace, self.dest, [comp])
+
 
 class StoreTimeAction(argparse.Action):
     """
