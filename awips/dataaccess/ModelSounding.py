@@ -1,6 +1,3 @@
-# #
-# #
-
 #
 # Classes for retrieving soundings based on gridded data from the Data Access
 # Framework
@@ -24,7 +21,7 @@ from dynamicserialize.dstypes.com.raytheon.uf.common.time import DataTime
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.level import Level
 
 
-def getSounding(modelName, weatherElements, levels, samplePoint, refTime=None, timeRange=None):
+def getSounding(modelName, weatherElements, levels, samplePoint, timeRange=None):
     """
     Performs a series of Data Access Framework requests to retrieve a sounding object
     based on the specified request parameters.
@@ -34,11 +31,8 @@ def getSounding(modelName, weatherElements, levels, samplePoint, refTime=None, t
         weatherElements: a list of parameters to return in the sounding.
         levels: a list of levels to sample the given weather elements at
         samplePoint: a lat/lon pair to perform the sampling of data at.
-        refTime: (optional) the grid model reference time to use for the sounding.
-        If not specified, the latest ref time in the system will be used.
-
-        timeRange: (optional) a TimeRange to specify which forecast hours to use.
-        If not specified, will default to all forecast hours.
+        timeRange: (optional) a list of times, or a TimeRange to specify
+        which forecast hours to use. If not specified, will default to all forecast hours.
 
     Returns:
         A _SoundingCube instance, which acts a 3-tiered dictionary, keyed
@@ -47,25 +41,22 @@ def getSounding(modelName, weatherElements, levels, samplePoint, refTime=None, t
 
     """
 
-    (locationNames, parameters, levels, envelope, refTime, timeRange) = \
-        __sanitizeInputs(modelName, weatherElements, levels, samplePoint, refTime, timeRange)
+    (locationNames, parameters, levels, envelope, timeRange) = \
+        __sanitizeInputs(modelName, weatherElements, levels, samplePoint, timeRange)
 
     requestArgs = { 'datatype'      : 'grid',
                     'locationNames' : locationNames,
                     'parameters'    : parameters,
                     'levels'        : levels,
-                    'envelope'      : envelope,
+                    'envelope'      : envelope
                    }
 
     req = DataAccessLayer.newDataRequest(**requestArgs)
-
-    forecastHours = __determineForecastHours(req, refTime, timeRange)
-    if not forecastHours:
-        return None
-    response = DataAccessLayer.getGeometryData(req, forecastHours)
+    response = DataAccessLayer.getGeometryData(req, timeRange)
     soundingObject = _SoundingCube(response)
 
     return soundingObject
+
 
 def changeEDEXHost(host):
     """
@@ -78,38 +69,21 @@ def changeEDEXHost(host):
     if host:
         DataAccessLayer.changeEDEXHost(str(host))
 
-def __sanitizeInputs(modelName, weatherElements, levels, samplePoint, refTime, timeRange):
+
+def __sanitizeInputs(modelName, weatherElements, levels, samplePoint, timeRange):
     locationNames = [str(modelName)]
     parameters = __buildStringList(weatherElements)
     levels = __buildStringList(levels)
     envelope = Point(samplePoint)
-    if refTime is not None:
-        refTime = DataTime(refTime=DateTimeConverter.convertToDateTime(refTime))
-    if timeRange is not None:
-        timeRange = DateTimeConverter.constructTimeRange(*timeRange)
-    return (locationNames, parameters, levels, envelope, refTime, timeRange)
+    return locationNames, parameters, levels, envelope, timeRange
 
-def __determineForecastHours(request, refTime, timeRange):
-    dataTimes = DataAccessLayer.getAvailableTimes(request, False)
-    timesGen = [(DataTime(refTime=dataTime.getRefTime()), dataTime) for dataTime in dataTimes]
-    dataTimesMap = defaultdict(list)
-    for baseTime, dataTime in timesGen:
-        dataTimesMap[baseTime].append(dataTime)
-
-    if refTime is None:
-        refTime = max(dataTimesMap.keys())
-
-    forecastHours = dataTimesMap[refTime]
-    if timeRange is None:
-        return forecastHours
-    else:
-        return [forecastHour for forecastHour in forecastHours if timeRange.contains(forecastHour.getValidPeriod())]
 
 def __buildStringList(param):
     if __notStringIter(param):
         return [str(item) for item in param]
     else:
         return [str(param)]
+
 
 def __notStringIter(iterable):
     if not isinstance(iterable, str):
@@ -120,10 +94,9 @@ def __notStringIter(iterable):
             return False
 
 
-
 class _SoundingCube(object):
     """
-    The top-level sounding object returned when calling SoundingsSupport.getSounding.
+    The top-level sounding object returned when calling ModelSounding.getSounding.
 
     This object acts as a 3-tiered dict which is keyed by time then level
     then parameter name. Calling times() will return all valid keys into this
@@ -166,7 +139,7 @@ class _SoundingCube(object):
 
 class _SoundingTimeLayer(object):
     """
-    The second-level sounding object returned when calling SoundingsSupport.getSounding.
+    The second-level sounding object returned when calling ModelSounding.getSounding.
 
     This object acts as a 2-tiered dict which is keyed by level then parameter
     name. Calling levels() will return all valid keys into this
@@ -217,7 +190,7 @@ class _SoundingTimeLayer(object):
 
 class _SoundingTimeAndLevelLayer(object):
     """
-    The bottom-level sounding object returned when calling SoundingsSupport.getSounding.
+    The bottom-level sounding object returned when calling ModelSounding.getSounding.
 
     This object acts as a dict which is keyed by parameter name. Calling
     parameters() will return all valid keys into this object. Calling time()

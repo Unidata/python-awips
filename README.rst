@@ -104,7 +104,7 @@ Examples
 .. image:: https://python-awips.readthedocs.io/en/latest/_images/Upper_Air_BUFR_Soundings_1_0.png
    :target: https://python-awips.readthedocs.io/en/latest/examples/generated/Upper_Air_BUFR_Soundings.html
    :height: 192px
-.. image:: https://python-awips.readthedocs.io/en/latest/_images/Satellite_Imagery_7_3.png
+.. image:: https://python-awips.readthedocs.io/en/latest/_images/Satellite_Imagery_7_2.png
    :target: https://python-awips.readthedocs.io/en/latest/examples/generated/Satellite_Imagery.html
    :height: 192px
 .. image:: https://python-awips.readthedocs.io/en/latest/_images/Watch_and_Warning_Polygons_5_0.png
