@@ -1,19 +1,25 @@
- name: python-awips
+ name: python3-awips
  channels:
    - https://conda.anaconda.org/conda-forge
  dependencies:
-   - python=2.7
+   - python=3
    - numpy
+   - nomkl
    - matplotlib
    - cartopy
    - jupyter
-   - pandas
+   - netcdf4
+   - owslib
    - metpy
    - pint
    - h5py
-   - shapely
    - sphinx>=1.3
    - sphinx_rtd_theme
    - nbconvert>=4.1
-   - enum34
+   - siphon
+   - xarray
+   - ffmpeg
+   - pytest
+   - shapely
+   - six
    - pip
