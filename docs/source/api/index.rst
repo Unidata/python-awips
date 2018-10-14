@@ -10,7 +10,7 @@ API Documentation
    PyData
    PyGridData
    PyGeometryData
-   SoundingsSupport
+   ModelSounding
    ThriftClientRouter
    ThriftClient
    TimeUtil

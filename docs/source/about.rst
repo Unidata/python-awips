@@ -2,7 +2,7 @@
 About Unidata AWIPS
 ===================
 
-AWIPS is a weather forecasting display and analysis package being
+AWIPS is a weather forecasting display and analysis package 
 developed by the National Weather Service and Raytheon. AWIPS is a
 Java application consisting of a data-rendering client (CAVE, which runs
 on Red Hat/CentOS Linux and Mac OS X) and a backend data server (EDEX,
