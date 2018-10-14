@@ -1,10 +1,3 @@
-##
-##
-
-
-#
-# TODO
-#
 #
 #     SOFTWARE HISTORY
 #
@@ -13,12 +6,12 @@
 #    08/20/10                      njensen       Initial Creation.
 #
 #
-#
 
 __all__ = ['SerializationException']
 
 from . import dstypes, adapters
 from . import DynamicSerializationManager
+
 
 class SerializationException(Exception):
 

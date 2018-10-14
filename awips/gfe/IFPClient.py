@@ -2,13 +2,11 @@
 # Provides a Python-based interface for executing GFE requests.
 #
 #
-#
 #     SOFTWARE HISTORY
 #
 #    Date            Ticket#       Engineer       Description
 #    ------------    ----------    -----------    --------------------------
 #    07/26/12                      dgilling       Initial Creation.
-#
 #
 #
 

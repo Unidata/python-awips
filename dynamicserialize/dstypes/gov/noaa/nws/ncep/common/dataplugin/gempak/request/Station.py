@@ -1,5 +1,3 @@
-
-# File auto-generated against equivalent DynamicSerialize Java class
 #
 #      SOFTWARE HISTORY
 #
@@ -8,6 +6,7 @@
 #     Sep 16, 2016                  pmoyer         Generated
 
 import numpy
+
 
 class Station(object):
 

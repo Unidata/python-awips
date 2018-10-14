@@ -1,5 +1,3 @@
-# File auto-generated against equivalent DynamicSerialize Java class and
-# modified.
 #
 #     SOFTWARE HISTORY
 #
@@ -8,6 +6,7 @@
 #    2015-02-27      4174          nabowle        Output full stacktrace.
 #    2018-10-05                    mjames@ucar    Fix returned retVal encoding.
 #
+
 
 class SerializableExceptionWrapper(object):
 

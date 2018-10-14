@@ -1,13 +1,10 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
 #
 #      SOFTWARE HISTORY
 #
 #     Date            Ticket#       Engineer       Description
 #     ------------    ----------    -----------    --------------------------
 #     Aug 19, 2014                  nabowle        Generated
+
 
 class RadarDataRecord(object):
 

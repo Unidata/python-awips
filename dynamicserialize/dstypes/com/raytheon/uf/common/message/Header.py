@@ -1,9 +1,5 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
-
 from .Property import Property
+
 
 class Header(object):
 

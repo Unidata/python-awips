@@ -1,6 +1,3 @@
-##
-##
-
 #
 # Package definition for com.raytheon.uf.common.datastorage.records
 #
@@ -15,9 +12,8 @@
 #
 #
 
-
 __all__ = [
             'CompressedDataRecord'
           ]
-from .CompressedDataRecord import CompressedDataRecord
 
+from .CompressedDataRecord import CompressedDataRecord

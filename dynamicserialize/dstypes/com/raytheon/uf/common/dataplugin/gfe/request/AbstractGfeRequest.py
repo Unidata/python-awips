@@ -1,10 +1,6 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
-
 import abc
 from six import with_metaclass
+
 
 class AbstractGfeRequest(with_metaclass(abc.ABCMeta, object)):
     @abc.abstractmethod

@@ -1,6 +1,3 @@
-##
-##
-
 #
 # Adapter for com.raytheon.uf.common.dataplugin.gfe.server.lock.LockTable
 #
@@ -13,12 +10,12 @@
 # Jun 12, 2013  2099     dgilling  Use new Lock constructor.
 # Feb 06, 2017  5959     randerso  Removed Java .toString() calls
 #
-##
 
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.server.lock import LockTable
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.server.lock import Lock
 
 ClassAdapter = 'com.raytheon.uf.common.dataplugin.gfe.server.lock.LockTable'
+
 
 def serialize(context, lockTable):
     index=0
@@ -47,6 +44,7 @@ def serialize(context, lockTable):
         serializer.writeI64(lock.getStartTime())
         serializer.writeI64(lock.getEndTime())
         serializer.writeI32(wsIndex)
+
 
 def deserialize(context):
     parmId = context.readObject()

@@ -1,5 +1,3 @@
-##
-##
 # ----------------------------------------------------------------------------
 # This software is in the public domain, furnished "as is", without technical
 # support, and with no warranty, express or implied, as to its usefulness for
@@ -46,6 +44,8 @@ import time
 #     Synchronizing on:
 #        GFE Spatial Editor at StartUp: 20040616_0030
 #
+
+
 def determineDrtOffset(timeStr):
     launchStr = timeStr
     # Check for time difference
@@ -74,6 +74,7 @@ def determineDrtOffset(timeStr):
     offset = drt_t - cur_t
     return int(offset), launchStr
 
+
 def makeTime(timeStr):
     year = string.atoi(timeStr[0:4])
     month = string.atoi(timeStr[4:6])
@@ -83,4 +84,3 @@ def makeTime(timeStr):
     # Do not use daylight savings because gmtime is not in daylight
     # savings time.
     return time.mktime((year, month, day, hour, minute, 0, 0, 0, 0))
-

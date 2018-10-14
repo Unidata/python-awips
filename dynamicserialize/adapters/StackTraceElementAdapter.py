@@ -1,7 +1,3 @@
-##
-##
-
-
 #
 # Adapter for java.lang.StackTraceElement[]
 #
@@ -11,8 +7,6 @@
 #    Date            Ticket#       Engineer       Description
 #    ------------    ----------    -----------    --------------------------
 #    09/21/10                      njensen       Initial Creation.
-#
-#
 #
 
 import dynamicserialize
@@ -24,6 +18,7 @@ ClassAdapter = 'java.lang.StackTraceElement'
 def serialize(context, obj):
     raise dynamicserialize.SerializationException('Not implemented yet')
 
+
 def deserialize(context):
     result = StackTraceElement()
     result.setDeclaringClass(context.readString())
@@ -31,5 +26,3 @@ def deserialize(context):
     result.setFileName(context.readString())
     result.setLineNumber(context.readI32())
     return result
-
-

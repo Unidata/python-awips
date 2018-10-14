@@ -1,6 +1,3 @@
-
-# File auto-generated against equivalent DynamicSerialize Java class
-# Modified by njensen to add __repr__
 #
 # SOFTWARE HISTORY
 #
@@ -10,7 +7,7 @@
 # Jun 12, 2013  2099     dgilling  Implemented toPrettyString().
 # Feb 06, 2017  5959     randerso  Removed Java .toString() calls
 #
-##
+
 
 import struct
 import socket
@@ -24,6 +21,7 @@ try:
     import _thread
 except ImportError:
     import thread
+
 
 class WsId(object):
 

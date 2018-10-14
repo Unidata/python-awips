@@ -1,6 +1,3 @@
-# File auto-generated against equivalent DynamicSerialize Java class
-# and then modified post-generation to use AbstractGfeRequest and
-# implement str(), repr()
 #
 #     SOFTWARE HISTORY
 #
@@ -14,6 +11,7 @@
 
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.request import AbstractGfeRequest
 from dynamicserialize.dstypes.com.raytheon.uf.common.message import WsId
+
 
 class ExecuteIfpNetCDFGridRequest(AbstractGfeRequest):
 
@@ -42,9 +40,8 @@ class ExecuteIfpNetCDFGridRequest(AbstractGfeRequest):
         if self.databaseID is not None:
             self.siteID = self.databaseID.getSiteId()
 
-    def __str__(self):
-        retVal = "ExecuteIfpNetCDFGridRequest["
-        retVal += "wokstationID: " + str(self.workstationID) + ", "
+    def __cstr__(self):
+        retVal = "workstationID: " + str(self.workstationID) + ", "
         retVal += "siteID: " + str(self.siteID) + ", "
         retVal += "outputFilename: " + str(self.outputFilename) + ", "
         retVal += "parmList: " + str(self.parmList) + ", "
@@ -61,30 +58,13 @@ class ExecuteIfpNetCDFGridRequest(AbstractGfeRequest):
         retVal += "userID: " + str(self.userID) + ", "
         retVal += "logFileName: " + str(self.logFileName) + ", "
         retVal += "siteIdOverride: " + str(self.siteIdOverride)
-        retVal += "]"
         return retVal
 
+    def __str__(self):
+        return "ExecuteIfpNetCDFGridRequest[" + self.__cstr__() + "]"
+
     def __repr__(self):
-        retVal = "ExecuteIfpNetCDFGridRequest("
-        retVal += "wokstationID=" + repr(self.workstationID) + ", "
-        retVal += "siteID=" + repr(self.siteID) + ", "
-        retVal += "outputFilename=" + repr(self.outputFilename) + ", "
-        retVal += "parmList=" + repr(self.parmList) + ", "
-        retVal += "databaseID=" + repr(self.databaseID) + ", "
-        retVal += "startTime=" + repr(self.startTime) + ", "
-        retVal += "endTime=" + repr(self.endTime) + ", "
-        retVal += "mask=" + repr(self.mask) + ", "
-        retVal += "geoInfo=" + repr(self.geoInfo) + ", "
-        retVal += "compressFile=" + repr(self.compressFile) + ", "
-        retVal += "configFileName=" + repr(self.configFileName) + ", "
-        retVal += "compressFileFactor=" + repr(self.compressFileFactor) + ", "
-        retVal += "trim=" + repr(self.trim) + ", "
-        retVal += "krunch=" + repr(self.krunch) + ", "
-        retVal += "userID=" + repr(self.userID) + ", "
-        retVal += "logFileName=" + repr(self.logFileName) + ", "
-        retVal += "siteIdOverride: " + str(self.siteIdOverride)
-        retVal += ")"
-        return retVal
+        return "ExecuteIfpNetCDFGridRequest(" + self.__cstr__() + ")"
 
     def getOutputFilename(self):
         return self.outputFilename

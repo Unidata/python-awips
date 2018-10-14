@@ -1,5 +1,4 @@
 
-# File auto-generated against equivalent DynamicSerialize Java class
 
 class RetrieveAtcfDeckRequest(object):
 
@@ -11,4 +10,3 @@ class RetrieveAtcfDeckRequest(object):
 
     def setDeckID(self, deckID):
         self.deckID = deckID
-

@@ -1,8 +1,3 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
-# and then modified post-generation to make it a abstract base class.
 #
 #     SOFTWARE HISTORY
 #

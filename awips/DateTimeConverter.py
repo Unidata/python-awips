@@ -17,7 +17,6 @@ from dynamicserialize.dstypes.java.util import Date
 from dynamicserialize.dstypes.java.sql import Timestamp
 from dynamicserialize.dstypes.com.raytheon.uf.common.time import TimeRange
 
-
 MAX_TIME = pow(2, 31) - 1
 MICROS_IN_SECOND = 1000000
 

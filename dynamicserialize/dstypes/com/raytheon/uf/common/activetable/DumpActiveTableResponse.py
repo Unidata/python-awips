@@ -1,5 +1,4 @@
-##
-##
+
 
 class DumpActiveTableResponse(object):
     def __init__(self):

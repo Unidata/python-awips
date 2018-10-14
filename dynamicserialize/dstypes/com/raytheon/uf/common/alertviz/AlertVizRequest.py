@@ -1,8 +1,5 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
 # Jul 27, 2015 4654     skorolev     Added filters
+
 
 class AlertVizRequest(object):
 

@@ -1,7 +1,3 @@
-##
-##
-
-
 #
 # Adapter for com.raytheon.uf.common.message.WsId
 #
@@ -14,21 +10,19 @@
 #    01/22/14        2667          bclement       use method to get millis from time range
 #    02/28/14        2667          bclement       deserialize now converts millis to micros
 #
-#
-#
-
 
 from dynamicserialize.dstypes.com.raytheon.uf.common.time import TimeRange
-
 
 ClassAdapter = 'com.raytheon.uf.common.time.TimeRange'
 
 MICROS_IN_MILLISECOND = 1000
 MILLIS_IN_SECOND = 1000
 
+
 def serialize(context, timeRange):
     context.writeI64(timeRange.getStartInMillis())
     context.writeI64(timeRange.getEndInMillis())
+
 
 def deserialize(context):
     startTime = context.readI64()

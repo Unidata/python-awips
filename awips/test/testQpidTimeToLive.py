@@ -1,15 +1,10 @@
 #
-#
-#
-#
-#
 #     SOFTWARE HISTORY
 #
 #    Date            Ticket#       Engineer       Description
 #    ------------    ----------    -----------    --------------------------
 #    03/09/11                      njensen       Initial Creation.
 #    08/15/13        2169          bkowal        Decompress data read from the queue
-#
 #
 #
 
@@ -20,6 +15,7 @@ import dynamicserialize
 from io import open
 
 TIME_TO_SLEEP = 300
+
 
 class ListenThread(threading.Thread):
 

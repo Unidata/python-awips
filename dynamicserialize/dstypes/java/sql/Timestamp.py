@@ -1,9 +1,3 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
-# and then modified post-generation to add additional features to better
-# match Java implementation. Unlike real timestamp, does not support nanos precision.
 #
 #     SOFTWARE HISTORY
 #
@@ -16,6 +10,7 @@
 
 from dynamicserialize.dstypes.java.util import Date
 from time import gmtime, strftime
+
 
 class Timestamp(Date):
 

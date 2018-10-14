@@ -1,7 +1,3 @@
-##
-##
-
-##
 # Custom python class representing a java.util.GregorianCalendar.
 #
 # This is a stripped-down version of the class that only supports
@@ -13,11 +9,10 @@
 #    ------------    ----------    -----------    --------------------------
 #    09/29/10                      wldougher     Initial Creation.
 #
-#
-##
+
+
 class Calendar(object):
-    """
-"""
+
     def __init__(self):
         self.time = None
 

@@ -1,7 +1,3 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
 #
 #      SOFTWARE HISTORY
 #
@@ -10,6 +6,7 @@
 #     Aug 19, 2014                  nabowle        Generated
 
 import numpy
+
 
 class GetRadarDataRecordRequest(object):
 

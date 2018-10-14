@@ -50,6 +50,7 @@ def serialize(context, resp):
             # unit
             context.writeObject(value[2])
 
+
 def deserialize(context):
     size = context.readI32()
     wkbs = []

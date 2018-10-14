@@ -1,5 +1,3 @@
-##
-##
 #
 #     SOFTWARE HISTORY
 #
@@ -7,10 +5,10 @@
 #    ------------    ----------    -----------    --------------------------
 #    09/10/14         #3623        randerso       Manually created, do not regenerate
 #
-##
 
-# File auto-generated against equivalent DynamicSerialize Java class
 from .SiteActivationNotification import SiteActivationNotification
+
+
 class ClusterActivationNotification(SiteActivationNotification):
 
     def __init__(self):

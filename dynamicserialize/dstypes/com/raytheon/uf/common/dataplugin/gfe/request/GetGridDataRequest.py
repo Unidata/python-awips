@@ -1,8 +1,3 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
-
 import abc
 from six import with_metaclass
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.server.request import GetGridRequest

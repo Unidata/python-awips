@@ -1,5 +1,3 @@
-##
-##
 #
 #     SOFTWARE HISTORY
 #
@@ -9,11 +7,11 @@
 #    03/17/2016       5426         randerso       Add issueYear to primary key
 #    06/27/2016       5707         nabowle        Remove geometry
 #
-##
 
 import abc
 from six import with_metaclass
 from . import ActiveTableKey
+
 
 class ActiveTableRecord(with_metaclass(abc.ABCMeta, object)):
     @abc.abstractmethod

@@ -1,12 +1,6 @@
-##
-##
-
-
 #
 # A port of the Java DynamicSerializeManager.  Should be used to read/write
 # DynamicSerialize binary data.
-#
-#
 #
 #
 #     SOFTWARE HISTORY
@@ -15,11 +9,10 @@
 #    ------------    ----------    -----------    --------------------------
 #    06/09/10                      njensen       Initial Creation.
 #
-#
-#
 
 from thrift.transport import TTransport
 from . import SelfDescribingBinaryProtocol, ThriftSerializationContext
+
 
 class DynamicSerializationManager:
 

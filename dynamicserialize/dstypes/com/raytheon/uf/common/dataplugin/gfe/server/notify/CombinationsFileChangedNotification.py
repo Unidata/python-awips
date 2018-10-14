@@ -1,5 +1,3 @@
-##
-##
 #
 #     SOFTWARE HISTORY
 #
@@ -7,9 +5,9 @@
 #    ------------    ----------    -----------    --------------------------
 #    06/22/2015       4573         randerso       Initial creation (hand generated)
 #
-##
 
 from . import GfeNotification
+
 
 class CombinationsFileChangedNotification(GfeNotification.GfeNotification):
 

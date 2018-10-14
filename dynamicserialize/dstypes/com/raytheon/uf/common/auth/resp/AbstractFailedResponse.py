@@ -1,8 +1,3 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
-
 from six import with_metaclass
 import abc
 

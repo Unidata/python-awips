@@ -1,7 +1,4 @@
 ##
-##
-
-##
 # NOTE: Please do not ever use this class unless you really must. It is not
 # designed to be directly accessed from client code. Hide its use from end-
 # users as best as you can.

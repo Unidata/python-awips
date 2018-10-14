@@ -1,10 +1,5 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
-
-
 SUBKEY_SEPARATOR = '^'
+
 
 class WeatherKey(object):
 ## FIXME: Implement WeatherSubKey and use it in this class when needed. ##

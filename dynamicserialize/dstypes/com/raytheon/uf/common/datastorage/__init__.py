@@ -1,7 +1,3 @@
-##
-##
-
-
 #
 # Package definition for com.raytheon.uf.common.datastorage
 #
@@ -13,8 +9,6 @@
 #    08/31/10                      njensen       Initial Creation.
 #
 #
-#
-
 
 __all__ = [
             'records',

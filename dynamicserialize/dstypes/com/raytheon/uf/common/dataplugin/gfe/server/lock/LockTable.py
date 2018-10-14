@@ -1,5 +1,3 @@
-##
-##
 #
 # SOFTWARE HISTORY
 #
@@ -7,10 +5,9 @@
 # ------------- -------- --------- ---------------------------------------------
 # Feb 06, 2017  5959     randerso  Removed Java .toString() calls
 #
-##
 
-# File auto-generated against equivalent DynamicSerialize Java class
 # Modified by njensen to add __repr__
+
 
 class LockTable(object):
 

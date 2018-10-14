@@ -1,9 +1,5 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
-
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.request import AbstractGfeRequest
+
 
 class PurgeGfeGridsRequest(AbstractGfeRequest):
 

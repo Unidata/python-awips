@@ -1,8 +1,3 @@
-##
-##
-
-#
-# File auto-generated against equivalent DynamicSerialize Java class
 #
 #
 #     SOFTWARE HISTORY
@@ -14,10 +9,8 @@
 #    06/12/2013      2099          dgilling       Make class immutable,
 #                                                 add getTimeRange().
 #
-#
 
 import time
-
 from dynamicserialize.dstypes.com.raytheon.uf.common.time import TimeRange
 
 

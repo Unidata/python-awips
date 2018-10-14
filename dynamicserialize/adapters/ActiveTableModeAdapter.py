@@ -1,7 +1,3 @@
-##
-##
-
-
 #
 # Adapter for com.raytheon.uf.common.activetable.ActiveTableMode
 #
@@ -12,17 +8,17 @@
 #    ------------    ----------    -----------    --------------------------
 #    09/29/10                      wldougher     Initial Creation.
 #
-#
-#
 
 from thrift.Thrift import TType
 from dynamicserialize.dstypes.com.raytheon.uf.common.activetable import ActiveTableMode
 
 ClassAdapter = 'com.raytheon.uf.common.activetable.ActiveTableMode'
 
+
 def serialize(context, mode):
     context.protocol.writeFieldBegin('__enumValue__', TType.STRING, 0)
     context.writeString(mode.value)
+
 
 def deserialize(context):
     result = ActiveTableMode()

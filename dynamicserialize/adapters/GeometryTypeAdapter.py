@@ -1,7 +1,3 @@
-##
-##
-
-
 #
 # Adapter for com.vividsolutions.jts.geom.Polygon
 #
@@ -12,8 +8,7 @@
 #    ------------    ----------    -----------    --------------------------
 #    01/20/11                      dgilling      Initial Creation.
 #
-#
-#
+
 
 # TODO: Implement serialization/make deserialization useful.
 # Deserialization was simply implemented to allow GridLocation objects to be
@@ -28,12 +23,13 @@ from dynamicserialize.dstypes.com.vividsolutions.jts.geom import Geometry
 # data. This adapter doesn't need this _yet_, so it has not been implemented.
 ClassAdapter = 'com.vividsolutions.jts.geom.Geometry'
 
+
 def serialize(context, coordinate):
     raise dynamicserialize.SerializationException('Not implemented yet')
+
 
 def deserialize(context):
     data = context.readBinary()
     geom = Geometry()
     geom.setBinaryData(data)
     return geom
-

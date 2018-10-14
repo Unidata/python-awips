@@ -1,6 +1,3 @@
-# #
-# #
-
 #
 #   Convenience class for using the DAF's notifications feature. This is a
 #   collection that, once connected to EDEX by calling start(), fills with

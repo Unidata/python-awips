@@ -1,6 +1,3 @@
-##
-##
-
 #
 # Common methods for the a2gtrad and a2advrad scripts.
 #
@@ -26,6 +23,7 @@ from awips import ThriftClient
 from dynamicserialize.dstypes.com.raytheon.uf.common.time import TimeRange
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.radar.request import GetRadarDataRecordRequest
 
+
 def get_datetime_str(record):
     """
     Get the datetime string for a record.
@@ -37,6 +35,7 @@ def get_datetime_str(record):
             datetime string.
     """
     return str(record.getDataTime())[0:19].replace(" ","_") + ".0"
+
 
 def get_data_type(azdat):
     """
@@ -53,6 +52,7 @@ def get_data_type(azdat):
     else :
         dattyp = "raster"
     return dattyp
+
 
 def get_hdf5_data(idra):
     rdat = []

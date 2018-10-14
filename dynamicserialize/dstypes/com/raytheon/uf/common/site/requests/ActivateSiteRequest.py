@@ -1,5 +1,3 @@
-##
-##
 #
 #     SOFTWARE HISTORY
 #
@@ -7,7 +5,7 @@
 #    ------------    ----------    -----------    --------------------------
 #    09/10/14         #3623        randerso       Manually created, do not regenerate
 #
-##
+
 
 class ActivateSiteRequest(object):
 

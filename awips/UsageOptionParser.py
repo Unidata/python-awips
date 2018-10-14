@@ -1,8 +1,6 @@
-##
-##
-
 import sys
 from optparse import OptionParser
+
 
 class UsageOptionParser(OptionParser):
     """
@@ -18,4 +16,3 @@ class UsageOptionParser(OptionParser):
         sys.stderr.write(msg)
         sys.stderr.write("\n")
         sys.exit(2)
-

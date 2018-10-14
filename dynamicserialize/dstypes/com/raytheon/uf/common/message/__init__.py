@@ -1,5 +1,3 @@
-##
-##
 
 __all__ = [
             'Body',
@@ -21,7 +19,6 @@ __all__ = [
 #    08/19/14        2926          bclement       added Message files
 #
 #
-
 
 from .Body import Body
 from .Header import Header

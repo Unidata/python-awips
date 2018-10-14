@@ -1,8 +1,3 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
-# and then modified post-generation to use AbstractResponseData.
 #
 #     SOFTWARE HISTORY
 #
@@ -14,8 +9,8 @@
 #
 #
 
-
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.response import AbstractResponseData
+
 
 class GeometryResponseData(AbstractResponseData):
 

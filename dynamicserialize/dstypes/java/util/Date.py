@@ -1,6 +1,3 @@
-##
-##
-# ----------------------------------------------------------------------------
 #
 #     SOFTWARE HISTORY
 #
@@ -9,7 +6,6 @@
 #    04/28/2015      4027          randerso       Added optional construction parameter to set the time
 #    06/26/2015      4480          dgilling       Implement __eq__ and __hash__.
 #
-##
 
 from time import gmtime, strftime
 

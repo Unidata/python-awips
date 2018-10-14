@@ -1,7 +1,3 @@
-##
-##
-
-
 #
 # Adapter for com.vividsolutions.jts.geom.Envelope
 #
@@ -12,17 +8,18 @@
 #    ------------    ----------    -----------    --------------------------
 #    05/29/13         2023         dgilling       Initial Creation.
 #
-#
 
 from dynamicserialize.dstypes.com.vividsolutions.jts.geom import Envelope
 
 ClassAdapter = 'com.vividsolutions.jts.geom.Envelope'
+
 
 def serialize(context, envelope):
     context.writeDouble(envelope.getMinX())
     context.writeDouble(envelope.getMaxX())
     context.writeDouble(envelope.getMinY())
     context.writeDouble(envelope.getMaxY())
+
 
 def deserialize(context):
     env = Envelope()
@@ -31,4 +28,3 @@ def deserialize(context):
     env.setMinY(context.readDouble())
     env.setMaxY(context.readDouble())
     return env
-

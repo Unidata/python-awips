@@ -1,4 +1,3 @@
-# File auto-generated against equivalent DynamicSerialize Java class. Then modified to add functionality
 #
 #
 #     SOFTWARE HISTORY

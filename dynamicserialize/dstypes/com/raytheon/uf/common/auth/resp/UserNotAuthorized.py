@@ -1,8 +1,3 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
-
 from dynamicserialize.dstypes.com.raytheon.uf.common.auth.resp import AbstractFailedResponse
 
 

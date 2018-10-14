@@ -1,15 +1,10 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
-
 import os
-
 try:
     import pwd
     pwd_error = False
 except ImportError:
     pwd_error = True
+
 
 class UserId(object):
 

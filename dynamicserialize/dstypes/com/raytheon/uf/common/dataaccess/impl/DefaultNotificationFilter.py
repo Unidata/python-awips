@@ -1,8 +1,3 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
-# and then modified post-generation to sub-class IDataRequest.
 #
 #     SOFTWARE HISTORY
 #
@@ -13,7 +8,6 @@
 #
 #
 
-
 from awips.dataaccess import INotificationFilter
 import sys
 
@@ -21,6 +15,7 @@ if sys.version_info.major == 2:
     from itertools import izip
     # shadowing built-in zip
     zip = izip
+
 
 class DefaultNotificationFilter(INotificationFilter):
 

@@ -1,5 +1,3 @@
-##
-##
 
 knownLevels = {"BASE": {"text" : "BASE",
                         "order" : 0,

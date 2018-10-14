@@ -1,6 +1,3 @@
-# #
-# #
-
 #
 # Method for performing a DAF time query where all parameter/level/location
 # combinations must be available at the same time.
@@ -16,8 +13,10 @@
 
 from awips.dataaccess import DataAccessLayer
 
+
 def getAvailableTimes(request, refTimeOnly=False):
     return __getAvailableTimesForEachParameter(request, refTimeOnly)
+
 
 def __getAvailableTimesForEachParameter(request, refTimeOnly=False):
     parameters = request.getParameters()
@@ -37,6 +36,7 @@ def __getAvailableTimesForEachParameter(request, refTimeOnly=False):
     else:
         return __getAvailableTimesForEachLevel(request, refTimeOnly)
 
+
 def __getAvailableTimesForEachLevel(request, refTimeOnly=False):
     levels = request.getLevels()
     if levels:
@@ -54,6 +54,7 @@ def __getAvailableTimesForEachLevel(request, refTimeOnly=False):
         return times
     else:
         return __getAvailableTimesForEachLocation(request, refTimeOnly)
+
 
 def __getAvailableTimesForEachLocation(request, refTimeOnly=False):
     locations = request.getLocationNames()

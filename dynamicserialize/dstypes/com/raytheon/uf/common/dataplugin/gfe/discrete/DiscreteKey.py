@@ -1,15 +1,12 @@
-##
-##
-
 ## NOTE: Because the pure python dynamicserialize code does not
 #  have a means of accessing the DiscreteDefinition, this class
 #  is only really useful as a container for deserialized data
 #  from EDEX. I would not recommend trying to use it for anything
 #  else.
 
-
 SUBKEY_SEPARATOR = '^'
 AUXDATA_SEPARATOR = ':'
+
 
 class DiscreteKey(object):
 

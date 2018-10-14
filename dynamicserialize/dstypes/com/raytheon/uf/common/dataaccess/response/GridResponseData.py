@@ -1,5 +1,3 @@
-# File auto-generated against equivalent DynamicSerialize Java class
-# and then modified post-generation to use AbstractResponseData.
 #
 #     SOFTWARE HISTORY
 #

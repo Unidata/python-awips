@@ -1,7 +1,3 @@
-##
-##
-
-
 #
 # __init__.py for awips.dataaccess package
 #
@@ -21,12 +17,11 @@
 #
 #
 
-__all__ = [
-
-           ]
+__all__ = []
 
 import abc
 from six import with_metaclass
+
 
 class IDataRequest(with_metaclass(abc.ABCMeta, object)):
     """

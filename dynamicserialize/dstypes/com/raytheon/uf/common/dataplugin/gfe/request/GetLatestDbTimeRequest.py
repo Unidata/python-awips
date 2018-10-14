@@ -1,9 +1,3 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
-# and then modified post-generation to use AbstractGfeRequest and
-# implement str(), repr()
 #
 #     SOFTWARE HISTORY
 #

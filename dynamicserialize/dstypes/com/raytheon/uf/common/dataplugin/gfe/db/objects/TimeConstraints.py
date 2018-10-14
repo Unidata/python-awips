@@ -1,7 +1,3 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
 #
 # 03/20/2013     #1774    randerso  Removed setters, added isValid.
 
@@ -10,6 +6,7 @@ import logging
 
 HOUR = 3600;
 DAY = 24 * HOUR;
+
 
 class TimeConstraints(object):
 

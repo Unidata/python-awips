@@ -1,16 +1,9 @@
 #
-# Pure python logging mechanism for logging to AlertViz from
-# pure python (ie not JEP).  DO NOT USE IN PYTHON CALLED
-# FROM JAVA.
-#
-#
 #     SOFTWARE HISTORY
 #
 #    Date            Ticket#       Engineer       Description
 #    ------------    ----------    -----------    --------------------------
 #    11/03/10        5849          cjeanbap       Initial Creation.
-#
-#
 #
 
 import sys

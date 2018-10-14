@@ -1,6 +1,4 @@
 
-# File auto-generated against equivalent DynamicSerialize Java class
-# and then modified by njensen
 
 class StringDataRecord(object):
 

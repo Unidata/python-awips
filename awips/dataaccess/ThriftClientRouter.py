@@ -2,7 +2,6 @@
 # Routes requests to the Data Access Framework through Python Thrift.
 #
 #
-#
 #    SOFTWARE HISTORY
 #
 #    Date            Ticket#       Engineer       Description
@@ -22,7 +21,6 @@
 #    10/13/16        5916          bsteffen       Correct grid shape, allow lazy grid lat/lon
 #    10/26/16        5919          njensen        Speed up geometry creation in getGeometryData()
 #
-
 
 import numpy
 import six

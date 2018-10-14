@@ -1,6 +1,3 @@
-# File auto-generated against equivalent DynamicSerialize Java class
-# and then modified post-generation to add additional features to better
-# match Java implementation.
 #
 #     SOFTWARE HISTORY
 #
@@ -9,8 +6,6 @@
 #    05/29/13         2023         dgilling       Initial Creation.
 #    06/29/15         4480         dgilling       Implement __hash__, __eq__
 #                                                 and __str__.
-#
-#
 
 import six
 

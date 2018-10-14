@@ -1,6 +1,3 @@
-# File auto-generated against equivalent DynamicSerialize Java class
-# and then modified post-generation to add additional features to better
-# match Java implementation.
 #
 #     SOFTWARE HISTORY
 #
@@ -11,7 +8,6 @@
 #    06/29/15         4480         dgilling       Implement __hash__, __eq__,
 #                                                 __str__ and rich comparison operators.
 #
-
 
 import numpy
 import re

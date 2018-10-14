@@ -1,5 +1,3 @@
-##
-##
 #
 #     SOFTWARE HISTORY
 #
@@ -7,9 +5,9 @@
 #    ------------    ----------    -----------    --------------------------
 #    06/22/2015       4573         randerso       Change to extend GfeNotification
 #
-##
 
 from . import GfeNotification
+
 
 class UserMessageNotification(GfeNotification):
 

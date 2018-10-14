@@ -1,7 +1,3 @@
-##
-##
-
-
 #
 # __init__.py for Dynamic Serialize adapters.
 #
@@ -32,7 +28,6 @@
 #    10/17/2016         #5919      njensen        Added GeomDataRespAdapter
 #    01/09/2017         #5997      nabowle        Allow contribution from plugins.
 #
-
 
 __all__ = [
     'PointAdapter',

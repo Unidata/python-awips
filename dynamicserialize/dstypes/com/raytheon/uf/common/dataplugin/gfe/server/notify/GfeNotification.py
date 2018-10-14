@@ -1,4 +1,3 @@
-##
 #
 #     SOFTWARE HISTORY
 #
@@ -6,9 +5,10 @@
 #    ------------    ----------    -----------    --------------------------
 #    10/07/2014       3684         randerso       Manually updated to add sourceID
 #
-##
+
 import abc
 from six import with_metaclass
+
 
 class GfeNotification(with_metaclass(abc.ABCMeta, object)):
     @abc.abstractmethod

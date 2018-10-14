@@ -1,8 +1,3 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class and
-# modified.
 #
 #      SOFTWARE HISTORY
 #
@@ -10,6 +5,7 @@
 #     ------------    ----------    -----------    --------------------------
 #     Sep 8, 2014                   kustert        Initial Creation
 #     Apr 24, 2015    4425          nabowle        Bring in.
+
 
 class DoubleDataRecord(object):
 

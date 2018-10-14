@@ -16,7 +16,6 @@ from dynamicserialize import DynamicSerializationManager
 #    09/20/10                      dgilling       Initial Creation.
 #
 #
-#
 
 
 class ThriftClient:

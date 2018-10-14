@@ -1,6 +1,3 @@
-# File auto-generated against equivalent DynamicSerialize Java class
-# and then modified post-generation to add additional features to better
-# match Java implementation.
 #
 #     SOFTWARE HISTORY
 #
@@ -18,7 +15,6 @@
 #    08/02/16         2416         tgurney        Forecast time regex bug fix,
 #                                                 plus misc cleanup
 #
-
 
 import calendar
 import datetime

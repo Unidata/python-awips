@@ -1,9 +1,5 @@
-##
-##
-
-
 #
-# Package definition for com.raytheon.uf.common.serialization.comm
+#  Package definition for com.raytheon.uf.common.serialization.comm
 #
 #
 #     SOFTWARE HISTORY
@@ -13,10 +9,7 @@
 #    09/21/10                      njensen       Initial Creation.
 #
 #
-#
-
 
 __all__ = [
             'response'
           ]
-

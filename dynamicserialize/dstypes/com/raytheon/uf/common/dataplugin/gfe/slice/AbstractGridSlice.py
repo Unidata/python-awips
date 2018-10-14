@@ -1,8 +1,6 @@
-##
-##
-
 import abc
 from six import with_metaclass
+
 
 class AbstractGridSlice(with_metaclass(abc.ABCMeta, object)):
     @abc.abstractmethod

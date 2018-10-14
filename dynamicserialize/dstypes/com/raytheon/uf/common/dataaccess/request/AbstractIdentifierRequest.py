@@ -1,8 +1,3 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
-# and then modified post-generation to make it a abstract base class.
 #
 #     SOFTWARE HISTORY
 #
@@ -16,6 +11,7 @@
 
 from six import with_metaclass
 import abc
+
 
 class AbstractIdentifierRequest(with_metaclass(abc.ABCMeta, object)):
     def __init__(self):

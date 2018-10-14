@@ -1,9 +1,3 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
-# and then modified post-generation to make it sub class
-# AbstractDataAccessRequest.
 #
 #     SOFTWARE HISTORY
 #
@@ -14,6 +8,7 @@
 #
 
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request import AbstractDataAccessRequest
+
 
 class GetAvailableLevelsRequest(AbstractDataAccessRequest):
 

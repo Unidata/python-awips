@@ -1,8 +1,3 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
-# and then modified post-generation to sub-class IDataRequest.
 #
 #     SOFTWARE HISTORY
 #
@@ -12,7 +7,6 @@
 #    12/15/16        6040          tgurney        Override __str__
 #
 #
-
 
 from awips.dataaccess import IDataRequest
 

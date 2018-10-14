@@ -1,13 +1,10 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
 #
 #      SOFTWARE HISTORY
 #
 #     Date            Ticket#       Engineer       Description
 #     ------------    ----------    -----------    --------------------------
 #     Oct 10, 2016    5916          bsteffen       Generated
+
 
 class GetGridLatLonResponse(object):
 

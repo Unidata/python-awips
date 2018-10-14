@@ -1,4 +1,3 @@
-
 #
 # Custom python class representing a java.awt.Point.
 #
@@ -8,7 +7,6 @@
 #    Date            Ticket#       Engineer       Description
 #    ------------    ----------    -----------    --------------------------
 #    08/31/10                      njensen       Initial Creation.
-#
 #
 #
 

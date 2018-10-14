@@ -1,9 +1,5 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
-
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.slice import AbstractGridSlice
+
 
 class ScalarGridSlice(AbstractGridSlice):
 

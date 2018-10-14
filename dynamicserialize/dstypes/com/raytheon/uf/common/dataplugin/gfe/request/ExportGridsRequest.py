@@ -1,12 +1,6 @@
-##
-##
-
 #
 # A pure python implementation of com.raytheon.uf.common.dataplugin.gfe.request.ExportGridsRequest
 # for use by the python implementation of DynamicSerialize.
-#
-# File auto-generated against equivalent DynamicSerialize Java class, but additional
-# useful methods have been added.
 #
 #
 #     SOFTWARE HISTORY

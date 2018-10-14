@@ -1,20 +1,6 @@
-##
-##
-
-
-from thrift.protocol.TProtocol import *
-from thrift.protocol.TBinaryProtocol import *
-from struct import pack, unpack
-
-
 #
 # Partially compatible AWIPS-II Thrift Binary Protocol
 #
-# <B>Missing functionality:</B>
-# <UL>
-# <LI> Custom Serializers
-# <LI> Inheritance
-# </UL>
 #
 #     SOFTWARE HISTORY
 #
@@ -25,8 +11,9 @@ from struct import pack, unpack
 #    Apr 24, 2015    4425          nabowle         Add F64List support.
 #
 #
-#
 
+from thrift.protocol.TProtocol import *
+from thrift.protocol.TBinaryProtocol import *
 import struct, numpy
 
 FLOAT = 64
@@ -37,6 +24,7 @@ longList = numpy.dtype(numpy.int64).newbyteorder('>')
 shortList = numpy.dtype(numpy.int16).newbyteorder('>')
 byteList = numpy.dtype(numpy.int8).newbyteorder('>')
 doubleList = numpy.dtype(numpy.float64).newbyteorder('>')
+
 
 class SelfDescribingBinaryProtocol(TBinaryProtocol):
 

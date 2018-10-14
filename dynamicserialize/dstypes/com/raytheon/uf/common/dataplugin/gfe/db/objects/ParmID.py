@@ -1,4 +1,3 @@
-# File auto-generated against equivalent DynamicSerialize Java class
 # Modified by njensen to add __repr__
 
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.db.objects import DatabaseID

@@ -1,13 +1,10 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
 #
 #      SOFTWARE HISTORY
 #
 #     Date            Ticket#       Engineer       Description
 #     ------------    ----------    -----------    --------------------------
 #     Oct 08, 2014                  reblum         Generated
+
 
 class RegionLookupRequest(object):
 

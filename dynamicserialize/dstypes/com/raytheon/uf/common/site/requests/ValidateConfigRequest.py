@@ -1,5 +1,3 @@
-##
-##
 #
 #     SOFTWARE HISTORY
 #
@@ -7,9 +5,8 @@
 #    ------------    ----------    -----------    --------------------------
 #    09/12/16         #5888        dgilling       Initial  creation.
 #
-##
-
 ### This class was manually created. DO NOT AUTOGENERATE ###
+
 
 class ValidateConfigRequest(object):
 

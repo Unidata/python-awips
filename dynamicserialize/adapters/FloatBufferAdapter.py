@@ -1,7 +1,3 @@
-##
-##
-
-
 #
 # Adapter for java.nio.FloatBuffer
 #
@@ -12,8 +8,6 @@
 #    ------------    ----------    -----------    --------------------------
 #    08/01/11                      dgilling       Initial Creation.
 #
-#
-#
 
 ClassAdapter = ['java.nio.FloatBuffer', 'java.nio.HeapFloatBuffer']
 
@@ -21,9 +15,7 @@ ClassAdapter = ['java.nio.FloatBuffer', 'java.nio.HeapFloatBuffer']
 def serialize(context, set):
     raise NotImplementedError("Serialization of FloatBuffers is not supported.")
 
+
 def deserialize(context):
     floatBuf = context.readFloatArray()
     return floatBuf
-
-
-

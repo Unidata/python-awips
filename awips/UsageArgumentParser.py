@@ -1,4 +1,3 @@
-##
 #
 # SOFTWARE HISTORY
 #
@@ -6,7 +5,6 @@
 # ------------- -------- --------- ---------------------------------------------
 # Feb 13, 2017  6092     randerso  Added StoreTimeAction
 #
-##
 
 import argparse
 import sys

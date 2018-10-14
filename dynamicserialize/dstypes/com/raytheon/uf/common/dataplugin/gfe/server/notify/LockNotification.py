@@ -1,5 +1,3 @@
-##
-##
 #
 #     SOFTWARE HISTORY
 #
@@ -8,9 +6,9 @@
 #    ??/??/????       ????         njensen        Modified to add __repr__
 #    06/22/2015       4573         randerso       Change to extend GfeNotification
 #
-##
 
 from . import GfeNotification
+
 
 class LockNotification(GfeNotification):
 

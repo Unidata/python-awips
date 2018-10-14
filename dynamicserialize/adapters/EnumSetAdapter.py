@@ -1,7 +1,3 @@
-##
-##
-
-
 #
 # Adapter for java.util.EnumSet
 #
@@ -13,10 +9,6 @@
 #    07/28/11                      dgilling       Initial Creation.
 #    12/02/13        2537          bsteffen       Serialize empty enum sets.
 #
-#
-#
-
-
 
 from dynamicserialize.dstypes.java.util import EnumSet
 

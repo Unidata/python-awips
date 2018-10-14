@@ -1,13 +1,10 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
 #
 #      SOFTWARE HISTORY
 #
 #     Date            Ticket#       Engineer       Description
 #     ------------    ----------    -----------    --------------------------
 #     Sep 05, 2014                  bclement       Generated
+
 
 class SubscriptionRequest(object):
 

@@ -1,11 +1,9 @@
-##
-##
-
 # This class is a dummy implementation of the
 # com.vividsolutions.jts.geom.Geometry class. It was simply created to allow
 # serialization/deserialization of GridLocation objects. This should be
 # reimplemented if useful work needs to be performed against serialized
 # Geometry objects.
+
 
 class Geometry(object):
 

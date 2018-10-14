@@ -1,7 +1,3 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
 #
 #      SOFTWARE HISTORY
 #
@@ -9,6 +5,7 @@
 #     ------------    ----------    -----------    --------------------------
 #     Jul 27, 2015    1574          nabowle        Generated
 #     Feb 23, 2016    5389          nabowle        Regenerated
+
 
 class DeleteOrphansRequest(object):
 

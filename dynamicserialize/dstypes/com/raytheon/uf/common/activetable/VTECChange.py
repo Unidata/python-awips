@@ -1,8 +1,5 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
 #    03/25/14        #2884         randerso       Added xxxid to VTECChange
+
 
 class VTECChange(object):
 

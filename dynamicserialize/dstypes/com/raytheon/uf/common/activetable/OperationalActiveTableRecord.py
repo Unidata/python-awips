@@ -1,5 +1,3 @@
-##
-##
 #
 #     SOFTWARE HISTORY
 #
@@ -7,9 +5,9 @@
 #    ------------    ----------    -----------    --------------------------
 #    05/22/2015       4522         randerso       Changed to inherit from ActiveTableRecord
 #
-##
 
 from . import ActiveTableRecord
+
 
 class OperationalActiveTableRecord(ActiveTableRecord):
 

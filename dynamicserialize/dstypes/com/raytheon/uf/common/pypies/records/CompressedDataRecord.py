@@ -1,8 +1,3 @@
-
-# File auto-generated against equivalent DynamicSerialize Java class
-# and then modified by bsteffen and rjpeter
-#
-
 #
 # Compressed version of a DataRecord.
 #
@@ -17,6 +12,7 @@
 
 import numpy
 import zlib
+
 
 class CompressedDataRecord(object):
 

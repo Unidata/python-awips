@@ -1,5 +1,3 @@
-# File auto-generated against equivalent DynamicSerialize Java class
-
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.db.objects import GridLocation
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.db.objects import ParmID
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.db.objects import TimeConstraints

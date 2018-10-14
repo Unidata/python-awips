@@ -14,7 +14,6 @@
 #
 #
 
-
 import numpy
 import warnings
 import six

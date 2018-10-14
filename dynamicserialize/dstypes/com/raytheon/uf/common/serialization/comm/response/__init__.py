@@ -1,7 +1,3 @@
-##
-##
-
-
 #
 # Package definition for com.raytheon.uf.common.serialization.comm.response
 #
@@ -14,7 +10,6 @@
 #
 #
 #
-
 
 __all__ = [
             'ServerErrorResponse'

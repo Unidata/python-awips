@@ -1,5 +1,3 @@
-##
-##
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.request.AbstractGfeRequest import AbstractGfeRequest
 
 # Manually updated
@@ -9,6 +7,7 @@ from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.request.Abst
 # Date          Ticket#  Engineer  Description
 # ------------- -------- --------- ---------------------------------------------
 # Dec 06, 2016  6092     randerso  Initial Creation
+
 
 class GfeClientRequest(AbstractGfeRequest):
 

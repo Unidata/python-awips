@@ -1,7 +1,3 @@
-##
-##
-
-
 #
 # Package definition for java.awt
 #
@@ -12,9 +8,6 @@
 #    ------------    ----------    -----------    --------------------------
 #    08/31/10                      njensen       Initial Creation.
 #
-#
-#
-
 
 __all__ = [
             'Point'

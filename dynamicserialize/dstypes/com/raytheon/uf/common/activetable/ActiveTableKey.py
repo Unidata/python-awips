@@ -1,5 +1,3 @@
-##
-##
 #
 #     SOFTWARE HISTORY
 #
@@ -9,7 +7,8 @@
 #    03/17/2016       5426         randerso       Add issueYear to primary key
 #    08/03/2016       19213        ryu            Add pil to primary key
 #
-##
+
+
 class ActiveTableKey(object):
 
     def __init__(self):

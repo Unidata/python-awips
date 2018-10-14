@@ -1,9 +1,3 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
-# and then modified post-generation to make it sub class
-# AbstractDataAccessRequest.
 #
 #     SOFTWARE HISTORY
 #
@@ -13,7 +7,6 @@
 #    03/03/14         #2673        bsteffen       Add ability to query only ref times.
 #
 #
-
 
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request import AbstractDataAccessRequest
 

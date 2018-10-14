@@ -1,6 +1,3 @@
-##
-##
-
 # This class is a dummy implementation of the
 # com.vividsolutions.jts.geom.Envelope class. It was simply created to allow
 # serialization/deserialization of IDataRequest objects from the Data Access
@@ -13,7 +10,7 @@
 #    ------------    ----------    -----------    --------------------------
 #    05/29/13         2023         dgilling       Initial Creation.
 #
-#
+
 
 class Envelope(object):
 

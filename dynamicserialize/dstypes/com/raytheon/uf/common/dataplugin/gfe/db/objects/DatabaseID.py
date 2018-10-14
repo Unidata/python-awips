@@ -1,10 +1,7 @@
-##
-##
-
-# File auto-generated against equivalent DynamicSerialize Java class
 # Modified by njensen to add __repr__
 
 import time
+
 
 class DatabaseID(object):
 
