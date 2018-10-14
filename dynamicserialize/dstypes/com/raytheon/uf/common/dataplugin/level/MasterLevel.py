@@ -28,7 +28,7 @@ class MasterLevel(object):
         return hash(self.name)
 
     def __eq__(self, other):
-        if type(self) != type(other):
+        if not isinstance(self, type(other)):
             return False
         else:
             return self.name == other.name
@@ -56,7 +56,7 @@ class MasterLevel(object):
     def getName(self):
         if six.PY2:
             return self.name
-        if self.name is not None and type(self.name) is not str:
+        if (self.name is not None) and (not isinstance(self.name, str)):
             return self.name.decode('utf-8')
         return self.name
 

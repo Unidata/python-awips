@@ -1,17 +1,3 @@
-from awips import ThriftClient
-
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.db.objects import DatabaseID
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.db.objects import ParmID
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.request import CommitGridsRequest
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.request import GetGridInventoryRequest
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.request import GetParmListRequest
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.request import GetSelectTimeRangeRequest
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.server.request import CommitGridRequest
-from dynamicserialize.dstypes.com.raytheon.uf.common.message import WsId
-from dynamicserialize.dstypes.com.raytheon.uf.common.site.requests import GetActiveSitesRequest
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.server.message import ServerResponse
-
-
 #
 # Provides a Python-based interface for executing GFE requests.
 #
@@ -26,6 +12,18 @@ from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.server.messa
 #
 #
 
+from awips import ThriftClient
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.db.objects import DatabaseID
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.db.objects import ParmID
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.request import CommitGridsRequest
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.request import GetGridInventoryRequest
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.request import GetParmListRequest
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.request import GetSelectTimeRangeRequest
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.server.request import CommitGridRequest
+from dynamicserialize.dstypes.com.raytheon.uf.common.message import WsId
+from dynamicserialize.dstypes.com.raytheon.uf.common.site.requests import GetActiveSitesRequest
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.server.message import ServerResponse
+
 
 class IFPClient(object):
     def __init__(self, host, port, user, site=None, progName=None):
@@ -39,7 +37,7 @@ class IFPClient(object):
         self.__siteId = site
 
     def commitGrid(self, request):
-        if type(request) is CommitGridRequest:
+        if isinstance(request, CommitGridRequest):
             return self.__commitGrid([request])
         elif self.__isHomogenousIterable(request, CommitGridRequest):
             return self.__commitGrid([cgr for cgr in request])
@@ -82,7 +80,7 @@ class IFPClient(object):
         return True
 
     def getGridInventory(self, parmID):
-        if type(parmID) is ParmID:
+        if isinstance(parmID, ParmID):
             sr = self.__getGridInventory([parmID])
             list = []
             try:

@@ -15,6 +15,7 @@
 from awips.dataaccess import IData
 import six
 
+
 class PyData(IData):
 
     def __init__(self, dataRecord):
@@ -36,7 +37,7 @@ class PyData(IData):
     def getLevel(self):
         if six.PY2:
             return self.__level
-        if type(self.__level) is not str:
+        if not isinstance(self.__level, str):
             return self.__level.decode('utf-8')
         return self.__level
 

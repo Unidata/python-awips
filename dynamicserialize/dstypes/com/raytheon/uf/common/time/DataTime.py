@@ -62,7 +62,7 @@ class DataTime(object):
         else:
             self.fcstTime = 0
         self.refTime = refTime
-        if validPeriod is not None and type(validPeriod) is not TimeRange:
+        if validPeriod is not None and not isinstance(validPeriod, TimeRange):
             raise ValueError("Invalid validPeriod object specified for DataTime.")
         self.validPeriod = validPeriod
         self.utilityFlags = EnumSet('com.raytheon.uf.common.time.DataTime$FLAG')
@@ -193,7 +193,7 @@ class DataTime(object):
         return hashCode
 
     def __eq__(self, other):
-        if type(self) != type(other):
+        if not isinstance(self, type(other)):
             return False
 
         if other.getRefTime() is None:
@@ -207,7 +207,7 @@ class DataTime(object):
         return not self.__eq__(other)
 
     def __lt__(self, other):
-        if type(self) != type(other):
+        if not isinstance(self, type(other)):
             return NotImplemented
 
         myValidTime = self.getRefTime().getTime() + self.getFcstTime()
@@ -230,13 +230,13 @@ class DataTime(object):
         return False
 
     def __le__(self, other):
-        if type(self) != type(other):
+        if not isinstance(self, type(other)):
             return NotImplemented
 
         return self.__lt__(other) or self.__eq__(other)
 
     def __gt__(self, other):
-        if type(self) != type(other):
+        if not isinstance(self, type(other)):
             return NotImplemented
 
         myValidTime = self.getRefTime().getTime() + self.getFcstTime()
@@ -259,7 +259,7 @@ class DataTime(object):
         return False
 
     def __ge__(self, other):
-        if type(self) != type(other):
+        if not isinstance(self, type(other)):
             return NotImplemented
 
         return self.__gt__(other) or self.__eq__(other)

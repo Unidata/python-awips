@@ -1,6 +1,3 @@
-##
-##
-
 # File auto-generated against equivalent DynamicSerialize Java class
 # and then modified post-generation to add additional features to better
 # match Java implementation.
@@ -21,9 +18,9 @@ import re
 
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.level import MasterLevel
 
-
 LEVEL_NAMING_REGEX = re.compile("^(\d*(?:\.\d*)?)(?:_(\d*(?:\.\d*)?))?([a-zA-Z]+)$")
 INVALID_VALUE = numpy.float64(-999999)
+
 
 class Level(object):
 
@@ -51,7 +48,7 @@ class Level(object):
         return hashCode
 
     def __eq__(self, other):
-        if type(self) != type(other):
+        if not isinstance(self, type(other)):
             return False
         else:
             return (self.masterLevel, self.levelonevalue, self.leveltwovalue) == \
@@ -61,7 +58,7 @@ class Level(object):
         return not self.__eq__(other)
 
     def __lt__(self, other):
-        if type(self) != type(other):
+        if not isinstance(self, type(other)):
             return NotImplemented
         elif self.masterLevel.getName() != other.masterLevel.getName():
             return NotImplemented
@@ -93,7 +90,7 @@ class Level(object):
         return False
 
     def __le__(self, other):
-        if not isinstance(self, other):
+        if not isinstance(self, type(other)):
             return NotImplemented
         elif self.masterLevel.getName() != other.masterLevel.getName():
             return NotImplemented
@@ -101,7 +98,7 @@ class Level(object):
         return self.__lt__(other) or self.__eq__(other)
 
     def __gt__(self, other):
-        if not isinstance(self, other):
+        if not isinstance(self, type(other)):
             return NotImplemented
         elif self.masterLevel.getName() != other.masterLevel.getName():
             return NotImplemented
@@ -128,12 +125,11 @@ class Level(object):
                 elif otherLevel2 != INVALID_VALUE:
                     level2Cmp = self.__compareLevelValues(compareType, myLevel1, otherLevel2)
                     return level2Cmp == 1
-                else:
-                    return True
+                return True
         return False
 
     def __ge__(self, other):
-        if not isinstance(self, other):
+        if not isinstance(self, type(other)):
             return NotImplemented
         elif self.masterLevel.getName() != other.masterLevel.getName():
             return NotImplemented

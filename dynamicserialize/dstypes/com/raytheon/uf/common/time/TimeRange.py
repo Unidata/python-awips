@@ -1,6 +1,3 @@
-##
-##
-
 # File auto-generated against equivalent DynamicSerialize Java class. Then modified to add functionality
 #
 #
@@ -23,6 +20,7 @@ import time
 MAX_TIME = 2147483647
 MICROS_IN_SECOND = 1000000
 
+
 class TimeRange(object):
     def __init__(self, start=None, end=None, startExtraMicros=None, endExtraMicros=None):
         self.start = self.__convertToDateTimeWithExtra(start, startExtraMicros)
@@ -35,7 +33,7 @@ class TimeRange(object):
         return "(" + self.start.strftime("%b %d %y %H:%M:%S %Z") + ", " + self.end.strftime("%b %d %y %H:%M:%S %Z") + ")"
 
     def __eq__(self, other):
-        if type(self) != type(other):
+        if not isinstance(self, type(other)):
             return False
 
         if self.isValid() and other.isValid():
@@ -117,7 +115,7 @@ class TimeRange(object):
             return (timeArg.start >= self.start and timeArg.end <= self.end)
         else:
             convTime = self.__convertToDateTime(timeArg)
-            if type(convTime) is not datetime.datetime:
+            if not isinstance(convTime, datetime.datetime):
                 raise TypeError("Invalid type for argument time specified to TimeRange.contains().")
             if self.duration() != 0:
                 return (convTime >= self.start and convTime < self.end)

@@ -46,7 +46,7 @@ class PyGridData(IGridData, PyData.PyData):
     def getUnit(self):
         if six.PY2:
             return self.__unit
-        if self.__unit is not None and type(self.__unit) is not str:
+        if self.__unit is not None and not isinstance(self.__unit, str):
             return self.__unit.decode('utf-8')
         return self.__unit
 
