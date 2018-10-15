@@ -42,11 +42,10 @@ class PyGeometryData(IGeometryData, PyData.PyData):
 
     def getString(self, param):
         if six.PY2:
-            return self.__dataMap[param][0]
-        value = self.__dataMap[param.encode('utf-8')][0]
-        if value is not None:
-            return value.decode('utf-8')
-        return value
+            return str(self.__dataMap[param][0])
+        else:
+            value = self.__dataMap[param.encode('utf-8')][0]
+            return str(value.decode('utf-8'))
 
     def getNumber(self, param):
         t = self.getType(param)
