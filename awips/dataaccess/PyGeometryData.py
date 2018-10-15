@@ -66,9 +66,9 @@ class PyGeometryData(IGeometryData, PyData.PyData):
             raise TypeError("Data for parameter " + param + " is not a numeric type.")
 
     def getUnit(self, param):
-        unit = self.__dataMap[param][2]
         if six.PY2:
-            return unit
+            return self.__dataMap[param][2]
+        unit = self.__dataMap[param.encode('utf-8')][2]
         if unit is not None:
             return unit.decode('utf-8')
         return unit
