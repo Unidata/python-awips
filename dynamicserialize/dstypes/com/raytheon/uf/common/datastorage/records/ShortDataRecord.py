@@ -4,6 +4,7 @@ from dynamicserialize.dstypes.com.raytheon.uf.common.datastorage.records import 
 class ShortDataRecord(AbstractDataRecord):
 
     def __init__(self):
+        super(ShortDataRecord, self).__init__()
         self.shortData = None
 
     def getShortData(self):
