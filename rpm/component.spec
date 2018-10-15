@@ -7,7 +7,7 @@
 #
 Name: awips2-python-awips
 Summary: Python AWIPS Distribution
-Version: 18.1.5
+Version: 18.1.6
 Release: 1%{?dist}
 Group: AWIPSII
 BuildRoot: %{_build_root}
