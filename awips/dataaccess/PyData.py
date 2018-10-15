@@ -25,10 +25,7 @@ class PyData(IData):
         self.__attributes = dataRecord.getAttributes()
 
     def getAttribute(self, key):
-        if six.PY2:
-            return self.__attributes[key]
-        value =  self.__attributes[key.encode('utf-8')]
-        return value.decode('utf-8')
+        return self.__attributes[key]
 
     def getAttributes(self):
         return self.__attributes.keys()
