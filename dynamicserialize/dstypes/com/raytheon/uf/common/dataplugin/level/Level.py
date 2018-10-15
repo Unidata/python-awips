@@ -9,8 +9,8 @@
 #                                                 __str__ and rich comparison operators.
 #
 
-import numpy
 import re
+import numpy
 
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.level import MasterLevel
 
@@ -30,11 +30,11 @@ class Level(object):
         if levelString is not None:
             matcher = LEVEL_NAMING_REGEX.match(str(levelString))
             if matcher is not None:
-               self.levelonevalue = numpy.float64(matcher.group(1))
-               self.masterLevel = MasterLevel.MasterLevel(matcher.group(3))
-               levelTwo = matcher.group(2)
-               if levelTwo:
-                   self.leveltwovalue = numpy.float64(levelTwo)
+                self.levelonevalue = numpy.float64(matcher.group(1))
+                self.masterLevel = MasterLevel(matcher.group(3))
+                levelTwo = matcher.group(2)
+                if levelTwo:
+                    self.leveltwovalue = numpy.float64(levelTwo)
 
     def __hash__(self):
         # XOR-ing the 3 items in a tuple ensures that order of the
@@ -44,11 +44,10 @@ class Level(object):
         return hashCode
 
     def __eq__(self, other):
-        if not isinstance(self, type(other)):
-            return False
-        else:
+        if isinstance(self, type(other)):
             return (self.masterLevel, self.levelonevalue, self.leveltwovalue) == \
                 (other.masterLevel, other.levelonevalue, other.leveltwovalue)
+        return False
 
     def __ne__(self, other):
         return not self.__eq__(other)
@@ -81,8 +80,7 @@ class Level(object):
                 elif myLevel2 != INVALID_VALUE:
                     level2Cmp = self.__compareLevelValues(compareType, myLevel2, otherLevel1)
                     return level2Cmp == -1
-                else:
-                    return True
+                return True
         return False
 
     def __le__(self, other):

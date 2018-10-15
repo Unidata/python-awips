@@ -147,8 +147,7 @@ class RequestConstraint(object):
         value = self._matchType(value, self._evalValue)
         if isinstance(value, float):
             return abs(float(self._evalValue) - value) < self.TOLERANCE
-        else:
-            return value == self._evalValue
+        return value == self._evalValue
 
     def _evalGreaterThan(self, value):
         value = self._matchType(value, self._evalValue)
@@ -180,9 +179,8 @@ class RequestConstraint(object):
                 except Exception:
                     pass
             return False
-        else:
-            value = self._matchType(value, anEvalValue)
-            return value in self._evalValue
+        value = self._matchType(value, anEvalValue)
+        return value in self._evalValue
 
     def _evalLike(self, value):
         value = self._matchType(value, self._evalValue)
@@ -191,7 +189,7 @@ class RequestConstraint(object):
         return self._evalValue.match(value) is not None
 
     def _evalIsNull(self, value):
-        return value is None or 'null' == value
+        return value is None or value == 'null'
 
     # DAF-specific stuff begins here ##########################################
 
@@ -234,7 +232,7 @@ class RequestConstraint(object):
         except TypeError:
             raise TypeError("value for IN / NOT IN constraint must be an iterable")
         stringValue = ', '.join(cls._stringify(item) for item in iterator)
-        if len(stringValue) == 0:
+        if not stringValue:
             raise ValueError('cannot use IN / NOT IN with empty collection')
         obj = cls()
         obj.setConstraintType(constraintType)
@@ -270,7 +268,7 @@ class RequestConstraint(object):
         """Build a new RequestConstraint."""
         try:
             constraintType = cls.CONSTRAINT_MAP[operator.upper()]
-        except KeyError as AttributeError:
+        except KeyError:
             errmsg = '{} is not a valid operator. Valid operators are: {}'
             validOperators = list(sorted(cls.CONSTRAINT_MAP.keys()))
             raise ValueError(errmsg.format(operator, validOperators))
@@ -278,6 +276,4 @@ class RequestConstraint(object):
             return cls._constructIn(constraintType, constraintValue)
         elif constraintType in {'EQUALS', 'NOT_EQUALS'}:
             return cls._constructEq(constraintType, constraintValue)
-        else:
-            return cls._construct(constraintType, constraintValue)
-
+        return cls._construct(constraintType, constraintValue)

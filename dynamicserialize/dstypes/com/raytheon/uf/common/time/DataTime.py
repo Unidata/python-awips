@@ -18,24 +18,23 @@
 
 import calendar
 import datetime
-import numpy
 import re
-from six.moves import cStringIO as StringIO
-
 import time
+import numpy
+from six.moves import cStringIO as StringIO
 
 from dynamicserialize.dstypes.java.util import Date
 from dynamicserialize.dstypes.java.util import EnumSet
 
 from .TimeRange import TimeRange
 
-_DATE=r'(\d{4}-\d{2}-\d{2})'
-_TIME=r'(\d{2}:\d{2}:\d{2})'
-_MILLIS='(?:\.(\d{1,3})(?:\d{1,4})?)?' # might have microsecond but that is thrown out
-REFTIME_PATTERN_STR=_DATE + '[ _]' + _TIME + _MILLIS
-FORECAST_PATTERN_STR=r'(?:[ _]\((\d+)(?::(\d{1,2}))?\))?'
-VALID_PERIOD_PATTERN_STR=r'(?:\['+ REFTIME_PATTERN_STR + '--' + REFTIME_PATTERN_STR + r'\])?'
-STR_PATTERN=re.compile(REFTIME_PATTERN_STR + FORECAST_PATTERN_STR + VALID_PERIOD_PATTERN_STR)
+_DATE = r'(\d{4}-\d{2}-\d{2})'
+_TIME = r'(\d{2}:\d{2}:\d{2})'
+_MILLIS = '(?:\.(\d{1,3})(?:\d{1,4})?)?' # might have microsecond but that is thrown out
+REFTIME_PATTERN_STR = _DATE + '[ _]' + _TIME + _MILLIS
+FORECAST_PATTERN_STR = r'(?:[ _]\((\d+)(?::(\d{1,2}))?\))?'
+VALID_PERIOD_PATTERN_STR = r'(?:\['+ REFTIME_PATTERN_STR + '--' + REFTIME_PATTERN_STR + r'\])?'
+STR_PATTERN = re.compile(REFTIME_PATTERN_STR + FORECAST_PATTERN_STR + VALID_PERIOD_PATTERN_STR)
 
 
 class DataTime(object):
