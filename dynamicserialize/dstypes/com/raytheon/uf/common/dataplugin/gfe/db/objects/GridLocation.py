@@ -21,7 +21,7 @@ class GridLocation(object):
         s = "[SiteID =" + self.siteId + ",ProjID=" + self.projection.getProjectionID() +\
             ",gridSize=(" + str(self.nx) + ',' + str(self.ny) + ")"
             # TODO: Handle geometry in dynamicserialize
-            # ,loc=" + this.geometry.getGeometryType();
+            # ,loc=" + this.geometry.getGeometryType()
         s += ']'
         return s
 

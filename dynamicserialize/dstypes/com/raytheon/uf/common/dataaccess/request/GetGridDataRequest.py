@@ -35,4 +35,4 @@ class GetGridDataRequest(AbstractDataAccessRequest):
         return self.includeLatLonData
 
     def setIncludeLatLonData(self, includeLatLonData):
-         self.includeLatLonData = includeLatLonData;
+         self.includeLatLonData = includeLatLonData

@@ -4,8 +4,8 @@
 
 import logging
 
-HOUR = 3600;
-DAY = 24 * HOUR;
+HOUR = 3600
+DAY = 24 * HOUR
 
 
 class TimeConstraints(object):
@@ -15,18 +15,18 @@ class TimeConstraints(object):
         repeatInterval = int(repeatInterval)
         startTime = int(startTime)
 
-        self.valid = False;
+        self.valid = False
         if duration == 0 and repeatInterval == 0 and startTime == 0:
-            self.valid = True;
+            self.valid = True
         else:
             if self.isInvalidInterval(repeatInterval, duration, startTime):
-                logging.warning("Bad init values for TimeConstraints: ", self);
-                self.valid = False;
-                duration = 0;
-                repeatInterval = 0;
-                startTime = 0;
+                logging.warning("Bad init values for TimeConstraints: ", self)
+                self.valid = False
+                duration = 0
+                repeatInterval = 0
+                startTime = 0
             else:
-                self.valid = True;
+                self.valid = True
 
         self.duration = duration
         self.repeatInterval = repeatInterval

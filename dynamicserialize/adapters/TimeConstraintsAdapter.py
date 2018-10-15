@@ -15,9 +15,9 @@ ClassAdapter = 'com.raytheon.uf.common.dataplugin.gfe.db.objects.TimeConstraints
 
 
 def serialize(context, timeConstraints):
-    context.writeI32(timeConstraints.getDuration());
-    context.writeI32(timeConstraints.getRepeatInterval());
-    context.writeI32(timeConstraints.getStartTime());
+    context.writeI32(timeConstraints.getDuration())
+    context.writeI32(timeConstraints.getRepeatInterval())
+    context.writeI32(timeConstraints.getStartTime())
 
 
 def deserialize(context):

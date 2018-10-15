@@ -14,7 +14,7 @@ class DatabaseID(object):
         self.modelId = None
         self.shortModelId = None
         if dbIdentifier is not None:
-            if (self.__decodeIdentifier(dbIdentifier)):
+            if self.__decodeIdentifier(dbIdentifier):
                 self.__encodeIdentifier()
             else:
                 self.format = "NONE"
@@ -25,8 +25,8 @@ class DatabaseID(object):
                 self.modelId = ""
                 self.shortModelId = ""
 
-    def isValid(self) :
-        return self.format != "NONE";
+    def isValid(self):
+        return self.format != "NONE"
 
     def getSiteId(self):
         return self.siteId
@@ -37,8 +37,8 @@ class DatabaseID(object):
     def getFormat(self):
         return self.format
 
-    def setFormat(self, format):
-        self.format = format
+    def setFormat(self, dbformat):
+        self.format = dbformat
 
     def getDbType(self):
         return self.dbType
@@ -81,7 +81,7 @@ class DatabaseID(object):
             self.shortModelId += "_" + self.dbType
 
         if self.modelTime != "00000000_0000":
-            self.modelId += "_" + self.modelTime;
+            self.modelId += "_" + self.modelTime
             self.shortModelId += "_" + self.modelTime[6:8] + self.modelTime[9:11]
         else:
             self.modelId += "_" + "00000000_0000"
@@ -96,7 +96,7 @@ class DatabaseID(object):
         self.modelTime = "00000000_0000"
 
         # parse into '_' separated strings
-        strings = dbIdentifier.split("_");
+        strings = dbIdentifier.split("_")
         if len(strings) != 6:
             return False
 
@@ -115,7 +115,7 @@ class DatabaseID(object):
             return False
 
         # make sure the digits are there
-        dtg = strings[4] + '_' + strings[5]; # back together
+        dtg = strings[4] + '_' + strings[5] # back together
         if dtg != "00000000_0000":
             if not self.__decodeDtg(dtg):
                 return False
@@ -152,14 +152,14 @@ class DatabaseID(object):
         return self.modelId
 
     def __hash__(self):
-        prime = 31;
-        result = 1;
+        prime = 31
+        result = 1
         result = prime * result + (0 if self.dbType is None else hash(self.dbType))
         result = prime * result + (0 if self.format is None else hash(self.format))
         result = prime * result + (0 if self.modelId is None else hash(self.modelId))
         result = prime * result + (0 if self.modelTime is None else hash(self.modelTime))
         result = prime * result + (0 if self.siteId is None else hash(self.siteId))
-        return result;
+        return result
 
     def __cmp__(self, other):
         if not isinstance(other, DatabaseID):

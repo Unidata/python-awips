@@ -74,7 +74,7 @@ class GridParmInfo(object):
         return True
 
     def __ne__(self, other):
-        return (not self.__eq__(other))
+        return not self.__eq__(other)
 
     def __validCheck(self):
         status = []
@@ -90,14 +90,14 @@ class GridParmInfo(object):
             status.append("GridParmInfo is invalid. There are time constraints" +
                         " for a time independent parm. Constraints: " +
                         str(self.timeConstraints))
-        if len(self.unitString) == 0:
+        if not self.unitString:
             status.append("GridParmInfo.Units are not defined.")
         if self.precision < -2 or self.precision > 5:
             status.append("GridParmInfo is invalid. Precision out of limits." +
                           " Precision is: " + str(self.precision) + ". Must be between -2 and 5.")
 
         retVal = True
-        if len(status) > 0:
+        if status:
             retVal = False
         return (retVal, status)
 
@@ -183,4 +183,3 @@ class GridParmInfo(object):
 
     def setTimeIndependentParm(self, timeIndependentParm):
         self.timeIndependentParm = timeIndependentParm
-

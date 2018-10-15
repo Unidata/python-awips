@@ -29,7 +29,7 @@ class QpidSubscriber:
     def __init__(self, host='127.0.0.1', port=5672, decompress=False, ssl=None):
         self.host = host
         self.port = port
-        self.decompress = decompress;
+        self.decompress = decompress
         socket = qpid.util.connect(host, port)
         if "QPID_SSL_CERT_DB" in os.environ:
             certdb = os.environ["QPID_SSL_CERT_DB"]

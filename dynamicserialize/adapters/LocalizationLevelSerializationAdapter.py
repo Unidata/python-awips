@@ -20,7 +20,7 @@ ClassAdapter = [
 def serialize(context, level):
     context.writeString(level.getText())
     context.writeI32(level.getOrder())
-    context.writeBool(level.isSystemLevel());
+    context.writeBool(level.isSystemLevel())
 
 
 def deserialize(context):

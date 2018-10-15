@@ -6,7 +6,7 @@ class WeatherKey(object):
 
     def __init__(self, siteId="", subKeys=[]):
         self.siteId = siteId
-        if type(subKeys) is str:
+        if isinstance(subKeys, str):
             self.__parseString(str(subKeys))
         else:
             self.subKeys = subKeys

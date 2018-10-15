@@ -32,7 +32,7 @@ class CombinedTimeQueryTestCase(unittest.TestCase):
         req.setLocationNames('RUC130')
         req.setParameters('T','GH')
         req.setLevels('300MB', '500MB','700MB')
-        times = CTQ.getAvailableTimes(req);
+        times = CTQ.getAvailableTimes(req)
         self.assertNotEqual(len(times), 0)
 
     def testNonIntersectingQuery(self):
@@ -43,5 +43,5 @@ class CombinedTimeQueryTestCase(unittest.TestCase):
         req.setLocationNames('RUC130')
         req.setParameters('T','GH', 'LgSP1hr')
         req.setLevels('300MB', '500MB','700MB','0.0SFC')
-        times = CTQ.getAvailableTimes(req);
+        times = CTQ.getAvailableTimes(req)
         self.assertEqual(len(times), 0)

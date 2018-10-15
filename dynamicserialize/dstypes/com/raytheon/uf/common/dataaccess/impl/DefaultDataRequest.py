@@ -40,9 +40,9 @@ class DefaultDataRequest(IDataRequest):
         self.levels = list(map(self.__makeLevel, levels))
 
     def __makeLevel(self, level):
-        if type(level) is Level:
+        if isinstance(level, Level):
             return level
-        elif type(level) is str:
+        elif isinstance(level, str):
             return Level(level)
         else:
             raise TypeError("Invalid object type specified for level.")

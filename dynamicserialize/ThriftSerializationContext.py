@@ -21,12 +21,12 @@
 #
 #
 
-from thrift.Thrift import TType
 import inspect
 import sys
 import types
 import six
 import numpy
+from thrift.Thrift import TType
 import dynamicserialize
 from dynamicserialize import dstypes, adapters
 from dynamicserialize import SelfDescribingBinaryProtocol
@@ -177,7 +177,8 @@ class ThriftSerializationContext(object):
             # special
             fieldName, fieldType, fieldId = self.protocol.readFieldBegin()
             if fieldName.decode('utf8') != '__enumValue__':
-                raise dynamicserialize.SerializationException("Expected to find enum payload.  Found: " + fieldName)
+                raise dynamicserialize.SerializationException(
+                    "Expected to find enum payload.  Found: " + fieldName)
             obj = self.protocol.readString()
             self.protocol.readFieldEnd()
             return obj
@@ -185,7 +186,7 @@ class ThriftSerializationContext(object):
             clz = dsObjTypes[name]
             obj = clz()
 
-        while self._deserializeField(name, obj):
+        while self._deserializeField(obj):
             pass
 
         self.protocol.readStructEnd()
@@ -198,7 +199,7 @@ class ThriftSerializationContext(object):
             raise dynamicserialize.SerializationException(
                 "Unsupported type value " + str(b))
 
-    def _deserializeField(self, structname, obj):
+    def _deserializeField(self, obj):
         fieldName, fieldType, fieldId = self.protocol.readFieldBegin()
         if fieldType == TType.STOP:
             return False
@@ -254,12 +255,8 @@ class ThriftSerializationContext(object):
         if pyt in pythonToThriftMap:
             return pythonToThriftMap[pyt]
         elif pyt.__module__[:DS_LEN - 1] == ('dynamicserialize.dstypes'):
-            if six.PY2:
-                return pythonToThriftMap[types.InstanceType]
-            else:
-                return pythonToThriftMap[object]
-        else:
-            raise dynamicserialize.SerializationException(
+            return pythonToThriftMap[object]
+        raise dynamicserialize.SerializationException(
                 "Don't know how to serialize object of type: " + str(pyt))
 
     def serializeMessage(self, obj):
@@ -316,7 +313,7 @@ class ThriftSerializationContext(object):
     def _serializeArray(self, obj):
         size = len(obj)
         if size:
-            if type(obj) is numpy.ndarray:
+            if isinstance(obj, numpy.ndarray):
                 t = pythonToThriftMap[obj.dtype.type]
                 size = obj.size
             else:
@@ -325,7 +322,7 @@ class ThriftSerializationContext(object):
             t = TType.STRUCT
         self.protocol.writeListBegin(t, size)
         if t == TType.STRING:
-            if type(obj) is numpy.ndarray:
+            if isinstance(obj, numpy.ndarray):
                 if len(obj.shape) == 1:
                     for x in obj:
                         s = str(x).strip()

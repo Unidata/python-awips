@@ -98,9 +98,6 @@ Examples
 .. image:: https://python-awips.readthedocs.io/en/latest/_images/AWIPS_Grids_and_Cartopy_3_0.png
    :target: https://python-awips.readthedocs.io/en/latest/examples/generated/Grid_Levels_and_Parameters.html
    :height: 192px
-.. image:: https://python-awips.readthedocs.io/en/latest/_images/NEXRAD_Level_3_Plot_with_Matplotlib_3_0.png
-   :target: https://python-awips.readthedocs.io/en/latest/examples/generated/NEXRAD_Level_3_Plot_with_Matplotlib.html
-   :height: 192px
 .. image:: https://python-awips.readthedocs.io/en/latest/_images/Upper_Air_BUFR_Soundings_1_0.png
    :target: https://python-awips.readthedocs.io/en/latest/examples/generated/Upper_Air_BUFR_Soundings.html
    :height: 192px
