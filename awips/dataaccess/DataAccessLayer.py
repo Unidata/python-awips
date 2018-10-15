@@ -23,8 +23,6 @@
 #    Oct 18, 2016    5916          bsteffen       Add setLazyLoadGridLatLon
 #    Oct 11, 2018                  mjames@ucar    Added getMetarObs() getSynopticObs()
 #
-#
-
 
 import sys
 import warnings
