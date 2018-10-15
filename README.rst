@@ -113,7 +113,7 @@ Examples
 .. image:: https://python-awips.readthedocs.io/en/latest/_images/Regional_Surface_Obs_Plot_14_0.png
    :target: https://python-awips.readthedocs.io/en/latest/examples/generated/Regional_Surface_Obs_Plot.html
    :height: 192px
-.. image:: https://python-awips.readthedocs.io/en/latest/_images/GOES_Geostationary_Lightning_Mapper_5_1.png
+.. image:: https://python-awips.readthedocs.io/en/latest/_images/GOES_Geostationary_Lightning_Mapper_3_1.png
    :target: https://python-awips.readthedocs.io/en/latest/examples/generated/GOES_Geostationary_Lightning_Mapper.html
    :height: 192px
 .. image:: https://python-awips.readthedocs.io/en/latest/_images/Colored_Surface_Temperature_Plot_2_1.png
