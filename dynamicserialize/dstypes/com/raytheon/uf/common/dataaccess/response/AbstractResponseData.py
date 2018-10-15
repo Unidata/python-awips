@@ -35,8 +35,7 @@ class AbstractResponseData(six.with_metaclass(abc.ABCMeta, object)):
     def getAttributes(self):
         if six.PY2:
             return self.attributes
-        else:
-            return self.convert(self.attributes)
+        return self.convert(self.attributes)
 
     def setAttributes(self, attributes):
         self.attributes = attributes
