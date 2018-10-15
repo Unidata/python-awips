@@ -33,24 +33,26 @@ class ModelSoundingTestCase(baseDafTestCase.DafTestCase):
 
     datatype = "modelsounding"
 
+    reporttype = "ETA"
+
     def testGetAvailableParameters(self):
         req = DAL.newDataRequest(self.datatype)
         self.runParametersTest(req)
 
     def testGetAvailableLocations(self):
         req = DAL.newDataRequest(self.datatype)
-        req.addIdentifier("reportType", "ETA")
+        req.addIdentifier("reportType", self.reporttype)
         self.runLocationsTest(req)
 
     def testGetAvailableTimes(self):
         req = DAL.newDataRequest(self.datatype)
-        req.addIdentifier("reportType", "ETA")
+        req.addIdentifier("reportType", self.reporttype)
         req.setLocationNames(params.OBS_STATION)
         self.runTimesTest(req)
 
     def testGetGeometryData(self):
         req = DAL.newDataRequest(self.datatype)
-        req.addIdentifier("reportType", "ETA")
+        req.addIdentifier("reportType", self.reporttype)
         req.setLocationNames(params.OBS_STATION)
         req.setParameters("temperature", "pressure", "specHum", "sfcPress", "temp2", "q2")
         print("Testing getGeometryData()")
@@ -80,7 +82,7 @@ class ModelSoundingTestCase(baseDafTestCase.DafTestCase):
 
     def testGetGeometryDataWithEnvelope(self):
         req = DAL.newDataRequest(self.datatype)
-        req.addIdentifier("reportType", "ETA")
+        req.addIdentifier("reportType", self.reporttype)
         req.setEnvelope(params.ENVELOPE)
         req.setParameters("temperature", "pressure", "specHum", "sfcPress", "temp2", "q2")
         print("Testing getGeometryData()")

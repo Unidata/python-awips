@@ -74,7 +74,7 @@ class DafTestCase(unittest.TestCase):
 
     def testDatatypeIsSupported(self):
         allSupported = DAL.getSupportedDatatypes()
-        self.assertIn(self.datatype.lower(), allSupported)
+        self.assertIn(self.datatype, allSupported)
 
     def testGetRequiredIdentifiers(self):
         req = DAL.newDataRequest(self.datatype)
