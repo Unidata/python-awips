@@ -20,6 +20,8 @@ import os
 
 class CombinedTimeQueryTestCase(unittest.TestCase):
 
+    modelName = "RAP13"
+
     @classmethod
     def setUp(cls):
         host = os.environ.get('DAF_TEST_HOST')
@@ -29,7 +31,7 @@ class CombinedTimeQueryTestCase(unittest.TestCase):
 
     def testSuccessfulQuery(self):
         req = DAL.newDataRequest('grid')
-        req.setLocationNames('RUC130')
+        req.setLocationNames(self.modelName)
         req.setParameters('T','GH')
         req.setLevels('300MB', '500MB','700MB')
         times = CTQ.getAvailableTimes(req)
@@ -40,7 +42,7 @@ class CombinedTimeQueryTestCase(unittest.TestCase):
         Test that when a parameter is only available on one of the levels that no times are returned.
         """
         req = DAL.newDataRequest('grid')
-        req.setLocationNames('RUC130')
+        req.setLocationNames(self.modelName)
         req.setParameters('T','GH', 'LgSP1hr')
         req.setLevels('300MB', '500MB','700MB','0.0SFC')
         times = CTQ.getAvailableTimes(req)

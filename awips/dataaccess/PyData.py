@@ -25,11 +25,10 @@ class PyData(IData):
         self.__attributes = dataRecord.getAttributes()
 
     def getAttribute(self, key):
-        value = self.__attributes[key]
-        return value
+        return self.__attributes[key]
 
     def getAttributes(self):
-        return list(self.__attributes.keys())
+        return self.__attributes.keys()
 
     def getDataTime(self):
         return self.__time
