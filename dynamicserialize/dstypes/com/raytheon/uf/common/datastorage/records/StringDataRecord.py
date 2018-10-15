@@ -30,8 +30,8 @@ class StringDataRecord(AbstractDataRecord):
             else:
                 from pypies.impl.H5pyDataStore import vlen_str_type as dtype
             #dtype.set_strpad(h5t.STR_NULLTERM)
-            numpyData = numpy.asarray(self.getStringData(), dtype)
-        return numpyData
+            return numpy.asarray(self.getStringData(), dtype)
+        return self.numpyData
 
     def putDataObject(self, obj):
         self.setStringData(obj)
