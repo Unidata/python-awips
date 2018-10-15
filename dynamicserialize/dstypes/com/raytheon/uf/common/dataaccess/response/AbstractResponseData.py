@@ -33,10 +33,7 @@ class AbstractResponseData(six.with_metaclass(abc.ABCMeta, object)):
         self.locationName = locationName
 
     def getAttributes(self):
-        if six.PY2:
-            return self.attributes
-        else:
-            return [item.decode('utf-8') for item in self.attributes]
+        return self.attributes
 
     def setAttributes(self, attributes):
         self.attributes = attributes
