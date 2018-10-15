@@ -35,7 +35,6 @@ __all__ = [
     'WsIdAdapter',
     'CalendarAdapter',
     'GregorianCalendarAdapter',
-    'ActiveTableModeAdapter',
     'DateAdapter',
     'FormattedDateAdapter',
     'LocalizationLevelSerializationAdapter',
@@ -51,7 +50,6 @@ __all__ = [
     'FloatBufferAdapter',
     'ByteBufferAdapter',
     'TimeConstraintsAdapter',
-    'LockTableAdapter',
     'JTSEnvelopeAdapter'
 ]
 

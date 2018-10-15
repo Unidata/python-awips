@@ -1,6 +1,5 @@
 
 __all__ = [
-            'activetable',
             'alertviz',
             'auth',
             'dataaccess',
