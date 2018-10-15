@@ -136,8 +136,6 @@ class RequestConstraint(object):
         Return value coerced to be the same type as otherValue. If this is
         not possible, just return value unmodified.
         '''
-        # cannot use type() because otherValue might be an instance of an
-        # old-style class (then it would just be of type "instance")
         if not isinstance(value, otherValue.__class__):
             try:
                 return otherValue.__class__(value)
@@ -210,7 +208,7 @@ class RequestConstraint(object):
     @staticmethod
     def _stringify(value):
         if six.PY2:
-            if type(value) in {str, int, long, bool, float, unicode}:
+            if isinstance(value, (str, int, long, bool, float, unicode)):
                 return str(value)
             else:
                 # Collections are not allowed; they are handled separately.
@@ -219,7 +217,7 @@ class RequestConstraint(object):
                 raise TypeError('Constraint values of type ' + repr(type(value)) +
                                 'are not allowed')
         else:
-            if isinstance(value, (str, int, long, float)):
+            if isinstance(value, (str, int, bool, float)):
                 return str(value)
             else:
                 # Collections are not allowed; they are handled separately.
