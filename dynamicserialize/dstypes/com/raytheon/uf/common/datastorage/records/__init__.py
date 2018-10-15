@@ -10,8 +10,8 @@
 #    Apr 24, 2015    4425          nabowle        Add DoubleDataRecord
 #
 
-
 __all__ = [
+            'AbstractDataRecord',
             'ByteDataRecord',
             'DoubleDataRecord',
             'FloatDataRecord',
@@ -21,6 +21,7 @@ __all__ = [
             'StringDataRecord'
           ]
 
+from .AbstractDataRecord import AbstractDataRecord
 from .ByteDataRecord import ByteDataRecord
 from .DoubleDataRecord import DoubleDataRecord
 from .FloatDataRecord import FloatDataRecord
@@ -28,4 +29,3 @@ from .IntegerDataRecord import IntegerDataRecord
 from .LongDataRecord import LongDataRecord
 from .ShortDataRecord import ShortDataRecord
 from .StringDataRecord import StringDataRecord
-
