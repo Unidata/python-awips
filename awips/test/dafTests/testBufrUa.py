@@ -4,7 +4,6 @@ from awips.dataaccess import DataAccessLayer as DAL
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
 from awips.test.dafTests import baseDafTestCase
 from awips.test.dafTests import params
-import unittest
 
 #
 # Test DAF support for bufrua data

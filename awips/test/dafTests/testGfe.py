@@ -1,12 +1,3 @@
-from __future__ import print_function
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
-from awips.dataaccess import DataAccessLayer as DAL
-from shapely.geometry import box, Point
-
-from awips.test.dafTests import baseDafTestCase
-from awips.test.dafTests import params
-import unittest
-
 #
 # Test DAF support for GFE data
 #
@@ -31,6 +22,15 @@ import unittest
 #                                                 parmId.dbId.modelName
 #
 #
+
+from __future__ import print_function
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
+from awips.dataaccess import DataAccessLayer as DAL
+from shapely.geometry import box, Point
+
+from awips.test.dafTests import baseDafTestCase
+from awips.test.dafTests import params
+import unittest
 
 
 class GfeTestCase(baseDafTestCase.DafTestCase):

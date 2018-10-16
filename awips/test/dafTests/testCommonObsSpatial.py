@@ -1,12 +1,3 @@
-from __future__ import print_function
-from shapely.geometry import box
-from awips.dataaccess import DataAccessLayer as DAL
-
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
-from awips.test.dafTests import baseDafTestCase
-from awips.test.dafTests import params
-import unittest
-
 #
 # Test DAF support for common_obs_spatial data
 #
@@ -26,6 +17,12 @@ import unittest
 #    12/07/16        5981          tgurney        Parameterize
 #    01/06/17        5981          tgurney        Do not check data times
 #
+
+from __future__ import print_function
+from awips.dataaccess import DataAccessLayer as DAL
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
+from awips.test.dafTests import baseDafTestCase
+from awips.test.dafTests import params
 
 
 class CommonObsSpatialTestCase(baseDafTestCase.DafTestCase):

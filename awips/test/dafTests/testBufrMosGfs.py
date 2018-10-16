@@ -1,6 +1,3 @@
-from awips.test.dafTests import baseBufrMosTestCase
-import unittest
-
 #
 # Test DAF support for bufrmosGFS data
 #
@@ -13,6 +10,8 @@ import unittest
 #    04/18/16        5548          tgurney        More cleanup
 #
 #
+
+from awips.test.dafTests import baseBufrMosTestCase
 
 
 class BufrMosGfsTestCase(baseBufrMosTestCase.BufrMosTestCase):

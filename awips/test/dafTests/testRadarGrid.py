@@ -1,9 +1,3 @@
-from awips.dataaccess import DataAccessLayer as DAL
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
-
-from awips.test.dafTests import baseRadarTestCase
-from awips.test.dafTests import params
-
 #
 # Test DAF support for radar grid data
 #
@@ -14,6 +8,12 @@ from awips.test.dafTests import params
 #    08/25/16        2671          tgurney        Initial creation
 #
 #
+
+from awips.dataaccess import DataAccessLayer as DAL
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
+
+from awips.test.dafTests import baseRadarTestCase
+from awips.test.dafTests import params
 
 
 class RadarTestCase(baseRadarTestCase.BaseRadarTestCase):

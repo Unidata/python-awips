@@ -1,13 +1,3 @@
-from __future__ import print_function
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
-from shapely.geometry import box, Point
-from awips.dataaccess import DataAccessLayer as DAL
-from awips.ThriftClient import ThriftRequestException
-
-from awips.test.dafTests import baseDafTestCase
-from awips.test.dafTests import params
-import unittest
-
 #
 # Test DAF support for grid data
 #
@@ -29,6 +19,16 @@ import unittest
 #    01/06/17        5981          tgurney        Skip envelope test when no
 #                                                 data is available
 #
+
+from __future__ import print_function
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
+from awips.dataaccess import DataAccessLayer as DAL
+from awips.ThriftClient import ThriftRequestException
+from shapely.geometry import box, Point
+
+from awips.test.dafTests import baseDafTestCase
+from awips.test.dafTests import params
+import unittest
 
 
 class GridTestCase(baseDafTestCase.DafTestCase):

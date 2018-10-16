@@ -1,11 +1,3 @@
-from __future__ import print_function
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
-from awips.dataaccess import DataAccessLayer as DAL
-from awips.ThriftClient import ThriftRequestException
-
-from awips.test.dafTests import baseDafTestCase
-import unittest
-
 #
 # Test DAF support for maps data
 #
@@ -23,6 +15,13 @@ import unittest
 #    01/06/17        5981          tgurney        Do not check data times
 #
 #
+
+from __future__ import print_function
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
+from awips.dataaccess import DataAccessLayer as DAL
+from awips.ThriftClient import ThriftRequestException
+
+from awips.test.dafTests import baseDafTestCase
 
 
 class MapsTestCase(baseDafTestCase.DafTestCase):

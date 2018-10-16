@@ -1,7 +1,3 @@
-from dynamicserialize.dstypes.com.raytheon.uf.common.time import DataTime
-
-import unittest
-
 #
 # Unit tests for Python implementation of RequestConstraint
 #
@@ -12,6 +8,10 @@ import unittest
 #    08/02/16        2416          tgurney        Initial creation
 #
 #
+
+from dynamicserialize.dstypes.com.raytheon.uf.common.time import DataTime
+
+import unittest
 
 
 class DataTimeTestCase(unittest.TestCase):

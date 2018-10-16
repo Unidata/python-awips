@@ -1,10 +1,3 @@
-from __future__ import print_function
-from awips.dataaccess import DataAccessLayer as DAL
-from awips.ThriftClient import ThriftRequestException
-
-from awips.test.dafTests import baseDafTestCase
-from awips.test.dafTests import params
-
 #
 # Tests common to all radar factories
 #
@@ -29,6 +22,13 @@ from awips.test.dafTests import params
 #    12/07/16        5981          tgurney        Parameterize
 #
 #
+
+from __future__ import print_function
+from awips.dataaccess import DataAccessLayer as DAL
+from awips.ThriftClient import ThriftRequestException
+
+from awips.test.dafTests import baseDafTestCase
+from awips.test.dafTests import params
 
 
 class BaseRadarTestCase(baseDafTestCase.DafTestCase):

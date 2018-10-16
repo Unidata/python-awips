@@ -1,9 +1,3 @@
-from __future__ import print_function
-from awips.dataaccess import DataAccessLayer as DAL
-
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
-from awips.test.dafTests import baseDafTestCase
-
 #
 # Test DAF support for airep data
 #
@@ -19,6 +13,12 @@ from awips.test.dafTests import baseDafTestCase
 #    06/30/16        5725          tgurney        Add test for NOT IN
 #
 #
+
+from __future__ import print_function
+from awips.dataaccess import DataAccessLayer as DAL
+
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
+from awips.test.dafTests import baseDafTestCase
 
 
 class AirepTestCase(baseDafTestCase.DafTestCase):

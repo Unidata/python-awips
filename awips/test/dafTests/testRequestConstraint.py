@@ -1,7 +1,3 @@
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
-
-import unittest
-
 #
 # Unit tests for Python implementation of RequestConstraint
 #
@@ -12,6 +8,10 @@ import unittest
 #    07/22/16        2416          tgurney        Initial creation
 #
 #
+
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
+
+import unittest
 
 
 class RequestConstraintTestCase(unittest.TestCase):

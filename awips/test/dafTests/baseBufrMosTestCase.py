@@ -13,6 +13,7 @@
 #
 
 from awips.dataaccess import DataAccessLayer as DAL
+
 from awips.test.dafTests import baseDafTestCase
 from awips.test.dafTests import params
 

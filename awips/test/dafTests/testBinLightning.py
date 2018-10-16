@@ -1,10 +1,3 @@
-from __future__ import print_function
-from awips.dataaccess import DataAccessLayer as DAL
-from awips.ThriftClient import ThriftRequestException
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
-
-from awips.test.dafTests import baseDafTestCase
-
 #
 # Test DAF support for binlightning data
 #
@@ -27,6 +20,11 @@ from awips.test.dafTests import baseDafTestCase
 #    11/08/16        5985          tgurney        Do not check data times
 #
 #
+from __future__ import print_function
+from awips.dataaccess import DataAccessLayer as DAL
+from awips.ThriftClient import ThriftRequestException
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
+from awips.test.dafTests import baseDafTestCase
 
 
 class BinLightningTestCase(baseDafTestCase.DafTestCase):

@@ -1,10 +1,3 @@
-from __future__ import print_function
-from awips.dataaccess import DataAccessLayer as DAL
-from awips.ThriftClient import ThriftRequestException
-
-import os
-import unittest
-
 #
 # Base TestCase for DAF tests. This class provides helper methods and
 # tests common to all DAF test cases.
@@ -33,6 +26,13 @@ import unittest
 #                                                 data time
 #
 #
+
+from __future__ import print_function
+from awips.dataaccess import DataAccessLayer as DAL
+from awips.ThriftClient import ThriftRequestException
+
+import os
+import unittest
 
 
 class DafTestCase(unittest.TestCase):
@@ -68,7 +68,7 @@ class DafTestCase(unittest.TestCase):
         try:
             times = DAL.getAvailableTimes(req)
         except ThriftRequestException as e:
-            if not 'TimeAgnosticDataException' in str(e):
+            if 'TimeAgnosticDataException' not in str(e):
                 raise
         return times
 
@@ -98,14 +98,14 @@ class DafTestCase(unittest.TestCase):
 
     def runInvalidIdValuesTest(self):
         badString = 'id from ' + self.datatype + '; select 1;'
-        with self.assertRaises(ThriftRequestException) as cm:
+        with self.assertRaises(ThriftRequestException):
             req = DAL.newDataRequest(self.datatype)
-            idValues = DAL.getIdentifierValues(req, badString)
+            DAL.getIdentifierValues(req, badString)
 
     def runNonexistentIdValuesTest(self):
-        with self.assertRaises(ThriftRequestException) as cm:
+        with self.assertRaises(ThriftRequestException):
             req = DAL.newDataRequest(self.datatype)
-            idValues = DAL.getIdentifierValues(req, 'idthatdoesnotexist')
+            DAL.getIdentifierValues(req, 'idthatdoesnotexist')
 
     def runParametersTest(self, req):
         params = DAL.getAvailableParameters(req)
@@ -134,7 +134,7 @@ class DafTestCase(unittest.TestCase):
 
     def runTimeAgnosticTest(self, req):
         with self.assertRaises(ThriftRequestException) as cm:
-            times = DAL.getAvailableTimes(req)
+            DAL.getAvailableTimes(req)
         self.assertIn('TimeAgnosticDataException', str(cm.exception))
 
     def runGeometryDataTest(self, req, checkDataTimes=True):

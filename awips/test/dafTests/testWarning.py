@@ -1,10 +1,3 @@
-from __future__ import print_function
-from awips.dataaccess import DataAccessLayer as DAL
-
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
-from awips.test.dafTests import baseDafTestCase
-import unittest
-
 #
 # Test DAF support for warning data
 #
@@ -25,6 +18,13 @@ import unittest
 #    12/12/16        5981          tgurney        Improve test performance
 #
 #
+
+from __future__ import print_function
+from awips.dataaccess import DataAccessLayer as DAL
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
+
+from awips.test.dafTests import baseDafTestCase
+import unittest
 
 
 class WarningTestCase(baseDafTestCase.DafTestCase):

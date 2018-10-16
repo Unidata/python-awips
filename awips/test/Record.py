@@ -1,11 +1,3 @@
-#
-#     SOFTWARE HISTORY
-#
-#    Date            Ticket#       Engineer       Description
-#    ------------    ----------    -----------    --------------------------
-#    11/03/10        5849          cjeanbap       Initial Creation.
-#
-
 import sys
 
 

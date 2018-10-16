@@ -1,9 +1,3 @@
-from __future__ import print_function
-from awips.dataaccess import DataAccessLayer as DAL
-
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
-from awips.test.dafTests import baseDafTestCase
-
 #
 # Test DAF support for sfcobs data
 #
@@ -20,6 +14,12 @@ from awips.test.dafTests import baseDafTestCase
 #    01/20/17        6095          tgurney        Add null identifiers test
 #
 #
+
+from __future__ import print_function
+from awips.dataaccess import DataAccessLayer as DAL
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
+
+from awips.test.dafTests import baseDafTestCase
 
 
 class SfcObsTestCase(baseDafTestCase.DafTestCase):

@@ -1,10 +1,3 @@
-from __future__ import print_function
-from awips.dataaccess import DataAccessLayer as DAL
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
-
-from awips.test.dafTests import baseDafTestCase
-from awips.test.dafTests import params
-
 #
 # Test DAF support for obs data
 #
@@ -22,6 +15,13 @@ from awips.test.dafTests import params
 #    12/20/16        5981          tgurney        Add envelope test
 #
 #
+
+from __future__ import print_function
+from awips.dataaccess import DataAccessLayer as DAL
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
+
+from awips.test.dafTests import baseDafTestCase
+from awips.test.dafTests import params
 
 
 class ObsTestCase(baseDafTestCase.DafTestCase):

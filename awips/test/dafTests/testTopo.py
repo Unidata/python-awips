@@ -1,11 +1,3 @@
-from __future__ import print_function
-from awips.dataaccess import DataAccessLayer as DAL
-from awips.ThriftClient import ThriftRequestException
-
-from awips.test.dafTests import baseDafTestCase
-import shapely.geometry
-import unittest
-
 #
 # Test DAF support for topo data
 #
@@ -21,6 +13,13 @@ import unittest
 #    06/01/16        5587          tgurney        Update testGetIdentifierValues
 #    07/18/17        6253          randerso       Removed referenced to GMTED
 #
+
+from __future__ import print_function
+from awips.dataaccess import DataAccessLayer as DAL
+from awips.ThriftClient import ThriftRequestException
+import shapely.geometry
+
+from awips.test.dafTests import baseDafTestCase
 
 
 class TopoTestCase(baseDafTestCase.DafTestCase):

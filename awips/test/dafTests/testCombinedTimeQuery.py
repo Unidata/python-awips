@@ -1,9 +1,3 @@
-from awips.dataaccess import DataAccessLayer as DAL
-from awips.dataaccess import CombinedTimeQuery as CTQ
-
-import unittest
-import os
-
 #
 # Test the CombinedTimedQuery module
 #
@@ -16,6 +10,12 @@ import os
 #
 #
 #
+
+from awips.dataaccess import DataAccessLayer as DAL
+from awips.dataaccess import CombinedTimeQuery as CTQ
+
+import unittest
+import os
 
 
 class CombinedTimeQueryTestCase(unittest.TestCase):

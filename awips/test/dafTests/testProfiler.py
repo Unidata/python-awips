@@ -1,9 +1,3 @@
-from __future__ import print_function
-from awips.dataaccess import DataAccessLayer as DAL
-
-from awips.test.dafTests import baseDafTestCase
-import unittest
-
 #
 # Test DAF support for profiler data
 #
@@ -16,6 +10,11 @@ import unittest
 #    04/18/16        5548          tgurney        More cleanup
 #
 #
+
+from __future__ import print_function
+from awips.dataaccess import DataAccessLayer as DAL
+
+from awips.test.dafTests import baseDafTestCase
 
 
 class ProfilerTestCase(baseDafTestCase.DafTestCase):
