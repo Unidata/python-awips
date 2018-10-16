@@ -206,21 +206,21 @@ class ClimateTestCase(baseDafTestCase.DafTestCase):
     def testGetColumnIdValuesWithoutTableThrowsException(self):
         req = DAL.newDataRequest(self.datatype)
         with self.assertRaises(ThriftRequestException):
-            idValues = DAL.getIdentifierValues(req, 'year')
+            DAL.getIdentifierValues(req, 'year')
 
     @unittest.skip('avoid EDEX error')
     def testGetColumnIdValuesWithNonexistentTableThrowsException(self):
         req = DAL.newDataRequest(self.datatype)
         req.addIdentifier('table', 'nonexistentjunk')
         with self.assertRaises(ThriftRequestException):
-            idValues = DAL.getIdentifierValues(req, 'year')
+            DAL.getIdentifierValues(req, 'year')
 
     @unittest.skip('avoid EDEX error')
     def testGetNonexistentColumnIdValuesThrowsException(self):
         req = DAL.newDataRequest(self.datatype)
         req.addIdentifier('table', 'public.cli_asos_monthly')
         with self.assertRaises(ThriftRequestException):
-            idValues = DAL.getIdentifierValues(req, 'nonexistentjunk')
+            DAL.getIdentifierValues(req, 'nonexistentjunk')
 
     def testGetInvalidIdentifierValuesThrowsException(self):
         self.runInvalidIdValuesTest()

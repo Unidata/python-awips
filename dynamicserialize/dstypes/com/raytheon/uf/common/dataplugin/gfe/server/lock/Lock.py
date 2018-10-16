@@ -45,8 +45,9 @@ class Lock(object):
     def __repr__(self):
         t0 = time.gmtime(self.getStartTime() / 1000.0)
         t1 = time.gmtime(self.getEndTime() / 1000.0)
-        format = '%b %d %y %H:%M:%S %Z'
-        msg = 'TR: (' + time.strftime(format, t0) + ', ' + time.strftime(format, t1)
+        timeformat = '%b %d %y %H:%M:%S %Z'
+        msg = 'TR: (' + time.strftime(timeformat, t0) \
+              + ', ' + time.strftime(timeformat, t1)
         msg += " WsId: " + str(self.wsId)
         return msg
 

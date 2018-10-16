@@ -83,7 +83,7 @@ class MapsTestCase(baseDafTestCase.DafTestCase):
         req = DAL.newDataRequest(self.datatype)
         req.addIdentifier('geomField', 'the_geom')
         with self.assertRaises(ThriftRequestException):
-            idValues = DAL.getIdentifierValues(req, 'state')
+            DAL.getIdentifierValues(req, 'state')
 
     def testGetInvalidIdentifierValuesThrowsException(self):
         self.runInvalidIdValuesTest()

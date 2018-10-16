@@ -12,7 +12,7 @@
 ClassAdapter = ['java.nio.ByteBuffer', 'java.nio.HeapByteBuffer']
 
 
-def serialize(context, set):
+def serialize(context, bufferset):
     raise NotImplementedError("Serialization of ByteBuffers is not supported.")
 
 

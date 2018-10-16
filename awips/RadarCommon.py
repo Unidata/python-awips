@@ -13,16 +13,6 @@
 #
 #
 
-import argparse
-import sys
-
-from datetime import datetime
-from datetime import timedelta
-from awips import ThriftClient
-
-from dynamicserialize.dstypes.com.raytheon.uf.common.time import TimeRange
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.radar.request import GetRadarDataRecordRequest
-
 
 def get_datetime_str(record):
     """
@@ -48,10 +38,8 @@ def get_data_type(azdat):
             Radial or raster.
     """
     if azdat:
-        dattyp = "radial"
-    else :
-        dattyp = "raster"
-    return dattyp
+        return "radial"
+    return "raster"
 
 
 def get_hdf5_data(idra):

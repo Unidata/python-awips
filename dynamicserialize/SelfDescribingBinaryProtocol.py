@@ -29,12 +29,12 @@ doubleList = numpy.dtype(numpy.float64).newbyteorder('>')
 class SelfDescribingBinaryProtocol(TBinaryProtocol):
 
   def readFieldBegin(self):
-    type = self.readByte()
-    if type == TType.STOP:
-      return (None, type, 0)
+    ftype = self.readByte()
+    if ftype == TType.STOP:
+      return (None, ftype, 0)
     name = self.readString()
-    id = self.readI16()
-    return (name, type, id)
+    fid = self.readI16()
+    return (name, ftype, fid)
 
   def readStructBegin(self):
      return self.readString()
@@ -42,10 +42,10 @@ class SelfDescribingBinaryProtocol(TBinaryProtocol):
   def writeStructBegin(self, name):
      self.writeString(name)
 
-  def writeFieldBegin(self, name, type, id):
-     self.writeByte(type)
+  def writeFieldBegin(self, name, ftype, fid):
+     self.writeByte(ftype)
      self.writeString(name)
-     self.writeI16(id)
+     self.writeI16(fid)
 
   def readFloat(self):
       d = self.readI32()

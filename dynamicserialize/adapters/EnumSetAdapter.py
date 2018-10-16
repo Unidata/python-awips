@@ -15,11 +15,11 @@ from dynamicserialize.dstypes.java.util import EnumSet
 ClassAdapter = ['java.util.EnumSet', 'java.util.RegularEnumSet']
 
 
-def serialize(context, set):
-    setSize = len(set)
+def serialize(context, bufferset):
+    setSize = len(bufferset)
     context.writeI32(setSize)
     context.writeString(set.getEnumClass())
-    for val in set:
+    for val in bufferset:
         context.writeString(val)
 
 
@@ -27,6 +27,6 @@ def deserialize(context):
     setSize = context.readI32()
     enumClassName = context.readString()
     valList = []
-    for i in range(setSize):
+    for __ in range(setSize):
         valList.append(context.readString())
     return EnumSet(enumClassName, valList)

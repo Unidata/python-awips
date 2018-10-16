@@ -80,6 +80,7 @@ def registerAdapters(package, modules):
     if not package.endswith('.'):
         package += '.'
     for x in modules:
+        # TODO: use importlib
         exec('import ' + package + x)
         m = sys.modules[package + x]
         d = m.__dict__

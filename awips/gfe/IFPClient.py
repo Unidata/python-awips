@@ -39,7 +39,8 @@ class IFPClient(object):
             return self.__commitGrid([request])
         elif self.__isHomogenousIterable(request, CommitGridRequest):
             return self.__commitGrid([cgr for cgr in request])
-        raise TypeError("Invalid type: " + str(type(request)) + " specified to commitGrid(). Only accepts CommitGridRequest or lists of CommitGridRequest.")
+        raise TypeError("Invalid type: " + str(type(request)) +
+                        " for commitGrid(). Only accepts CommitGridRequest or lists of CommitGridRequest.")
 
     def __commitGrid(self, requests):
         ssr = ServerResponse()
@@ -49,13 +50,14 @@ class IFPClient(object):
         ssr.setMessages(sr.getMessages())
         return ssr
 
-    def getParmList(self, id):
-        argType = type(id)
+    def getParmList(self, pid):
+        argType = type(pid)
         if argType is DatabaseID:
-            return self.__getParmList([id])
-        elif self.__isHomogenousIterable(id, DatabaseID):
-            return self.__getParmList([dbid for dbid in id])
-        raise TypeError("Invalid type: " + str(argType) + " specified to getParmList(). Only accepts DatabaseID or lists of DatabaseID.")
+            return self.__getParmList([pid])
+        elif self.__isHomogenousIterable(pid, DatabaseID):
+            return self.__getParmList([dbid for dbid in pid])
+        raise TypeError("Invalid type: " + str(argType) +
+                        " for getParmList(). Only accepts DatabaseID or lists of DatabaseID.")
 
     def __getParmList(self, ids):
         ssr = ServerResponse()

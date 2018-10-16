@@ -58,7 +58,7 @@ class StoreTimeAction(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
         try:
             timeStruct = time.strptime(values, TIME_FORMAT)
-        except:
+        except ValueError:
             parser.error(str(values) + " is not a valid time string of the format YYYYMMDD_hhmm")
 
         setattr(namespace, self.dest, timeStruct)

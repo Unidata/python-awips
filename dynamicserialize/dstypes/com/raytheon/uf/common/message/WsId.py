@@ -8,7 +8,6 @@
 # Feb 06, 2017  5959     randerso  Removed Java .toString() calls
 #
 
-
 import struct
 import socket
 import os
@@ -20,7 +19,7 @@ except ImportError:
 try:
     import _thread
 except ImportError:
-    import thread
+    import thread as _thread
 
 
 class WsId(object):

@@ -12,7 +12,7 @@
 ClassAdapter = ['java.nio.FloatBuffer', 'java.nio.HeapFloatBuffer']
 
 
-def serialize(context, set):
+def serialize(context, bufferset):
     raise NotImplementedError("Serialization of FloatBuffers is not supported.")
 
 

@@ -4,7 +4,6 @@ from awips.ThriftClient import ThriftRequestException
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
 
 from awips.test.dafTests import baseDafTestCase
-import unittest
 
 #
 # Test DAF support for binlightning data

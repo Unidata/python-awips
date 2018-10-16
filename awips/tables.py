@@ -8,26 +8,25 @@ class Item(object):
             setattr(self, key, kwargs[key])
 
 
-class GenerateNexradTable(object):
-    def __init__(self, *initial_data, **kwargs):
-        import numpy as np
-        import json
-        # find this file locally and confirm location
-        filename = '~/awips2-builds/edexOsgi/com.raytheon.edex.plugin.radar/utility/common_static/base/radarInfoSimple.txt'
-        data = np.genfromtxt(
-            filename,
-            delimiter=",",
-            autostrip=True,
-            skip_header=0,
-            names=True,
-            dtype=None)
-
-        for x in data:
-            defn = Item(dict(zip(data.dtype.names, x)))
-            prod = dict(zip(data.dtype.names, x))
-            nexrad[defn.id] = prod
-
-        return json.dumps(nexrad, indent=1)
+#class GenerateNexradTable(object):
+#	import numpy as np
+#	import json
+#	# find this file locally and confirm location
+#	filename = '~/awips2-builds/edexOsgi/com.raytheon.edex.plugin.radar/utility/common_static/base/radarInfoSimple.txt'
+#	data = np.genfromtxt(
+#		filename,
+#		delimiter=",",
+#		autostrip=True,
+#		skip_header=0,
+#		names=True,
+#		dtype=None)
+#
+#	for x in data:
+#		defn = Item(dict(zip(data.dtype.names, x)))
+#		prod = dict(zip(data.dtype.names, x))
+#		nexrad[defn.id] = prod
+#
+#	return json.dumps(nexrad, indent=1)
 
 
 profiler = {
@@ -1534,7 +1533,7 @@ vtec = {
     'CF.S' : {'phen': 'CF',
               'sig': 'S',
               'color': 'olivedrab',
-              'hdln': 'Coastal Flood Statement'}, 
+              'hdln': 'Coastal Flood Statement'},
     'DS.W' : {'phen': 'DS',
               'sig': 'W',
               'color': 'bisque',
@@ -1798,11 +1797,11 @@ vtec = {
     'SU.Y' : {'phen': 'SU',
               'sig': 'Y',
               'color': 'mediumorchid',
-              'hdln': 'High Surf Advisory'},             
+              'hdln': 'High Surf Advisory'},
     'SV.A' : {'phen': 'SV',
               'sig': 'A',
               'color': 'palevioletred',
-              'hdln': 'Severe Thunderstorm Watch'},             
+              'hdln': 'Severe Thunderstorm Watch'},
     'SV.S' : {'phen': 'SV',
               'sig': 'S',
               'color': 'aqua',
@@ -1902,14 +1901,14 @@ vtec = {
     }
 
 #
-# Upgrade Hazards Dictionary - upgradeHazardsDict is a dictionary of 
-# phen/sig combinations defining upgrades. Each key is the proposed hazard. 
-# The associated list are the hazards which are upgraded by the 
+# Upgrade Hazards Dictionary - upgradeHazardsDict is a dictionary of
+# phen/sig combinations defining upgrades. Each key is the proposed hazard.
+# The associated list are the hazards which are upgraded by the
 # proposed hazard.
 #
 
 upgradeHazardsDict = {
-'WC.W': ['WC.A', 'WC.Y'], 
+'WC.W': ['WC.A', 'WC.Y'],
 'WC.Y': ['WC.A'],
 'BZ.W': ['WS.W', 'LE.W', 'ZR.Y', 'LE.Y', 'WW.Y',
          'BZ.A', 'WS.A', 'LE.A'],
@@ -1957,7 +1956,7 @@ upgradeHazardsDict = {
 'AF.W': ['AF.Y'],
 'MH.W': ['MH.Y'],
  }
- 
+
 #
 # When passed a phen/sig for both the current hazard and the proposed hazard,
 # checkForUpgrade returns a 1 if the proposed hazard is an upgrade, otherwise 0
@@ -1975,9 +1974,9 @@ def checkForUpgrade(pPhen, pSig, cPhen, cSig):
         return 0
 
 #
-# Downgrade Hazards Dictionary - downgradeHazardsDict is a dictionary of 
-# phen/sig combinations defining downgrades. Each key is the proposed hazard. 
-# The associated list are the hazards which are downgraded by the 
+# Downgrade Hazards Dictionary - downgradeHazardsDict is a dictionary of
+# phen/sig combinations defining downgrades. Each key is the proposed hazard.
+# The associated list are the hazards which are downgraded by the
 # proposed hazard.
 #
 

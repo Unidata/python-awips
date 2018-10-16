@@ -46,7 +46,7 @@ class ObsTestCase(baseDafTestCase.DafTestCase):
         req = DAL.newDataRequest(self.datatype)
         req.setLocationNames(params.OBS_STATION)
         req.setParameters("temperature", "seaLevelPress", "dewpoint")
-        data = self.runGeometryDataTest(req)
+        self.runGeometryDataTest(req)
 
     def testGetGeometryDataWithEnvelope(self):
         req = DAL.newDataRequest(self.datatype)

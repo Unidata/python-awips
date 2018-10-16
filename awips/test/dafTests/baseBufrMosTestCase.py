@@ -1,10 +1,3 @@
-from awips.dataaccess import DataAccessLayer as DAL
-from shapely.geometry import box
-
-from awips.test.dafTests import baseDafTestCase
-from awips.test.dafTests import params
-import unittest
-
 #
 # Base TestCase for BufrMos* tests.
 #
@@ -18,6 +11,10 @@ import unittest
 #    12/15/16        5981          tgurney        Add envelope test
 #
 #
+
+from awips.dataaccess import DataAccessLayer as DAL
+from awips.test.dafTests import baseDafTestCase
+from awips.test.dafTests import params
 
 
 class BufrMosTestCase(baseDafTestCase.DafTestCase):

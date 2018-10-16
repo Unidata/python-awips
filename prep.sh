@@ -1,11 +1,7 @@
 #!/bin/bash
-#
 # python-awips prep script
 # author: mjames@ucar.edu
 #
-# This script is designed to
-#
-
 
 # should be /awips2/repo/python-awips or ~/python-awips
 dir="$( cd "$(dirname "$0")" ; pwd -P )"
@@ -24,14 +20,14 @@ find /awips2/repo/awips2-builds/edexOsgi/ -path '*/pythonPackages/dynamicseriali
 
 echo "Updating dynamicserialize/dstypes"
 # Update __all__  for every package under dstypes
-for package in `find dynamicserialize/dstypes -name __init__.py -printf '%h '`
+for package in $(find dynamicserialize/dstypes -name __init__.py -printf '%h ')
 do
     pushd $package > /dev/null
     # find non-hidden packages
-    subpackages=(`find . -maxdepth 1 -type d ! -name ".*" -printf '%f\n' | sort`)
+    subpackages=$(find . -maxdepth 1 -type d ! -name ".*" -printf '%f\n' | sort)
 
     # find non-hidden python modules
-    modules=(`find . -maxdepth 1 -type f \( -name "*.py" ! -name "__init__.py" ! -name ".*" \) -printf '%f\n' | sed 's/\.py//' | sort`)
+    modules=$(find . -maxdepth 1 -type f \( -name "*.py" ! -name "__init__.py" ! -name ".*" \) -printf '%f\n' | sed 's/\.py//' | sort)
 
     # join subpackages and modules into a single list, modules first
     all=("${subpackages[@]}" "${modules[@]}")
@@ -39,7 +35,7 @@ do
 
     #replace the current __all__ definition with the rebuilt __all__, which now includes all contributed packages and modules.
     #-0777 allows us to match the multi-line __all__ definition
-    perl -0777 -p -i -e "s/__all__ = \[[^\]]*\]/__all__ = \[`echo \"${joined:1}\"`\n          \]/g" __init__.py
+    perl -0777 -p -i -e "s/__all__ = \[[^\]]*\]/__all__ = \[$(echo \"${joined:1}\")\n          \]/g" __init__.py
 
     popd > /dev/null
 done
