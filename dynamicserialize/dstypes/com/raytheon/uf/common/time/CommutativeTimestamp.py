@@ -6,7 +6,6 @@
 #    06/23/2016      #5696         rjpeter        Initial creation.
 #
 
-from time import gmtime, strftime
 from dynamicserialize.dstypes.java.sql import Timestamp
 
 

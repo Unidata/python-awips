@@ -17,8 +17,8 @@ ClassAdapter = [
                 ]
 
 
-def serialize(context, type):
-    context.writeString(type.getText())
+def serialize(context, ltype):
+    context.writeString(ltype.getText())
 
 
 def deserialize(context):

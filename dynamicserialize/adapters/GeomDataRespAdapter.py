@@ -14,7 +14,6 @@
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.response import GeometryResponseData
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.response import GetGeometryDataResponse
 
-
 ClassAdapter = 'com.raytheon.uf.common.dataaccess.response.GetGeometryDataResponse'
 
 
@@ -54,7 +53,7 @@ def serialize(context, resp):
 def deserialize(context):
     size = context.readI32()
     wkbs = []
-    for i in range(size):
+    for __ in range(size):
         wkb = context.readBinary()
         wkbs.append(wkb)
 
@@ -78,7 +77,7 @@ def deserialize(context):
         # parameters
         paramSize = context.readI32()
         paramMap = {}
-        for k in range(paramSize):
+        for __ in range(paramSize):
             paramName = context.readString()
             value = context.readObject()
             tName = context.readString()

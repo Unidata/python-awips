@@ -21,8 +21,8 @@ class SiteActivationNotification(object):
     def getType(self):
         return self.type
 
-    def setType(self, type):
-        self.type = type
+    def setType(self, notificationType):
+        self.type = notificationType
 
     def getStatus(self):
         return self.status

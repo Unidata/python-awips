@@ -9,7 +9,6 @@
 #
 
 from awips.dataaccess import IDataRequest
-
 from dynamicserialize.dstypes.com.vividsolutions.jts.geom import Envelope
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.level import Level
 

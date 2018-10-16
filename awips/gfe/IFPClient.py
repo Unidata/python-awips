@@ -65,8 +65,8 @@ class IFPClient(object):
         request.setDbIds(ids)
         sr = self.__makeRequest(request)
         ssr.setMessages(sr.getMessages())
-        list = sr.getPayload() if sr.getPayload() is not None else []
-        ssr.setPayload(list)
+        parmlist = sr.getPayload() if sr.getPayload() is not None else []
+        ssr.setPayload(parmlist)
         return ssr
 
     def __isHomogenousIterable(self, iterable, classType):
@@ -82,17 +82,18 @@ class IFPClient(object):
     def getGridInventory(self, parmID):
         if isinstance(parmID, ParmID):
             sr = self.__getGridInventory([parmID])
-            list = []
+            inventoryList = []
             try:
-                list = sr.getPayload()[parmID]
+                inventoryList = sr.getPayload()[parmID]
             except KeyError:
                 # no-op, we've already default the TimeRange list to empty
                 pass
-            sr.setPayload(list)
+            sr.setPayload(inventoryList)
             return sr
         elif self.__isHomogenousIterable(parmID, ParmID):
             return self.__getGridInventory([id for id in parmID])
-        raise TypeError("Invalid type: " + str(type(parmID)) + " specified to getGridInventory(). Only accepts ParmID or lists of ParmID.")
+        raise TypeError("Invalid type: " + str(type(parmID)) +
+                        " specified to getGridInventory(). Accepts ParmID or lists of ParmID.")
 
     def __getGridInventory(self, parmIDs):
         ssr = ServerResponse()

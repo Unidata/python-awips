@@ -123,11 +123,11 @@ class RequestConstraint(object):
         '''
         try:
             return float(value)
-        except Exception:
+        except ValueError:
             pass
         try:
             return DataTime(value)
-        except Exception:
+        except ValueError:
             pass
         return value
 

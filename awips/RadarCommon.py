@@ -49,25 +49,25 @@ def get_hdf5_data(idra):
     threshVals = []
     if len(idra) > 0:
         for ii in range(len(idra)):
-           if idra[ii].getName() == "Data":
-              rdat = idra[ii]
-           elif idra[ii].getName() == "Angles":
-              azdat = idra[ii]
-              dattyp = "radial"
-           elif idra[ii].getName() == "DependentValues":
-              depVals = idra[ii].getShortData()
-           elif idra[ii].getName() == "Thresholds":
-              threshVals = idra[ii].getShortData()
+            if idra[ii].getName() == "Data":
+                rdat = idra[ii]
+            elif idra[ii].getName() == "Angles":
+                azdat = idra[ii]
+                # dattyp = "radial"
+            elif idra[ii].getName() == "DependentValues":
+                depVals = idra[ii].getShortData()
+            elif idra[ii].getName() == "Thresholds":
+                threshVals = idra[ii].getShortData()
 
     return rdat,azdat,depVals,threshVals
 
 
-def get_header(record, format, xLen, yLen, azdat, description):
+def get_header(record, headerFormat, xLen, yLen, azdat, description):
     # Encode dimensions, time, mapping, description, tilt, and VCP
     mytime = get_datetime_str(record)
     dattyp = get_data_type(azdat)
 
-    if format :
+    if headerFormat:
         msg = str(xLen) + " " + str(yLen) + " " + mytime + " " + \
             dattyp + " " + str(record.getLatitude()) + " " +  \
             str(record.getLongitude()) + " " +  \
@@ -75,8 +75,7 @@ def get_header(record, format, xLen, yLen, azdat, description):
             str(record.getElevationNumber()) + " " +  \
             description + " " + str(record.getTrueElevationAngle()) + " " + \
             str(record.getVolumeCoveragePattern()) + "\n"
-#"%.1f"%
-    else :
+    else:
         msg = str(xLen) + " " + str(yLen) + " " + mytime + " " + \
             dattyp + " " + description + " " + \
             str(record.getTrueElevationAngle()) + " " + \
@@ -91,32 +90,32 @@ def encode_thresh_vals(threshVals):
     nnn = len(threshVals)
     j = 0
     msg = ""
-    while j<nnn :
+    while j<nnn:
         lo = threshVals[j] % 256
         hi = threshVals[j] / 256
         msg += " "
         j += 1
-        if hi < 0 :
-            if lo > 14 :
+        if hi < 0:
+            if lo > 14:
                 msg += "."
-            else :
+            else:
                 msg += spec[lo]
             continue
-        if hi % 16 >= 8 :
+        if hi % 16 >= 8:
             msg += ">"
-        elif hi % 8 >= 4 :
+        elif hi % 8 >= 4:
             msg += "<"
-        if hi % 4 >= 2 :
+        if hi % 4 >= 2:
             msg += "+"
-        elif hi % 2 >= 1 :
+        elif hi % 2 >= 1:
             msg += "-"
-        if hi >= 64 :
-            msg += "%.2f"%(lo*0.01)
-        elif hi % 64 >= 32 :
-            msg += "%.2f"%(lo*0.05)
-        elif hi % 32 >= 16 :
-            msg += "%.1f"%(lo*0.1)
-        else :
+        if hi >= 64:
+            msg += "%.2f" % (lo*0.01)
+        elif hi % 64 >= 32:
+            msg += "%.2f" % (lo*0.05)
+        elif hi % 32 >= 16:
+            msg += "%.1f" % (lo*0.1)
+        else:
             msg += str(lo)
     msg += "\n"
     return msg
@@ -126,7 +125,7 @@ def encode_dep_vals(depVals):
     nnn = len(depVals)
     j = 0
     msg = []
-    while j<nnn :
+    while j < nnn:
         msg.append(str(depVals[j]))
         j += 1
     return msg
@@ -136,7 +135,7 @@ def encode_radial(azVals):
     azValsLen = len(azVals)
     j = 0
     msg = []
-    while j<azValsLen :
+    while j < azValsLen:
         msg.append(azVals[j])
         j += 1
     return msg

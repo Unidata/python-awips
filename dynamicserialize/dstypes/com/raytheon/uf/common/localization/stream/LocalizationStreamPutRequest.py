@@ -1,3 +1,4 @@
+
 import uuid
 from dynamicserialize.dstypes.com.raytheon.uf.common.localization.stream import AbstractLocalizationStreamRequest
 
@@ -15,14 +16,14 @@ class LocalizationStreamPutRequest(AbstractLocalizationStreamRequest):
     def getId(self):
         return self.id
 
-    def setId(self, id):
-        self.id = id
+    def setId(self, requestid):
+        self.id = requestid
 
     def getBytes(self):
         return self.bytes
 
-    def setBytes(self, bytes):
-        self.bytes = bytes
+    def setBytes(self, streambytes):
+        self.bytes = streambytes
 
     def getEnd(self):
         return self.end

@@ -24,10 +24,12 @@ class SerializationException(Exception):
         else:
             return ""
 
+
 def serialize(obj):
     dsm = DynamicSerializationManager.DynamicSerializationManager()
     return dsm.serializeObject(obj)
 
-def deserialize(bytes):
+
+def deserialize(objbytes):
     dsm = DynamicSerializationManager.DynamicSerializationManager()
-    return dsm.deserializeBytes(bytes)
+    return dsm.deserializeBytes(objbytes)

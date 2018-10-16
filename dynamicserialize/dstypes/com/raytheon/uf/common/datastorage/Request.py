@@ -36,6 +36,6 @@ class Request(object):
     def getType(self):
         return self.type
 
-    def setType(self, type):
-        self.type = type
+    def setType(self, requesttype):
+        self.type = requesttype
 

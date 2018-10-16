@@ -72,9 +72,11 @@ class DatabaseID(object):
 
     def __encodeIdentifier(self):
         if self.dbType is not None:
-            self.modelId = self.siteId + "_" + self.format + "_" + self.dbType + "_" + self.modelName
+            self.modelId = self.siteId + "_" + self.format + "_" \
+                           + self.dbType + "_" + self.modelName
         else:
-            self.modelId = self.siteId + "_" + self.format + "__" + self.modelName
+            self.modelId = self.siteId + "_" + self.format + "__" \
+                           + self.modelName
 
         self.shortModelId = self.modelName
         if self.dbType is not None and self.dbType != "":
@@ -127,7 +129,7 @@ class DatabaseID(object):
         dateStruct = time.gmtime(0)
         try:
             dateStruct = time.strptime(dtgString, "%Y%m%d_%H%M")
-        except:
+        except ValueError:
             return (False, dateStruct)
         return (True, dateStruct)
 

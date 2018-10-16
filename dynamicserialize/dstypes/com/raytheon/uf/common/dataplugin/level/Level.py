@@ -150,8 +150,8 @@ class Level(object):
     def getId(self):
         return self.id
 
-    def setId(self, id):
-        self.id = id
+    def setId(self, levelid):
+        self.id = levelid
 
     def getMasterLevel(self):
         return self.masterLevel

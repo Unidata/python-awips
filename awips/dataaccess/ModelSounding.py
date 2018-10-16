@@ -11,14 +11,9 @@
 #    06/24/15         #4480        dgilling       Initial Creation.
 #
 
-from collections import defaultdict
-from shapely.geometry import Point
-
-from awips import DateTimeConverter
 from awips.dataaccess import DataAccessLayer
-
-from dynamicserialize.dstypes.com.raytheon.uf.common.time import DataTime
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.level import Level
+from shapely.geometry import Point
 
 
 def getSounding(modelName, weatherElements, levels, samplePoint, timeRange=None):

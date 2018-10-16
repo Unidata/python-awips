@@ -5,10 +5,10 @@ from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.db.objects i
 
 class GridParmInfo(object):
 
-    def __init__(self, id=None, gridLoc=None, gridType="NONE", unit=None,
+    def __init__(self, parmid=None, gridLoc=None, gridType="NONE", unit=None,
                  descriptiveName="", minValue=0.0, maxValue=0.0, precision=0,
                  timeIndependentParm=False, timeConstraints=None, rateParm=False):
-        self.parmID = id
+        self.parmID = parmid
         self.gridLoc = gridLoc
         self.gridType = gridType
         self.descriptiveName = descriptiveName

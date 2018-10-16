@@ -21,6 +21,7 @@ from awips.dataaccess import IGeometryData
 from awips.dataaccess import PyData
 import six
 
+
 class PyGeometryData(IGeometryData, PyData.PyData):
 
     def __init__(self, geoDataRecord, geometry):
@@ -76,7 +77,7 @@ class PyGeometryData(IGeometryData, PyData.PyData):
     def getType(self, param):
         if six.PY2:
             return self.__dataMap[param][1]
-        type = self.__dataMap[param.encode('utf-8')][1]
-        if type is not None:
-            return type.decode('utf-8')
-        return type
+        datatype = self.__dataMap[param.encode('utf-8')][1]
+        if datatype is not None:
+            return datatype.decode('utf-8')
+        return datatype

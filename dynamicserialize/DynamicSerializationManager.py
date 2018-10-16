@@ -22,15 +22,15 @@ class DynamicSerializationManager:
     def _deserialize(self, ctx):
         return ctx.deserializeMessage()
 
-    def deserializeBytes(self, bytes):
-        ctx = self._buildSerializationContext(bytes)
+    def deserializeBytes(self, sbytes):
+        ctx = self._buildSerializationContext(sbytes)
         ctx.readMessageStart()
         obj = self._deserialize(ctx)
         ctx.readMessageEnd()
         return obj
 
-    def _buildSerializationContext(self, bytes=None):
-        self.transport = TTransport.TMemoryBuffer(bytes)
+    def _buildSerializationContext(self, sbytes=None):
+        self.transport = TTransport.TMemoryBuffer(sbytes)
         protocol = SelfDescribingBinaryProtocol.SelfDescribingBinaryProtocol(self.transport)
         return ThriftSerializationContext.ThriftSerializationContext(self, protocol)
 

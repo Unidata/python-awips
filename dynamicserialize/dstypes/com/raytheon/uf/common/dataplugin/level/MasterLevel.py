@@ -85,8 +85,8 @@ class MasterLevel(object):
             return self.type.decode('utf-8')
         return self.type
 
-    def setType(self, type):
-        self.type = type
+    def setType(self, leveltype):
+        self.type = leveltype
 
     def getIdentifier(self):
         if six.PY2:

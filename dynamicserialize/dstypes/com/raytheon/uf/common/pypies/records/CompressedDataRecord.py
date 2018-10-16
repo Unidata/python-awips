@@ -34,8 +34,8 @@ class CompressedDataRecord(object):
     def getType(self):
         return self.type
 
-    def setType(self, type):
-        self.type = type
+    def setType(self, recordtype):
+        self.type = recordtype
 
     def getCompressedData(self):
         return self.compressedData

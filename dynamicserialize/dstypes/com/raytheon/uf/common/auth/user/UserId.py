@@ -8,18 +8,17 @@ except ImportError:
 
 class UserId(object):
 
-    def __init__(self, id = None):
-        if id is None:
-           if not pwd_error:
-              self.id = pwd.getpwuid(os.getuid()).pw_name
-           else:
-              self.id = "GenericUsername"
+    def __init__(self, userid = None):
+        if userid is None:
+            if not pwd_error:
+                self.id = pwd.getpwuid(os.getuid()).pw_name
+            else:
+                self.id = "GenericUsername"
         else:
-           self.id = id
+            self.id = userid
 
     def getId(self):
         return self.id
 
-    def setId(self, id):
-        self.id = id
-
+    def setId(self, userid):
+        self.id = userid
