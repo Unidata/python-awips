@@ -25,7 +25,7 @@ AWIPS Python Data Access Framework
         :target: https://travis-ci.org/Unidata/python-awips
         :alt: Travis Build Status
 
-.. |Codacy| image:: https://api.codacy.com/project/badge/Grade/560b27db294449ed9484da1aadeaee91
+.. |Codacy| image:: https://api.codacy.com/project/badge/Grade/e281f05c69164779814cad93eb3585cc
         :target: https://www.codacy.com/app/mjames/python-awips
         :alt: Codacy issues
 
