@@ -21,9 +21,9 @@ class TimeConstraints(object):
         else:
             if self.isInvalidInterval(repeatInterval, duration, startTime):
                 logging.warning("Bad init values for TimeConstraints: "
-                                + self.duration + ", "
-                                + self.repeatInterval + ", "
-                                + self.startTime)
+                                + str(duration) + ", "
+                                + str(repeatInterval) + ", "
+                                + str(startTime))
                 self.valid = False
                 duration = 0
                 repeatInterval = 0
