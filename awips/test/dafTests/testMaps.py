@@ -105,11 +105,6 @@ class MapsTestCase(baseDafTestCase.DafTestCase):
         for record in geometryData:
             self.assertEqual(record.getString('state'), 'NE')
 
-    def testGetDataWithEqualsUnicode(self):
-        geometryData = self._runConstraintTest('state', '=', u'NE')
-        for record in geometryData:
-            self.assertEqual(record.getString('state'), 'NE')
-
     def testGetDataWithEqualsInt(self):
         geometryData = self._runConstraintTest('reservoir', '=', 1)
         for record in geometryData:

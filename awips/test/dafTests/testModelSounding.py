@@ -121,11 +121,6 @@ class ModelSoundingTestCase(baseDafTestCase.DafTestCase):
         for record in geometryData:
             self.assertIn('/ETA/', record.getString('dataURI'))
 
-    def testGetDataWithEqualsUnicode(self):
-        geometryData = self._runConstraintTest('reportType', '=', u'ETA')
-        for record in geometryData:
-            self.assertIn('/ETA/', record.getString('dataURI'))
-
     # No numeric tests since no numeric identifiers are available.
 
     def testGetDataWithEqualsNone(self):

@@ -115,11 +115,6 @@ class WarningTestCase(baseDafTestCase.DafTestCase):
         for record in geometryData:
             self.assertEqual(record.getString('sig'), 'Y')
 
-    def testGetDataWithEqualsUnicode(self):
-        geometryData = self._runConstraintTest('sig', '=', u'Y')
-        for record in geometryData:
-            self.assertEqual(record.getString('sig'), 'Y')
-
     def testGetDataWithEqualsInt(self):
         geometryData = self._runConstraintTest('etn', '=', 1000)
         for record in geometryData:

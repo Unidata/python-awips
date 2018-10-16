@@ -66,11 +66,6 @@ class AirepTestCase(baseDafTestCase.DafTestCase):
         for record in geometryData:
             self.assertEqual(record.getString('reportType'), 'AIREP')
 
-    def testGetDataWithEqualsUnicode(self):
-        geometryData = self._runConstraintTest('reportType', '=', u'AIREP')
-        for record in geometryData:
-            self.assertEqual(record.getString('reportType'), 'AIREP')
-
     # No numeric tests since no numeric identifiers are available.
 
     def testGetDataWithEqualsNone(self):

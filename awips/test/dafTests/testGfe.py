@@ -139,11 +139,6 @@ class GfeTestCase(baseDafTestCase.DafTestCase):
         for record in gridData:
             self.assertEqual(record.getAttribute('parmId.dbId.dbType'), 'Prac')
 
-    def testGetDataWithEqualsUnicode(self):
-        gridData = self._runConstraintTest('parmId.dbId.modelName', '=', u'Fcst')
-        for record in gridData:
-            self.assertEqual(record.getAttribute('parmId.dbId.modelName'), 'Fcst')
-
     # No numeric tests since no numeric identifiers are available.
 
     def testGetDataWithEqualsNone(self):

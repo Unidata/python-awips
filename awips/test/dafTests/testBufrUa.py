@@ -105,11 +105,6 @@ class BufrUaTestCase(baseDafTestCase.DafTestCase):
         for record in geometryData:
             self.assertEqual(record.getString('rptType'), '2022')
 
-    def testGetDataWithEqualsUnicode(self):
-        geometryData = self._runConstraintTest('reportType', '=', u'2022')
-        for record in geometryData:
-            self.assertEqual(record.getString('rptType'), '2022')
-
     def testGetDataWithEqualsInt(self):
         geometryData = self._runConstraintTest('reportType', '=', 2022)
         for record in geometryData:

@@ -73,11 +73,6 @@ class SatelliteTestCase(baseDafTestCase.DafTestCase):
         for record in gridData:
             self.assertEqual(record.getAttribute('creatingEntity'), 'Composite')
 
-    def testGetDataWithEqualsUnicode(self):
-        gridData = self._runConstraintTest('creatingEntity', '=', u'Composite')
-        for record in gridData:
-            self.assertEqual(record.getAttribute('creatingEntity'), 'Composite')
-
     def testGetDataWithEqualsInt(self):
         gridData = self._runConstraintTest('creatingEntity', '=', 1000)
         for record in gridData:

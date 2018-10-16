@@ -76,11 +76,6 @@ class SfcObsTestCase(baseDafTestCase.DafTestCase):
         for record in geometryData:
             self.assertEqual(record.getString('reportType'), '1004')
 
-    def testGetDataWithEqualsUnicode(self):
-        geometryData = self._runConstraintTest('reportType', '=', u'1004')
-        for record in geometryData:
-            self.assertEqual(record.getString('reportType'), '1004')
-
     def testGetDataWithEqualsInt(self):
         geometryData = self._runConstraintTest('reportType', '=', 1004)
         for record in geometryData:

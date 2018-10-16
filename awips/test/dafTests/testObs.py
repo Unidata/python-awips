@@ -80,11 +80,6 @@ class ObsTestCase(baseDafTestCase.DafTestCase):
         for record in geometryData:
             self.assertEqual(record.getString('reportType'), 'METAR')
 
-    def testGetDataWithEqualsUnicode(self):
-        geometryData = self._runConstraintTest('reportType', '=', u'METAR')
-        for record in geometryData:
-            self.assertEqual(record.getString('reportType'), 'METAR')
-
     # No numeric tests since no numeric identifiers are available.
 
     def testGetDataWithEqualsNone(self):

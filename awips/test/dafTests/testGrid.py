@@ -124,11 +124,6 @@ class GridTestCase(baseDafTestCase.DafTestCase):
         for record in gridData:
             self.assertEqual(record.getAttribute('info.level.levelonevalue'), 2000.0)
 
-    def testGetDataWithEqualsUnicode(self):
-        gridData = self._runConstraintTest('info.level.levelonevalue', '=', u'2000.0')
-        for record in gridData:
-            self.assertEqual(record.getAttribute('info.level.levelonevalue'), 2000.0)
-
     def testGetDataWithEqualsInt(self):
         gridData = self._runConstraintTest('info.level.levelonevalue', '=', 2000)
         for record in gridData:

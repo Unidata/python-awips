@@ -83,11 +83,6 @@ class BaseRadarTestCase(baseDafTestCase.DafTestCase):
         for record in gridData:
             self.assertEqual(record.getAttribute('icao'), self.radarLoc)
 
-    def testGetDataWithEqualsUnicode(self):
-        gridData = self.runConstraintTest('icao', '=', unicode(self.radarLoc))
-        for record in gridData:
-            self.assertEqual(record.getAttribute('icao'), self.radarLoc)
-
     def testGetDataWithEqualsInt(self):
         gridData = self.runConstraintTest('icao', '=', 1000)
         for record in gridData:

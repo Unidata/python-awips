@@ -86,11 +86,6 @@ class BinLightningTestCase(baseDafTestCase.DafTestCase):
         for record in geomData:
             self.assertEqual(record.getAttribute('source'), self.source)
 
-    def testGetDataWithEqualsUnicode(self):
-        geomData = self._runConstraintTest('source', '=', self.source)
-        for record in geomData:
-            self.assertEqual(record.getAttribute('source'), self.source)
-
     def testGetDataWithEqualsInt(self):
         geomData = self._runConstraintTest('source', '=', 1000)
         for record in geomData:

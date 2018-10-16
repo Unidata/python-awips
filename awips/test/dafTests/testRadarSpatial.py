@@ -25,7 +25,6 @@ from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import R
 from awips.test.dafTests import baseDafTestCase
 from awips.test.dafTests import params
 
-
 class RadarSpatialTestCase(baseDafTestCase.DafTestCase):
     """Test DAF support for radar_spatial data"""
 
@@ -62,11 +61,6 @@ class RadarSpatialTestCase(baseDafTestCase.DafTestCase):
 
     def testGetDataWithEqualsString(self):
         geometryData = self._runConstraintTest('wfo_id', '=', params.SITE_ID)
-        for record in geometryData:
-            self.assertEqual(record.getString('wfo_id'), params.SITE_ID)
-
-    def testGetDataWithEqualsUnicode(self):
-        geometryData = self._runConstraintTest('wfo_id', '=', unicode(params.SITE_ID))
         for record in geometryData:
             self.assertEqual(record.getString('wfo_id'), params.SITE_ID)
 
