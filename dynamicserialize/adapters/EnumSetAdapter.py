@@ -18,7 +18,7 @@ ClassAdapter = ['java.util.EnumSet', 'java.util.RegularEnumSet']
 def serialize(context, bufferset):
     setSize = len(bufferset)
     context.writeI32(setSize)
-    context.writeString(set.getEnumClass())
+    context.writeString(bufferset.getEnumClass())
     for val in bufferset:
         context.writeString(val)
 
