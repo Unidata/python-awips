@@ -31,10 +31,10 @@ class SiteActivationNotification(object):
         self.status = status
 
     def getPrimarySite(self):
-        return self.primarysite
+        return self.primarySite
 
     def setPrimarySite(self, primarysite):
-        self.primarysite = primarysite
+        self.primarySite = primarysite
 
     def getModifiedSite(self):
         return self.modifiedSite
