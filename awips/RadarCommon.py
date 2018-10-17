@@ -47,17 +47,17 @@ def get_hdf5_data(idra):
     azdat = []
     depVals = []
     threshVals = []
-    if len(idra) > 0:
-        for ii in range(len(idra)):
-            if idra[ii].getName() == "Data":
-                rdat = idra[ii]
-            elif idra[ii].getName() == "Angles":
-                azdat = idra[ii]
+    if idra:
+        for item in idra:
+            if item.getName() == "Data":
+                rdat = item
+            elif item.getName() == "Angles":
+                azdat = item
                 # dattyp = "radial"
-            elif idra[ii].getName() == "DependentValues":
-                depVals = idra[ii].getShortData()
-            elif idra[ii].getName() == "Thresholds":
-                threshVals = idra[ii].getShortData()
+            elif item.getName() == "DependentValues":
+                depVals = item.getShortData()
+            elif item.getName() == "Thresholds":
+                threshVals = item.getShortData()
 
     return rdat, azdat, depVals, threshVals
 

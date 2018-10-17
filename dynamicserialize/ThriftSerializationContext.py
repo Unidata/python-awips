@@ -225,7 +225,7 @@ class ThriftSerializationContext(object):
         if size:
             if listType not in primitiveSupport:
                 m = self.typeDeserializationMethod[listType]
-                result = [m() for n in range(size)]
+                result = [m() for __ in range(size)]
             else:
                 result = self.listDeserializationMethod[listType](size)
         self.protocol.readListEnd()
@@ -234,7 +234,7 @@ class ThriftSerializationContext(object):
     def _deserializeMap(self):
         keyType, valueType, size = self.protocol.readMapBegin()
         result = {}
-        for n in range(size):
+        for __ in range(size):
             # can't go off the type, due to java generics limitations dynamic serialize is
             # serializing keys and values as void
             key = self.typeDeserializationMethod[TType.STRUCT]()
@@ -246,7 +246,7 @@ class ThriftSerializationContext(object):
     def _deserializeSet(self):
         setType, setSize = self.protocol.readSetBegin()
         result = set([])
-        for n in range(setSize):
+        for __ in range(setSize):
             result.add(self.typeDeserializationMethod[TType.STRUCT]())
         self.protocol.readSetEnd()
         return result
