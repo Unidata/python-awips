@@ -6,4 +6,3 @@ __all__ = [
 
 from .ClusterActivationNotification import ClusterActivationNotification
 from .SiteActivationNotification import SiteActivationNotification
-

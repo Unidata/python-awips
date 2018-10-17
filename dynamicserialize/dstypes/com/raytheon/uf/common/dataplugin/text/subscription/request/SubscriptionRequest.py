@@ -16,4 +16,3 @@ class SubscriptionRequest(object):
 
     def setMessage(self, message):
         self.message = message
-

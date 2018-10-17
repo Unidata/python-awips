@@ -38,4 +38,3 @@ class ResponseMessageValidate(object):
 
     def setValidTime(self, validTime):
         self.validTime = validTime
-

@@ -113,11 +113,11 @@ class DatabaseID(object):
         self.modelName = strings[3]
 
         # date-time group
-        if (len(strings[4]) != 8 or len(strings[5]) != 4):
+        if len(strings[4]) != 8 or len(strings[5]) != 4:
             return False
 
         # make sure the digits are there
-        dtg = strings[4] + '_' + strings[5] # back together
+        dtg = strings[4] + '_' + strings[5]  # back together
         if dtg != "00000000_0000":
             if not self.__decodeDtg(dtg):
                 return False
@@ -130,14 +130,14 @@ class DatabaseID(object):
         try:
             dateStruct = time.strptime(dtgString, "%Y%m%d_%H%M")
         except ValueError:
-            return (False, dateStruct)
-        return (True, dateStruct)
+            return False, dateStruct
+        return True, dateStruct
 
     def __decodeDtg(self, dtgString):
         try:
             time.strptime(dtgString, "%Y%m%d_%H%M")
             self.modelTime = dtgString
-        except:
+        except ValueError:
             return False
         return True
 
@@ -188,7 +188,7 @@ class DatabaseID(object):
     def __eq__(self, other):
         if not isinstance(other, DatabaseID):
             return False
-        return (str(self) == str(other))
+        return str(self) == str(other)
 
     def __ne__(self, other):
-        return (not self.__eq__(other))
+        return not self.__eq__(other)

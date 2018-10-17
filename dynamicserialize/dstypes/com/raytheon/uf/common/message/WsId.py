@@ -27,14 +27,14 @@ class WsId(object):
     def __init__(self, networkId=None, userName=None, progName=None):
         self.networkId = networkId
         if networkId is None:
-            self.networkId = str(struct.unpack('<L',socket.inet_aton(socket.gethostbyname(socket.gethostname())))[0])
+            self.networkId = str(struct.unpack('<L', socket.inet_aton(socket.gethostbyname(socket.gethostname())))[0])
 
         self.userName = userName
         if userName is None:
             if not pwd_error:
-               self.userName = pwd.getpwuid(os.getuid()).pw_name
+                self.userName = pwd.getpwuid(os.getuid()).pw_name
             else:
-               self.userName = "GenericUsername"
+                self.userName = "GenericUsername"
 
         self.progName = progName
         if progName is None:
@@ -79,7 +79,8 @@ class WsId(object):
         return self.userName + "@" + hostname + ":" + self.progName + ":" + str(self.pid) + ":" + str(self.threadId)
 
     def __str__(self):
-        return self.networkId + ":" + self.userName + ":" + self.progName + ":" + str(self.pid) + ":" + str(self.threadId)
+        return self.networkId + ":" + self.userName + ":" + self.progName + ":" \
+               + str(self.pid) + ":" + str(self.threadId)
 
     def __repr__(self):
         return self.__str__()

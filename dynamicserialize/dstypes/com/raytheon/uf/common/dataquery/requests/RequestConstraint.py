@@ -113,14 +113,14 @@ class RequestConstraint(object):
             self._evalValue = self._adjustValueType(self.constraintValue)
 
     def _adjustValueType(self, value):
-        '''
+        """
         Try to take part of a constraint value, encoded as a string, and
         return it as its 'true type'.
 
         _adjustValueType('3.0') -> 3.0
         _adjustValueType('3') -> 3.0
         _adjustValueType('a string') -> 'a string'
-        '''
+        """
         try:
             return float(value)
         except ValueError:
@@ -132,14 +132,14 @@ class RequestConstraint(object):
         return value
 
     def _matchType(self, value, otherValue):
-        '''
+        """
         Return value coerced to be the same type as otherValue. If this is
         not possible, just return value unmodified.
-        '''
+        """
         if not isinstance(value, otherValue.__class__):
             try:
                 return otherValue.__class__(value)
-            except Exception:
+            except ValueError:
                 pass
         return value
 
@@ -167,7 +167,7 @@ class RequestConstraint(object):
 
     def _evalBetween(self, value):
         value = self._matchType(value, self._evalValue[0])
-        return value >= self._evalValue[0] and value <= self._evalValue[1]
+        return self._evalValue[0] <= value <= self._evalValue[1]
 
     def _evalIn(self, value):
         anEvalValue = next(iter(self._evalValue))
@@ -176,7 +176,7 @@ class RequestConstraint(object):
                 try:
                     if abs(otherValue - float(value)) < self.TOLERANCE:
                         return True
-                except Exception:
+                except ValueError:
                     pass
             return False
         value = self._matchType(value, anEvalValue)

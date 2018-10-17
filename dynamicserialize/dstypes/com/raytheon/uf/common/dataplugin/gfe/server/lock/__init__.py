@@ -6,4 +6,3 @@ __all__ = [
 
 from .Lock import Lock
 from .LockTable import LockTable
-

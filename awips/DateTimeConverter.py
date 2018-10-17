@@ -56,6 +56,7 @@ def convertToDateTime(timeArg):
         objType = str(type(timeArg))
         raise TypeError("Cannot convert object of type " + objType + " to datetime.")
 
+
 def _convertSecsAndMicros(seconds, micros):
     if seconds < MAX_TIME:
         rval = datetime.datetime.utcfromtimestamp(seconds)
@@ -63,6 +64,7 @@ def _convertSecsAndMicros(seconds, micros):
         extraTime = datetime.timedelta(seconds=(seconds - MAX_TIME))
         rval = datetime.datetime.utcfromtimestamp(MAX_TIME) + extraTime
     return rval.replace(microsecond=micros)
+
 
 def constructTimeRange(*args):
     """

@@ -10,4 +10,3 @@ class Body(object):
 
     def setResponses(self, responses):
         self.responses = responses
-

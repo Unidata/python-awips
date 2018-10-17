@@ -27,4 +27,3 @@ class StatusResponse(object):
 
     def __repr__(self):
         return self.hostname + ':' + self.jvmName
-

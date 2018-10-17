@@ -93,4 +93,3 @@ class ProjectionData(object):
                 'latLonOrigin', 'stdParallelOne', 'stdParallelTwo',
                 'gridPointLL', 'gridPointUR', 'latIntersect', 'lonCenter',
                 'lonOrigin']
-

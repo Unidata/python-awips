@@ -6,4 +6,3 @@ __all__ = [
 
 from .WeatherKey import WeatherKey
 from .WeatherSubKey import WeatherSubKey
-

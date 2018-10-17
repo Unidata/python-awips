@@ -1,4 +1,4 @@
-## NOTE: Because the pure python dynamicserialize code does not
+#  NOTE: Because the pure python dynamicserialize code does not
 #  have a means of accessing the DiscreteDefinition, this class
 #  is only really useful as a container for deserialized data
 #  from EDEX. I would not recommend trying to use it for anything
@@ -24,7 +24,7 @@ class DiscreteKey(object):
     def __getitem__(self, key):
         try:
             index = int(key)
-        except:
+        except TypeError:
             raise TypeError("list indices must be integers, not " + str(type(key)))
         if index < 0 or index > len(self.subKeys):
             raise IndexError("index out of range")
@@ -48,7 +48,7 @@ class DiscreteKey(object):
         return self.subKeys == other.subKeys
 
     def __ne__(self, other):
-        return (not self.__eq__(other))
+        return not self.__eq__(other)
 
     @staticmethod
     def auxData(subkey):
@@ -83,4 +83,3 @@ class DiscreteKey(object):
 
     def setParmID(self, parmID):
         self.parmID = parmID
-

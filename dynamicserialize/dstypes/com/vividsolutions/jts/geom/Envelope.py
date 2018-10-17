@@ -45,4 +45,3 @@ class Envelope(object):
 
     def setMinY(self, value):
         self.miny = value
-

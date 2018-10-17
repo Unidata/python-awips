@@ -77,12 +77,13 @@ QPID_PASSWORD = 'guest'
 
 class IngestViaQPID:
     def __init__(self, host='localhost', port=5672, ssl=None):
-        '''
+        """
         Connect to QPID and make bindings to route message to external.dropbox queue
         @param host: string hostname of computer running EDEX and QPID (default localhost)
         @param port: integer port used to connect to QPID (default 5672)
-        @param ssl: boolean to determine whether ssl is used, default value of None will use ssl only if a client certificate is found.
-        '''
+        @param ssl: boolean to determine whether ssl is used, default value of None will use
+            ssl only if a client certificate is found.
+        """
 
         try:
             #
@@ -100,31 +101,31 @@ class IngestViaQPID:
                 keyfile = os.path.join(certdb, certname + ".key")
                 trustfile = os.path.join(certdb, "root.crt")
                 socket = qpid.util.ssl(socket, keyfile=keyfile, certfile=certfile, ca_certs=trustfile)
-            self.connection = Connection (sock=socket, username=QPID_USERNAME, password=QPID_PASSWORD)
+            self.connection = Connection(sock=socket, username=QPID_USERNAME, password=QPID_PASSWORD)
             self.connection.start()
             self.session = self.connection.session(str(uuid4()))
             self.session.exchange_bind(exchange='amq.direct', queue='external.dropbox', binding_key='external.dropbox')
             print('Connected to Qpid')
-        except:
+        except ValueError:
             print('Unable to connect to Qpid')
 
     def sendmessage(self, filepath, header):
-        '''
+        """
         This function sends a message to the external.dropbox queue providing the path
         to the file to be ingested and a header to determine the plugin to be used to
         decode the file.
         @param filepath: string full path to file to be ingested
         @param header: string header used to determine plugin decoder to use
-        '''
+        """
         props = self.session.delivery_properties(routing_key='external.dropbox')
-        head = self.session.message_properties(application_headers={'header':header},
-                                               user_id=QPID_USERNAME) # For issue QPID-5569.  Fixed in Qpid 0.27
+        head = self.session.message_properties(application_headers={'header': header},
+                                               user_id=QPID_USERNAME)
         self.session.message_transfer(destination='amq.direct', message=Message(props, head, filepath))
 
     def close(self):
-        '''
+        """
         After all messages are sent call this function to close connection and make sure
         there are no threads left open
-        '''
+        """
         self.session.close(timeout=10)
         print('Connection to Qpid closed')

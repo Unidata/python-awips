@@ -1,24 +1,11 @@
 
-knownLevels = {"BASE": {"text" : "BASE",
-                        "order" : 0,
-                        "systemLevel" : True,
-                        },
-               "CONFIGURED": {"text" : "CONFIGURED",
-                        "order" : 250,
-                        "systemLevel" : True,
-                        },
-               "SITE": {"text" : "SITE",
-                        "order" : 500,
-                        "systemLevel" : False,
-                        },
-               "USER": {"text" : "USER",
-                        "order" : 1000,
-                        "systemLevel" : False,
-                        },
-               "UNKNOWN": {"text" : "UNKNOWN",
-                           "order" : -1,
-                           }
-                }
+knownLevels = {
+    "BASE": {"text": "BASE", "order": 0, "systemLevel": True},
+    "CONFIGURED": {"text": "CONFIGURED", "order": 250, "systemLevel": True},
+    "SITE": {"text": "SITE", "order": 500, "systemLevel": False},
+    "USER": {"text": "USER", "order": 1000, "systemLevel": False},
+    "UNKNOWN": {"text": "UNKNOWN", "order": -1}
+}
 
 
 class LocalizationLevel(object):
@@ -53,4 +40,3 @@ class LocalizationLevel(object):
 
     def __repr__(self):
         return str(self.text)
-

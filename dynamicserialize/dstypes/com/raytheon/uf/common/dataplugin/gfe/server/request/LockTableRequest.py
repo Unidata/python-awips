@@ -17,4 +17,3 @@ class LockTableRequest(object):
 
     def setDbId(self, dbId):
         self.dbId = dbId
-

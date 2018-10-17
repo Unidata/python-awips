@@ -17,4 +17,3 @@ class StoreDerivedProductRequest(object):
 
     def setProductList(self, productList):
         self.productList = productList
-

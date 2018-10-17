@@ -30,10 +30,10 @@ from .TimeRange import TimeRange
 
 _DATE = r'(\d{4}-\d{2}-\d{2})'
 _TIME = r'(\d{2}:\d{2}:\d{2})'
-_MILLIS = '(?:\.(\d{1,3})(?:\d{1,4})?)?' # might have microsecond but that is thrown out
+_MILLIS = '(?:\.(\d{1,3})(?:\d{1,4})?)?'  # might have microsecond but that is thrown out
 REFTIME_PATTERN_STR = _DATE + '[ _]' + _TIME + _MILLIS
 FORECAST_PATTERN_STR = r'(?:[ _]\((\d+)(?::(\d{1,2}))?\))?'
-VALID_PERIOD_PATTERN_STR = r'(?:\['+ REFTIME_PATTERN_STR + '--' + REFTIME_PATTERN_STR + r'\])?'
+VALID_PERIOD_PATTERN_STR = r'(?:\[' + REFTIME_PATTERN_STR + '--' + REFTIME_PATTERN_STR + r'\])?'
 STR_PATTERN = re.compile(REFTIME_PATTERN_STR + FORECAST_PATTERN_STR + VALID_PERIOD_PATTERN_STR)
 
 
@@ -147,7 +147,7 @@ class DataTime(object):
         self.levelValue = numpy.float64(levelValue)
 
     def __str__(self):
-        buffer = StringIO()
+        sbuffer = StringIO()
 
         if self.refTime is not None:
             refTimeInSecs = self.refTime.getTime() / 1000
@@ -155,25 +155,25 @@ class DataTime(object):
             dtObj = datetime.datetime.utcfromtimestamp(refTimeInSecs)
             dtObj = dtObj.replace(microsecond=micros)
             # This won't be compatible with java or string from java since its to microsecond
-            buffer.write(dtObj.isoformat(' '))
+            sbuffer.write(dtObj.isoformat(' '))
 
         if "FCST_USED" in self.utilityFlags:
             hrs = int(self.fcstTime / 3600)
             mins = int((self.fcstTime - (hrs * 3600)) / 60)
-            buffer.write(" (" + str(hrs))
+            sbuffer.write(" (" + str(hrs))
             if mins != 0:
-                buffer.write(":" + str(mins))
-            buffer.write(")")
+                sbuffer.write(":" + str(mins))
+            sbuffer.write(")")
 
         if "PERIOD_USED" in self.utilityFlags:
-            buffer.write("[")
-            buffer.write(self.validPeriod.start.isoformat(' '))
-            buffer.write("--")
-            buffer.write(self.validPeriod.end.isoformat(' '))
-            buffer.write("]")
+            sbuffer.write("[")
+            sbuffer.write(self.validPeriod.start.isoformat(' '))
+            sbuffer.write("--")
+            sbuffer.write(self.validPeriod.end.isoformat(' '))
+            sbuffer.write("]")
 
-        strVal = buffer.getvalue()
-        buffer.close()
+        strVal = sbuffer.getvalue()
+        sbuffer.close()
         return strVal
 
     def __repr__(self):

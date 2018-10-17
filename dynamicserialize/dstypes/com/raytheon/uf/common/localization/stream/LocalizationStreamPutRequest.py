@@ -42,4 +42,3 @@ class LocalizationStreamPutRequest(AbstractLocalizationStreamRequest):
 
     def setLocalizedSite(self, localizedSite):
         self.localizedSite = localizedSite
-

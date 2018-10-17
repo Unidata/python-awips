@@ -73,4 +73,3 @@ class ActivityInfo(object):
 
     def setStatus(self, status):
         self.status = status
-

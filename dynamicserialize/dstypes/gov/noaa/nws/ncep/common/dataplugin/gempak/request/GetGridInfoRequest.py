@@ -37,4 +37,3 @@ class GetGridInfoRequest(object):
 
     def setFcstsec(self, fcstsec):
         self.fcstsec = fcstsec
-

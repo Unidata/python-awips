@@ -12,4 +12,3 @@ class AbstractFailedResponse(with_metaclass(abc.ABCMeta, object)):
 
     def setRequest(self, request):
         self.request = request
-

@@ -10,4 +10,3 @@ class PointTest:
 
     def setPoints(self, points):
         self.points = points
-

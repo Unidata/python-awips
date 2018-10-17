@@ -39,4 +39,3 @@ class GetRadarDataRecordRequest(object):
 
     def setPrimaryElevationAngle(self, primaryElevationAngle):
         self.primaryElevationAngle = numpy.float64(primaryElevationAngle)
-

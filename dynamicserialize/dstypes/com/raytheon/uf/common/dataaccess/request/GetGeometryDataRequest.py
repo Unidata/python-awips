@@ -28,4 +28,3 @@ class GetGeometryDataRequest(AbstractDataAccessRequest):
 
     def setRequestedPeriod(self, requestedPeriod):
         self.requestedPeriod = requestedPeriod
-

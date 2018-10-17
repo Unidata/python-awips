@@ -10,4 +10,3 @@ __all__ = [
 from .LocalizationContext import LocalizationContext
 from .LocalizationLevel import LocalizationLevel
 from .LocalizationType import LocalizationType
-

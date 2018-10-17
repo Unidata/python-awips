@@ -4,4 +4,3 @@ __all__ = [
           ]
 
 from .GetRadarDataRecordRequest import GetRadarDataRecordRequest
-

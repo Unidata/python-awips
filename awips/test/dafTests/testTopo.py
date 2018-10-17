@@ -49,7 +49,6 @@ class TopoTestCase(baseDafTestCase.DafTestCase):
             print("Sample grid data shape:\n" + str(gridData[0].getRawData().shape) + "\n")
             print("Sample grid data:\n" + str(gridData[0].getRawData()) + "\n")
 
-
     def testRequestingTooMuchDataThrowsResponseTooLargeException(self):
         req = DAL.newDataRequest(self.datatype)
         req.addIdentifier("group", "/")

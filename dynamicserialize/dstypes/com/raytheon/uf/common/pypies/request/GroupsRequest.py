@@ -24,4 +24,3 @@ class GroupsRequest(object):
 
     def setFilename(self, filename):
         self.filename = filename
-

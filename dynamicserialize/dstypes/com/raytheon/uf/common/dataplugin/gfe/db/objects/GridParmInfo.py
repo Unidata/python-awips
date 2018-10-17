@@ -30,7 +30,6 @@ class GridParmInfo(object):
         return self.__repr__()
 
     def __repr__(self):
-        out = ""
         if self.isValid():
             out = "ParmID: " + str(self.parmID) + \
                   " TimeConstraints: " + str(self.timeConstraints) + \
@@ -42,9 +41,9 @@ class GridParmInfo(object):
                   " TimeIndependent: " + str(self.timeIndependentParm) + \
                   " RateParm: " + str(self.rateParm) + \
                   " GridType: " + self.gridType
+            return out
         else:
-            out = "<Invalid>"
-        return out
+            return "<Invalid>"
 
     def __eq__(self, other):
         if not isinstance(other, GridParmInfo):
@@ -88,8 +87,8 @@ class GridParmInfo(object):
             status.append("GridParmInfo.GridLocation is not valid")
         if self.timeIndependentParm and self.timeConstraints.anyConstraints():
             status.append("GridParmInfo is invalid. There are time constraints" +
-                        " for a time independent parm. Constraints: " +
-                        str(self.timeConstraints))
+                          " for a time independent parm. Constraints: " +
+                          str(self.timeConstraints))
         if not self.unitString:
             status.append("GridParmInfo.Units are not defined.")
         if self.precision < -2 or self.precision > 5:
@@ -99,7 +98,7 @@ class GridParmInfo(object):
         retVal = True
         if status:
             retVal = False
-        return (retVal, status)
+        return retVal, status
 
     def isValid(self):
         (valid, errors) = self.__validCheck()

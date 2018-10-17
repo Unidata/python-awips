@@ -17,4 +17,3 @@ class StorageProperties(object):
 
     def setChunked(self, chunked):
         self.chunked = chunked
-

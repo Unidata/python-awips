@@ -29,7 +29,7 @@ class StringDataRecord(AbstractDataRecord):
                 dtype = h5t.py_create('S' + str(self.maxLength))
             else:
                 from pypies.impl.H5pyDataStore import vlen_str_type as dtype
-            #dtype.set_strpad(h5t.STR_NULLTERM)
+            # dtype.set_strpad(h5t.STR_NULLTERM)
             return numpy.asarray(self.getStringData(), dtype)
         return self.numpyData
 

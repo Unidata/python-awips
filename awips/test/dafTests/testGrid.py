@@ -86,7 +86,6 @@ class GridTestCase(baseDafTestCase.DafTestCase):
     def testGetNonexistentIdentifierValuesThrowsException(self):
         self.runNonexistentIdValuesTest()
 
-
     def testGetDataWithEnvelope(self):
         req = DAL.newDataRequest(self.datatype)
         req.addIdentifier('info.datasetId', self.model)
@@ -103,11 +102,10 @@ class GridTestCase(baseDafTestCase.DafTestCase):
         # Ensure all points are within one degree of the original box
         # to allow slight margin of error for reprojection distortion.
         testEnv = box(params.ENVELOPE.bounds[0] - 1, params.ENVELOPE.bounds[1] - 1,
-                      params.ENVELOPE.bounds[2] + 1, params.ENVELOPE.bounds[3] + 1 )
+                      params.ENVELOPE.bounds[2] + 1, params.ENVELOPE.bounds[3] + 1)
 
         for i in range(len(lons)):
             self.assertTrue(testEnv.contains(Point(lons[i], lats[i])))
-
 
     def _runConstraintTest(self, key, operator, value):
         req = DAL.newDataRequest(self.datatype)

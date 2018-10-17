@@ -78,7 +78,7 @@ class GfeTestCase(baseDafTestCase.DafTestCase):
         # Ensure all points are within one degree of the original box
         # to allow slight margin of error for reprojection distortion.
         testEnv = box(params.ENVELOPE.bounds[0] - 1, params.ENVELOPE.bounds[1] - 1,
-                      params.ENVELOPE.bounds[2] + 1, params.ENVELOPE.bounds[3] + 1 )
+                      params.ENVELOPE.bounds[2] + 1, params.ENVELOPE.bounds[3] + 1)
 
         for i in range(len(lons)):
             self.assertTrue(testEnv.contains(Point(lons[i], lats[i])))
@@ -89,17 +89,17 @@ class GfeTestCase(baseDafTestCase.DafTestCase):
         req.addIdentifier('parmId.dbId.siteId', params.SITE_ID)
         req.setParameters('Wind')
         times = DAL.getAvailableTimes(req)
-        if not(times):
+        if not times:
             raise unittest.SkipTest('No Wind Data available for testing')
         gridData = DAL.getGridData(req, [times[0]])
         rawWind = None
         rawDir = None
         for grid in gridData:
             if grid.getParameter() == 'Wind':
-                self.assertEqual(grid.getUnit(),'kts')
+                self.assertEqual(grid.getUnit(), 'kts')
                 rawWind = grid.getRawData()
             elif grid.getParameter() == 'WindDirection':
-                self.assertEqual(grid.getUnit(),'deg')
+                self.assertEqual(grid.getUnit(), 'deg')
                 rawDir = grid.getRawData()
         self.assertIsNotNone(rawWind, 'Wind Magnitude grid is not present')
         self.assertIsNotNone(rawDir, 'Wind Direction grid is not present')
@@ -192,4 +192,3 @@ class GfeTestCase(baseDafTestCase.DafTestCase):
     def testGetDataWithEmptyInConstraintThrowsException(self):
         with self.assertRaises(ValueError):
             self._runConstraintTest('parmId.dbId.modelName', 'in', [])
-

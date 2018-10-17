@@ -44,4 +44,3 @@ class SurfaceDataRequest(object):
 
     def setPartNumber(self, partNumber):
         self.partNumber = partNumber
-

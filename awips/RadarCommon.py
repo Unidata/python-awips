@@ -24,7 +24,7 @@ def get_datetime_str(record):
     Returns:
             datetime string.
     """
-    return str(record.getDataTime())[0:19].replace(" ","_") + ".0"
+    return str(record.getDataTime())[0:19].replace(" ", "_") + ".0"
 
 
 def get_data_type(azdat):
@@ -59,7 +59,7 @@ def get_hdf5_data(idra):
             elif idra[ii].getName() == "Thresholds":
                 threshVals = idra[ii].getShortData()
 
-    return rdat,azdat,depVals,threshVals
+    return rdat, azdat, depVals, threshVals
 
 
 def get_header(record, headerFormat, xLen, yLen, azdat, description):
@@ -90,7 +90,7 @@ def encode_thresh_vals(threshVals):
     nnn = len(threshVals)
     j = 0
     msg = ""
-    while j<nnn:
+    while j < nnn:
         lo = threshVals[j] % 256
         hi = threshVals[j] / 256
         msg += " "

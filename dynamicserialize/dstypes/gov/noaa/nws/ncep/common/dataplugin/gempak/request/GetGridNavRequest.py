@@ -23,4 +23,3 @@ class GetGridNavRequest(object):
 
     def setPluginName(self, pluginName):
         self.pluginName = pluginName
-

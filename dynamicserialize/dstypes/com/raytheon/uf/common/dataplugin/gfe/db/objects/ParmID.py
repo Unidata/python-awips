@@ -56,7 +56,7 @@ class ParmID(object):
         parts = parmIdentifier.split(":")
         nameLevel = parts[0].split("_")
         self.dbId = DatabaseID(parts[1])
-        if (len(nameLevel) == 2):
+        if len(nameLevel) == 2:
             self.parmName = nameLevel[0]
             self.parmLevel = nameLevel[1]
         else:
@@ -89,9 +89,9 @@ class ParmID(object):
     def parmNameAndLevel(composite):
         pos = composite.find('_')
         if pos != -1:
-            return (composite[:pos], composite[pos+1:])
+            return composite[:pos], composite[pos+1:]
         else:
-            return (composite, "SFC")
+            return composite, "SFC"
 
     def __str__(self):
         return self.__repr__()
@@ -128,4 +128,4 @@ class ParmID(object):
         return True
 
     def __ne__(self, other):
-        return (not self.__eq__(other))
+        return not self.__eq__(other)

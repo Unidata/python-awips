@@ -8,4 +8,3 @@ __all__ = [
 from .GetClusterMembersRequest import GetClusterMembersRequest
 from .GetContextsRequest import GetContextsRequest
 from .StatusRequest import StatusRequest
-

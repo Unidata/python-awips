@@ -8,5 +8,3 @@ __all__ = [
             'radar',
             'text'
           ]
-
-

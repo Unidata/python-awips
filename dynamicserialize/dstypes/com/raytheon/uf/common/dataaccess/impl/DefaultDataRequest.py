@@ -72,6 +72,6 @@ class DefaultDataRequest(IDataRequest):
 
     def __str__(self):
         fmt = ('DefaultDataRequest(datatype={}, identifiers={}, parameters={}, ' +
-        'levels={}, locationNames={}, envelope={})')
+               'levels={}, locationNames={}, envelope={})')
         return fmt.format(self.datatype, self.identifiers, self.parameters, self.levels,
                           self.locationNames, self.envelope)

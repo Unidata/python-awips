@@ -17,4 +17,3 @@ class StoreActivityRequest(object):
 
     def setActivityXML(self, activityXML):
         self.activityXML = activityXML
-

@@ -33,7 +33,7 @@ class PyGridNotification(PyNotification):
                 newReq.setParameters(self.request.getParameters())
                 data = self.getData(newReq, [])
                 self.callback(data)
-            except Exception:
+            except ValueError:
                 traceback.print_exc()
 
     def getData(self, request, dataTimes):

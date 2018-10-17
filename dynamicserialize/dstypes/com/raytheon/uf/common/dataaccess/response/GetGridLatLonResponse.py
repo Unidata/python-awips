@@ -37,4 +37,3 @@ class GetGridLatLonResponse(object):
 
     def setNy(self, ny):
         self.ny = ny
-

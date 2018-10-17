@@ -53,12 +53,13 @@ class QpidSubscriber:
     def topicSubscribe(self, topicName, callback):
         # if the queue is edex.alerts, set decompress to true always for now to
         # maintain compatibility with existing python scripts.
-        if (topicName == 'edex.alerts'):
+        if topicName == 'edex.alerts':
             self.decompress = True
 
         print("Establishing connection to broker on", self.host)
         queueName = topicName + self.__session.name
-        self.__session.queue_declare(queue=queueName, exclusive=True, auto_delete=True, arguments={'qpid.max_count':100, 'qpid.policy_type':'ring'})
+        self.__session.queue_declare(queue=queueName, exclusive=True, auto_delete=True,
+                                     arguments={'qpid.max_count': 100, 'qpid.policy_type': 'ring'})
         self.__session.exchange_bind(exchange='amq.topic', queue=queueName, binding_key=topicName)
         self.__innerSubscribe(queueName, callback)
 
@@ -75,12 +76,12 @@ class QpidSubscriber:
                 message = queue.get(timeout=10)
                 content = message.body
                 self.__session.message_accept(qpid.datatypes.RangedSet(message.id))
-                if (self.decompress):
+                if self.decompress:
                     try:
                         # http://stackoverflow.com/questions/2423866/python-decompressing-gzip-chunk-by-chunk
                         d = zlib.decompressobj(16+zlib.MAX_WBITS)
                         content = d.decompress(content)
-                    except Exception:
+                    except ValueError:
                         # decompression failed, return the original content
                         pass
                 callback(content)
@@ -94,10 +95,9 @@ class QpidSubscriber:
         self.subscribed = False
         try:
             self.__session.close(timeout=10)
-        except Exception:
+        except ValueError:
             pass
 
     @property
     def queueStarted(self):
         return self.__queueStarted
-

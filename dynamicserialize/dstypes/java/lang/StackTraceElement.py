@@ -33,7 +33,7 @@ class StackTraceElement(object):
         self.lineNumber = int(lineNumber)
 
     def isNativeMethod(self):
-        return (self.lineNumber == -2)
+        return self.lineNumber == -2
 
     def __str__(self):
         return self.__repr__()
@@ -49,5 +49,3 @@ class StackTraceElement(object):
         else:
             msg += "(Unknown Source)"
         return msg
-
-

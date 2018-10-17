@@ -2,7 +2,7 @@ SUBKEY_SEPARATOR = '^'
 
 
 class WeatherKey(object):
-## FIXME: Implement WeatherSubKey and use it in this class when needed. ##
+    # FIXME: Implement WeatherSubKey and use it in this class when needed.
 
     def __init__(self, siteId="", subKeys=[]):
         self.siteId = siteId
@@ -23,7 +23,7 @@ class WeatherKey(object):
         return self.subKeys == self.subKeys
 
     def __ne__(self, other):
-        return (not self.__eq__(other))
+        return not self.__eq__(other)
 
     def __hash__(self):
         prime = 31

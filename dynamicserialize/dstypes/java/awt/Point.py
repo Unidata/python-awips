@@ -34,4 +34,3 @@ class Point(object):
 
     def setY(self, y):
         self.y = y
-

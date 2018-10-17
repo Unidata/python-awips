@@ -31,4 +31,3 @@ class ConfigureTextProductsRequest(object):
 
     def setDestinationDir(self, destinationDir):
         self.destinationDir = destinationDir
-

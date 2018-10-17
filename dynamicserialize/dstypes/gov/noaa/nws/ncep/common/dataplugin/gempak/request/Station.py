@@ -60,4 +60,3 @@ class Station(object):
 
     def setCountry(self, country):
         self.country = country
-

@@ -16,4 +16,3 @@ class GetTimesResponse(object):
 
     def setTimes(self, times):
         self.times = times
-

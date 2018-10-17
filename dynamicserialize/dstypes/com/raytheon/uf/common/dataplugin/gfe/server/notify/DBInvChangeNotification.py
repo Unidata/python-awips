@@ -34,4 +34,3 @@ class DBInvChangeNotification(GfeNotification.GfeNotification):
         msg = 'Additions' + str(self.additions) + '\n'
         msg += 'Deletions' + str(self.deletions)
         return msg
-

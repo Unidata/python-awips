@@ -23,4 +23,3 @@ class RegionLookupRequest(object):
 
     def setSite(self, site):
         self.site = site
-

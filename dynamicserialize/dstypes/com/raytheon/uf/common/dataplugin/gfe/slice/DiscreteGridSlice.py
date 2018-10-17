@@ -15,7 +15,7 @@ class DiscreteGridSlice(AbstractGridSlice):
         self.discreteGrid = discreteGrid
 
     def getNumPyGrid(self):
-        return (self.discreteGrid.getNumPyGrid(), self.key)
+        return self.discreteGrid.getNumPyGrid(), self.key
 
     def getKey(self):
         return self.key

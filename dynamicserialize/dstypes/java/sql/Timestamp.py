@@ -18,4 +18,5 @@ class Timestamp(Date):
         super(Timestamp, self).__init__(time)
 
     def __repr__(self):
-        return strftime("%Y-%m-%d %H:%M:%S.", gmtime(self.time/1000.0)) + '{:03d}'.format(self.time%1000)
+        return strftime("%Y-%m-%d %H:%M:%S.", gmtime(self.time/1000.0)) + \
+               '{:03d}'.format(self.time % 1000)

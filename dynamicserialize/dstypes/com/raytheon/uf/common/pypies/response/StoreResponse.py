@@ -24,4 +24,3 @@ class StoreResponse(object):
 
     def setFailedRecords(self, failedRecords):
         self.failedRecords = failedRecords
-

@@ -8,7 +8,7 @@ except ImportError:
 
 class UserId(object):
 
-    def __init__(self, userid = None):
+    def __init__(self, userid=None):
         if userid is None:
             if not pwd_error:
                 self.id = pwd.getpwuid(os.getuid()).pw_name

@@ -39,12 +39,8 @@ def getSounding(modelName, weatherElements, levels, samplePoint, timeRange=None)
     (locationNames, parameters, levels, envelope, timeRange) = \
         __sanitizeInputs(modelName, weatherElements, levels, samplePoint, timeRange)
 
-    requestArgs = { 'datatype'      : 'grid',
-                    'locationNames' : locationNames,
-                    'parameters'    : parameters,
-                    'levels'        : levels,
-                    'envelope'      : envelope
-                   }
+    requestArgs = {'datatype': 'grid', 'locationNames': locationNames,
+                   'parameters': parameters, 'levels': levels, 'envelope': envelope}
 
     req = DataAccessLayer.newDataRequest(**requestArgs)
     response = DataAccessLayer.getGeometryData(req, timeRange)

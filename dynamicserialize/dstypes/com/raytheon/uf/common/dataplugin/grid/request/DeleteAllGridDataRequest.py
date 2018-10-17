@@ -10,4 +10,3 @@ class DeleteAllGridDataRequest(object):
 
     def setModelName(self, modelName):
         self.modelName = modelName
-

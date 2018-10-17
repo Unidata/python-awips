@@ -18,11 +18,10 @@ class GridLocation(object):
         return self.__repr__()
 
     def __repr__(self):
+        # TODO: Handle geometry in dynamicserialize
+        # ,loc=" + this.geometry.getGeometryType()
         s = "[SiteID =" + self.siteId + ",ProjID=" + self.projection.getProjectionID() +\
-            ",gridSize=(" + str(self.nx) + ',' + str(self.ny) + ")"
-            # TODO: Handle geometry in dynamicserialize
-            # ,loc=" + this.geometry.getGeometryType()
-        s += ']'
+            ",gridSize=(" + str(self.nx) + ',' + str(self.ny) + ")]"
         return s
 
     def __eq__(self, other):
@@ -43,7 +42,7 @@ class GridLocation(object):
         return True
 
     def __ne__(self, other):
-        return (not self.__eq__(other))
+        return not self.__eq__(other)
 
     def getSiteId(self):
         return self.siteId
@@ -113,4 +112,3 @@ class GridLocation(object):
         if self.origin is None or self.extent is None:
             return False
         return True
-

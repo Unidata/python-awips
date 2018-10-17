@@ -17,4 +17,3 @@ class Message(object):
 
     def setBody(self, body):
         self.body = body
-

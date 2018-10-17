@@ -73,4 +73,3 @@ class GridDataHistory(object):
 
     def setLastSentTime(self, lastSentTime):
         self.lastSentTime = lastSentTime
-

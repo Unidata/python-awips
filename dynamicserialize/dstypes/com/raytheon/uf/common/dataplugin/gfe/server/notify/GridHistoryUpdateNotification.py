@@ -39,4 +39,3 @@ class GridHistoryUpdateNotification(GfeNotification):
         msg = "ParmID: " + str(self.parmId)
         msg += '\n' + "Histories: " + str(self.histories)
         return msg
-

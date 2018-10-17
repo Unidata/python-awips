@@ -10,4 +10,3 @@ class UtilityResponseMessage(object):
 
     def setResponses(self, responses):
         self.responses = responses
-

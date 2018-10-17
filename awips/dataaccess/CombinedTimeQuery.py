@@ -76,9 +76,9 @@ def __getAvailableTimesForEachLocation(request, refTimeOnly=False):
 
 
 def __cloneRequest(request):
-    return DataAccessLayer.newDataRequest(datatype      = request.getDatatype(),
-                                          parameters    = request.getParameters(),
-                                          levels        = request.getLevels(),
-                                          locationNames = request.getLocationNames(),
-                                          envelope      = request.getEnvelope(),
+    return DataAccessLayer.newDataRequest(datatype=request.getDatatype(),
+                                          parameters=request.getParameters(),
+                                          levels=request.getLevels(),
+                                          locationNames=request.getLocationNames(),
+                                          envelope=request.getEnvelope(),
                                           **request.getIdentifiers())

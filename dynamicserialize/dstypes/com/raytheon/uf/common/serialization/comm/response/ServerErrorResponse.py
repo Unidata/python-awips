@@ -10,4 +10,3 @@ class ServerErrorResponse(object):
 
     def setException(self, exception):
         self.exception = exception
-

@@ -17,4 +17,3 @@ class StorageStatus(object):
 
     def setIndexOfAppend(self, indexOfAppend):
         self.indexOfAppend = indexOfAppend
-

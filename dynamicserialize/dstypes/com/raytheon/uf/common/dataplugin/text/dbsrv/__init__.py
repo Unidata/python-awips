@@ -4,4 +4,3 @@ __all__ = [
           ]
 
 from .TextDBRequest import TextDBRequest
-

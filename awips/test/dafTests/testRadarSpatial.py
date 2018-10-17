@@ -25,6 +25,7 @@ from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import R
 from awips.test.dafTests import baseDafTestCase
 from awips.test.dafTests import params
 
+
 class RadarSpatialTestCase(baseDafTestCase.DafTestCase):
     """Test DAF support for radar_spatial data"""
 

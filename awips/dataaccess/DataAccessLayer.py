@@ -4,24 +4,21 @@
 #
 #     SOFTWARE HISTORY
 #
-#    Date            Ticket#       Engineer       Description
-#    ------------    ----------    -----------    --------------------------
-#    12/10/12                      njensen        Initial Creation.
-#    Feb 14, 2013    1614          bsteffen       refactor data access framework
-#                                                 to use single request.
-#    04/10/13        1871          mnash          move getLatLonCoords to JGridData and add default args
-#    05/29/13        2023          dgilling       Hook up ThriftClientRouter.
-#    03/03/14        2673          bsteffen       Add ability to query only ref times.
-#    07/22/14        3185          njensen        Added optional/default args to newDataRequest
-#    07/30/14        3185          njensen        Renamed valid identifiers to optional
-#    Apr 26, 2015    4259          njensen        Updated for new JEP API
-#    Apr 13, 2016    5379          tgurney        Add getIdentifierValues()
-#    Jun 01, 2016    5587          tgurney        Add new signatures for
-#                                                 getRequiredIdentifiers() and
-#                                                 getOptionalIdentifiers()
-#    Oct 07, 2016    ----          mjames@ucar    Added getForecastRun
-#    Oct 18, 2016    5916          bsteffen       Add setLazyLoadGridLatLon
-#    Oct 11, 2018                  mjames@ucar    Added getMetarObs() getSynopticObs()
+#    Date           Ticket#  Engineer    Description
+#    ------------   -------  ----------  -------------------------
+#    12/10/12                njensen     Initial Creation.
+#    Feb 14, 2013   1614     bsteffen    refactor data access framework to use single request.
+#    04/10/13       1871     mnash       move getLatLonCoords to JGridData and add default args
+#    05/29/13       2023     dgilling    Hook up ThriftClientRouter.
+#    03/03/14       2673     bsteffen    Add ability to query only ref times.
+#    07/22/14       3185     njensen     Added optional/default args to newDataRequest
+#    07/30/14       3185     njensen     Renamed valid identifiers to optional
+#    Apr 26, 2015   4259     njensen     Updated for new JEP API
+#    Apr 13, 2016   5379     tgurney     Add getIdentifierValues(), getRequiredIdentifiers(),
+#                                        and getOptionalIdentifiers()
+#    Oct 07, 2016   ----     mjames@ucar Added getForecastRun
+#    Oct 18, 2016   5916     bsteffen    Add setLazyLoadGridLatLon
+#    Oct 11, 2018   ----     mjames@ucar Added getMetarObs() getSynopticObs()
 #
 
 import sys
@@ -145,6 +142,7 @@ def getForecastRun(cycle, times):
             fcstRun.append(t)
     return fcstRun
 
+
 def getAvailableTimes(request, refTimeOnly=False):
     """
     Get the times of available data to the request.
@@ -152,7 +150,7 @@ def getAvailableTimes(request, refTimeOnly=False):
     Args:
             request: the IDataRequest to get data for
             refTimeOnly: optional, use True if only unique refTimes should be
-            returned (without a forecastHr)
+                returned (without a forecastHr)
 
     Returns:
             a list of DataTimes
@@ -169,7 +167,7 @@ def getGridData(request, times=[]):
     Args:
             request: the IDataRequest to get data for
             times: a list of DataTimes, a TimeRange, or None if the data is time
-            agnostic
+                agnostic
 
     Returns:
             a list of IGridData
@@ -186,7 +184,7 @@ def getGeometryData(request, times=[]):
     Args:
             request: the IDataRequest to get data for
             times: a list of DataTimes, a TimeRange, or None if the data is time
-            agnostic
+                agnostic
 
     Returns:
        a list of IGeometryData
@@ -282,6 +280,7 @@ def getIdentifierValues(request, identifierKey):
     """
     return router.getIdentifierValues(request, identifierKey)
 
+
 def newDataRequest(datatype=None, **kwargs):
     """
     Creates a new instance of IDataRequest suitable for the runtime environment.
@@ -300,6 +299,7 @@ def newDataRequest(datatype=None, **kwargs):
     """
     return router.newDataRequest(datatype, **kwargs)
 
+
 def getSupportedDatatypes():
     """
     Gets the datatypes that are supported by the framework
@@ -317,7 +317,7 @@ def changeEDEXHost(newHostName):
     method will throw a TypeError.
 
     Args:
-            newHostHame: the EDEX host to connect to
+            newHostName: the EDEX host to connect to
     """
     if USING_NATIVE_THRIFT:
         global THRIFT_HOST
@@ -326,6 +326,7 @@ def changeEDEXHost(newHostName):
         router = ThriftClientRouter.ThriftClientRouter(THRIFT_HOST)
     else:
         raise TypeError("Cannot call changeEDEXHost when using JepRouter.")
+
 
 def setLazyLoadGridLatLon(lazyLoadGridLatLon):
     """

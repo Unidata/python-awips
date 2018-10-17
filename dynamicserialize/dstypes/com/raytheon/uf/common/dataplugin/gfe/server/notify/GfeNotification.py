@@ -22,7 +22,6 @@ class GfeNotification(with_metaclass(abc.ABCMeta, object)):
     def setSiteID(self, siteID):
         self.siteID = siteID
 
-
     def getSourceID(self):
         return self.sourceID
 

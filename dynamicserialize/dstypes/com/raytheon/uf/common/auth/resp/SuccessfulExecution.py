@@ -17,4 +17,3 @@ class SuccessfulExecution(object):
 
     def setUpdatedData(self, updatedData):
         self.updatedData = updatedData
-

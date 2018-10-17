@@ -18,4 +18,3 @@ from .ListUtilityResponse import ListUtilityResponse
 from .PrivilegedUtilityRequestMessage import PrivilegedUtilityRequestMessage
 from .UtilityRequestMessage import UtilityRequestMessage
 from .UtilityResponseMessage import UtilityResponseMessage
-

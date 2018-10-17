@@ -51,4 +51,3 @@ class ActivityMapData(object):
 
     def setActivityName(self, activityName):
         self.activityName = activityName
-

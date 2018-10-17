@@ -10,4 +10,3 @@ class TextDBRequest(object):
 
     def setMessage(self, message):
         self.message = message
-

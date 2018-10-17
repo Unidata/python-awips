@@ -28,4 +28,3 @@ class GetGridRequest(object):
 
     def setConvertUnit(self, convertUnit):
         self.convertUnit = convertUnit
-

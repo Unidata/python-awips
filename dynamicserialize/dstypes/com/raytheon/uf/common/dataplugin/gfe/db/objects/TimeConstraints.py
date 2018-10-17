@@ -57,13 +57,13 @@ class TimeConstraints(object):
             return False
         if self.repeatInterval != other.repeatInterval:
             return False
-        return (self.startTime == other.startTime)
+        return self.startTime == other.startTime
 
     def __ne__(self, other):
-        return (not self.__eq__(other))
+        return not self.__eq__(other)
 
     def anyConstraints(self):
-        return (self.duration != 0)
+        return self.duration != 0
 
     def isValid(self):
         return self.valid

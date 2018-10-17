@@ -53,4 +53,3 @@ class SerializableExceptionWrapper(object):
 
     def setWrapper(self, wrapper):
         self.wrapper = wrapper
-

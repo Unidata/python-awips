@@ -6,4 +6,3 @@ __all__ = [
 
 from .Grid2DByte import Grid2DByte
 from .Grid2DFloat import Grid2DFloat
-

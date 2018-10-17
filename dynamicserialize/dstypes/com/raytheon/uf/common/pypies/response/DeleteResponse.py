@@ -10,4 +10,3 @@ class DeleteResponse(object):
 
     def setSuccess(self, success):
         self.success = success
-

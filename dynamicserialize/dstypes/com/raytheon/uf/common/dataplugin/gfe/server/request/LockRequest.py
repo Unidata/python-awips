@@ -31,4 +31,3 @@ class LockRequest(object):
 
     def setMode(self, mode):
         self.mode = mode
-

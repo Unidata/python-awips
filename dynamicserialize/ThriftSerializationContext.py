@@ -49,6 +49,7 @@ def buildObjMap(module):
         tname = tname[DS_LEN:]
         dsObjTypes[tname] = clz
 
+
 buildObjMap(dstypes)
 
 if six.PY2:
@@ -211,7 +212,7 @@ class ThriftSerializationContext(object):
             try:
                 setMethod = getattr(obj, lookingFor)
                 setMethod(result)
-            except:
+            except ValueError:
                 raise dynamicserialize.SerializationException(
                     "Couldn't find setter method " + lookingFor)
 
@@ -254,7 +255,7 @@ class ThriftSerializationContext(object):
         pyt = type(obj)
         if pyt in pythonToThriftMap:
             return pythonToThriftMap[pyt]
-        elif pyt.__module__[:DS_LEN - 1] == ('dynamicserialize.dstypes'):
+        elif pyt.__module__[:DS_LEN - 1] == 'dynamicserialize.dstypes':
             return pythonToThriftMap[object]
         raise dynamicserialize.SerializationException(
                 "Don't know how to serialize object of type: " + str(pyt))
@@ -284,7 +285,6 @@ class ThriftSerializationContext(object):
                         val = m[1]()
                         ft = self._lookupType(val)
                         if ft == TType.STRUCT:
-                            fc = val.__module__[DS_LEN:]
                             self._serializeField(fieldname, ft, fid, val)
                         else:
                             self._serializeField(fieldname, ft, fid, val)

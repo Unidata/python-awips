@@ -15,4 +15,3 @@ class Geometry(object):
 
     def setBinaryData(self, data):
         self.binaryData = data
-

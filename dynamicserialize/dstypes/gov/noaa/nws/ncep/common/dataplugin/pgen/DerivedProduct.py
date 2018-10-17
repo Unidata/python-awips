@@ -24,4 +24,3 @@ class DerivedProduct(object):
 
     def setProduct(self, product):
         self.product = product
-

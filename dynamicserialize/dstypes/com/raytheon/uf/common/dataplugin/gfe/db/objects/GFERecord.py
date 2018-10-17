@@ -90,4 +90,3 @@ class GFERecord(object):
 
     def setIdentifier(self, identifier):
         self.identifier = identifier
-

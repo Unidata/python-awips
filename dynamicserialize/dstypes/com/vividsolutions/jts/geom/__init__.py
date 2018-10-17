@@ -8,4 +8,3 @@ __all__ = [
 from .Coordinate import Coordinate
 from .Envelope import Envelope
 from .Geometry import Geometry
-

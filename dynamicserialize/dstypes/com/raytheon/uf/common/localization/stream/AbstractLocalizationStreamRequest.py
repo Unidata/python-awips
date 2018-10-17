@@ -37,4 +37,3 @@ class AbstractLocalizationStreamRequest(with_metaclass(abc.ABCMeta, object)):
 
     def setUser(self, user):
         self.user = user
-

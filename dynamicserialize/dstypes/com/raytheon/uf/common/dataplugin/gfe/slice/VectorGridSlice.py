@@ -8,7 +8,7 @@ class VectorGridSlice(ScalarGridSlice):
         self.dirGrid = None
 
     def getNumPyGrid(self):
-        return (self.scalarGrid.getNumPyGrid(), self.dirGrid.getNumPyGrid())
+        return self.scalarGrid.getNumPyGrid(), self.dirGrid.getNumPyGrid()
 
     def getDirGrid(self):
         return self.dirGrid

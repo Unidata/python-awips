@@ -40,4 +40,3 @@ class LockTable(object):
         for i in self.locks:
             msg += "\n  Lock: " + str(i)
         return msg
-

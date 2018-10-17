@@ -24,4 +24,3 @@ class DeleteUtilityCommand(object):
 
     def setMyContextName(self, contextName):
         self.myContextName = str(contextName)
-

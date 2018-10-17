@@ -13,4 +13,3 @@ class CommutativeTimestamp(Timestamp):
 
     def __init__(self, timeInMillis=None):
         super(CommutativeTimestamp, self).__init__(timeInMillis)
-

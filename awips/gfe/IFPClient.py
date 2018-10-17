@@ -91,7 +91,7 @@ class IFPClient(object):
             sr.setPayload(inventoryList)
             return sr
         elif self.__isHomogenousIterable(parmID, ParmID):
-            return self.__getGridInventory([id for id in parmID])
+            return self.__getGridInventory([pid for pid in parmID])
         raise TypeError("Invalid type: " + str(type(parmID)) +
                         " specified to getGridInventory(). Accepts ParmID or lists of ParmID.")
 

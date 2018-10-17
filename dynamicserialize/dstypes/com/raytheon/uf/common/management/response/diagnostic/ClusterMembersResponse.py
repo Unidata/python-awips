@@ -16,4 +16,3 @@ class ClusterMembersResponse(object):
         for x in self.status:
             msg += str(x) + '\n'
         return msg
-

@@ -10,4 +10,3 @@ class RetrieveResponse(object):
 
     def setRecords(self, records):
         self.records = records
-

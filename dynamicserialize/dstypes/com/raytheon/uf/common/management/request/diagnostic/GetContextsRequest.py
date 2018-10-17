@@ -10,4 +10,3 @@ class GetContextsRequest(object):
 
     def setContextState(self, contextState):
         self.contextState = contextState
-

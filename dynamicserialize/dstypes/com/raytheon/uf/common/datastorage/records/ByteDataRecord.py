@@ -18,4 +18,3 @@ class ByteDataRecord(AbstractDataRecord):
 
     def putDataObject(self, obj):
         self.setByteData(obj)
-

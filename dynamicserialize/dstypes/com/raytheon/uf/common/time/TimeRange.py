@@ -1,5 +1,4 @@
 #
-#
 #     SOFTWARE HISTORY
 #
 #    Date            Ticket#       Engineer       Description
@@ -8,7 +7,6 @@
 #    01/22/14        2667          bclement       fixed millisecond support
 #    02/28/14        2667          bclement       constructor can take extra micros for start and end
 #    06/24/15        4480          dgilling       fix __eq__.
-#
 #
 #
 
@@ -29,7 +27,8 @@ class TimeRange(object):
         return self.__repr__()
 
     def __repr__(self):
-        return "(" + self.start.strftime("%b %d %y %H:%M:%S %Z") + ", " + self.end.strftime("%b %d %y %H:%M:%S %Z") + ")"
+        return "(" + self.start.strftime("%b %d %y %H:%M:%S %Z") + ", " + \
+               self.end.strftime("%b %d %y %H:%M:%S %Z") + ")"
 
     def __eq__(self, other):
         if not isinstance(self, type(other)):
@@ -43,7 +42,7 @@ class TimeRange(object):
             return False
 
     def __ne__(self, other):
-        return (not self.__eq__(other))
+        return not self.__eq__(other)
 
     def __convertToDateTimeWithExtra(self, timeArg, extraMicros):
         rval = self.__convertToDateTime(timeArg)
@@ -111,20 +110,20 @@ class TimeRange(object):
                 return self.__eq__(timeArg)
             elif timeArg.duration() == 0:
                 return self.contains(timeArg.start)
-            return (timeArg.start >= self.start and timeArg.end <= self.end)
+            return timeArg.start >= self.start and timeArg.end <= self.end
         else:
             convTime = self.__convertToDateTime(timeArg)
             if not isinstance(convTime, datetime.datetime):
                 raise TypeError("Invalid type for argument time specified to TimeRange.contains().")
             if self.duration() != 0:
-                return (convTime >= self.start and convTime < self.end)
+                return self.start <= convTime < self.end
             return convTime == self.start
 
     def isValid(self):
         return bool(self.start != self.end)
 
     def overlaps(self, timeRange):
-        return (timeRange.contains(self.start) or self.contains(timeRange.start))
+        return timeRange.contains(self.start) or self.contains(timeRange.start)
 
     def combineWith(self, timeRange):
         if self.isValid() and timeRange.isValid():

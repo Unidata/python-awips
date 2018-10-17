@@ -38,4 +38,3 @@ class ListUtilityCommand(object):
 
     def setContext(self, context):
         self.context = context
-

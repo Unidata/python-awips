@@ -65,4 +65,3 @@ class RadarDataRecord(object):
 
     def setVolumeCoveragePattern(self, volumeCoveragePattern):
         self.volumeCoveragePattern = volumeCoveragePattern
-

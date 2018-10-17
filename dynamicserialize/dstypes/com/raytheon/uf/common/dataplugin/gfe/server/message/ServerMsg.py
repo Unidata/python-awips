@@ -10,4 +10,3 @@ class ServerMsg(object):
 
     def setMessage(self, message):
         self.message = message
-

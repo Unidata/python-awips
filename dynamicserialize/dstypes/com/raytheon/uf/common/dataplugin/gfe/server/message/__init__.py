@@ -6,4 +6,3 @@ __all__ = [
 
 from .ServerMsg import ServerMsg
 from .ServerResponse import ServerResponse
-

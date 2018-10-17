@@ -16,4 +16,3 @@ class GetStationsRequest(object):
 
     def setPluginName(self, pluginName):
         self.pluginName = pluginName
-

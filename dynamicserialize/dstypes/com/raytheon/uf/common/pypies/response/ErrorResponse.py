@@ -10,4 +10,3 @@ class ErrorResponse(object):
 
     def setError(self, error):
         self.error = error
-

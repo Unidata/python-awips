@@ -56,7 +56,7 @@ THRIFT_HOST = "edex"
 
 USING_NATIVE_THRIFT = False
 
-JMS_HOST_PATTERN=re.compile('tcp://([^:]+):([0-9]+)')
+JMS_HOST_PATTERN = re.compile('tcp://([^:]+):([0-9]+)')
 
 if 'jep' in sys.modules:
     # intentionally do not catch if this fails to import, we want it to
@@ -124,7 +124,7 @@ def changeEDEXHost(newHostName):
     method will throw a TypeError.
 
     Args:
-            newHostHame: the EDEX host to connect to
+            newHostName: the EDEX host to connect to
     """
     if USING_NATIVE_THRIFT:
         global THRIFT_HOST

@@ -18,4 +18,3 @@ class PrivilegedUtilityRequestMessage(object):
 
     def setUser(self, user):
         self.user = user
-

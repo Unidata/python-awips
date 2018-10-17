@@ -48,4 +48,3 @@ class GridUpdateNotification(GfeNotification):
         msg += '\n' + "Replacement TimeRange: " + str(self.replacementTimeRange)
         msg += '\n' + "Histories: " + str(self.histories)
         return msg
-

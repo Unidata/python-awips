@@ -7,4 +7,3 @@ __all__ = [
           ]
 
 from .PointTest import PointTest
-

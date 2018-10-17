@@ -52,4 +52,3 @@ class GetGridDataResponse(object):
 
     def setSiteCrsWkt(self, siteCrsWkt):
         self.siteCrsWkt = siteCrsWkt
-

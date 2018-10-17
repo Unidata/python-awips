@@ -27,7 +27,7 @@ class UsageArgumentParser(argparse.ArgumentParser):
         sys.exit(2)
 
 
-## Custom actions for ArgumentParser objects ##
+# Custom actions for ArgumentParser objects
 class StoreDatabaseIDAction(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
         did = DatabaseID(values)
@@ -41,8 +41,7 @@ class AppendParmNameAndLevelAction(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
         tx = ParmID.parmNameAndLevel(values)
         comp = tx[0] + '_' + tx[1]
-        if (hasattr(namespace, self.dest)) and \
-            (getattr(namespace, self.dest) is not None):
+        if (hasattr(namespace, self.dest)) and (getattr(namespace, self.dest) is not None):
                 currentValues = getattr(namespace, self.dest)
                 currentValues.append(comp)
                 setattr(namespace, self.dest, currentValues)
@@ -58,8 +57,6 @@ class StoreTimeAction(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
         try:
             timeStruct = time.strptime(values, TIME_FORMAT)
+            setattr(namespace, self.dest, timeStruct)
         except ValueError:
             parser.error(str(values) + " is not a valid time string of the format YYYYMMDD_hhmm")
-
-        setattr(namespace, self.dest, timeStruct)
-

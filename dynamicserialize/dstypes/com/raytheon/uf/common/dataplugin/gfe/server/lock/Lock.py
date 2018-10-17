@@ -50,4 +50,3 @@ class Lock(object):
               + ', ' + time.strftime(timeformat, t1)
         msg += " WsId: " + str(self.wsId)
         return msg
-

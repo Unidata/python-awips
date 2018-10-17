@@ -17,4 +17,3 @@ class DataURINotificationMessage(object):
 
     def setIds(self, ids):
         self.ids = ids
-

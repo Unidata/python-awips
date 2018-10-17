@@ -19,4 +19,3 @@ class Header(object):
 
     def setProperties(self, properties):
         self.properties = properties
-

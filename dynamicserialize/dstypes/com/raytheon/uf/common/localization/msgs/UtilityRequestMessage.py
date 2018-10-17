@@ -10,4 +10,3 @@ class UtilityRequestMessage(object):
 
     def setCommands(self, commands):
         self.commands = commands
-

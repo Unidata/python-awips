@@ -89,11 +89,11 @@ class DafTestCase(unittest.TestCase):
         print("Optional identifiers:", optional)
 
     def runGetIdValuesTest(self, identifiers):
-        for id in identifiers:
-            if id.lower() == 'datauri':
+        for identifier in identifiers:
+            if identifier.lower() == 'datauri':
                 continue
             req = DAL.newDataRequest(self.datatype)
-            idValues = DAL.getIdentifierValues(req, id)
+            idValues = DAL.getIdentifierValues(req, identifier)
             self.assertTrue(hasattr(idValues, '__iter__'))
 
     def runInvalidIdValuesTest(self):
@@ -145,20 +145,9 @@ class DafTestCase(unittest.TestCase):
         times = DafTestCase.getTimesIfSupported(req)
         geomData = DAL.getGeometryData(req, times[:self.numTimesToLimit])
         self.assertIsNotNone(geomData)
-        #if times:
-        #    self.assertNotEqual(len(geomData), 0)
         if not geomData:
             raise unittest.SkipTest("No data available")
         print("Number of geometry records: " + str(len(geomData)))
-        #print("Sample geometry data:")
-        #for record in geomData[:self.sampleDataLimit]:
-        #    if (checkDataTimes and times and
-        #            "PERIOD_USED" not in record.getDataTime().getUtilityFlags()):
-        #        self.assertIn(record.getDataTime(), times[:self.numTimesToLimit])
-        #    #print("geometry=" + str(record.getGeometry()), end="")
-        #    for p in req.getParameters():
-        #        print(" " + p + "=" + str(record.getString(p)), end="")
-        #    print()
         return geomData
 
     def runGeometryDataTestWithTimeRange(self, req, timeRange):
@@ -171,14 +160,6 @@ class DafTestCase(unittest.TestCase):
         if not geomData:
             raise unittest.SkipTest("No data available")
         print("Number of geometry records: " + str(len(geomData)))
-        #print("Sample geometry data:")
-        #for record in geomData[:self.sampleDataLimit]:
-        #    self.assertGreaterEqual(record.getDataTime().getRefTime().getTime(), timeRange.getStartInMillis())
-        #    self.assertLessEqual(record.getDataTime().getRefTime().getTime(), timeRange.getEndInMillis())
-        #    print("geometry=" + str(record.getGeometry()), end="")
-        #    for p in req.getParameters():
-        #        print(" " + p + "=" + record.getString(p), end="")
-        #    print()
         return geomData
 
     def runGridDataTest(self, req, testSameShape=True):
@@ -187,6 +168,7 @@ class DafTestCase(unittest.TestCase):
         request.
 
         Args:
+            req: the grid request
             testSameShape: whether or not to verify that all the retrieved data
                            have the same shape (most data don't change shape)
         """

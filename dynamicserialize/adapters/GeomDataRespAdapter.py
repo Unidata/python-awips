@@ -59,7 +59,7 @@ def deserialize(context):
 
     geoData = []
     size = context.readI32()
-    for __ in range(size):
+    for _ in range(size):
         data = GeometryResponseData()
         # wkb index
         wkbIndex = context.readI32()

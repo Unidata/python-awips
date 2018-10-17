@@ -6,11 +6,11 @@ import sys
 from distutils.core import setup
 from setuptools import find_packages
 
-dependencies = ['numpy','six']
+dependencies = ['numpy', 'six']
 if sys.version_info < (3, 4):
     dependencies.append('enum34')
 
-ver="18.1.6"
+ver = "18.1.6"
 
 setup(
     name='python-awips',
@@ -27,7 +27,7 @@ setup(
         'cdm': ['pyproj>=1.9.4'],
         'dev': ['ipython[all]>=3.1'],
         'doc': ['sphinx>=1.4', 'sphinx-gallery', 'doc8'],
-        'examples': ['cartopy>=0.13.1','metpy>=0.4.0']
+        'examples': ['cartopy>=0.13.1', 'metpy>=0.4.0']
     }
 )
 

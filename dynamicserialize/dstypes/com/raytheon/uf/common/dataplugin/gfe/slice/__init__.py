@@ -12,4 +12,3 @@ from .DiscreteGridSlice import DiscreteGridSlice
 from .ScalarGridSlice import ScalarGridSlice
 from .VectorGridSlice import VectorGridSlice
 from .WeatherGridSlice import WeatherGridSlice
-

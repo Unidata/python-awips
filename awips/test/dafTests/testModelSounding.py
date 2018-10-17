@@ -124,7 +124,7 @@ class ModelSoundingTestCase(baseDafTestCase.DafTestCase):
     # No numeric tests since no numeric identifiers are available.
 
     def testGetDataWithEqualsNone(self):
-        geometryData = self._runConstraintTest('reportType', '=', None)
+        self._runConstraintTest('reportType', '=', None)
 
     def testGetDataWithNotEquals(self):
         geometryData = self._runConstraintTest('reportType', '!=', 'ETA')
@@ -132,19 +132,19 @@ class ModelSoundingTestCase(baseDafTestCase.DafTestCase):
             self.assertNotIn('/ETA/', record.getString('dataURI'))
 
     def testGetDataWithNotEqualsNone(self):
-        geometryData = self._runConstraintTest('reportType', '!=', None)
+        self._runConstraintTest('reportType', '!=', None)
 
     def testGetDataWithGreaterThan(self):
-        geometryData = self._runConstraintTest('reportType', '>', 'ETA')
+        self._runConstraintTest('reportType', '>', 'ETA')
 
     def testGetDataWithLessThan(self):
-        geometryData = self._runConstraintTest('reportType', '<', 'ETA')
+        self._runConstraintTest('reportType', '<', 'ETA')
 
     def testGetDataWithGreaterThanEquals(self):
-        geometryData = self._runConstraintTest('reportType', '>=', 'ETA')
+        self._runConstraintTest('reportType', '>=', 'ETA')
 
     def testGetDataWithLessThanEquals(self):
-        geometryData = self._runConstraintTest('reportType', '<=', 'ETA')
+        self._runConstraintTest('reportType', '<=', 'ETA')
 
     def testGetDataWithInTuple(self):
         collection = ('ETA', 'GFS')

@@ -37,7 +37,7 @@ class ExportGridsRequest(AbstractGfeRequest):
         if inputVal in validValues:
             self.mode = mode
         else:
-            raise ValueError(inputVal + " not a valid ExportGridsMode value. Must be one of " + str(validValues))
+            raise ValueError(inputVal + " invalid ExportGridsMode. Must be " + str(validValues))
 
     def __str__(self):
         retVal = "ExportGridsRequest["

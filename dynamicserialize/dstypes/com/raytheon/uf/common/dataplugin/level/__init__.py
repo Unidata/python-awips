@@ -6,4 +6,3 @@ __all__ = [
 
 from .Level import Level
 from .MasterLevel import MasterLevel
-

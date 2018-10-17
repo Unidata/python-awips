@@ -24,4 +24,3 @@ class LockNotification(GfeNotification):
 
     def __str__(self):
         return str(self.lockTable)
-

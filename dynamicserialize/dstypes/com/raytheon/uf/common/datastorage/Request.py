@@ -38,4 +38,3 @@ class Request(object):
 
     def setType(self, requesttype):
         self.type = requesttype
-

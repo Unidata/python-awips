@@ -24,4 +24,3 @@ class StoreRequest(object):
 
     def setFilename(self, filename):
         self.filename = filename
-

@@ -65,4 +65,3 @@ class GetGridDataRequest(object):
 
     def setFcstsec(self, fcstsec):
         self.fcstsec = fcstsec
-

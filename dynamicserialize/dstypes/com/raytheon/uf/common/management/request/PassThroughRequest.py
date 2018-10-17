@@ -24,4 +24,3 @@ class PassThroughRequest(object):
 
     def setJvmName(self, jvmName):
         self.jvmName = jvmName
-

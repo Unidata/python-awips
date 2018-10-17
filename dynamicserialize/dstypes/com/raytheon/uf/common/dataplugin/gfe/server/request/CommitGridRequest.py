@@ -31,4 +31,3 @@ class CommitGridRequest(object):
 
     def setClientSendStatus(self, clientSendStatus):
         self.clientSendStatus = bool(clientSendStatus)
-

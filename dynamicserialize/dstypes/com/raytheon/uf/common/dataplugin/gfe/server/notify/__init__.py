@@ -16,4 +16,3 @@ from .GridHistoryUpdateNotification import GridHistoryUpdateNotification
 from .GridUpdateNotification import GridUpdateNotification
 from .LockNotification import LockNotification
 from .UserMessageNotification import UserMessageNotification
-

@@ -16,4 +16,3 @@ class LocalizationType(object):
 
     def setText(self, text):
         self.text = text
-

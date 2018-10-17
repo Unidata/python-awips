@@ -33,4 +33,3 @@ class LocalizationContext(object):
         if self.contextName is not None and self.contextName != "":
             delimitedString += "." + self.contextName
         return delimitedString
-

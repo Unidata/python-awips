@@ -26,7 +26,7 @@ def serialize(context, timeRange):
 
 def deserialize(context):
     startTime = context.readI64()
-    endTime  = context.readI64()
+    endTime = context.readI64()
 
     timeRange = TimeRange()
     # java uses milliseconds, python uses microseconds

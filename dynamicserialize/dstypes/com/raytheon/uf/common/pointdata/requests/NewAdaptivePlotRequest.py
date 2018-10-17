@@ -31,4 +31,3 @@ class NewAdaptivePlotRequest(object):
 
     def setDescription(self, description):
         self.description = description
-

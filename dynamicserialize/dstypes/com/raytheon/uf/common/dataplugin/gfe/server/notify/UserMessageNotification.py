@@ -40,4 +40,3 @@ class UserMessageNotification(GfeNotification):
         msg += 'Priority: ' + str(self.priority) + '\n'
         msg += 'Category: ' + str(self.category) + '\n'
         return msg
-

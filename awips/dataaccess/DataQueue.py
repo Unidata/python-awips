@@ -22,17 +22,14 @@ import sys
 
 if sys.version_info.major == 2:
     from Queue import Queue, Empty
-else: # Python 3 module renamed to 'queue'
+else:  # Python 3 module renamed to 'queue'
     from queue import Queue, Empty
-
 
 # Used to indicate a DataQueue that will produce geometry data.
 GEOMETRY = object()
 
-
 # Used to indicate a DataQueue that will produce grid data.
 GRID = object()
-
 
 # Default maximum queue size.
 _DEFAULT_MAXSIZE = 100

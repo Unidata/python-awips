@@ -21,4 +21,3 @@ class User(object):
 
     def setAuthenticationData(self, authenticationData):
         self.authenticationData = authenticationData
-

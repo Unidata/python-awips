@@ -17,4 +17,3 @@ class GetGeometryDataResponse(object):
 
     def setGeoData(self, geoData):
         self.geoData = geoData
-

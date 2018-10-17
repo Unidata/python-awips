@@ -28,7 +28,7 @@ The ability to unit convert grid data is not currently available in this version
 
 class PyGridData(IGridData, PyData.PyData):
 
-    def __init__(self, gridDataRecord, nx, ny, latLonGrid = None, latLonDelegate = None):
+    def __init__(self, gridDataRecord, nx, ny, latLonGrid=None, latLonDelegate=None):
         PyData.PyData.__init__(self, gridDataRecord)
         nx = nx
         ny = ny
@@ -37,7 +37,6 @@ class PyGridData(IGridData, PyData.PyData):
         self.__gridData = numpy.reshape(numpy.array(gridDataRecord.getGridData()), (ny, nx))
         self.__latLonGrid = latLonGrid
         self.__latLonDelegate = latLonDelegate
-
 
     def getParameter(self):
         return self.__parameter

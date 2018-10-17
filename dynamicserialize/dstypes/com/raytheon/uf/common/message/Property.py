@@ -17,4 +17,3 @@ class Property(object):
 
     def setValue(self, value):
         self.value = value
-

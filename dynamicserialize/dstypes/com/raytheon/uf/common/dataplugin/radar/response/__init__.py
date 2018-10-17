@@ -6,4 +6,3 @@ __all__ = [
 
 from .GetRadarDataRecordResponse import GetRadarDataRecordResponse
 from .RadarDataRecord import RadarDataRecord
-

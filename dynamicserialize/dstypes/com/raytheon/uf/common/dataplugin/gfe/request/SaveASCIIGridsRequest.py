@@ -24,4 +24,3 @@ class SaveASCIIGridsRequest(object):
 
     def setSiteID(self, siteID):
         self.siteID = siteID
-

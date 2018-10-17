@@ -15,4 +15,3 @@ class GetOptionalIdentifiersRequest(AbstractIdentifierRequest):
 
     def __init__(self):
         super(GetOptionalIdentifiersRequest, self).__init__()
-

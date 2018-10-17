@@ -224,7 +224,8 @@ class ThriftClientRouter(object):
             return [x.decode('utf-8') for x in response]
         return response
 
-    def newDataRequest(self, datatype, parameters=[], levels=[], locationNames=[], envelope=None, **kwargs):
+    def newDataRequest(self, datatype, parameters=[], levels=[], locationNames=[],
+                       envelope=None, **kwargs):
         req = DefaultDataRequest()
         if datatype:
             req.setDatatype(datatype)

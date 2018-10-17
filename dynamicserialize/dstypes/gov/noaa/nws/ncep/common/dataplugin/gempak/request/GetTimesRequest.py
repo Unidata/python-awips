@@ -23,4 +23,3 @@ class GetTimesRequest(object):
 
     def setTimeField(self, timeField):
         self.timeField = timeField
-

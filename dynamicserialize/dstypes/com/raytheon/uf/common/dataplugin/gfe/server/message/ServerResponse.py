@@ -26,10 +26,10 @@ class ServerResponse(object):
         self.notifications = notifications
 
     def isOkay(self):
-        return (self.messages is None or len(self.messages) == 0)
+        return self.messages is None or len(self.messages) == 0
 
     def message(self):
-        if (self.isOkay()):
+        if self.isOkay():
             return ""
         else:
             compMessage = ""

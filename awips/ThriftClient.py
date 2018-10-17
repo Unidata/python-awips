@@ -1,9 +1,3 @@
-try:
-    import http.client as httpcl
-except ImportError:
-    import httplib as httpcl
-from dynamicserialize import DynamicSerializationManager
-
 #
 # Provides a Python-based interface for executing Thrift requests.
 #
@@ -16,6 +10,12 @@ from dynamicserialize import DynamicSerializationManager
 #    09/20/10                      dgilling       Initial Creation.
 #
 #
+
+try:
+    import http.client as httpcl
+except ImportError:
+    import httplib as httpcl
+from dynamicserialize import DynamicSerializationManager
 
 
 class ThriftClient:
@@ -32,12 +32,12 @@ class ThriftClient:
     #      will return a Thrift client pointed at http://localhost:9581/services.
     def __init__(self, host, port=9581, uri="/services"):
         hostParts = host.split("/", 1)
-        if (len(hostParts) > 1):
+        if len(hostParts) > 1:
             hostString = hostParts[0]
             self.__uri = "/" + hostParts[1]
             self.__httpConn = httpcl.HTTPConnection(hostString)
         else:
-            if (port is None):
+            if port is None:
                 self.__httpConn = httpcl.HTTPConnection(host)
             else:
                 self.__httpConn = httpcl.HTTPConnection(host, port)
@@ -53,7 +53,7 @@ class ThriftClient:
         self.__httpConn.request("POST", self.__uri + uri, message)
 
         response = self.__httpConn.getresponse()
-        if (response.status != 200):
+        if response.status != 200:
             raise ThriftRequestException("Unable to post request to server")
 
         rval = self.__dsm.deserializeBytes(response.read())
@@ -64,8 +64,8 @@ class ThriftClient:
         # with the original Java stack trace
         # ELSE: we have a valid response and pass it back
         try:
-           forceError = rval.getException()
-           raise ThriftRequestException(forceError)
+            forceError = rval.getException()
+            raise ThriftRequestException(forceError)
         except AttributeError:
             pass
 
@@ -78,4 +78,3 @@ class ThriftRequestException(Exception):
 
     def __str__(self):
         return repr(self.parameter)
-

@@ -14,4 +14,3 @@ class GetAvailableLocationNamesRequest(AbstractDataAccessRequest):
 
     def __init__(self):
         super(GetAvailableLocationNamesRequest, self).__init__()
-

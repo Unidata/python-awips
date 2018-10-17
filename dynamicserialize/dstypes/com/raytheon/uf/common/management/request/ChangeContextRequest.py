@@ -17,4 +17,3 @@ class ChangeContextRequest(object):
 
     def setContextName(self, contextName):
         self.contextName = contextName
-

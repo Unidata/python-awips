@@ -32,8 +32,8 @@ class CombinedTimeQueryTestCase(unittest.TestCase):
     def testSuccessfulQuery(self):
         req = DAL.newDataRequest('grid')
         req.setLocationNames(self.modelName)
-        req.setParameters('T','GH')
-        req.setLevels('300MB', '500MB','700MB')
+        req.setParameters('T', 'GH')
+        req.setLevels('300MB', '500MB', '700MB')
         times = CTQ.getAvailableTimes(req)
         self.assertNotEqual(len(times), 0)
 
@@ -43,7 +43,7 @@ class CombinedTimeQueryTestCase(unittest.TestCase):
         """
         req = DAL.newDataRequest('grid')
         req.setLocationNames(self.modelName)
-        req.setParameters('T','GH', 'LgSP1hr')
-        req.setLevels('300MB', '500MB','700MB','0.0SFC')
+        req.setParameters('T', 'GH', 'LgSP1hr')
+        req.setLevels('300MB', '500MB', '700MB', '0.0SFC')
         times = CTQ.getAvailableTimes(req)
         self.assertEqual(len(times), 0)

@@ -11,8 +11,8 @@ class Grid2DFloat(object):
     def getBuffer(self):
         return self.buffer
 
-    def setBuffer(self, buffer):
-        self.buffer = buffer
+    def setBuffer(self, bytebuffer):
+        self.buffer = bytebuffer
 
     def getXdim(self):
         return self.xdim

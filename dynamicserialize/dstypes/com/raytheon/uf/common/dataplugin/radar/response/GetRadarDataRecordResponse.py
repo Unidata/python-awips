@@ -16,4 +16,3 @@ class GetRadarDataRecordResponse(object):
 
     def setData(self, data):
         self.data = data
-

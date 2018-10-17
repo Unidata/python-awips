@@ -10,4 +10,3 @@ class RetrieveAllProductsRequest(object):
 
     def setDataURI(self, dataURI):
         self.dataURI = dataURI
-

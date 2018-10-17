@@ -10,6 +10,8 @@
 #    09/29/10                      wldougher     Initial Creation.
 #
 
+from . import GregorianCalendar
+
 
 class Calendar(object):
 

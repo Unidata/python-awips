@@ -21,4 +21,3 @@ class GetSiteTimeZoneInfoRequest(AbstractGfeRequest):
 
     def setRequestedSiteIDs(self, requestedSiteIDs):
         self.requestedSiteIDs = requestedSiteIDs
-

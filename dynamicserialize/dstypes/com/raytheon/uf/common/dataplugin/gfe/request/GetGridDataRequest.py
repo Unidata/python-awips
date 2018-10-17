@@ -12,7 +12,7 @@ class GetGridDataRequest(with_metaclass(abc.ABCMeta, object)):
 
     def addRequest(self, gridDataReq):
         if not isinstance(gridDataReq, GetGridRequest):
-            raise TypeError("Invalid request specified: " + str(type(gridDataReq)) + \
+            raise TypeError("Invalid request specified: " + str(type(gridDataReq)) +
                             ". Only GetGridRequests are supported.")
         else:
             self.requests.append(gridDataReq)
@@ -36,4 +36,3 @@ class GetGridDataRequest(with_metaclass(abc.ABCMeta, object)):
 
     def setSiteID(self, siteID):
         self.siteID = siteID
-

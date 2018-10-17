@@ -19,4 +19,3 @@ class LocalizationStreamGetRequest(AbstractLocalizationStreamRequest):
 
     def setNumBytes(self, numBytes):
         self.numBytes = numBytes
-
