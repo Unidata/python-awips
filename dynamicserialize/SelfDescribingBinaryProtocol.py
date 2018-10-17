@@ -12,10 +12,10 @@
 #
 #
 
-from thrift.protocol.TProtocol import *
-from thrift.protocol.TBinaryProtocol import *
 import struct
 import numpy
+from thrift.protocol.TProtocol import *
+from thrift.protocol.TBinaryProtocol import *
 
 FLOAT = 64
 

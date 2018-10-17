@@ -42,8 +42,7 @@ class GridParmInfo(object):
                   " RateParm: " + str(self.rateParm) + \
                   " GridType: " + self.gridType
             return out
-        else:
-            return "<Invalid>"
+        return "<Invalid>"
 
     def __eq__(self, other):
         if not isinstance(other, GridParmInfo):

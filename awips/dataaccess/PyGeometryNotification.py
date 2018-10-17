@@ -10,9 +10,9 @@
 #    09/07/17        6175          tgurney        Override messageReceived
 #
 
+import traceback
 import dynamicserialize
 from awips.dataaccess.PyNotification import PyNotification
-import traceback
 
 
 class PyGeometryNotification(PyNotification):
