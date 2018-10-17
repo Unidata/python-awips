@@ -12,6 +12,7 @@
 
 import dynamicserialize
 from awips.dataaccess.PyNotification import PyNotification
+import traceback
 
 
 class PyGeometryNotification(PyNotification):
@@ -27,7 +28,7 @@ class PyGeometryNotification(PyNotification):
             try:
                 data = self.getData(self.request, list(dataTimes))
                 self.callback(data)
-            except Exception:
+            except ValueError:
                 traceback.print_exc()
 
     def getData(self, request, dataTimes):

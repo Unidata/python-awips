@@ -9,6 +9,7 @@
 #    01/20/11                      dgilling      Initial Creation.
 #
 
+import dynamicserialize
 
 # TODO: Implement serialization/make deserialization useful.
 # Deserialization was simply implemented to allow GridLocation objects to be
