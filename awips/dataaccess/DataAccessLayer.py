@@ -41,24 +41,24 @@ else:
 
 
 def getRadarProductIDs(availableParms):
-        """
-        Get only the numeric idetifiers for NEXRAD3 products.
+    """
+    Get only the numeric idetifiers for NEXRAD3 products.
 
-        Args:
-                availableParms: Full list of radar parameters
+    Args:
+            availableParms: Full list of radar parameters
 
-        Returns:
-                List of filtered parameters
-        """
-        productIDs = []
-        for p in list(availableParms):
-            try:
-                if isinstance(int(p), int):
-                    productIDs.append(str(p))
-            except ValueError:
-                pass
+    Returns:
+            List of filtered parameters
+    """
+    productIDs = []
+    for p in list(availableParms):
+        try:
+            if isinstance(int(p), int):
+                productIDs.append(str(p))
+        except ValueError:
+            pass
 
-        return productIDs
+    return productIDs
 
 
 def getRadarProductNames(availableParms):
