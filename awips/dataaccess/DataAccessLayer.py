@@ -40,6 +40,45 @@ else:
     USING_NATIVE_THRIFT = True
 
 
+def getRadarProductIDs(availableParms):
+        """
+        Get only the numeric idetifiers for NEXRAD3 products.
+
+        Args:
+                availableParms: Full list of radar parameters
+
+        Returns:
+                List of filtered parameters
+        """
+        productIDs = []
+        for p in list(availableParms):
+            try:
+                if isinstance(int(p), int):
+                    productIDs.append(str(p))
+            except ValueError:
+                pass
+
+        return productIDs
+
+
+def getRadarProductNames(availableParms):
+    """
+     Get only the named idetifiers for NEXRAD3 products.
+
+    Args:
+            availableParms: Full list of radar parameters
+
+    Returns:
+            List of filtered parameters
+    """
+    productNames = []
+    for p in list(availableParms):
+        if len(p) > 3:
+            productNames.append(p)
+
+    return productNames
+
+
 def getMetarObs(response):
     """
     Processes a DataAccessLayer "obs" response into a dictionary,
