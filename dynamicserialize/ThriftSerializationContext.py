@@ -255,10 +255,12 @@ class ThriftSerializationContext(object):
         pyt = type(obj)
         if pyt in pythonToThriftMap:
             return pythonToThriftMap[pyt]
-        elif pyt.__module__[:DS_LEN - 1] == 'dynamicserialize.dstypes':
+        elif pyt.__module__[:DS_LEN - 1] == ('dynamicserialize.dstypes'):
+            if six.PY2:
+                return pythonToThriftMap[types.InstanceType]
             return pythonToThriftMap[object]
         raise dynamicserialize.SerializationException(
-                "Don't know how to serialize object of type: " + str(pyt))
+            "Don't know how to serialize object of type: " + str(pyt))
 
     def serializeMessage(self, obj):
         tt = self._lookupType(obj)
