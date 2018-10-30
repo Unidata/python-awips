@@ -158,6 +158,13 @@ class GridNavRetriever:
         req.setModelId(self.modelId)
         resp = self.client.sendRequest(req)
 
+        for i, rec in enumerate(resp):
+            resp[i] = {
+                key.decode() if isinstance(key, bytes) else key:
+                    val.decode() if isinstance(val, bytes) else val
+                for key, val in rec.items()
+            }
+
         nav = []
 
         for record in resp:

@@ -22,6 +22,14 @@ class TimeRetriever:
         req.setPluginName(self.pluginName)
         req.setTimeField(self.timeField)
         resp = self.client.sendRequest(req)
+
+        for i, rec in enumerate(resp):
+            resp[i] = {
+                key.decode() if isinstance(key, bytes) else key:
+                    val.decode() if isinstance(val, bytes) else val
+                for key, val in rec.items()
+            }
+
         timelist = []
         for item in resp.getTimes():
             if isinstance(item, GregorianCalendar):

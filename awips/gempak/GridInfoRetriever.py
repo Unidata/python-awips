@@ -29,8 +29,16 @@ class GridInfoRetriever:
             req.setReftime(ct)
 
         req.setFcstsec(self.forecast)
-
+        print(req)
         resp = self.client.sendRequest(req)
+
+        # Take care of bytestring encodings in python3
+        for i, rec in enumerate(resp):
+            resp[i] = {
+                key.decode() if isinstance(key, bytes) else key:
+                    val.decode() if isinstance(val, bytes) else val
+                for key, val in rec.items()
+            }
 
         sortresp = sorted(sorted(resp, key=itemgetter("reftime"), reverse=True), key=itemgetter("fcstsec"))
 
