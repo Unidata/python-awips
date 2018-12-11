@@ -1,13 +1,13 @@
 %global __os_install_post %(echo '%{__os_install_post}' | sed -e 's!/usr/lib[^[:space:]]*/brp-python-bytecompile[[:space:]].*$!!g')
 %define _build_arch %(uname -i)
+%define _python_awips_version %(grep ^ver /awips2/repo/python-awips/setup.py | cut -d '"' -f 2)
 %define _python_build_loc %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-
 #
 # Python AWIPS Spec File
 #
 Name: awips2-python-awips
 Summary: Python AWIPS Distribution
-Version: 18.1.6
+Version: %{_python_awips_version}
 Release: 1%{?dist}
 Group: AWIPSII
 BuildRoot: %{_build_root}
@@ -66,10 +66,6 @@ if [ ${RC} -ne 0 ]; then
 fi
 
 cd %{_python_build_loc}/python-awips
-
-## Apply patch
-patch dynamicserialize/ThriftSerializationContext.py rpm/patch.diff
-cat dynamicserialize/ThriftSerializationContext.py |grep long
 
 pushd . > /dev/null
 /awips2/python/bin/python setup.py clean
