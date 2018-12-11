@@ -1,4 +1,5 @@
 import os
+import sys
 from datetime import datetime
 from operator import itemgetter
 from awips import ThriftClient
@@ -29,7 +30,6 @@ class GridInfoRetriever:
             req.setReftime(ct)
 
         req.setFcstsec(self.forecast)
-        print(req)
         resp = self.client.sendRequest(req)
 
         # Take care of bytestring encodings in python3
@@ -136,7 +136,6 @@ def getrow(server, table, model, cycle, forecast):
 
 # This is the standard boilerplate that runs this script as a main
 if __name__ == '__main__':
-    import sys 
     # Run Test
     srv = 'edex-cloud.unidata.ucar.edu'
     tbl = 'grid'
