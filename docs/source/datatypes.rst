@@ -10,6 +10,33 @@ Available Data Types
 
 
 
+satellite
+---------
+
+- 2-D NumPy Array
+- returned by: `awips.dataaccess.DataAccessLayer.getGridData(request, times=[])`_
+- example::
+
+    # Contrust a full satellite product tree
+    DataAccessLayer.changeEDEXHost("edex-cloud.unidata.ucar.edu)
+    request = DataAccessLayer.newDataRequest("satellite")
+    creatingEntities = DataAccessLayer.getIdentifierValues(request, "creatingEntity")
+    for entity in creatingEntities:
+        print(entity)
+        request = DataAccessLayer.newDataRequest("satellite")
+        request.addIdentifier("creatingEntity", entity)
+        availableSectors = DataAccessLayer.getAvailableLocationNames(request)
+        availableSectors.sort()
+        for sector in availableSectors:
+            print(" - " + sector)
+            request.setLocationNames(sector)
+            availableProducts = DataAccessLayer.getAvailableParameters(request)
+            availableProducts.sort()
+            for product in availableProducts:
+                print("    - " + product)
+
+---
+
 binlightning
 ------------
 
@@ -17,26 +44,24 @@ binlightning
 
     POINT (-65.65293884277344 -16.94915580749512)
 
-- returned by `awips.dataaccess.DataAccessLayer.getGeometryData(request, times=[])`_
+- returned by: `awips.dataaccess.DataAccessLayer.getGeometryData(request, times=[])`_
 - example (GLM)::
 
-    request = DataAccessLayer.newDataRequest()
-    request.setDatatype("binlightning")
+    request = DataAccessLayer.newDataRequest("binlightning")
     request.addIdentifier("source", "GLMgr")
     request.setParameters("intensity")
     times = DataAccessLayer.getAvailableTimes(request)
     response = DataAccessLayer.getGeometryData(request, times[-10:-1])
     for ob in response:
-        dir(ob.getGeometry())
+        geom = ob.getGeometry()
 
-
-------------------
+---
 
 
 grid
 ----
 
-- NumPy Array
+- 2-D NumPy Array
 - returned by: `awips.dataaccess.DataAccessLayer.getGridData(request, times=[])`_
 - example::
 
@@ -54,7 +79,7 @@ grid
         lons, lats = grid.getLatLonCoords()
 
 
-------------------
+---
 
 warning
 -------
@@ -67,7 +92,7 @@ warning
                   (-92.274543999 46.652773000, ..., -92.280511999 46.656933000),
                   (-92.285491999 46.660741000, ..., -92.285491999 46.660741000))
 
-- returned by `awips.dataaccess.DataAccessLayer.getGeometryData(request, times=[])`_
+- returned by: `awips.dataaccess.DataAccessLayer.getGeometryData(request, times=[])`_
 - example::
 
     request = DataAccessLayer.newDataRequest()
@@ -82,41 +107,23 @@ warning
         ref  = ob.getDataTime().getRefTime()
 
 
-------------------
+---
 
 radar
 -----
 
-- NumPy Array
-- returned by: `RadarCommon.get_hdf5_data(idra)`_
+- 2-D NumPy Array
+- returned by: `awips.dataaccess.DataAccessLayer.getGridData(request, times=[])`_
+- also returned by: `RadarCommon.get_hdf5_data(idra)`_
 - example::
 
-    request = DataAccessLayer.newDataRequest()
-    request.setDatatype("radar")
-    request.setLocationNames("klzk")
-    # Get latest time for site
-    datatimes = DataAccessLayer.getAvailableTimes(request)
-    dateTimeStr = str(datatimes[-1])
-    #dateTimeStr = "2017-02-02 03:53:03"
-    buffer = 60 # seconds
-    dateTime = datetime.strptime(dateTimeStr, '%Y-%m-%d %H:%M:%S')
-    # Build timerange +/- buffer
-    beginRange = dateTime - timedelta(0, buffer)
-    endRange = dateTime + timedelta(0, buffer)
-    timerange = TimeRange(beginRange, endRange)
-    client = ThriftClient.ThriftClient("edex-cloud.unidata.ucar.edu")
-    request = GetRadarDataRecordRequest()
-    request.setTimeRange(timerange)
-    request.setRadarId("klzk")
-    request.setProductCode("94") # N0Q
-    request.setPrimaryElevationAngle("0.5")
-    response = client.sendRequest(request)
-    for record in response.getData():
-        # Get record hdf5 data
-        idra = record.getHdf5Data()
-        rdat,azdat,depVals,threshVals = RadarCommon.get_hdf5_data(idra)
-        dim = rdat.getDimension()
-        lat,lon = float(record.getLatitude()),float(record.getLongitude())
-        radials,rangeGates = rdat.getSizes()
-        # Convert raw byte to pixel value
-        rawValue=np.array(rdat.getByteData())
+    request = DataAccessLayer.newDataRequest("radar")
+    request.setLocationNames("kmhx")
+    request.setParameters("Digital Hybrid Scan Refl")
+    availableLevels = DataAccessLayer.getAvailableLevels(request)
+    times = DataAccessLayer.getAvailableTimes(request)
+    response = DataAccessLayer.getGridData(request, [times[-1]])
+    for image in response:
+        data = image.getRawData()
+        lons, lats = image.getLatLonCoords()
+

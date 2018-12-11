@@ -18,6 +18,7 @@ class GridInfoRetriever:
         self.client = ThriftClient.ThriftClient(self.host, self.port)
 
     def getInfo(self):
+        import sys
         """ Sends ThriftClient request and writes out received files."""
         req = GetGridInfoRequest()
         req.setPluginName(self.pluginName)
