@@ -21,8 +21,9 @@ To install the latest version of python-awips, with all required and optional pa
 - git clone https://github.com/Unidata/python-awips.git
 - cd python-awips
 - conda env create -f environment.yml
-- source activate python-awips
-- python setup.py install --force
+- conda activate python3-awips
+- conda update - -all
+- python setup.py install - -force
 - jupyter notebook examples
 
 Requirements
