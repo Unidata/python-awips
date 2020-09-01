@@ -73,7 +73,8 @@ Conda Environment
 - git clone https://github.com/Unidata/python-awips.git
 - cd python-awips
 - conda env create -f environment.yml
-- source activate python3-awips
+- conda activate python3-awips
+- conda update --all
 - python setup.py install --force
 - jupyter notebook examples
 
