@@ -22,7 +22,7 @@ jobs:
         run: |
           sudo apt install pandoc
           python -m pip install --upgrade pip
-          pip install -r requirements.txxt
+          pip install -r requirements.txt
 
       - name: Build Sphinx documentation
         run: |
