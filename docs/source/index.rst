@@ -11,7 +11,9 @@ The python-awips package provides a data access framework for requesting grid an
 Pip Install
 -----------
 
-- pip install python-awips
+::
+
+    pip install python-awips
 
 Conda Environment Install
 -------------------------
