@@ -18,14 +18,6 @@ Conda Environment Install
 
 To install the latest version of python-awips, with all required and optional packages:
 
-- git clone https://github.com/Unidata/python-awips.git
-- cd python-awips
-- conda env create -f environment.yml
-- conda activate python3-awips
-- conda update  - -all
-- python setup.py install - -force
-- jupyter notebook examples
-
 ::
 
     git clone https://github.com/Unidata/python-awips.git
