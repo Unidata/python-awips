@@ -1,0 +1,34 @@
+name: Publish Sphinx Built Webpages to Github Pages
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'docs/**'
+      
+jobs:
+  release: Build
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v2
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+       
+    - name: Install dependencies
+      run: |
+        sudo apt install pandoc
+        python -m pip install --upgrade pip
+        pip install -r requirements.txxt
+    
+    - name: Build Sphinx documentation
+      run: |
+        make html
+        
+    - name: Deploy to gh-pages
+      uses: peaciris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./site
