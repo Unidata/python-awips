@@ -1,5 +1,5 @@
 ==================================
-Python AWIPS Data Access Framework 
+Python AWIPS Data Access Framework
 ==================================
 
 The python-awips package provides a data access framework for requesting grid and geometry datasets from an `EDEX <http://unidata.github.io/awips2/#edex>`_ server.
@@ -22,8 +22,8 @@ To install the latest version of python-awips, with all required and optional pa
 - cd python-awips
 - conda env create -f environment.yml
 - conda activate python3-awips
-- conda update - -all
-- python setup.py install -/-force
+- conda update  - -all
+- python setup.py install - -force
 - jupyter notebook examples
 
 Requirements
