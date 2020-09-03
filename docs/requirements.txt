@@ -1,4 +1,4 @@
-sphinx==2.9
+sphinx==3.0
 nbconvert>=4.1
 enum34
 jupyter
