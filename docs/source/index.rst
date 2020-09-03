@@ -1,5 +1,5 @@
 ==================================
-Python AWIPS Data Access Framework  
+Python AWIPS Data Access Framework 
 ==================================
 
 The python-awips package provides a data access framework for requesting grid and geometry datasets from an `EDEX <http://unidata.github.io/awips2/#edex>`_ server.
