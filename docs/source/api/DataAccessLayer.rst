@@ -2,6 +2,6 @@
 DataAccessLayer
 ===============
 
-.. autoclass:: awips.dataaccess.DataAccessLayer
+.. automodule:: awips.dataaccess.DataAccessLayer
    :members:
    :undoc-members:
