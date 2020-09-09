@@ -94,8 +94,7 @@ in GEMPAK and CAVE.
             subtair[(subtair >= int(x)+10)] = 'nan'
     
         # add these stations and their color to the stationplots
-        stationplot = StationPlot(ax, lons, lats, transform=ccrs.PlateCarree(),
-                              fontsize=14)
+        stationplot = StationPlot(ax, lons, lats, transform=ccrs.PlateCarree(), fontsize=14)
         stationplot.plot_parameter('C', subtair, color=value)
         
 
@@ -103,8 +102,8 @@ in GEMPAK and CAVE.
 
 .. parsed-literal::
 
-    Found 10584 total records
-    Using 871 temperature records
+    Found 20844 total records
+    Using 1697 temperature records
 
 
 
