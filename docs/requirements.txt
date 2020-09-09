@@ -3,3 +3,4 @@ nbconvert>=4.1
 enum34
 jupyter
 shapely
+numpy
