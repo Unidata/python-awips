@@ -1,0 +1,288 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>RadarCommon &mdash; python-awips  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="IFPClient" href="IFPClient.html" />
+    <link rel="prev" title="TimeUtil" href="TimeUtil.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> python-awips
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                18.1.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="DataAccessLayer.html">DataAccessLayer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IDataRequest.html">IDataRequest (newDataRequest())</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PyData.html">PyData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PyGridData.html">PyGridData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PyGeometryData.html">PyGeometryData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ModelSounding.html">ModelSounding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ThriftClientRouter.html">ThriftClientRouter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ThriftClient.html">ThriftClient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TimeUtil.html">TimeUtil</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">RadarCommon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IFPClient.html">IFPClient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DateTimeConverter.html">DateTimeConverter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CombinedTimeQuery.html">CombinedTimeQuery</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../datatypes.html">Available Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Data Plotting Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev.html">Development Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gridparms.html">Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About Unidata AWIPS</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">python-awips</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">API Documentation</a> &raquo;</li>
+        
+      <li>RadarCommon</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/RadarCommon.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-awips.RadarCommon">
+<span id="radarcommon"></span><h1>RadarCommon<a class="headerlink" href="#module-awips.RadarCommon" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="awips.RadarCommon.encode_dep_vals">
+<code class="sig-prename descclassname">awips.RadarCommon.</code><code class="sig-name descname">encode_dep_vals</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">depVals</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/RadarCommon.html#encode_dep_vals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#awips.RadarCommon.encode_dep_vals" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="awips.RadarCommon.encode_radial">
+<code class="sig-prename descclassname">awips.RadarCommon.</code><code class="sig-name descname">encode_radial</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">azVals</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/RadarCommon.html#encode_radial"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#awips.RadarCommon.encode_radial" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="awips.RadarCommon.encode_thresh_vals">
+<code class="sig-prename descclassname">awips.RadarCommon.</code><code class="sig-name descname">encode_thresh_vals</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">threshVals</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/RadarCommon.html#encode_thresh_vals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#awips.RadarCommon.encode_thresh_vals" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="awips.RadarCommon.get_data_type">
+<code class="sig-prename descclassname">awips.RadarCommon.</code><code class="sig-name descname">get_data_type</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">azdat</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/RadarCommon.html#get_data_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#awips.RadarCommon.get_data_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the radar file type (radial or raster).</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>azdat: Boolean.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Radial or raster.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="awips.RadarCommon.get_datetime_str">
+<code class="sig-prename descclassname">awips.RadarCommon.</code><code class="sig-name descname">get_datetime_str</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/RadarCommon.html#get_datetime_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#awips.RadarCommon.get_datetime_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the datetime string for a record.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>record: the record to get data for.</p>
+</dd>
+<dt>Returns:</dt><dd><p>datetime string.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="awips.RadarCommon.get_hdf5_data">
+<code class="sig-prename descclassname">awips.RadarCommon.</code><code class="sig-name descname">get_hdf5_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">idra</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/RadarCommon.html#get_hdf5_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#awips.RadarCommon.get_hdf5_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="awips.RadarCommon.get_header">
+<code class="sig-prename descclassname">awips.RadarCommon.</code><code class="sig-name descname">get_header</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">record</span></em>, <em class="sig-param"><span class="n">headerFormat</span></em>, <em class="sig-param"><span class="n">xLen</span></em>, <em class="sig-param"><span class="n">yLen</span></em>, <em class="sig-param"><span class="n">azdat</span></em>, <em class="sig-param"><span class="n">description</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/RadarCommon.html#get_header"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#awips.RadarCommon.get_header" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="IFPClient.html" class="btn btn-neutral float-right" title="IFPClient" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="TimeUtil.html" class="btn btn-neutral float-left" title="TimeUtil" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2018, Unidata
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

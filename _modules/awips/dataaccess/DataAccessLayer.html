@@ -1,0 +1,600 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>awips.dataaccess.DataAccessLayer &mdash; python-awips  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> python-awips
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                18.1.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../datatypes.html">Available Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Data Plotting Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev.html">Development Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gridparms.html">Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About Unidata AWIPS</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">python-awips</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../dataaccess.html">awips.dataaccess</a> &raquo;</li>
+        
+      <li>awips.dataaccess.DataAccessLayer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for awips.dataaccess.DataAccessLayer</h1><div class="highlight"><pre>
+<span></span><span class="c1">#</span>
+<span class="c1"># Published interface for awips.dataaccess package</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1">#     SOFTWARE HISTORY</span>
+<span class="c1">#</span>
+<span class="c1">#    Date           Ticket#  Engineer    Description</span>
+<span class="c1">#    ------------   -------  ----------  -------------------------</span>
+<span class="c1">#    12/10/12                njensen     Initial Creation.</span>
+<span class="c1">#    Feb 14, 2013   1614     bsteffen    refactor data access framework to use single request.</span>
+<span class="c1">#    04/10/13       1871     mnash       move getLatLonCoords to JGridData and add default args</span>
+<span class="c1">#    05/29/13       2023     dgilling    Hook up ThriftClientRouter.</span>
+<span class="c1">#    03/03/14       2673     bsteffen    Add ability to query only ref times.</span>
+<span class="c1">#    07/22/14       3185     njensen     Added optional/default args to newDataRequest</span>
+<span class="c1">#    07/30/14       3185     njensen     Renamed valid identifiers to optional</span>
+<span class="c1">#    Apr 26, 2015   4259     njensen     Updated for new JEP API</span>
+<span class="c1">#    Apr 13, 2016   5379     tgurney     Add getIdentifierValues(), getRequiredIdentifiers(),</span>
+<span class="c1">#                                        and getOptionalIdentifiers()</span>
+<span class="c1">#    Oct 07, 2016   ----     mjames@ucar Added getForecastRun</span>
+<span class="c1">#    Oct 18, 2016   5916     bsteffen    Add setLazyLoadGridLatLon</span>
+<span class="c1">#    Oct 11, 2018   ----     mjames@ucar Added getMetarObs() getSynopticObs()</span>
+<span class="c1">#</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="n">THRIFT_HOST</span> <span class="o">=</span> <span class="s2">&quot;edex&quot;</span>
+
+<span class="n">USING_NATIVE_THRIFT</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="k">if</span> <span class="s1">&#39;jep&#39;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+    <span class="c1"># intentionally do not catch if this fails to import, we want it to</span>
+    <span class="c1"># be obvious that something is configured wrong when running from within</span>
+    <span class="c1"># Java instead of allowing false confidence and fallback behavior</span>
+    <span class="kn">import</span> <span class="nn">JepRouter</span>
+    <span class="n">router</span> <span class="o">=</span> <span class="n">JepRouter</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">ThriftClientRouter</span>
+    <span class="n">router</span> <span class="o">=</span> <span class="n">ThriftClientRouter</span><span class="o">.</span><span class="n">ThriftClientRouter</span><span class="p">(</span><span class="n">THRIFT_HOST</span><span class="p">)</span>
+    <span class="n">USING_NATIVE_THRIFT</span> <span class="o">=</span> <span class="kc">True</span>
+
+
+<div class="viewcode-block" id="getRadarProductIDs"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getRadarProductIDs">[docs]</a><span class="k">def</span> <span class="nf">getRadarProductIDs</span><span class="p">(</span><span class="n">availableParms</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get only the numeric idetifiers for NEXRAD3 products.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">            availableParms: Full list of radar parameters</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">            List of filtered parameters</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">productIDs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">availableParms</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="n">productIDs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="k">return</span> <span class="n">productIDs</span></div>
+
+
+<div class="viewcode-block" id="getRadarProductNames"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getRadarProductNames">[docs]</a><span class="k">def</span> <span class="nf">getRadarProductNames</span><span class="p">(</span><span class="n">availableParms</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">     Get only the named idetifiers for NEXRAD3 products.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">            availableParms: Full list of radar parameters</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">            List of filtered parameters</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">productNames</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">availableParms</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">productNames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">productNames</span></div>
+
+
+<div class="viewcode-block" id="getMetarObs"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getMetarObs">[docs]</a><span class="k">def</span> <span class="nf">getMetarObs</span><span class="p">(</span><span class="n">response</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Processes a DataAccessLayer &quot;obs&quot; response into a dictionary,</span>
+<span class="sd">    with special consideration for multi-value parameters</span>
+<span class="sd">    &quot;presWeather&quot;, &quot;skyCover&quot;, and &quot;skyLayerBase&quot;.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">            response: DAL getGeometry() list</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">            A dictionary of METAR obs</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+    <span class="n">single_val_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;timeObs&quot;</span><span class="p">,</span> <span class="s2">&quot;stationName&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;temperature&quot;</span><span class="p">,</span> <span class="s2">&quot;dewpoint&quot;</span><span class="p">,</span> <span class="s2">&quot;windDir&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;windSpeed&quot;</span><span class="p">,</span> <span class="s2">&quot;seaLevelPress&quot;</span><span class="p">]</span>
+    <span class="n">multi_val_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;presWeather&quot;</span><span class="p">,</span> <span class="s2">&quot;skyCover&quot;</span><span class="p">,</span> <span class="s2">&quot;skyLayerBase&quot;</span><span class="p">]</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="n">single_val_params</span> <span class="o">+</span> <span class="n">multi_val_params</span>
+    <span class="n">station_names</span><span class="p">,</span> <span class="n">pres_weather</span><span class="p">,</span> <span class="n">sky_cov</span><span class="p">,</span> <span class="n">sky_layer_base</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="n">obs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">({</span><span class="n">params</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">params</span> <span class="ow">in</span> <span class="n">params</span><span class="p">})</span>
+    <span class="k">for</span> <span class="n">ob</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
+        <span class="n">avail_params</span> <span class="o">=</span> <span class="n">ob</span><span class="o">.</span><span class="n">getParameters</span><span class="p">()</span>
+        <span class="k">if</span> <span class="s2">&quot;presWeather&quot;</span> <span class="ow">in</span> <span class="n">avail_params</span><span class="p">:</span>
+            <span class="n">pres_weather</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s2">&quot;presWeather&quot;</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="s2">&quot;skyCover&quot;</span> <span class="ow">in</span> <span class="n">avail_params</span> <span class="ow">and</span> <span class="s2">&quot;skyLayerBase&quot;</span> <span class="ow">in</span> <span class="n">avail_params</span><span class="p">:</span>
+            <span class="n">sky_cov</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s2">&quot;skyCover&quot;</span><span class="p">))</span>
+            <span class="n">sky_layer_base</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">&quot;skyLayerBase&quot;</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># If we already have a record for this stationName, skip</span>
+            <span class="k">if</span> <span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s1">&#39;stationName&#39;</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">station_names</span><span class="p">:</span>
+                <span class="n">station_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s1">&#39;stationName&#39;</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">single_val_params</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">avail_params</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">param</span> <span class="o">==</span> <span class="s1">&#39;timeObs&#39;</span><span class="p">:</span>
+                            <span class="n">obs</span><span class="p">[</span><span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="n">param</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">))</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">try</span><span class="p">:</span>
+                                <span class="n">obs</span><span class="p">[</span><span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="n">param</span><span class="p">))</span>
+                            <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+                                <span class="n">obs</span><span class="p">[</span><span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="n">param</span><span class="p">))</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">obs</span><span class="p">[</span><span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+                <span class="n">obs</span><span class="p">[</span><span class="s1">&#39;presWeather&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pres_weather</span><span class="p">)</span>
+                <span class="n">obs</span><span class="p">[</span><span class="s1">&#39;skyCover&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sky_cov</span><span class="p">)</span>
+                <span class="n">obs</span><span class="p">[</span><span class="s1">&#39;skyLayerBase&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sky_layer_base</span><span class="p">)</span>
+                <span class="n">pres_weather</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">sky_cov</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">sky_layer_base</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">return</span> <span class="n">obs</span></div>
+
+
+<div class="viewcode-block" id="getSynopticObs"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getSynopticObs">[docs]</a><span class="k">def</span> <span class="nf">getSynopticObs</span><span class="p">(</span><span class="n">response</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Processes a DataAccessLayer &quot;sfcobs&quot; response into a dictionary</span>
+<span class="sd">    of available parameters.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">            response: DAL getGeometry() list</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">            A dictionary of synop obs</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+    <span class="n">station_names</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getParameters</span><span class="p">()</span>
+    <span class="n">sfcobs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">({</span><span class="n">params</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">params</span> <span class="ow">in</span> <span class="n">params</span><span class="p">})</span>
+    <span class="k">for</span> <span class="n">sfcob</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
+        <span class="c1"># If we already have a record for this stationId, skip</span>
+        <span class="k">if</span> <span class="n">sfcob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s1">&#39;stationId&#39;</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">station_names</span><span class="p">:</span>
+            <span class="n">station_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sfcob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s1">&#39;stationId&#39;</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">param</span> <span class="o">==</span> <span class="s1">&#39;timeObs&#39;</span><span class="p">:</span>
+                    <span class="n">sfcobs</span><span class="p">[</span><span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">sfcob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="n">param</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">sfcobs</span><span class="p">[</span><span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sfcob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="n">param</span><span class="p">))</span>
+                    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+                        <span class="n">sfcobs</span><span class="p">[</span><span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sfcob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="n">param</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">sfcobs</span></div>
+
+
+<div class="viewcode-block" id="getForecastRun"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getForecastRun">[docs]</a><span class="k">def</span> <span class="nf">getForecastRun</span><span class="p">(</span><span class="n">cycle</span><span class="p">,</span> <span class="n">times</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the latest forecast run (list of objects) from all</span>
+<span class="sd">    all cycles and times returned from DataAccessLayer &quot;grid&quot;</span>
+<span class="sd">    response.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">            cycle: Forecast cycle reference time</span>
+<span class="sd">            times: All available times/cycles</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">            DataTime array for a single forecast run</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fcstRun</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">times</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)[:</span><span class="mi">19</span><span class="p">]</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">cycle</span><span class="p">):</span>
+            <span class="n">fcstRun</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fcstRun</span></div>
+
+
+<div class="viewcode-block" id="getAvailableTimes"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableTimes">[docs]</a><span class="k">def</span> <span class="nf">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the times of available data to the request.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">            request: the IDataRequest to get data for</span>
+<span class="sd">            refTimeOnly: optional, use True if only unique refTimes should be</span>
+<span class="sd">                returned (without a forecastHr)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">            a list of DataTimes</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">router</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="getGridData"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getGridData">[docs]</a><span class="k">def</span> <span class="nf">getGridData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets the grid data that matches the request at the specified times.  Each</span>
+<span class="sd">    combination of parameter, level, and dataTime will be returned as a</span>
+<span class="sd">    separate IGridData.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">            request: the IDataRequest to get data for</span>
+<span class="sd">            times: a list of DataTimes, a TimeRange, or None if the data is time</span>
+<span class="sd">                agnostic</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">            a list of IGridData</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">router</span><span class="o">.</span><span class="n">getGridData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="getGeometryData"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getGeometryData">[docs]</a><span class="k">def</span> <span class="nf">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets the geometry data that matches the request at the specified times.</span>
+<span class="sd">    Each combination of geometry, level, and dataTime will be returned as a</span>
+<span class="sd">    separate IGeometryData.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">            request: the IDataRequest to get data for</span>
+<span class="sd">            times: a list of DataTimes, a TimeRange, or None if the data is time</span>
+<span class="sd">                agnostic</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">       a list of IGeometryData</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">router</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="getAvailableLocationNames"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableLocationNames">[docs]</a><span class="k">def</span> <span class="nf">getAvailableLocationNames</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets the available location names that match the request without actually</span>
+<span class="sd">    requesting the data.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">            request: the request to find matching location names for</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">            a list of strings of available location names.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">router</span><span class="o">.</span><span class="n">getAvailableLocationNames</span><span class="p">(</span><span class="n">request</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="getAvailableParameters"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableParameters">[docs]</a><span class="k">def</span> <span class="nf">getAvailableParameters</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets the available parameters names that match the request without actually</span>
+<span class="sd">    requesting the data.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">            request: the request to find matching parameter names for</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">            a list of strings of available parameter names.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">router</span><span class="o">.</span><span class="n">getAvailableParameters</span><span class="p">(</span><span class="n">request</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="getAvailableLevels"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableLevels">[docs]</a><span class="k">def</span> <span class="nf">getAvailableLevels</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets the available levels that match the request without actually</span>
+<span class="sd">    requesting the data.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">            request: the request to find matching levels for</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">            a list of strings of available levels.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">router</span><span class="o">.</span><span class="n">getAvailableLevels</span><span class="p">(</span><span class="n">request</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="getRequiredIdentifiers"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getRequiredIdentifiers">[docs]</a><span class="k">def</span> <span class="nf">getRequiredIdentifiers</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets the required identifiers for this request.  These identifiers</span>
+<span class="sd">    must be set on a request for the request of this datatype to succeed.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">            request: the request to find required identifiers for</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">            a list of strings of required identifiers</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="p">)</span> <span class="o">==</span> <span class="n">request</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Use getRequiredIdentifiers(IDataRequest) instead&quot;</span><span class="p">,</span>
+                      <span class="ne">DeprecationWarning</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">router</span><span class="o">.</span><span class="n">getRequiredIdentifiers</span><span class="p">(</span><span class="n">request</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="getOptionalIdentifiers"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getOptionalIdentifiers">[docs]</a><span class="k">def</span> <span class="nf">getOptionalIdentifiers</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets the optional identifiers for this request.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">            request: the request to find optional identifiers for</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">            a list of strings of optional identifiers</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="p">)</span> <span class="o">==</span> <span class="n">request</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Use getOptionalIdentifiers(IDataRequest) instead&quot;</span><span class="p">,</span>
+                      <span class="ne">DeprecationWarning</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">router</span><span class="o">.</span><span class="n">getOptionalIdentifiers</span><span class="p">(</span><span class="n">request</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="getIdentifierValues"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getIdentifierValues">[docs]</a><span class="k">def</span> <span class="nf">getIdentifierValues</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">identifierKey</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets the allowed values for a particular identifier on this datatype.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">            request: the request to find identifier values for</span>
+<span class="sd">            identifierKey: the identifier to find values for</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">            a list of strings of allowed values for the specified identifier</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">router</span><span class="o">.</span><span class="n">getIdentifierValues</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">identifierKey</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="newDataRequest"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.newDataRequest">[docs]</a><span class="k">def</span> <span class="nf">newDataRequest</span><span class="p">(</span><span class="n">datatype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a new instance of IDataRequest suitable for the runtime environment.</span>
+<span class="sd">    All args are optional and exist solely for convenience.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">            datatype: the datatype to create a request for</span>
+<span class="sd">            parameters: a list of parameters to set on the request</span>
+<span class="sd">            levels: a list of levels to set on the request</span>
+<span class="sd">            locationNames: a list of locationNames to set on the request</span>
+<span class="sd">            envelope: an envelope to limit the request</span>
+<span class="sd">            kwargs: any leftover kwargs will be set as identifiers</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">            a new IDataRequest</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">router</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="n">datatype</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="getSupportedDatatypes"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getSupportedDatatypes">[docs]</a><span class="k">def</span> <span class="nf">getSupportedDatatypes</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets the datatypes that are supported by the framework</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">            a list of strings of supported datatypes</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">router</span><span class="o">.</span><span class="n">getSupportedDatatypes</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="changeEDEXHost"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost">[docs]</a><span class="k">def</span> <span class="nf">changeEDEXHost</span><span class="p">(</span><span class="n">newHostName</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Changes the EDEX host the Data Access Framework is communicating with. Only</span>
+<span class="sd">    works if using the native Python client implementation, otherwise, this</span>
+<span class="sd">    method will throw a TypeError.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">            newHostName: the EDEX host to connect to</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">USING_NATIVE_THRIFT</span><span class="p">:</span>
+        <span class="k">global</span> <span class="n">THRIFT_HOST</span>
+        <span class="n">THRIFT_HOST</span> <span class="o">=</span> <span class="n">newHostName</span>
+        <span class="k">global</span> <span class="n">router</span>
+        <span class="n">router</span> <span class="o">=</span> <span class="n">ThriftClientRouter</span><span class="o">.</span><span class="n">ThriftClientRouter</span><span class="p">(</span><span class="n">THRIFT_HOST</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Cannot call changeEDEXHost when using JepRouter.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="setLazyLoadGridLatLon"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.setLazyLoadGridLatLon">[docs]</a><span class="k">def</span> <span class="nf">setLazyLoadGridLatLon</span><span class="p">(</span><span class="n">lazyLoadGridLatLon</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provide a hint to the Data Access Framework indicating whether to load the</span>
+<span class="sd">    lat/lon data for a grid immediately or wait until it is needed. This is</span>
+<span class="sd">    provided as a performance tuning hint and should not affect the way the</span>
+<span class="sd">    Data Access Framework is used. Depending on the internal implementation of</span>
+<span class="sd">    the Data Access Framework this hint might be ignored. Examples of when this</span>
+<span class="sd">    should be set to True are when the lat/lon information is not used or when</span>
+<span class="sd">    it is used only if certain conditions within the data are met. It could be</span>
+<span class="sd">    set to False if it is guaranteed that all lat/lon information is needed and</span>
+<span class="sd">    it would be better to get any performance overhead for generating the</span>
+<span class="sd">    lat/lon data out of the way during the initial request.</span>
+
+
+<span class="sd">    Args:</span>
+<span class="sd">            lazyLoadGridLatLon: Boolean value indicating whether to lazy load.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">router</span><span class="o">.</span><span class="n">setLazyLoadGridLatLon</span><span class="p">(</span><span class="n">lazyLoadGridLatLon</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="c1"># The router is not required to support this capability.</span>
+        <span class="k">pass</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2018, Unidata
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

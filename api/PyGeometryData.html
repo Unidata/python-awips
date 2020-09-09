@@ -1,0 +1,313 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PyGeometryData &mdash; python-awips  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ModelSounding" href="ModelSounding.html" />
+    <link rel="prev" title="PyGridData" href="PyGridData.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> python-awips
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                18.1.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="DataAccessLayer.html">DataAccessLayer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IDataRequest.html">IDataRequest (newDataRequest())</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PyData.html">PyData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PyGridData.html">PyGridData</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">PyGeometryData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ModelSounding.html">ModelSounding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ThriftClientRouter.html">ThriftClientRouter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ThriftClient.html">ThriftClient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TimeUtil.html">TimeUtil</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RadarCommon.html">RadarCommon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IFPClient.html">IFPClient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DateTimeConverter.html">DateTimeConverter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CombinedTimeQuery.html">CombinedTimeQuery</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../datatypes.html">Available Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Data Plotting Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev.html">Development Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gridparms.html">Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About Unidata AWIPS</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">python-awips</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">API Documentation</a> &raquo;</li>
+        
+      <li>PyGeometryData</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/PyGeometryData.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-awips.dataaccess.PyGeometryData">
+<span id="pygeometrydata"></span><h1>PyGeometryData<a class="headerlink" href="#module-awips.dataaccess.PyGeometryData" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="awips.dataaccess.PyGeometryData.PyGeometryData">
+<em class="property">class </em><code class="sig-prename descclassname">awips.dataaccess.PyGeometryData.</code><code class="sig-name descname">PyGeometryData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">geoDataRecord</span></em>, <em class="sig-param"><span class="n">geometry</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/PyGeometryData.html#PyGeometryData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#awips.dataaccess.PyGeometryData.PyGeometryData" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="awips.dataaccess.PyGeometryData.PyGeometryData.getGeometry">
+<code class="sig-name descname">getGeometry</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/PyGeometryData.html#PyGeometryData.getGeometry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#awips.dataaccess.PyGeometryData.PyGeometryData.getGeometry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the geometry of the data.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>a shapely geometry</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="awips.dataaccess.PyGeometryData.PyGeometryData.getNumber">
+<code class="sig-name descname">getNumber</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">param</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/PyGeometryData.html#PyGeometryData.getNumber"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#awips.dataaccess.PyGeometryData.PyGeometryData.getNumber" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the number value of the specified param.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>param: the string name of the param</p>
+</dd>
+<dt>Returns:</dt><dd><p>the number value of the param</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="awips.dataaccess.PyGeometryData.PyGeometryData.getParameters">
+<code class="sig-name descname">getParameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/PyGeometryData.html#PyGeometryData.getParameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#awips.dataaccess.PyGeometryData.PyGeometryData.getParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the parameters of the data.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>a list of strings of the parameter names</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="awips.dataaccess.PyGeometryData.PyGeometryData.getString">
+<code class="sig-name descname">getString</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">param</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/PyGeometryData.html#PyGeometryData.getString"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#awips.dataaccess.PyGeometryData.PyGeometryData.getString" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the string value of the specified param.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>param: the string name of the param</p>
+</dd>
+<dt>Returns:</dt><dd><p>the string value of the param</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="awips.dataaccess.PyGeometryData.PyGeometryData.getType">
+<code class="sig-name descname">getType</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">param</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/PyGeometryData.html#PyGeometryData.getType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#awips.dataaccess.PyGeometryData.PyGeometryData.getType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the type of the param.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>param: the string name of the param</p>
+</dd>
+<dt>Returns:</dt><dd><p>a string of the type of the parameter, such as
+“STRING”, “INT”, “LONG”, “FLOAT”, or “DOUBLE”</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="awips.dataaccess.PyGeometryData.PyGeometryData.getUnit">
+<code class="sig-name descname">getUnit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">param</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/PyGeometryData.html#PyGeometryData.getUnit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#awips.dataaccess.PyGeometryData.PyGeometryData.getUnit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the unit of the specified param.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>param: the string name of the param</p>
+</dd>
+<dt>Returns:</dt><dd><p>the string abbreviation of the unit of the param</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ModelSounding.html" class="btn btn-neutral float-right" title="ModelSounding" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="PyGridData.html" class="btn btn-neutral float-left" title="PyGridData" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2018, Unidata
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

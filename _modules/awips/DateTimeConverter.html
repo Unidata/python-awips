@@ -1,0 +1,295 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>awips.DateTimeConverter &mdash; python-awips  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> python-awips
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                18.1.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../datatypes.html">Available Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Data Plotting Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev.html">Development Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gridparms.html">Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About Unidata AWIPS</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">python-awips</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>awips.DateTimeConverter</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for awips.DateTimeConverter</h1><div class="highlight"><pre>
+<span></span><span class="c1">#</span>
+<span class="c1"># Functions for converting between the various &quot;Java&quot; dynamic serialize types</span>
+<span class="c1"># used by EDEX to the native python time datetime.</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1">#     SOFTWARE HISTORY</span>
+<span class="c1">#</span>
+<span class="c1">#    Date            Ticket#       Engineer       Description</span>
+<span class="c1">#    ------------    ----------    -----------    --------------------------</span>
+<span class="c1">#    06/24/15         #4480        dgilling       Initial Creation.</span>
+<span class="c1">#</span>
+
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="kn">from</span> <span class="nn">dynamicserialize.dstypes.java.util</span> <span class="kn">import</span> <span class="n">Date</span>
+<span class="kn">from</span> <span class="nn">dynamicserialize.dstypes.java.sql</span> <span class="kn">import</span> <span class="n">Timestamp</span>
+<span class="kn">from</span> <span class="nn">dynamicserialize.dstypes.com.raytheon.uf.common.time</span> <span class="kn">import</span> <span class="n">TimeRange</span>
+
+<span class="n">MAX_TIME</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">MICROS_IN_SECOND</span> <span class="o">=</span> <span class="mi">1000000</span>
+
+
+<div class="viewcode-block" id="convertToDateTime"><a class="viewcode-back" href="../../api/DateTimeConverter.html#awips.DateTimeConverter.convertToDateTime">[docs]</a><span class="k">def</span> <span class="nf">convertToDateTime</span><span class="p">(</span><span class="n">timeArg</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts the given object to a python datetime object. Supports native</span>
+<span class="sd">    python representations like datetime and struct_time, but also</span>
+<span class="sd">    the dynamicserialize types like Date and Timestamp. Raises TypeError</span>
+<span class="sd">    if no conversion can be performed.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">            timeArg: a python object representing a date and time. Supported</span>
+<span class="sd">            types include datetime, struct_time, float, int, long and the</span>
+<span class="sd">            dynamicserialize types Date and Timestamp.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A datetime that represents the same date/time as the passed in object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">timeArg</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">timeArg</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">timeArg</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">struct_time</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">timeArg</span><span class="p">[:</span><span class="mi">6</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">timeArg</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="c1"># seconds as float, should be avoided due to floating point errors</span>
+        <span class="n">totalSecs</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">timeArg</span><span class="p">)</span>
+        <span class="n">micros</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">timeArg</span> <span class="o">-</span> <span class="n">totalSecs</span><span class="p">)</span> <span class="o">*</span> <span class="n">MICROS_IN_SECOND</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_convertSecsAndMicros</span><span class="p">(</span><span class="n">totalSecs</span><span class="p">,</span> <span class="n">micros</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">timeArg</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="c1"># seconds as integer</span>
+        <span class="n">totalSecs</span> <span class="o">=</span> <span class="n">timeArg</span>
+        <span class="k">return</span> <span class="n">_convertSecsAndMicros</span><span class="p">(</span><span class="n">totalSecs</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">timeArg</span><span class="p">,</span> <span class="p">(</span><span class="n">Date</span><span class="p">,</span> <span class="n">Timestamp</span><span class="p">)):</span>
+        <span class="n">totalSecs</span> <span class="o">=</span> <span class="n">timeArg</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">_convertSecsAndMicros</span><span class="p">(</span><span class="n">totalSecs</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">objType</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">timeArg</span><span class="p">))</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Cannot convert object of type &quot;</span> <span class="o">+</span> <span class="n">objType</span> <span class="o">+</span> <span class="s2">&quot; to datetime.&quot;</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">_convertSecsAndMicros</span><span class="p">(</span><span class="n">seconds</span><span class="p">,</span> <span class="n">micros</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">seconds</span> <span class="o">&lt;</span> <span class="n">MAX_TIME</span><span class="p">:</span>
+        <span class="n">rval</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcfromtimestamp</span><span class="p">(</span><span class="n">seconds</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">extraTime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="p">(</span><span class="n">seconds</span> <span class="o">-</span> <span class="n">MAX_TIME</span><span class="p">))</span>
+        <span class="n">rval</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcfromtimestamp</span><span class="p">(</span><span class="n">MAX_TIME</span><span class="p">)</span> <span class="o">+</span> <span class="n">extraTime</span>
+    <span class="k">return</span> <span class="n">rval</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">microsecond</span><span class="o">=</span><span class="n">micros</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="constructTimeRange"><a class="viewcode-back" href="../../api/DateTimeConverter.html#awips.DateTimeConverter.constructTimeRange">[docs]</a><span class="k">def</span> <span class="nf">constructTimeRange</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Builds a python dynamicserialize TimeRange object from the given</span>
+<span class="sd">    arguments.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">            args*: must be a TimeRange or a pair of objects that can be</span>
+<span class="sd">                   converted to a datetime via convertToDateTime().</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A TimeRange.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">TimeRange</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;constructTimeRange takes exactly 2 arguments, &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; provided.&quot;</span><span class="p">)</span>
+    <span class="n">startTime</span> <span class="o">=</span> <span class="n">convertToDateTime</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">endTime</span> <span class="o">=</span> <span class="n">convertToDateTime</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">TimeRange</span><span class="p">(</span><span class="n">startTime</span><span class="p">,</span> <span class="n">endTime</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2018, Unidata
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

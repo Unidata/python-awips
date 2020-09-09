@@ -1,0 +1,664 @@
+=================
+Satellite Imagery
+=================
+`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Satellite_Imagery.ipynb>`_
+Satellite images are returned by Python AWIPS as grids, and can be
+rendered with Cartopy pcolormesh the same as gridded forecast models in
+other python-awips examples.
+
+Available Sources, Creating Entities, Sectors, and Products
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: ipython3
+
+    from awips.dataaccess import DataAccessLayer
+    import cartopy.crs as ccrs
+    import cartopy.feature as cfeat
+    import matplotlib.pyplot as plt
+    from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
+    import numpy as np
+    import datetime
+    
+    # Create an EDEX data request
+    DataAccessLayer.changeEDEXHost("edex-cloud.unidata.ucar.edu")
+    request = DataAccessLayer.newDataRequest()
+    request.setDatatype("satellite")
+    
+    # get optional identifiers for satellite datatype
+    identifiers = set(DataAccessLayer.getOptionalIdentifiers(request))
+    
+    print("Available Identifiers:")
+    for id in identifiers:
+        if id.lower() == 'datauri':
+            continue
+        print(" - " + id)
+
+
+.. parsed-literal::
+
+    Available Identifiers:
+     - physicalElement
+     - creatingEntity
+     - source
+     - sectorID
+
+
+.. code:: ipython3
+
+    # Show available sources
+    identifier = "source"
+    sources = DataAccessLayer.getIdentifierValues(request, identifier)
+    print(identifier + ":")
+    print(list(sources))
+
+
+.. parsed-literal::
+
+    source:
+    ['NESDIS', 'WCDAS', 'NSOF', 'UCAR', 'McIDAS']
+
+
+.. code:: ipython3
+
+    # Show available creatingEntities
+    identifier = "creatingEntity"
+    creatingEntities = DataAccessLayer.getIdentifierValues(request, identifier)
+    print(identifier + ":")
+    print(list(creatingEntities))
+
+
+.. parsed-literal::
+
+    creatingEntity:
+    ['GOES-16', 'Composite', 'GOES-15(P)', 'POES-NPOESS', 'UNIWISC', 'GOES-11(L)', 'Miscellaneous', 'GOES-17', 'NEXRCOMP']
+
+
+.. code:: ipython3
+
+    # Show available sectorIDs
+    identifier = "sectorID"
+    sectorIDs = DataAccessLayer.getIdentifierValues(request, identifier)
+    print(identifier + ":")
+    print(list(sectorIDs))
+
+
+.. parsed-literal::
+
+    sectorID:
+    ['EMESO-2', 'Northern Hemisphere Composite', 'EFD', 'TCONUS', 'Arctic', 'TFD', 'PRREGI', 'GOES-Sounder', 'EMESO-1', 'NEXRCOMP', 'ECONUS', 'GOES-West', 'Antarctic', 'GOES-East', 'Supernational', 'West CONUS', 'NH Composite - Meteosat-GOES E-GOES W-GMS']
+
+
+.. code:: ipython3
+
+    # Contrust a full satellite product tree
+    for entity in creatingEntities:
+        print(entity)
+        request = DataAccessLayer.newDataRequest("satellite")
+        request.addIdentifier("creatingEntity", entity)
+        availableSectors = DataAccessLayer.getAvailableLocationNames(request)
+        availableSectors.sort()
+        for sector in availableSectors:
+            print(" - " + sector)
+            request.setLocationNames(sector)
+            availableProducts = DataAccessLayer.getAvailableParameters(request)
+            availableProducts.sort()
+            for product in availableProducts:
+                print("    - " + product)
+
+
+.. parsed-literal::
+
+    GOES-16
+     - ECONUS
+        - ACTP
+        - ADP
+        - AOD
+        - CAPE
+        - CH-01-0.47um
+        - CH-02-0.64um
+        - CH-03-0.87um
+        - CH-04-1.38um
+        - CH-05-1.61um
+        - CH-06-2.25um
+        - CH-07-3.90um
+        - CH-08-6.19um
+        - CH-09-6.95um
+        - CH-10-7.34um
+        - CH-11-8.50um
+        - CH-12-9.61um
+        - CH-13-10.35um
+        - CH-14-11.20um
+        - CH-15-12.30um
+        - CH-16-13.30um
+        - CSM
+        - CTH
+        - FDC Area
+        - FDC Power
+        - FDC Temp
+        - KI
+        - LI
+        - LST
+        - SI
+        - TPW
+        - TT
+        - VMP-0.00hPa
+        - VMP-0.02hPa
+        - VMP-0.04hPa
+        - VMP-0.08hPa
+        - VMP-0.14hPa
+        - VMP-0.22hPa
+        - VMP-0.35hPa
+        - VMP-0.51hPa
+        - VMP-0.71hPa
+        - VMP-0.98hPa
+        - VMP-1.30hPa
+        - VMP-1.69hPa
+        - VMP-1013.95hPa
+        - VMP-103.02hPa
+        - VMP-1042.23hPa
+        - VMP-1070.92hPa
+        - VMP-11.00hPa
+        - VMP-110.24hPa
+        - VMP-1100.00hPa
+        - VMP-117.78hPa
+        - VMP-12.65hPa
+        - VMP-125.65hPa
+        - VMP-133.85hPa
+        - VMP-14.46hPa
+        - VMP-142.38hPa
+        - VMP-151.27hPa
+        - VMP-16.43hPa
+        - VMP-160.50hPa
+        - VMP-170.08hPa
+        - VMP-18.58hPa
+        - VMP-180.02hPa
+        - VMP-190.32hPa
+        - VMP-2.15hPa
+        - VMP-2.70hPa
+        - VMP-20.92hPa
+        - VMP-200.99hPa
+        - VMP-212.03hPa
+        - VMP-223.44hPa
+        - VMP-23.45hPa
+        - VMP-235.23hPa
+        - VMP-247.41hPa
+        - VMP-259.97hPa
+        - VMP-26.18hPa
+        - VMP-272.92hPa
+        - VMP-286.26hPa
+        - VMP-29.12hPa
+        - VMP-3.34hPa
+        - VMP-300.00hPa
+        - VMP-314.14hPa
+        - VMP-32.27hPa
+        - VMP-328.68hPa
+        - VMP-343.62hPa
+        - VMP-35.65hPa
+        - VMP-358.97hPa
+        - VMP-374.72hPa
+        - VMP-39.26hPa
+        - VMP-390.89hPa
+        - VMP-4.08hPa
+        - VMP-4.92hPa
+        - VMP-407.47hPa
+        - VMP-424.47hPa
+        - VMP-43.10hPa
+        - VMP-441.88hPa
+        - VMP-459.71hPa
+        - VMP-47.19hPa
+        - VMP-477.96hPa
+        - VMP-496.63hPa
+        - VMP-5.88hPa
+        - VMP-51.53hPa
+        - VMP-515.72hPa
+        - VMP-535.23hPa
+        - VMP-555.17hPa
+        - VMP-56.13hPa
+        - VMP-575.52hPa
+        - VMP-596.31hPa
+        - VMP-6.96hPa
+        - VMP-60.99hPa
+        - VMP-617.51hPa
+        - VMP-639.14hPa
+        - VMP-66.13hPa
+        - VMP-661.19hPa
+        - VMP-683.67hPa
+        - VMP-706.57hPa
+        - VMP-71.54hPa
+        - VMP-729.89hPa
+        - VMP-753.63hPa
+        - VMP-77.24hPa
+        - VMP-777.79hPa
+        - VMP-8.17hPa
+        - VMP-802.37hPa
+        - VMP-827.37hPa
+        - VMP-83.23hPa
+        - VMP-852.79hPa
+        - VMP-878.62hPa
+        - VMP-89.52hPa
+        - VMP-9.51hPa
+        - VMP-904.87hPa
+        - VMP-931.52hPa
+        - VMP-958.59hPa
+        - VMP-96.11hPa
+        - VMP-986.07hPa
+        - VTP-0.00hPa
+        - VTP-0.02hPa
+        - VTP-0.04hPa
+        - VTP-0.08hPa
+        - VTP-0.14hPa
+        - VTP-0.22hPa
+        - VTP-0.35hPa
+        - VTP-0.51hPa
+        - VTP-0.71hPa
+        - VTP-0.98hPa
+        - VTP-1.30hPa
+        - VTP-1.69hPa
+        - VTP-1013.95hPa
+        - VTP-103.02hPa
+        - VTP-1042.23hPa
+        - VTP-1070.92hPa
+        - VTP-11.00hPa
+        - VTP-110.24hPa
+        - VTP-1100.00hPa
+        - VTP-117.78hPa
+        - VTP-12.65hPa
+        - VTP-125.65hPa
+        - VTP-133.85hPa
+        - VTP-14.46hPa
+        - VTP-142.38hPa
+        - VTP-151.27hPa
+        - VTP-16.43hPa
+        - VTP-160.50hPa
+        - VTP-170.08hPa
+        - VTP-18.58hPa
+        - VTP-180.02hPa
+        - VTP-190.32hPa
+        - VTP-2.15hPa
+        - VTP-2.70hPa
+        - VTP-20.92hPa
+        - VTP-200.99hPa
+        - VTP-212.03hPa
+        - VTP-223.44hPa
+        - VTP-23.45hPa
+        - VTP-235.23hPa
+        - VTP-247.41hPa
+        - VTP-259.97hPa
+        - VTP-26.18hPa
+        - VTP-272.92hPa
+        - VTP-286.26hPa
+        - VTP-29.12hPa
+        - VTP-3.34hPa
+        - VTP-300.00hPa
+        - VTP-314.14hPa
+        - VTP-32.27hPa
+        - VTP-328.68hPa
+        - VTP-343.62hPa
+        - VTP-35.65hPa
+        - VTP-358.97hPa
+        - VTP-374.72hPa
+        - VTP-39.26hPa
+        - VTP-390.89hPa
+        - VTP-4.08hPa
+        - VTP-4.92hPa
+        - VTP-407.47hPa
+        - VTP-424.47hPa
+        - VTP-43.10hPa
+        - VTP-441.88hPa
+        - VTP-459.71hPa
+        - VTP-47.19hPa
+        - VTP-477.96hPa
+        - VTP-496.63hPa
+        - VTP-5.88hPa
+        - VTP-51.53hPa
+        - VTP-515.72hPa
+        - VTP-535.23hPa
+        - VTP-555.17hPa
+        - VTP-56.13hPa
+        - VTP-575.52hPa
+        - VTP-596.31hPa
+        - VTP-6.96hPa
+        - VTP-60.99hPa
+        - VTP-617.51hPa
+        - VTP-639.14hPa
+        - VTP-66.13hPa
+        - VTP-661.19hPa
+        - VTP-683.67hPa
+        - VTP-706.57hPa
+        - VTP-71.54hPa
+        - VTP-729.89hPa
+        - VTP-753.63hPa
+        - VTP-77.24hPa
+        - VTP-777.79hPa
+        - VTP-8.17hPa
+        - VTP-802.37hPa
+        - VTP-827.37hPa
+        - VTP-83.23hPa
+        - VTP-852.79hPa
+        - VTP-878.62hPa
+        - VTP-89.52hPa
+        - VTP-9.51hPa
+        - VTP-904.87hPa
+        - VTP-931.52hPa
+        - VTP-958.59hPa
+        - VTP-96.11hPa
+        - VTP-986.07hPa
+     - EFD
+        - ACTP
+        - ADP
+        - AOD
+        - CAPE
+        - CH-01-0.47um
+        - CH-02-0.64um
+        - CH-03-0.87um
+        - CH-04-1.38um
+        - CH-05-1.61um
+        - CH-06-2.25um
+        - CH-07-3.90um
+        - CH-08-6.19um
+        - CH-09-6.95um
+        - CH-10-7.34um
+        - CH-11-8.50um
+        - CH-12-9.61um
+        - CH-13-10.35um
+        - CH-14-11.20um
+        - CH-15-12.30um
+        - CH-16-13.30um
+        - CSM
+        - CTH
+        - CTT
+        - FDC Area
+        - FDC Power
+        - FDC Temp
+        - KI
+        - LI
+        - LST
+        - RRQPE
+        - SI
+        - SST
+        - TPW
+        - TT
+        - VAH
+        - VAML
+     - EMESO-1
+        - ACTP
+        - ADP
+        - CAPE
+        - CH-01-0.47um
+        - CH-02-0.64um
+        - CH-03-0.87um
+        - CH-04-1.38um
+        - CH-05-1.61um
+        - CH-06-2.25um
+        - CH-07-3.90um
+        - CH-08-6.19um
+        - CH-09-6.95um
+        - CH-10-7.34um
+        - CH-11-8.50um
+        - CH-12-9.61um
+        - CH-13-10.35um
+        - CH-14-11.20um
+        - CH-15-12.30um
+        - CH-16-13.30um
+        - CSM
+        - CTH
+        - CTT
+        - KI
+        - LI
+        - LST
+        - SI
+        - TPW
+        - TT
+     - EMESO-2
+        - ACTP
+        - ADP
+        - CAPE
+        - CH-01-0.47um
+        - CH-02-0.64um
+        - CH-03-0.87um
+        - CH-04-1.38um
+        - CH-05-1.61um
+        - CH-06-2.25um
+        - CH-07-3.90um
+        - CH-08-6.19um
+        - CH-09-6.95um
+        - CH-10-7.34um
+        - CH-11-8.50um
+        - CH-12-9.61um
+        - CH-13-10.35um
+        - CH-14-11.20um
+        - CH-15-12.30um
+        - CH-16-13.30um
+        - CSM
+        - CTH
+        - CTT
+        - KI
+        - LI
+        - LST
+        - SI
+        - TPW
+        - TT
+     - PRREGI
+        - CH-01-0.47um
+        - CH-02-0.64um
+        - CH-03-0.87um
+        - CH-04-1.38um
+        - CH-05-1.61um
+        - CH-06-2.25um
+        - CH-07-3.90um
+        - CH-08-6.19um
+        - CH-09-6.95um
+        - CH-10-7.34um
+        - CH-11-8.50um
+        - CH-12-9.61um
+        - CH-13-10.35um
+        - CH-14-11.20um
+        - CH-15-12.30um
+        - CH-16-13.30um
+    Composite
+     - NH Composite - Meteosat-GOES E-GOES W-GMS
+        - Imager 11 micron IR
+        - Imager 6.7-6.5 micron IR (WV)
+        - Imager Visible
+     - Supernational
+        - Gridded Cloud Amount
+        - Gridded Cloud Top Pressure or Height
+        - Sounder Based Derived Lifted Index (LI)
+        - Sounder Based Derived Precipitable Water (PW)
+        - Sounder Based Derived Surface Skin Temp (SFC Skin)
+    GOES-15(P)
+     - Northern Hemisphere Composite
+        - Imager 11 micron IR
+        - Imager 6.7-6.5 micron IR (WV)
+        - Imager Visible
+     - Supernational
+        - Imager 11 micron IR
+        - Imager 6.7-6.5 micron IR (WV)
+        - Imager Visible
+     - West CONUS
+        - Imager 11 micron IR
+        - Imager 13 micron IR
+        - Imager 3.9 micron IR
+        - Imager 6.7-6.5 micron IR (WV)
+        - Imager Visible
+        - Sounder 11.03 micron imagery
+        - Sounder 14.06 micron imagery
+        - Sounder 3.98 micron imagery
+        - Sounder 4.45 micron imagery
+        - Sounder 6.51 micron imagery
+        - Sounder 7.02 micron imagery
+        - Sounder 7.43 micron imagery
+        - Sounder Visible imagery
+    POES-NPOESS
+     - Supernational
+        - Rain fall rate
+    UNIWISC
+     - Antarctic
+        - Imager 11 micron IR
+        - Imager 12 micron IR
+        - Imager 3.5-4.0 micron IR (Fog)
+        - Imager 6.7-6.5 micron IR (WV)
+        - Imager Visible
+     - Arctic
+        - Imager 11 micron IR
+        - Imager 12 micron IR
+        - Imager 3.5-4.0 micron IR (Fog)
+        - Imager 6.7-6.5 micron IR (WV)
+        - Imager Visible
+     - GOES-East
+        - Imager 11 micron IR
+        - Imager 13 micron IR
+        - Imager 3.5-4.0 micron IR (Fog)
+        - Imager 6.7-6.5 micron IR (WV)
+        - Imager Visible
+     - GOES-Sounder
+        - CAPE
+        - Sounder Based Derived Lifted Index (LI)
+        - Sounder Based Derived Precipitable Water (PW)
+        - Sounder Based Total Column Ozone
+     - GOES-West
+        - Imager 11 micron IR
+        - Imager 13 micron IR
+        - Imager 3.5-4.0 micron IR (Fog)
+        - Imager 6.7-6.5 micron IR (WV)
+        - Imager Visible
+    GOES-11(L)
+     - West CONUS
+        - Low cloud base imagery
+    Miscellaneous
+     - Supernational
+        - Percent of Normal TPW
+        - Sounder Based Derived Precipitable Water (PW)
+    GOES-17
+     - TCONUS
+        - CH-01-0.47um
+        - CH-02-0.64um
+        - CH-03-0.87um
+        - CH-04-1.38um
+        - CH-05-1.61um
+        - CH-06-2.25um
+        - CH-07-3.90um
+        - CH-08-6.19um
+        - CH-09-6.95um
+        - CH-10-7.34um
+        - CH-11-8.50um
+        - CH-12-9.61um
+        - CH-13-10.35um
+        - CH-14-11.20um
+        - CH-15-12.30um
+        - CH-16-13.30um
+     - TFD
+        - CH-01-0.47um
+        - CH-02-0.64um
+        - CH-03-0.87um
+        - CH-04-1.38um
+        - CH-05-1.61um
+        - CH-06-2.25um
+        - CH-07-3.90um
+        - CH-08-6.19um
+        - CH-09-6.95um
+        - CH-10-7.34um
+        - CH-11-8.50um
+        - CH-12-9.61um
+        - CH-13-10.35um
+        - CH-14-11.20um
+        - CH-15-12.30um
+        - CH-16-13.30um
+    NEXRCOMP
+     - NEXRCOMP
+        - DHR
+        - DVL
+        - EET
+        - HHC
+        - N0R
+        - N1P
+        - NTP
+
+
+GOES 16 Mesoscale Sectors
+-------------------------
+
+Define our imports, and define our map properties first.
+
+.. code:: ipython3
+
+    %matplotlib inline
+    
+    def make_map(bbox, projection=ccrs.PlateCarree()):
+        fig, ax = plt.subplots(figsize=(10,12),
+                subplot_kw=dict(projection=projection))
+        if bbox[0] is not np.nan:
+            ax.set_extent(bbox)
+        ax.coastlines(resolution='50m')
+        gl = ax.gridlines(draw_labels=True)
+        gl.top_labels = gl.right_labels = False
+        gl.xformatter = LONGITUDE_FORMATTER
+        gl.yformatter = LATITUDE_FORMATTER
+        return fig, ax
+    
+    sectors = ["EMESO-1","EMESO-2"]
+    fig = plt.figure(figsize=(16,7*len(sectors)))
+    
+    for i, sector in enumerate(sectors):
+    
+        request = DataAccessLayer.newDataRequest()
+        request.setDatatype("satellite")
+        request.setLocationNames(sector)
+        request.setParameters("CH-13-10.35um")
+    
+        utc = datetime.datetime.utcnow()
+        times = DataAccessLayer.getAvailableTimes(request)
+        hourdiff = utc - datetime.datetime.strptime(str(times[-1]),'%Y-%m-%d %H:%M:%S')
+        hours,days = hourdiff.seconds/3600,hourdiff.days
+        minute = str((hourdiff.seconds - (3600 * hours)) / 60)
+        offsetStr = ''
+        if hours > 0:
+            offsetStr += str(hours) + "hr "
+        offsetStr += str(minute) + "m ago"
+        if days > 1:
+            offsetStr = str(days) + " days ago"
+    
+        response = DataAccessLayer.getGridData(request, [times[-1]])
+        grid = response[0]
+        data = grid.getRawData()
+        lons,lats = grid.getLatLonCoords()
+        bbox = [lons.min(), lons.max(), lats.min(), lats.max()]
+    
+        print("Latest image available: "+str(times[-1]) + " ("+offsetStr+")")
+        print("Image grid size: " + str(data.shape))
+        print("Image grid extent: " + str(list(bbox)))
+    
+        fig, ax = make_map(bbox=bbox)
+        states = cfeat.NaturalEarthFeature(category='cultural',
+                                            name='admin_1_states_provinces_lines',
+                                            scale='50m', facecolor='none')
+        ax.add_feature(states, linestyle=':')
+        cs = ax.pcolormesh(lons, lats, data, cmap='coolwarm')
+        cbar = fig.colorbar(cs, shrink=0.6, orientation='horizontal')
+        cbar.set_label(sector + " " + grid.getParameter() + " " \
+        + str(grid.getDataTime().getRefTime()))
+
+
+.. parsed-literal::
+
+    Latest image available: 2018-10-09 19:17:28 (0.021388888888888888hr 0.0m ago)
+    Image grid size: (500, 500)
+    Image grid extent: [-92.47462, -80.657455, 20.24799, 31.116167]
+    Latest image available: 2018-10-09 14:30:58 (4.797777777777778hr 0.0m ago)
+    Image grid size: (500, 500)
+    Image grid extent: [-104.61595, -87.45227, 29.422266, 42.70851]
+
+
+
+.. parsed-literal::
+
+    <Figure size 1152x1008 with 0 Axes>
+
+
+
+.. image:: Satellite_Imagery_files/Satellite_Imagery_7_2.png
+
+
+
+.. image:: Satellite_Imagery_files/Satellite_Imagery_7_3.png
+

@@ -1,0 +1,385 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>About Unidata AWIPS &mdash; python-awips  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="#" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Grid Parameters" href="gridparms.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> python-awips
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                18.1.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datatypes.html">Available Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Data Plotting Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev.html">Development Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gridparms.html">Grid Parameters</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">About Unidata AWIPS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#about-awips">About AWIPS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#edex">EDEX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cave">CAVE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#alertviz">Alertviz</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">LDM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#edexbridge">edexBridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Qpid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#postgresql">PostgreSQL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hdf5">HDF5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pypies-httpd-pypies">PyPIES (httpd-pypies)</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">python-awips</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>About Unidata AWIPS</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/about.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="about-unidata-awips">
+<h1>About Unidata AWIPS<a class="headerlink" href="#about-unidata-awips" title="Permalink to this headline">¶</a></h1>
+<p>AWIPS is a weather forecasting display and analysis package
+developed by the National Weather Service and Raytheon. AWIPS is a
+Java application consisting of a data-rendering client (CAVE, which runs
+on Red Hat/CentOS Linux and Mac OS X) and a backend data server (EDEX,
+which runs only on Linux)</p>
+<p>AWIPS takes a unified approach to data ingest, and most data types
+follow a standard path through the system. At a high level, data flow
+describes the path taken by a piece of data from its source to its
+display by a client system. This path starts with data requested and
+stored by an <a class="reference external" href="#ldm">LDM</a> client and includes the decoding of the data
+and storing of decoded data in a form readable and displayable by the
+end user.</p>
+<p>The AWIPS ingest and request processes are a highly distributed
+system, and the messaging broken <a class="reference external" href="#qpid">Qpid</a> is used for
+inter-process communication.</p>
+<div class="figure align-center" id="id3">
+<img alt="image" src="http://www.unidata.ucar.edu/software/awips2/images/awips2_coms.png" />
+<p class="caption"><span class="caption-text">image</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<p>The AWIPS software package released by the Unidata Program Center is considered to
+be in the public domain since it is released without proprietary code. As such, export
+controls do not apply.  Any person is free to download, modify, distribute, or share
+Unidata AWIPS in any form. Entities who modify or re-distribute Unidata AWIPS
+software are encouraged to conduct their own FOSS/COTS entitlement/license review
+to ensure that they remain compatible with the associated terms (see
+FOSS_COTS_License.pdf at <a class="reference external" href="https://github.com/Unidata/awips2">https://github.com/Unidata/awips2</a>).</p>
+</div>
+<div class="section" id="about-awips">
+<h2>About AWIPS<a class="headerlink" href="#about-awips" title="Permalink to this headline">¶</a></h2>
+<p>The primary AWIPS application for data ingest, processing, and
+storage is the Environmental Data EXchange (<strong>EDEX</strong>) server; the
+primary AWIPS application for visualization/data manipulation is the
+Common AWIPS Visualization Environment (<strong>CAVE</strong>) client, which is
+typically installed on a workstation separate from other AWIPS
+components.</p>
+<p>In addition to programs developed specifically for AWIPS, AWIPS uses
+several commercial off-the-shelf (COTS) and Free or Open Source software
+(FOSS) products to assist in its operation. The following components,
+working together and communicating, compose the entire AWIPS system.</p>
+</div>
+<div class="section" id="edex">
+<h2>EDEX<a class="headerlink" href="#edex" title="Permalink to this headline">¶</a></h2>
+<p>The main server for AWIPS. Qpid sends alerts to EDEX when data stored
+by the LDM is ready for processing. These Qpid messages include file
+header information which allows EDEX to determine the appropriate data
+decoder to use. The default ingest server (simply named ingest) handles
+all data ingest other than grib messages, which are processed by a
+separate ingestGrib server. After decoding, EDEX writes metadata to the
+database via Postgres and saves the processed data in HDF5 via PyPIES. A
+third EDEX server, request, feeds requested data to CAVE clients. EDEX
+ingest and request servers are started and stopped with the commands
+<code class="docutils literal notranslate"><span class="pre">edex</span> <span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">edex</span> <span class="pre">stop</span></code>, which runs the system script
+<code class="docutils literal notranslate"><span class="pre">/etc/rc.d/init.d/edex_camel</span></code></p>
+</div>
+<div class="section" id="cave">
+<h2>CAVE<a class="headerlink" href="#cave" title="Permalink to this headline">¶</a></h2>
+<p>Common AWIPS Visualization Environment. The data rendering and
+visualization tool for AWIPS. CAVE contains of a number of different
+data display configurations called perspectives. Perspectives used in
+operational forecasting environments include <strong>D2D</strong> (Display
+Two-Dimensional), <strong>GFE</strong> (Graphical Forecast Editor), and <strong>NCP</strong>
+(National Centers Perspective). CAVE is started with the command
+<code class="docutils literal notranslate"><span class="pre">/awips2/cave/cave.sh</span></code> or <code class="docutils literal notranslate"><span class="pre">cave.sh</span></code></p>
+<div class="figure align-center" id="id4">
+<img alt="CAVE" src="http://www.unidata.ucar.edu/software/awips2/images/Unidata_AWIPS2_CAVE.png" />
+<p class="caption"><span class="caption-text">CAVE</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="alertviz">
+<h2>Alertviz<a class="headerlink" href="#alertviz" title="Permalink to this headline">¶</a></h2>
+<p><strong>Alertviz</strong> is a modernized version of an AWIPS I application, designed
+to present various notifications, error messages, and alarms to the user
+(forecaster). AlertViz can be executed either independently or from CAVE
+itself. In the Unidata CAVE client, Alertviz is run within CAVE and is
+not required to be run separately. The toolbar is also <strong>hidden from
+view</strong> and is accessed by right-click on the desktop taskbar icon.</p>
+</div>
+<div class="section" id="id1">
+<h2>LDM<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://www.unidata.ucar.edu/software/ldm/">http://www.unidata.ucar.edu/software/ldm/</a></p>
+<p>The <strong>LDM</strong> (Local Data Manager), developed and supported by Unidata, is
+a suite of client and server programs designed for data distribution,
+and is the fundamental component comprising the Unidata Internet Data
+Distribution (IDD) system. In AWIPS, the LDM provides data feeds for
+grids, surface observations, upper-air profiles, satellite and radar
+imagery and various other meteorological datasets. The LDM writes data
+directly to file and alerts EDEX via Qpid when a file is available for
+processing. The LDM is started and stopped with the commands
+<code class="docutils literal notranslate"><span class="pre">edex</span> <span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">edex</span> <span class="pre">stop</span></code>, which runs the commands
+<code class="docutils literal notranslate"><span class="pre">service</span> <span class="pre">edex_ldm</span> <span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">service</span> <span class="pre">edex_ldm</span> <span class="pre">stop</span></code></p>
+</div>
+<div class="section" id="edexbridge">
+<h2>edexBridge<a class="headerlink" href="#edexbridge" title="Permalink to this headline">¶</a></h2>
+<p>edexBridge, invoked in the LDM configuration file
+<code class="docutils literal notranslate"><span class="pre">/awips2/ldm/etc/ldmd.conf</span></code>, is used by the LDM to post “data
+available” messaged to Qpid, which alerts the EDEX Ingest server that a
+file is ready for processing.</p>
+</div>
+<div class="section" id="id2">
+<h2>Qpid<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://qpid.apache.org">http://qpid.apache.org</a></p>
+<p><strong>Apache Qpid</strong>, the Queue Processor Interface Daemon, is the messaging
+system used by AWIPS to facilitate communication between services.
+When the LDM receives a data file to be processed, it employs
+<strong>edexBridge</strong> to send EDEX ingest servers a message via Qpid. When EDEX
+has finished decoding the file, it sends CAVE a message via Qpid that
+data are available for display or further processing. Qpid is started
+and stopped by <code class="docutils literal notranslate"><span class="pre">edex</span> <span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">edex</span> <span class="pre">stop</span></code>, and is controlled by
+the system script <code class="docutils literal notranslate"><span class="pre">/etc/rc.d/init.d/qpidd</span></code></p>
+</div>
+<div class="section" id="postgresql">
+<h2>PostgreSQL<a class="headerlink" href="#postgresql" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://www.postgresql.org">http://www.postgresql.org</a></p>
+<p><strong>PostgreSQL</strong>, known simply as Postgres, is a relational database
+management system (DBMS) which handles the storage and retrieval of
+metadata, database tables and some decoded data. The storage and reading
+of EDEX metadata is handled by the Postgres DBMS. Users may query the
+metadata tables by using the termainal-based front-end for Postgres
+called <strong>psql</strong>. Postgres is started and stopped by <code class="docutils literal notranslate"><span class="pre">edex</span> <span class="pre">start</span></code> and
+<code class="docutils literal notranslate"><span class="pre">edex</span> <span class="pre">stop</span></code>, and is controlled by the system script
+<code class="docutils literal notranslate"><span class="pre">/etc/rc.d/init.d/edex_postgres</span></code></p>
+</div>
+<div class="section" id="hdf5">
+<h2>HDF5<a class="headerlink" href="#hdf5" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://www.hdfgroup.org/HDF5/">http://www.hdfgroup.org/HDF5/</a></p>
+<p><strong>Hierarchical Data Format (v.5)</strong> is
+the primary data storage format used by AWIPS for processed grids,
+satellite and radar imagery and other products. Similar to netCDF,
+developed and supported by Unidata, HDF5 supports multiple types of data
+within a single file. For example, a single HDF5 file of radar data may
+contain multiple volume scans of base reflectivity and base velocity as
+well as derived products such as composite reflectivity. The file may
+also contain data from multiple radars. HDF5 is stored in
+<code class="docutils literal notranslate"><span class="pre">/awips2/edex/data/hdf5/</span></code></p>
+</div>
+<div class="section" id="pypies-httpd-pypies">
+<h2>PyPIES (httpd-pypies)<a class="headerlink" href="#pypies-httpd-pypies" title="Permalink to this headline">¶</a></h2>
+<p><strong>PyPIES</strong>, Python Process Isolated Enhanced Storage, was created for
+AWIPS to isolate the management of HDF5 Processed Data Storage from
+the EDEX processes. PyPIES manages access, i.e., reads and writes, of
+data in the HDF5 files. In a sense, PyPIES provides functionality
+similar to a DBMS (i.e PostgreSQL for metadata); all data being written
+to an HDF5 file is sent to PyPIES, and requests for data stored in HDF5
+are processed by PyPIES.</p>
+<p>PyPIES is implemented in two parts: 1. The PyPIES manager is a Python
+application that runs as part of an Apache HTTP server, and handles
+requests to store and retrieve data. 2. The PyPIES logger is a Python
+process that coordinates logging. PyPIES is started and stopped by
+<code class="docutils literal notranslate"><span class="pre">edex</span> <span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">edex</span> <span class="pre">stop</span></code>, and is controlled by the system script
+<code class="docutils literal notranslate"><span class="pre">/etc/rc.d/init.d/https-pypies</span></code></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="gridparms.html" class="btn btn-neutral float-left" title="Grid Parameters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2018, Unidata
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

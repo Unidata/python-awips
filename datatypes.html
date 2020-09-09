@@ -1,0 +1,356 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Available Data Types &mdash; python-awips  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Data Plotting Examples" href="examples/index.html" />
+    <link rel="prev" title="CombinedTimeQuery" href="api/CombinedTimeQuery.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> python-awips
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                18.1.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Available Data Types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#satellite">satellite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#binlightning">binlightning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#grid">grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#warning">warning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#radar">radar</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Data Plotting Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev.html">Development Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gridparms.html">Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Unidata AWIPS</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">python-awips</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Available Data Types</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/datatypes.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="available-data-types">
+<h1>Available Data Types<a class="headerlink" href="#available-data-types" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="satellite">
+<h2>satellite<a class="headerlink" href="#satellite" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>2-D NumPy Array</p></li>
+<li><p>returned by: <a class="reference external" href="api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getGridData">awips.dataaccess.DataAccessLayer.getGridData(request, times=[])</a></p></li>
+<li><p>example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Contrust a full satellite product tree</span>
+<span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="s2">&quot;edex-cloud.unidata.ucar.edu)</span>
+<span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">&quot;satellite&quot;</span><span class="p">)</span>
+<span class="n">creatingEntities</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getIdentifierValues</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;creatingEntity&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">creatingEntities</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">&quot;satellite&quot;</span><span class="p">)</span>
+    <span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s2">&quot;creatingEntity&quot;</span><span class="p">,</span> <span class="n">entity</span><span class="p">)</span>
+    <span class="n">availableSectors</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableLocationNames</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="n">availableSectors</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">sector</span> <span class="ow">in</span> <span class="n">availableSectors</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; - &quot;</span> <span class="o">+</span> <span class="n">sector</span><span class="p">)</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="n">sector</span><span class="p">)</span>
+        <span class="n">availableProducts</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableParameters</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">availableProducts</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">availableProducts</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;    - &quot;</span> <span class="o">+</span> <span class="n">product</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>—</p>
+</div>
+<div class="section" id="binlightning">
+<h2>binlightning<a class="headerlink" href="#binlightning" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>Shapely Point:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">POINT</span> <span class="p">(</span><span class="o">-</span><span class="mf">65.65293884277344</span> <span class="o">-</span><span class="mf">16.94915580749512</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>returned by: <a class="reference external" href="api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getGeometryData">awips.dataaccess.DataAccessLayer.getGeometryData(request, times=[])</a></p></li>
+<li><p>example (GLM):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">&quot;binlightning&quot;</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;GLMgr&quot;</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s2">&quot;intensity&quot;</span><span class="p">)</span>
+<span class="n">times</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">times</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">ob</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
+    <span class="n">geom</span> <span class="o">=</span> <span class="n">ob</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>—</p>
+</div>
+<div class="section" id="grid">
+<h2>grid<a class="headerlink" href="#grid" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>2-D NumPy Array</p></li>
+<li><p>returned by: <a class="reference external" href="api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getGridData">awips.dataaccess.DataAccessLayer.getGridData(request, times=[])</a></p></li>
+<li><p>example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">()</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setDatatype</span><span class="p">(</span><span class="s2">&quot;grid&quot;</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="s2">&quot;RAP13&quot;</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setLevels</span><span class="p">(</span><span class="s2">&quot;2.0FHAG&quot;</span><span class="p">)</span>
+<span class="n">cycles</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">times</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="n">fcstRun</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getForecastRun</span><span class="p">(</span><span class="n">cycles</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">times</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGridData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="p">[</span><span class="n">fcstRun</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+<span class="k">for</span> <span class="n">grid</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">getRawData</span><span class="p">()</span>
+    <span class="n">lons</span><span class="p">,</span> <span class="n">lats</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">getLatLonCoords</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>—</p>
+</div>
+<div class="section" id="warning">
+<h2>warning<a class="headerlink" href="#warning" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>Shapely MultiPolygon, Polygon:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MULTIPOLYGON</span> <span class="p">((</span><span class="o">-</span><span class="mf">92.092348410</span> <span class="mf">46.782322971</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mf">92.092348410</span> <span class="mf">46.782322971</span><span class="p">),</span>
+              <span class="p">(</span><span class="o">-</span><span class="mf">90.948581075</span> <span class="mf">46.992865960</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mf">90.948581075</span> <span class="mf">46.992865960</span><span class="p">),</span>
+               <span class="o">...</span>
+              <span class="p">(</span><span class="o">-</span><span class="mf">92.274543999</span> <span class="mf">46.652773000</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mf">92.280511999</span> <span class="mf">46.656933000</span><span class="p">),</span>
+              <span class="p">(</span><span class="o">-</span><span class="mf">92.285491999</span> <span class="mf">46.660741000</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mf">92.285491999</span> <span class="mf">46.660741000</span><span class="p">))</span>
+</pre></div>
+</div>
+</li>
+<li><p>returned by: <a class="reference external" href="api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getGeometryData">awips.dataaccess.DataAccessLayer.getGeometryData(request, times=[])</a></p></li>
+<li><p>example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">()</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setDatatype</span><span class="p">(</span><span class="s2">&quot;warning&quot;</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s1">&#39;phensig&#39;</span><span class="p">)</span>
+<span class="n">times</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">times</span><span class="p">[</span><span class="o">-</span><span class="mi">50</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">ob</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
+    <span class="n">poly</span> <span class="o">=</span> <span class="n">ob</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">()</span>
+    <span class="n">site</span> <span class="o">=</span> <span class="n">ob</span><span class="o">.</span><span class="n">getLocationName</span><span class="p">()</span>
+    <span class="n">pd</span>   <span class="o">=</span> <span class="n">ob</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getValidPeriod</span><span class="p">()</span>
+    <span class="n">ref</span>  <span class="o">=</span> <span class="n">ob</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getRefTime</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>—</p>
+</div>
+<div class="section" id="radar">
+<h2>radar<a class="headerlink" href="#radar" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>2-D NumPy Array</p></li>
+<li><p>returned by: <a class="reference external" href="api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getGridData">awips.dataaccess.DataAccessLayer.getGridData(request, times=[])</a></p></li>
+<li><p>also returned by: <a class="reference external" href="api/RadarCommon.html">RadarCommon.get_hdf5_data(idra)</a></p></li>
+<li><p>example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">&quot;radar&quot;</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="s2">&quot;kmhx&quot;</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s2">&quot;Digital Hybrid Scan Refl&quot;</span><span class="p">)</span>
+<span class="n">availableLevels</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableLevels</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="n">times</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGridData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="p">[</span><span class="n">times</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+<span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">getRawData</span><span class="p">()</span>
+    <span class="n">lons</span><span class="p">,</span> <span class="n">lats</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">getLatLonCoords</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="examples/index.html" class="btn btn-neutral float-right" title="Data Plotting Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="api/CombinedTimeQuery.html" class="btn btn-neutral float-left" title="CombinedTimeQuery" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2018, Unidata
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

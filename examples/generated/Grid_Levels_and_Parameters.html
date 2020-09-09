@@ -1,0 +1,1050 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Grid Levels and Parameters &mdash; python-awips  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="METAR Station Plot with MetPy" href="METAR_Station_Plot_with_MetPy.html" />
+    <link rel="prev" title="GOES Geostationary Lightning Mapper" href="GOES_Geostationary_Lightning_Mapper.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> python-awips
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                18.1.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../datatypes.html">Available Data Types</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Data Plotting Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="AWIPS_Grids_and_Cartopy.html">AWIPS Grids and Cartopy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Colored_Surface_Temperature_Plot.html">Colored Surface Temperature Plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Forecast_Model_Vertical_Sounding.html">Forecast Model Vertical Sounding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GOES_Geostationary_Lightning_Mapper.html">GOES Geostationary Lightning Mapper</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Grid Levels and Parameters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dataaccesslayer-getsupporteddatatypes">DataAccessLayer.getSupportedDatatypes()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dataaccesslayer-getavailablelocationnames">DataAccessLayer.getAvailableLocationNames()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dataaccesslayer-getavailableparameters">DataAccessLayer.getAvailableParameters()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dataaccesslayer-getavailablelevels">DataAccessLayer.getAvailableLevels()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dataaccesslayer-getavailabletimes">DataAccessLayer.getAvailableTimes()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dataaccesslayer-getgriddata">DataAccessLayer.getGridData()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plotting-with-matplotlib-and-cartopy">Plotting with Matplotlib and Cartopy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="METAR_Station_Plot_with_MetPy.html">METAR Station Plot with MetPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Map_Resources_and_Topography.html">Map Resources and Topography</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Model_Sounding_Data.html">Model Sounding Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NEXRAD_Level3_Radar.html">NEXRAD Level3 Radar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Precip_Accumulation-Region_Of_Interest.html">Precip Accumulation-Region Of Interest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Regional_Surface_Obs_Plot.html">Regional Surface Obs Plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Satellite_Imagery.html">Satellite Imagery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Upper_Air_BUFR_Soundings.html">Upper Air BUFR Soundings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Watch_and_Warning_Polygons.html">Watch and Warning Polygons</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev.html">Development Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gridparms.html">Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About Unidata AWIPS</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">python-awips</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Data Plotting Examples</a> &raquo;</li>
+        
+      <li>Grid Levels and Parameters</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/examples/generated/Grid_Levels_and_Parameters.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="grid-levels-and-parameters">
+<h1>Grid Levels and Parameters<a class="headerlink" href="#grid-levels-and-parameters" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Grid_Levels_and_Parameters.ipynb">Notebook</a>
+This example covers the callable methods of the Python AWIPS DAF when
+working with gridded data. We start with a connection to an EDEX server,
+then query data types, then grid names, parameters, levels, and other
+information. Finally the gridded data is plotted for its domain using
+Matplotlib and Cartopy.</p>
+<div class="section" id="dataaccesslayer-getsupporteddatatypes">
+<h2>DataAccessLayer.getSupportedDatatypes()<a class="headerlink" href="#dataaccesslayer-getsupporteddatatypes" title="Permalink to this headline">¶</a></h2>
+<p>getSupportedDatatypes() returns a list of available data types offered
+by the EDEX server defined above.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">DataAccessLayer</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+
+<span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="s2">&quot;edex-cloud.unidata.ucar.edu&quot;</span><span class="p">)</span>
+<span class="n">dataTypes</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getSupportedDatatypes</span><span class="p">()</span>
+<span class="n">dataTypes</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">dataTypes</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;acars&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;airep&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;binlightning&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;bufrmosAVN&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;bufrmosETA&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;bufrmosGFS&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;bufrmosHPC&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;bufrmosLAMP&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;bufrmosMRF&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;bufrua&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;climate&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;common_obs_spatial&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;gfe&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;gfeEditArea&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;grid&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;maps&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;modelsounding&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;obs&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;pirep&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;practicewarning&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;profiler&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;radar&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;radar_spatial&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;satellite&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;sfcobs&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;topo&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;warning&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dataaccesslayer-getavailablelocationnames">
+<h2>DataAccessLayer.getAvailableLocationNames()<a class="headerlink" href="#dataaccesslayer-getavailablelocationnames" title="Permalink to this headline">¶</a></h2>
+<p>Now create a new data request, and set the data type to <strong>grid</strong> to
+request all available grids with <strong>getAvailableLocationNames()</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">()</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setDatatype</span><span class="p">(</span><span class="s2">&quot;grid&quot;</span><span class="p">)</span>
+<span class="n">available_grids</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableLocationNames</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="n">available_grids</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">available_grids</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;AUTOSPE&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CMC&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;ESTOFS&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;ETSS&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;FFG-ALR&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;FFG-FWR&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;FFG-KRF&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;FFG-MSR&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;FFG-ORN&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;FFG-PTR&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;FFG-RHA&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;FFG-RSA&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;FFG-STR&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;FFG-TAR&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;FFG-TIR&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;FFG-TUA&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;GEFS&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;GFS&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;GFS20&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HFR-EAST_6KM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HFR-EAST_PR_6KM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HFR-US_EAST_DELAWARE_1KM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HFR-US_EAST_FLORIDA_2KM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HFR-US_EAST_NORTH_2KM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HFR-US_EAST_SOUTH_2KM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HFR-US_EAST_VIRGINIA_1KM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HFR-US_HAWAII_1KM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HFR-US_HAWAII_2KM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HFR-US_HAWAII_6KM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HFR-US_WEST_500M&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HFR-US_WEST_CENCAL_2KM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HFR-US_WEST_LOSANGELES_1KM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HFR-US_WEST_LOSOSOS_1KM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HFR-US_WEST_NORTH_2KM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HFR-US_WEST_SANFRAN_1KM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HFR-US_WEST_SOCAL_2KM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HFR-US_WEST_WASHINGTON_1KM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HFR-WEST_6KM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HPCGuide&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HPCqpfNDFD&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HRRR&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;LAMP2p5&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;MRMS_0500&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;MRMS_1000&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;NAM12&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;NAM40&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;NOHRSC-SNOW&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;NationalBlend&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;RAP13&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;RTMA&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;RTOFS-Now-WestAtl&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;RTOFS-Now-WestConus&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;RTOFS-WestAtl&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;RTOFS-WestConus&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;SPCGuide&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;SeaIce&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;TPCWindProb&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;URMA25&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;WaveWatch&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dataaccesslayer-getavailableparameters">
+<h2>DataAccessLayer.getAvailableParameters()<a class="headerlink" href="#dataaccesslayer-getavailableparameters" title="Permalink to this headline">¶</a></h2>
+<p>After datatype and model name (locationName) are set, you can query all
+available parameters with <strong>getAvailableParameters()</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">request</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="s2">&quot;RAP13&quot;</span><span class="p">)</span>
+<span class="n">availableParms</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableParameters</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="n">availableParms</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">availableParms</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;36SHRMi&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;50dbzZ&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;AV&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Along&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;AppT&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;BLI&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;BRN&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;BRNEHIi&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;BRNSHR&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;BRNmag&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;BRNvec&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;BdEPT06&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;BlkMag&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;BlkShr&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CAPE&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CFRZR&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CICEP&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CIn&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CP&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CP1hr&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CPr&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CPrD&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CRAIN&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CSNOW&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CURU&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CXR&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CapeStk&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Corf&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CorfF&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CorfFM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CorfM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CritT1&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CumNrm&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CumShr&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;DivF&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;DivFn&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;DivFs&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;DpD&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;DpT&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;EHI&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;EHI01&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;EHIi&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;EPT&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;EPTA&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;EPTC&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;EPTGrd&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;EPTGrdM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;EPTs&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;EPVg&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;EPVs&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;EPVt1&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;EPVt2&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;ESP&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;ESP2&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;FVecs&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;FeatMot&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;FnVecs&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;FsVecs&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Fzra1&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Fzra2&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;GH&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;GHxSM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;GHxSM2&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Gust&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HI&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HI1&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HI3&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HI4&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HIdx&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HPBL&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Heli&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;HeliC&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;INV&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;IPLayer&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Into&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;KI&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;L-I&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;LIsfc2x&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;LM5&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;LM6&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;MAdv&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;MCon&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;MCon2&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;MLLCL&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;MMP&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;MMSP&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;MSFDi&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;MSFi&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;MSFmi&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;MSG&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;MTV&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Mix1&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Mix2&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Mmag&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;MpV&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;NBE&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;NST&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;NST1&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;NST2&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;OmDiff&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;P&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;PAdv&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;PBE&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;PEC&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;PFrnt&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;PGrd&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;PGrd1&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;PGrdM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;PIVA&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;PR&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;PTvA&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;PTyp&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;PVV&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;PW&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;PW2&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;PoT&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;PoTA&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;QPV1&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;QPV2&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;QPV3&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;QPV4&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;REFC&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;RH&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;RH_001_bin&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;RH_002_bin&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;RM5&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;RM6&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;RMprop&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;RMprop2&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;RRtype&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;RV&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Rain1&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Rain2&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Rain3&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Ro&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;SH&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;SHx&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;SLI&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;SNSQ&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;SNW&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;SNWA&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;SRMl&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;SRMlM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;SRMm&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;SRMmM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;SRMr&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;SRMrM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;SSP&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;SSi&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;STP&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;STP1&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Shear&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;ShrMag&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;SnD&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Snow1&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Snow2&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Snow3&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;SnowT&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;St-Pr&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;StrTP&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;StrmMot&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;SuCP&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;T&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;TAdv&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;TGrd&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;TGrdM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;TORi&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;TORi2&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;TP&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;TP1hr&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;TQIND&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;TShrMi&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;TV&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;TW&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;T_001_bin&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Tdef&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Tdend&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;ThGrd&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Thom5&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Thom5a&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Thom6&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;TmDpD&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Tmax&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Tmin&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Topo&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;TotQi&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Tstk&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;TwMax&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;TwMin&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Twstk&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;TxSM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;USTM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;VAdv&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;VAdvAdvection&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;VGP&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;VSTM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Vis&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;WCD&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;WD&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;WEASD&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;WEASD1hr&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;WGS&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;Wind&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;WndChl&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;ageoVC&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;ageoW&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;ageoWM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;cCape&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;cCin&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;cTOT&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;capeToLvl&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;dCape&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;dP&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;dT&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;dVAdv&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;dZ&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;defV&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;del2gH&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;df&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;fGen&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;fnD&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;fsD&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;gamma&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;gammaE&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;geoVort&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;geoW&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;geoWM&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;loCape&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;maxEPT&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;minEPT&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;mixRat&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;msl-P&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;muCape&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;pV&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;pVeq&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;qDiv&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;qVec&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;qnVec&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;qsVec&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;shWlt&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;snoRat&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;snoRatCrocus&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;snoRatEMCSREF&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;snoRatOv2&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;snoRatSPC&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;snoRatSPCdeep&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;snoRatSPCsurface&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;staticCoriolis&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;staticSpacing&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;staticTopo&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;swtIdx&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;tTOT&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;tWind&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;tWindU&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;tWindV&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;uFX&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;uW&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;uWStk&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;ulSnoRat&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;vSmthW&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;vTOT&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;vW&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;vWStk&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;vertCirc&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;wDiv&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;wSp&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;wSp_001_bin&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;wSp_002_bin&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;wSp_003_bin&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;wSp_004_bin&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;zAGL&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dataaccesslayer-getavailablelevels">
+<h2>DataAccessLayer.getAvailableLevels()<a class="headerlink" href="#dataaccesslayer-getavailablelevels" title="Permalink to this headline">¶</a></h2>
+<p>Selecting <strong>“T”</strong> for temperature.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
+<span class="n">availableLevels</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableLevels</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">lvl</span> <span class="ow">in</span> <span class="n">availableLevels</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">lvl</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.0</span><span class="n">SFC</span>
+<span class="mf">350.0</span><span class="n">MB</span>
+<span class="mf">475.0</span><span class="n">MB</span>
+<span class="mf">610.0_40000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">225.0</span><span class="n">MB</span>
+<span class="mf">120.0_150</span><span class="o">.</span><span class="mi">0</span><span class="n">BL</span>
+<span class="mf">900.0</span><span class="n">MB</span>
+<span class="mf">125.0</span><span class="n">MB</span>
+<span class="mf">0.0_610</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">450.0</span><span class="n">MB</span>
+<span class="mf">575.0</span><span class="n">MB</span>
+<span class="mf">325.0</span><span class="n">MB</span>
+<span class="mf">100.0</span><span class="n">MB</span>
+<span class="mf">1000.0</span><span class="n">MB</span>
+<span class="mf">60.0_90</span><span class="o">.</span><span class="mi">0</span><span class="n">BL</span>
+<span class="mf">275.0</span><span class="n">MB</span>
+<span class="mf">1.0</span><span class="n">PV</span>
+<span class="mf">950.0</span><span class="n">MB</span>
+<span class="mf">150.0</span><span class="n">MB</span>
+<span class="mf">1.5</span><span class="n">PV</span>
+<span class="mf">700.0</span><span class="n">MB</span>
+<span class="mf">825.0</span><span class="n">MB</span>
+<span class="mf">150.0_180</span><span class="o">.</span><span class="mi">0</span><span class="n">BL</span>
+<span class="mf">250.0</span><span class="n">MB</span>
+<span class="mf">375.0</span><span class="n">MB</span>
+<span class="mf">1000.0_500</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">800.0</span><span class="n">MB</span>
+<span class="mf">4000.0</span><span class="n">FHAG</span>
+<span class="mf">925.0</span><span class="n">MB</span>
+<span class="mf">2.0</span><span class="n">PV</span>
+<span class="mf">0.5</span><span class="n">PV</span>
+<span class="mf">0.0</span><span class="n">TROP</span>
+<span class="mf">750.0</span><span class="n">MB</span>
+<span class="mf">500.0</span><span class="n">MB</span>
+<span class="mf">625.0</span><span class="n">MB</span>
+<span class="mf">400.0</span><span class="n">MB</span>
+<span class="mf">0.0</span><span class="n">FHAG</span>
+<span class="mf">2.0</span><span class="n">FHAG</span>
+<span class="mf">875.0</span><span class="n">MB</span>
+<span class="mf">175.0</span><span class="n">MB</span>
+<span class="mf">0.0_1000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">850.0</span><span class="n">MB</span>
+<span class="mf">600.0</span><span class="n">MB</span>
+<span class="mf">725.0</span><span class="n">MB</span>
+<span class="mf">0.0_6000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">975.0</span><span class="n">MB</span>
+<span class="mf">550.0</span><span class="n">MB</span>
+<span class="mf">0.0_3000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">675.0</span><span class="n">MB</span>
+<span class="mf">425.0</span><span class="n">MB</span>
+<span class="mf">200.0</span><span class="n">MB</span>
+<span class="mf">0.0_30</span><span class="o">.</span><span class="mi">0</span><span class="n">BL</span>
+<span class="mf">30.0_60</span><span class="o">.</span><span class="mi">0</span><span class="n">BL</span>
+<span class="mf">650.0</span><span class="n">MB</span>
+<span class="mf">525.0</span><span class="n">MB</span>
+<span class="mf">300.0</span><span class="n">MB</span>
+<span class="mf">90.0_120</span><span class="o">.</span><span class="mi">0</span><span class="n">BL</span>
+<span class="mf">1000.0</span><span class="n">FHAG</span>
+<span class="mf">775.0</span><span class="n">MB</span>
+<span class="mf">340.0_350</span><span class="o">.</span><span class="mi">0</span><span class="n">K</span>
+<span class="mf">290.0_300</span><span class="o">.</span><span class="mi">0</span><span class="n">K</span>
+<span class="mf">700.0_600</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">700.0_300</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">320.0</span><span class="n">Ke</span>
+<span class="mf">800.0_750</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">60.0</span><span class="n">TILT</span>
+<span class="mf">5.3</span><span class="n">TILT</span>
+<span class="mf">1000.0_900</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">340.0</span><span class="n">K</span>
+<span class="mf">5500.0_6000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">255.0</span><span class="n">K</span>
+<span class="mf">255.0_265</span><span class="o">.</span><span class="mi">0</span><span class="n">K</span>
+<span class="mf">3000.0_6000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">25.0</span><span class="n">TILT</span>
+<span class="mf">2000.0</span><span class="n">FHAG</span>
+<span class="mf">0.0_500</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">1000.0_850</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">850.0_250</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">280.0_290</span><span class="o">.</span><span class="mi">0</span><span class="n">Ke</span>
+<span class="mf">1524.0</span><span class="n">FHAG</span>
+<span class="mf">320.0_330</span><span class="o">.</span><span class="mi">0</span><span class="n">K</span>
+<span class="mf">0.0</span><span class="n">TILT</span>
+<span class="mf">310.0_320</span><span class="o">.</span><span class="mi">0</span><span class="n">Ke</span>
+<span class="mf">310.0</span><span class="n">Ke</span>
+<span class="mf">330.0</span><span class="n">K</span>
+<span class="mf">900.0_800</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">550.0_500</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">2.4</span><span class="n">TILT</span>
+<span class="mf">50.0</span><span class="n">TILT</span>
+<span class="mf">3500.0</span><span class="n">FHAG</span>
+<span class="mf">35.0</span><span class="n">TILT</span>
+<span class="mf">12.0</span><span class="n">TILT</span>
+<span class="mf">300.0_310</span><span class="o">.</span><span class="mi">0</span><span class="n">K</span>
+<span class="mf">3000.0_12000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">0.9</span><span class="n">TILT</span>
+<span class="mf">320.0</span><span class="n">K</span>
+<span class="mf">400.0_350</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">500.0</span><span class="n">FHAG</span>
+<span class="mf">750.0_700</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">1000.0_400</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">345.0</span><span class="n">K</span>
+<span class="mf">250.0_260</span><span class="o">.</span><span class="mi">0</span><span class="n">K</span>
+<span class="mf">300.0</span><span class="n">Ke</span>
+<span class="mf">290.0</span><span class="n">Ke</span>
+<span class="mf">950.0_900</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">4572.0</span><span class="n">FHAG</span>
+<span class="mf">275.0_285</span><span class="o">.</span><span class="mi">0</span><span class="n">Ke</span>
+<span class="mf">335.0</span><span class="n">Ke</span>
+<span class="mf">295.0_305</span><span class="o">.</span><span class="mi">0</span><span class="n">Ke</span>
+<span class="mf">275.0_285</span><span class="o">.</span><span class="mi">0</span><span class="n">K</span>
+<span class="mf">600.0_550</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">310.0</span><span class="n">K</span>
+<span class="mf">9000.0</span><span class="n">FHAG</span>
+<span class="mf">335.0</span><span class="n">K</span>
+<span class="mf">1000.0_7000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">700.0_500</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">9144.0</span><span class="n">FHAG</span>
+<span class="mf">325.0_335</span><span class="o">.</span><span class="mi">0</span><span class="n">K</span>
+<span class="mf">2000.0_8000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">0.0_609</span><span class="o">.</span><span class="mi">6</span><span class="n">FHAG</span>
+<span class="mf">300.0</span><span class="n">K</span>
+<span class="mf">0.0</span><span class="n">MAXOMEGA</span>
+<span class="mf">315.0_325</span><span class="o">.</span><span class="mi">0</span><span class="n">K</span>
+<span class="mf">325.0</span><span class="n">K</span>
+<span class="mf">340.0</span><span class="n">Ke</span>
+<span class="mf">0.0_4000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">5000.0_5500</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">300.0_250</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">1.5</span><span class="n">TILT</span>
+<span class="mf">335.0_345</span><span class="o">.</span><span class="mi">0</span><span class="n">K</span>
+<span class="mf">315.0</span><span class="n">K</span>
+<span class="mf">3.4</span><span class="n">TILT</span>
+<span class="mf">2500.0</span><span class="n">FHAG</span>
+<span class="mf">10000.0</span><span class="n">FHAG</span>
+<span class="mf">0.0_2000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">7000.0</span><span class="n">FHAG</span>
+<span class="mf">5000.0</span><span class="n">FHAG</span>
+<span class="mf">330.0</span><span class="n">Ke</span>
+<span class="mf">500.0_400</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">1000.0_1500</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">305.0</span><span class="n">K</span>
+<span class="mf">285.0_295</span><span class="o">.</span><span class="mi">0</span><span class="n">Ke</span>
+<span class="mf">14.0</span><span class="n">TILT</span>
+<span class="mf">3000.0_3500</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">325.0_335</span><span class="o">.</span><span class="mi">0</span><span class="n">Ke</span>
+<span class="mf">2000.0_5000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">7620.0</span><span class="n">FHAG</span>
+<span class="mf">850.0_800</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">6096.0</span><span class="n">FHAG</span>
+<span class="mf">6000.0_7000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">2000.0_7000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">9000.0_10000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">295.0</span><span class="n">Ke</span>
+<span class="mf">305.0</span><span class="n">Ke</span>
+<span class="mf">265.0_275</span><span class="o">.</span><span class="mi">0</span><span class="n">K</span>
+<span class="mf">7000.0_8000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">3000.0_8000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">700.0_650</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">1000.0_6000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">0.5</span><span class="n">TILT</span>
+<span class="mf">450.0_400</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">1.8</span><span class="n">TILT</span>
+<span class="mf">330.0_340</span><span class="o">.</span><span class="mi">0</span><span class="n">K</span>
+<span class="mf">800.0_700</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">850.0_300</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">6.0</span><span class="n">TILT</span>
+<span class="mf">900.0_850</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">3657.6</span><span class="n">FHAG</span>
+<span class="mf">0.0_5000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">320.0_330</span><span class="o">.</span><span class="mi">0</span><span class="n">Ke</span>
+<span class="mf">8.7</span><span class="n">TILT</span>
+<span class="mf">650.0_600</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">600.0_400</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">55.0</span><span class="n">TILT</span>
+<span class="mf">270.0_280</span><span class="o">.</span><span class="mi">0</span><span class="n">Ke</span>
+<span class="mf">30.0</span><span class="n">TILT</span>
+<span class="mf">310.0_320</span><span class="o">.</span><span class="mi">0</span><span class="n">K</span>
+<span class="mf">1500.0</span><span class="n">FHAG</span>
+<span class="mf">1000.0_950</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">5500.0</span><span class="n">FHAG</span>
+<span class="mf">250.0_200</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">500.0_1000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">400.0_300</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">500.0_100</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">1000.0_3000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">8000.0</span><span class="n">FHAG</span>
+<span class="mf">285.0</span><span class="n">Ke</span>
+<span class="mf">290.0</span><span class="n">K</span>
+<span class="mf">305.0_315</span><span class="o">.</span><span class="mi">0</span><span class="n">K</span>
+<span class="mf">285.0_295</span><span class="o">.</span><span class="mi">0</span><span class="n">K</span>
+<span class="mf">0.0_2500</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">925.0_850</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">275.0</span><span class="n">Ke</span>
+<span class="mf">1500.0_2000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">300.0_200</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">260.0_270</span><span class="o">.</span><span class="mi">0</span><span class="n">K</span>
+<span class="mf">2743.2</span><span class="n">FHAG</span>
+<span class="mf">3000.0</span><span class="n">FHAG</span>
+<span class="mf">315.0_325</span><span class="o">.</span><span class="mi">0</span><span class="n">Ke</span>
+<span class="mf">600.0_500</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">16.7</span><span class="n">TILT</span>
+<span class="mf">280.0</span><span class="n">K</span>
+<span class="mf">500.0_250</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">40.0</span><span class="n">TILT</span>
+<span class="mf">3048.0</span><span class="n">FHAG</span>
+<span class="mf">400.0_200</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">300.0_310</span><span class="o">.</span><span class="mi">0</span><span class="n">Ke</span>
+<span class="mf">270.0_280</span><span class="o">.</span><span class="mi">0</span><span class="n">K</span>
+<span class="mf">1000.0_700</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">45.0</span><span class="n">TILT</span>
+<span class="mf">850.0_500</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">2500.0_3000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">609.6</span><span class="n">FHAG</span>
+<span class="mf">0.0_8000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">295.0</span><span class="n">K</span>
+<span class="mf">4.3</span><span class="n">TILT</span>
+<span class="mf">295.0_305</span><span class="o">.</span><span class="mi">0</span><span class="n">K</span>
+<span class="mf">330.0_340</span><span class="o">.</span><span class="mi">0</span><span class="n">Ke</span>
+<span class="mf">270.0</span><span class="n">K</span>
+<span class="mf">4000.0_4500</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">280.0_290</span><span class="o">.</span><span class="mi">0</span><span class="n">K</span>
+<span class="mf">925.0_700</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">0.0_1500</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">260.0</span><span class="n">K</span>
+<span class="mf">10.0</span><span class="n">TILT</span>
+<span class="mf">3500.0_4000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">325.0</span><span class="n">Ke</span>
+<span class="mf">285.0</span><span class="n">K</span>
+<span class="mf">290.0_300</span><span class="o">.</span><span class="mi">0</span><span class="n">Ke</span>
+<span class="mf">7.5</span><span class="n">TILT</span>
+<span class="mf">1828.8</span><span class="n">FHAG</span>
+<span class="mf">280.0</span><span class="n">Ke</span>
+<span class="mf">500.0_450</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">305.0_315</span><span class="o">.</span><span class="mi">0</span><span class="n">Ke</span>
+<span class="mf">250.0</span><span class="n">K</span>
+<span class="mf">4500.0</span><span class="n">FHAG</span>
+<span class="mf">1250.0</span><span class="n">FHAG</span>
+<span class="mf">0.0_10000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">4500.0_5000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">250.0_350</span><span class="o">.</span><span class="mi">0</span><span class="n">K</span>
+<span class="mf">270.0</span><span class="n">Ke</span>
+<span class="mf">275.0</span><span class="n">K</span>
+<span class="mf">315.0</span><span class="n">Ke</span>
+<span class="mf">500.0_300</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">350.0_300</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">750.0</span><span class="n">FHAG</span>
+<span class="mf">19.5</span><span class="n">TILT</span>
+<span class="mf">2000.0_2500</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">850.0_700</span><span class="o">.</span><span class="mi">0</span><span class="n">MB</span>
+<span class="mf">350.0</span><span class="n">K</span>
+<span class="mf">265.0</span><span class="n">K</span>
+<span class="mf">6000.0</span><span class="n">FHAG</span>
+<span class="mf">8000.0_9000</span><span class="o">.</span><span class="mi">0</span><span class="n">FHAG</span>
+<span class="mf">700.0_300</span><span class="o">.</span><span class="mi">0</span><span class="n">LYRMB</span>
+<span class="mf">850.0_700</span><span class="o">.</span><span class="mi">0</span><span class="n">LYRMB</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>0.0SFC</strong> is the Surface level</p></li>
+<li><p><strong>FHAG</strong> stands for Fixed Height Above Ground (in meters)</p></li>
+<li><p><strong>NTAT</strong> stands for Nominal Top of the ATmosphere</p></li>
+<li><p><strong>BL</strong> stands for Boundary Layer, where <strong>0.0_30.0BL</strong> reads as
+<em>0-30 mb above ground level</em></p></li>
+<li><p><strong>TROP</strong> is the Tropopause level</p></li>
+</ul>
+<p><strong>request.setLevels()</strong></p>
+<p>For this example we will use Surface Temperature</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">request</span><span class="o">.</span><span class="n">setLevels</span><span class="p">(</span><span class="s2">&quot;2.0FHAG&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dataaccesslayer-getavailabletimes">
+<h2>DataAccessLayer.getAvailableTimes()<a class="headerlink" href="#dataaccesslayer-getavailabletimes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>getAvailableTimes(request, True)</strong> will return an object of <em>run
+times</em> - formatted as <code class="docutils literal notranslate"><span class="pre">YYYY-MM-DD</span> <span class="pre">HH:MM:SS</span></code></p></li>
+<li><p><strong>getAvailableTimes(request)</strong> will return an object of all times -
+formatted as <code class="docutils literal notranslate"><span class="pre">YYYY-MM-DD</span> <span class="pre">HH:MM:SS</span> <span class="pre">(F:ff)</span></code></p></li>
+<li><p><strong>getForecastRun(cycle, times)</strong> will return a DataTime array for a
+single forecast cycle.</p></li>
+</ul>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cycles</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">times</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="n">fcstRun</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getForecastRun</span><span class="p">(</span><span class="n">cycles</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">times</span><span class="p">)</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">fcstRun</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">04</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
+ <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">04</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
+ <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">04</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
+ <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">04</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
+ <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">04</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
+ <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">04</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
+ <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">04</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
+ <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">04</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
+ <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">04</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
+ <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">04</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
+ <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">04</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
+ <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">04</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
+ <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">04</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
+ <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">04</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
+ <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">04</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
+ <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">04</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
+ <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">04</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
+ <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">04</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
+ <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">04</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
+ <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">04</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
+ <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">04</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
+ <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">04</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dataaccesslayer-getgriddata">
+<h2>DataAccessLayer.getGridData()<a class="headerlink" href="#dataaccesslayer-getgriddata" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have our <code class="docutils literal notranslate"><span class="pre">request</span></code> and DataTime <code class="docutils literal notranslate"><span class="pre">fcstRun</span></code> arrays ready,
+it’s time to request the data array from EDEX.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGridData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="p">[</span><span class="n">fcstRun</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+<span class="k">for</span> <span class="n">grid</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">getRawData</span><span class="p">()</span>
+    <span class="n">lons</span><span class="p">,</span> <span class="n">lats</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">getLatLonCoords</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Time :&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Model:&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">getLocationName</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Parm :&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">getParameter</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Unit :&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">getUnit</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Time</span> <span class="p">:</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">04</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+<span class="n">Model</span><span class="p">:</span> <span class="n">RAP13</span>
+<span class="n">Parm</span> <span class="p">:</span> <span class="n">T</span>
+<span class="n">Unit</span> <span class="p">:</span> <span class="n">K</span>
+<span class="p">(</span><span class="mi">337</span><span class="p">,</span> <span class="mi">451</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="plotting-with-matplotlib-and-cartopy">
+<h2>Plotting with Matplotlib and Cartopy<a class="headerlink" href="#plotting-with-matplotlib-and-cartopy" title="Permalink to this headline">¶</a></h2>
+<p><strong>1. pcolormesh</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
+<span class="kn">import</span> <span class="nn">cartopy.feature</span> <span class="k">as</span> <span class="nn">cfeature</span>
+<span class="kn">from</span> <span class="nn">cartopy.mpl.gridliner</span> <span class="kn">import</span> <span class="n">LONGITUDE_FORMATTER</span><span class="p">,</span> <span class="n">LATITUDE_FORMATTER</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy.ma</span> <span class="k">as</span> <span class="nn">ma</span>
+<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
+<span class="kn">from</span> <span class="nn">scipy.constants</span> <span class="kn">import</span> <span class="n">convert_temperature</span>
+<span class="k">def</span> <span class="nf">make_map</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">()):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+                           <span class="n">subplot_kw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="n">projection</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_extent</span><span class="p">(</span><span class="n">bbox</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">coastlines</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="s1">&#39;50m&#39;</span><span class="p">)</span>
+    <span class="n">gl</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">gridlines</span><span class="p">(</span><span class="n">draw_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">gl</span><span class="o">.</span><span class="n">top_labels</span> <span class="o">=</span> <span class="n">gl</span><span class="o">.</span><span class="n">right_labels</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">gl</span><span class="o">.</span><span class="n">xformatter</span> <span class="o">=</span> <span class="n">LONGITUDE_FORMATTER</span>
+    <span class="n">gl</span><span class="o">.</span><span class="n">yformatter</span> <span class="o">=</span> <span class="n">LATITUDE_FORMATTER</span>
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
+
+<span class="c1">#convert temp from K to F</span>
+<span class="n">dataf</span> <span class="o">=</span> <span class="n">convert_temperature</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;K&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">)</span>
+
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;rainbow&#39;</span><span class="p">)</span>
+<span class="n">bbox</span> <span class="o">=</span> <span class="p">[</span><span class="n">lons</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">lons</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">lats</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">lats</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">make_map</span><span class="p">(</span><span class="n">bbox</span><span class="o">=</span><span class="n">bbox</span><span class="p">)</span>
+<span class="n">cs</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">lons</span><span class="p">,</span> <span class="n">lats</span><span class="p">,</span> <span class="n">dataf</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+<span class="n">cbar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cs</span><span class="p">,</span> <span class="n">extend</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">)</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">getLocationName</span><span class="p">()</span> <span class="o">+</span><span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">grid</span><span class="o">.</span><span class="n">getLevel</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> \
+               <span class="o">+</span> <span class="n">grid</span><span class="o">.</span><span class="n">getParameter</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; (F) &quot;</span> \
+               <span class="o">+</span> <span class="s2">&quot;valid &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getRefTime</span><span class="p">()))</span>
+</pre></div>
+</div>
+<img alt="../../_images/Grid_Levels_and_Parameters_16_0.png" src="../../_images/Grid_Levels_and_Parameters_16_0.png" />
+<p><strong>2. contourf</strong></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig2</span><span class="p">,</span> <span class="n">ax2</span> <span class="o">=</span> <span class="n">make_map</span><span class="p">(</span><span class="n">bbox</span><span class="o">=</span><span class="n">bbox</span><span class="p">)</span>
+<span class="n">cs2</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">lons</span><span class="p">,</span> <span class="n">lats</span><span class="p">,</span> <span class="n">dataf</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span>
+                  <span class="n">vmin</span><span class="o">=</span><span class="n">dataf</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">vmax</span><span class="o">=</span><span class="n">dataf</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">extend</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
+<span class="n">cbar2</span> <span class="o">=</span> <span class="n">fig2</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cs2</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">)</span>
+<span class="n">cbar2</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">getLocationName</span><span class="p">()</span> <span class="o">+</span><span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">grid</span><span class="o">.</span><span class="n">getLevel</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> \
+               <span class="o">+</span> <span class="n">grid</span><span class="o">.</span><span class="n">getParameter</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; (F) &quot;</span> \
+               <span class="o">+</span> <span class="s2">&quot;valid &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getRefTime</span><span class="p">()))</span>
+</pre></div>
+</div>
+<img alt="../../_images/Grid_Levels_and_Parameters_18_0.png" src="../../_images/Grid_Levels_and_Parameters_18_0.png" />
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="METAR_Station_Plot_with_MetPy.html" class="btn btn-neutral float-right" title="METAR Station Plot with MetPy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="GOES_Geostationary_Lightning_Mapper.html" class="btn btn-neutral float-left" title="GOES Geostationary Lightning Mapper" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2018, Unidata
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

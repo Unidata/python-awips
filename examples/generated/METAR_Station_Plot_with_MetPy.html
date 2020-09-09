@@ -1,0 +1,420 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>METAR Station Plot with MetPy &mdash; python-awips  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Map Resources and Topography" href="Map_Resources_and_Topography.html" />
+    <link rel="prev" title="Grid Levels and Parameters" href="Grid_Levels_and_Parameters.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> python-awips
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                18.1.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../datatypes.html">Available Data Types</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Data Plotting Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="AWIPS_Grids_and_Cartopy.html">AWIPS Grids and Cartopy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Colored_Surface_Temperature_Plot.html">Colored Surface Temperature Plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Forecast_Model_Vertical_Sounding.html">Forecast Model Vertical Sounding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GOES_Geostationary_Lightning_Mapper.html">GOES Geostationary Lightning Mapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Grid_Levels_and_Parameters.html">Grid Levels and Parameters</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">METAR Station Plot with MetPy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#metpy-surface-obs-plot">MetPy Surface Obs Plot</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Map_Resources_and_Topography.html">Map Resources and Topography</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Model_Sounding_Data.html">Model Sounding Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NEXRAD_Level3_Radar.html">NEXRAD Level3 Radar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Precip_Accumulation-Region_Of_Interest.html">Precip Accumulation-Region Of Interest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Regional_Surface_Obs_Plot.html">Regional Surface Obs Plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Satellite_Imagery.html">Satellite Imagery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Upper_Air_BUFR_Soundings.html">Upper Air BUFR Soundings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Watch_and_Warning_Polygons.html">Watch and Warning Polygons</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev.html">Development Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gridparms.html">Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About Unidata AWIPS</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">python-awips</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Data Plotting Examples</a> &raquo;</li>
+        
+      <li>METAR Station Plot with MetPy</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/examples/generated/METAR_Station_Plot_with_MetPy.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="metar-station-plot-with-metpy">
+<h1>METAR Station Plot with MetPy<a class="headerlink" href="#metar-station-plot-with-metpy" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/METAR_Station_Plot_with_MetPy.ipynb">Notebook</a>
+This exercise creates a METAR plot for North America using AWIPS METAR
+observations (datatype <em>obs</em>) and MetPy.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">DataAccessLayer</span>
+<span class="kn">from</span> <span class="nn">dynamicserialize.dstypes.com.raytheon.uf.common.time</span> <span class="kn">import</span> <span class="n">TimeRange</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
+<span class="kn">import</span> <span class="nn">cartopy.feature</span> <span class="k">as</span> <span class="nn">cfeature</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">metpy.calc</span> <span class="kn">import</span> <span class="n">wind_components</span>
+<span class="kn">from</span> <span class="nn">metpy.plots</span> <span class="kn">import</span> <span class="n">StationPlot</span><span class="p">,</span> <span class="n">StationPlotLayout</span>
+<span class="kn">from</span> <span class="nn">metpy.units</span> <span class="kn">import</span> <span class="n">units</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span><span class="n">category</span> <span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_cloud_cover</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s1">&#39;OVC&#39;</span> <span class="ow">in</span> <span class="n">code</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">1.0</span>
+    <span class="k">elif</span> <span class="s1">&#39;BKN&#39;</span> <span class="ow">in</span> <span class="n">code</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">6.0</span><span class="o">/</span><span class="mf">8.0</span>
+    <span class="k">elif</span> <span class="s1">&#39;SCT&#39;</span> <span class="ow">in</span> <span class="n">code</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">4.0</span><span class="o">/</span><span class="mf">8.0</span>
+    <span class="k">elif</span> <span class="s1">&#39;FEW&#39;</span> <span class="ow">in</span> <span class="n">code</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">2.0</span><span class="o">/</span><span class="mf">8.0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+<span class="c1"># Pull out these specific stations (prepend K for AWIPS identifiers)</span>
+<span class="n">selected</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PDX&#39;</span><span class="p">,</span> <span class="s1">&#39;OKC&#39;</span><span class="p">,</span> <span class="s1">&#39;ICT&#39;</span><span class="p">,</span> <span class="s1">&#39;GLD&#39;</span><span class="p">,</span> <span class="s1">&#39;MEM&#39;</span><span class="p">,</span> <span class="s1">&#39;BOS&#39;</span><span class="p">,</span> <span class="s1">&#39;MIA&#39;</span><span class="p">,</span> <span class="s1">&#39;MOB&#39;</span><span class="p">,</span> <span class="s1">&#39;ABQ&#39;</span><span class="p">,</span> <span class="s1">&#39;PHX&#39;</span><span class="p">,</span> <span class="s1">&#39;TTF&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;ORD&#39;</span><span class="p">,</span> <span class="s1">&#39;BIL&#39;</span><span class="p">,</span> <span class="s1">&#39;BIS&#39;</span><span class="p">,</span> <span class="s1">&#39;CPR&#39;</span><span class="p">,</span> <span class="s1">&#39;LAX&#39;</span><span class="p">,</span> <span class="s1">&#39;ATL&#39;</span><span class="p">,</span> <span class="s1">&#39;MSP&#39;</span><span class="p">,</span> <span class="s1">&#39;SLC&#39;</span><span class="p">,</span> <span class="s1">&#39;DFW&#39;</span><span class="p">,</span> <span class="s1">&#39;NYC&#39;</span><span class="p">,</span> <span class="s1">&#39;PHL&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;PIT&#39;</span><span class="p">,</span> <span class="s1">&#39;IND&#39;</span><span class="p">,</span> <span class="s1">&#39;OLY&#39;</span><span class="p">,</span> <span class="s1">&#39;SYR&#39;</span><span class="p">,</span> <span class="s1">&#39;LEX&#39;</span><span class="p">,</span> <span class="s1">&#39;CHS&#39;</span><span class="p">,</span> <span class="s1">&#39;TLH&#39;</span><span class="p">,</span> <span class="s1">&#39;HOU&#39;</span><span class="p">,</span> <span class="s1">&#39;GJT&#39;</span><span class="p">,</span> <span class="s1">&#39;LBB&#39;</span><span class="p">,</span> <span class="s1">&#39;LSV&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;GRB&#39;</span><span class="p">,</span> <span class="s1">&#39;CLT&#39;</span><span class="p">,</span> <span class="s1">&#39;LNK&#39;</span><span class="p">,</span> <span class="s1">&#39;DSM&#39;</span><span class="p">,</span> <span class="s1">&#39;BOI&#39;</span><span class="p">,</span> <span class="s1">&#39;FSD&#39;</span><span class="p">,</span> <span class="s1">&#39;RAP&#39;</span><span class="p">,</span> <span class="s1">&#39;RIC&#39;</span><span class="p">,</span> <span class="s1">&#39;JAN&#39;</span><span class="p">,</span> <span class="s1">&#39;HSV&#39;</span><span class="p">,</span> <span class="s1">&#39;CRW&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;SAT&#39;</span><span class="p">,</span> <span class="s1">&#39;BUY&#39;</span><span class="p">,</span> <span class="s1">&#39;0CO&#39;</span><span class="p">,</span> <span class="s1">&#39;ZPC&#39;</span><span class="p">,</span> <span class="s1">&#39;VIH&#39;</span><span class="p">,</span> <span class="s1">&#39;BDG&#39;</span><span class="p">,</span> <span class="s1">&#39;MLF&#39;</span><span class="p">,</span> <span class="s1">&#39;ELY&#39;</span><span class="p">,</span> <span class="s1">&#39;WMC&#39;</span><span class="p">,</span> <span class="s1">&#39;OTH&#39;</span><span class="p">,</span> <span class="s1">&#39;CAR&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;LMT&#39;</span><span class="p">,</span> <span class="s1">&#39;RDM&#39;</span><span class="p">,</span> <span class="s1">&#39;PDT&#39;</span><span class="p">,</span> <span class="s1">&#39;SEA&#39;</span><span class="p">,</span> <span class="s1">&#39;UIL&#39;</span><span class="p">,</span> <span class="s1">&#39;EPH&#39;</span><span class="p">,</span> <span class="s1">&#39;PUW&#39;</span><span class="p">,</span> <span class="s1">&#39;COE&#39;</span><span class="p">,</span> <span class="s1">&#39;MLP&#39;</span><span class="p">,</span> <span class="s1">&#39;PIH&#39;</span><span class="p">,</span> <span class="s1">&#39;IDA&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;MSO&#39;</span><span class="p">,</span> <span class="s1">&#39;ACV&#39;</span><span class="p">,</span> <span class="s1">&#39;HLN&#39;</span><span class="p">,</span> <span class="s1">&#39;BIL&#39;</span><span class="p">,</span> <span class="s1">&#39;OLF&#39;</span><span class="p">,</span> <span class="s1">&#39;RUT&#39;</span><span class="p">,</span> <span class="s1">&#39;PSM&#39;</span><span class="p">,</span> <span class="s1">&#39;JAX&#39;</span><span class="p">,</span> <span class="s1">&#39;TPA&#39;</span><span class="p">,</span> <span class="s1">&#39;SHV&#39;</span><span class="p">,</span> <span class="s1">&#39;MSY&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;ELP&#39;</span><span class="p">,</span> <span class="s1">&#39;RNO&#39;</span><span class="p">,</span> <span class="s1">&#39;FAT&#39;</span><span class="p">,</span> <span class="s1">&#39;SFO&#39;</span><span class="p">,</span> <span class="s1">&#39;NYL&#39;</span><span class="p">,</span> <span class="s1">&#39;BRO&#39;</span><span class="p">,</span> <span class="s1">&#39;MRF&#39;</span><span class="p">,</span> <span class="s1">&#39;DRT&#39;</span><span class="p">,</span> <span class="s1">&#39;FAR&#39;</span><span class="p">,</span> <span class="s1">&#39;BDE&#39;</span><span class="p">,</span> <span class="s1">&#39;DLH&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;HOT&#39;</span><span class="p">,</span> <span class="s1">&#39;LBF&#39;</span><span class="p">,</span> <span class="s1">&#39;FLG&#39;</span><span class="p">,</span> <span class="s1">&#39;CLE&#39;</span><span class="p">,</span> <span class="s1">&#39;UNV&#39;</span><span class="p">]</span>
+<span class="n">selected</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;K</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span> <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">selected</span><span class="p">]</span>
+<span class="n">data_arr</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># EDEX Request</span>
+<span class="n">edexServer</span> <span class="o">=</span> <span class="s2">&quot;edex-cloud.unidata.ucar.edu&quot;</span>
+<span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="n">edexServer</span><span class="p">)</span>
+<span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">&quot;obs&quot;</span><span class="p">)</span>
+<span class="n">availableProducts</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableParameters</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+<span class="n">single_value_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;timeObs&quot;</span><span class="p">,</span> <span class="s2">&quot;stationName&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span>
+                       <span class="s2">&quot;temperature&quot;</span><span class="p">,</span> <span class="s2">&quot;dewpoint&quot;</span><span class="p">,</span> <span class="s2">&quot;windDir&quot;</span><span class="p">,</span>
+                       <span class="s2">&quot;windSpeed&quot;</span><span class="p">,</span> <span class="s2">&quot;seaLevelPress&quot;</span><span class="p">]</span>
+<span class="n">multi_value_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;presWeather&quot;</span><span class="p">,</span> <span class="s2">&quot;skyCover&quot;</span><span class="p">,</span> <span class="s2">&quot;skyLayerBase&quot;</span><span class="p">]</span>
+<span class="n">pres_weather</span><span class="p">,</span> <span class="n">sky_cov</span><span class="p">,</span> <span class="n">sky_layer_base</span> <span class="o">=</span> <span class="p">[],[],[]</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">single_value_params</span> <span class="o">+</span> <span class="n">multi_value_params</span>
+<span class="n">obs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">({</span><span class="n">params</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">params</span> <span class="ow">in</span> <span class="n">params</span><span class="p">})</span>
+
+<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">selected</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Here we use the Python-AWIPS class <strong>TimeRange</strong> to prepare a beginning
+and end time span for requesting observations (the last hour):</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Time range</span>
+<span class="n">lastHourDateTime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">lastHourDateTime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H&#39;</span><span class="p">)</span>
+<span class="n">beginRange</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span> <span class="n">start</span> <span class="o">+</span> <span class="s2">&quot;:00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+<span class="n">endRange</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span> <span class="n">start</span> <span class="o">+</span> <span class="s2">&quot;:59:59&quot;</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+<span class="n">timerange</span> <span class="o">=</span> <span class="n">TimeRange</span><span class="p">(</span><span class="n">beginRange</span><span class="p">,</span> <span class="n">endRange</span><span class="p">)</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">timerange</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_names</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">ob</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
+    <span class="n">avail_params</span> <span class="o">=</span> <span class="n">ob</span><span class="o">.</span><span class="n">getParameters</span><span class="p">()</span>
+    <span class="k">if</span> <span class="s2">&quot;presWeather&quot;</span> <span class="ow">in</span> <span class="n">avail_params</span><span class="p">:</span>
+        <span class="n">pres_weather</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s2">&quot;presWeather&quot;</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="s2">&quot;skyCover&quot;</span> <span class="ow">in</span> <span class="n">avail_params</span> <span class="ow">and</span> <span class="s2">&quot;skyLayerBase&quot;</span> <span class="ow">in</span> <span class="n">avail_params</span><span class="p">:</span>
+        <span class="n">sky_cov</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s2">&quot;skyCover&quot;</span><span class="p">))</span>
+        <span class="n">sky_layer_base</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">&quot;skyLayerBase&quot;</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># If we already have a record for this stationName, skip</span>
+        <span class="k">if</span> <span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s1">&#39;stationName&#39;</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">station_names</span><span class="p">:</span>
+            <span class="n">station_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s1">&#39;stationName&#39;</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">single_value_params</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">avail_params</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">param</span> <span class="o">==</span> <span class="s1">&#39;timeObs&#39;</span><span class="p">:</span>
+                        <span class="n">obs</span><span class="p">[</span><span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="n">param</span><span class="p">)</span><span class="o">/</span><span class="mf">1000.0</span><span class="p">))</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">try</span><span class="p">:</span>
+                            <span class="n">obs</span><span class="p">[</span><span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="n">param</span><span class="p">))</span>
+                        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+                            <span class="n">obs</span><span class="p">[</span><span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="n">param</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">obs</span><span class="p">[</span><span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+            <span class="n">obs</span><span class="p">[</span><span class="s1">&#39;presWeather&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pres_weather</span><span class="p">);</span>
+            <span class="n">obs</span><span class="p">[</span><span class="s1">&#39;skyCover&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sky_cov</span><span class="p">);</span>
+            <span class="n">obs</span><span class="p">[</span><span class="s1">&#39;skyLayerBase&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sky_layer_base</span><span class="p">);</span>
+            <span class="n">pres_weather</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">sky_cov</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">sky_layer_base</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
+<p>Next grab the simple variables out of the data we have (attaching
+correct units), and put them into a dictionary that we will hand the
+plotting function later:</p>
+<ul class="simple">
+<li><p>Get wind components from speed and direction</p></li>
+<li><p>Convert cloud fraction values to integer codes [0 - 8]</p></li>
+<li><p>Map METAR weather codes to WMO codes for weather symbols</p></li>
+</ul>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;stid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;stationName&#39;</span><span class="p">])</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">])</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">])</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;air_temperature&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span><span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">degC</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;dew_point_temperature&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;dewpoint&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span><span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">degC</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;air_pressure_at_sea_level&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;seaLevelPress&#39;</span><span class="p">])</span><span class="o">*</span> <span class="n">units</span><span class="p">(</span><span class="s1">&#39;mbar&#39;</span><span class="p">)</span>
+
+<span class="n">direction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;windDir&#39;</span><span class="p">])</span>
+<span class="n">direction</span><span class="p">[</span><span class="n">direction</span> <span class="o">==</span> <span class="o">-</span><span class="mf">9999.0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;nan&#39;</span>
+
+<span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">wind_components</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;windSpeed&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="n">units</span><span class="p">(</span><span class="s1">&#39;knots&#39;</span><span class="p">),</span>
+                           <span class="n">direction</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">degree</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;eastward_wind&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;northward_wind&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;cloud_coverage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">get_cloud_cover</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="mi">8</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">obs</span><span class="p">[</span><span class="s1">&#39;skyCover&#39;</span><span class="p">]]</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;present_weather&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">obs</span><span class="p">[</span><span class="s1">&#39;presWeather&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;stationName&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;K0CO&#39;</span><span class="p">,</span> <span class="s1">&#39;KHOT&#39;</span><span class="p">,</span> <span class="s1">&#39;KSHV&#39;</span><span class="p">,</span> <span class="s1">&#39;KIND&#39;</span><span class="p">,</span> <span class="s1">&#39;KBDE&#39;</span><span class="p">,</span> <span class="s1">&#39;KPSM&#39;</span><span class="p">,</span> <span class="s1">&#39;KORD&#39;</span><span class="p">,</span> <span class="s1">&#39;KDFW&#39;</span><span class="p">,</span> <span class="s1">&#39;KPHL&#39;</span><span class="p">,</span> <span class="s1">&#39;KTTF&#39;</span><span class="p">,</span> <span class="s1">&#39;KBDG&#39;</span><span class="p">,</span> <span class="s1">&#39;KOLY&#39;</span><span class="p">,</span> <span class="s1">&#39;KNYC&#39;</span><span class="p">,</span> <span class="s1">&#39;KABQ&#39;</span><span class="p">,</span> <span class="s1">&#39;KLEX&#39;</span><span class="p">,</span> <span class="s1">&#39;KDRT&#39;</span><span class="p">,</span> <span class="s1">&#39;KELP&#39;</span><span class="p">,</span> <span class="s1">&#39;KRUT&#39;</span><span class="p">,</span> <span class="s1">&#39;KRIC&#39;</span><span class="p">,</span> <span class="s1">&#39;KPIT&#39;</span><span class="p">,</span> <span class="s1">&#39;KMSP&#39;</span><span class="p">,</span> <span class="s1">&#39;KHSV&#39;</span><span class="p">,</span> <span class="s1">&#39;KUNV&#39;</span><span class="p">,</span> <span class="s1">&#39;KSAT&#39;</span><span class="p">,</span> <span class="s1">&#39;KCLE&#39;</span><span class="p">,</span> <span class="s1">&#39;KPHX&#39;</span><span class="p">,</span> <span class="s1">&#39;KMIA&#39;</span><span class="p">,</span> <span class="s1">&#39;KBOI&#39;</span><span class="p">,</span> <span class="s1">&#39;KBRO&#39;</span><span class="p">,</span> <span class="s1">&#39;KLAX&#39;</span><span class="p">,</span> <span class="s1">&#39;KLBB&#39;</span><span class="p">,</span> <span class="s1">&#39;KMSO&#39;</span><span class="p">,</span> <span class="s1">&#39;KPDX&#39;</span><span class="p">,</span> <span class="s1">&#39;KTLH&#39;</span><span class="p">,</span> <span class="s1">&#39;KUIL&#39;</span><span class="p">,</span> <span class="s1">&#39;KTPA&#39;</span><span class="p">,</span> <span class="s1">&#39;KVIH&#39;</span><span class="p">,</span> <span class="s1">&#39;KBIL&#39;</span><span class="p">,</span> <span class="s1">&#39;KMLF&#39;</span><span class="p">,</span> <span class="s1">&#39;KCPR&#39;</span><span class="p">,</span> <span class="s1">&#39;KATL&#39;</span><span class="p">,</span> <span class="s1">&#39;KBIS&#39;</span><span class="p">,</span> <span class="s1">&#39;KCLT&#39;</span><span class="p">,</span> <span class="s1">&#39;KOKC&#39;</span><span class="p">,</span> <span class="s1">&#39;KRAP&#39;</span><span class="p">,</span> <span class="s1">&#39;KACV&#39;</span><span class="p">,</span> <span class="s1">&#39;KEPH&#39;</span><span class="p">,</span> <span class="s1">&#39;KELY&#39;</span><span class="p">,</span> <span class="s1">&#39;KFAR&#39;</span><span class="p">,</span> <span class="s1">&#39;KFAT&#39;</span><span class="p">,</span> <span class="s1">&#39;KMSY&#39;</span><span class="p">,</span> <span class="s1">&#39;KOLF&#39;</span><span class="p">,</span> <span class="s1">&#39;KPDT&#39;</span><span class="p">,</span> <span class="s1">&#39;KLMT&#39;</span><span class="p">,</span> <span class="s1">&#39;KHLN&#39;</span><span class="p">,</span> <span class="s1">&#39;KHOU&#39;</span><span class="p">,</span> <span class="s1">&#39;KICT&#39;</span><span class="p">,</span> <span class="s1">&#39;KIDA&#39;</span><span class="p">,</span> <span class="s1">&#39;KPIH&#39;</span><span class="p">,</span> <span class="s1">&#39;KPUW&#39;</span><span class="p">,</span> <span class="s1">&#39;KGJT&#39;</span><span class="p">,</span> <span class="s1">&#39;KGLD&#39;</span><span class="p">,</span> <span class="s1">&#39;KGRB&#39;</span><span class="p">,</span> <span class="s1">&#39;KLBF&#39;</span><span class="p">,</span> <span class="s1">&#39;KMLP&#39;</span><span class="p">,</span> <span class="s1">&#39;KBOS&#39;</span><span class="p">,</span> <span class="s1">&#39;KSYR&#39;</span><span class="p">,</span> <span class="s1">&#39;KDLH&#39;</span><span class="p">,</span> <span class="s1">&#39;KCOE&#39;</span><span class="p">,</span> <span class="s1">&#39;KOTH&#39;</span><span class="p">,</span> <span class="s1">&#39;KCRW&#39;</span><span class="p">,</span> <span class="s1">&#39;KSEA&#39;</span><span class="p">,</span> <span class="s1">&#39;KCAR&#39;</span><span class="p">,</span> <span class="s1">&#39;KDSM&#39;</span><span class="p">,</span> <span class="s1">&#39;KJAN&#39;</span><span class="p">,</span> <span class="s1">&#39;KSLC&#39;</span><span class="p">,</span> <span class="s1">&#39;KBUY&#39;</span><span class="p">,</span> <span class="s1">&#39;KLNK&#39;</span><span class="p">,</span> <span class="s1">&#39;KMEM&#39;</span><span class="p">,</span> <span class="s1">&#39;KNYL&#39;</span><span class="p">,</span> <span class="s1">&#39;KRDM&#39;</span><span class="p">,</span> <span class="s1">&#39;KCHS&#39;</span><span class="p">,</span> <span class="s1">&#39;KFSD&#39;</span><span class="p">,</span> <span class="s1">&#39;KJAX&#39;</span><span class="p">,</span> <span class="s1">&#39;KMOB&#39;</span><span class="p">,</span> <span class="s1">&#39;KRNO&#39;</span><span class="p">,</span> <span class="s1">&#39;KSFO&#39;</span><span class="p">,</span> <span class="s1">&#39;KWMC&#39;</span><span class="p">,</span> <span class="s1">&#39;KFLG&#39;</span><span class="p">,</span> <span class="s1">&#39;KLSV&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="section" id="metpy-surface-obs-plot">
+<h2>MetPy Surface Obs Plot<a class="headerlink" href="#metpy-surface-obs-plot" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">proj</span> <span class="o">=</span> <span class="n">ccrs</span><span class="o">.</span><span class="n">LambertConformal</span><span class="p">(</span><span class="n">central_longitude</span><span class="o">=-</span><span class="mi">95</span><span class="p">,</span> <span class="n">central_latitude</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span>
+                             <span class="n">standard_parallels</span><span class="o">=</span><span class="p">[</span><span class="mi">35</span><span class="p">])</span>
+
+<span class="c1"># Change the DPI of the figure</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">255</span>
+
+<span class="c1"># Winds, temps, dewpoint, station id</span>
+<span class="n">custom_layout</span> <span class="o">=</span> <span class="n">StationPlotLayout</span><span class="p">()</span>
+<span class="n">custom_layout</span><span class="o">.</span><span class="n">add_barb</span><span class="p">(</span><span class="s1">&#39;eastward_wind&#39;</span><span class="p">,</span> <span class="s1">&#39;northward_wind&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;knots&#39;</span><span class="p">)</span>
+<span class="n">custom_layout</span><span class="o">.</span><span class="n">add_value</span><span class="p">(</span><span class="s1">&#39;NW&#39;</span><span class="p">,</span> <span class="s1">&#39;air_temperature&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.0f&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;degF&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkred&#39;</span><span class="p">)</span>
+<span class="n">custom_layout</span><span class="o">.</span><span class="n">add_value</span><span class="p">(</span><span class="s1">&#39;SW&#39;</span><span class="p">,</span> <span class="s1">&#39;dew_point_temperature&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.0f&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;degF&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkgreen&#39;</span><span class="p">)</span>
+<span class="n">custom_layout</span><span class="o">.</span><span class="n">add_value</span><span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;precipitation&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;0.1f&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;inch&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+
+<span class="c1"># Create the figure</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">proj</span><span class="p">)</span>
+
+<span class="c1"># Add various map elements</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">LAND</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">OCEAN</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">LAKES</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">COASTLINE</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">STATES</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">BORDERS</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Set plot bounds</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_extent</span><span class="p">((</span><span class="o">-</span><span class="mi">118</span><span class="p">,</span> <span class="o">-</span><span class="mi">73</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot; | METAR | &quot;</span> <span class="o">+</span> <span class="n">edexServer</span><span class="p">)</span>
+
+<span class="n">stationplot</span> <span class="o">=</span> <span class="n">StationPlot</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">],</span> <span class="n">clip_on</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                          <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">stationplot</span><span class="o">.</span><span class="n">plot_text</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;stid&#39;</span><span class="p">])</span>
+<span class="n">custom_layout</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">stationplot</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../../_images/METAR_Station_Plot_with_MetPy_10_0.png" src="../../_images/METAR_Station_Plot_with_MetPy_10_0.png" />
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Map_Resources_and_Topography.html" class="btn btn-neutral float-right" title="Map Resources and Topography" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Grid_Levels_and_Parameters.html" class="btn btn-neutral float-left" title="Grid Levels and Parameters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2018, Unidata
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

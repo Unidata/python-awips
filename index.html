@@ -1,0 +1,393 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Python AWIPS Data Access Framework &mdash; python-awips  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Documentation" href="api/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home" alt="Documentation Home"> python-awips
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                18.1.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datatypes.html">Available Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Data Plotting Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev.html">Development Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gridparms.html">Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Unidata AWIPS</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">python-awips</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Python AWIPS Data Access Framework</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="python-awips-data-access-framework">
+<h1>Python AWIPS Data Access Framework<a class="headerlink" href="#python-awips-data-access-framework" title="Permalink to this headline">¶</a></h1>
+<p>The python-awips package provides a data access framework for requesting grid and geometry datasets from an <a class="reference external" href="http://unidata.github.io/awips2/#edex">EDEX</a> server.</p>
+<p><a class="reference external" href="http://unidata.github.io/awips2">AWIPS</a> is a weather display and analysis package developed by the National Weather Service for operational forecasting.  UCAR’s <a class="reference external" href="http://www.unidata.ucar.edu/software/awips2/">Unidata Program Center</a> supports a non-operational open-source release of the AWIPS software (<a class="reference external" href="http://unidata.github.io/awips2/#edex">EDEX</a>, <a class="reference external" href="http://unidata.github.io/awips2/#cave">CAVE</a>, and <a class="reference external" href="https://github.com/Unidata/python-awips">python-awips</a>).</p>
+<div class="section" id="pip-install">
+<h2>Pip Install<a class="headerlink" href="#pip-install" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">awips</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="conda-environment-install">
+<h2>Conda Environment Install<a class="headerlink" href="#conda-environment-install" title="Permalink to this headline">¶</a></h2>
+<p>To install the latest version of python-awips, with all required and optional packages:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">Unidata</span><span class="o">/</span><span class="n">python</span><span class="o">-</span><span class="n">awips</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">python</span><span class="o">-</span><span class="n">awips</span>
+<span class="n">conda</span> <span class="n">env</span> <span class="n">create</span> <span class="o">-</span><span class="n">f</span> <span class="n">environment</span><span class="o">.</span><span class="n">yml</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">python3</span><span class="o">-</span><span class="n">awips</span>
+<span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span> <span class="o">--</span><span class="n">force</span>
+<span class="n">jupyter</span> <span class="n">notebook</span> <span class="n">examples</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>python 2.7+</p></li>
+<li><p>numpy</p></li>
+<li><p>shapely</p></li>
+<li><p>six</p></li>
+</ul>
+<div class="section" id="quick-example">
+<h3>Quick Example<a class="headerlink" href="#quick-example" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">DataAccessLayer</span>
+<span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="s2">&quot;edex-cloud.unidata.ucar.edu&quot;</span><span class="p">)</span>
+<span class="n">dataTypes</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getSupportedDatatypes</span><span class="p">()</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">dataTypes</span><span class="p">)</span>
+
+<span class="p">[</span><span class="s1">&#39;acars&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;binlightning&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;bufrmosavn&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;bufrmoseta&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;bufrmosgfs&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;bufrmoshpc&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;bufrmoslamp&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;bufrmosmrf&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;bufrua&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;climate&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;common_obs_spatial&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;gfe&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;gfeeditarea&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;grid&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;maps&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;modelsounding&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;obs&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;practicewarning&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;profiler&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;radar&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;radar_spatial&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;satellite&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;sfcobs&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;topo&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;warning&#39;</span><span class="p">]</span>
+
+
+<span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">()</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setDatatype</span><span class="p">(</span><span class="s2">&quot;satellite&quot;</span><span class="p">)</span>
+<span class="n">availableSectors</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableLocationNames</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="n">availableSectors</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">sector</span> <span class="ow">in</span> <span class="n">availableSectors</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="n">sector</span>
+    <span class="n">request</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="n">sector</span><span class="p">)</span>
+    <span class="n">availableProducts</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableParameters</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="n">availableProducts</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">availableProducts</span><span class="p">:</span>
+        <span class="nb">print</span> <span class="s2">&quot; - &quot;</span> <span class="o">+</span> <span class="n">product</span>
+
+<span class="n">ECONUS</span>
+ <span class="o">-</span> <span class="n">ACTP</span>
+ <span class="o">-</span> <span class="n">ADP</span>
+ <span class="o">-</span> <span class="n">AOD</span>
+ <span class="o">-</span> <span class="n">CAPE</span>
+ <span class="o">-</span> <span class="n">CH</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mf">0.47</span><span class="n">um</span>
+ <span class="o">-</span> <span class="n">CH</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mf">0.64</span><span class="n">um</span>
+ <span class="o">-</span> <span class="n">CH</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mf">0.87</span><span class="n">um</span>
+ <span class="o">-</span> <span class="n">CH</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mf">1.38</span><span class="n">um</span>
+ <span class="o">...</span>
+<span class="n">EFD</span>
+ <span class="o">-</span> <span class="n">ACTP</span>
+ <span class="o">-</span> <span class="n">ADP</span>
+ <span class="o">-</span> <span class="n">AOD</span>
+ <span class="o">-</span> <span class="n">CAPE</span>
+ <span class="o">-</span> <span class="n">CH</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mf">0.47</span><span class="n">um</span>
+ <span class="o">-</span> <span class="n">CH</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mf">0.64</span><span class="n">um</span>
+ <span class="o">-</span> <span class="n">CH</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mf">0.87</span><span class="n">um</span>
+ <span class="o">-</span> <span class="n">CH</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mf">1.38</span><span class="n">um</span>
+ <span class="o">...</span>
+</pre></div>
+</div>
+<p>See the <a class="reference external" href="api/DataAccessLayer.html">API Documentation</a> for more information.</p>
+<div class="section" id="read-the-docs-contents">
+<h4>Read The Docs Contents<a class="headerlink" href="#read-the-docs-contents" title="Permalink to this headline">¶</a></h4>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/DataAccessLayer.html">DataAccessLayer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/IDataRequest.html">IDataRequest (newDataRequest())</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/PyData.html">PyData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/PyGridData.html">PyGridData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/PyGeometryData.html">PyGeometryData</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/ModelSounding.html">ModelSounding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/ThriftClientRouter.html">ThriftClientRouter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/ThriftClient.html">ThriftClient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/TimeUtil.html">TimeUtil</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/RadarCommon.html">RadarCommon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/IFPClient.html">IFPClient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/DateTimeConverter.html">DateTimeConverter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/CombinedTimeQuery.html">CombinedTimeQuery</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="datatypes.html">Available Data Types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="datatypes.html#satellite">satellite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datatypes.html#binlightning">binlightning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datatypes.html#grid">grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datatypes.html#warning">warning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datatypes.html#radar">radar</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Data Plotting Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/generated/AWIPS_Grids_and_Cartopy.html">AWIPS Grids and Cartopy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/generated/Colored_Surface_Temperature_Plot.html">Colored Surface Temperature Plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/generated/Forecast_Model_Vertical_Sounding.html">Forecast Model Vertical Sounding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/generated/GOES_Geostationary_Lightning_Mapper.html">GOES Geostationary Lightning Mapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/generated/Grid_Levels_and_Parameters.html">Grid Levels and Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/generated/METAR_Station_Plot_with_MetPy.html">METAR Station Plot with MetPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/generated/Map_Resources_and_Topography.html">Map Resources and Topography</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/generated/Model_Sounding_Data.html">Model Sounding Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/generated/NEXRAD_Level3_Radar.html">NEXRAD Level3 Radar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/generated/Precip_Accumulation-Region_Of_Interest.html">Precip Accumulation-Region Of Interest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/generated/Regional_Surface_Obs_Plot.html">Regional Surface Obs Plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/generated/Satellite_Imagery.html">Satellite Imagery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/generated/Upper_Air_BUFR_Soundings.html">Upper Air BUFR Soundings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/generated/Watch_and_Warning_Polygons.html">Watch and Warning Polygons</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev.html">Development Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#writing-a-new-factory">Writing a New Factory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#registering-the-factory-with-the-framework">Registering the Factory with the Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#retrieving-data-using-the-factory">Retrieving Data Using the Factory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#development-background">Development Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#design-implementation">Design/Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#how-users-of-the-framework-retrieve-and-use-the-data">How users of the framework retrieve and use the data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#how-plugin-developers-contribute-support-for-new-datatypes">How plugin developers contribute support for new datatypes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#how-the-framework-works-when-it-receives-a-request">How the framework works when it receives a request</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev.html#request-interfaces">Request interfaces</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gridparms.html">Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Unidata AWIPS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="about.html#license">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about.html#about-awips">About AWIPS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about.html#edex">EDEX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about.html#cave">CAVE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about.html#alertviz">Alertviz</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about.html#id1">LDM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about.html#edexbridge">edexBridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about.html#id2">Qpid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about.html#postgresql">PostgreSQL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about.html#hdf5">HDF5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about.html#pypies-httpd-pypies">PyPIES (httpd-pypies)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api/index.html" class="btn btn-neutral float-right" title="API Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2018, Unidata
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

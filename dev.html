@@ -1,0 +1,780 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Development Guide &mdash; python-awips  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Grid Parameters" href="gridparms.html" />
+    <link rel="prev" title="Watch and Warning Polygons" href="examples/generated/Watch_and_Warning_Polygons.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> python-awips
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                18.1.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datatypes.html">Available Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Data Plotting Examples</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Development Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#writing-a-new-factory">Writing a New Factory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#registering-the-factory-with-the-framework">Registering the Factory with the Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#retrieving-data-using-the-factory">Retrieving Data Using the Factory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#development-background">Development Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#design-implementation">Design/Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-users-of-the-framework-retrieve-and-use-the-data">How users of the framework retrieve and use the data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-plugin-developers-contribute-support-for-new-datatypes">How plugin developers contribute support for new datatypes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-the-framework-works-when-it-receives-a-request">How the framework works when it receives a request</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#request-interfaces">Request interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#data-interfaces">Data Interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#factory-interfaces-java-only">Factory Interfaces (Java only)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gridparms.html">Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Unidata AWIPS</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">python-awips</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Development Guide</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/dev.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="development-guide">
+<h1>Development Guide<a class="headerlink" href="#development-guide" title="Permalink to this headline">¶</a></h1>
+<p>The Data Access Framework allows developers to retrieve different types
+of data without having dependencies on those types of data. It provides
+a single, unified data type that can be customized by individual
+implementing plug-ins to provide full functionality pertinent to each
+data type.</p>
+<div class="section" id="writing-a-new-factory">
+<h2>Writing a New Factory<a class="headerlink" href="#writing-a-new-factory" title="Permalink to this headline">¶</a></h2>
+<p>Factories will most often be written in a dataplugin, but should always
+be written in a common plug-in. This will allow for clean dependencies
+from both CAVE and EDEX.</p>
+<p>A new plug-in’s data access class must implement IDataFactory. For ease
+of use, abstract classes have been created to combine similar methods.
+Data factories do not have to implement both types of data (grid and
+geometry). They can if they choose, but if they choose not to, they
+should do the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">throw</span> <span class="n">new</span> <span class="n">UnsupportedOutputTypeException</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">getDatatype</span><span class="p">(),</span> <span class="s2">&quot;grid&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This lets the code know that grid type is not supported for this data
+factory. Depending on where the data is coming from, helpers have been
+written to make writing a new data type factory easier. For example,
+PluginDataObjects can use AbstractDataPluginFactory as a start and not
+have to create everything from scratch.</p>
+<p>Each data type is allowed to implement retrieval in any manner that is
+felt necessary. The power of the framework means that the code
+retrieving data does not have to know anything of the underlying
+retrieval methods, only that it is getting data in a certain manner. To
+see some examples of ways to retrieve data, reference
+<strong>SatelliteGridFactory</strong> and <strong>RadarGridFactory</strong>.</p>
+<p>Methods required for implementation:</p>
+<p><strong>public DataTime[] getAvailableTimes(IDataRequest request)</strong></p>
+<ul class="simple">
+<li><p>This method returns an array of DataTime objects corresponding to
+what times are available for the data being retrieved, based on the
+parameters and identifiers being passed in.</p></li>
+</ul>
+<p><strong>public DataTime[] getAvailableTimes(IDataRequest request, BinOffset
+binOffset)</strong></p>
+<ul class="simple">
+<li><p>This method returns available times as above, only with a bin offset
+applied.</p></li>
+</ul>
+<p>Note: Both of the preceding methods can throw TimeAgnosticDataException
+exceptions if times do not apply to the data type.</p>
+<p><strong>public IGridData[] getGridData(IDataRequest request,
+DataTime…times)</strong></p>
+<ul class="simple">
+<li><p>This method returns IGridData objects (an array) based on the request
+and times to request for. There can be multiple times or a single
+time.</p></li>
+</ul>
+<p><strong>public IGridData[] getGridData(IDataRequest request, TimeRange
+range)</strong></p>
+<ul class="simple">
+<li><p>Similar to the preceding method, this returns IGridData objects based
+on a range of times.</p></li>
+</ul>
+<p><strong>public IGeometryData[] getGeometryData(IDataRequest request, DataTime
+times)</strong></p>
+<ul class="simple">
+<li><p>This method returns IGeometryData objects based on a request and
+times.</p></li>
+</ul>
+<p><strong>public IGeometryData[] getGeometryData(IDataRequest request, TimeRange
+range)</strong></p>
+<ul class="simple">
+<li><p>Like the preceding method, this method returns IGeometryData objects
+based on a range of times.</p></li>
+</ul>
+<p><strong>public String[] getAvailableLocationNames(IDataRequest request)</strong></p>
+<ul class="simple">
+<li><p>This method returns location names that match the request. If this
+does not apply to the data type, an IncompatibleRequestException
+should be thrown.</p></li>
+</ul>
+</div>
+<div class="section" id="registering-the-factory-with-the-framework">
+<h2>Registering the Factory with the Framework<a class="headerlink" href="#registering-the-factory-with-the-framework" title="Permalink to this headline">¶</a></h2>
+<p>The following needs to be added in a spring file in the plug-in that
+contains the new factory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">bean</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;radarGridFactory&quot;</span>
+    <span class="n">class</span><span class="o">=</span><span class="s2">&quot;com.raytheon.uf.common.dataplugin.radar.dataaccess.RadarGridFactory&quot;</span> <span class="o">/&gt;</span>
+<span class="o">&lt;</span><span class="n">bean</span> <span class="n">factory</span><span class="o">-</span><span class="n">bean</span><span class="o">=</span><span class="s2">&quot;dataAccessRegistry&quot;</span> <span class="n">factorymethod</span><span class="o">=</span><span class="s2">&quot;register&quot;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">constructor</span><span class="o">-</span><span class="n">arg</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;radar&quot;</span><span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="n">constructor</span><span class="o">-</span><span class="n">arg</span> <span class="n">ref</span><span class="o">=</span><span class="s2">&quot;radarGridFactory&quot;</span><span class="o">/&gt;</span>
+<span class="o">&lt;/</span><span class="n">bean</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>This takes the RadarGridFactory and registers it with the registry and
+allows it to be used any time the code makes a request for the data type
+“radar.”</p>
+</div>
+<div class="section" id="retrieving-data-using-the-factory">
+<h2>Retrieving Data Using the Factory<a class="headerlink" href="#retrieving-data-using-the-factory" title="Permalink to this headline">¶</a></h2>
+<p>For ease of use and more diverse use, there are multiple interfaces into
+the Data Access Layer. Currently, there is a Python implementation and a
+Java implementation, which have very similar method calls and work in a
+similar manner. Plug-ins that want to use the data access framework to
+retrieve data should include <strong>com.raytheon.uf.common.dataaccess</strong> as a
+Required Bundle in their MANIFEST.MF.</p>
+<p>To retrieve data using the Python interface :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">DataAccessLayer</span>
+<span class="n">req</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">()</span>
+<span class="n">req</span><span class="o">.</span><span class="n">setDatatype</span><span class="p">(</span><span class="s2">&quot;grid&quot;</span><span class="p">)</span>
+<span class="n">req</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
+<span class="n">req</span><span class="o">.</span><span class="n">setLevels</span><span class="p">(</span><span class="s2">&quot;2FHAG&quot;</span><span class="p">)</span>
+<span class="n">req</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s2">&quot;info.datasetId&quot;</span><span class="p">,</span> <span class="s2">&quot;GFS40&quot;</span><span class="p">)</span>
+<span class="n">times</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGridData</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To retrieve data using the Java interface :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">IDataRequest</span> <span class="n">req</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">();</span>
+<span class="n">req</span><span class="o">.</span><span class="n">setDatatype</span><span class="p">(</span><span class="s2">&quot;grid&quot;</span><span class="p">);</span>
+<span class="n">req</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">);</span>
+<span class="n">req</span><span class="o">.</span><span class="n">setLevels</span><span class="p">(</span><span class="s2">&quot;2FHAG&quot;</span><span class="p">);</span>
+<span class="n">req</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s2">&quot;info.datasetId&quot;</span><span class="p">,</span> <span class="s2">&quot;GFS40&quot;</span><span class="p">);</span>
+<span class="n">DataTime</span><span class="p">[]</span> <span class="n">times</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+<span class="n">IData</span> <span class="n">data</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGridData</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">times</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>newDataRequest()</strong></p>
+<ul class="simple">
+<li><p>This creates a new data request. Most often this is a
+DefaultDataRequest, but saves for future implentations as well.</p></li>
+</ul>
+<p><strong>setDatatype(String)</strong></p>
+<ul class="simple">
+<li><p>This is the data type being retrieved. This can be found as the value
+that is registered when creating the new factory (See section above
+<strong>Registering the Factory with the Framework</strong> [radar in that case]).</p></li>
+</ul>
+<p><strong>setParameters(String…)</strong></p>
+<ul class="simple">
+<li><p>This can differ depending on data type. It is most often used as a
+main difference between products.</p></li>
+</ul>
+<p><strong>setLevels(String…)</strong></p>
+<ul class="simple">
+<li><p>This is often used to identify the same products on different
+mathematical angles, heights, levels, etc.</p></li>
+</ul>
+<p><strong>addIdentifier(String, String)</strong></p>
+<ul class="simple">
+<li><p>This differs based on data type, but is often used for more
+fine-tuned querying.</p></li>
+</ul>
+<p>Both methods return a similar set of data and can be manipulated by
+their respective languages. See DataAccessLayer.py and
+DataAccessLayer.java for more methods that can be called to retrieve
+data and different parts of the data. Because each data type has
+different parameters, levels, and identifiers, it is best to see the
+actual data type for the available options. If it is undocumented, then
+the best way to identify what parameters are to be used is to reference
+the code.</p>
+</div>
+<div class="section" id="development-background">
+<h2>Development Background<a class="headerlink" href="#development-background" title="Permalink to this headline">¶</a></h2>
+<p>In support of Hazard Services Raytheon Technical Services is building a
+generic data access framework that can be called via JAVA or Python. The
+data access framework code can be found within the AWIPS Baseline in</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">com</span><span class="o">.</span><span class="n">raytheon</span><span class="o">.</span><span class="n">uf</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">dataaccess</span>
+</pre></div>
+</div>
+<p>As of 2016, plugins have been written for grid, radar, satellite, Hydro
+(SHEF), point data (METAR, SYNOP, Profiler, ACARS, AIREP, PIREP), maps
+data, and other data types. The Factories for each can be found in the
+following packages (you may need to look at the development baseline to
+see these):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">com</span><span class="o">.</span><span class="n">raytheon</span><span class="o">.</span><span class="n">uf</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">dataplugin</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dataaccess</span>
+<span class="n">com</span><span class="o">.</span><span class="n">raytheon</span><span class="o">.</span><span class="n">uf</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">dataplugin</span><span class="o">.</span><span class="n">radar</span><span class="o">.</span><span class="n">dataaccess</span>
+<span class="n">com</span><span class="o">.</span><span class="n">raytheon</span><span class="o">.</span><span class="n">uf</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">dataplugin</span><span class="o">.</span><span class="n">satellite</span><span class="o">.</span><span class="n">dataaccess</span>
+<span class="n">com</span><span class="o">.</span><span class="n">raytheon</span><span class="o">.</span><span class="n">uf</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">dataplugin</span><span class="o">.</span><span class="n">binlightning</span><span class="o">.</span><span class="n">dataaccess</span>
+<span class="n">com</span><span class="o">.</span><span class="n">raytheon</span><span class="o">.</span><span class="n">uf</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">dataplugin</span><span class="o">.</span><span class="n">sfc</span><span class="o">.</span><span class="n">dataaccess</span>
+<span class="n">com</span><span class="o">.</span><span class="n">raytheon</span><span class="o">.</span><span class="n">uf</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">dataplugin</span><span class="o">.</span><span class="n">sfcobs</span><span class="o">.</span><span class="n">dataaccess</span>
+<span class="n">com</span><span class="o">.</span><span class="n">raytheon</span><span class="o">.</span><span class="n">uf</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">dataplugin</span><span class="o">.</span><span class="n">acars</span><span class="o">.</span><span class="n">dataaccess</span>
+<span class="n">com</span><span class="o">.</span><span class="n">raytheon</span><span class="o">.</span><span class="n">uf</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">dataplugin</span><span class="o">.</span><span class="n">ffmp</span><span class="o">.</span><span class="n">dataaccess</span>
+<span class="n">com</span><span class="o">.</span><span class="n">raytheon</span><span class="o">.</span><span class="n">uf</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">dataplugin</span><span class="o">.</span><span class="n">bufrua</span><span class="o">.</span><span class="n">dataaccess</span>
+<span class="n">com</span><span class="o">.</span><span class="n">raytheon</span><span class="o">.</span><span class="n">uf</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">dataplugin</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">dataaccess</span>
+<span class="n">com</span><span class="o">.</span><span class="n">raytheon</span><span class="o">.</span><span class="n">uf</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">dataplugin</span><span class="o">.</span><span class="n">moddelsounding</span><span class="o">.</span><span class="n">dataaccess</span>
+<span class="n">com</span><span class="o">.</span><span class="n">raytheon</span><span class="o">.</span><span class="n">uf</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">dataplugin</span><span class="o">.</span><span class="n">ldadmesonet</span><span class="o">.</span><span class="n">dataaccess</span>
+<span class="n">com</span><span class="o">.</span><span class="n">raytheon</span><span class="o">.</span><span class="n">uf</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">dataplugin</span><span class="o">.</span><span class="n">binlightning</span><span class="o">.</span><span class="n">dataaccess</span>
+<span class="n">com</span><span class="o">.</span><span class="n">raytheon</span><span class="o">.</span><span class="n">uf</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">dataplugin</span><span class="o">.</span><span class="n">gfe</span><span class="o">.</span><span class="n">dataaccess</span>
+<span class="n">com</span><span class="o">.</span><span class="n">raytheon</span><span class="o">.</span><span class="n">uf</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">hydro</span><span class="o">.</span><span class="n">dataaccess</span>
+<span class="n">com</span><span class="o">.</span><span class="n">raytheon</span><span class="o">.</span><span class="n">uf</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">pointdata</span><span class="o">.</span><span class="n">dataaccess</span>
+<span class="n">com</span><span class="o">.</span><span class="n">raytheon</span><span class="o">.</span><span class="n">uf</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">dataplugin</span><span class="o">.</span><span class="n">maps</span><span class="o">.</span><span class="n">dataaccess</span>
+</pre></div>
+</div>
+<p>Additional data types may be added in the future. To determine what
+datatypes are supported display the “type hierarchy” associated with the
+classes</p>
+<p><strong>AbstractGridDataPluginFactory</strong>,</p>
+<p><strong>AbstractGeometryDatabaseFactory</strong>, and</p>
+<p><strong>AbstractGeometryTimeAgnosticDatabaseFactory</strong>.</p>
+<p>The following content was taken from the design review document which is
+attached and modified slightly.</p>
+</div>
+<div class="section" id="design-implementation">
+<h2>Design/Implementation<a class="headerlink" href="#design-implementation" title="Permalink to this headline">¶</a></h2>
+<p>The Data Access Framework is designed to provide a consistent interface
+for requesting and using geospatial data within CAVE or EDEX. Examples
+of geospatial data are grids, satellite, radar, metars, maps, river gage
+heights, FFMP basin data, airmets, etc. To allow for convenient use of
+geospatial data, the framework will support two types of requests: grids
+and geometries (points, polygons, etc). The framework will also hide
+implementation details of specific data types from users, making it
+easier to use data without worrying about how the data objects are
+structured or retrieved.</p>
+<p>A suggested mapping of some current data types to one of the two
+supported data requests is listed below. This list is not definitive and
+can be expanded. If a developer can dream up an interpretation of the
+data in the other supported request type, that support can be added.</p>
+<p>Grids</p>
+<ul class="simple">
+<li><p>Grib</p></li>
+<li><p>Satellite</p></li>
+<li><p>Radar</p></li>
+<li><p>GFE</p></li>
+</ul>
+<p>Geometries</p>
+<ul class="simple">
+<li><p>Map (states, counties, zones, etc)</p></li>
+<li><p>Hydro DB (IHFS)</p></li>
+<li><p>Obs (metar)</p></li>
+<li><p>FFMP</p></li>
+<li><p>Hazard</p></li>
+<li><p>Warning</p></li>
+<li><p>CCFP</p></li>
+<li><p>Airmet</p></li>
+</ul>
+<p>The framework is designed around the concept of each data type plugin
+contributing the necessary code for the framework to support its data.
+For example, the satellite plugin provides a factory class for
+interacting with the framework and registers itself as being compatible
+with the Data Access Framework. This concept is similar to how EDEX in
+AWIPS expects a plugin developer to provide a decoder class and
+record class and register them, but then automatically manages the rest
+of the ingest process including routing, storing, and alerting on new
+data. This style of plugin architecture effectively enables the
+framework to expand its capabilities to more data types without having
+to alter the framework code itself. This will enable software developers
+to incrementally add support for more data types as time allows, and
+allow the framework to expand to new data types as they become
+available.</p>
+<p>The Data Access Framework will not break any existing functionality or
+APIs, and there are no plans to retrofit existing cosde to use the new
+API at this time. Ideally code will be retrofitted in the future to
+improve ease of maintainability. The plugin pecific code that hooks into
+the framework will make use of existing APIs such as <strong>IDataStore</strong> and
+<strong>IServerRequest</strong> to complete the requests.</p>
+<p>The Data Access Framework can be understood as three parts:</p>
+<ul class="simple">
+<li><p>How users of the framework retrieve and use the data</p></li>
+<li><p>How plugin developers contribute support for new data types</p></li>
+<li><p>How the framework works when it receives a request</p></li>
+</ul>
+</div>
+<div class="section" id="how-users-of-the-framework-retrieve-and-use-the-data">
+<h2>How users of the framework retrieve and use the data<a class="headerlink" href="#how-users-of-the-framework-retrieve-and-use-the-data" title="Permalink to this headline">¶</a></h2>
+<p>When a user of the framework wishes to request data, they must
+instantiate a request object and set some of the values on that request.
+Two request interfaces will be supported, for detailed methods see
+section “Detailed Code” below.</p>
+<p><strong>IDataRequest</strong></p>
+<p><strong>IGridRequest</strong> extends <strong>IDataRequest</strong></p>
+<p><strong>IGeometryRequest</strong> extends <strong>IDataRequest</strong></p>
+<p>For the request interfaces, default implementations of
+<strong>DefaultGridRequest</strong> and <strong>DefaultGeometryRequest</strong> will be provided
+to handle most cases. However, the use of interfaces allows for custom
+special cases in the future. If necessary, the developer of a plugin can
+write their own custom request implementation to handle a special case.</p>
+<p>After the request object has been prepared, the user will pass it to the
+Data Access Layer to receive a data object in return. See the “Detailed
+Code” section below for detailed methods of the Data Access Layer. The
+Data Access Layer will return one of two data interfaces.</p>
+<p><strong>IData</strong></p>
+<p><strong>IGridData</strong> extends <strong>IData</strong></p>
+<p><strong>IGeometryData</strong> extends <strong>IData</strong></p>
+<p>For the data interfaces, the use of interfaces effectively hides the
+implementation details of specific data types from the user of the
+framework. For example, the user receives an <strong>IGridData</strong> and knows the
+data time, grid geometry, parameter, and level, but does not know that
+the data is actually a <strong>GFEGridData</strong> vs <strong>D2DGridData</strong> vs
+<strong>SatelliteGridData</strong>. This enables users of the framework to write
+generic code that can support multiple data types.</p>
+<p>For python users of the framework, the interfaces will be very similar
+with a few key distinctions. Geometries will be represented by python
+geometries from the open source Shapely project. For grids, the python
+<strong>IGridData</strong> will have a method for requesting the raw data as a numpy
+array, and the Data Access Layer will have methods for requesting the
+latitude coordinates and the longitude coordinates of grids as numpy
+arrays. The python requests and data objects will be pure python and not
+JEP PyJObjects that wrap Java objects. A future goal of the Data Access
+Framework is to provide support to python local apps and therefore
+enable requests of data outside of CAVE and EDEX to go through the same
+familiar interfaces. This goal is out of scope for this project but by
+making the request and returned data objects pure python it will not be
+a huge undertaking to add this support in the future.</p>
+</div>
+<div class="section" id="how-plugin-developers-contribute-support-for-new-datatypes">
+<h2>How plugin developers contribute support for new datatypes<a class="headerlink" href="#how-plugin-developers-contribute-support-for-new-datatypes" title="Permalink to this headline">¶</a></h2>
+<p>When a developer wishes to add support for another data type to the
+framework, they must implement one or both of the factory interfaces
+within a common plugin. Two factory interfaces will be supported, for
+detailed methods see below.</p>
+<p><strong>IDataFactory</strong></p>
+<p><strong>IGridFactory</strong> extends <strong>IDataFactory</strong></p>
+<p><strong>IGeometryFactory</strong> extends <strong>IDataFactory</strong></p>
+<p>For some data types, it may be desired to add support for both types of
+requests. For example, the developer of grid data may want to provide
+support for both grid requests and geometry requests. In this case the
+developer would write two separate classes where one implements
+<strong>IGridFactory</strong> and the other implements <strong>IGeometryFactory</strong>.
+Furthermore, factories could be stacked on top of one another by having
+factory implementations call into the Data Access Layer.</p>
+<p>For example, a custom factory keyed to “derived” could be written for
+derived parameters, and the implementation of that factory may then call
+into the Data Access Layer to retrieve “grid” data. In this example the
+raw data would be retrieved through the <strong>GridDataFactory</strong> while the
+derived factory then applies the calculations before returning the data.</p>
+<p>Implementations do not need to support all methods on the interfaces or
+all values on the request objects. For example, a developer writing the
+<strong>MapGeometryFactory</strong> does not need to support <strong>getAvailableTimes()</strong>
+because map data such as US counties is time agnostic. In this case the
+method should throw <strong>UnsupportedOperationException</strong> and the javadoc
+will indicate this.</p>
+<p>Another example would be the developer writing <strong>ObsGeometryFactory</strong>
+can ignore the Level field of the <strong>IDataRequest</strong> as there are not
+different levels of metar data, it is all at the surface. It is up to
+the factory writer to determine which methods and fields to support and
+which to ignore, but the factory writer should always code the factory
+with the user requesting data in mind. If a user of the framework could
+reasonably expect certain behavior from the framework based on the
+request, the factory writer should implement support for that behavior.</p>
+<p>Abstract factories will be provided and can be extended to reduce the
+amount of code a factory developer has to write to complete some common
+actions that will be used by multiple factories. The factory should be
+capable of working within either CAVE or EDEX, therefore all of its
+server specific actions (e.g. database queries) should go through the
+Request/Handler API by using <strong>IServerRequests</strong>. CAVE can then send the
+<strong>IServerRequests</strong> to EDEX with <strong>ThriftClient</strong> while EDEX can use the
+<strong>ServerRequestRouter</strong> to process the <strong>IServerRequests</strong>, making the
+code compatible regardless of which JVM it is running inside.</p>
+<p>Once the factory code is written, it must be registered with the
+framework as an available factory. This will be done through spring xml
+in a common plugin, with the xml file inside the res/spring folder of
+the plugin. Registering the factory will identify the datatype name that
+must match what users would use as the datatype on the <strong>IDataRequest</strong>,
+e.g. the word “satellite”. Registering the factory also indicates to the
+framework what request types are supported, i.e. grid vs geometry or
+both.</p>
+<p>An example of the spring xml for a satellite factory is provided below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">bean</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;satelliteFactory&quot;</span>
+  <span class="n">class</span><span class="o">=</span><span class="s2">&quot;com.raytheon.uf.common.dataplugin.satellite.SatelliteFactory&quot;</span> <span class="o">/&gt;</span>
+
+<span class="o">&lt;</span><span class="n">bean</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;satelliteFactoryRegistered&quot;</span> <span class="n">factory</span><span class="o">-</span><span class="n">bean</span><span class="o">=</span><span class="s2">&quot;dataFactoryRegistry&quot;</span> <span class="n">factory</span><span class="o">-</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;register&quot;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">constructor</span><span class="o">-</span><span class="n">arg</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;satellite&quot;</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="n">constructor</span><span class="o">-</span><span class="n">arg</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;com.raytheon.uf.common.dataaccess.grid.IGridRequest&quot;</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="n">constructor</span><span class="o">-</span><span class="n">arg</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;satelliteFactory&quot;</span> <span class="o">/&gt;</span>
+<span class="o">&lt;/</span><span class="n">bean</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="how-the-framework-works-when-it-receives-a-request">
+<h2>How the framework works when it receives a request<a class="headerlink" href="#how-the-framework-works-when-it-receives-a-request" title="Permalink to this headline">¶</a></h2>
+<p><strong>IDataRequest</strong> requires a datatype to be set on every request. The
+framework will have a registry of existing factories for each data type
+(grid and geometry). When the Data Access Layer methods are called, it
+will first lookup in the registry for the factory that corresponds to
+the datatype on the <strong>IDataRequest</strong>. If no corresponding factory is
+found, it will throw an exception with a useful error message that
+indicates there is no current support for that datatype request. If a
+factory is found, it will delegate the processing of the request to the
+factory. The factory will receive the request and process it, returning
+the result back to the Data Access Layer which then returns it to the
+caller.</p>
+<p>By going through the Data Access Layer, the user is able to retrieve the
+data and use it without understanding which factory was used, how the
+factory retrieved the data, or what implementation of data was returned.
+This effectively frees the framework and users of the framework from any
+dependencies on any particular data types. Since these dependencies are
+avoided, the specific <strong>IDataFactory</strong> and <strong>IData</strong> implementations can
+be altered in the future if necessary and the code making use of the
+framework will not need to be changed as long as the interfaces continue
+to be met.</p>
+<p>Essentially, the Data Access Framework is a service that provides data
+in a consistent way, with the service capabilities being expanded by
+plugin developers who write support for more data types. Note that the
+framework itself is useless without plugins contributing and registering
+<strong>IDataFactories</strong>. Once the framework is coded, developers will need to
+be tasked to add the factories necessary to support the needed data
+types.</p>
+</div>
+<div class="section" id="request-interfaces">
+<h2>Request interfaces<a class="headerlink" href="#request-interfaces" title="Permalink to this headline">¶</a></h2>
+<p>Requests and returned data interfaces will exist in both Java and
+Python. The Java interfaces are listed below and the Python interfaces
+will match the Java interfaces except where noted. Factories will only
+be written in Java.</p>
+<p><strong>IDataRequest</strong></p>
+<ul class="simple">
+<li><p><strong>void setDatatype(String datatype)</strong> - the datatype name and
+also the key to which factory will be used. Frequently pluginName
+such as radar, satellite, gfe, ffmp, etc</p></li>
+<li><p><strong>void addIdentifier(String key, Object value)</strong> - an identifier the
+factory can use to determine which data to return, e.g. for grib data
+key “modelName” and value “GFS40”</p></li>
+<li><p><strong>void setParameters(String… params)</strong></p></li>
+<li><p><strong>void setLevels(Level… levels)</strong></p></li>
+<li><p><strong>String getDatatype()</strong></p></li>
+<li><p><strong>Map getIdentifiers()</strong></p></li>
+<li><p><strong>String[] getParameters()</strong></p></li>
+<li><p><strong>Level[] getLevels()</strong></p></li>
+<li><p>Python Differences</p></li>
+<li><p><strong>Levels</strong> will be represented as <strong>Strings</strong></p></li>
+</ul>
+<p><strong>IGridRequest extends IDataRequest</strong></p>
+<ul class="simple">
+<li><p><strong>void setStorageRequest(Request request)</strong> - a datastorage request
+that allows for slab, line, and point requests for faster performance
+and less data retrieval</p></li>
+<li><p><strong>Request getStorageRequest()</strong></p></li>
+<li><p>Python Differences</p></li>
+<li><p>No support for storage requests</p></li>
+</ul>
+<p><strong>IGeometryRequest extends IDataRequest</strong></p>
+<ul class="simple">
+<li><p><strong>void setEnvelope(Envelope env)</strong> - a bounding box envelope to limit
+the data that is searched through and returned. Not all factories may
+support this.</p></li>
+<li><p><strong>setLocationNames(String… locationNames)</strong> - a convenience of
+requesting data by names such as ICAOs, airports, stationIDs, etc</p></li>
+<li><p><strong>Envelope getEnvelope()</strong></p></li>
+<li><p><strong>String[] getLocationNames()</strong></p></li>
+<li><p>Python Differences</p></li>
+<li><p>Envelope methods will use a <strong>shapely.geometry.Polygon</strong> instead of
+<strong>Envelopes</strong> (shapely has no concept of envelopes and considers them
+as rectangular polygons)</p></li>
+</ul>
+<div class="section" id="data-interfaces">
+<h3>Data Interfaces<a class="headerlink" href="#data-interfaces" title="Permalink to this headline">¶</a></h3>
+<p><strong>IData</strong></p>
+<ul class="simple">
+<li><p><strong>Object getAttribute(String key)</strong> - <strong>getAttribute</strong> provides a way
+to get at attributes of the data that the interface does not provide,
+allowing the user to get more info about the data without adding
+dependencies on the specific data type plugin</p></li>
+<li><p><strong>DataTime getDataTime()</strong> - some data may return null (e.g. maps)</p></li>
+<li><p><strong>Level getLevel()</strong> - some data may return null</p></li>
+<li><p>Python Differences</p></li>
+<li><p><strong>Levels</strong> will be represented by <strong>Strings</strong></p></li>
+</ul>
+<p><strong>IGridData extends IData</strong></p>
+<ul class="simple">
+<li><p><strong>String getParameter()</strong></p></li>
+<li><p><strong>GridGeometry2D getGridGeometry()</strong></p></li>
+<li><p><strong>Unit getUnit()</strong> - some data may return null</p></li>
+<li><p><strong>DataDestination populateData(DataDestination destination)</strong> - How
+the user gets the raw data by passing in a <strong>DataDestination</strong> such
+as <strong>FloatArrayWrapper</strong> or <strong>ByteBufferWrapper</strong>. This allows the
+user to specify the way the raw data of the grid should be structured
+in memory.</p></li>
+<li><p><strong>DataDestination populateData(DataDestination destination, Unit
+unit)</strong> - Same as the above method but also attempts to convert the
+raw data to the specified unit when populating the
+<strong>DataDestination</strong>.</p></li>
+<li><p>Python Differences</p></li>
+<li><p><strong>Units</strong> will be represented by <strong>Strings</strong></p></li>
+<li><p><strong>populateData()</strong> methods will not exist, instead there will be
+a <strong>getRawData()</strong> method that returns a numpy array in the native
+type of the data</p></li>
+</ul>
+<p><strong>IGeometryData extends IData</strong></p>
+<ul class="simple">
+<li><p><strong>Geometry getGeometry()</strong></p></li>
+<li><p><strong>Set getParameters()</strong> - Gets the list of parameters included in
+this data</p></li>
+<li><p><strong>String getString(String param)</strong> - Gets the value of the parameter
+as a String</p></li>
+<li><p><strong>Number getNumber(String param)</strong> - Gets the value of the parameter
+as a Number</p></li>
+<li><p><strong>Unit getUnit(String param)</strong> - Gets the unit of the parameter,
+may be null</p></li>
+<li><p><strong>Type getType(String param)</strong> - Returns an enum of the raw type of
+the parameter, such as Float, Int, or String</p></li>
+<li><p><strong>String getLocationName()</strong> - Returns the location name of the piece
+of data, typically to correlate if the request was made with
+locationNames. May be null.</p></li>
+<li><p>Python Differences</p></li>
+<li><p><strong>Geometry</strong> will be <strong>shapely.geometry.Geometry</strong></p></li>
+<li><p><strong>getNumber()</strong> will return the python native number of the data</p></li>
+<li><p><strong>Units</strong> will be represented by <strong>Strings</strong></p></li>
+<li><p><strong>getType()</strong> will return the python type object</p></li>
+</ul>
+<p><strong>DataAccessLayer</strong> (in implementation, these methods delegate
+processing to factories)</p>
+<ul class="simple">
+<li><p><strong>DataTime[] getAvailableTimes(IDataRequest request)</strong></p></li>
+<li><p><strong>DataTime[] getAvailableTimes(IDataRequest request, BinOffset
+binOffset)</strong></p></li>
+<li><p><strong>IData[] getData(IDataRequest request, DataTime… times)</strong></p></li>
+<li><p><strong>IData[] getData(IDataRequest request, TimeRange timeRange)</strong></p></li>
+<li><p><strong>GridGeometry2D getGridGeometry(IGridRequest request)</strong></p></li>
+<li><p><strong>String[] getAvailableLocationNames(IGeometryRequest request)</strong></p></li>
+<li><p>Python Differences</p></li>
+<li><p>No support for <strong>BinOffset</strong></p></li>
+<li><p><strong>getGridGeometry(IGridRequest)</strong> will be replaced by
+<strong>getLatCoords(IGridRequest)</strong> and <strong>getLonCoords(IGridRequest)</strong>
+that will return numpy arrays of the lat or lon of every grid
+cell</p></li>
+</ul>
+</div>
+<div class="section" id="factory-interfaces-java-only">
+<h3>Factory Interfaces (Java only)<a class="headerlink" href="#factory-interfaces-java-only" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><strong>IDataFactory</strong></p></li>
+<li><p><strong>DataTime[] getAvailableTimes(R request)</strong> - queries the
+database and returns the times that match the request. Some factories
+may not support this (e.g. maps).</p></li>
+<li><p><strong>DataTime[] getAvailableTimes(R request, BinOffset binOffset)</strong> -
+queries the database with a bin offset and returns the times that
+match the request. Some factories may not support this.</p></li>
+<li><p><strong>D[] getData(R request, DataTime… times)</strong> - Gets the data that
+matches the request at the specified times.</p></li>
+<li><p><strong>D[] getData(R request, TimeRange timeRange)</strong> - Gets the data that
+matches the request and is within the time range.</p></li>
+</ul>
+<p><strong>IGridDataFactory extends IDataFactory</strong></p>
+<ul class="simple">
+<li><p><strong>GridGeometry2D</strong> <strong>getGeometry(IGridRequest request)</strong> - Returns
+the grid geometry of the data that matches the request BEFORE making
+the request. Useful for then making slab or line requests for subsets
+of the data. Does not support moving grids, but moving grids don’t
+make subset requests either.</p></li>
+</ul>
+<p><strong>IGeometryDataFactory extends IDataFactory</strong></p>
+<ul class="simple">
+<li><p><strong>getAvailableLocationNames(IGeometryRequest request)</strong> - Convenience
+method to retrieve available location names that match a request. Not
+all factories may support this.</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="gridparms.html" class="btn btn-neutral float-right" title="Grid Parameters" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="examples/generated/Watch_and_Warning_Polygons.html" class="btn btn-neutral float-left" title="Watch and Warning Polygons" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2018, Unidata
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+================================
+Colored Surface Temperature Plot
+================================
+`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Colored_Surface_Temperature_Plot.ipynb>`_
+This exercise creates a colored temperature plot for North America using
+AWIPS METAR observations (datatype *obs*), similar to existing products
+in GEMPAK and CAVE.
+
+.. code:: ipython3
+
+    from awips.dataaccess import DataAccessLayer
+    from dynamicserialize.dstypes.com.raytheon.uf.common.time import TimeRange
+    from datetime import datetime, timedelta
+    import numpy as np
+    import cartopy.crs as ccrs
+    import warnings
+    import matplotlib.pyplot as plt
+    from cartopy.feature import ShapelyFeature
+    from shapely.geometry import Polygon
+    from metpy.plots import StationPlot
+    %matplotlib inline
+    
+    # CONUS bounding box and envelope geometry
+    bbox=[-120, -70, 15, 55]
+    envelope = Polygon([(bbox[0],bbox[2]),(bbox[0],bbox[3]),
+                        (bbox[1], bbox[3]),(bbox[1],bbox[2]),
+                        (bbox[0],bbox[2])])
+    
+    # New obs request
+    edexServer = "edex-cloud.unidata.ucar.edu"
+    DataAccessLayer.changeEDEXHost(edexServer)
+    request = DataAccessLayer.newDataRequest("obs", envelope=envelope)
+    single_value_params = ["timeObs", "stationName", "longitude", "latitude", 
+                           "temperature", "dewpoint", "windDir",
+                           "windSpeed", "seaLevelPress"]
+    multi_value_params = ["presWeather", "skyCover", "skyLayerBase"]
+    params = single_value_params + multi_value_params
+    request.setParameters(*(params))
+    
+    # Get records from the last 15 minutes
+    lastHourDateTime = datetime.utcnow() - timedelta(minutes = 15)
+    start = lastHourDateTime.strftime('%Y-%m-%d %H:%M:%S')
+    end = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+    
+    beginRange = datetime.strptime( start , "%Y-%m-%d %H:%M:%S")
+    endRange = datetime.strptime( end , "%Y-%m-%d %H:%M:%S")
+    timerange = TimeRange(beginRange, endRange)
+    # Get response
+    response = DataAccessLayer.getGeometryData(request,timerange)
+    obs = DataAccessLayer.getMetarObs(response)
+    
+    print("Found " + str(len(response)) + " total records")
+    print("Using " + str(len(obs['temperature'])) + " temperature records")
+    
+    # Create a station plot pointing to an Axes to draw on as well as the location of points
+    
+    lats = obs['latitude']
+    lons = obs['longitude']
+    
+    thresholds = {
+        '15': 'purple',
+        '25': 'c',
+        '35': 'royalblue',
+        '45': 'darkgreen', 
+        '55': 'green',
+        '65': 'y', 
+        '75': 'orange',
+        '85': 'red'
+    }
+    
+    fig, ax = plt.subplots(figsize=(16,12),subplot_kw=dict(projection=ccrs.LambertConformal()))
+    ax.set_extent(bbox)
+    ax.coastlines(resolution='50m')
+    ax.set_title(str(response[-1].getDataTime()) + " | Surface Temps (degF) | " + edexServer)
+    
+    # Suppress nan masking warnings
+    warnings.filterwarnings("ignore",category =RuntimeWarning)
+    
+    for x, value in thresholds.items():
+        tair = np.array(obs['temperature'], dtype=float)
+        tair[tair == -9999.0] = 'nan'
+        tair = (tair*1.8)+32
+        if x==max(thresholds):
+            tair[(tair < int(x))] = 'nan'
+        elif x==min(thresholds):
+            tair[(tair >= int(x)+10)] = 'nan'
+        else:
+            tair[(tair < int(x))] = 'nan'
+            tair[(tair >= int(x)+10)] = 'nan'
+    
+        stationplot = StationPlot(ax, lons, lats, transform=ccrs.PlateCarree(),
+                              fontsize=14)
+        stationplot.plot_parameter('C', tair, color=thresholds[str(x)])
+
+
+.. parsed-literal::
+
+    Found 10692 total records
+    Using 872 temperature records
+
+
+
+.. image:: Colored_Surface_Temperature_Plot_files/Colored_Surface_Temperature_Plot_1_1.png
+
