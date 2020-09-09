@@ -27,7 +27,6 @@ To install the latest version of python-awips, with all required and optional pa
     cd python-awips
     conda env create -f environment.yml
     conda activate python3-awips
-    conda update --all
     python setup.py install --force
     jupyter notebook examples
 
