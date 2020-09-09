@@ -15,7 +15,6 @@ in GEMPAK and CAVE.
     import cartopy.crs as ccrs
     import warnings
     import matplotlib.pyplot as plt
-    from cartopy.feature import ShapelyFeature
     from shapely.geometry import Polygon
     from metpy.plots import StationPlot
     %matplotlib inline
