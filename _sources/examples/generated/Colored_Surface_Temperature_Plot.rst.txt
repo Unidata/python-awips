@@ -75,29 +75,39 @@ in GEMPAK and CAVE.
     # Suppress nan masking warnings
     warnings.filterwarnings("ignore",category =RuntimeWarning)
     
-    for x, value in thresholds.items():
-        tair = np.array(obs['temperature'], dtype=float)
-        tair[tair == -9999.0] = 'nan'
-        tair = (tair*1.8)+32
-        if x==max(thresholds):
-            tair[(tair < int(x))] = 'nan'
-        elif x==min(thresholds):
-            tair[(tair >= int(x)+10)] = 'nan'
-        else:
-            tair[(tair < int(x))] = 'nan'
-            tair[(tair >= int(x)+10)] = 'nan'
+    # get all temperature values and convert them from C to F
+    tair = np.array(obs['temperature'], dtype=float)
+    tair[tair == -9999.0] = 'nan'
+    tair = (tair*1.8)+32
     
+    for x, value in thresholds.items():
+        # create a new temperature value array
+        subtair = tair.copy()
+    
+        # pair down the temperature values to a subset
+        if x==max(thresholds):
+            subtair[(subtair < int(x))] = 'nan'
+        elif x==min(thresholds):
+            subtair[(subtair >= int(x)+10)] = 'nan'
+        else:
+            subtair[(subtair < int(x))] = 'nan'
+            subtair[(subtair >= int(x)+10)] = 'nan'
+    
+        # add these stations and their color to the stationplots
         stationplot = StationPlot(ax, lons, lats, transform=ccrs.PlateCarree(),
                               fontsize=14)
-        stationplot.plot_parameter('C', tair, color=thresholds[str(x)])
+        stationplot.plot_parameter('C', subtair, color=value)
+        
+
 
 
 .. parsed-literal::
 
-    Found 10692 total records
-    Using 872 temperature records
+    Found 10584 total records
+    Using 871 temperature records
 
 
 
 .. image:: Colored_Surface_Temperature_Plot_files/Colored_Surface_Temperature_Plot_1_1.png
+
 
