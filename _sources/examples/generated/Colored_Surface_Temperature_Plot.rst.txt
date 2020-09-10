@@ -29,11 +29,7 @@ in GEMPAK and CAVE.
     edexServer = "edex-cloud.unidata.ucar.edu"
     DataAccessLayer.changeEDEXHost(edexServer)
     request = DataAccessLayer.newDataRequest("obs", envelope=envelope)
-    single_value_params = ["timeObs", "stationName", "longitude", "latitude", 
-                           "temperature", "dewpoint", "windDir",
-                           "windSpeed", "seaLevelPress"]
-    multi_value_params = ["presWeather", "skyCover", "skyLayerBase"]
-    params = single_value_params + multi_value_params
+    params = ["temperature", "longitude", "latitude", "stationName"]
     request.setParameters(*(params))
     
     # Get records from the last 15 minutes
@@ -102,8 +98,8 @@ in GEMPAK and CAVE.
 
 .. parsed-literal::
 
-    Found 20844 total records
-    Using 1697 temperature records
+    Found 921 total records
+    Using 911 temperature records
 
 
 

@@ -204,11 +204,7 @@ in GEMPAK and CAVE.</p>
 <span class="n">edexServer</span> <span class="o">=</span> <span class="s2">&quot;edex-cloud.unidata.ucar.edu&quot;</span>
 <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="n">edexServer</span><span class="p">)</span>
 <span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">&quot;obs&quot;</span><span class="p">,</span> <span class="n">envelope</span><span class="o">=</span><span class="n">envelope</span><span class="p">)</span>
-<span class="n">single_value_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;timeObs&quot;</span><span class="p">,</span> <span class="s2">&quot;stationName&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span>
-                       <span class="s2">&quot;temperature&quot;</span><span class="p">,</span> <span class="s2">&quot;dewpoint&quot;</span><span class="p">,</span> <span class="s2">&quot;windDir&quot;</span><span class="p">,</span>
-                       <span class="s2">&quot;windSpeed&quot;</span><span class="p">,</span> <span class="s2">&quot;seaLevelPress&quot;</span><span class="p">]</span>
-<span class="n">multi_value_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;presWeather&quot;</span><span class="p">,</span> <span class="s2">&quot;skyCover&quot;</span><span class="p">,</span> <span class="s2">&quot;skyLayerBase&quot;</span><span class="p">]</span>
-<span class="n">params</span> <span class="o">=</span> <span class="n">single_value_params</span> <span class="o">+</span> <span class="n">multi_value_params</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;temperature&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;stationName&quot;</span><span class="p">]</span>
 <span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
 
 <span class="c1"># Get records from the last 15 minutes</span>
@@ -273,8 +269,8 @@ in GEMPAK and CAVE.</p>
     <span class="n">stationplot</span><span class="o">.</span><span class="n">plot_parameter</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">subtair</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Found</span> <span class="mi">20844</span> <span class="n">total</span> <span class="n">records</span>
-<span class="n">Using</span> <span class="mi">1697</span> <span class="n">temperature</span> <span class="n">records</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Found</span> <span class="mi">921</span> <span class="n">total</span> <span class="n">records</span>
+<span class="n">Using</span> <span class="mi">911</span> <span class="n">temperature</span> <span class="n">records</span>
 </pre></div>
 </div>
 <img alt="../../_images/Colored_Surface_Temperature_Plot_1_1.png" src="../../_images/Colored_Surface_Temperature_Plot_1_1.png" />
