@@ -38,10 +38,27 @@ To install the latest version of python-awips, with all required and optional pa
 Requirements
 ------------
 
-- python 2.7+
-- numpy
-- shapely
-- six
+These are specified in the environment.yml file that is used to create the 'python3-awips' conda environment:
+
+   - python 3
+   - numpy
+   - nomkl
+   - matplotlib
+   - cartopy
+   - jupyter
+   - netcdf4
+   - owslib
+   - metpy
+   - pint
+   - h5py
+   - nbconvert 4.1
+   - siphon
+   - xarray
+   - ffmpeg
+   - pytest
+   - shapely
+   - six
+   - pip
 
 
 Quick Example
