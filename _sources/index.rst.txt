@@ -51,7 +51,7 @@ These are specified in the environment.yml file that is used to create the 'pyth
    - metpy
    - pint
    - h5py
-   - nbconvert 4.1
+   - nbconvert 4.1+
    - siphon
    - xarray
    - ffmpeg
