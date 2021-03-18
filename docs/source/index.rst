@@ -2,7 +2,7 @@
 Python AWIPS Data Access Framework 
 ==================================
 
-The python-awips package provides a data access framework for requesting grid and geometry datasets from an `EDEX <http://unidata.github.io/awips2/#edex>`_ server.
+The python-awips package provides a data access framework for requesting meteorological and geometry datasets from an `EDEX <http://unidata.github.io/awips2/#edex>`_ server.
 
 `AWIPS <http://unidata.github.io/awips2>`_ is a weather display and analysis package developed by the National Weather Service for operational forecasting.  UCAR's `Unidata Program Center <http://www.unidata.ucar.edu/software/awips2/>`_ supports a non-operational open-source release of the AWIPS software (`EDEX <http://unidata.github.io/awips2/#edex>`_, `CAVE <http://unidata.github.io/awips2/#cave>`_, and `python-awips <https://github.com/Unidata/python-awips>`_).
 
@@ -29,15 +29,36 @@ To install the latest version of python-awips, with all required and optional pa
     conda activate python3-awips
     python setup.py install --force
     jupyter notebook examples
+    
+**If you are experiencing issues, and have previously setup the conda environment, you may need to run:**
+::
+    conda update --all
 
 
 Requirements
 ------------
 
-- python 2.7+
-- numpy
-- shapely
-- six
+These are specified in the environment.yml file that is used to create the 'python3-awips' conda environment:
+
+   - python 3
+   - numpy
+   - nomkl
+   - matplotlib
+   - cartopy
+   - jupyter
+   - netcdf4
+   - owslib
+   - metpy
+   - pint
+   - h5py
+   - nbconvert 4.1+
+   - siphon
+   - xarray
+   - ffmpeg
+   - pytest
+   - shapely
+   - six
+   - pip
 
 
 Quick Example
