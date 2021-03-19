@@ -8,18 +8,42 @@ The python-awips package provides a data access framework for requesting meteoro
 
 .. _Jupyter Notebook: http://nbviewer.jupyter.org/github/Unidata/python-awips/tree/master/examples/notebooks
 
+
+Pre-requisite Software
+----------------------
+
+In order to effictively use python-awips you'll need to have these installed already:
+  - python3
+  - conda
+  - git *(for the source code and examples installation)*
+
+Package-Only Install
+--------------------
+
+If you already work with Python, you might just be interested in how to install the python-awips pacakge.
+The package can be installed with either of the two well known package managers: **pip** and **conda**.
+
 Pip Install
------------
+~~~~~~~~~~~
 
 ::
 
     pip install python-awips
 
 
-Conda Environment Install
--------------------------
+Conda Install
+~~~~~~~~~~~~~
 
-To install the latest version of python-awips, with all required and optional packages:
+::
+
+    conda install -c conda-forge python-awips
+
+
+
+Source Code with Examples Install
+---------------------------------
+
+Below are instructions on how to install the source code of python-awips, with all included example notebooks.  This will create a new conda environment called ``python3-awips`` and start up a browser for the jupyter notebook examples.
 
 ::
 
@@ -33,117 +57,9 @@ To install the latest version of python-awips, with all required and optional pa
 **If you are experiencing issues, and have previously setup the conda environment, you may need to run:**
 ::
     conda update --all
+    
+    
+Questions -- Contact Us!
+------------------------
 
-
-Requirements
-------------
-
-These are specified in the environment.yml file that is used to create the 'python3-awips' conda environment:
-
-   - python 3
-   - numpy
-   - nomkl
-   - matplotlib
-   - cartopy
-   - jupyter
-   - netcdf4
-   - owslib
-   - metpy
-   - pint
-   - h5py
-   - nbconvert 4.1+
-   - siphon
-   - xarray
-   - ffmpeg
-   - pytest
-   - shapely
-   - six
-   - pip
-
-
-Quick Example
-~~~~~~~~~~~~~
-
-::
-
-    from awips.dataaccess import DataAccessLayer
-    DataAccessLayer.changeEDEXHost("edex-cloud.unidata.ucar.edu")
-    dataTypes = DataAccessLayer.getSupportedDatatypes()
-    list(dataTypes)
-
-    ['acars',
-     'binlightning',
-     'bufrmosavn',
-     'bufrmoseta',
-     'bufrmosgfs',
-     'bufrmoshpc',
-     'bufrmoslamp',
-     'bufrmosmrf',
-     'bufrua',
-     'climate',
-     'common_obs_spatial',
-     'gfe',
-     'gfeeditarea',
-     'grid',
-     'maps',
-     'modelsounding',
-     'obs',
-     'practicewarning',
-     'profiler',
-     'radar',
-     'radar_spatial',
-     'satellite',
-     'sfcobs',
-     'topo',
-     'warning']
-
-
-    request = DataAccessLayer.newDataRequest()
-    request.setDatatype("satellite")
-    availableSectors = DataAccessLayer.getAvailableLocationNames(request)
-    availableSectors.sort()
-    for sector in availableSectors:
-        print sector
-        request.setLocationNames(sector)
-        availableProducts = DataAccessLayer.getAvailableParameters(request)
-        availableProducts.sort()
-        for product in availableProducts:
-            print " - " + product
-
-    ECONUS
-     - ACTP
-     - ADP
-     - AOD
-     - CAPE
-     - CH-01-0.47um
-     - CH-02-0.64um
-     - CH-03-0.87um
-     - CH-04-1.38um
-     ...
-    EFD
-     - ACTP
-     - ADP
-     - AOD
-     - CAPE
-     - CH-01-0.47um
-     - CH-02-0.64um
-     - CH-03-0.87um
-     - CH-04-1.38um
-     ...
-
-
-See the `API Documentation <api/DataAccessLayer.html>`_ for more information.
-
-----------------------
-Read The Docs Contents
-----------------------
-
-.. toctree::
-   :maxdepth: 2
-
-   api/index
-   datatypes
-   examples/index
-   dev
-   gridparms
-   about
+Please feel free to reach out to us at our support email at **support-awips@unidata.ucar.edu**
