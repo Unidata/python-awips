@@ -1134,7 +1134,7 @@ calculation following NCEP AWIPS/NSHARP.
 **3) NCEP AWIPS soundingrequest plugin**
 
 based on GEMPAK/NSHARP, from
-https://github.com/Unidata/awips2-ncep/blob/unidata\_16.2.2/edex/gov.noaa.nws.ncep.edex.plugin.soundingrequest/src/gov/noaa/nws/ncep/edex/plugin/soundingrequest/handler/MergeSounding.java#L1783
+https://github.com/Unidata/awips2-ncep/blob/unidata_16.2.2/edex/gov.noaa.nws.ncep.edex.plugin.soundingrequest/src/gov/noaa/nws/ncep/edex/plugin/soundingrequest/handler/MergeSounding.java#L1783
 
 .. code:: ipython3
 

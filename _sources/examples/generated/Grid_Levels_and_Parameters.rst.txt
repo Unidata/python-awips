@@ -2,9 +2,9 @@
 Grid Levels and Parameters
 ==========================
 `Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Grid_Levels_and_Parameters.ipynb>`_
-This example covers the callable methods of the Python AWIPS DAF when
-working with gridded data. We start with a connection to an EDEX server,
-then query data types, then grid names, parameters, levels, and other
+This example covers the callable methods of python-awips when working
+with gridded data. We start with a connection to an EDEX server, then
+query data types, then grid names, parameters, levels, and other
 information. Finally the gridded data is plotted for its domain using
 Matplotlib and Cartopy.
 
@@ -435,7 +435,7 @@ available parameters with **getAvailableParameters()**
 DataAccessLayer.getAvailableLevels()
 ------------------------------------
 
-Selecting **"T"** for temperature.
+Selecting **“T”** for temperature.
 
 .. code:: ipython3
 
@@ -707,8 +707,8 @@ Selecting **"T"** for temperature.
 -  **0.0SFC** is the Surface level
 -  **FHAG** stands for Fixed Height Above Ground (in meters)
 -  **NTAT** stands for Nominal Top of the ATmosphere
--  **BL** stands for Boundary Layer, where **0.0\_30.0BL** reads as
-   *0-30 mb above ground level*
+-  **BL** stands for Boundary Layer, where **0.0_30.0BL** reads as *0-30
+   mb above ground level*
 -  **TROP** is the Tropopause level
 
 **request.setLevels()**
@@ -770,7 +770,7 @@ DataAccessLayer.getGridData()
 -----------------------------
 
 Now that we have our ``request`` and DataTime ``fcstRun`` arrays ready,
-it's time to request the data array from EDEX.
+it’s time to request the data array from EDEX.
 
 .. code:: ipython3
 

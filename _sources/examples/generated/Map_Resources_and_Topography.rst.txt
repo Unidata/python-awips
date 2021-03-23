@@ -16,11 +16,11 @@ Notes
 
 -  This notebook requires: **python-awips, numpy, matplotplib, cartopy,
    shapely**
--  Use datatype **maps** and **addIdentifier('table', <postgres maps
+-  Use datatype **maps** and **addIdentifier(‘table’, <postgres maps
    schema>)** to define the map table:
-   DataAccessLayer.changeEDEXHost("edex-cloud.unidata.ucar.edu") request
-   = DataAccessLayer.newDataRequest('maps')
-   request.addIdentifier('table', 'mapdata.county')
+   DataAccessLayer.changeEDEXHost(“edex-cloud.unidata.ucar.edu”) request
+   = DataAccessLayer.newDataRequest(‘maps’)
+   request.addIdentifier(‘table’, ‘mapdata.county’)
 -  Use **request.setLocationNames()** and **request.addIdentifier()** to
    spatially filter a map resource. In the example below, WFO ID **BOU**
    (Boulder, Colorado) is used to query counties within the BOU county
@@ -28,17 +28,17 @@ Notes
 
    ::
 
-       request.addIdentifier('geomField', 'the_geom')
-       request.addIdentifier('inLocation', 'true')
-       request.addIdentifier('locationField', 'cwa')
-       request.setLocationNames('BOU')
-       request.addIdentifier('cwa', 'BOU')
+        request.addIdentifier('geomField', 'the_geom')
+        request.addIdentifier('inLocation', 'true')
+        request.addIdentifier('locationField', 'cwa')
+        request.setLocationNames('BOU')
+        request.addIdentifier('cwa', 'BOU')
 
 See the Maps Database Reference Page for available database tables,
 column names, and types.
 
-    Note the geometry definition of ``the_geom`` for each data type,
-    which can be **Point**, **MultiPolygon**, or **MultiLineString**.
+   Note the geometry definition of ``the_geom`` for each data type,
+   which can be **Point**, **MultiPolygon**, or **MultiLineString**.
 
 Setup
 -----
@@ -144,8 +144,8 @@ Request County Boundaries for a WFO
 .. image:: Map_Resources_and_Topography_files/Map_Resources_and_Topography_4_1.png
 
 
-Create a merged CWA with cascaded\_union
-----------------------------------------
+Create a merged CWA with cascaded_union
+---------------------------------------
 
 .. code:: ipython3
 
@@ -172,7 +172,7 @@ Create a merged CWA with cascaded\_union
 WFO boundary spatial filter for interstates
 -------------------------------------------
 
-Using the previously-defined **envelope=merged\_counties.buffer(2)** in
+Using the previously-defined **envelope=merged_counties.buffer(2)** in
 **newDataRequest()** to request geometries which fall inside the
 buffered boundary.
 

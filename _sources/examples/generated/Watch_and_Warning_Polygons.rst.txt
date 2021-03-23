@@ -33,7 +33,7 @@ First, set up our imports and define functions to be used later:
         gl.yformatter = LATITUDE_FORMATTER
         return fig, ax
 
-Next, we create a request for the "warning" data type:
+Next, we create a request for the “warning” data type:
 
 .. code:: ipython3
 
