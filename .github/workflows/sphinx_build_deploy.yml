@@ -3,7 +3,7 @@ name: Publish Sphinx Built Webpages to Github Pages
 on:
   push:
     branches:
-      - main
+      - website
     paths:
       - 'docs/**'
       - 'examples/**'
