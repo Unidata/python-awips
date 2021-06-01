@@ -24,27 +24,27 @@ Table of Contents
 -----------------
 
 | `1
-  Imports <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#1-imports>`__\ 
+  Imports <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#imports>`__\ 
 | `2 Connect to
-  EDEX <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#2-connect-to-edex>`__\ 
+  EDEX <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#connect-to-edex>`__\ 
 | `3 Get a List of Supported Data
-  Types <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#3-get-a-list-of-supported-data-types>`__\ 
+  Types <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#get-a-list-of-supported-data-types>`__\ 
 | `4 Create a New Data Request and Set the
-  Type <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#4-create-a-new-data-request-and-set-the-type>`__\ 
+  Type <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#create-a-new-data-request-and-set-the-type>`__\ 
 | `5 Get Available
-  Locations <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#5-get-available-locations>`__\ 
+  Locations <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#get-available-locations>`__\ 
 | `6 Get Available
-  Parameters <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#6-get-available-parameters>`__\ 
+  Parameters <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#get-available-parameters>`__\ 
 | `7 Get Available
-  Levels <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#7-get-available-levels>`__\ 
+  Levels <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#get-available-levels>`__\ 
 | `8 Get Available
-  Times <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#8-get-available-times>`__\ 
+  Times <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#get-available-times>`__\ 
 | `9 Get the
-  Data! <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#9-get-the-data>`__\ 
+  Data! <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#get-the-data>`__\ 
 | `10 See
-  Also <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#10-see-also>`__\ 
+  Also <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#see-also>`__\ 
 |     `10.1 Related
-  Notebooks <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Paramters.html#10.1-related-notebooks>`__\ 
+  Notebooks <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#related-notebooks>`__\ 
 
 --------------
 
