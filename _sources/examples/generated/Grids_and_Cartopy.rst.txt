@@ -249,22 +249,20 @@ a label for our plot.
 -  `Grid Levels and
    Parameters <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html>`__
 
-6.2 Additional Documention
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+6.2 Additional Documentation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**python-awips:** \*
-`awips.DataAccessLayer <http://unidata.github.io/python-awips/api/DataAccessLayer.html>`__
-\*
-`awips.PyGridData <http://unidata.github.io/python-awips/api/PyGridData.html>`__
+**python-awips:**
 
-**matplotlib:** \*
-`matplotlib.pyplot <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.html>`__
-\*
-`matplotlib.pyplot.subplot <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.subplot.html>`__
-\*
-`matplotlib.pyplot.pcolormesh <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.pcolormesh.html>`__
-\*
-`matplotlib.pyplot.contourf <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.contourf.html>`__
+-  `awips.DataAccessLayer <http://unidata.github.io/python-awips/api/DataAccessLayer.html>`__
+-  `awips.PyGridData <http://unidata.github.io/python-awips/api/PyGridData.html>`__
+
+**matplotlib:**
+
+-  `matplotlib.pyplot <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.html>`__
+-  `matplotlib.pyplot.subplot <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.subplot.html>`__
+-  `matplotlib.pyplot.pcolormesh <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.pcolormesh.html>`__
+-  `matplotlib.pyplot.contourf <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.contourf.html>`__
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Grids_and_Cartopy.html>`__
 
