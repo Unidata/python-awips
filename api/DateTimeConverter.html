@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,6 +31,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
@@ -180,41 +183,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-awips.DateTimeConverter">
-<span id="datetimeconverter"></span><h1>DateTimeConverter<a class="headerlink" href="#module-awips.DateTimeConverter" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
-<dt id="awips.DateTimeConverter.constructTimeRange">
-<code class="sig-prename descclassname"><span class="pre">awips.DateTimeConverter.</span></code><code class="sig-name descname"><span class="pre">constructTimeRange</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/DateTimeConverter.html#constructTimeRange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.DateTimeConverter.constructTimeRange" title="Permalink to this definition">¶</a></dt>
-<dd><p>Builds a python dynamicserialize TimeRange object from the given
-arguments.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><dl class="simple">
-<dt>args*: must be a TimeRange or a pair of objects that can be</dt><dd><p>converted to a datetime via convertToDateTime().</p>
-</dd>
-</dl>
-</dd>
-<dt>Returns:</dt><dd><p>A TimeRange.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="awips.DateTimeConverter.convertToDateTime">
-<code class="sig-prename descclassname"><span class="pre">awips.DateTimeConverter.</span></code><code class="sig-name descname"><span class="pre">convertToDateTime</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeArg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/DateTimeConverter.html#convertToDateTime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.DateTimeConverter.convertToDateTime" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts the given object to a python datetime object. Supports native
-python representations like datetime and struct_time, but also
-the dynamicserialize types like Date and Timestamp. Raises TypeError
-if no conversion can be performed.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>timeArg: a python object representing a date and time. Supported
-types include datetime, struct_time, float, int, long and the
-dynamicserialize types Date and Timestamp.</p>
-</dd>
-<dt>Returns:</dt><dd><p>A datetime that represents the same date/time as the passed in object.</p>
-</dd>
-</dl>
-</dd></dl>
-
+  <div class="section" id="datetimeconverter">
+<h1>DateTimeConverter<a class="headerlink" href="#datetimeconverter" title="Permalink to this headline">¶</a></h1>
 </div>
 
 

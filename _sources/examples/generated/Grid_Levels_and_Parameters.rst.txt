@@ -94,8 +94,9 @@ request all available grids with **getAvailableLocationNames()**
      'FFG-TAR',
      'FFG-TIR',
      'FFG-TUA',
-     'GEFS',
-     'GFS',
+     'FNMOC-NCODA',
+     'FNMOC-WW3',
+     'GFS1p0',
      'GFS20',
      'HFR-EAST_6KM',
      'HFR-EAST_PR_6KM',
@@ -125,7 +126,6 @@ request all available grids with **getAvailableLocationNames()**
      'NAM12',
      'NAM40',
      'NOHRSC-SNOW',
-     'NationalBlend',
      'RAP13',
      'RTMA',
      'RTOFS-Now-WestAtl',
@@ -136,7 +136,7 @@ request all available grids with **getAvailableLocationNames()**
      'SeaIce',
      'TPCWindProb',
      'URMA25',
-     'WaveWatch']
+     'navgem0p5']
 
 
 
@@ -702,6 +702,7 @@ Selecting **“T”** for temperature.
     8000.0_9000.0FHAG
     700.0_300.0LYRMB
     850.0_700.0LYRMB
+    1000.0_500.0LYRMB
 
 
 -  **0.0SFC** is the Surface level
@@ -741,28 +742,28 @@ DataAccessLayer.getAvailableTimes()
 
 .. parsed-literal::
 
-    [<DataTime instance: 2020-09-04 18:00:00 >,
-     <DataTime instance: 2020-09-04 18:00:00 >,
-     <DataTime instance: 2020-09-04 18:00:00 >,
-     <DataTime instance: 2020-09-04 18:00:00 >,
-     <DataTime instance: 2020-09-04 18:00:00 >,
-     <DataTime instance: 2020-09-04 18:00:00 >,
-     <DataTime instance: 2020-09-04 18:00:00 >,
-     <DataTime instance: 2020-09-04 18:00:00 >,
-     <DataTime instance: 2020-09-04 18:00:00 >,
-     <DataTime instance: 2020-09-04 18:00:00 >,
-     <DataTime instance: 2020-09-04 18:00:00 >,
-     <DataTime instance: 2020-09-04 18:00:00 >,
-     <DataTime instance: 2020-09-04 18:00:00 >,
-     <DataTime instance: 2020-09-04 18:00:00 >,
-     <DataTime instance: 2020-09-04 18:00:00 >,
-     <DataTime instance: 2020-09-04 18:00:00 >,
-     <DataTime instance: 2020-09-04 18:00:00 >,
-     <DataTime instance: 2020-09-04 18:00:00 >,
-     <DataTime instance: 2020-09-04 18:00:00 >,
-     <DataTime instance: 2020-09-04 18:00:00 >,
-     <DataTime instance: 2020-09-04 18:00:00 >,
-     <DataTime instance: 2020-09-04 18:00:00 >]
+    [<DataTime instance: 2021-06-01 18:00:00 >,
+     <DataTime instance: 2021-06-01 18:00:00 >,
+     <DataTime instance: 2021-06-01 18:00:00 >,
+     <DataTime instance: 2021-06-01 18:00:00 >,
+     <DataTime instance: 2021-06-01 18:00:00 >,
+     <DataTime instance: 2021-06-01 18:00:00 >,
+     <DataTime instance: 2021-06-01 18:00:00 >,
+     <DataTime instance: 2021-06-01 18:00:00 >,
+     <DataTime instance: 2021-06-01 18:00:00 >,
+     <DataTime instance: 2021-06-01 18:00:00 >,
+     <DataTime instance: 2021-06-01 18:00:00 >,
+     <DataTime instance: 2021-06-01 18:00:00 >,
+     <DataTime instance: 2021-06-01 18:00:00 >,
+     <DataTime instance: 2021-06-01 18:00:00 >,
+     <DataTime instance: 2021-06-01 18:00:00 >,
+     <DataTime instance: 2021-06-01 18:00:00 >,
+     <DataTime instance: 2021-06-01 18:00:00 >,
+     <DataTime instance: 2021-06-01 18:00:00 >,
+     <DataTime instance: 2021-06-01 18:00:00 >,
+     <DataTime instance: 2021-06-01 18:00:00 >,
+     <DataTime instance: 2021-06-01 18:00:00 >,
+     <DataTime instance: 2021-06-01 18:00:00 >]
 
 
 
@@ -788,72 +789,9 @@ it’s time to request the data array from EDEX.
 
 .. parsed-literal::
 
-    Time : 2020-09-04 18:00:00
+    Time : 2021-06-01 18:00:00
     Model: RAP13
     Parm : T
     Unit : K
     (337, 451)
-
-
-Plotting with Matplotlib and Cartopy
-------------------------------------
-
-**1. pcolormesh**
-
-.. code:: ipython3
-
-    %matplotlib inline
-    import matplotlib.pyplot as plt
-    import matplotlib
-    import cartopy.crs as ccrs
-    import cartopy.feature as cfeature
-    from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
-    import numpy as np
-    import numpy.ma as ma
-    from scipy.io import loadmat
-    from scipy.constants import convert_temperature
-    def make_map(bbox, projection=ccrs.PlateCarree()):
-        fig, ax = plt.subplots(figsize=(16, 9),
-                               subplot_kw=dict(projection=projection))
-        ax.set_extent(bbox)
-        ax.coastlines(resolution='50m')
-        gl = ax.gridlines(draw_labels=True)
-        gl.top_labels = gl.right_labels = False
-        gl.xformatter = LONGITUDE_FORMATTER
-        gl.yformatter = LATITUDE_FORMATTER
-        return fig, ax
-    
-    #convert temp from K to F
-    dataf = convert_temperature(data, 'K', 'F')
-    
-    cmap = plt.get_cmap('rainbow')
-    bbox = [lons.min(), lons.max(), lats.min(), lats.max()]
-    fig, ax = make_map(bbox=bbox)
-    cs = ax.pcolormesh(lons, lats, dataf, cmap=cmap)
-    cbar = fig.colorbar(cs, extend='both', shrink=0.5, orientation='horizontal')
-    cbar.set_label(grid.getLocationName() +" " + grid.getLevel() + " " \
-                   + grid.getParameter() + " (F) " \
-                   + "valid " + str(grid.getDataTime().getRefTime()))
-
-
-
-.. image:: Grid_Levels_and_Parameters_files/Grid_Levels_and_Parameters_16_0.png
-
-
-**2. contourf**
-
-.. code:: ipython3
-
-    fig2, ax2 = make_map(bbox=bbox)
-    cs2 = ax2.contourf(lons, lats, dataf, 80, cmap=cmap,
-                      vmin=dataf.min(), vmax=dataf.max(), extend='both')
-    cbar2 = fig2.colorbar(cs2, shrink=0.5, orientation='horizontal')
-    cbar2.set_label(grid.getLocationName() +" " + grid.getLevel() + " " \
-                   + grid.getParameter() + " (F) " \
-                   + "valid " + str(grid.getDataTime().getRefTime()))
-
-
-
-.. image:: Grid_Levels_and_Parameters_files/Grid_Levels_and_Parameters_18_0.png
-
 

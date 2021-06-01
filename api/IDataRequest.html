@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,6 +31,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
@@ -182,132 +185,6 @@
             
   <div class="section" id="idatarequest-newdatarequest">
 <h1>IDataRequest (newDataRequest())<a class="headerlink" href="#idatarequest-newdatarequest" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
-<dt id="awips.dataaccess.IDataRequest">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">awips.dataaccess.</span></code><code class="sig-name descname"><span class="pre">IDataRequest</span></code><a class="reference internal" href="../_modules/awips/dataaccess.html#IDataRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.IDataRequest" title="Permalink to this definition">¶</a></dt>
-<dd><p>An IDataRequest to be submitted to the DataAccessLayer to retrieve data.</p>
-<dl class="py attribute">
-<dt id="awips.dataaccess.IDataRequest.__weakref__">
-<code class="sig-name descname"><span class="pre">__weakref__</span></code><a class="headerlink" href="#awips.dataaccess.IDataRequest.__weakref__" title="Permalink to this definition">¶</a></dt>
-<dd><p>list of weak references to the object (if defined)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="awips.dataaccess.IDataRequest.addIdentifier">
-<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">addIdentifier</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess.html#IDataRequest.addIdentifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.IDataRequest.addIdentifier" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds an identifier to the request.  Identifiers are specific to the
-datatype being requested.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>key: the string key of the identifier
-value: the value of the identifier</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="awips.dataaccess.IDataRequest.getDatatype">
-<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">getDatatype</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess.html#IDataRequest.getDatatype"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.IDataRequest.getDatatype" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the datatype of the request</p>
-<dl class="simple">
-<dt>Returns:</dt><dd><p>the datatype set on the request</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="awips.dataaccess.IDataRequest.getEnvelope">
-<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">getEnvelope</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess.html#IDataRequest.getEnvelope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.IDataRequest.getEnvelope" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the envelope on the request</p>
-<dl class="simple">
-<dt>Returns:</dt><dd><p>a rectangular shapely geometry</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="awips.dataaccess.IDataRequest.getIdentifiers">
-<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">getIdentifiers</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess.html#IDataRequest.getIdentifiers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.IDataRequest.getIdentifiers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the identifiers on the request</p>
-<dl class="simple">
-<dt>Returns:</dt><dd><p>a dictionary of the identifiers</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="awips.dataaccess.IDataRequest.getLevels">
-<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">getLevels</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess.html#IDataRequest.getLevels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.IDataRequest.getLevels" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the levels on the request</p>
-<dl class="simple">
-<dt>Returns:</dt><dd><p>a list of strings of the levels</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="awips.dataaccess.IDataRequest.getLocationNames">
-<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">getLocationNames</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess.html#IDataRequest.getLocationNames"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.IDataRequest.getLocationNames" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the location names on the request</p>
-<dl class="simple">
-<dt>Returns:</dt><dd><p>a list of strings of the location names</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="awips.dataaccess.IDataRequest.setDatatype">
-<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">setDatatype</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datatype</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess.html#IDataRequest.setDatatype"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.IDataRequest.setDatatype" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the datatype of the request.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>datatype: A string of the datatype, such as “grid”, “radar”, “gfe”, “obs”</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="awips.dataaccess.IDataRequest.setEnvelope">
-<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">setEnvelope</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess.html#IDataRequest.setEnvelope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.IDataRequest.setEnvelope" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the envelope of the request.  If supported by the datatype factory,
-the data returned for the request will be constrained to only the data
-within the envelope.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>env: a shapely geometry</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="awips.dataaccess.IDataRequest.setLevels">
-<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">setLevels</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">levels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess.html#IDataRequest.setLevels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.IDataRequest.setLevels" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the levels of data to request.  Not all datatypes support levels.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>levels: a list of strings of level abbreviations to request</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="awips.dataaccess.IDataRequest.setLocationNames">
-<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">setLocationNames</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locationNames</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess.html#IDataRequest.setLocationNames"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.IDataRequest.setLocationNames" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the location names of the request.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>locationNames: a list of strings of location names to request</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="awips.dataaccess.IDataRequest.setParameters">
-<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">setParameters</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess.html#IDataRequest.setParameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.IDataRequest.setParameters" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the parameters of data to request.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>params: a list of strings of parameters to request</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
 </div>
 
 
