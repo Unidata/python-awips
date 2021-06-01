@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>AWIPS Grids and Cartopy &mdash; python-awips  documentation</title>
+  <title>Grids and Cartopy &mdash; python-awips  documentation</title>
   
 
   
@@ -42,8 +42,8 @@
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Colored Surface Temperature Plot" href="Colored_Surface_Temperature_Plot.html" />
-    <link rel="prev" title="Data Plotting Examples" href="../index.html" /> 
+    <link rel="next" title="METAR Station Plot with MetPy" href="METAR_Station_Plot_with_MetPy.html" />
+    <link rel="prev" title="Grid Levels and Parameters" href="Grid_Levels_and_Parameters.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -96,15 +96,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../datatypes.html">Available Data Types</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Data Plotting Examples</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">AWIPS Grids and Cartopy</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#with-pcolormesh">with pcolormesh</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#with-contourf">with contourf</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="Colored_Surface_Temperature_Plot.html">Colored Surface Temperature Plot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Forecast_Model_Vertical_Sounding.html">Forecast Model Vertical Sounding</a></li>
 <li class="toctree-l2"><a class="reference internal" href="GOES_Geostationary_Lightning_Mapper.html">GOES Geostationary Lightning Mapper</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Grid_Levels_and_Parameters.html">Grid Levels and Parameters</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Grids and Cartopy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#with-pcolormesh">with pcolormesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#with-contourf">with contourf</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="METAR_Station_Plot_with_MetPy.html">METAR Station Plot with MetPy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Map_Resources_and_Topography.html">Map Resources and Topography</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Model_Sounding_Data.html">Model Sounding Data</a></li>
@@ -169,13 +169,13 @@
         
           <li><a href="../index.html">Data Plotting Examples</a> &raquo;</li>
         
-      <li>AWIPS Grids and Cartopy</li>
+      <li>Grids and Cartopy</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../../_sources/examples/generated/AWIPS_Grids_and_Cartopy.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/examples/generated/Grids_and_Cartopy.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -188,9 +188,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="awips-grids-and-cartopy">
-<h1>AWIPS Grids and Cartopy<a class="headerlink" href="#awips-grids-and-cartopy" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/AWIPS_Grids_and_Cartopy.ipynb">Notebook</a>
+  <div class="section" id="grids-and-cartopy">
+<h1>Grids and Cartopy<a class="headerlink" href="#grids-and-cartopy" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Grids_and_Cartopy.ipynb">Notebook</a>
 A simple example of requesting and plotting AWIPS grids with Matplotlib
 and Cartopy.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">DataAccessLayer</span>
@@ -237,7 +237,7 @@ and Cartopy.</p>
                <span class="o">+</span> <span class="s2">&quot;valid &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getRefTime</span><span class="p">()))</span>
 </pre></div>
 </div>
-<img alt="../../_images/AWIPS_Grids_and_Cartopy_3_0.png" src="../../_images/AWIPS_Grids_and_Cartopy_3_0.png" />
+<img alt="../../_images/Grids_and_Cartopy_3_0.png" src="../../_images/Grids_and_Cartopy_3_0.png" />
 </div>
 <div class="section" id="with-contourf">
 <h2>with contourf<a class="headerlink" href="#with-contourf" title="Permalink to this headline">¶</a></h2>
@@ -250,7 +250,7 @@ and Cartopy.</p>
                <span class="o">+</span> <span class="s2">&quot;valid &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getRefTime</span><span class="p">()))</span>
 </pre></div>
 </div>
-<img alt="../../_images/AWIPS_Grids_and_Cartopy_5_0.png" src="../../_images/AWIPS_Grids_and_Cartopy_5_0.png" />
+<img alt="../../_images/Grids_and_Cartopy_5_0.png" src="../../_images/Grids_and_Cartopy_5_0.png" />
 </div>
 </div>
 
@@ -260,8 +260,8 @@ and Cartopy.</p>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="Colored_Surface_Temperature_Plot.html" class="btn btn-neutral float-right" title="Colored Surface Temperature Plot" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../index.html" class="btn btn-neutral float-left" title="Data Plotting Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="METAR_Station_Plot_with_MetPy.html" class="btn btn-neutral float-right" title="METAR Station Plot with MetPy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Grid_Levels_and_Parameters.html" class="btn btn-neutral float-left" title="Grid Levels and Parameters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

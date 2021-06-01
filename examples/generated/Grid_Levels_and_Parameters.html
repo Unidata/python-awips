@@ -42,7 +42,7 @@
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="METAR Station Plot with MetPy" href="METAR_Station_Plot_with_MetPy.html" />
+    <link rel="next" title="Grids and Cartopy" href="Grids_and_Cartopy.html" />
     <link rel="prev" title="GOES Geostationary Lightning Mapper" href="GOES_Geostationary_Lightning_Mapper.html" /> 
 </head>
 
@@ -96,19 +96,27 @@
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../datatypes.html">Available Data Types</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Data Plotting Examples</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="AWIPS_Grids_and_Cartopy.html">AWIPS Grids and Cartopy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Colored_Surface_Temperature_Plot.html">Colored Surface Temperature Plot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Forecast_Model_Vertical_Sounding.html">Forecast Model Vertical Sounding</a></li>
 <li class="toctree-l2"><a class="reference internal" href="GOES_Geostationary_Lightning_Mapper.html">GOES Geostationary Lightning Mapper</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Grid Levels and Parameters</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#dataaccesslayer-getsupporteddatatypes">DataAccessLayer.getSupportedDatatypes()</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dataaccesslayer-getavailablelocationnames">DataAccessLayer.getAvailableLocationNames()</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dataaccesslayer-getavailableparameters">DataAccessLayer.getAvailableParameters()</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dataaccesslayer-getavailablelevels">DataAccessLayer.getAvailableLevels()</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dataaccesslayer-getavailabletimes">DataAccessLayer.getAvailableTimes()</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dataaccesslayer-getgriddata">DataAccessLayer.getGridData()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#objectives">Objectives</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#imports">1 Imports</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#connect-to-edex">2 Connect to EDEX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-a-list-of-supported-data-types">3 Get a List of Supported Data Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#create-a-new-data-request-and-set-the-type">4 Create a New Data Request and Set the Type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-available-locations">5 Get Available Locations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-available-parameters">6 Get Available Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-available-levels">7 Get Available Levels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-available-times">8 Get Available Times</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-the-data">9 Get the Data!</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#see-also">10 See Also</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Grids_and_Cartopy.html">Grids and Cartopy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="METAR_Station_Plot_with_MetPy.html">METAR Station Plot with MetPy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Map_Resources_and_Topography.html">Map Resources and Topography</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Model_Sounding_Data.html">Model Sounding Data</a></li>
@@ -195,20 +203,77 @@
   <div class="section" id="grid-levels-and-parameters">
 <h1>Grid Levels and Parameters<a class="headerlink" href="#grid-levels-and-parameters" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Grid_Levels_and_Parameters.ipynb">Notebook</a>
-This example covers the callable methods of python-awips when working
-with gridded data. We start with a connection to an EDEX server, then
-query data types, then grid names, parameters, levels, and other
-information. Finally the gridded data is plotted for its domain using
-Matplotlib and Cartopy.</p>
-<div class="section" id="dataaccesslayer-getsupporteddatatypes">
-<h2>DataAccessLayer.getSupportedDatatypes()<a class="headerlink" href="#dataaccesslayer-getsupporteddatatypes" title="Permalink to this headline">¶</a></h2>
-<p>getSupportedDatatypes() returns a list of available data types offered
-by the EDEX server defined above.</p>
+Python-AWIPS Tutorial Notebook</p>
+<hr class="docutils" />
+<div class="section" id="objectives">
+<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Cover the relevant methods for accessing EDEX and investigating what
+data is available.</p></li>
+<li><p>This example we look at the “grid” data type and investigate the
+Global Forcast System (GFS) model.</p></li>
+<li><p>We will talk quite a bit about the <strong>DataAccessLayer</strong> utility, and
+its <a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#">online
+documentation</a>
+might be a helpful reference.</p></li>
+</ul>
+<hr class="docutils" />
+<div class="section" id="table-of-contents">
+<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline">¶</a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#1-imports">1
+Imports</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#2-connect-to-edex">2 Connect to
+EDEX</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#3-get-a-list-of-supported-data-types">3 Get a List of Supported Data
+Types</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#4-create-a-new-data-request-and-set-the-type">4 Create a New Data Request and Set the
+Type</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#5-get-available-locations">5 Get Available
+Locations</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#6-get-available-parameters">6 Get Available
+Parameters</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#7-get-available-levels">7 Get Available
+Levels</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#8-get-available-times">8 Get Available
+Times</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#9-get-the-data">9 Get the
+Data!</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#10-see-also">10 See
+Also</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Paramters.html#10.1-related-notebooks">10.1 Related
+Notebooks</a></div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="imports">
+<h3>1 Imports<a class="headerlink" href="#imports" title="Permalink to this headline">¶</a></h3>
+<p>Start by importing the DataAccessLayer package from python-awips:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">DataAccessLayer</span>
-<span class="kn">import</span> <span class="nn">unittest</span>
-
-<span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="s2">&quot;edex-cloud.unidata.ucar.edu&quot;</span><span class="p">)</span>
-<span class="n">dataTypes</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getSupportedDatatypes</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html">Top</a></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="connect-to-edex">
+<h3>2 Connect to EDEX<a class="headerlink" href="#connect-to-edex" title="Permalink to this headline">¶</a></h3>
+<p>Define a url for your EDEX connection, and then point python-awips at
+that EDEX</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Unidata&#39;s cloud EDEX instance is used in this example</span>
+<span class="n">edex_url</span> <span class="o">=</span> <span class="s2">&quot;edex-cloud.unidata.ucar.edu&quot;</span>
+<span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="n">edex_url</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html">Top</a></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="get-a-list-of-supported-data-types">
+<h3>3 Get a List of Supported Data Types<a class="headerlink" href="#get-a-list-of-supported-data-types" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getSupportedDatatypes">DataAccessLayer.getSupportedDatatypes()</a>
+returns a list of supported data types offered by the EDEX server
+defined above. The code below shows how to populate, sort, and print out
+that list.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataTypes</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getSupportedDatatypes</span><span class="p">()</span>
 <span class="n">dataTypes</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
 <span class="nb">list</span><span class="p">(</span><span class="n">dataTypes</span><span class="p">)</span>
 </pre></div>
@@ -242,16 +307,40 @@ by the EDEX server defined above.</p>
  <span class="s1">&#39;warning&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html">Top</a></p>
 </div>
-<div class="section" id="dataaccesslayer-getavailablelocationnames">
-<h2>DataAccessLayer.getAvailableLocationNames()<a class="headerlink" href="#dataaccesslayer-getavailablelocationnames" title="Permalink to this headline">¶</a></h2>
-<p>Now create a new data request, and set the data type to <strong>grid</strong> to
-request all available grids with <strong>getAvailableLocationNames()</strong></p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">()</span>
-<span class="n">request</span><span class="o">.</span><span class="n">setDatatype</span><span class="p">(</span><span class="s2">&quot;grid&quot;</span><span class="p">)</span>
-<span class="n">available_grids</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableLocationNames</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-<span class="n">available_grids</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-<span class="nb">list</span><span class="p">(</span><span class="n">available_grids</span><span class="p">)</span>
+<hr class="docutils" />
+<div class="section" id="create-a-new-data-request-and-set-the-type">
+<h3>4 Create a New Data Request and Set the Type<a class="headerlink" href="#create-a-new-data-request-and-set-the-type" title="Permalink to this headline">¶</a></h3>
+<p>Now create a new data request using
+<a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.newDataRequest">DataAccessLayer.newDataRequest()</a>,
+and set the data type using
+<a class="reference external" href="http://unidata.github.io/python-awips/api/IDataRequest.html#awips.dataaccess.IDataRequest.setDatatype">request.setDatatype()</a>.
+Below we create a few different requests with different data types to
+show some differences with other methods.</p>
+<p>For this example we are going to look at the <strong>grid</strong> data type, which
+is where the model data can be found, along with some other datasets
+(such as MRMS).</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a request for data type grid</span>
+<span class="n">grid_request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">()</span>
+<span class="n">grid_request</span><span class="o">.</span><span class="n">setDatatype</span><span class="p">(</span><span class="s2">&quot;grid&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html">Top</a></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="get-available-locations">
+<h3>5 Get Available Locations<a class="headerlink" href="#get-available-locations" title="Permalink to this headline">¶</a></h3>
+<p>Use the
+<a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableLocationNames">DataAccessLayer.getAvailableLocationNames(request)</a>
+method to find out what locations are available for the given dataset.
+Typically these will be geographic locations or NWS sites, although in
+some instances it will be something else. Take a look at what’s
+outputted for the grid_request, for example.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Grid Locations</span>
+<span class="n">grid_locations</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableLocationNames</span><span class="p">(</span><span class="n">grid_request</span><span class="p">)</span>
+<span class="n">grid_locations</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">grid_locations</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;AUTOSPE&#39;</span><span class="p">,</span>
@@ -315,15 +404,20 @@ request all available grids with <strong>getAvailableLocationNames()</strong></p
  <span class="s1">&#39;navgem0p5&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html">Top</a></p>
 </div>
-<div class="section" id="dataaccesslayer-getavailableparameters">
-<h2>DataAccessLayer.getAvailableParameters()<a class="headerlink" href="#dataaccesslayer-getavailableparameters" title="Permalink to this headline">¶</a></h2>
-<p>After datatype and model name (locationName) are set, you can query all
-available parameters with <strong>getAvailableParameters()</strong></p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">request</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="s2">&quot;RAP13&quot;</span><span class="p">)</span>
-<span class="n">availableParms</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableParameters</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-<span class="n">availableParms</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-<span class="nb">list</span><span class="p">(</span><span class="n">availableParms</span><span class="p">)</span>
+<hr class="docutils" />
+<div class="section" id="get-available-parameters">
+<h3>6 Get Available Parameters<a class="headerlink" href="#get-available-parameters" title="Permalink to this headline">¶</a></h3>
+<p>We’re setting the “location” (in this case, what model we are interested
+in) to specify our request before we look at the available parameters.</p>
+<p>Take a look at the available parameters for the data set by using
+<a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableParameters">DataAccessLayer.getAvailableParameters(request)</a></p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pick a model and set the location for the grid request -- we&#39;ll be using the Global Forecast System 20km (GFS20)</span>
+<span class="n">grid_request</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="s2">&quot;GFS20&quot;</span><span class="p">)</span>
+<span class="n">grid_params</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableParameters</span><span class="p">(</span><span class="n">grid_request</span><span class="p">)</span>
+<span class="n">grid_params</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">grid_params</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;36SHRMi&#39;</span><span class="p">,</span>
@@ -342,16 +436,25 @@ available parameters with <strong>getAvailableParameters()</strong></p>
  <span class="s1">&#39;BlkShr&#39;</span><span class="p">,</span>
  <span class="s1">&#39;CAPE&#39;</span><span class="p">,</span>
  <span class="s1">&#39;CFRZR&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CFRZR3hr&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CFRZR6hr&#39;</span><span class="p">,</span>
  <span class="s1">&#39;CICEP&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CICEP3hr&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CICEP6hr&#39;</span><span class="p">,</span>
  <span class="s1">&#39;CIn&#39;</span><span class="p">,</span>
  <span class="s1">&#39;CP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CP1hr&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CP-GFS&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CP3hr&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CP6hr&#39;</span><span class="p">,</span>
  <span class="s1">&#39;CPr&#39;</span><span class="p">,</span>
  <span class="s1">&#39;CPrD&#39;</span><span class="p">,</span>
  <span class="s1">&#39;CRAIN&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CRAIN3hr&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CRAIN6hr&#39;</span><span class="p">,</span>
  <span class="s1">&#39;CSNOW&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CSNOW3hr&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CSNOW6hr&#39;</span><span class="p">,</span>
  <span class="s1">&#39;CURU&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CXR&#39;</span><span class="p">,</span>
  <span class="s1">&#39;CapeStk&#39;</span><span class="p">,</span>
  <span class="s1">&#39;Corf&#39;</span><span class="p">,</span>
  <span class="s1">&#39;CorfF&#39;</span><span class="p">,</span>
@@ -368,6 +471,7 @@ available parameters with <strong>getAvailableParameters()</strong></p>
  <span class="s1">&#39;EHI&#39;</span><span class="p">,</span>
  <span class="s1">&#39;EHI01&#39;</span><span class="p">,</span>
  <span class="s1">&#39;EHIi&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;EMSP&#39;</span><span class="p">,</span>
  <span class="s1">&#39;EPT&#39;</span><span class="p">,</span>
  <span class="s1">&#39;EPTA&#39;</span><span class="p">,</span>
  <span class="s1">&#39;EPTC&#39;</span><span class="p">,</span>
@@ -381,7 +485,6 @@ available parameters with <strong>getAvailableParameters()</strong></p>
  <span class="s1">&#39;ESP&#39;</span><span class="p">,</span>
  <span class="s1">&#39;ESP2&#39;</span><span class="p">,</span>
  <span class="s1">&#39;FVecs&#39;</span><span class="p">,</span>
- <span class="s1">&#39;FeatMot&#39;</span><span class="p">,</span>
  <span class="s1">&#39;FnVecs&#39;</span><span class="p">,</span>
  <span class="s1">&#39;FsVecs&#39;</span><span class="p">,</span>
  <span class="s1">&#39;Fzra1&#39;</span><span class="p">,</span>
@@ -389,13 +492,12 @@ available parameters with <strong>getAvailableParameters()</strong></p>
  <span class="s1">&#39;GH&#39;</span><span class="p">,</span>
  <span class="s1">&#39;GHxSM&#39;</span><span class="p">,</span>
  <span class="s1">&#39;GHxSM2&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Gust&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;GVV&#39;</span><span class="p">,</span>
  <span class="s1">&#39;HI&#39;</span><span class="p">,</span>
  <span class="s1">&#39;HI1&#39;</span><span class="p">,</span>
  <span class="s1">&#39;HI3&#39;</span><span class="p">,</span>
  <span class="s1">&#39;HI4&#39;</span><span class="p">,</span>
  <span class="s1">&#39;HIdx&#39;</span><span class="p">,</span>
- <span class="s1">&#39;HPBL&#39;</span><span class="p">,</span>
  <span class="s1">&#39;Heli&#39;</span><span class="p">,</span>
  <span class="s1">&#39;HeliC&#39;</span><span class="p">,</span>
  <span class="s1">&#39;INV&#39;</span><span class="p">,</span>
@@ -411,7 +513,6 @@ available parameters with <strong>getAvailableParameters()</strong></p>
  <span class="s1">&#39;MCon2&#39;</span><span class="p">,</span>
  <span class="s1">&#39;MLLCL&#39;</span><span class="p">,</span>
  <span class="s1">&#39;MMP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMSP&#39;</span><span class="p">,</span>
  <span class="s1">&#39;MSFDi&#39;</span><span class="p">,</span>
  <span class="s1">&#39;MSFi&#39;</span><span class="p">,</span>
  <span class="s1">&#39;MSFmi&#39;</span><span class="p">,</span>
@@ -420,13 +521,18 @@ available parameters with <strong>getAvailableParameters()</strong></p>
  <span class="s1">&#39;Mix1&#39;</span><span class="p">,</span>
  <span class="s1">&#39;Mix2&#39;</span><span class="p">,</span>
  <span class="s1">&#39;Mmag&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;MnT3hr&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;MnT6hr&#39;</span><span class="p">,</span>
  <span class="s1">&#39;MpV&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;MxT3hr&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;MxT6hr&#39;</span><span class="p">,</span>
  <span class="s1">&#39;NBE&#39;</span><span class="p">,</span>
  <span class="s1">&#39;NST&#39;</span><span class="p">,</span>
  <span class="s1">&#39;NST1&#39;</span><span class="p">,</span>
  <span class="s1">&#39;NST2&#39;</span><span class="p">,</span>
- <span class="s1">&#39;OmDiff&#39;</span><span class="p">,</span>
  <span class="s1">&#39;P&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;P3hr&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;P6hr&#39;</span><span class="p">,</span>
  <span class="s1">&#39;PAdv&#39;</span><span class="p">,</span>
  <span class="s1">&#39;PBE&#39;</span><span class="p">,</span>
  <span class="s1">&#39;PEC&#39;</span><span class="p">,</span>
@@ -435,10 +541,8 @@ available parameters with <strong>getAvailableParameters()</strong></p>
  <span class="s1">&#39;PGrd1&#39;</span><span class="p">,</span>
  <span class="s1">&#39;PGrdM&#39;</span><span class="p">,</span>
  <span class="s1">&#39;PIVA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;PR&#39;</span><span class="p">,</span>
  <span class="s1">&#39;PTvA&#39;</span><span class="p">,</span>
  <span class="s1">&#39;PTyp&#39;</span><span class="p">,</span>
- <span class="s1">&#39;PVV&#39;</span><span class="p">,</span>
  <span class="s1">&#39;PW&#39;</span><span class="p">,</span>
  <span class="s1">&#39;PW2&#39;</span><span class="p">,</span>
  <span class="s1">&#39;PoT&#39;</span><span class="p">,</span>
@@ -447,7 +551,6 @@ available parameters with <strong>getAvailableParameters()</strong></p>
  <span class="s1">&#39;QPV2&#39;</span><span class="p">,</span>
  <span class="s1">&#39;QPV3&#39;</span><span class="p">,</span>
  <span class="s1">&#39;QPV4&#39;</span><span class="p">,</span>
- <span class="s1">&#39;REFC&#39;</span><span class="p">,</span>
  <span class="s1">&#39;RH&#39;</span><span class="p">,</span>
  <span class="s1">&#39;RH_001_bin&#39;</span><span class="p">,</span>
  <span class="s1">&#39;RH_002_bin&#39;</span><span class="p">,</span>
@@ -455,7 +558,6 @@ available parameters with <strong>getAvailableParameters()</strong></p>
  <span class="s1">&#39;RM6&#39;</span><span class="p">,</span>
  <span class="s1">&#39;RMprop&#39;</span><span class="p">,</span>
  <span class="s1">&#39;RMprop2&#39;</span><span class="p">,</span>
- <span class="s1">&#39;RRtype&#39;</span><span class="p">,</span>
  <span class="s1">&#39;RV&#39;</span><span class="p">,</span>
  <span class="s1">&#39;Rain1&#39;</span><span class="p">,</span>
  <span class="s1">&#39;Rain2&#39;</span><span class="p">,</span>
@@ -479,7 +581,6 @@ available parameters with <strong>getAvailableParameters()</strong></p>
  <span class="s1">&#39;STP1&#39;</span><span class="p">,</span>
  <span class="s1">&#39;Shear&#39;</span><span class="p">,</span>
  <span class="s1">&#39;ShrMag&#39;</span><span class="p">,</span>
- <span class="s1">&#39;SnD&#39;</span><span class="p">,</span>
  <span class="s1">&#39;Snow1&#39;</span><span class="p">,</span>
  <span class="s1">&#39;Snow2&#39;</span><span class="p">,</span>
  <span class="s1">&#39;Snow3&#39;</span><span class="p">,</span>
@@ -495,7 +596,9 @@ available parameters with <strong>getAvailableParameters()</strong></p>
  <span class="s1">&#39;TORi&#39;</span><span class="p">,</span>
  <span class="s1">&#39;TORi2&#39;</span><span class="p">,</span>
  <span class="s1">&#39;TP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;TP1hr&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;TP-GFS&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;TP3hr&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;TP6hr&#39;</span><span class="p">,</span>
  <span class="s1">&#39;TQIND&#39;</span><span class="p">,</span>
  <span class="s1">&#39;TShrMi&#39;</span><span class="p">,</span>
  <span class="s1">&#39;TV&#39;</span><span class="p">,</span>
@@ -517,20 +620,15 @@ available parameters with <strong>getAvailableParameters()</strong></p>
  <span class="s1">&#39;TwMin&#39;</span><span class="p">,</span>
  <span class="s1">&#39;Twstk&#39;</span><span class="p">,</span>
  <span class="s1">&#39;TxSM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;USTM&#39;</span><span class="p">,</span>
  <span class="s1">&#39;VAdv&#39;</span><span class="p">,</span>
  <span class="s1">&#39;VAdvAdvection&#39;</span><span class="p">,</span>
  <span class="s1">&#39;VGP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;VSTM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;Vis&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;VSS&#39;</span><span class="p">,</span>
  <span class="s1">&#39;WCD&#39;</span><span class="p">,</span>
  <span class="s1">&#39;WD&#39;</span><span class="p">,</span>
  <span class="s1">&#39;WEASD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;WEASD1hr&#39;</span><span class="p">,</span>
- <span class="s1">&#39;WGS&#39;</span><span class="p">,</span>
  <span class="s1">&#39;Wind&#39;</span><span class="p">,</span>
  <span class="s1">&#39;WndChl&#39;</span><span class="p">,</span>
- <span class="s1">&#39;ageoVC&#39;</span><span class="p">,</span>
  <span class="s1">&#39;ageoW&#39;</span><span class="p">,</span>
  <span class="s1">&#39;ageoWM&#39;</span><span class="p">,</span>
  <span class="s1">&#39;cCape&#39;</span><span class="p">,</span>
@@ -589,7 +687,6 @@ available parameters with <strong>getAvailableParameters()</strong></p>
  <span class="s1">&#39;vTOT&#39;</span><span class="p">,</span>
  <span class="s1">&#39;vW&#39;</span><span class="p">,</span>
  <span class="s1">&#39;vWStk&#39;</span><span class="p">,</span>
- <span class="s1">&#39;vertCirc&#39;</span><span class="p">,</span>
  <span class="s1">&#39;wDiv&#39;</span><span class="p">,</span>
  <span class="s1">&#39;wSp&#39;</span><span class="p">,</span>
  <span class="s1">&#39;wSp_001_bin&#39;</span><span class="p">,</span>
@@ -599,32 +696,45 @@ available parameters with <strong>getAvailableParameters()</strong></p>
  <span class="s1">&#39;zAGL&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html">Top</a></p>
 </div>
-<div class="section" id="dataaccesslayer-getavailablelevels">
-<h2>DataAccessLayer.getAvailableLevels()<a class="headerlink" href="#dataaccesslayer-getavailablelevels" title="Permalink to this headline">¶</a></h2>
-<p>Selecting <strong>“T”</strong> for temperature.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
-<span class="n">availableLevels</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableLevels</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">lvl</span> <span class="ow">in</span> <span class="n">availableLevels</span><span class="p">:</span>
+<hr class="docutils" />
+<div class="section" id="get-available-levels">
+<h3>7 Get Available Levels<a class="headerlink" href="#get-available-levels" title="Permalink to this headline">¶</a></h3>
+<p>Setting the parameters is just an option, you do not need to filter the
+data if you do not wish to. Also, although we are only setting one
+parameter in this example, you can set multiple parameters by using an
+array:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">params</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;param1&quot;</span><span class="p">,</span> <span class="s2">&quot;param2&quot;</span><span class="p">,</span> <span class="s2">&quot;param3&quot;</span><span class="o">...</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Set a parameter, from the output above and take a look at what “levels”
+are available for the data set you’re looking at using
+<a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableLevels">DataAccessLayer.getAvailableLevels(request)</a>.</p>
+<div class="alert-warning docutils container">
+<p>Warning: Not all datasets support levels. If you are trying this with
+another dataset and run into an exception (error), it’s most likely
+because levels are not supported for that data type.</p>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># For grid data we&#39;ll use the temperature parameter (&quot;T&quot;)</span>
+<span class="n">grid_request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
+<span class="n">grid_levels</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableLevels</span><span class="p">(</span><span class="n">grid_request</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">lvl</span> <span class="ow">in</span> <span class="n">grid_levels</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">lvl</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.0</span><span class="n">SFC</span>
 <span class="mf">350.0</span><span class="n">MB</span>
-<span class="mf">475.0</span><span class="n">MB</span>
 <span class="mf">610.0_40000.0</span><span class="n">FHAG</span>
-<span class="mf">225.0</span><span class="n">MB</span>
 <span class="mf">120.0_150.0</span><span class="n">BL</span>
 <span class="mf">900.0</span><span class="n">MB</span>
-<span class="mf">125.0</span><span class="n">MB</span>
 <span class="mf">0.0_610.0</span><span class="n">FHAG</span>
 <span class="mf">450.0</span><span class="n">MB</span>
 <span class="mf">575.0</span><span class="n">MB</span>
-<span class="mf">325.0</span><span class="n">MB</span>
 <span class="mf">100.0</span><span class="n">MB</span>
 <span class="mf">1000.0</span><span class="n">MB</span>
 <span class="mf">60.0_90.0</span><span class="n">BL</span>
-<span class="mf">275.0</span><span class="n">MB</span>
 <span class="mf">1.0</span><span class="n">PV</span>
 <span class="mf">950.0</span><span class="n">MB</span>
 <span class="mf">150.0</span><span class="n">MB</span>
@@ -633,7 +743,6 @@ available parameters with <strong>getAvailableParameters()</strong></p>
 <span class="mf">825.0</span><span class="n">MB</span>
 <span class="mf">150.0_180.0</span><span class="n">BL</span>
 <span class="mf">250.0</span><span class="n">MB</span>
-<span class="mf">375.0</span><span class="n">MB</span>
 <span class="mf">1000.0_500.0</span><span class="n">MB</span>
 <span class="mf">800.0</span><span class="n">MB</span>
 <span class="mf">4000.0</span><span class="n">FHAG</span>
@@ -648,7 +757,6 @@ available parameters with <strong>getAvailableParameters()</strong></p>
 <span class="mf">0.0</span><span class="n">FHAG</span>
 <span class="mf">2.0</span><span class="n">FHAG</span>
 <span class="mf">875.0</span><span class="n">MB</span>
-<span class="mf">175.0</span><span class="n">MB</span>
 <span class="mf">0.0_1000.0</span><span class="n">FHAG</span>
 <span class="mf">850.0</span><span class="n">MB</span>
 <span class="mf">600.0</span><span class="n">MB</span>
@@ -658,7 +766,6 @@ available parameters with <strong>getAvailableParameters()</strong></p>
 <span class="mf">550.0</span><span class="n">MB</span>
 <span class="mf">0.0_3000.0</span><span class="n">FHAG</span>
 <span class="mf">675.0</span><span class="n">MB</span>
-<span class="mf">425.0</span><span class="n">MB</span>
 <span class="mf">200.0</span><span class="n">MB</span>
 <span class="mf">0.0_30.0</span><span class="n">BL</span>
 <span class="mf">30.0_60.0</span><span class="n">BL</span>
@@ -730,7 +837,6 @@ available parameters with <strong>getAvailableParameters()</strong></p>
 <span class="mf">2000.0_8000.0</span><span class="n">FHAG</span>
 <span class="mf">0.0_609.6</span><span class="n">FHAG</span>
 <span class="mf">300.0</span><span class="n">K</span>
-<span class="mf">0.0</span><span class="n">MAXOMEGA</span>
 <span class="mf">315.0_325.0</span><span class="n">K</span>
 <span class="mf">325.0</span><span class="n">K</span>
 <span class="mf">340.0</span><span class="n">Ke</span>
@@ -867,22 +973,29 @@ available parameters with <strong>getAvailableParameters()</strong></p>
 <span class="mf">1000.0_500.0</span><span class="n">LYRMB</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p><strong>0.0SFC</strong> is the Surface level</p></li>
-<li><p><strong>FHAG</strong> stands for Fixed Height Above Ground (in meters)</p></li>
-<li><p><strong>NTAT</strong> stands for Nominal Top of the ATmosphere</p></li>
-<li><p><strong>BL</strong> stands for Boundary Layer, where <strong>0.0_30.0BL</strong> reads as <em>0-30
-mb above ground level</em></p></li>
-<li><p><strong>TROP</strong> is the Tropopause level</p></li>
-</ul>
-<p><strong>request.setLevels()</strong></p>
-<p>For this example we will use Surface Temperature</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">request</span><span class="o">.</span><span class="n">setLevels</span><span class="p">(</span><span class="s2">&quot;2.0FHAG&quot;</span><span class="p">)</span>
+<div class="alert-info docutils container">
+<p>Note:</p>
+<li><p>0.0SFC is the Surface level</p>
+</li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;&lt;</span><span class="n">b</span><span class="o">&gt;</span><span class="n">HAG</span><span class="o">&lt;/</span><span class="n">b</span><span class="o">&gt;</span> <span class="n">stands</span> <span class="k">for</span> <span class="n">Fixed</span> <span class="n">Height</span> <span class="n">Above</span> <span class="n">Ground</span> <span class="p">(</span><span class="ow">in</span> <span class="n">meters</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;&lt;</span><span class="n">b</span><span class="o">&gt;</span><span class="n">NTAT</span><span class="o">&lt;/</span><span class="n">b</span><span class="o">&gt;</span> <span class="n">stands</span> <span class="k">for</span> <span class="n">Nominal</span> <span class="n">Top</span> <span class="n">of</span> <span class="n">the</span> <span class="n">ATmosphere</span><span class="o">&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;&lt;</span><span class="n">b</span><span class="o">&gt;</span><span class="n">BL</span><span class="o">&lt;/</span><span class="n">b</span><span class="o">&gt;</span> <span class="n">stands</span> <span class="k">for</span> <span class="n">Boundary</span> <span class="n">Layer</span><span class="p">,</span> <span class="n">where</span> <span class="o">&lt;</span><span class="n">b</span><span class="o">&gt;</span><span class="mf">0.0_30.0</span><span class="n">BL</span><span class="o">&lt;/</span><span class="n">b</span><span class="o">&gt;</span> <span class="n">reads</span> <span class="k">as</span> <span class="o">&lt;</span><span class="n">i</span><span class="o">&gt;</span><span class="mi">0</span><span class="o">-</span><span class="mi">30</span> <span class="n">mb</span> <span class="n">above</span> <span class="n">ground</span> <span class="n">level</span><span class="o">&lt;/</span><span class="n">i</span><span class="o">&gt;&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;&lt;</span><span class="n">b</span><span class="o">&gt;</span><span class="n">TROP</span><span class="o">&lt;/</span><span class="n">b</span><span class="o">&gt;</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">Tropopause</span> <span class="n">level</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="dataaccesslayer-getavailabletimes">
-<h2>DataAccessLayer.getAvailableTimes()<a class="headerlink" href="#dataaccesslayer-getavailabletimes" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We&#39;ll set the level to surface level</span>
+<span class="n">grid_request</span><span class="o">.</span><span class="n">setLevels</span><span class="p">(</span><span class="s2">&quot;0.0SFC&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html">Top</a></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="get-available-times">
+<h3>8 Get Available Times<a class="headerlink" href="#get-available-times" title="Permalink to this headline">¶</a></h3>
+<p>Take a look at what time options are available for the data you’re
+looking at using the
+<a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableTimes">DataAccessLayer.getAvailableTimes()</a>
+method:</p>
 <ul class="simple">
 <li><p><strong>getAvailableTimes(request, True)</strong> will return an object of <em>run
 times</em> - formatted as <code class="docutils literal notranslate"><span class="pre">YYYY-MM-DD</span> <span class="pre">HH:MM:SS</span></code></p></li>
@@ -891,59 +1004,138 @@ formatted as <code class="docutils literal notranslate"><span class="pre">YYYY-M
 <li><p><strong>getForecastRun(cycle, times)</strong> will return a DataTime array for a
 single forecast cycle.</p></li>
 </ul>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cycles</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-<span class="n">times</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-<span class="n">fcstRun</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getForecastRun</span><span class="p">(</span><span class="n">cycles</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">times</span><span class="p">)</span>
-<span class="nb">list</span><span class="p">(</span><span class="n">fcstRun</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="dataaccesslayer-getgriddata">
-<h2>DataAccessLayer.getGridData()<a class="headerlink" href="#dataaccesslayer-getgriddata" title="Permalink to this headline">¶</a></h2>
-<p>Now that we have our <code class="docutils literal notranslate"><span class="pre">request</span></code> and DataTime <code class="docutils literal notranslate"><span class="pre">fcstRun</span></code> arrays ready,
-it’s time to request the data array from EDEX.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGridData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="p">[</span><span class="n">fcstRun</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
-<span class="k">for</span> <span class="n">grid</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">getRawData</span><span class="p">()</span>
-    <span class="n">lons</span><span class="p">,</span> <span class="n">lats</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">getLatLonCoords</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Time :&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Available grid times</span>
+<span class="n">grid_cycles</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">grid_request</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">grid_times</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">grid_request</span><span class="p">)</span>
+<span class="c1">## Using -1 in an array will access the last element of the array</span>
+<span class="c1">##  (using -2 will access the second last element, and so on)</span>
+<span class="n">grid_fcstRun</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getForecastRun</span><span class="p">(</span><span class="n">grid_cycles</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">grid_times</span><span class="p">)</span>
 
+<span class="c1">## print out the time instances</span>
+<span class="n">times</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">fcst</span> <span class="ow">in</span> <span class="n">grid_fcstRun</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">fcst</span><span class="o">.</span><span class="n">getRefTime</span><span class="p">(),</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">fcst</span><span class="o">.</span><span class="n">getFcstTime</span><span class="p">(),</span> <span class="s1">&#39;seconds&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">0</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">10800</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">21600</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">32400</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">43200</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">54000</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">64800</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">75600</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">86400</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">97200</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">108000</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">118800</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">129600</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">140400</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">151200</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">162000</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">172800</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">183600</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">194400</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">205200</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">216000</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">226800</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">237600</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">248400</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">259200</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">270000</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">280800</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">291600</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">302400</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">324000</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">345600</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">367200</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">388800</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">410400</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">432000</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">453600</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">475200</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">496800</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">518400</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">540000</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">561600</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">583200</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">604800</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">626400</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">648000</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">669600</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">691200</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">712800</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">734400</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">756000</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">777600</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">799200</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">820800</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">842400</span> <span class="n">seconds</span>
+<span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span> <span class="p">:</span> <span class="mi">864000</span> <span class="n">seconds</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html">Top</a></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="get-the-data">
+<h3>9 Get the Data!<a class="headerlink" href="#get-the-data" title="Permalink to this headline">¶</a></h3>
+<p>Now that we have our <code class="docutils literal notranslate"><span class="pre">request</span></code> and DataTime <code class="docutils literal notranslate"><span class="pre">fcstRun</span></code> arrays ready,
+it’s time to request the data array from EDEX. Depending on what kind of
+data we’re working with, we’ll either use
+<a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getGridData">DataAccessLayer.getGridData()</a>
+or
+<a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getGeometryData">DataAccessLayer.getGeometryData()</a></p>
+<div class="alert-info docutils container">
+<p>Note: We have more, detailed notebooks about how analyze and
+visualize the data once you have what you want.</p>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Grid Data</span>
+<span class="n">grid_response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGridData</span><span class="p">(</span><span class="n">grid_request</span><span class="p">,</span> <span class="p">[</span><span class="n">grid_fcstRun</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+<span class="k">for</span> <span class="n">grid</span> <span class="ow">in</span> <span class="n">grid_response</span><span class="p">:</span>
+    <span class="n">grid_data</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">getRawData</span><span class="p">()</span>
+    <span class="n">lons</span><span class="p">,</span> <span class="n">lats</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">getLatLonCoords</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Time :&#39;</span><span class="p">,</span> <span class="n">grid</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">(),</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">grid</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getFcstTime</span><span class="p">(),</span> <span class="s1">&#39;seconds&#39;</span><span class="p">)</span>
+
+<span class="c1">## Take a look at some information in our data</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Model:&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">getLocationName</span><span class="p">()))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Parm :&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">getParameter</span><span class="p">()))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Unit :&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">getUnit</span><span class="p">()))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">grid_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Time</span> <span class="p">:</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
-<span class="n">Model</span><span class="p">:</span> <span class="n">RAP13</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Time</span> <span class="p">:</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">-</span> <span class="mi">864000</span> <span class="n">seconds</span>
+<span class="n">Model</span><span class="p">:</span> <span class="n">GFS20</span>
 <span class="n">Parm</span> <span class="p">:</span> <span class="n">T</span>
 <span class="n">Unit</span> <span class="p">:</span> <span class="n">K</span>
-<span class="p">(</span><span class="mi">337</span><span class="p">,</span> <span class="mi">451</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">257</span><span class="p">,</span> <span class="mi">369</span><span class="p">)</span>
 </pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html">Top</a></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="see-also">
+<h3>10 See Also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h3>
+<p>Several functions are used throughout this notebook from the
+DataAccessLayer class in python-awips, to see full documentation for
+these functions vist
+<a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#">here</a>.</p>
+<div class="section" id="related-notebooks">
+<h4>10.1 Related Notebooks<a class="headerlink" href="#related-notebooks" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html">Colored Surface Temperature
+Plot</a></p></li>
+<li><p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grids_and_Cartopy.html">Grids and
+Cartopy</a></p></li>
+<li><p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Satellite_Imagery.html">Satellite
+Imagery</a></p></li>
+<li><p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html">Upper Air BUFR
+Soundings</a></p></li>
+<li><p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html">Maps Resources and
+Topography</a></p></li>
+</ul>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html">Top</a></p>
+<hr class="docutils" />
+</div>
 </div>
 </div>
 </div>
@@ -954,7 +1146,7 @@ it’s time to request the data array from EDEX.</p>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="METAR_Station_Plot_with_MetPy.html" class="btn btn-neutral float-right" title="METAR Station Plot with MetPy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Grids_and_Cartopy.html" class="btn btn-neutral float-right" title="Grids and Cartopy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="GOES_Geostationary_Lightning_Mapper.html" class="btn btn-neutral float-left" title="GOES Geostationary Lightning Mapper" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
