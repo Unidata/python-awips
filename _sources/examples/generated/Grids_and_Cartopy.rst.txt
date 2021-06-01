@@ -2,8 +2,52 @@
 Grids and Cartopy
 =================
 `Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Grids_and_Cartopy.ipynb>`_
-A simple example of requesting and plotting AWIPS grids with Matplotlib
-and Cartopy.
+Python-AWIPS Tutorial Notebook
+
+--------------
+
+Objectives
+==========
+
+-  Create a colorized plot for the continental US of model data (grib).
+-  Access the model data from an EDEX server and limit the data returned
+   by using model specific parameters.
+-  Use both *pcolormesh* and *contourf* to create colorized plots, and
+   compare the differences between the two.
+
+--------------
+
+Table of Contents
+-----------------
+
+| `1
+  Imports <https://unidata.github.io/python-awips/examples/generated/Grids_and_Cartopy.html#imports>`__\ 
+| `2 Define Data
+  Request <https://unidata.github.io/python-awips/examples/generated/Grids_and_Cartopy.html#define-data-request>`__\ 
+| `3 Limit Results Based on
+  Time <https://unidata.github.io/python-awips/examples/generated/Grids_and_Cartopy.html#limit-results-based-on-time>`__\ 
+| `4 Function:
+  make_map() <https://unidata.github.io/python-awips/examples/generated/Grids_and_Cartopy.html#function-make-map>`__\ 
+| `5 Use the Grid
+  Data! <https://unidata.github.io/python-awips/examples/generated/Grids_and_Cartopy.html#use-the-grid-data>`__\ 
+|     `5.1 Plot Using
+  pcolormesh <https://unidata.github.io/python-awips/examples/generated/Grids_and_Cartopy.html#plot-using-pcolormesh>`__\ 
+|     `5.2 Plot Using
+  contourf <https://unidata.github.io/python-awips/examples/generated/Grids_and_Cartopy.html#plot-using-contourf>`__\ 
+| `6 See
+  Also <https://unidata.github.io/python-awips/examples/generated/Grids_and_Cartopy.html#see-also>`__\ 
+|     `6.1 Related
+  Notebooks <https://unidata.github.io/python-awips/examples/generated/Grids_and_Cartopy.html#related-notebooks>`__\ 
+|     `6.2 Additional
+  Documentation <https://unidata.github.io/python-awips/examples/generated/Grids_and_Cartopy.html#additional-documentation>`__\ 
+
+--------------
+
+1 Imports
+---------
+
+Start by importing both the python-awips specific library, as well as
+the libraries needed for plotting and manipulating the data
 
 .. code:: ipython3
 
@@ -11,23 +55,92 @@ and Cartopy.
     import cartopy.crs as ccrs
     import matplotlib.pyplot as plt
     from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
-    %matplotlib inline
-    
+    from scipy.constants import convert_temperature
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Grids_and_Cartopy.html>`__
+
+--------------
+
+2 Define Data Request
+---------------------
+
+If you read through the `python-awips: How to Access
+Data <https://nbviewer.jupyter.org/github/Unidata/pyaos-ams-2021/blob/master/notebooks/dataAccess/python-awips-HowToAccessData.ipynb>`__
+training, you will know that we need to set an EDEX url to access our
+server, and then we create a data request. In this example we use *grid*
+as the data type to define our request. In addition to setting the data
+type, the location, parameters and levels are also set as **RAP13**,
+**T** (for temperature), and **2.0FHAG** (for Fixed Height Above Ground
+in meters), respectively.
+
+.. code:: ipython3
+
     DataAccessLayer.changeEDEXHost("edex-cloud.unidata.ucar.edu")
     request = DataAccessLayer.newDataRequest()
     request.setDatatype("grid")
     request.setLocationNames("RAP13")
     request.setParameters("T")
     request.setLevels("2.0FHAG")
+    
+    # Take a look at our request
+    print(request)
+
+
+.. parsed-literal::
+
+    DefaultDataRequest(datatype=grid, identifiers={}, parameters=['T'], levels=[<dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.level.Level.Level object at 0x11127bfd0>], locationNames=['RAP13'], envelope=None)
+
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Grids_and_Cartopy.html>`__
+
+--------------
+
+3 Limit Results Based on Time
+-----------------------------
+
+Models produce many different time variants during their runs, so let’s
+limit the data to the most recent time and forecast run.
+
+.. container:: alert-info
+
+   Note: You can play around with different times and forecast runs to
+   see the differences.
+
+.. code:: ipython3
+
     cycles = DataAccessLayer.getAvailableTimes(request, True)
     times = DataAccessLayer.getAvailableTimes(request)
     fcstRun = DataAccessLayer.getForecastRun(cycles[-1], times)
-    response = DataAccessLayer.getGridData(request, [fcstRun[0]])
-    grid = response[0]
-    data = grid.getRawData()
-    lons, lats = grid.getLatLonCoords()
-    bbox = [lons.min(), lons.max(), lats.min(), lats.max()]
     
+    # Get the most recent grid data
+    response = DataAccessLayer.getGridData(request, [fcstRun[0]])
+    
+    print('Number of available times:', len(times))
+    print('Number of available forecast runs:', len(fcstRun))
+
+
+.. parsed-literal::
+
+    Number of available times: 74
+    Number of available forecast runs: 8
+
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Grids_and_Cartopy.html>`__
+
+--------------
+
+4 Function: make_map()
+----------------------
+
+In order to plot more than one image, it’s easiest to define common
+logic in a function. Here, a new function called **make_map** is
+defined. This function uses the `matplotlib.pyplot package
+(plt) <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.html>`__
+to create a figure and axis. The coastlines (continental boundaries) are
+added, along with lat/lon grids.
+
+.. code:: ipython3
+
     def make_map(bbox, projection=ccrs.PlateCarree()):
         fig, ax = plt.subplots(figsize=(16, 9),
                 subplot_kw=dict(projection=projection))
@@ -39,8 +152,44 @@ and Cartopy.
         gl.yformatter = LATITUDE_FORMATTER
         return fig, ax
 
-with pcolormesh
-~~~~~~~~~~~~~~~
+`Top <https://unidata.github.io/python-awips/examples/generated/Grids_and_Cartopy.html>`__
+
+--------------
+
+5 Use the Grid Data!
+--------------------
+
+Here we get our grid data object from our previous response, and then
+get the raw data array off that object. We also get the latitude and
+longitude arrays, and create a bounding box that we’ll use when creating
+our plots (by calling **make_map** defined above). Finally, we’ll
+convert our data from degrees Kelvin to Farenheit to make the plot more
+understandable.
+
+.. code:: ipython3
+
+    grid = response[0]
+    data = grid.getRawData()
+    lons, lats = grid.getLatLonCoords()
+    bbox = [lons.min(), lons.max(), lats.min(), lats.max()]
+    
+    # Convert temp from Kelvin to F
+    destUnit = 'F'
+    data = convert_temperature(data, 'K', destUnit)
+
+5.1 Plot Using pcolormesh
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This example shows how to use
+`matplotlib.pyplot.pcolormesh <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.pcolormesh.html>`__
+to create a colorized plot. We use our **make_map** function to create a
+subplot and then we create a color scale (cs) and colorbar (cbar) with a
+label for our plot.
+
+.. container:: alert-info
+
+   Note: You may see a warning appear with a red background, this is
+   okay, and will go away with subsequent runs of the cell.
 
 .. code:: ipython3
 
@@ -49,16 +198,28 @@ with pcolormesh
     cs = ax.pcolormesh(lons, lats, data, cmap=cmap)
     cbar = fig.colorbar(cs, shrink=0.7, orientation='horizontal')
     cbar.set_label(grid.getLocationName() +" "+ grid.getLevel() + " " \
-                   + grid.getParameter() + " (" + grid.getUnit() + ") " \
+                   + grid.getParameter() + " (" + destUnit + ") " \
                    + "valid " + str(grid.getDataTime().getRefTime()))
 
 
+.. parsed-literal::
 
-.. image:: Grids_and_Cartopy_files/Grids_and_Cartopy_3_0.png
+    /Users/scarter/opt/miniconda3/envs/python3-awips/lib/python3.9/site-packages/cartopy/mpl/geoaxes.py:1598: UserWarning: The input coordinates to pcolormesh are interpreted as cell centers, but are not monotonically increasing or decreasing. This may lead to incorrectly calculated cell edges, in which case, please supply explicit cell edges to pcolormesh.
+      X, Y, C, shading = self._pcolorargs('pcolormesh', *args,
 
 
-with contourf
-~~~~~~~~~~~~~
+
+.. image:: Grids_and_Cartopy_files/Grids_and_Cartopy_21_1.png
+
+
+5.2 Plot Using contourf
+~~~~~~~~~~~~~~~~~~~~~~~
+
+This example shows how to use
+`matplotlib.pyplot.contourf <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.contourf.html>`__
+to create a colorized plot. We use our **make_map** function to create a
+subplot and then we create a color scale (cs2) and colorbar (cbar2) with
+a label for our plot.
 
 .. code:: ipython3
 
@@ -67,10 +228,44 @@ with contourf
                       vmin=data.min(), vmax=data.max())
     cbar2 = fig2.colorbar(cs2, shrink=0.7, orientation='horizontal')
     cbar2.set_label(grid.getLocationName() +" "+ grid.getLevel() + " " \
-                   + grid.getParameter() + " (" + grid.getUnit()+ ") " \
+                   + grid.getParameter() + " (" + destUnit + ") " \
                    + "valid " + str(grid.getDataTime().getRefTime()))
 
 
 
-.. image:: Grids_and_Cartopy_files/Grids_and_Cartopy_5_0.png
+.. image:: Grids_and_Cartopy_files/Grids_and_Cartopy_23_0.png
 
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Grids_and_Cartopy.html>`__
+
+--------------
+
+6 See Also
+----------
+
+6.1 Related Notebooks
+~~~~~~~~~~~~~~~~~~~~~
+
+-  `Grid Levels and
+   Parameters <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html>`__
+
+6.2 Additional Documention
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**python-awips:** \*
+`awips.DataAccessLayer <http://unidata.github.io/python-awips/api/DataAccessLayer.html>`__
+\*
+`awips.PyGridData <http://unidata.github.io/python-awips/api/PyGridData.html>`__
+
+**matplotlib:** \*
+`matplotlib.pyplot <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.html>`__
+\*
+`matplotlib.pyplot.subplot <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.subplot.html>`__
+\*
+`matplotlib.pyplot.pcolormesh <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.pcolormesh.html>`__
+\*
+`matplotlib.pyplot.contourf <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.contourf.html>`__
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Grids_and_Cartopy.html>`__
+
+--------------
