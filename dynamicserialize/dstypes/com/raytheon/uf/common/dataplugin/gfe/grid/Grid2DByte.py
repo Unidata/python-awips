@@ -1,0 +1,30 @@
+import numpy
+
+
+class Grid2DByte(object):
+
+    def __init__(self):
+        self.buffer = None
+        self.xdim = None
+        self.ydim = None
+
+    def getBuffer(self):
+        return self.buffer
+
+    def setBuffer(self, bytebuffer):
+        self.buffer = bytebuffer
+
+    def getXdim(self):
+        return self.xdim
+
+    def setXdim(self, xdim):
+        self.xdim = xdim
+
+    def getYdim(self):
+        return self.ydim
+
+    def setYdim(self, ydim):
+        self.ydim = ydim
+
+    def getNumPyGrid(self):
+        return numpy.resize(self.buffer, (self.xdim, self.ydim))
