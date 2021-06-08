@@ -183,8 +183,38 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="modelsounding">
-<h1>ModelSounding<a class="headerlink" href="#modelsounding" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-awips.dataaccess.ModelSounding">
+<span id="modelsounding"></span><h1>ModelSounding<a class="headerlink" href="#module-awips.dataaccess.ModelSounding" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.dataaccess.ModelSounding.changeEDEXHost">
+<span class="sig-prename descclassname"><span class="pre">awips.dataaccess.ModelSounding.</span></span><span class="sig-name descname"><span class="pre">changeEDEXHost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/ModelSounding.html#changeEDEXHost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.ModelSounding.changeEDEXHost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes the EDEX host the Data Access Framework is communicating with.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>host: the EDEX host to connect to</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.dataaccess.ModelSounding.getSounding">
+<span class="sig-prename descclassname"><span class="pre">awips.dataaccess.ModelSounding.</span></span><span class="sig-name descname"><span class="pre">getSounding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modelName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weatherElements</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">samplePoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeRange</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/ModelSounding.html#getSounding"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.ModelSounding.getSounding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a series of Data Access Framework requests to retrieve a sounding object
+based on the specified request parameters.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>modelName: the grid model datasetid to use as the basis of the sounding.
+weatherElements: a list of parameters to return in the sounding.
+levels: a list of levels to sample the given weather elements at
+samplePoint: a lat/lon pair to perform the sampling of data at.
+timeRange: (optional) a list of times, or a TimeRange to specify
+which forecast hours to use. If not specified, will default to all forecast hours.</p>
+</dd>
+<dt>Returns:</dt><dd><p>A _SoundingCube instance, which acts a 3-tiered dictionary, keyed
+by DataTime, then by level and finally by weather element. If no
+data is available for the given request parameters, None is returned.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 

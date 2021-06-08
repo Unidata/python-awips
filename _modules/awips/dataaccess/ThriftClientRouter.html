@@ -1,0 +1,470 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>awips.dataaccess.ThriftClientRouter &mdash; python-awips  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> python-awips
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                18.1.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../datatypes.html">Available Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Data Plotting Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev.html">Development Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gridparms.html">Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About Unidata AWIPS</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">python-awips</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../dataaccess.html">awips.dataaccess</a> &raquo;</li>
+        
+      <li>awips.dataaccess.ThriftClientRouter</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for awips.dataaccess.ThriftClientRouter</h1><div class="highlight"><pre>
+<span></span><span class="c1">#</span>
+<span class="c1"># Routes requests to the Data Access Framework through Python Thrift.</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1">#    SOFTWARE HISTORY</span>
+<span class="c1">#</span>
+<span class="c1">#    Date            Ticket#       Engineer       Description</span>
+<span class="c1">#    ------------    ----------    -----------    --------------------------</span>
+<span class="c1">#    05/21/13        2023          dgilling       Initial Creation.</span>
+<span class="c1">#    01/06/14        2537          bsteffen       Share geometry WKT.</span>
+<span class="c1">#    03/03/14        2673          bsteffen       Add ability to query only ref times.</span>
+<span class="c1">#    07/22/14        3185          njensen        Added optional/default args to newDataRequest</span>
+<span class="c1">#    07/23/14        3185          njensen        Added new methods</span>
+<span class="c1">#    07/30/14        3185          njensen        Renamed valid identifiers to optional</span>
+<span class="c1">#    06/30/15        4569          nabowle        Use hex WKB for geometries.</span>
+<span class="c1">#    04/13/15        5379          tgurney        Add getIdentifierValues()</span>
+<span class="c1">#    06/01/16        5587          tgurney        Add new signatures for</span>
+<span class="c1">#                                                 getRequiredIdentifiers() and</span>
+<span class="c1">#                                                 getOptionalIdentifiers()</span>
+<span class="c1">#    08/01/16        2416          tgurney        Add getNotificationFilter()</span>
+<span class="c1">#    10/13/16        5916          bsteffen       Correct grid shape, allow lazy grid lat/lon</span>
+<span class="c1">#    10/26/16        5919          njensen        Speed up geometry creation in getGeometryData()</span>
+<span class="c1">#</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">six</span>
+<span class="kn">import</span> <span class="nn">shapely.wkb</span>
+
+<span class="kn">from</span> <span class="nn">dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.impl</span> <span class="kn">import</span> <span class="n">DefaultDataRequest</span>
+<span class="kn">from</span> <span class="nn">dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request</span> <span class="kn">import</span> <span class="n">GetAvailableLocationNamesRequest</span>
+<span class="kn">from</span> <span class="nn">dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request</span> <span class="kn">import</span> <span class="n">GetAvailableTimesRequest</span>
+<span class="kn">from</span> <span class="nn">dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request</span> <span class="kn">import</span> <span class="n">GetGeometryDataRequest</span>
+<span class="kn">from</span> <span class="nn">dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request</span> <span class="kn">import</span> <span class="n">GetGridDataRequest</span>
+<span class="kn">from</span> <span class="nn">dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request</span> <span class="kn">import</span> <span class="n">GetGridLatLonRequest</span>
+<span class="kn">from</span> <span class="nn">dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request</span> <span class="kn">import</span> <span class="n">GetAvailableParametersRequest</span>
+<span class="kn">from</span> <span class="nn">dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request</span> <span class="kn">import</span> <span class="n">GetAvailableLevelsRequest</span>
+<span class="kn">from</span> <span class="nn">dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request</span> <span class="kn">import</span> <span class="n">GetRequiredIdentifiersRequest</span>
+<span class="kn">from</span> <span class="nn">dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request</span> <span class="kn">import</span> <span class="n">GetOptionalIdentifiersRequest</span>
+<span class="kn">from</span> <span class="nn">dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request</span> <span class="kn">import</span> <span class="n">GetIdentifierValuesRequest</span>
+<span class="kn">from</span> <span class="nn">dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request</span> <span class="kn">import</span> <span class="n">GetSupportedDatatypesRequest</span>
+<span class="kn">from</span> <span class="nn">dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request</span> <span class="kn">import</span> <span class="n">GetNotificationFilterRequest</span>
+
+<span class="kn">from</span> <span class="nn">awips</span> <span class="kn">import</span> <span class="n">ThriftClient</span>
+<span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">PyGeometryData</span>
+<span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">PyGridData</span>
+
+
+<div class="viewcode-block" id="LazyGridLatLon"><a class="viewcode-back" href="../../../api/ThriftClientRouter.html#awips.dataaccess.ThriftClientRouter.LazyGridLatLon">[docs]</a><span class="k">class</span> <span class="nc">LazyGridLatLon</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">envelope</span><span class="p">,</span> <span class="n">crsWkt</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_latLonGrid</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="n">client</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request</span> <span class="o">=</span> <span class="n">GetGridLatLonRequest</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">setNx</span><span class="p">(</span><span class="n">nx</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">setNy</span><span class="p">(</span><span class="n">ny</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">setEnvelope</span><span class="p">(</span><span class="n">envelope</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">setCrsWkt</span><span class="p">(</span><span class="n">crsWkt</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Its important that the data is cached internally so that if multiple</span>
+        <span class="c1"># GridData are sharing the same delegate then they can also share a</span>
+        <span class="c1"># single request for the LatLon information.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_latLonGrid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">sendRequest</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">)</span>
+            <span class="n">nx</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">getNx</span><span class="p">()</span>
+            <span class="n">ny</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">getNy</span><span class="p">()</span>
+            <span class="n">latData</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">getLats</span><span class="p">()),</span> <span class="p">(</span><span class="n">ny</span><span class="p">,</span> <span class="n">nx</span><span class="p">))</span>
+            <span class="n">lonData</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">getLons</span><span class="p">()),</span> <span class="p">(</span><span class="n">ny</span><span class="p">,</span> <span class="n">nx</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_latLonGrid</span> <span class="o">=</span> <span class="p">(</span><span class="n">lonData</span><span class="p">,</span> <span class="n">latData</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_latLonGrid</span></div>
+
+
+<div class="viewcode-block" id="ThriftClientRouter"><a class="viewcode-back" href="../../../api/ThriftClientRouter.html#awips.dataaccess.ThriftClientRouter.ThriftClientRouter">[docs]</a><span class="k">class</span> <span class="nc">ThriftClientRouter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="n">ThriftClient</span><span class="o">.</span><span class="n">ThriftClient</span><span class="p">(</span><span class="n">host</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lazyLoadGridLatLon</span> <span class="o">=</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="ThriftClientRouter.setLazyLoadGridLatLon"><a class="viewcode-back" href="../../../api/ThriftClientRouter.html#awips.dataaccess.ThriftClientRouter.ThriftClientRouter.setLazyLoadGridLatLon">[docs]</a>    <span class="k">def</span> <span class="nf">setLazyLoadGridLatLon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lazyLoadGridLatLon</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lazyLoadGridLatLon</span> <span class="o">=</span> <span class="n">lazyLoadGridLatLon</span></div>
+
+<div class="viewcode-block" id="ThriftClientRouter.getAvailableTimes"><a class="viewcode-back" href="../../../api/ThriftClientRouter.html#awips.dataaccess.ThriftClientRouter.ThriftClientRouter.getAvailableTimes">[docs]</a>    <span class="k">def</span> <span class="nf">getAvailableTimes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="p">):</span>
+        <span class="n">timesRequest</span> <span class="o">=</span> <span class="n">GetAvailableTimesRequest</span><span class="p">()</span>
+        <span class="n">timesRequest</span><span class="o">.</span><span class="n">setRequestParameters</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">timesRequest</span><span class="o">.</span><span class="n">setRefTimeOnly</span><span class="p">(</span><span class="n">refTimeOnly</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">sendRequest</span><span class="p">(</span><span class="n">timesRequest</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span></div>
+
+<div class="viewcode-block" id="ThriftClientRouter.getGridData"><a class="viewcode-back" href="../../../api/ThriftClientRouter.html#awips.dataaccess.ThriftClientRouter.ThriftClientRouter.getGridData">[docs]</a>    <span class="k">def</span> <span class="nf">getGridData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">times</span><span class="p">):</span>
+        <span class="n">gridDataRequest</span> <span class="o">=</span> <span class="n">GetGridDataRequest</span><span class="p">()</span>
+        <span class="n">gridDataRequest</span><span class="o">.</span><span class="n">setIncludeLatLonData</span><span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lazyLoadGridLatLon</span><span class="p">)</span>
+        <span class="n">gridDataRequest</span><span class="o">.</span><span class="n">setRequestParameters</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="c1"># if we have an iterable times instance, then the user must have asked</span>
+        <span class="c1"># for grid data with the List of DataTime objects</span>
+        <span class="c1"># else, we assume it was a single TimeRange that was meant for the</span>
+        <span class="c1"># request</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">iter</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+            <span class="n">gridDataRequest</span><span class="o">.</span><span class="n">setRequestedTimes</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="n">gridDataRequest</span><span class="o">.</span><span class="n">setRequestedPeriod</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">sendRequest</span><span class="p">(</span><span class="n">gridDataRequest</span><span class="p">)</span>
+
+        <span class="n">locSpecificData</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">locNames</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">getSiteNxValues</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">location</span> <span class="ow">in</span> <span class="n">locNames</span><span class="p">:</span>
+            <span class="n">nx</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">getSiteNxValues</span><span class="p">()[</span><span class="n">location</span><span class="p">]</span>
+            <span class="n">ny</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">getSiteNyValues</span><span class="p">()[</span><span class="n">location</span><span class="p">]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lazyLoadGridLatLon</span><span class="p">:</span>
+                <span class="n">envelope</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">getSiteEnvelopes</span><span class="p">()[</span><span class="n">location</span><span class="p">]</span>
+                <span class="n">crsWkt</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">getSiteCrsWkt</span><span class="p">()[</span><span class="n">location</span><span class="p">]</span>
+                <span class="n">delegate</span> <span class="o">=</span> <span class="n">LazyGridLatLon</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">envelope</span><span class="p">,</span> <span class="n">crsWkt</span><span class="p">)</span>
+                <span class="n">locSpecificData</span><span class="p">[</span><span class="n">location</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">delegate</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">latData</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                    <span class="n">response</span><span class="o">.</span><span class="n">getSiteLatGrids</span><span class="p">()[</span><span class="n">location</span><span class="p">]),</span> <span class="p">(</span><span class="n">ny</span><span class="p">,</span> <span class="n">nx</span><span class="p">))</span>
+                <span class="n">lonData</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                    <span class="n">response</span><span class="o">.</span><span class="n">getSiteLonGrids</span><span class="p">()[</span><span class="n">location</span><span class="p">]),</span> <span class="p">(</span><span class="n">ny</span><span class="p">,</span> <span class="n">nx</span><span class="p">))</span>
+                <span class="n">locSpecificData</span><span class="p">[</span><span class="n">location</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="p">(</span><span class="n">lonData</span><span class="p">,</span> <span class="n">latData</span><span class="p">))</span>
+        <span class="n">retVal</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">gridDataRecord</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">getGridData</span><span class="p">():</span>
+            <span class="n">locationName</span> <span class="o">=</span> <span class="n">gridDataRecord</span><span class="o">.</span><span class="n">getLocationName</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">locationName</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">six</span><span class="o">.</span><span class="n">PY2</span><span class="p">:</span>
+                    <span class="n">locData</span> <span class="o">=</span> <span class="n">locSpecificData</span><span class="p">[</span><span class="n">locationName</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">locData</span> <span class="o">=</span> <span class="n">locSpecificData</span><span class="p">[</span><span class="n">locationName</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">locData</span> <span class="o">=</span> <span class="n">locSpecificData</span><span class="p">[</span><span class="n">locationName</span><span class="p">]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lazyLoadGridLatLon</span><span class="p">:</span>
+                <span class="n">retVal</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">PyGridData</span><span class="o">.</span><span class="n">PyGridData</span><span class="p">(</span><span class="n">gridDataRecord</span><span class="p">,</span> <span class="n">locData</span><span class="p">[</span>
+                              <span class="mi">0</span><span class="p">],</span> <span class="n">locData</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">latLonDelegate</span><span class="o">=</span><span class="n">locData</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">retVal</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">PyGridData</span><span class="o">.</span><span class="n">PyGridData</span><span class="p">(</span>
+                    <span class="n">gridDataRecord</span><span class="p">,</span> <span class="n">locData</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">locData</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">locData</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="n">retVal</span></div>
+
+<div class="viewcode-block" id="ThriftClientRouter.getGeometryData"><a class="viewcode-back" href="../../../api/ThriftClientRouter.html#awips.dataaccess.ThriftClientRouter.ThriftClientRouter.getGeometryData">[docs]</a>    <span class="k">def</span> <span class="nf">getGeometryData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">times</span><span class="p">):</span>
+        <span class="n">geoDataRequest</span> <span class="o">=</span> <span class="n">GetGeometryDataRequest</span><span class="p">()</span>
+        <span class="n">geoDataRequest</span><span class="o">.</span><span class="n">setRequestParameters</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="c1"># if we have an iterable times instance, then the user must have asked</span>
+        <span class="c1"># for geometry data with the List of DataTime objects</span>
+        <span class="c1"># else, we assume it was a single TimeRange that was meant for the</span>
+        <span class="c1"># request</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">iter</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+            <span class="n">geoDataRequest</span><span class="o">.</span><span class="n">setRequestedTimes</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="n">geoDataRequest</span><span class="o">.</span><span class="n">setRequestedPeriod</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">sendRequest</span><span class="p">(</span><span class="n">geoDataRequest</span><span class="p">)</span>
+        <span class="n">geometries</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">wkb</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">getGeometryWKBs</span><span class="p">():</span>
+            <span class="c1"># the wkb is a numpy.ndarray of dtype int8</span>
+            <span class="c1"># convert the bytearray to a byte string and load it</span>
+            <span class="n">geometries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shapely</span><span class="o">.</span><span class="n">wkb</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">wkb</span><span class="o">.</span><span class="n">tostring</span><span class="p">()))</span>
+
+        <span class="n">retVal</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">geoDataRecord</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">getGeoData</span><span class="p">():</span>
+            <span class="n">geom</span> <span class="o">=</span> <span class="n">geometries</span><span class="p">[</span><span class="n">geoDataRecord</span><span class="o">.</span><span class="n">getGeometryWKBindex</span><span class="p">()]</span>
+            <span class="n">retVal</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">PyGeometryData</span><span class="o">.</span><span class="n">PyGeometryData</span><span class="p">(</span><span class="n">geoDataRecord</span><span class="p">,</span> <span class="n">geom</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">retVal</span></div>
+
+<div class="viewcode-block" id="ThriftClientRouter.getAvailableLocationNames"><a class="viewcode-back" href="../../../api/ThriftClientRouter.html#awips.dataaccess.ThriftClientRouter.ThriftClientRouter.getAvailableLocationNames">[docs]</a>    <span class="k">def</span> <span class="nf">getAvailableLocationNames</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">locNamesRequest</span> <span class="o">=</span> <span class="n">GetAvailableLocationNamesRequest</span><span class="p">()</span>
+        <span class="n">locNamesRequest</span><span class="o">.</span><span class="n">setRequestParameters</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">sendRequest</span><span class="p">(</span><span class="n">locNamesRequest</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">six</span><span class="o">.</span><span class="n">PY2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">response</span>
+        <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">response</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">response</span></div>
+
+<div class="viewcode-block" id="ThriftClientRouter.getAvailableParameters"><a class="viewcode-back" href="../../../api/ThriftClientRouter.html#awips.dataaccess.ThriftClientRouter.ThriftClientRouter.getAvailableParameters">[docs]</a>    <span class="k">def</span> <span class="nf">getAvailableParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">paramReq</span> <span class="o">=</span> <span class="n">GetAvailableParametersRequest</span><span class="p">()</span>
+        <span class="n">paramReq</span><span class="o">.</span><span class="n">setRequestParameters</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">sendRequest</span><span class="p">(</span><span class="n">paramReq</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">six</span><span class="o">.</span><span class="n">PY2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">response</span>
+        <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">response</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">response</span></div>
+
+<div class="viewcode-block" id="ThriftClientRouter.getAvailableLevels"><a class="viewcode-back" href="../../../api/ThriftClientRouter.html#awips.dataaccess.ThriftClientRouter.ThriftClientRouter.getAvailableLevels">[docs]</a>    <span class="k">def</span> <span class="nf">getAvailableLevels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">levelReq</span> <span class="o">=</span> <span class="n">GetAvailableLevelsRequest</span><span class="p">()</span>
+        <span class="n">levelReq</span><span class="o">.</span><span class="n">setRequestParameters</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">sendRequest</span><span class="p">(</span><span class="n">levelReq</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span></div>
+
+<div class="viewcode-block" id="ThriftClientRouter.getRequiredIdentifiers"><a class="viewcode-back" href="../../../api/ThriftClientRouter.html#awips.dataaccess.ThriftClientRouter.ThriftClientRouter.getRequiredIdentifiers">[docs]</a>    <span class="k">def</span> <span class="nf">getRequiredIdentifiers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="p">)</span> <span class="o">==</span> <span class="n">request</span><span class="p">:</span>
+            <span class="c1"># Handle old version getRequiredIdentifiers(str)</span>
+            <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">idReq</span> <span class="o">=</span> <span class="n">GetRequiredIdentifiersRequest</span><span class="p">()</span>
+        <span class="n">idReq</span><span class="o">.</span><span class="n">setRequest</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">sendRequest</span><span class="p">(</span><span class="n">idReq</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">six</span><span class="o">.</span><span class="n">PY2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">response</span>
+        <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">response</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">response</span></div>
+
+<div class="viewcode-block" id="ThriftClientRouter.getOptionalIdentifiers"><a class="viewcode-back" href="../../../api/ThriftClientRouter.html#awips.dataaccess.ThriftClientRouter.ThriftClientRouter.getOptionalIdentifiers">[docs]</a>    <span class="k">def</span> <span class="nf">getOptionalIdentifiers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="p">)</span> <span class="o">==</span> <span class="n">request</span><span class="p">:</span>
+            <span class="c1"># Handle old version getOptionalIdentifiers(str)</span>
+            <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">idReq</span> <span class="o">=</span> <span class="n">GetOptionalIdentifiersRequest</span><span class="p">()</span>
+        <span class="n">idReq</span><span class="o">.</span><span class="n">setRequest</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">sendRequest</span><span class="p">(</span><span class="n">idReq</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">six</span><span class="o">.</span><span class="n">PY2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">response</span>
+        <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">response</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">response</span></div>
+
+<div class="viewcode-block" id="ThriftClientRouter.getIdentifierValues"><a class="viewcode-back" href="../../../api/ThriftClientRouter.html#awips.dataaccess.ThriftClientRouter.ThriftClientRouter.getIdentifierValues">[docs]</a>    <span class="k">def</span> <span class="nf">getIdentifierValues</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">identifierKey</span><span class="p">):</span>
+        <span class="n">idValReq</span> <span class="o">=</span> <span class="n">GetIdentifierValuesRequest</span><span class="p">()</span>
+        <span class="n">idValReq</span><span class="o">.</span><span class="n">setIdentifierKey</span><span class="p">(</span><span class="n">identifierKey</span><span class="p">)</span>
+        <span class="n">idValReq</span><span class="o">.</span><span class="n">setRequestParameters</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">sendRequest</span><span class="p">(</span><span class="n">idValReq</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">six</span><span class="o">.</span><span class="n">PY2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">response</span>
+        <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">response</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">response</span></div>
+
+<div class="viewcode-block" id="ThriftClientRouter.newDataRequest"><a class="viewcode-back" href="../../../api/ThriftClientRouter.html#awips.dataaccess.ThriftClientRouter.ThriftClientRouter.newDataRequest">[docs]</a>    <span class="k">def</span> <span class="nf">newDataRequest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">datatype</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="p">[],</span> <span class="n">levels</span><span class="o">=</span><span class="p">[],</span> <span class="n">locationNames</span><span class="o">=</span><span class="p">[],</span>
+                       <span class="n">envelope</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">req</span> <span class="o">=</span> <span class="n">DefaultDataRequest</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">datatype</span><span class="p">:</span>
+            <span class="n">req</span><span class="o">.</span><span class="n">setDatatype</span><span class="p">(</span><span class="n">datatype</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">parameters</span><span class="p">:</span>
+            <span class="n">req</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="o">*</span><span class="n">parameters</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">levels</span><span class="p">:</span>
+            <span class="n">req</span><span class="o">.</span><span class="n">setLevels</span><span class="p">(</span><span class="o">*</span><span class="n">levels</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">locationNames</span><span class="p">:</span>
+            <span class="n">req</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="o">*</span><span class="n">locationNames</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">envelope</span><span class="p">:</span>
+            <span class="n">req</span><span class="o">.</span><span class="n">setEnvelope</span><span class="p">(</span><span class="n">envelope</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="c1"># any args leftover are assumed to be identifiers</span>
+            <span class="n">req</span><span class="o">.</span><span class="n">identifiers</span> <span class="o">=</span> <span class="n">kwargs</span>
+        <span class="k">return</span> <span class="n">req</span></div>
+
+<div class="viewcode-block" id="ThriftClientRouter.getSupportedDatatypes"><a class="viewcode-back" href="../../../api/ThriftClientRouter.html#awips.dataaccess.ThriftClientRouter.ThriftClientRouter.getSupportedDatatypes">[docs]</a>    <span class="k">def</span> <span class="nf">getSupportedDatatypes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">sendRequest</span><span class="p">(</span><span class="n">GetSupportedDatatypesRequest</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">six</span><span class="o">.</span><span class="n">PY2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">response</span>
+        <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">response</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">response</span></div>
+
+<div class="viewcode-block" id="ThriftClientRouter.getNotificationFilter"><a class="viewcode-back" href="../../../api/ThriftClientRouter.html#awips.dataaccess.ThriftClientRouter.ThriftClientRouter.getNotificationFilter">[docs]</a>    <span class="k">def</span> <span class="nf">getNotificationFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">notifReq</span> <span class="o">=</span> <span class="n">GetNotificationFilterRequest</span><span class="p">()</span>
+        <span class="n">notifReq</span><span class="o">.</span><span class="n">setRequestParameters</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">sendRequest</span><span class="p">(</span><span class="n">notifReq</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2018, Unidata.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

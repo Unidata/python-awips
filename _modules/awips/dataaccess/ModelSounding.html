@@ -1,0 +1,444 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>awips.dataaccess.ModelSounding &mdash; python-awips  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> python-awips
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                18.1.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../datatypes.html">Available Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Data Plotting Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev.html">Development Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gridparms.html">Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About Unidata AWIPS</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">python-awips</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../dataaccess.html">awips.dataaccess</a> &raquo;</li>
+        
+      <li>awips.dataaccess.ModelSounding</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for awips.dataaccess.ModelSounding</h1><div class="highlight"><pre>
+<span></span><span class="c1">#</span>
+<span class="c1"># Classes for retrieving soundings based on gridded data from the Data Access</span>
+<span class="c1"># Framework</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1">#     SOFTWARE HISTORY</span>
+<span class="c1">#</span>
+<span class="c1">#    Date            Ticket#       Engineer       Description</span>
+<span class="c1">#    ------------    ----------    -----------    --------------------------</span>
+<span class="c1">#    06/24/15         #4480        dgilling       Initial Creation.</span>
+<span class="c1">#</span>
+
+<span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">DataAccessLayer</span>
+<span class="kn">from</span> <span class="nn">dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.level</span> <span class="kn">import</span> <span class="n">Level</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span>
+
+
+<div class="viewcode-block" id="getSounding"><a class="viewcode-back" href="../../../api/ModelSounding.html#awips.dataaccess.ModelSounding.getSounding">[docs]</a><span class="k">def</span> <span class="nf">getSounding</span><span class="p">(</span><span class="n">modelName</span><span class="p">,</span> <span class="n">weatherElements</span><span class="p">,</span> <span class="n">levels</span><span class="p">,</span> <span class="n">samplePoint</span><span class="p">,</span> <span class="n">timeRange</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Performs a series of Data Access Framework requests to retrieve a sounding object</span>
+<span class="sd">    based on the specified request parameters.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        modelName: the grid model datasetid to use as the basis of the sounding.</span>
+<span class="sd">        weatherElements: a list of parameters to return in the sounding.</span>
+<span class="sd">        levels: a list of levels to sample the given weather elements at</span>
+<span class="sd">        samplePoint: a lat/lon pair to perform the sampling of data at.</span>
+<span class="sd">        timeRange: (optional) a list of times, or a TimeRange to specify</span>
+<span class="sd">        which forecast hours to use. If not specified, will default to all forecast hours.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A _SoundingCube instance, which acts a 3-tiered dictionary, keyed</span>
+<span class="sd">        by DataTime, then by level and finally by weather element. If no</span>
+<span class="sd">        data is available for the given request parameters, None is returned.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="p">(</span><span class="n">locationNames</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">levels</span><span class="p">,</span> <span class="n">envelope</span><span class="p">,</span> <span class="n">timeRange</span><span class="p">)</span> <span class="o">=</span> \
+        <span class="n">__sanitizeInputs</span><span class="p">(</span><span class="n">modelName</span><span class="p">,</span> <span class="n">weatherElements</span><span class="p">,</span> <span class="n">levels</span><span class="p">,</span> <span class="n">samplePoint</span><span class="p">,</span> <span class="n">timeRange</span><span class="p">)</span>
+
+    <span class="n">requestArgs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;datatype&#39;</span><span class="p">:</span> <span class="s1">&#39;grid&#39;</span><span class="p">,</span> <span class="s1">&#39;locationNames&#39;</span><span class="p">:</span> <span class="n">locationNames</span><span class="p">,</span>
+                   <span class="s1">&#39;parameters&#39;</span><span class="p">:</span> <span class="n">parameters</span><span class="p">,</span> <span class="s1">&#39;levels&#39;</span><span class="p">:</span> <span class="n">levels</span><span class="p">,</span> <span class="s1">&#39;envelope&#39;</span><span class="p">:</span> <span class="n">envelope</span><span class="p">}</span>
+
+    <span class="n">req</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="o">**</span><span class="n">requestArgs</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">timeRange</span><span class="p">)</span>
+    <span class="n">soundingObject</span> <span class="o">=</span> <span class="n">_SoundingCube</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">soundingObject</span></div>
+
+
+<div class="viewcode-block" id="changeEDEXHost"><a class="viewcode-back" href="../../../api/ModelSounding.html#awips.dataaccess.ModelSounding.changeEDEXHost">[docs]</a><span class="k">def</span> <span class="nf">changeEDEXHost</span><span class="p">(</span><span class="n">host</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Changes the EDEX host the Data Access Framework is communicating with.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">            host: the EDEX host to connect to</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">host</span><span class="p">:</span>
+        <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">host</span><span class="p">))</span></div>
+
+
+<span class="k">def</span> <span class="nf">__sanitizeInputs</span><span class="p">(</span><span class="n">modelName</span><span class="p">,</span> <span class="n">weatherElements</span><span class="p">,</span> <span class="n">levels</span><span class="p">,</span> <span class="n">samplePoint</span><span class="p">,</span> <span class="n">timeRange</span><span class="p">):</span>
+    <span class="n">locationNames</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">modelName</span><span class="p">)]</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="n">__buildStringList</span><span class="p">(</span><span class="n">weatherElements</span><span class="p">)</span>
+    <span class="n">levels</span> <span class="o">=</span> <span class="n">__buildStringList</span><span class="p">(</span><span class="n">levels</span><span class="p">)</span>
+    <span class="n">envelope</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">samplePoint</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">locationNames</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">levels</span><span class="p">,</span> <span class="n">envelope</span><span class="p">,</span> <span class="n">timeRange</span>
+
+
+<span class="k">def</span> <span class="nf">__buildStringList</span><span class="p">(</span><span class="n">param</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">__notStringIter</span><span class="p">(</span><span class="n">param</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">param</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">param</span><span class="p">)]</span>
+
+
+<span class="k">def</span> <span class="nf">__notStringIter</span><span class="p">(</span><span class="n">iterable</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">iterable</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">iter</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+
+<span class="k">class</span> <span class="nc">_SoundingCube</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The top-level sounding object returned when calling ModelSounding.getSounding.</span>
+
+<span class="sd">    This object acts as a 3-tiered dict which is keyed by time then level</span>
+<span class="sd">    then parameter name. Calling times() will return all valid keys into this</span>
+<span class="sd">    object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geometryDataObjects</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dataDict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sortedTimes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">geometryDataObjects</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">geometryData</span> <span class="ow">in</span> <span class="n">geometryDataObjects</span><span class="p">:</span>
+                <span class="n">dataTime</span> <span class="o">=</span> <span class="n">geometryData</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span>
+                <span class="n">level</span> <span class="o">=</span> <span class="n">geometryData</span><span class="o">.</span><span class="n">getLevel</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="n">geometryData</span><span class="o">.</span><span class="n">getParameters</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__addItem</span><span class="p">(</span><span class="n">parameter</span><span class="p">,</span> <span class="n">dataTime</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">geometryData</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="n">parameter</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__addItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">dataTime</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">timeLayer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataDict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">dataTime</span><span class="p">,</span> <span class="n">_SoundingTimeLayer</span><span class="p">(</span><span class="n">dataTime</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">[</span><span class="n">dataTime</span><span class="p">]</span> <span class="o">=</span> <span class="n">timeLayer</span>
+        <span class="n">timeLayer</span><span class="o">.</span><span class="n">_addItem</span><span class="p">(</span><span class="n">parameter</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">dataTime</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sortedTimes</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sortedTimes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dataTime</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sortedTimes</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">times</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the valid times for this sounding.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A list containing the valid DataTimes for this sounding in order.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sortedTimes</span>
+
+
+<span class="k">class</span> <span class="nc">_SoundingTimeLayer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The second-level sounding object returned when calling ModelSounding.getSounding.</span>
+
+<span class="sd">    This object acts as a 2-tiered dict which is keyed by level then parameter</span>
+<span class="sd">    name. Calling levels() will return all valid keys into this</span>
+<span class="sd">    object. Calling time() will return the DataTime for this particular layer.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataTime</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dataTime</span> <span class="o">=</span> <span class="n">dataTime</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dataDict</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">_addItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">asString</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+        <span class="n">levelLayer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataDict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">asString</span><span class="p">,</span> <span class="n">_SoundingTimeAndLevelLayer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataTime</span><span class="p">,</span> <span class="n">asString</span><span class="p">))</span>
+        <span class="n">levelLayer</span><span class="o">.</span><span class="n">_addItem</span><span class="p">(</span><span class="n">parameter</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">[</span><span class="n">asString</span><span class="p">]</span> <span class="o">=</span> <span class="n">levelLayer</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="n">asString</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">asString</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">[</span><span class="n">asString</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;Level &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; is not a valid level for this sounding.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the DataTime for this sounding cube layer.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The DataTime for this sounding layer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataTime</span>
+
+    <span class="k">def</span> <span class="nf">levels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the valid levels for this sounding.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A list containing the valid levels for this sounding in order of</span>
+<span class="sd">            closest to surface to highest from surface.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sortedLevels</span> <span class="o">=</span> <span class="p">[</span><span class="n">Level</span><span class="p">(</span><span class="n">level</span><span class="p">)</span> <span class="k">for</span> <span class="n">level</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataDict</span><span class="o">.</span><span class="n">keys</span><span class="p">())]</span>
+        <span class="n">sortedLevels</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="k">return</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">level</span><span class="p">)</span> <span class="k">for</span> <span class="n">level</span> <span class="ow">in</span> <span class="n">sortedLevels</span><span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">_SoundingTimeAndLevelLayer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The bottom-level sounding object returned when calling ModelSounding.getSounding.</span>
+
+<span class="sd">    This object acts as a dict which is keyed by parameter name. Calling</span>
+<span class="sd">    parameters() will return all valid keys into this object. Calling time()</span>
+<span class="sd">    will return the DataTime for this particular layer. Calling level() will</span>
+<span class="sd">    return the level for this layer.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="n">time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_level</span> <span class="o">=</span> <span class="n">level</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">_addItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="n">parameter</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">level</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the level for this sounding cube layer.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The level for this sounding layer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_level</span>
+
+    <span class="k">def</span> <span class="nf">parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the valid parameters for this sounding.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A list containing the valid parameter names.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the DataTime for this sounding cube layer.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The DataTime for this sounding layer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2018, Unidata.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

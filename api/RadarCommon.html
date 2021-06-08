@@ -183,8 +183,57 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="radarcommon">
-<h1>RadarCommon<a class="headerlink" href="#radarcommon" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-awips.RadarCommon">
+<span id="radarcommon"></span><h1>RadarCommon<a class="headerlink" href="#module-awips.RadarCommon" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.RadarCommon.encode_dep_vals">
+<span class="sig-prename descclassname"><span class="pre">awips.RadarCommon.</span></span><span class="sig-name descname"><span class="pre">encode_dep_vals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">depVals</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/RadarCommon.html#encode_dep_vals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.RadarCommon.encode_dep_vals" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.RadarCommon.encode_radial">
+<span class="sig-prename descclassname"><span class="pre">awips.RadarCommon.</span></span><span class="sig-name descname"><span class="pre">encode_radial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">azVals</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/RadarCommon.html#encode_radial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.RadarCommon.encode_radial" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.RadarCommon.encode_thresh_vals">
+<span class="sig-prename descclassname"><span class="pre">awips.RadarCommon.</span></span><span class="sig-name descname"><span class="pre">encode_thresh_vals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshVals</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/RadarCommon.html#encode_thresh_vals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.RadarCommon.encode_thresh_vals" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.RadarCommon.get_data_type">
+<span class="sig-prename descclassname"><span class="pre">awips.RadarCommon.</span></span><span class="sig-name descname"><span class="pre">get_data_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">azdat</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/RadarCommon.html#get_data_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.RadarCommon.get_data_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the radar file type (radial or raster).</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>azdat: Boolean.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Radial or raster.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.RadarCommon.get_datetime_str">
+<span class="sig-prename descclassname"><span class="pre">awips.RadarCommon.</span></span><span class="sig-name descname"><span class="pre">get_datetime_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/RadarCommon.html#get_datetime_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.RadarCommon.get_datetime_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the datetime string for a record.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>record: the record to get data for.</p>
+</dd>
+<dt>Returns:</dt><dd><p>datetime string.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.RadarCommon.get_hdf5_data">
+<span class="sig-prename descclassname"><span class="pre">awips.RadarCommon.</span></span><span class="sig-name descname"><span class="pre">get_hdf5_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idra</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/RadarCommon.html#get_hdf5_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.RadarCommon.get_hdf5_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.RadarCommon.get_header">
+<span class="sig-prename descclassname"><span class="pre">awips.RadarCommon.</span></span><span class="sig-name descname"><span class="pre">get_header</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headerFormat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xLen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yLen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">azdat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/RadarCommon.html#get_header"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.RadarCommon.get_header" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 
 

@@ -1,0 +1,297 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>awips.dataaccess.CombinedTimeQuery &mdash; python-awips  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> python-awips
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                18.1.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../datatypes.html">Available Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Data Plotting Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev.html">Development Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gridparms.html">Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About Unidata AWIPS</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">python-awips</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../dataaccess.html">awips.dataaccess</a> &raquo;</li>
+        
+      <li>awips.dataaccess.CombinedTimeQuery</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for awips.dataaccess.CombinedTimeQuery</h1><div class="highlight"><pre>
+<span></span><span class="c1">#</span>
+<span class="c1"># Method for performing a DAF time query where all parameter/level/location</span>
+<span class="c1"># combinations must be available at the same time.</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1">#     SOFTWARE HISTORY</span>
+<span class="c1">#</span>
+<span class="c1">#    Date            Ticket#       Engineer       Description</span>
+<span class="c1">#    ------------    ----------    -----------    --------------------------</span>
+<span class="c1">#    06/22/16         #5591        bsteffen       Initial Creation.</span>
+<span class="c1">#</span>
+
+<span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">DataAccessLayer</span>
+
+
+<div class="viewcode-block" id="getAvailableTimes"><a class="viewcode-back" href="../../../api/CombinedTimeQuery.html#awips.dataaccess.CombinedTimeQuery.getAvailableTimes">[docs]</a><span class="k">def</span> <span class="nf">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">__getAvailableTimesForEachParameter</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">__getAvailableTimesForEachParameter</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">getParameters</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">parameters</span><span class="p">:</span>
+        <span class="n">times</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">:</span>
+            <span class="n">specificRequest</span> <span class="o">=</span> <span class="n">__cloneRequest</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+            <span class="n">specificRequest</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="n">parameter</span><span class="p">)</span>
+            <span class="n">specificTimes</span> <span class="o">=</span> <span class="n">__getAvailableTimesForEachLevel</span><span class="p">(</span><span class="n">specificRequest</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">times</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">times</span> <span class="o">=</span> <span class="n">specificTimes</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">times</span><span class="o">.</span><span class="n">intersection_update</span><span class="p">(</span><span class="n">specificTimes</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">times</span><span class="p">:</span>
+                <span class="k">break</span>
+        <span class="k">return</span> <span class="n">times</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">__getAvailableTimesForEachLevel</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">__getAvailableTimesForEachLevel</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">levels</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">getLevels</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">levels</span><span class="p">:</span>
+        <span class="n">times</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">level</span> <span class="ow">in</span> <span class="n">levels</span><span class="p">:</span>
+            <span class="n">specificRequest</span> <span class="o">=</span> <span class="n">__cloneRequest</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+            <span class="n">specificRequest</span><span class="o">.</span><span class="n">setLevels</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+            <span class="n">specificTimes</span> <span class="o">=</span> <span class="n">__getAvailableTimesForEachLocation</span><span class="p">(</span><span class="n">specificRequest</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">times</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">times</span> <span class="o">=</span> <span class="n">specificTimes</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">times</span><span class="o">.</span><span class="n">intersection_update</span><span class="p">(</span><span class="n">specificTimes</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">times</span><span class="p">:</span>
+                <span class="k">break</span>
+        <span class="k">return</span> <span class="n">times</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">__getAvailableTimesForEachLocation</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">__getAvailableTimesForEachLocation</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">locations</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">getLocationNames</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">locations</span><span class="p">:</span>
+        <span class="n">times</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">location</span> <span class="ow">in</span> <span class="n">locations</span><span class="p">:</span>
+            <span class="n">specificRequest</span> <span class="o">=</span> <span class="n">__cloneRequest</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+            <span class="n">specificRequest</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="n">location</span><span class="p">)</span>
+            <span class="n">specificTimes</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">specificRequest</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">times</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">times</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">specificTimes</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">times</span><span class="o">.</span><span class="n">intersection_update</span><span class="p">(</span><span class="n">specificTimes</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">times</span><span class="p">:</span>
+                <span class="k">break</span>
+        <span class="k">return</span> <span class="n">times</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">__cloneRequest</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="n">datatype</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">getDatatype</span><span class="p">(),</span>
+                                          <span class="n">parameters</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">getParameters</span><span class="p">(),</span>
+                                          <span class="n">levels</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">getLevels</span><span class="p">(),</span>
+                                          <span class="n">locationNames</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">getLocationNames</span><span class="p">(),</span>
+                                          <span class="n">envelope</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">getEnvelope</span><span class="p">(),</span>
+                                          <span class="o">**</span><span class="n">request</span><span class="o">.</span><span class="n">getIdentifiers</span><span class="p">())</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2018, Unidata.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
