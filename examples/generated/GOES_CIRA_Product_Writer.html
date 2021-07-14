@@ -1,0 +1,665 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>GOES CIRA Product Writer &mdash; python-awips  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="GOES Geostationary Lightning Mapper" href="GOES_Geostationary_Lightning_Mapper.html" />
+    <link rel="prev" title="Forecast Model Vertical Sounding" href="Forecast_Model_Vertical_Sounding.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> python-awips
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                18.1.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../datatypes.html">Available Data Types</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Data Plotting Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Colored_Surface_Temperature_Plot.html">Colored Surface Temperature Plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Forecast_Model_Vertical_Sounding.html">Forecast Model Vertical Sounding</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">GOES CIRA Product Writer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#objectives">Objectives</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#imports">1 Imports</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#initial-setup">2 Initial Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#function-set-size">3 Function: set_size()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#function-write-img">4 Function: write_img()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-the-data-and-write-it-out">5 Get the Data and Write it Out!</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#see-also">6 See Also</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="GOES_Geostationary_Lightning_Mapper.html">GOES Geostationary Lightning Mapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Grid_Levels_and_Parameters.html">Grid Levels and Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Grids_and_Cartopy.html">Grids and Cartopy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="METAR_Station_Plot_with_MetPy.html">METAR Station Plot with MetPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Map_Resources_and_Topography.html">Map Resources and Topography</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Model_Sounding_Data.html">Model Sounding Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NEXRAD_Level3_Radar.html">NEXRAD Level3 Radar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Precip_Accumulation-Region_Of_Interest.html">Precip Accumulation-Region Of Interest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Regional_Surface_Obs_Plot.html">Regional Surface Obs Plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Satellite_Imagery.html">Satellite Imagery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Upper_Air_BUFR_Soundings.html">Upper Air BUFR Soundings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Watch_and_Warning_Polygons.html">Watch and Warning Polygons</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev.html">Development Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gridparms.html">Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About Unidata AWIPS</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">python-awips</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Data Plotting Examples</a> &raquo;</li>
+        
+      <li>GOES CIRA Product Writer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/examples/generated/GOES_CIRA_Product_Writer.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="goes-cira-product-writer">
+<h1>GOES CIRA Product Writer<a class="headerlink" href="#goes-cira-product-writer" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/GOES_CIRA_Product_Writer.ipynb">Notebook</a>
+Python-AWIPS Tutorial Notebook</p>
+<hr class="docutils" />
+<div class="section" id="objectives">
+<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Use python-awips to connect to an EDEX server</p></li>
+<li><p>Define and filter the data request specifically for new <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#additional-documentation">CIRA GOES16
+data
+products</a></p></li>
+<li><p>Resize the products to their native resolution</p></li>
+<li><p>Write the individual bands (channels) locally</p></li>
+<li><p>Combine and write the RGB product locally</p></li>
+</ul>
+<hr class="docutils" />
+<div class="section" id="table-of-contents">
+<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline">¶</a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#imports">1
+Imports</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#initial-setup">2 Initial
+Setup</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#edex-connection">2.1 EDEX
+Connection</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#parameter-definition">2.2 Parameter
+Definition</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#function-set_size">3 Function:
+set_size()</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#function-write-img">4 Function:
+write_img()</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#get-the-data-and-write-it-out">5 Get the Data and Write it
+Out!</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#filter-the-data">5.1 Filter the
+Data</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#define-output-location">5.2 Define Output
+Location</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#write-out-goes-images">5.3 Write Out GOES
+Images</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#see-also">6 See
+Also</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#related-notebooks">6.1 Related
+Notebooks</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#additional-documentation">6.2 Additional
+Documentation</a></div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="imports">
+<h3>1 Imports<a class="headerlink" href="#imports" title="Permalink to this headline">¶</a></h3>
+<p>The imports below are used throughout the notebook. Note the first
+import is coming directly from python-awips and allows us to connect to
+an EDEX server. The subsequent imports are for data manipulation and
+visualization.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">DataAccessLayer</span>
+<span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
+<span class="kn">import</span> <span class="nn">cartopy.feature</span> <span class="k">as</span> <span class="nn">cfeat</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html">Top</a></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="initial-setup">
+<h3>2 Initial Setup<a class="headerlink" href="#initial-setup" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="edex-connection">
+<h4>2.1 EDEX Connection<a class="headerlink" href="#edex-connection" title="Permalink to this headline">¶</a></h4>
+<p>First we establish a connection to Unidata’s public EDEX server. With
+that connection made, we can create a <a class="reference external" href="http://unidata.github.io/python-awips/api/IDataRequest.html">new data request
+object</a>
+and set the data type to <strong>satellite</strong>.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an EDEX data request</span>
+<span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="s2">&quot;edex-cloud.unidata.ucar.edu&quot;</span><span class="p">)</span>
+<span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">()</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setDatatype</span><span class="p">(</span><span class="s2">&quot;satellite&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="parameter-definition">
+<h4>2.2 Parameter Definition<a class="headerlink" href="#parameter-definition" title="Permalink to this headline">¶</a></h4>
+<p>After establishing the python-awips specific objects, we create a few
+other parameters that will be used for the data query based off of known
+values: projection, and extent.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a projection for ECONUS and WCONUS</span>
+<span class="c1"># Set up the projection using known parameters (from the netcdf of GOES products)</span>
+<span class="n">globe</span> <span class="o">=</span> <span class="n">ccrs</span><span class="o">.</span><span class="n">Globe</span><span class="p">(</span><span class="n">semimajor_axis</span><span class="o">=</span><span class="mf">6378137.0</span><span class="p">,</span> <span class="n">semiminor_axis</span><span class="o">=</span><span class="mf">6356752.5</span><span class="p">,</span> <span class="n">ellipse</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">sat_h</span> <span class="o">=</span> <span class="mf">35785830.0</span>
+<span class="n">proj</span> <span class="o">=</span> <span class="n">ccrs</span><span class="o">.</span><span class="n">Geostationary</span><span class="p">(</span><span class="n">globe</span><span class="o">=</span><span class="n">globe</span><span class="p">,</span> <span class="n">central_longitude</span><span class="o">=-</span><span class="mf">75.0</span><span class="p">,</span> <span class="n">satellite_height</span><span class="o">=</span><span class="n">sat_h</span><span class="p">,</span> <span class="n">sweep_axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+
+<span class="c1"># Define the extents for ECONUS and WCONUS in goes native coords</span>
+<span class="c1"># (originally taken from netcdf GOES data)</span>
+<span class="n">extent</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">3626751.</span><span class="p">,</span> <span class="mf">1382263.5</span><span class="p">,</span> <span class="mf">1583666.1</span><span class="p">,</span> <span class="mf">4588674.</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html">Top</a></p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="function-set-size">
+<h3>3 Function: set_size()<a class="headerlink" href="#function-set-size" title="Permalink to this headline">¶</a></h3>
+<p>Here we’re defining a function that will allow us to pass in the
+dimensions of the output file we desire in pixels. Default Python
+methods require the size to be set in inches, which is confusing in our
+case, since we know what the size of GOES images are in pixels. Also,
+default Python functions add a padding when creating figures, and we
+don’t want that.</p>
+<p>This function allows the exact final image to be specified based in
+pixels, with no padding or buffers.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">set_size</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">h</span><span class="p">,</span> <span class="n">plt</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; w, h: width, height in pixels &quot;&quot;&quot;</span>
+
+    <span class="c1"># Convert from pixels to inches</span>
+    <span class="n">DPI</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span><span class="o">.</span><span class="n">get_dpi</span><span class="p">()</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">w</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">DPI</span><span class="p">)</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">h</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">DPI</span><span class="p">)</span>
+
+    <span class="c1"># Get the axes</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+
+    <span class="c1"># Remove the padding</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">subplotpars</span><span class="o">.</span><span class="n">left</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">subplotpars</span><span class="o">.</span><span class="n">right</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">subplotpars</span><span class="o">.</span><span class="n">top</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">subplotpars</span><span class="o">.</span><span class="n">bottom</span>
+    <span class="n">figw</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="p">)</span>
+    <span class="n">figh</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">h</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">t</span><span class="o">-</span><span class="n">b</span><span class="p">)</span>
+
+    <span class="c1"># Set the final size</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">figw</span><span class="p">,</span> <span class="n">figh</span><span class="p">)</span>
+
+    <span class="c1"># Return the DPI, this is used when in the</span>
+    <span class="c1"># write_image() function</span>
+    <span class="k">return</span> <span class="n">DPI</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html">Top</a></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="function-write-img">
+<h3>4 Function: write_img()<a class="headerlink" href="#function-write-img" title="Permalink to this headline">¶</a></h3>
+<p>Next, we’re defining another function which takes the image data, file
+name, projection, extent, reference time, and whether or not to print
+out a footnote.</p>
+<p>This method specifies the size of the output image and creates a plot
+object to draw all our data into. Then it draws the GOES data,
+coastlines, state boundaries, and lat/lon lines onto the image.
+Additionally, if we want, it writes out a short footnote describing what
+product we’re looking at. Finally, it writes out the figure to disk.</p>
+<p>By default we’re specifying the output dimensions to be 5000x4000
+pixels, because that is the native GOES image size, but feel free to
+modify these values if you wish to print out an image of another size
+(you may want to keep the w:h ratio the same though).</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">write_img</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">proj</span><span class="p">,</span> <span class="n">extent</span><span class="p">,</span> <span class="n">reftime</span><span class="p">,</span> <span class="n">footnote</span><span class="p">):</span>
+
+    <span class="c1"># Specify the desired size, in pixels</span>
+    <span class="n">px_width</span> <span class="o">=</span> <span class="mf">5000.0</span>
+    <span class="n">px_height</span> <span class="o">=</span> <span class="mf">3000.0</span>
+
+    <span class="c1"># Create the plot with proper projection, and set the figure size</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">DPI</span> <span class="o">=</span> <span class="n">set_size</span><span class="p">(</span><span class="n">px_width</span><span class="p">,</span> <span class="n">px_height</span><span class="p">,</span> <span class="n">plt</span><span class="p">)</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="n">proj</span><span class="p">)</span>
+
+    <span class="c1"># Draw GOES data</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">proj</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">)</span>
+
+    <span class="c1"># Add Coastlines and States</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">coastlines</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="s1">&#39;50m&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;magenta&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeat</span><span class="o">.</span><span class="n">STATES</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;magenta&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">gridlines</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;cyan&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">xlocs</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">linestyle</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,(</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">)))</span>
+
+    <span class="c1"># Create and draw the footnote if needed</span>
+    <span class="k">if</span> <span class="n">footnote</span><span class="p">:</span>
+        <span class="n">footnoteStr</span> <span class="o">=</span> <span class="s1">&#39;   CIRA-&#39;</span><span class="o">+</span><span class="n">name</span><span class="p">[</span><span class="mi">7</span><span class="p">:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;-&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">reftime</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">footnoteStr</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">xycoords</span><span class="o">=</span><span class="s1">&#39;axes fraction&#39;</span><span class="p">,</span> <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;offset points&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Write out the figure</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">DPI</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">pad_inches</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html">Top</a></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="get-the-data-and-write-it-out">
+<h3>5 Get the Data and Write it Out!<a class="headerlink" href="#get-the-data-and-write-it-out" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="filter-the-data">
+<h4>5.1 Filter the Data<a class="headerlink" href="#filter-the-data" title="Permalink to this headline">¶</a></h4>
+<p>Define exactly what data we want to be printing out. This notebook is
+designed to loop through and print out multiple images, so here we can
+pick which images we’re wanting to print out. We’re specifying
+<strong>ECONUS</strong> (for East CONUS), <strong>CLDSNOW</strong>, <strong>DBRDUST</strong>, and <strong>GEOCOLR</strong>
+(for the new CIRA products) and the <strong>three channels</strong> for the RBG
+composites.</p>
+<div class="alert-info docutils container">
+<div class="line-block">
+<div class="line">Tip:</div>
+<div class="line">More information could be gathered by looking at all the available
+location names (sectors), identifiers (entities), and parameters
+(channels). To see those run the following lines of code after the
+dataType has been set to satellite on the request object:</div>
+</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## Print Available Location Names</span>
+<span class="nb">print</span><span class="p">((</span><span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableLocationNames</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
+
+<span class="c1">## Print Available Identifiers and Values</span>
+<span class="n">ids</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getOptionalIdentifiers</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
+<span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getIdentifierValues</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nb">id</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define Location names</span>
+<span class="n">sectors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ECONUS&quot;</span><span class="p">]</span>
+
+<span class="c1"># Define creatingEntity Identifiers</span>
+<span class="n">entities</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;CLDSNOW&quot;</span><span class="p">,</span> <span class="s2">&quot;DBRDUST&quot;</span><span class="p">,</span> <span class="s2">&quot;GEOCOLR&quot;</span><span class="p">]</span>
+
+<span class="c1"># Define parameters</span>
+<span class="n">ch1</span> <span class="o">=</span> <span class="s2">&quot;CH-01-0.47um&quot;</span>
+<span class="n">ch2</span> <span class="o">=</span> <span class="s2">&quot;CH-02-0.64um&quot;</span>
+<span class="n">ch3</span> <span class="o">=</span> <span class="s2">&quot;CH-03-0.87um&quot;</span>
+<span class="n">channels</span> <span class="o">=</span> <span class="p">[</span><span class="n">ch1</span><span class="p">,</span> <span class="n">ch2</span><span class="p">,</span> <span class="n">ch3</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="define-output-location">
+<h4>5.2 Define Output Location<a class="headerlink" href="#define-output-location" title="Permalink to this headline">¶</a></h4>
+<p>Here we define a folder for where the satellite images will be written
+to. The default directory is a new folder called ‘output’ that lives
+whereever this notebook lives.</p>
+<div class="alert-info docutils container">
+<div class="line-block">
+<div class="line">Tip:</div>
+<div class="line">If you specify the fully qualified path, it will no longer depend
+on where this notebook is located. For example (for a Mac):</div>
+</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">outputDir</span> <span class="o">=</span> <span class="s1">&#39;/Users/scarter/test_dir/output/&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define name of the desired end directory</span>
+<span class="n">outputDir</span> <span class="o">=</span> <span class="s1">&#39;output/&#39;</span>
+
+<span class="c1"># Check to see if this folder exists</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">outputDir</span><span class="p">):</span>
+    <span class="c1"># If not, create the directory</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Creating new output directory: &#39;</span><span class="p">,</span><span class="n">outputDir</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">outputDir</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># If so, let the user know</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Output directory exists!&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Output directory exists!
+</pre></div>
+</div>
+</div>
+<div class="section" id="write-out-goes-images">
+<h4>5.3 Write Out GOES Images<a class="headerlink" href="#write-out-goes-images" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># First loop through the sectors (location names)</span>
+<span class="k">for</span> <span class="n">sector</span> <span class="ow">in</span> <span class="n">sectors</span><span class="p">:</span>
+
+    <span class="c1"># Set the location on the request</span>
+    <span class="n">request</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="n">sector</span><span class="p">)</span>
+
+    <span class="c1"># Next loop through the Products (entities)</span>
+    <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">entities</span><span class="p">:</span>
+        <span class="c1"># Reset the time and channel variables since we&#39;re on a new product</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">G</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Set the product</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s2">&quot;creatingEntity&quot;</span><span class="p">,</span> <span class="n">entity</span><span class="p">)</span>
+
+        <span class="c1"># Cycle through the channels (parameters)</span>
+        <span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="n">channels</span><span class="p">:</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
+
+            <span class="c1"># Set the time for this product if it hasn&#39;t been set</span>
+            <span class="c1"># If it has been set, then we proceed with that value</span>
+            <span class="c1"># so that all bands in for the one product are pulled</span>
+            <span class="c1"># from the same time</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+                <span class="n">times</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+                <span class="n">time</span> <span class="o">=</span> <span class="p">[</span><span class="n">times</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;selected time:&quot;</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+
+            <span class="c1"># Request the data from EDEX</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGridData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+            <span class="c1"># Grab the actual data from the response</span>
+            <span class="n">grid</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="c1"># Get the raw data from the response</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">getRawData</span><span class="p">()</span>
+            <span class="n">reftime</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getRefTime</span><span class="p">()</span>
+
+            <span class="c1"># Set the R,G,B channel</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">channel</span> <span class="o">==</span> <span class="n">ch1</span><span class="p">):</span>
+                <span class="n">B</span> <span class="o">=</span> <span class="n">data</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">channel</span> <span class="o">==</span> <span class="n">ch2</span><span class="p">):</span>
+                <span class="n">R</span> <span class="o">=</span> <span class="n">data</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">channel</span> <span class="o">==</span> <span class="n">ch3</span><span class="p">):</span>
+                <span class="n">G</span> <span class="o">=</span> <span class="n">data</span>
+
+            <span class="c1"># Create the single channel name</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">outputDir</span><span class="o">+</span><span class="n">entity</span><span class="o">+</span><span class="s1">&#39;-&#39;</span><span class="o">+</span><span class="n">sector</span><span class="o">+</span><span class="s1">&#39;-&#39;</span><span class="o">+</span><span class="n">channel</span><span class="o">+</span><span class="s1">&#39;.png&#39;</span>
+
+            <span class="c1"># Write out the single channel</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;writing&#39;</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">write_img</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">proj</span><span class="p">,</span> <span class="n">extent</span><span class="p">,</span> <span class="n">reftime</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># --- End of channel loop</span>
+
+        <span class="c1"># Create the RGB product</span>
+        <span class="c1"># Apply range limits for each channel. RGB values must be between 0 and 1</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">G</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">RGB</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dstack</span><span class="p">([</span><span class="n">R</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">B</span><span class="p">])</span>
+
+        <span class="c1"># Create RGB name</span>
+        <span class="n">rgbName</span> <span class="o">=</span> <span class="n">outputDir</span><span class="o">+</span><span class="n">entity</span><span class="o">+</span><span class="s1">&#39;-&#39;</span><span class="o">+</span><span class="n">sector</span><span class="o">+</span><span class="s1">&#39;-RGB.png&#39;</span>
+        <span class="c1"># Write out the RGB image</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;writing&#39;</span><span class="p">,</span> <span class="n">rgbName</span><span class="p">)</span>
+        <span class="n">write_img</span><span class="p">(</span><span class="n">RGB</span><span class="p">,</span> <span class="n">rgbName</span><span class="p">,</span> <span class="n">proj</span><span class="p">,</span> <span class="n">extent</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># --- End of entity loop</span>
+<span class="c1">#--- End of sector loop</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Done!&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>selected time: [&lt;DataTime instance: 2021-05-28 06:51:14 &gt;]
+writing output/CLDSNOW-ECONUS-CH-01-0.47um.png
+writing output/CLDSNOW-ECONUS-CH-02-0.64um.png
+writing output/CLDSNOW-ECONUS-CH-03-0.87um.png
+writing output/CLDSNOW-ECONUS-RGB.png
+selected time: [&lt;DataTime instance: 2021-05-28 06:51:14 &gt;]
+writing output/DBRDUST-ECONUS-CH-01-0.47um.png
+writing output/DBRDUST-ECONUS-CH-02-0.64um.png
+writing output/DBRDUST-ECONUS-CH-03-0.87um.png
+writing output/DBRDUST-ECONUS-RGB.png
+selected time: [&lt;DataTime instance: 2021-05-28 06:56:14 &gt;]
+writing output/GEOCOLR-ECONUS-CH-01-0.47um.png
+writing output/GEOCOLR-ECONUS-CH-02-0.64um.png
+writing output/GEOCOLR-ECONUS-CH-03-0.87um.png
+writing output/GEOCOLR-ECONUS-RGB.png
+Done!
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Figure</span> <span class="n">size</span> <span class="mi">432</span><span class="n">x288</span> <span class="k">with</span> <span class="mi">0</span> <span class="n">Axes</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<img alt="../../_images/GOES_CIRA_Product_Writer_25_2.png" src="../../_images/GOES_CIRA_Product_Writer_25_2.png" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Figure</span> <span class="n">size</span> <span class="mi">432</span><span class="n">x288</span> <span class="k">with</span> <span class="mi">0</span> <span class="n">Axes</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<img alt="../../_images/GOES_CIRA_Product_Writer_25_4.png" src="../../_images/GOES_CIRA_Product_Writer_25_4.png" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Figure</span> <span class="n">size</span> <span class="mi">432</span><span class="n">x288</span> <span class="k">with</span> <span class="mi">0</span> <span class="n">Axes</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<img alt="../../_images/GOES_CIRA_Product_Writer_25_6.png" src="../../_images/GOES_CIRA_Product_Writer_25_6.png" />
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html">Top</a></p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="see-also">
+<h3>6 See Also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="related-notebooks">
+<h4>6.1 Related Notebooks<a class="headerlink" href="#related-notebooks" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/examples/generated/Satellite_Imagery.html">Satellite
+Imagery</a></p></li>
+</ul>
+</div>
+<div class="section" id="additional-documentation">
+<h4>6.2 Additional Documentation<a class="headerlink" href="#additional-documentation" title="Permalink to this headline">¶</a></h4>
+<p><strong>CIRA Quick Guides</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://rammb.cira.colostate.edu/training/visit/quick_guides/QuickGuide_DEBRA-Dust_20210217.pdf">DEBRA-Dust</a></p></li>
+<li><p><a class="reference external" href="https://rammb.cira.colostate.edu/training/visit/quick_guides/GOES_Cloud_Snow_Discriminator_Quick_Guide_20190814.pdf">Cloud-Snow</a></p></li>
+<li><p><a class="reference external" href="https://rammb.cira.colostate.edu/training/visit/quick_guides/QuickGuide_CIRA_Geocolor_20171019.pdf">GEOCOLOR</a></p></li>
+</ul>
+<p><strong>python-awips</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost">DataAccessLayer.changeEDEXHost()</a></p></li>
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.newDataRequest">DataAccessLayer.newDataRequest()</a></p></li>
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableLocationNames">DataAccessLayer.getAvailableLocationNames()</a></p></li>
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getOptionalIdentifiers">DataAccessLayer.getOptionalIdentifiers()</a></p></li>
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getIdentifierValues">DataAccessLayer.getIdentifierValues()</a></p></li>
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableTimes">DataAccessLayer.getAvailableTimes()</a></p></li>
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/api/IDataRequest.html">IDataRequest</a></p></li>
+</ul>
+<p><strong>matplotlib</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html">matplotlib.pyplot()</a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.axes.html">matplotlib.pyplot.axes()</a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html">matplotlib.pyplot.figure()</a></p></li>
+</ul>
+<p><strong>numpy</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.clip.html">numpy.clip()</a></p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dstack.html">numpy.dstack()</a></p></li>
+</ul>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html">Top</a></p>
+<hr class="docutils" />
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="GOES_Geostationary_Lightning_Mapper.html" class="btn btn-neutral float-right" title="GOES Geostationary Lightning Mapper" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Forecast_Model_Vertical_Sounding.html" class="btn btn-neutral float-left" title="Forecast Model Vertical Sounding" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2018, Unidata.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
