@@ -31,7 +31,7 @@ Table of Contents
 |     `2.2 Parameter
   Definition <https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#parameter-definition>`__\ 
 | `3 Function:
-  set_size() <https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#function-set_size>`__\ 
+  set_size() <https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#function-set-size>`__\ 
 | `4 Function:
   write_img() <https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#function-write-img>`__\ 
 | `5 Get the Data and Write it
