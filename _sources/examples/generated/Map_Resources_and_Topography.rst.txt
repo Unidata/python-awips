@@ -124,11 +124,11 @@ Shapely geometries and can be easily plotted by many Python packages.
    which can be used to spatially select map resources for any column of
    type geometry.
 
-.. container:: alert-info
+..
 
-   ::
-
-      <b>Tip:</b>  Note the geometry definition of <code>the_geom</code> for each data type, which can be <b>Point</b>, <b>MultiPolygon</b>, or <b>MultiLineString</b>.
+   **Tip**: Note the geometry definition of ``the_geom`` for each data
+   type, which can be **Point**, **MultiPolygon**, or
+   **MultiLineString**.
 
 Here we’ll be using Boulder (BOU) as our example for plotting the County
 Warning Area (CWA). We’ll query our EDEX server to get all counties in
@@ -283,11 +283,8 @@ request interstate geometries which fall inside the buffered boundary.
 Request the city table based using the **envelope** attribute and filter
 by population and progressive disclosure level.
 
-.. container:: alert-warning
-
-   ::
-
-      <b>Warning:</b>  the <code>prog_disc</code> field is not entirely understood and values appear to change significantly depending on WFO site.
+   **Warning**: The ``prog_disc`` field is not entirely understood and
+   values appear to change significantly depending on WFO site.
 
 .. code:: ipython3
 
@@ -507,8 +504,9 @@ to download and render for large (CONUS) maps.
         request.setLocationNames('BOU')
         request.addIdentifier('cwa', 'BOU')
 
-See the Maps Database Reference Page for available database tables,
-column names, and types.
+See the `Maps Database Reference
+Page <http://unidata.github.io/awips2/python/maps-database/#mapdatacw>`__
+for available database tables, column names, and types.
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html>`__
 

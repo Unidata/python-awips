@@ -713,11 +713,11 @@ array:</p>
 <p>Set a parameter, from the output above and take a look at what “levels”
 are available for the data set you’re looking at using
 <a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableLevels">DataAccessLayer.getAvailableLevels(request)</a>.</p>
-<div class="alert-warning docutils container">
-<p>Warning: Not all datasets support levels. If you are trying this with
-another dataset and run into an exception (error), it’s most likely
-because levels are not supported for that data type.</p>
-</div>
+<blockquote>
+<div><p><strong>Warning</strong>: Not all datasets support levels. If you are trying this
+with another dataset and run into an exception (error), it’s most
+likely because levels are not supported for that data type.</p>
+</div></blockquote>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># For grid data we&#39;ll use the temperature parameter (&quot;T&quot;)</span>
 <span class="n">grid_request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
 <span class="n">grid_levels</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableLevels</span><span class="p">(</span><span class="n">grid_request</span><span class="p">)</span>
@@ -1086,10 +1086,10 @@ data we’re working with, we’ll either use
 <a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getGridData">DataAccessLayer.getGridData()</a>
 or
 <a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getGeometryData">DataAccessLayer.getGeometryData()</a></p>
-<div class="alert-info docutils container">
-<p>Note: We have more, detailed notebooks about how analyze and
+<blockquote>
+<div><p><strong>Note</strong>: We have more, detailed notebooks about how analyze and
 visualize the data once you have what you want.</p>
-</div>
+</div></blockquote>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Grid Data</span>
 <span class="n">grid_response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGridData</span><span class="p">(</span><span class="n">grid_request</span><span class="p">,</span> <span class="p">[</span><span class="n">grid_fcstRun</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
 <span class="k">for</span> <span class="n">grid</span> <span class="ow">in</span> <span class="n">grid_response</span><span class="p">:</span>

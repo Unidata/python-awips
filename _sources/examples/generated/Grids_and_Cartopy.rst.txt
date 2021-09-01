@@ -101,10 +101,8 @@ in meters), respectively.
 Models produce many different time variants during their runs, so let’s
 limit the data to the most recent time and forecast run.
 
-.. container:: alert-info
-
-   Note: You can play around with different times and forecast runs to
-   see the differences.
+   **Note**: You can play around with different times and forecast runs
+   to see the differences.
 
 .. code:: ipython3
 
@@ -186,9 +184,7 @@ to create a colorized plot. We use our **make_map** function to create a
 subplot and then we create a color scale (cs) and colorbar (cbar) with a
 label for our plot.
 
-.. container:: alert-info
-
-   Note: You may see a warning appear with a red background, this is
+   **Note**: You may see a warning appear with a red background, this is
    okay, and will go away with subsequent runs of the cell.
 
 .. code:: ipython3

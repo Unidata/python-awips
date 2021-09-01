@@ -394,15 +394,12 @@ pick which images we’re wanting to print out. We’re specifying
 <strong>ECONUS</strong> (for East CONUS), <strong>CLDSNOW</strong>, <strong>DBRDUST</strong>, and <strong>GEOCOLR</strong>
 (for the new CIRA products) and the <strong>three channels</strong> for the RBG
 composites.</p>
-<div class="alert-info docutils container">
-<div class="line-block">
-<div class="line">Tip:</div>
-<div class="line">More information could be gathered by looking at all the available
-location names (sectors), identifiers (entities), and parameters
-(channels). To see those run the following lines of code after the
-dataType has been set to satellite on the request object:</div>
-</div>
-</div>
+<blockquote>
+<div><p><strong>Tip</strong>: More information could be gathered by looking at all the
+available location names (sectors), identifiers (entities), and
+parameters (channels). To see those run the following lines of code
+after the dataType has been set to satellite on the request object:</p>
+</div></blockquote>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## Print Available Location Names</span>
 <span class="nb">print</span><span class="p">((</span><span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableLocationNames</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
 
@@ -432,13 +429,10 @@ dataType has been set to satellite on the request object:</div>
 <p>Here we define a folder for where the satellite images will be written
 to. The default directory is a new folder called ‘output’ that lives
 whereever this notebook lives.</p>
-<div class="alert-info docutils container">
-<div class="line-block">
-<div class="line">Tip:</div>
-<div class="line">If you specify the fully qualified path, it will no longer depend
-on where this notebook is located. For example (for a Mac):</div>
-</div>
-</div>
+<blockquote>
+<div><p><strong>Tip</strong>: If you specify the fully qualified path, it will no longer
+depend on where this notebook is located. For example (for a Mac):</p>
+</div></blockquote>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">outputDir</span> <span class="o">=</span> <span class="s1">&#39;/Users/scarter/test_dir/output/&#39;</span>
 </pre></div>
 </div>

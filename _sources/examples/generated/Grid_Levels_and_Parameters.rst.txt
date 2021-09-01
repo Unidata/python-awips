@@ -562,11 +562,9 @@ Set a parameter, from the output above and take a look at what “levels”
 are available for the data set you’re looking at using
 `DataAccessLayer.getAvailableLevels(request) <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableLevels>`__.
 
-.. container:: alert-warning
-
-   Warning: Not all datasets support levels. If you are trying this with
-   another dataset and run into an exception (error), it’s most likely
-   because levels are not supported for that data type.
+   **Warning**: Not all datasets support levels. If you are trying this
+   with another dataset and run into an exception (error), it’s most
+   likely because levels are not supported for that data type.
 
 .. code:: ipython3
 
@@ -961,9 +959,7 @@ data we’re working with, we’ll either use
 or
 `DataAccessLayer.getGeometryData() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getGeometryData>`__
 
-.. container:: alert-info
-
-   Note: We have more, detailed notebooks about how analyze and
+   **Note**: We have more, detailed notebooks about how analyze and
    visualize the data once you have what you want.
 
 .. code:: ipython3

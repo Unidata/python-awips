@@ -223,13 +223,10 @@ pick which images we’re wanting to print out. We’re specifying
 (for the new CIRA products) and the **three channels** for the RBG
 composites.
 
-.. container:: alert-info
-
-   | Tip:
-   | More information could be gathered by looking at all the available
-     location names (sectors), identifiers (entities), and parameters
-     (channels). To see those run the following lines of code after the
-     dataType has been set to satellite on the request object:
+   **Tip**: More information could be gathered by looking at all the
+   available location names (sectors), identifiers (entities), and
+   parameters (channels). To see those run the following lines of code
+   after the dataType has been set to satellite on the request object:
 
 ::
 
@@ -263,11 +260,8 @@ Here we define a folder for where the satellite images will be written
 to. The default directory is a new folder called ‘output’ that lives
 whereever this notebook lives.
 
-.. container:: alert-info
-
-   | Tip:
-   | If you specify the fully qualified path, it will no longer depend
-     on where this notebook is located. For example (for a Mac):
+   **Tip**: If you specify the fully qualified path, it will no longer
+   depend on where this notebook is located. For example (for a Mac):
 
 ::
 
