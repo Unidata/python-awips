@@ -104,15 +104,21 @@
 <li class="toctree-l2"><a class="reference internal" href="Grids_and_Cartopy.html">Grids and Cartopy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="METAR_Station_Plot_with_MetPy.html">METAR Station Plot with MetPy</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Map Resources and Topography</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#notes">Notes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#setup">Setup</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#request-county-boundaries-for-a-wfo">Request County Boundaries for a WFO</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#create-a-merged-cwa-with-cascaded-union">Create a merged CWA with cascaded_union</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#wfo-boundary-spatial-filter-for-interstates">WFO boundary spatial filter for interstates</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#nearby-cities">Nearby cities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lakes">Lakes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#major-rivers">Major Rivers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#topography">Topography</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#objectives">Objectives</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#imports">1 Imports</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#connect-to-edex">2 Connect to EDEX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#function-make-map">3 Function: make_map()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#create-initial-map-from-cwa">4 Create Initial Map From CWA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#draw-merged-cwa">5 Draw Merged CWA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#draw-interstates-using-boundary-filter">6 Draw Interstates using Boundary Filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#draw-nearby-cities">7 Draw Nearby Cities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#draw-nearby-lakes">8 Draw Nearby Lakes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#draw-major-rivers">9 Draw Major Rivers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#draw-topography">10 Draw Topography</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#see-also">11 See Also</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Model_Sounding_Data.html">Model Sounding Data</a></li>
@@ -199,56 +205,88 @@
   <div class="section" id="map-resources-and-topography">
 <h1>Map Resources and Topography<a class="headerlink" href="#map-resources-and-topography" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Map_Resources_and_Topography.ipynb">Notebook</a>
-The python-awips package provides access to the entire AWIPS Maps
-Database for use in Python GIS applications. Map objects are returned as
-Shapely geometries (<em>Polygon</em>, <em>Point</em>, <em>MultiLineString</em>, etc.) and can
-be easily plotted by Matplotlib, Cartopy, MetPy, and other packages.</p>
-<p>Each map database table has a geometry field called <code class="docutils literal notranslate"><span class="pre">the_geom</span></code>, which
-can be used to spatially select map resources for any column of type
-geometry,</p>
-<div class="section" id="notes">
-<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
-<ul>
-<li><p>This notebook requires: <strong>python-awips, numpy, matplotplib, cartopy,
-shapely</strong></p></li>
-<li><p>Use datatype <strong>maps</strong> and <strong>addIdentifier(‘table’, &lt;postgres maps
-schema&gt;)</strong> to define the map table:
-DataAccessLayer.changeEDEXHost(“edex-cloud.unidata.ucar.edu”) request
-= DataAccessLayer.newDataRequest(‘maps’)
-request.addIdentifier(‘table’, ‘mapdata.county’)</p></li>
-<li><p>Use <strong>request.setLocationNames()</strong> and <strong>request.addIdentifier()</strong> to
-spatially filter a map resource. In the example below, WFO ID <strong>BOU</strong>
-(Boulder, Colorado) is used to query counties within the BOU county
-watch area (CWA)</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;geomField&#39;</span><span class="p">,</span> <span class="s1">&#39;the_geom&#39;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;inLocation&#39;</span><span class="p">,</span> <span class="s1">&#39;true&#39;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;locationField&#39;</span><span class="p">,</span> <span class="s1">&#39;cwa&#39;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="s1">&#39;BOU&#39;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;cwa&#39;</span><span class="p">,</span> <span class="s1">&#39;BOU&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</li>
+Python-AWIPS Tutorial Notebook</p>
+<hr class="docutils" />
+<div class="section" id="objectives">
+<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Use python-awips to connect to an edex server</p></li>
+<li><p>Define data request object specifically for the maps database</p></li>
+<li><p>Manipulate request object for various different map resources</p></li>
+<li><p>Plot map resources in combination with one another for geographical
+context</p></li>
 </ul>
-<p>See the Maps Database Reference Page for available database tables,
-column names, and types.</p>
-<blockquote>
-<div><p>Note the geometry definition of <code class="docutils literal notranslate"><span class="pre">the_geom</span></code> for each data type,
-which can be <strong>Point</strong>, <strong>MultiPolygon</strong>, or <strong>MultiLineString</strong>.</p>
-</div></blockquote>
+<hr class="docutils" />
+<div class="section" id="table-of-contents">
+<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline">¶</a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html#imports">1
+Imports</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html#connect-to-edex">2 Connect to
+EDEX</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html#function-make-map">3 Function:
+make_map()</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html#create-initial-map-from-cwa">4 Create Initial Map From
+CWA</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html#draw-merged-cwa">5 Draw Merged
+CWA</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html#draw-interstates-using-boundary-filter">6 Draw Interstates using Boundary
+Filter</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html#draw-nearby-cities">7 Draw Nearby
+Cities</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html#draw-nearby-lakes">8 Draw Nearby
+Lakes</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html#draw-major-rivers">9 Draw Major
+Rivers</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html#draw-topography">10 Draw
+Topography</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html#see-also">11 See
+Also</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html#additional-documentation">11.1 Additional
+Documentation</a></div>
 </div>
-<div class="section" id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
-<span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">DataAccessLayer</span>
+</div>
+<div class="section" id="imports">
+<h3>1 Imports<a class="headerlink" href="#imports" title="Permalink to this headline">¶</a></h3>
+<p>The imports below are used throughout the notebook. Note the first
+import is coming directly from python-awips and allows us to connect to
+an EDEX server. The subsequent imports are for data manipulation and
+visualization.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">DataAccessLayer</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy.ma</span> <span class="k">as</span> <span class="nn">ma</span>
 <span class="kn">from</span> <span class="nn">cartopy.mpl.gridliner</span> <span class="kn">import</span> <span class="n">LONGITUDE_FORMATTER</span><span class="p">,</span> <span class="n">LATITUDE_FORMATTER</span>
 <span class="kn">from</span> <span class="nn">cartopy.feature</span> <span class="kn">import</span> <span class="n">ShapelyFeature</span><span class="p">,</span><span class="n">NaturalEarthFeature</span>
-<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Polygon</span>
 <span class="kn">from</span> <span class="nn">shapely.ops</span> <span class="kn">import</span> <span class="n">cascaded_union</span>
-
-<span class="c1"># Standard map plot</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html">Top</a></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="connect-to-edex">
+<h3>2 Connect to EDEX<a class="headerlink" href="#connect-to-edex" title="Permalink to this headline">¶</a></h3>
+<p>First we establish a connection to Unidata’s public EDEX server. With
+that connection made, we can create a <a class="reference external" href="http://unidata.github.io/python-awips/api/IDataRequest.html">new data request
+object</a>
+and set the data type to <strong>maps</strong>.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Server, Data Request Type, and Database Table</span>
+<span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="s2">&quot;edex-cloud.unidata.ucar.edu&quot;</span><span class="p">)</span>
+<span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s1">&#39;maps&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html">Top</a></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="function-make-map">
+<h3>3 Function: make_map()<a class="headerlink" href="#function-make-map" title="Permalink to this headline">¶</a></h3>
+<p>In many of our notebooks we end up plotting map images, and this logic
+below is the same from those other notebooks. Typically, functions are
+defined when they are called multiple times throughout a notebook. In
+this case, we only use it in one code block cell, but because it is a
+common function from several of our notebooks, it’s nice to keep the
+logic neatly defined for consistency.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Standard map plot</span>
 <span class="k">def</span> <span class="nf">make_map</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">()):</span>
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">12</span><span class="p">),</span>
             <span class="n">subplot_kw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="n">projection</span><span class="p">))</span>
@@ -259,42 +297,54 @@ which can be <strong>Point</strong>, <strong>MultiPolygon</strong>, or <strong>M
     <span class="n">gl</span><span class="o">.</span><span class="n">xformatter</span> <span class="o">=</span> <span class="n">LONGITUDE_FORMATTER</span>
     <span class="n">gl</span><span class="o">.</span><span class="n">yformatter</span> <span class="o">=</span> <span class="n">LATITUDE_FORMATTER</span>
     <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
-
-<span class="c1"># Server, Data Request Type, and Database Table</span>
-<span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="s2">&quot;edex-cloud.unidata.ucar.edu&quot;</span><span class="p">)</span>
-<span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s1">&#39;maps&#39;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="s1">&#39;mapdata.county&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html">Top</a></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="create-initial-map-from-cwa">
+<h3>4 Create Initial Map From CWA<a class="headerlink" href="#create-initial-map-from-cwa" title="Permalink to this headline">¶</a></h3>
+<p>The python-awips package provides access to the entire AWIPS Maps
+Database for use in Python GIS applications. Map objects are returned as
+Shapely geometries and can be easily plotted by many Python packages.</p>
+<ul class="simple">
+<li><p>Each map database table has a geometry field called <code class="docutils literal notranslate"><span class="pre">the_geom</span></code>,
+which can be used to spatially select map resources for any column of
+type geometry.</p></li>
+</ul>
+<div class="alert-info docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">b</span><span class="o">&gt;</span><span class="n">Tip</span><span class="p">:</span><span class="o">&lt;/</span><span class="n">b</span><span class="o">&gt;</span>  <span class="n">Note</span> <span class="n">the</span> <span class="n">geometry</span> <span class="n">definition</span> <span class="n">of</span> <span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">the_geom</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span> <span class="k">for</span> <span class="n">each</span> <span class="n">data</span> <span class="nb">type</span><span class="p">,</span> <span class="n">which</span> <span class="n">can</span> <span class="n">be</span> <span class="o">&lt;</span><span class="n">b</span><span class="o">&gt;</span><span class="n">Point</span><span class="o">&lt;/</span><span class="n">b</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">b</span><span class="o">&gt;</span><span class="n">MultiPolygon</span><span class="o">&lt;/</span><span class="n">b</span><span class="o">&gt;</span><span class="p">,</span> <span class="ow">or</span> <span class="o">&lt;</span><span class="n">b</span><span class="o">&gt;</span><span class="n">MultiLineString</span><span class="o">&lt;/</span><span class="n">b</span><span class="o">&gt;.</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="request-county-boundaries-for-a-wfo">
-<h2>Request County Boundaries for a WFO<a class="headerlink" href="#request-county-boundaries-for-a-wfo" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>Use <strong>request.setParameters()</strong> to define fields to be returned by
-the request.</p></li>
-</ul>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a WFO ID for location</span>
+<p>Here we’ll be using Boulder (BOU) as our example for plotting the County
+Warning Area (CWA). We’ll query our EDEX server to get all counties in
+the CWA for BOU, and then plot those counties along withe the state
+boundaries and lines of longitude and latitude. In order to get this
+information from EDEX, we’ll need to set several characteristics on our
+data request object. We will use
+<a class="reference external" href="http://unidata.github.io/python-awips/api/IDataRequest.html#awips.dataaccess.IDataRequest.setParameters">request.setParameters()</a>
+to refine our query to EDEX.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Specify the necessary identifiers for requesting the Boulder CWA</span>
+<span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="s1">&#39;mapdata.county&#39;</span><span class="p">)</span>
+<span class="c1"># Define a WFO ID for location</span>
 <span class="c1"># tie this ID to the mapdata.county column &quot;cwa&quot; for filtering</span>
 <span class="n">request</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="s1">&#39;BOU&#39;</span><span class="p">)</span>
 <span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;cwa&#39;</span><span class="p">,</span> <span class="s1">&#39;BOU&#39;</span><span class="p">)</span>
-
 <span class="c1"># enable location filtering (inLocation)</span>
 <span class="c1"># locationField is tied to the above cwa definition (BOU)</span>
 <span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;geomField&#39;</span><span class="p">,</span> <span class="s1">&#39;the_geom&#39;</span><span class="p">)</span>
 <span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;inLocation&#39;</span><span class="p">,</span> <span class="s1">&#39;true&#39;</span><span class="p">)</span>
 <span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;locationField&#39;</span><span class="p">,</span> <span class="s1">&#39;cwa&#39;</span><span class="p">)</span>
 
-<span class="c1"># This is essentially the same as &quot;&#39;&quot;select count(*) from mapdata.cwa where cwa=&#39;BOU&#39;;&quot; (=1)</span>
-
 <span class="c1"># Get response and create dict of county geometries</span>
-<span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="p">[])</span>
-<span class="n">counties</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="n">counties</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">ob</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
-    <span class="n">counties</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">counties</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">())</span>
+    <span class="n">counties</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">counties</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; county MultiPolygons&quot;</span><span class="p">)</span>
 
 
-<span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="c1"># All WFO counties merged to a single Polygon</span>
 <span class="n">merged_counties</span> <span class="o">=</span> <span class="n">cascaded_union</span><span class="p">(</span><span class="n">counties</span><span class="p">)</span>
 <span class="n">envelope</span> <span class="o">=</span> <span class="n">merged_counties</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
@@ -304,8 +354,10 @@ the request.</p></li>
 <span class="n">bounds</span> <span class="o">=</span> <span class="n">merged_counties</span><span class="o">.</span><span class="n">bounds</span>
 <span class="n">bbox</span><span class="o">=</span><span class="p">[</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">+</span><span class="mf">1.5</span><span class="p">]</span>
 
-
+<span class="c1"># Create the map we&#39;ll use for the rest of this notebook based on the</span>
+<span class="c1"># boundaries of the CWA</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">make_map</span><span class="p">(</span><span class="n">bbox</span><span class="o">=</span><span class="n">bbox</span><span class="p">)</span>
+
 <span class="c1"># Plot political/state boundaries handled by Cartopy</span>
 <span class="n">political_boundaries</span> <span class="o">=</span> <span class="n">NaturalEarthFeature</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="s1">&#39;cultural&#39;</span><span class="p">,</span>
                                <span class="n">name</span><span class="o">=</span><span class="s1">&#39;admin_0_boundary_lines_land&#39;</span><span class="p">,</span>
@@ -317,50 +369,48 @@ the request.</p></li>
 <span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="c1"># Plot CWA counties</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">geom</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">counties</span><span class="p">):</span>
-    <span class="n">cbounds</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span>
-    <span class="n">intersection</span> <span class="o">=</span> <span class="n">cbounds</span><span class="o">.</span><span class="n">intersection</span>
-    <span class="n">geoms</span> <span class="o">=</span> <span class="p">(</span><span class="n">intersection</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span>
-         <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="n">counties</span>
-         <span class="k">if</span> <span class="n">cbounds</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">geom</span><span class="p">))</span>
-    <span class="n">shape_feature</span> <span class="o">=</span> <span class="n">ShapelyFeature</span><span class="p">(</span><span class="n">geoms</span><span class="p">,</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span>
-                        <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;#86989B&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">shape_feature</span><span class="p">)</span>
+<span class="n">shape_feature</span> <span class="o">=</span> <span class="n">ShapelyFeature</span><span class="p">(</span><span class="n">counties</span><span class="p">,</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span>
+                    <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;#86989B&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">shape_feature</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Using</span> <span class="mi">23</span> <span class="n">county</span> <span class="n">MultiPolygons</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Using</span> <span class="mi">22</span> <span class="n">county</span> <span class="n">MultiPolygons</span>
 </pre></div>
 </div>
-<img alt="../../_images/Map_Resources_and_Topography_4_1.png" src="../../_images/Map_Resources_and_Topography_4_1.png" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">cartopy</span><span class="o">.</span><span class="n">mpl</span><span class="o">.</span><span class="n">feature_artist</span><span class="o">.</span><span class="n">FeatureArtist</span> <span class="n">at</span> <span class="mh">0x11568f6d0</span><span class="o">&gt;</span>
+</pre></div>
 </div>
-<div class="section" id="create-a-merged-cwa-with-cascaded-union">
-<h2>Create a merged CWA with cascaded_union<a class="headerlink" href="#create-a-merged-cwa-with-cascaded-union" title="Permalink to this headline">¶</a></h2>
+<img alt="../../_images/Map_Resources_and_Topography_13_2.png" src="../../_images/Map_Resources_and_Topography_13_2.png" />
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html">Top</a></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="draw-merged-cwa">
+<h3>5 Draw Merged CWA<a class="headerlink" href="#draw-merged-cwa" title="Permalink to this headline">¶</a></h3>
+<p>In the previous section we created a merged polygon with the applicable
+counties. Here, we draw this new shape on top of our existing map in a
+burnt orange color.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot CWA envelope</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">geom</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">boundaries</span><span class="p">):</span>
-    <span class="n">gbounds</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span>
-    <span class="n">intersection</span> <span class="o">=</span> <span class="n">gbounds</span><span class="o">.</span><span class="n">intersection</span>
-    <span class="n">geoms</span> <span class="o">=</span> <span class="p">(</span><span class="n">intersection</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span>
-         <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="n">boundaries</span>
-         <span class="k">if</span> <span class="n">gbounds</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">geom</span><span class="p">))</span>
-    <span class="n">shape_feature</span> <span class="o">=</span> <span class="n">ShapelyFeature</span><span class="p">(</span><span class="n">geoms</span><span class="p">,</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span>
-                        <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">3.</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;#cc5000&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">shape_feature</span><span class="p">)</span>
+<span class="n">shape_feature</span> <span class="o">=</span> <span class="n">ShapelyFeature</span><span class="p">(</span><span class="n">boundaries</span><span class="p">,</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span>
+                    <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">3.</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;#cc5000&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">shape_feature</span><span class="p">)</span>
 
 <span class="n">fig</span>
 </pre></div>
 </div>
-<img alt="../../_images/Map_Resources_and_Topography_6_0.png" src="../../_images/Map_Resources_and_Topography_6_0.png" />
+<img alt="../../_images/Map_Resources_and_Topography_16_0.png" src="../../_images/Map_Resources_and_Topography_16_0.png" />
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html">Top</a></p>
 </div>
-<div class="section" id="wfo-boundary-spatial-filter-for-interstates">
-<h2>WFO boundary spatial filter for interstates<a class="headerlink" href="#wfo-boundary-spatial-filter-for-interstates" title="Permalink to this headline">¶</a></h2>
-<p>Using the previously-defined <strong>envelope=merged_counties.buffer(2)</strong> in
-<strong>newDataRequest()</strong> to request geometries which fall inside the
-buffered boundary.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s1">&#39;maps&#39;</span><span class="p">,</span> <span class="n">envelope</span><span class="o">=</span><span class="n">envelope</span><span class="p">)</span>
+<hr class="docutils" />
+<div class="section" id="draw-interstates-using-boundary-filter">
+<h3>6 Draw Interstates using Boundary Filter<a class="headerlink" href="#draw-interstates-using-boundary-filter" title="Permalink to this headline">¶</a></h3>
+<p>Now, we’ll use the previously-defined
+<strong>envelope=merged_counties.buffer(2)</strong> in a <strong>newDataRequest()</strong> to
+request interstate geometries which fall inside the buffered boundary.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the request for the interstate query</span>
+<span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s1">&#39;maps&#39;</span><span class="p">,</span> <span class="n">envelope</span><span class="o">=</span><span class="n">envelope</span><span class="p">)</span>
 <span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="s1">&#39;mapdata.interstate&#39;</span><span class="p">)</span>
 <span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;geomField&#39;</span><span class="p">,</span> <span class="s1">&#39;the_geom&#39;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
-<span class="n">interstates</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="p">[])</span>
+<span class="n">interstates</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">interstates</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; interstate MultiLineStrings&quot;</span><span class="p">)</span>
 
 <span class="c1"># Plot interstates</span>
@@ -374,30 +424,36 @@ buffered boundary.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Using</span> <span class="mi">225</span> <span class="n">interstate</span> <span class="n">MultiLineStrings</span>
 </pre></div>
 </div>
-<img alt="../../_images/Map_Resources_and_Topography_8_1.png" src="../../_images/Map_Resources_and_Topography_8_1.png" />
+<img alt="../../_images/Map_Resources_and_Topography_19_1.png" src="../../_images/Map_Resources_and_Topography_19_1.png" />
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html">Top</a></p>
 </div>
-<div class="section" id="nearby-cities">
-<h2>Nearby cities<a class="headerlink" href="#nearby-cities" title="Permalink to this headline">¶</a></h2>
-<p>Request the city table and filter by population and progressive
-disclosure level:</p>
-<p><strong>Warning</strong>: the <code class="docutils literal notranslate"><span class="pre">prog_disc</span></code> field is not entirely understood and
-values appear to change significantly depending on WFO site.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s1">&#39;maps&#39;</span><span class="p">,</span> <span class="n">envelope</span><span class="o">=</span><span class="n">envelope</span><span class="p">)</span>
+<hr class="docutils" />
+<div class="section" id="draw-nearby-cities">
+<h3>7 Draw Nearby Cities<a class="headerlink" href="#draw-nearby-cities" title="Permalink to this headline">¶</a></h3>
+<p>Request the city table based using the <strong>envelope</strong> attribute and filter
+by population and progressive disclosure level.</p>
+<div class="alert-warning docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">b</span><span class="o">&gt;</span><span class="ne">Warning</span><span class="p">:</span><span class="o">&lt;/</span><span class="n">b</span><span class="o">&gt;</span>  <span class="n">the</span> <span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">prog_disc</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span> <span class="n">field</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">entirely</span> <span class="n">understood</span> <span class="ow">and</span> <span class="n">values</span> <span class="n">appear</span> <span class="n">to</span> <span class="n">change</span> <span class="n">significantly</span> <span class="n">depending</span> <span class="n">on</span> <span class="n">WFO</span> <span class="n">site</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the request for the city query</span>
+<span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s1">&#39;maps&#39;</span><span class="p">,</span> <span class="n">envelope</span><span class="o">=</span><span class="n">envelope</span><span class="p">)</span>
 <span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="s1">&#39;mapdata.city&#39;</span><span class="p">)</span>
 <span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;geomField&#39;</span><span class="p">,</span> <span class="s1">&#39;the_geom&#39;</span><span class="p">)</span>
 <span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;population&#39;</span><span class="p">,</span><span class="s1">&#39;prog_disc&#39;</span><span class="p">)</span>
-<span class="n">cities</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="p">[])</span>
+<span class="n">cities</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Queried &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cities</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; total cities&quot;</span><span class="p">)</span>
 
+<span class="c1"># Set aside two arrays - one for the geometry of the cities and one for their names</span>
 <span class="n">citylist</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">cityname</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="c1"># For BOU, progressive disclosure values above 50 and pop above 5000 looks good</span>
 <span class="k">for</span> <span class="n">ob</span> <span class="ow">in</span> <span class="n">cities</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s2">&quot;population&quot;</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">&quot;prog_disc&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s2">&quot;population&quot;</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">5000</span><span class="p">:</span>
-                <span class="n">citylist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">())</span>
-                <span class="n">cityname</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s2">&quot;population&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="s1">&#39;None&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">&quot;prog_disc&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">50</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s2">&quot;population&quot;</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">5000</span><span class="p">:</span>
+            <span class="n">citylist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">())</span>
+            <span class="n">cityname</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Plotting &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cityname</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; cities&quot;</span><span class="p">)</span>
 
 <span class="c1"># Plot city markers</span>
@@ -412,75 +468,72 @@ values appear to change significantly depending on WFO site.</p>
 <span class="n">fig</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Queried</span> <span class="mi">1203</span> <span class="n">total</span> <span class="n">cities</span>
-<span class="n">Plotting</span> <span class="mi">57</span> <span class="n">cities</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Queried</span> <span class="mi">1205</span> <span class="n">total</span> <span class="n">cities</span>
+<span class="n">Plotting</span> <span class="mi">58</span> <span class="n">cities</span>
 </pre></div>
 </div>
-<img alt="../../_images/Map_Resources_and_Topography_10_1.png" src="../../_images/Map_Resources_and_Topography_10_1.png" />
+<img alt="../../_images/Map_Resources_and_Topography_22_1.png" src="../../_images/Map_Resources_and_Topography_22_1.png" />
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html">Top</a></p>
 </div>
-<div class="section" id="lakes">
-<h2>Lakes<a class="headerlink" href="#lakes" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s1">&#39;maps&#39;</span><span class="p">,</span> <span class="n">envelope</span><span class="o">=</span><span class="n">envelope</span><span class="p">)</span>
+<hr class="docutils" />
+<div class="section" id="draw-nearby-lakes">
+<h3>8 Draw Nearby Lakes<a class="headerlink" href="#draw-nearby-lakes" title="Permalink to this headline">¶</a></h3>
+<p>Again, use the <strong>envelope</strong> attribute to define a new data requst for
+the nearby lakes.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define request for lakes</span>
+<span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s1">&#39;maps&#39;</span><span class="p">,</span> <span class="n">envelope</span><span class="o">=</span><span class="n">envelope</span><span class="p">)</span>
 <span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="s1">&#39;mapdata.lake&#39;</span><span class="p">)</span>
 <span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;geomField&#39;</span><span class="p">,</span> <span class="s1">&#39;the_geom&#39;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
 
 <span class="c1"># Get lake geometries</span>
-<span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="p">[])</span>
-<span class="n">lakes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
-<span class="k">for</span> <span class="n">ob</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
-    <span class="n">lakes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lakes</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lakes</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; lake MultiPolygons&quot;</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; lake MultiPolygons&quot;</span><span class="p">)</span>
 
 <span class="c1"># Plot lakes</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">geom</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lakes</span><span class="p">):</span>
-    <span class="n">cbounds</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span>
-    <span class="n">intersection</span> <span class="o">=</span> <span class="n">cbounds</span><span class="o">.</span><span class="n">intersection</span>
-    <span class="n">geoms</span> <span class="o">=</span> <span class="p">(</span><span class="n">intersection</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span>
-         <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="n">lakes</span>
-         <span class="k">if</span> <span class="n">cbounds</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">geom</span><span class="p">))</span>
-    <span class="n">shape_feature</span> <span class="o">=</span> <span class="n">ShapelyFeature</span><span class="p">(</span><span class="n">geoms</span><span class="p">,</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span>
-                        <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;#20B2AA&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">shape_feature</span><span class="p">)</span>
+<span class="n">shape_feature</span> <span class="o">=</span> <span class="n">ShapelyFeature</span><span class="p">([</span><span class="n">lake</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">()</span> <span class="k">for</span> <span class="n">lake</span> <span class="ow">in</span> <span class="n">response</span><span class="p">],</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span>
+                    <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;#20B2AA&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">shape_feature</span><span class="p">)</span>
 <span class="n">fig</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Using</span> <span class="mi">208</span> <span class="n">lake</span> <span class="n">MultiPolygons</span>
 </pre></div>
 </div>
-<img alt="../../_images/Map_Resources_and_Topography_12_1.png" src="../../_images/Map_Resources_and_Topography_12_1.png" />
+<img alt="../../_images/Map_Resources_and_Topography_25_1.png" src="../../_images/Map_Resources_and_Topography_25_1.png" />
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html">Top</a></p>
 </div>
-<div class="section" id="major-rivers">
-<h2>Major Rivers<a class="headerlink" href="#major-rivers" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s1">&#39;maps&#39;</span><span class="p">,</span> <span class="n">envelope</span><span class="o">=</span><span class="n">envelope</span><span class="p">)</span>
+<hr class="docutils" />
+<div class="section" id="draw-major-rivers">
+<h3>9 Draw Major Rivers<a class="headerlink" href="#draw-major-rivers" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define request for rivers</span>
+<span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s1">&#39;maps&#39;</span><span class="p">,</span> <span class="n">envelope</span><span class="o">=</span><span class="n">envelope</span><span class="p">)</span>
 <span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="s1">&#39;mapdata.majorrivers&#39;</span><span class="p">)</span>
 <span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;geomField&#39;</span><span class="p">,</span> <span class="s1">&#39;the_geom&#39;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s1">&#39;pname&#39;</span><span class="p">)</span>
-<span class="n">rivers</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="p">[])</span>
+<span class="n">rivers</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rivers</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; river MultiLineStrings&quot;</span><span class="p">)</span>
 
 <span class="c1"># Plot rivers</span>
-<span class="k">for</span> <span class="n">ob</span> <span class="ow">in</span> <span class="n">rivers</span><span class="p">:</span>
-    <span class="n">shape_feature</span> <span class="o">=</span> <span class="n">ShapelyFeature</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">(),</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span>
-                        <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;#20B2AA&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">shape_feature</span><span class="p">)</span>
+<span class="n">shape_feature</span> <span class="o">=</span> <span class="n">ShapelyFeature</span><span class="p">([</span><span class="n">river</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">()</span> <span class="k">for</span> <span class="n">river</span> <span class="ow">in</span> <span class="n">rivers</span><span class="p">],</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span>
+                    <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;#20B2AA&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">shape_feature</span><span class="p">)</span>
 <span class="n">fig</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Using</span> <span class="mi">1400</span> <span class="n">river</span> <span class="n">MultiLineStrings</span>
 </pre></div>
 </div>
-<img alt="../../_images/Map_Resources_and_Topography_14_1.png" src="../../_images/Map_Resources_and_Topography_14_1.png" />
+<img alt="../../_images/Map_Resources_and_Topography_28_1.png" src="../../_images/Map_Resources_and_Topography_28_1.png" />
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html">Top</a></p>
 </div>
-<div class="section" id="topography">
-<h2>Topography<a class="headerlink" href="#topography" title="Permalink to this headline">¶</a></h2>
+<hr class="docutils" />
+<div class="section" id="draw-topography">
+<h3>10 Draw Topography<a class="headerlink" href="#draw-topography" title="Permalink to this headline">¶</a></h3>
 <p>Spatial envelopes are required for topo requests, which can become slow
 to download and render for large (CONUS) maps.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy.ma</span> <span class="k">as</span> <span class="nn">ma</span>
-<span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">&quot;topo&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define topography request</span>
+<span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">&quot;topo&quot;</span><span class="p">,</span> <span class="n">envelope</span><span class="o">=</span><span class="n">envelope</span><span class="p">)</span>
 <span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span>
 <span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s2">&quot;dataset&quot;</span><span class="p">,</span> <span class="s2">&quot;full&quot;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">setEnvelope</span><span class="p">(</span><span class="n">envelope</span><span class="p">)</span>
 <span class="n">gridData</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGridData</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">gridData</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of grid records: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">gridData</span><span class="p">)))</span>
@@ -488,7 +541,7 @@ to download and render for large (CONUS) maps.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sample grid data:</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">gridData</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getRawData</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="o">&lt;</span><span class="n">awips</span><span class="o">.</span><span class="n">dataaccess</span><span class="o">.</span><span class="n">PyGridData</span><span class="o">.</span><span class="n">PyGridData</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x7ffd0f33c040</span><span class="o">&gt;</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="o">&lt;</span><span class="n">awips</span><span class="o">.</span><span class="n">dataaccess</span><span class="o">.</span><span class="n">PyGridData</span><span class="o">.</span><span class="n">PyGridData</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x115a20370</span><span class="o">&gt;</span><span class="p">]</span>
 <span class="n">Number</span> <span class="n">of</span> <span class="n">grid</span> <span class="n">records</span><span class="p">:</span> <span class="mi">1</span>
 <span class="n">Sample</span> <span class="n">grid</span> <span class="n">data</span> <span class="n">shape</span><span class="p">:</span>
 <span class="p">(</span><span class="mi">778</span><span class="p">,</span> <span class="mi">1058</span><span class="p">)</span>
@@ -521,7 +574,41 @@ to download and render for large (CONUS) maps.</p>
 <span class="mf">4328.0</span>
 </pre></div>
 </div>
-<img alt="../../_images/Map_Resources_and_Topography_17_1.png" src="../../_images/Map_Resources_and_Topography_17_1.png" />
+<img alt="../../_images/Map_Resources_and_Topography_32_1.png" src="../../_images/Map_Resources_and_Topography_32_1.png" />
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html">Top</a></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="see-also">
+<h3>11 See Also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="additional-documentation">
+<h4>11.1 Additional Documentation<a class="headerlink" href="#additional-documentation" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p>This notebook requires: <strong>python-awips, numpy, matplotplib, cartopy,
+shapely</strong></p></li>
+<li><p>Use datatype <strong>maps</strong> and <strong>addIdentifier(‘table’, &lt;postgres maps
+schema&gt;)</strong> to define the map table:
+DataAccessLayer.changeEDEXHost(“edex-cloud.unidata.ucar.edu”) request
+= DataAccessLayer.newDataRequest(‘maps’)
+request.addIdentifier(‘table’, ‘mapdata.county’)</p></li>
+<li><p>Use <strong>request.setLocationNames()</strong> and <strong>request.addIdentifier()</strong> to
+spatially filter a map resource. In the example below, WFO ID <strong>BOU</strong>
+(Boulder, Colorado) is used to query counties within the BOU county
+watch area (CWA)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;geomField&#39;</span><span class="p">,</span> <span class="s1">&#39;the_geom&#39;</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;inLocation&#39;</span><span class="p">,</span> <span class="s1">&#39;true&#39;</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;locationField&#39;</span><span class="p">,</span> <span class="s1">&#39;cwa&#39;</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="s1">&#39;BOU&#39;</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;cwa&#39;</span><span class="p">,</span> <span class="s1">&#39;BOU&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>See the Maps Database Reference Page for available database tables,
+column names, and types.</p>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html">Top</a></p>
+<hr class="docutils" />
+</div>
+</div>
 </div>
 </div>
 

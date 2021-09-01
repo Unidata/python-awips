@@ -2,59 +2,101 @@
 Map Resources and Topography
 ============================
 `Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Map_Resources_and_Topography.ipynb>`_
-The python-awips package provides access to the entire AWIPS Maps
-Database for use in Python GIS applications. Map objects are returned as
-Shapely geometries (*Polygon*, *Point*, *MultiLineString*, etc.) and can
-be easily plotted by Matplotlib, Cartopy, MetPy, and other packages.
+Python-AWIPS Tutorial Notebook
 
-Each map database table has a geometry field called ``the_geom``, which
-can be used to spatially select map resources for any column of type
-geometry,
+--------------
 
-Notes
------
+Objectives
+==========
 
--  This notebook requires: **python-awips, numpy, matplotplib, cartopy,
-   shapely**
--  Use datatype **maps** and **addIdentifier(‘table’, <postgres maps
-   schema>)** to define the map table:
-   DataAccessLayer.changeEDEXHost(“edex-cloud.unidata.ucar.edu”) request
-   = DataAccessLayer.newDataRequest(‘maps’)
-   request.addIdentifier(‘table’, ‘mapdata.county’)
--  Use **request.setLocationNames()** and **request.addIdentifier()** to
-   spatially filter a map resource. In the example below, WFO ID **BOU**
-   (Boulder, Colorado) is used to query counties within the BOU county
-   watch area (CWA)
+-  Use python-awips to connect to an edex server
+-  Define data request object specifically for the maps database
+-  Manipulate request object for various different map resources
+-  Plot map resources in combination with one another for geographical
+   context
 
-   ::
+--------------
 
-        request.addIdentifier('geomField', 'the_geom')
-        request.addIdentifier('inLocation', 'true')
-        request.addIdentifier('locationField', 'cwa')
-        request.setLocationNames('BOU')
-        request.addIdentifier('cwa', 'BOU')
+Table of Contents
+-----------------
 
-See the Maps Database Reference Page for available database tables,
-column names, and types.
+| `1
+  Imports <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html#imports>`__\ 
+| `2 Connect to
+  EDEX <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html#connect-to-edex>`__\ 
+| `3 Function:
+  make_map() <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html#function-make-map>`__\ 
+| `4 Create Initial Map From
+  CWA <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html#create-initial-map-from-cwa>`__\ 
+| `5 Draw Merged
+  CWA <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html#draw-merged-cwa>`__\ 
+| `6 Draw Interstates using Boundary
+  Filter <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html#draw-interstates-using-boundary-filter>`__\ 
+| `7 Draw Nearby
+  Cities <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html#draw-nearby-cities>`__\ 
+| `8 Draw Nearby
+  Lakes <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html#draw-nearby-lakes>`__\ 
+| `9 Draw Major
+  Rivers <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html#draw-major-rivers>`__\ 
+| `10 Draw
+  Topography <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html#draw-topography>`__\ 
+| `11 See
+  Also <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html#see-also>`__\ 
+|     `11.1 Additional
+  Documentation <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html#additional-documentation>`__\ 
 
-   Note the geometry definition of ``the_geom`` for each data type,
-   which can be **Point**, **MultiPolygon**, or **MultiLineString**.
+1 Imports
+---------
 
-Setup
------
+The imports below are used throughout the notebook. Note the first
+import is coming directly from python-awips and allows us to connect to
+an EDEX server. The subsequent imports are for data manipulation and
+visualization.
 
 .. code:: ipython3
 
-    from __future__ import print_function
     from awips.dataaccess import DataAccessLayer
     import matplotlib.pyplot as plt
     import cartopy.crs as ccrs
-    import numpy as np
+    import numpy.ma as ma
     from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
     from cartopy.feature import ShapelyFeature,NaturalEarthFeature
-    from shapely.geometry import Polygon
     from shapely.ops import cascaded_union
-    
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html>`__
+
+--------------
+
+2 Connect to EDEX
+-----------------
+
+First we establish a connection to Unidata’s public EDEX server. With
+that connection made, we can create a `new data request
+object <http://unidata.github.io/python-awips/api/IDataRequest.html>`__
+and set the data type to **maps**.
+
+.. code:: ipython3
+
+    # Server, Data Request Type, and Database Table
+    DataAccessLayer.changeEDEXHost("edex-cloud.unidata.ucar.edu")
+    request = DataAccessLayer.newDataRequest('maps')
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html>`__
+
+--------------
+
+3 Function: make_map()
+----------------------
+
+In many of our notebooks we end up plotting map images, and this logic
+below is the same from those other notebooks. Typically, functions are
+defined when they are called multiple times throughout a notebook. In
+this case, we only use it in one code block cell, but because it is a
+common function from several of our notebooks, it’s nice to keep the
+logic neatly defined for consistency.
+
+.. code:: ipython3
+
     # Standard map plot
     def make_map(bbox, projection=ccrs.PlateCarree()):
         fig, ax = plt.subplots(figsize=(12,12),
@@ -66,42 +108,59 @@ Setup
         gl.xformatter = LONGITUDE_FORMATTER
         gl.yformatter = LATITUDE_FORMATTER
         return fig, ax
-    
-    # Server, Data Request Type, and Database Table
-    DataAccessLayer.changeEDEXHost("edex-cloud.unidata.ucar.edu")
-    request = DataAccessLayer.newDataRequest('maps')
-    request.addIdentifier('table', 'mapdata.county')
 
-Request County Boundaries for a WFO
------------------------------------
+`Top <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html>`__
 
--  Use **request.setParameters()** to define fields to be returned by
-   the request.
+--------------
+
+4 Create Initial Map From CWA
+-----------------------------
+
+The python-awips package provides access to the entire AWIPS Maps
+Database for use in Python GIS applications. Map objects are returned as
+Shapely geometries and can be easily plotted by many Python packages.
+
+-  Each map database table has a geometry field called ``the_geom``,
+   which can be used to spatially select map resources for any column of
+   type geometry.
+
+.. container:: alert-info
+
+   ::
+
+      <b>Tip:</b>  Note the geometry definition of <code>the_geom</code> for each data type, which can be <b>Point</b>, <b>MultiPolygon</b>, or <b>MultiLineString</b>.
+
+Here we’ll be using Boulder (BOU) as our example for plotting the County
+Warning Area (CWA). We’ll query our EDEX server to get all counties in
+the CWA for BOU, and then plot those counties along withe the state
+boundaries and lines of longitude and latitude. In order to get this
+information from EDEX, we’ll need to set several characteristics on our
+data request object. We will use
+`request.setParameters() <http://unidata.github.io/python-awips/api/IDataRequest.html#awips.dataaccess.IDataRequest.setParameters>`__
+to refine our query to EDEX.
 
 .. code:: ipython3
 
+    # Specify the necessary identifiers for requesting the Boulder CWA
+    request.addIdentifier('table', 'mapdata.county')
     # Define a WFO ID for location
     # tie this ID to the mapdata.county column "cwa" for filtering
     request.setLocationNames('BOU')
     request.addIdentifier('cwa', 'BOU')
-    
     # enable location filtering (inLocation)
     # locationField is tied to the above cwa definition (BOU)
     request.addIdentifier('geomField', 'the_geom')
     request.addIdentifier('inLocation', 'true')
     request.addIdentifier('locationField', 'cwa')
     
-    # This is essentially the same as "'"select count(*) from mapdata.cwa where cwa='BOU';" (=1)
-    
     # Get response and create dict of county geometries
-    response = DataAccessLayer.getGeometryData(request, [])
-    counties = np.array([])
+    response = DataAccessLayer.getGeometryData(request)
+    counties = []
     for ob in response:
-        counties = np.append(counties,ob.getGeometry())
+        counties.append(ob.getGeometry())
     print("Using " + str(len(counties)) + " county MultiPolygons")
     
     
-    %matplotlib inline
     # All WFO counties merged to a single Polygon
     merged_counties = cascaded_union(counties)
     envelope = merged_counties.buffer(2)
@@ -111,8 +170,10 @@ Request County Boundaries for a WFO
     bounds = merged_counties.bounds
     bbox=[bounds[0]-1,bounds[2]+1,bounds[1]-1.5,bounds[3]+1.5]
     
-    
+    # Create the map we'll use for the rest of this notebook based on the 
+    # boundaries of the CWA
     fig, ax = make_map(bbox=bbox)
+    
     # Plot political/state boundaries handled by Cartopy
     political_boundaries = NaturalEarthFeature(category='cultural',
                                    name='admin_0_boundary_lines_land',
@@ -124,65 +185,73 @@ Request County Boundaries for a WFO
     ax.add_feature(states, linestyle='-', edgecolor='black',linewidth=2)
     
     # Plot CWA counties
-    for i, geom in enumerate(counties):
-        cbounds = Polygon(geom)
-        intersection = cbounds.intersection
-        geoms = (intersection(geom)
-             for geom in counties
-             if cbounds.intersects(geom))
-        shape_feature = ShapelyFeature(geoms,ccrs.PlateCarree(), 
-                            facecolor='none', linestyle="-",edgecolor='#86989B')
-        ax.add_feature(shape_feature)
+    shape_feature = ShapelyFeature(counties,ccrs.PlateCarree(), 
+                        facecolor='none', linestyle="-",edgecolor='#86989B')
+    ax.add_feature(shape_feature)
 
 
 .. parsed-literal::
 
-    Using 23 county MultiPolygons
+    Using 22 county MultiPolygons
 
 
 
-.. image:: Map_Resources_and_Topography_files/Map_Resources_and_Topography_4_1.png
+
+.. parsed-literal::
+
+    <cartopy.mpl.feature_artist.FeatureArtist at 0x11568f6d0>
 
 
-Create a merged CWA with cascaded_union
----------------------------------------
+
+
+.. image:: Map_Resources_and_Topography_files/Map_Resources_and_Topography_13_2.png
+
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html>`__
+
+--------------
+
+5 Draw Merged CWA
+-----------------
+
+In the previous section we created a merged polygon with the applicable
+counties. Here, we draw this new shape on top of our existing map in a
+burnt orange color.
 
 .. code:: ipython3
 
     # Plot CWA envelope
-    for i, geom in enumerate(boundaries):
-        gbounds = Polygon(geom)
-        intersection = gbounds.intersection
-        geoms = (intersection(geom)
-             for geom in boundaries
-             if gbounds.intersects(geom))
-        shape_feature = ShapelyFeature(geoms,ccrs.PlateCarree(), 
-                            facecolor='none', linestyle="-",linewidth=3.,edgecolor='#cc5000')
-        ax.add_feature(shape_feature)
+    shape_feature = ShapelyFeature(boundaries,ccrs.PlateCarree(), 
+                        facecolor='none', linestyle="-",linewidth=3.,edgecolor='#cc5000')
+    ax.add_feature(shape_feature)
     
     fig
 
 
 
 
-.. image:: Map_Resources_and_Topography_files/Map_Resources_and_Topography_6_0.png
+.. image:: Map_Resources_and_Topography_files/Map_Resources_and_Topography_16_0.png
 
 
 
-WFO boundary spatial filter for interstates
--------------------------------------------
+`Top <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html>`__
 
-Using the previously-defined **envelope=merged_counties.buffer(2)** in
-**newDataRequest()** to request geometries which fall inside the
-buffered boundary.
+--------------
+
+6 Draw Interstates using Boundary Filter
+----------------------------------------
+
+Now, we’ll use the previously-defined
+**envelope=merged_counties.buffer(2)** in a **newDataRequest()** to
+request interstate geometries which fall inside the buffered boundary.
 
 .. code:: ipython3
 
+    # Define the request for the interstate query
     request = DataAccessLayer.newDataRequest('maps', envelope=envelope)
     request.addIdentifier('table', 'mapdata.interstate')
     request.addIdentifier('geomField', 'the_geom')
-    request.setParameters('name')
-    interstates = DataAccessLayer.getGeometryData(request, [])
+    interstates = DataAccessLayer.getGeometryData(request)
     print("Using " + str(len(interstates)) + " interstate MultiLineStrings")
     
     # Plot interstates
@@ -200,37 +269,45 @@ buffered boundary.
 
 
 
-.. image:: Map_Resources_and_Topography_files/Map_Resources_and_Topography_8_1.png
+.. image:: Map_Resources_and_Topography_files/Map_Resources_and_Topography_19_1.png
 
 
 
-Nearby cities
--------------
+`Top <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html>`__
 
-Request the city table and filter by population and progressive
-disclosure level:
+--------------
 
-**Warning**: the ``prog_disc`` field is not entirely understood and
-values appear to change significantly depending on WFO site.
+7 Draw Nearby Cities
+--------------------
+
+Request the city table based using the **envelope** attribute and filter
+by population and progressive disclosure level.
+
+.. container:: alert-warning
+
+   ::
+
+      <b>Warning:</b>  the <code>prog_disc</code> field is not entirely understood and values appear to change significantly depending on WFO site.
 
 .. code:: ipython3
 
+    # Define the request for the city query
     request = DataAccessLayer.newDataRequest('maps', envelope=envelope)
     request.addIdentifier('table', 'mapdata.city')
     request.addIdentifier('geomField', 'the_geom')
     request.setParameters('name','population','prog_disc')
-    cities = DataAccessLayer.getGeometryData(request, [])
+    cities = DataAccessLayer.getGeometryData(request)
     print("Queried " + str(len(cities)) + " total cities")
     
+    # Set aside two arrays - one for the geometry of the cities and one for their names
     citylist = []
     cityname = []
     # For BOU, progressive disclosure values above 50 and pop above 5000 looks good
     for ob in cities:
-        if ob.getString("population"):
-            if ob.getNumber("prog_disc") > 50:
-                if int(ob.getString("population")) > 5000:
-                    citylist.append(ob.getGeometry())
-                    cityname.append(ob.getString("name"))
+        if ob.getString("population") != 'None':
+            if ob.getNumber("prog_disc") > 50 and int(ob.getString("population")) > 5000:
+                citylist.append(ob.getGeometry())
+                cityname.append(ob.getString("name"))
     print("Plotting " + str(len(cityname)) + " cities")
     
     # Plot city markers
@@ -247,43 +324,41 @@ values appear to change significantly depending on WFO site.
 
 .. parsed-literal::
 
-    Queried 1203 total cities
-    Plotting 57 cities
+    Queried 1205 total cities
+    Plotting 58 cities
 
 
 
 
-.. image:: Map_Resources_and_Topography_files/Map_Resources_and_Topography_10_1.png
+.. image:: Map_Resources_and_Topography_files/Map_Resources_and_Topography_22_1.png
 
 
 
-Lakes
------
+`Top <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html>`__
+
+--------------
+
+8 Draw Nearby Lakes
+-------------------
+
+Again, use the **envelope** attribute to define a new data requst for
+the nearby lakes.
 
 .. code:: ipython3
 
+    # Define request for lakes
     request = DataAccessLayer.newDataRequest('maps', envelope=envelope)
     request.addIdentifier('table', 'mapdata.lake')
     request.addIdentifier('geomField', 'the_geom')
-    request.setParameters('name')
     
     # Get lake geometries
-    response = DataAccessLayer.getGeometryData(request, [])
-    lakes = np.array([])
-    for ob in response:
-        lakes = np.append(lakes,ob.getGeometry())
-    print("Using " + str(len(lakes)) + " lake MultiPolygons")
+    response = DataAccessLayer.getGeometryData(request)
+    print("Using " + str(len(response)) + " lake MultiPolygons")
     
     # Plot lakes
-    for i, geom in enumerate(lakes):
-        cbounds = Polygon(geom)
-        intersection = cbounds.intersection
-        geoms = (intersection(geom)
-             for geom in lakes
-             if cbounds.intersects(geom))
-        shape_feature = ShapelyFeature(geoms,ccrs.PlateCarree(), 
-                            facecolor='blue', linestyle="-",edgecolor='#20B2AA')
-        ax.add_feature(shape_feature)
+    shape_feature = ShapelyFeature([lake.getGeometry() for lake in response],ccrs.PlateCarree(), 
+                        facecolor='blue', linestyle="-",edgecolor='#20B2AA')
+    ax.add_feature(shape_feature)
     fig
 
 
@@ -295,27 +370,30 @@ Lakes
 
 
 
-.. image:: Map_Resources_and_Topography_files/Map_Resources_and_Topography_12_1.png
+.. image:: Map_Resources_and_Topography_files/Map_Resources_and_Topography_25_1.png
 
 
 
-Major Rivers
-------------
+`Top <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html>`__
+
+--------------
+
+9 Draw Major Rivers
+-------------------
 
 .. code:: ipython3
 
+    # Define request for rivers
     request = DataAccessLayer.newDataRequest('maps', envelope=envelope)
     request.addIdentifier('table', 'mapdata.majorrivers')
     request.addIdentifier('geomField', 'the_geom')
-    request.setParameters('pname')
-    rivers = DataAccessLayer.getGeometryData(request, [])
+    rivers = DataAccessLayer.getGeometryData(request)
     print("Using " + str(len(rivers)) + " river MultiLineStrings")
     
     # Plot rivers
-    for ob in rivers:
-        shape_feature = ShapelyFeature(ob.getGeometry(),ccrs.PlateCarree(), 
-                            facecolor='none', linestyle=":",edgecolor='#20B2AA')
-        ax.add_feature(shape_feature)
+    shape_feature = ShapelyFeature([river.getGeometry() for river in rivers],ccrs.PlateCarree(), 
+                        facecolor='none', linestyle=":",edgecolor='#20B2AA')
+    ax.add_feature(shape_feature)
     fig
 
 
@@ -326,23 +404,26 @@ Major Rivers
 
 
 
-.. image:: Map_Resources_and_Topography_files/Map_Resources_and_Topography_14_1.png
+.. image:: Map_Resources_and_Topography_files/Map_Resources_and_Topography_28_1.png
 
 
 
-Topography
-----------
+`Top <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html>`__
+
+--------------
+
+10 Draw Topography
+------------------
 
 Spatial envelopes are required for topo requests, which can become slow
 to download and render for large (CONUS) maps.
 
 .. code:: ipython3
 
-    import numpy.ma as ma
-    request = DataAccessLayer.newDataRequest("topo")
+    # Define topography request
+    request = DataAccessLayer.newDataRequest("topo", envelope=envelope)
     request.addIdentifier("group", "/")
     request.addIdentifier("dataset", "full")
-    request.setEnvelope(envelope)
     gridData = DataAccessLayer.getGridData(request)
     print(gridData)
     print("Number of grid records: " + str(len(gridData)))
@@ -352,7 +433,7 @@ to download and render for large (CONUS) maps.
 
 .. parsed-literal::
 
-    [<awips.dataaccess.PyGridData.PyGridData object at 0x7ffd0f33c040>]
+    [<awips.dataaccess.PyGridData.PyGridData object at 0x115a20370>]
     Number of grid records: 1
     Sample grid data shape:
     (778, 1058)
@@ -392,7 +473,43 @@ to download and render for large (CONUS) maps.
 
 
 
-.. image:: Map_Resources_and_Topography_files/Map_Resources_and_Topography_17_1.png
+.. image:: Map_Resources_and_Topography_files/Map_Resources_and_Topography_32_1.png
 
 
 
+`Top <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html>`__
+
+--------------
+
+11 See Also
+-----------
+
+11.1 Additional Documentation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-  This notebook requires: **python-awips, numpy, matplotplib, cartopy,
+   shapely**
+-  Use datatype **maps** and **addIdentifier(‘table’, <postgres maps
+   schema>)** to define the map table:
+   DataAccessLayer.changeEDEXHost(“edex-cloud.unidata.ucar.edu”) request
+   = DataAccessLayer.newDataRequest(‘maps’)
+   request.addIdentifier(‘table’, ‘mapdata.county’)
+-  Use **request.setLocationNames()** and **request.addIdentifier()** to
+   spatially filter a map resource. In the example below, WFO ID **BOU**
+   (Boulder, Colorado) is used to query counties within the BOU county
+   watch area (CWA)
+
+   ::
+
+        request.addIdentifier('geomField', 'the_geom')
+        request.addIdentifier('inLocation', 'true')
+        request.addIdentifier('locationField', 'cwa')
+        request.setLocationNames('BOU')
+        request.addIdentifier('cwa', 'BOU')
+
+See the Maps Database Reference Page for available database tables,
+column names, and types.
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html>`__
+
+--------------
