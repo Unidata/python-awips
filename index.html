@@ -1,77 +1,37 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Python AWIPS Data Access Framework &mdash; python-awips  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script src="_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="API Documentation" href="api/index.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="#" class="icon icon-home"> python-awips
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 18.1.7
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -79,98 +39,46 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="datatypes.html">Available Data Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/index.html">Data Plotting Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev.html">Development Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gridparms.html">Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference external" href="http://unidata.github.io/awips2/appendix/appendix-grid-parameters/">AWIPS Grid Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About Unidata AWIPS</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="#">python-awips</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="#" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Python AWIPS Data Access Framework</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="python-awips-data-access-framework">
-<h1>Python AWIPS Data Access Framework<a class="headerlink" href="#python-awips-data-access-framework" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="python-awips-data-access-framework">
+<h1>Python AWIPS Data Access Framework<a class="headerlink" href="#python-awips-data-access-framework" title="Permalink to this headline"></a></h1>
 <p>The python-awips package provides a data access framework for requesting meteorological and geographic datasets from an <a class="reference external" href="http://unidata.github.io/awips2/#edex">EDEX</a> server.</p>
 <p><a class="reference external" href="http://unidata.github.io/awips2">AWIPS</a> is a weather display and analysis package developed by the National Weather Service for operational forecasting.  UCAR’s <a class="reference external" href="http://www.unidata.ucar.edu/software/awips2/">Unidata Program Center</a> supports a non-operational open-source release of the AWIPS software (<a class="reference external" href="http://unidata.github.io/awips2/#edex">EDEX</a>, <a class="reference external" href="http://unidata.github.io/awips2/#cave">CAVE</a>, and <a class="reference external" href="https://github.com/Unidata/python-awips">python-awips</a>).</p>
-<div class="section" id="pre-requisite-software">
-<h2>Pre-requisite Software<a class="headerlink" href="#pre-requisite-software" title="Permalink to this headline">¶</a></h2>
+<section id="pre-requisite-software">
+<h2>Pre-requisite Software<a class="headerlink" href="#pre-requisite-software" title="Permalink to this headline"></a></h2>
 <dl class="simple">
 <dt>In order to effictively use python-awips you’ll need to have these installed already:</dt><dd><ul class="simple">
 <li><p>python3</p></li>
@@ -179,26 +87,26 @@
 </ul>
 </dd>
 </dl>
-</div>
-<div class="section" id="package-only-install">
-<h2>Package-Only Install<a class="headerlink" href="#package-only-install" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="package-only-install">
+<h2>Package-Only Install<a class="headerlink" href="#package-only-install" title="Permalink to this headline"></a></h2>
 <p>If you already work with Python, you might just be interested in how to install the python-awips pacakge.
 The package can be installed with either of the two well known package managers: <strong>pip</strong> and <strong>conda</strong>.</p>
-<div class="section" id="pip-install">
-<h3>Pip Install<a class="headerlink" href="#pip-install" title="Permalink to this headline">¶</a></h3>
+<section id="pip-install">
+<h3>Pip Install<a class="headerlink" href="#pip-install" title="Permalink to this headline"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">awips</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="conda-install">
-<h3>Conda Install<a class="headerlink" href="#conda-install" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="conda-install">
+<h3>Conda Install<a class="headerlink" href="#conda-install" title="Permalink to this headline"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">python</span><span class="o">-</span><span class="n">awips</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="source-code-with-examples-install">
-<h2>Source Code with Examples Install<a class="headerlink" href="#source-code-with-examples-install" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="source-code-with-examples-install">
+<h2>Source Code with Examples Install<a class="headerlink" href="#source-code-with-examples-install" title="Permalink to this headline"></a></h2>
 <p>Below are instructions on how to install the source code of python-awips, with all included example notebooks.  This will create a new conda environment called <code class="docutils literal notranslate"><span class="pre">python3-awips</span></code> and start up a browser for the jupyter notebook examples.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">Unidata</span><span class="o">/</span><span class="n">python</span><span class="o">-</span><span class="n">awips</span><span class="o">.</span><span class="n">git</span>
 <span class="n">cd</span> <span class="n">python</span><span class="o">-</span><span class="n">awips</span>
@@ -212,60 +120,43 @@ The package can be installed with either of the two well known package managers:
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">update</span> <span class="o">--</span><span class="nb">all</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="questions-contact-us">
-<h2>Questions – Contact Us!<a class="headerlink" href="#questions-contact-us" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="questions-contact-us">
+<h2>Questions – Contact Us!<a class="headerlink" href="#questions-contact-us" title="Permalink to this headline"></a></h2>
 <p>Please feel free to reach out to us at our support email at <strong>support-awips&#64;unidata.ucar.edu</strong></p>
 <div class="toctree-wrapper compound">
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="api/index.html" class="btn btn-neutral float-right" title="API Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2018, Unidata.
-
-    </p>
+    <p>&#169; Copyright 2018, Unidata.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

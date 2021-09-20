@@ -1,78 +1,38 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Development Guide &mdash; python-awips  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script src="_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Grid Parameters" href="gridparms.html" />
+    <link rel="next" title="About Unidata AWIPS" href="about.html" />
     <link rel="prev" title="Watch and Warning Polygons" href="examples/generated/Watch_and_Warning_Polygons.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="index.html" class="icon icon-home"> python-awips
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 18.1.7
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -80,18 +40,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="datatypes.html">Available Data Types</a></li>
@@ -112,84 +61,43 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="gridparms.html">Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference external" href="http://unidata.github.io/awips2/appendix/appendix-grid-parameters/">AWIPS Grid Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About Unidata AWIPS</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">python-awips</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Development Guide</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="_sources/dev.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="development-guide">
-<h1>Development Guide<a class="headerlink" href="#development-guide" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="development-guide">
+<h1>Development Guide<a class="headerlink" href="#development-guide" title="Permalink to this headline"></a></h1>
 <p>The Data Access Framework allows developers to retrieve different types
 of data without having dependencies on those types of data. It provides
 a single, unified data type that can be customized by individual
 implementing plug-ins to provide full functionality pertinent to each
 data type.</p>
-<div class="section" id="writing-a-new-factory">
-<h2>Writing a New Factory<a class="headerlink" href="#writing-a-new-factory" title="Permalink to this headline">¶</a></h2>
+<section id="writing-a-new-factory">
+<h2>Writing a New Factory<a class="headerlink" href="#writing-a-new-factory" title="Permalink to this headline"></a></h2>
 <p>Factories will most often be written in a dataplugin, but should always
 be written in a common plug-in. This will allow for clean dependencies
 from both CAVE and EDEX.</p>
@@ -258,9 +166,9 @@ based on a range of times.</p></li>
 does not apply to the data type, an IncompatibleRequestException
 should be thrown.</p></li>
 </ul>
-</div>
-<div class="section" id="registering-the-factory-with-the-framework">
-<h2>Registering the Factory with the Framework<a class="headerlink" href="#registering-the-factory-with-the-framework" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="registering-the-factory-with-the-framework">
+<h2>Registering the Factory with the Framework<a class="headerlink" href="#registering-the-factory-with-the-framework" title="Permalink to this headline"></a></h2>
 <p>The following needs to be added in a spring file in the plug-in that
 contains the new factory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">bean</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;radarGridFactory&quot;</span>
@@ -274,9 +182,9 @@ contains the new factory:</p>
 <p>This takes the RadarGridFactory and registers it with the registry and
 allows it to be used any time the code makes a request for the data type
 “radar.”</p>
-</div>
-<div class="section" id="retrieving-data-using-the-factory">
-<h2>Retrieving Data Using the Factory<a class="headerlink" href="#retrieving-data-using-the-factory" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="retrieving-data-using-the-factory">
+<h2>Retrieving Data Using the Factory<a class="headerlink" href="#retrieving-data-using-the-factory" title="Permalink to this headline"></a></h2>
 <p>For ease of use and more diverse use, there are multiple interfaces into
 the Data Access Layer. Currently, there is a Python implementation and a
 Java implementation, which have very similar method calls and work in a
@@ -338,9 +246,9 @@ different parameters, levels, and identifiers, it is best to see the
 actual data type for the available options. If it is undocumented, then
 the best way to identify what parameters are to be used is to reference
 the code.</p>
-</div>
-<div class="section" id="development-background">
-<h2>Development Background<a class="headerlink" href="#development-background" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="development-background">
+<h2>Development Background<a class="headerlink" href="#development-background" title="Permalink to this headline"></a></h2>
 <p>In support of Hazard Services Raytheon Technical Services is building a
 generic data access framework that can be called via JAVA or Python. The
 data access framework code can be found within the AWIPS Baseline in</p>
@@ -379,9 +287,9 @@ classes</p>
 <p><strong>AbstractGeometryTimeAgnosticDatabaseFactory</strong>.</p>
 <p>The following content was taken from the design review document which is
 attached and modified slightly.</p>
-</div>
-<div class="section" id="design-implementation">
-<h2>Design/Implementation<a class="headerlink" href="#design-implementation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="design-implementation">
+<h2>Design/Implementation<a class="headerlink" href="#design-implementation" title="Permalink to this headline"></a></h2>
 <p>The Data Access Framework is designed to provide a consistent interface
 for requesting and using geospatial data within CAVE or EDEX. Examples
 of geospatial data are grids, satellite, radar, metars, maps, river gage
@@ -439,9 +347,9 @@ the framework will make use of existing APIs such as <strong>IDataStore</strong>
 <li><p>How plugin developers contribute support for new data types</p></li>
 <li><p>How the framework works when it receives a request</p></li>
 </ul>
-</div>
-<div class="section" id="how-users-of-the-framework-retrieve-and-use-the-data">
-<h2>How users of the framework retrieve and use the data<a class="headerlink" href="#how-users-of-the-framework-retrieve-and-use-the-data" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="how-users-of-the-framework-retrieve-and-use-the-data">
+<h2>How users of the framework retrieve and use the data<a class="headerlink" href="#how-users-of-the-framework-retrieve-and-use-the-data" title="Permalink to this headline"></a></h2>
 <p>When a user of the framework wishes to request data, they must
 instantiate a request object and set some of the values on that request.
 Two request interfaces will be supported, for detailed methods see
@@ -481,9 +389,9 @@ enable requests of data outside of CAVE and EDEX to go through the same
 familiar interfaces. This goal is out of scope for this project but by
 making the request and returned data objects pure python it will not be
 a huge undertaking to add this support in the future.</p>
-</div>
-<div class="section" id="how-plugin-developers-contribute-support-for-new-datatypes">
-<h2>How plugin developers contribute support for new datatypes<a class="headerlink" href="#how-plugin-developers-contribute-support-for-new-datatypes" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="how-plugin-developers-contribute-support-for-new-datatypes">
+<h2>How plugin developers contribute support for new datatypes<a class="headerlink" href="#how-plugin-developers-contribute-support-for-new-datatypes" title="Permalink to this headline"></a></h2>
 <p>When a developer wishes to add support for another data type to the
 framework, they must implement one or both of the factory interfaces
 within a common plugin. Two factory interfaces will be supported, for
@@ -545,9 +453,9 @@ both.</p>
 <span class="o">&lt;/</span><span class="n">bean</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="how-the-framework-works-when-it-receives-a-request">
-<h2>How the framework works when it receives a request<a class="headerlink" href="#how-the-framework-works-when-it-receives-a-request" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="how-the-framework-works-when-it-receives-a-request">
+<h2>How the framework works when it receives a request<a class="headerlink" href="#how-the-framework-works-when-it-receives-a-request" title="Permalink to this headline"></a></h2>
 <p><strong>IDataRequest</strong> requires a datatype to be set on every request. The
 framework will have a registry of existing factories for each data type
 (grid and geometry). When the Data Access Layer methods are called, it
@@ -575,9 +483,9 @@ framework itself is useless without plugins contributing and registering
 <strong>IDataFactories</strong>. Once the framework is coded, developers will need to
 be tasked to add the factories necessary to support the needed data
 types.</p>
-</div>
-<div class="section" id="request-interfaces">
-<h2>Request interfaces<a class="headerlink" href="#request-interfaces" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="request-interfaces">
+<h2>Request interfaces<a class="headerlink" href="#request-interfaces" title="Permalink to this headline"></a></h2>
 <p>Requests and returned data interfaces will exist in both Java and
 Python. The Java interfaces are listed below and the Python interfaces
 will match the Java interfaces except where noted. Factories will only
@@ -622,8 +530,8 @@ requesting data by names such as ICAOs, airports, stationIDs, etc</p></li>
 <strong>Envelopes</strong> (shapely has no concept of envelopes and considers them
 as rectangular polygons)</p></li>
 </ul>
-<div class="section" id="data-interfaces">
-<h3>Data Interfaces<a class="headerlink" href="#data-interfaces" title="Permalink to this headline">¶</a></h3>
+<section id="data-interfaces">
+<h3>Data Interfaces<a class="headerlink" href="#data-interfaces" title="Permalink to this headline"></a></h3>
 <p><strong>IData</strong></p>
 <ul class="simple">
 <li><p><strong>Object getAttribute(String key)</strong> - <strong>getAttribute</strong> provides a way
@@ -694,9 +602,9 @@ binOffset)</strong></p></li>
 that will return numpy arrays of the lat or lon of every grid
 cell</p></li>
 </ul>
-</div>
-<div class="section" id="factory-interfaces-java-only">
-<h3>Factory Interfaces (Java only)<a class="headerlink" href="#factory-interfaces-java-only" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="factory-interfaces-java-only">
+<h3>Factory Interfaces (Java only)<a class="headerlink" href="#factory-interfaces-java-only" title="Permalink to this headline"></a></h3>
 <ul class="simple">
 <li><p><strong>IDataFactory</strong></p></li>
 <li><p><strong>DataTime[] getAvailableTimes(R request)</strong> - queries the
@@ -724,56 +632,39 @@ make subset requests either.</p></li>
 method to retrieve available location names that match a request. Not
 all factories may support this.</p></li>
 </ul>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="gridparms.html" class="btn btn-neutral float-right" title="Grid Parameters" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="examples/generated/Watch_and_Warning_Polygons.html" class="btn btn-neutral float-left" title="Watch and Warning Polygons" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="about.html" class="btn btn-neutral float-right" title="About Unidata AWIPS" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2018, Unidata.
-
-    </p>
+    <p>&#169; Copyright 2018, Unidata.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
