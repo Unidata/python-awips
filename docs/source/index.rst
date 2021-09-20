@@ -72,5 +72,5 @@ Please feel free to reach out to us at our support email at **support-awips@unid
    datatypes
    examples/index
    dev
-   gridparms
+   AWIPS Grid Parameters <http://unidata.github.io/awips2/appendix/appendix-grid-parameters/>
    about
