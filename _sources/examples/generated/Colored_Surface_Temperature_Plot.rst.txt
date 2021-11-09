@@ -2,9 +2,53 @@
 Colored Surface Temperature Plot
 ================================
 `Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Colored_Surface_Temperature_Plot.ipynb>`_
-This exercise creates a colored temperature plot for North America using
-AWIPS METAR observations (datatype *obs*), similar to existing products
-in GEMPAK and CAVE.
+Python-AWIPS Tutorial Notebook
+
+--------------
+
+Objectives
+==========
+
+-  Use python-awips to connect to an edex server
+-  Define and filter data request for METAR surface obs
+-  Define a color threshold and use it to plot a useful map
+-  Create a product similar to existing products in GEMPAK and CAVE
+
+--------------
+
+Table of Contents
+-----------------
+
+| `1
+  Imports <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#imports>`__\ 
+| `2 Initial
+  Setup <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.ipynb#Initial-Setup>`__\ 
+|     `2.1 Geographic
+  Filter <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#geographic-filter>`__\ 
+|     `2.2 EDEX
+  Connnection <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#edex-connection>`__\ 
+| `3 Filter by
+  Time <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#filter-by-time>`__\ 
+| `4 Access and Convert Temp
+  Data <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot#access-and-convert-temp-data>`__\ 
+| `5 Define Temperature
+  Thresholds <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#define-temperature-thresholds>`__\ 
+| `6 Plot the
+  Data! <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#plot-the-data>`__\ 
+| `7 See
+  Also <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#see-also>`__\ 
+|     `7.1 Additional
+  Documentation <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#additional-documentation>`__\ 
+
+--------------
+
+1 Imports
+---------
+
+The imports below are used throughout the notebook. Note the first
+import is coming directly from python-awips and allows us to connect to
+an EDEX server. The subsequent imports are for data manipulation and
+visualization.
 
 .. code:: ipython3
 
@@ -17,21 +61,59 @@ in GEMPAK and CAVE.
     import matplotlib.pyplot as plt
     from shapely.geometry import Polygon
     from metpy.plots import StationPlot
-    %matplotlib inline
-    
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html>`__
+
+--------------
+
+2 Initial Setup
+---------------
+
+2.1 Geographic Filter
+~~~~~~~~~~~~~~~~~~~~~
+
+By defining a bounding box for the Continental US (CONUS), we’re able to
+optimize the data request sent to the EDEX server.
+
+.. code:: ipython3
+
     # CONUS bounding box and envelope geometry
     bbox=[-120, -70, 15, 55]
     envelope = Polygon([(bbox[0],bbox[2]),(bbox[0],bbox[3]),
                         (bbox[1], bbox[3]),(bbox[1],bbox[2]),
                         (bbox[0],bbox[2])])
-    
+
+2.2 EDEX Connection
+~~~~~~~~~~~~~~~~~~~
+
+First we establish a connection to Unidata’s public EDEX server. With
+that connection made, we can create a `new data request
+object <http://unidata.github.io/python-awips/api/IDataRequest.html>`__
+and set the data type to **obs**, and use the geographic **envelope** we
+just created.
+
+.. code:: ipython3
+
     # New obs request
     edexServer = "edex-cloud.unidata.ucar.edu"
     DataAccessLayer.changeEDEXHost(edexServer)
     request = DataAccessLayer.newDataRequest("obs", envelope=envelope)
     params = ["temperature", "longitude", "latitude", "stationName"]
     request.setParameters(*(params))
-    
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html>`__
+
+--------------
+
+3 Filter by Time
+----------------
+
+We then want to limit our results based on time, so we create a time
+range for the last 15 minutes, and then send the request to the EDEX
+server to get our results, which are kept in the **obs** variable.
+
+.. code:: ipython3
+
     # Get records from the last 15 minutes
     lastHourDateTime = datetime.utcnow() - timedelta(minutes = 15)
     start = lastHourDateTime.strftime('%Y-%m-%d %H:%M:%S')
@@ -44,14 +126,56 @@ in GEMPAK and CAVE.
     response = DataAccessLayer.getGeometryData(request,timerange)
     obs = DataAccessLayer.getMetarObs(response)
     
-    print("Found " + str(len(response)) + " total records")
-    print("Using " + str(len(obs['temperature'])) + " temperature records")
-    
-    # Create a station plot pointing to an Axes to draw on as well as the location of points
-    
     lats = obs['latitude']
     lons = obs['longitude']
     
+    print("Found " + str(len(response)) + " total records")
+    print("Using " + str(len(obs['temperature'])) + " temperature records")
+
+
+.. parsed-literal::
+
+    Found 1878 total records
+    Using 1874 temperature records
+
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html>`__
+
+--------------
+
+4 Access and Convert Temp Data
+------------------------------
+
+We access the *temperature* data from the **obs** variable which is
+stored in degrees Celsius (°C). To make it more relatable, we then
+convert the data to degrees Fahreheit (°F)
+
+.. code:: ipython3
+
+    # # Suppress nan masking warnings
+    warnings.filterwarnings("ignore",category =RuntimeWarning)
+    
+    # get all temperature values and convert them from °C to °F
+    tair = np.array(obs['temperature'], dtype=float)
+    tair[tair == -9999.0] = 'nan'
+    tair = (tair*1.8)+32
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html>`__
+
+--------------
+
+5 Define Temperature Thresholds
+-------------------------------
+
+In order to distinguish the temperatures, we’ll create a color map to
+separate the values into different colors. This mapping will be used
+when plotting the temperature values on the map of the United States.
+
+   **Tip:** Try playing around with the color ranges and see how that
+   affects the final plot.
+
+.. code:: ipython3
+
     thresholds = {
         '15': 'purple',
         '25': 'c',
@@ -62,20 +186,28 @@ in GEMPAK and CAVE.
         '75': 'orange',
         '85': 'red'
     }
-    
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html>`__
+
+--------------
+
+6 Plot the Data!
+----------------
+
+Here we create a plot and cycle through all the values from our color
+mapping. For each segement of our color mapping, mask the temperature
+values to only include the relevent temperatures and draw those on the
+plot. Do this for every segment of the color mapping to produce the
+final, colored figure.
+
+.. code:: ipython3
+
     fig, ax = plt.subplots(figsize=(16,12),subplot_kw=dict(projection=ccrs.LambertConformal()))
     ax.set_extent(bbox)
     ax.coastlines(resolution='50m')
     ax.set_title(str(response[-1].getDataTime()) + " | Surface Temps (degF) | " + edexServer)
     
-    # Suppress nan masking warnings
-    warnings.filterwarnings("ignore",category =RuntimeWarning)
-    
-    # get all temperature values and convert them from C to F
-    tair = np.array(obs['temperature'], dtype=float)
-    tair[tair == -9999.0] = 'nan'
-    tair = (tair*1.8)+32
-    
+    # get the temperature limit (x) and color (value)
     for x, value in thresholds.items():
         # create a new temperature value array
         subtair = tair.copy()
@@ -91,18 +223,35 @@ in GEMPAK and CAVE.
     
         # add these stations and their color to the stationplots
         stationplot = StationPlot(ax, lons, lats, transform=ccrs.PlateCarree(), fontsize=14)
-        stationplot.plot_parameter('C', subtair, color=value)
-        
+        stationplot.plot_parameter('C', subtair, color=value)   
 
 
 
-.. parsed-literal::
 
-    Found 921 total records
-    Using 911 temperature records
+.. image:: Colored_Surface_Temperature_Plot_files/Colored_Surface_Temperature_Plot_23_0.png
 
 
+`Top <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html>`__
 
-.. image:: Colored_Surface_Temperature_Plot_files/Colored_Surface_Temperature_Plot_1_1.png
+--------------
 
+7 See Also
+----------
 
+71. Additional Documention
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**python-awips**
+
+-  `DataAccessLayer.changeEDEXHost() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost>`__
+-  `DataAccessLayer.newDataRequest() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.newDataRequest>`__
+
+**matplotlib**
+
+-  `matplotlib.pyplot() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html>`__
+-  `matplotlib.pyplot.axes() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.axes.html>`__
+-  `matplotlib.pyplot.figure() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html>`__
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html>`__
+
+--------------

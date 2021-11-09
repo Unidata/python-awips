@@ -45,7 +45,20 @@
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../datatypes.html">Available Data Types</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Data Plotting Examples</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Colored Surface Temperature Plot</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Colored Surface Temperature Plot</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#objectives">Objectives</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#imports">1 Imports</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#initial-setup">2 Initial Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#filter-by-time">3 Filter by Time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#access-and-convert-temp-data">4 Access and Convert Temp Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#define-temperature-thresholds">5 Define Temperature Thresholds</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#plot-the-data">6 Plot the Data!</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#see-also">7 See Also</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="Forecast_Model_Vertical_Sounding.html">Forecast Model Vertical Sounding</a></li>
 <li class="toctree-l2"><a class="reference internal" href="GOES_CIRA_Product_Writer.html">GOES CIRA Product Writer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="GOES_Geostationary_Lightning_Mapper.html">GOES Geostationary Lightning Mapper</a></li>
@@ -95,9 +108,49 @@
   <section id="colored-surface-temperature-plot">
 <h1>Colored Surface Temperature Plot<a class="headerlink" href="#colored-surface-temperature-plot" title="Permalink to this headline"></a></h1>
 <p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Colored_Surface_Temperature_Plot.ipynb">Notebook</a>
-This exercise creates a colored temperature plot for North America using
-AWIPS METAR observations (datatype <em>obs</em>), similar to existing products
-in GEMPAK and CAVE.</p>
+Python-AWIPS Tutorial Notebook</p>
+<hr class="docutils" />
+<section id="objectives">
+<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Use python-awips to connect to an edex server</p></li>
+<li><p>Define and filter data request for METAR surface obs</p></li>
+<li><p>Define a color threshold and use it to plot a useful map</p></li>
+<li><p>Create a product similar to existing products in GEMPAK and CAVE</p></li>
+</ul>
+<hr class="docutils" />
+<section id="table-of-contents">
+<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline"></a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#imports">1
+Imports</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.ipynb#Initial-Setup">2 Initial
+Setup</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#geographic-filter">2.1 Geographic
+Filter</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#edex-connection">2.2 EDEX
+Connnection</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#filter-by-time">3 Filter by
+Time</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot#access-and-convert-temp-data">4 Access and Convert Temp
+Data</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#define-temperature-thresholds">5 Define Temperature
+Thresholds</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#plot-the-data">6 Plot the
+Data!</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#see-also">7 See
+Also</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#additional-documentation">7.1 Additional
+Documentation</a></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="imports">
+<h3>1 Imports<a class="headerlink" href="#imports" title="Permalink to this headline"></a></h3>
+<p>The imports below are used throughout the notebook. Note the first
+import is coming directly from python-awips and allows us to connect to
+an EDEX server. The subsequent imports are for data manipulation and
+visualization.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">DataAccessLayer</span>
 <span class="kn">from</span> <span class="nn">dynamicserialize.dstypes.com.raytheon.uf.common.time</span> <span class="kn">import</span> <span class="n">TimeRange</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
@@ -107,22 +160,50 @@ in GEMPAK and CAVE.</p>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Polygon</span>
 <span class="kn">from</span> <span class="nn">metpy.plots</span> <span class="kn">import</span> <span class="n">StationPlot</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
-
-<span class="c1"># CONUS bounding box and envelope geometry</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html">Top</a></p>
+</section>
+<hr class="docutils" />
+<section id="initial-setup">
+<h3>2 Initial Setup<a class="headerlink" href="#initial-setup" title="Permalink to this headline"></a></h3>
+<section id="geographic-filter">
+<h4>2.1 Geographic Filter<a class="headerlink" href="#geographic-filter" title="Permalink to this headline"></a></h4>
+<p>By defining a bounding box for the Continental US (CONUS), we’re able to
+optimize the data request sent to the EDEX server.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># CONUS bounding box and envelope geometry</span>
 <span class="n">bbox</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">120</span><span class="p">,</span> <span class="o">-</span><span class="mi">70</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">55</span><span class="p">]</span>
 <span class="n">envelope</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">([(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">]),(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span>
                     <span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">]),(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
                     <span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">])])</span>
-
-<span class="c1"># New obs request</span>
+</pre></div>
+</div>
+</section>
+<section id="edex-connection">
+<h4>2.2 EDEX Connection<a class="headerlink" href="#edex-connection" title="Permalink to this headline"></a></h4>
+<p>First we establish a connection to Unidata’s public EDEX server. With
+that connection made, we can create a <a class="reference external" href="http://unidata.github.io/python-awips/api/IDataRequest.html">new data request
+object</a>
+and set the data type to <strong>obs</strong>, and use the geographic <strong>envelope</strong> we
+just created.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># New obs request</span>
 <span class="n">edexServer</span> <span class="o">=</span> <span class="s2">&quot;edex-cloud.unidata.ucar.edu&quot;</span>
 <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="n">edexServer</span><span class="p">)</span>
 <span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">&quot;obs&quot;</span><span class="p">,</span> <span class="n">envelope</span><span class="o">=</span><span class="n">envelope</span><span class="p">)</span>
 <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;temperature&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;stationName&quot;</span><span class="p">]</span>
 <span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
-
-<span class="c1"># Get records from the last 15 minutes</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html">Top</a></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="filter-by-time">
+<h3>3 Filter by Time<a class="headerlink" href="#filter-by-time" title="Permalink to this headline"></a></h3>
+<p>We then want to limit our results based on time, so we create a time
+range for the last 15 minutes, and then send the request to the EDEX
+server to get our results, which are kept in the <strong>obs</strong> variable.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get records from the last 15 minutes</span>
 <span class="n">lastHourDateTime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">lastHourDateTime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
 <span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
@@ -134,15 +215,47 @@ in GEMPAK and CAVE.</p>
 <span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">timerange</span><span class="p">)</span>
 <span class="n">obs</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getMetarObs</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Found &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; total records&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s2">&quot; temperature records&quot;</span><span class="p">)</span>
-
-<span class="c1"># Create a station plot pointing to an Axes to draw on as well as the location of points</span>
-
 <span class="n">lats</span> <span class="o">=</span> <span class="n">obs</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span>
 <span class="n">lons</span> <span class="o">=</span> <span class="n">obs</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">]</span>
 
-<span class="n">thresholds</span> <span class="o">=</span> <span class="p">{</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Found &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; total records&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s2">&quot; temperature records&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Found</span> <span class="mi">1878</span> <span class="n">total</span> <span class="n">records</span>
+<span class="n">Using</span> <span class="mi">1874</span> <span class="n">temperature</span> <span class="n">records</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html">Top</a></p>
+</section>
+<hr class="docutils" />
+<section id="access-and-convert-temp-data">
+<h3>4 Access and Convert Temp Data<a class="headerlink" href="#access-and-convert-temp-data" title="Permalink to this headline"></a></h3>
+<p>We access the <em>temperature</em> data from the <strong>obs</strong> variable which is
+stored in degrees Celsius (°C). To make it more relatable, we then
+convert the data to degrees Fahreheit (°F)</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># # Suppress nan masking warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span><span class="n">category</span> <span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">)</span>
+
+<span class="c1"># get all temperature values and convert them from °C to °F</span>
+<span class="n">tair</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">tair</span><span class="p">[</span><span class="n">tair</span> <span class="o">==</span> <span class="o">-</span><span class="mf">9999.0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;nan&#39;</span>
+<span class="n">tair</span> <span class="o">=</span> <span class="p">(</span><span class="n">tair</span><span class="o">*</span><span class="mf">1.8</span><span class="p">)</span><span class="o">+</span><span class="mi">32</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html">Top</a></p>
+</section>
+<hr class="docutils" />
+<section id="define-temperature-thresholds">
+<h3>5 Define Temperature Thresholds<a class="headerlink" href="#define-temperature-thresholds" title="Permalink to this headline"></a></h3>
+<p>In order to distinguish the temperatures, we’ll create a color map to
+separate the values into different colors. This mapping will be used
+when plotting the temperature values on the map of the United States.</p>
+<blockquote>
+<div><p><strong>Tip:</strong> Try playing around with the color ranges and see how that
+affects the final plot.</p>
+</div></blockquote>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thresholds</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;15&#39;</span><span class="p">:</span> <span class="s1">&#39;purple&#39;</span><span class="p">,</span>
     <span class="s1">&#39;25&#39;</span><span class="p">:</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span>
     <span class="s1">&#39;35&#39;</span><span class="p">:</span> <span class="s1">&#39;royalblue&#39;</span><span class="p">,</span>
@@ -152,20 +265,24 @@ in GEMPAK and CAVE.</p>
     <span class="s1">&#39;75&#39;</span><span class="p">:</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span>
     <span class="s1">&#39;85&#39;</span><span class="p">:</span> <span class="s1">&#39;red&#39;</span>
 <span class="p">}</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">12</span><span class="p">),</span><span class="n">subplot_kw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">LambertConformal</span><span class="p">()))</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html">Top</a></p>
+</section>
+<hr class="docutils" />
+<section id="plot-the-data">
+<h3>6 Plot the Data!<a class="headerlink" href="#plot-the-data" title="Permalink to this headline"></a></h3>
+<p>Here we create a plot and cycle through all the values from our color
+mapping. For each segement of our color mapping, mask the temperature
+values to only include the relevent temperatures and draw those on the
+plot. Do this for every segment of the color mapping to produce the
+final, colored figure.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">12</span><span class="p">),</span><span class="n">subplot_kw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">LambertConformal</span><span class="p">()))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_extent</span><span class="p">(</span><span class="n">bbox</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">coastlines</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="s1">&#39;50m&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot; | Surface Temps (degF) | &quot;</span> <span class="o">+</span> <span class="n">edexServer</span><span class="p">)</span>
 
-<span class="c1"># Suppress nan masking warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span><span class="n">category</span> <span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">)</span>
-
-<span class="c1"># get all temperature values and convert them from C to F</span>
-<span class="n">tair</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-<span class="n">tair</span><span class="p">[</span><span class="n">tair</span> <span class="o">==</span> <span class="o">-</span><span class="mf">9999.0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;nan&#39;</span>
-<span class="n">tair</span> <span class="o">=</span> <span class="p">(</span><span class="n">tair</span><span class="o">*</span><span class="mf">1.8</span><span class="p">)</span><span class="o">+</span><span class="mi">32</span>
-
+<span class="c1"># get the temperature limit (x) and color (value)</span>
 <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">thresholds</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="c1"># create a new temperature value array</span>
     <span class="n">subtair</span> <span class="o">=</span> <span class="n">tair</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -184,11 +301,30 @@ in GEMPAK and CAVE.</p>
     <span class="n">stationplot</span><span class="o">.</span><span class="n">plot_parameter</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">subtair</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Found</span> <span class="mi">921</span> <span class="n">total</span> <span class="n">records</span>
-<span class="n">Using</span> <span class="mi">911</span> <span class="n">temperature</span> <span class="n">records</span>
-</pre></div>
-</div>
-<img alt="../../_images/Colored_Surface_Temperature_Plot_1_1.png" src="../../_images/Colored_Surface_Temperature_Plot_1_1.png" />
+<img alt="../../_images/Colored_Surface_Temperature_Plot_23_0.png" src="../../_images/Colored_Surface_Temperature_Plot_23_0.png" />
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html">Top</a></p>
+</section>
+<hr class="docutils" />
+<section id="see-also">
+<h3>7 See Also<a class="headerlink" href="#see-also" title="Permalink to this headline"></a></h3>
+<section id="additional-documention">
+<h4>71. Additional Documention<a class="headerlink" href="#additional-documention" title="Permalink to this headline"></a></h4>
+<p><strong>python-awips</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost">DataAccessLayer.changeEDEXHost()</a></p></li>
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.newDataRequest">DataAccessLayer.newDataRequest()</a></p></li>
+</ul>
+<p><strong>matplotlib</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html">matplotlib.pyplot()</a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.axes.html">matplotlib.pyplot.axes()</a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html">matplotlib.pyplot.figure()</a></p></li>
+</ul>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html">Top</a></p>
+<hr class="docutils" />
+</section>
+</section>
+</section>
 </section>
 
 
