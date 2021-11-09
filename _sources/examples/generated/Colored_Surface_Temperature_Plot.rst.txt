@@ -22,7 +22,7 @@ Table of Contents
 | `1
   Imports <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#imports>`__\ 
 | `2 Initial
-  Setup <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.ipynb#Initial-Setup>`__\ 
+  Setup <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#Initial-Setup>`__\ 
 |     `2.1 Geographic
   Filter <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#geographic-filter>`__\ 
 |     `2.2 EDEX
@@ -238,7 +238,7 @@ final, colored figure.
 7 See Also
 ----------
 
-71. Additional Documention
+7.1 Additional Documention
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **python-awips**
