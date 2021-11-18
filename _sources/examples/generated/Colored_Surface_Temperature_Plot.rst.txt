@@ -78,7 +78,7 @@ optimize the data request sent to the EDEX server.
 .. code:: ipython3
 
     # CONUS bounding box and envelope geometry
-    bbox=[-120, -70, 15, 55]
+    bbox=[-130, -70, 15, 55]
     envelope = Polygon([(bbox[0],bbox[2]),(bbox[0],bbox[3]),
                         (bbox[1], bbox[3]),(bbox[1],bbox[2]),
                         (bbox[0],bbox[2])])
@@ -135,8 +135,8 @@ server to get our results, which are kept in the **obs** variable.
 
 .. parsed-literal::
 
-    Found 1878 total records
-    Using 1874 temperature records
+    Found 1704 total records
+    Using 1660 temperature records
 
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html>`__

@@ -172,7 +172,7 @@ visualization.</p>
 <p>By defining a bounding box for the Continental US (CONUS), we’re able to
 optimize the data request sent to the EDEX server.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># CONUS bounding box and envelope geometry</span>
-<span class="n">bbox</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">120</span><span class="p">,</span> <span class="o">-</span><span class="mi">70</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">55</span><span class="p">]</span>
+<span class="n">bbox</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">130</span><span class="p">,</span> <span class="o">-</span><span class="mi">70</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">55</span><span class="p">]</span>
 <span class="n">envelope</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">([(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">]),(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span>
                     <span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">]),(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
                     <span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">])])</span>
@@ -222,8 +222,8 @@ server to get our results, which are kept in the <strong>obs</strong> variable.<
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s2">&quot; temperature records&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Found</span> <span class="mi">1878</span> <span class="n">total</span> <span class="n">records</span>
-<span class="n">Using</span> <span class="mi">1874</span> <span class="n">temperature</span> <span class="n">records</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Found</span> <span class="mi">1704</span> <span class="n">total</span> <span class="n">records</span>
+<span class="n">Using</span> <span class="mi">1660</span> <span class="n">temperature</span> <span class="n">records</span>
 </pre></div>
 </div>
 <p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html">Top</a></p>
