@@ -18,10 +18,10 @@ setup(
     description='A framework for requesting AWIPS meteorological datasets from an EDEX server',
     packages=find_packages(exclude='data'),
     license='BSD',
-    url='http://python-awips.readthedocs.io',
+    url='http://unidata.github.io/python-awips',
     download_url='https://github.com/Unidata/python-awips/archive/{}.tar.gz'.format(ver),
     author='Unidata',
-    author_email='mjames@ucar.edu',
+    author_email='support-awips@ucar.edu',
     install_requires=dependencies,
     extras_require={
         'cdm': ['pyproj>=1.9.4'],
@@ -30,4 +30,3 @@ setup(
         'examples': ['cartopy>=0.13.1', 'metpy>=0.4.0']
     }
 )
-
