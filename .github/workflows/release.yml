@@ -32,21 +32,21 @@ jobs:
         path: dist/
         retention-days: 5
 
-  publish:
-    name: Publish to PyPI
-    needs: build
-    environment:
-      name: PyPI
-      url: https://pypi.org/project/python-awips/
-    runs-on: ubuntu-latest
-    steps:
-    - name: Download packages
-      uses: actions/download-artifact@v2
-      with:
-        path: ./dist/${{ runner.os }}-${{ steps.setup.outputs.python-version }}
-  
-    - name: Publish Package
-      uses: pypa/gh-action-pypi-publish@v1.4.2
-      with:
-        user: __token__
-        password: ${{ secrets.PYPI_TOKEN }}
+    publish:
+      name: Publish to PyPI
+      needs: build
+      environment:
+        name: PyPI
+        url: https://pypi.org/project/python-awips/
+      runs-on: ubuntu-latest
+      steps:
+      - name: Download packages
+        uses: actions/download-artifact@v2
+        with:
+          path: ./dist
+
+      - name: Publish Package
+        uses: pypa/gh-action-pypi-publish@v1.4.2
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_TOKEN }}
