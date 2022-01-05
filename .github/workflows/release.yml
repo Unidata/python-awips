@@ -28,7 +28,6 @@ jobs:
     - name: Save built packages as artifact
       uses: actions/upload-artifact@v2
       with:
-        name: ${{ runner.os }}-${{ steps.setup.outputs.python-version }}
         path: dist/
         retention-days: 5
 
@@ -44,6 +43,7 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         path: ./dist
+        name: artifact
 
     - name: Publish Package
       uses: pypa/gh-action-pypi-publish@v1.4.2
