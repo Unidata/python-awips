@@ -1,0 +1,52 @@
+name: Build python-awips and Publish for pip
+
+on:
+  workflow_dispatch:
+  release:
+    types:
+      - published
+
+jobs:
+  build:
+    name: Build Release Packages
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      id: setup
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.x
+
+    - name: Install build tools
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install --upgrade setuptools
+    - name: Build packages
+      run: python setup.py sdist
+
+    - name: Save built packages as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ runner.os }}-${{ steps.setup.outputs.python-version }}
+        path: dist/
+        retention-days: 5
+
+  publish:
+    name: Publish to PyPI
+    needs: build
+    environment:
+      name: PyPI
+      url: https://pypi.org/project/python-awips/
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download packages
+      uses: actions/download-artifact@v2
+      with:
+        path: ./dist
+
+    - name: Publish Package
+      uses: pypa/gh-action-pypi-publish@v1.4.2
+      with:
+        user: __token__
+        password: ${{ secrets.PYPI_TOKEN }}
