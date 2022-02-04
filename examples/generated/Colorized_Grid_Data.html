@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Grids and Cartopy &mdash; python-awips  documentation</title>
+  <title>Colorized Grid Data &mdash; python-awips  documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="METAR Station Plot with MetPy" href="METAR_Station_Plot_with_MetPy.html" />
-    <link rel="prev" title="Grid Levels and Parameters" href="Grid_Levels_and_Parameters.html" /> 
+    <link rel="next" title="Forecast Model Vertical Sounding" href="Forecast_Model_Vertical_Sounding.html" />
+    <link rel="prev" title="Colored Surface Temperature Plot" href="Colored_Surface_Temperature_Plot.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -46,11 +46,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../datatypes.html">Available Data Types</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Data Plotting Examples</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="Colored_Surface_Temperature_Plot.html">Colored Surface Temperature Plot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Forecast_Model_Vertical_Sounding.html">Forecast Model Vertical Sounding</a></li>
-<li class="toctree-l2"><a class="reference internal" href="GOES_CIRA_Product_Writer.html">GOES CIRA Product Writer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="GOES_Geostationary_Lightning_Mapper.html">GOES Geostationary Lightning Mapper</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Grid_Levels_and_Parameters.html">Grid Levels and Parameters</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Grids and Cartopy</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Colorized Grid Data</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#objectives">Objectives</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#table-of-contents">Table of Contents</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#imports">1 Imports</a></li>
@@ -63,6 +59,10 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="Forecast_Model_Vertical_Sounding.html">Forecast Model Vertical Sounding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GOES_CIRA_Product_Writer.html">GOES CIRA Product Writer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GOES_Geostationary_Lightning_Mapper.html">GOES Geostationary Lightning Mapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Grid_Levels_and_Parameters.html">Grid Levels and Parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="METAR_Station_Plot_with_MetPy.html">METAR Station Plot with MetPy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Map_Resources_and_Topography.html">Map Resources and Topography</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Model_Sounding_Data.html">Model Sounding Data</a></li>
@@ -94,9 +94,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="../index.html">Data Plotting Examples</a> &raquo;</li>
-      <li>Grids and Cartopy</li>
+      <li>Colorized Grid Data</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/examples/generated/Grids_and_Cartopy.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/examples/generated/Colorized_Grid_Data.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -104,9 +104,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="grids-and-cartopy">
-<h1>Grids and Cartopy<a class="headerlink" href="#grids-and-cartopy" title="Permalink to this headline"></a></h1>
-<p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Grids_and_Cartopy.ipynb">Notebook</a>
+  <section id="colorized-grid-data">
+<h1>Colorized Grid Data<a class="headerlink" href="#colorized-grid-data" title="Permalink to this headline"></a></h1>
+<p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Colorized_Grid_Data.ipynb">Notebook</a>
 Python-AWIPS Tutorial Notebook</p>
 <hr class="docutils" />
 <section id="objectives">
@@ -277,7 +277,7 @@ okay, and will go away with subsequent runs of the cell.</p>
   <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">shading</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pcolorargs</span><span class="p">(</span><span class="s1">&#39;pcolormesh&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span>
 </pre></div>
 </div>
-<img alt="../../_images/Grids_and_Cartopy_21_1.png" src="../../_images/Grids_and_Cartopy_21_1.png" />
+<img alt="../../_images/Colorized_Grid_Data_21_1.png" src="../../_images/Colorized_Grid_Data_21_1.png" />
 </section>
 <section id="plot-using-contourf">
 <h4>5.2 Plot Using contourf<a class="headerlink" href="#plot-using-contourf" title="Permalink to this headline"></a></h4>
@@ -295,7 +295,7 @@ a label for our plot.</p>
                <span class="o">+</span> <span class="s2">&quot;valid &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getRefTime</span><span class="p">()))</span>
 </pre></div>
 </div>
-<img alt="../../_images/Grids_and_Cartopy_23_0.png" src="../../_images/Grids_and_Cartopy_23_0.png" />
+<img alt="../../_images/Colorized_Grid_Data_23_0.png" src="../../_images/Colorized_Grid_Data_23_0.png" />
 <p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grids_and_Cartopy.html">Top</a></p>
 </section>
 </section>
@@ -334,8 +334,8 @@ Parameters</a></p></li>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="Grid_Levels_and_Parameters.html" class="btn btn-neutral float-left" title="Grid Levels and Parameters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="METAR_Station_Plot_with_MetPy.html" class="btn btn-neutral float-right" title="METAR Station Plot with MetPy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Colored_Surface_Temperature_Plot.html" class="btn btn-neutral float-left" title="Colored Surface Temperature Plot" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Forecast_Model_Vertical_Sounding.html" class="btn btn-neutral float-right" title="Forecast Model Vertical Sounding" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -1,7 +1,7 @@
-=================
-Grids and Cartopy
-=================
-`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Grids_and_Cartopy.ipynb>`_
+===================
+Colorized Grid Data
+===================
+`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Colorized_Grid_Data.ipynb>`_
 Python-AWIPS Tutorial Notebook
 
 --------------
@@ -205,7 +205,7 @@ label for our plot.
 
 
 
-.. image:: Grids_and_Cartopy_files/Grids_and_Cartopy_21_1.png
+.. image:: Colorized_Grid_Data_files/Colorized_Grid_Data_21_1.png
 
 
 5.2 Plot Using contourf
@@ -229,7 +229,7 @@ a label for our plot.
 
 
 
-.. image:: Grids_and_Cartopy_files/Grids_and_Cartopy_23_0.png
+.. image:: Colorized_Grid_Data_files/Colorized_Grid_Data_23_0.png
 
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Grids_and_Cartopy.html>`__
