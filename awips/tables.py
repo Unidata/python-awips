@@ -1538,6 +1538,10 @@ vtec = {
               'sig': 'W',
               'color': 'bisque',
               'hdln': 'Dust Storm Warning'},
+    'DS.Y' : {'phen': 'DS',
+              'sig': 'Y',
+              'color': 'darkkhaki'
+              'hdln': 'Dust Advisory'},
     'DU.Y' : {'phen': 'DU',
               'sig': 'Y',
               'color': 'darkkhaki',
