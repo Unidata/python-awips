@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Watch Warning and Advisory Plotting &mdash; python-awips  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Development Guide" href="../../dev.html" />
+    <link rel="prev" title="Upper Air BUFR Soundings" href="Upper_Air_BUFR_Soundings.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> python-awips
+          </a>
+              <div class="version">
+                18.1.8
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../datatypes.html">Available Data Types</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Data Plotting Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Colored_Surface_Temperature_Plot.html">Colored Surface Temperature Plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Colorized_Grid_Data.html">Colorized Grid Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Forecast_Model_Vertical_Sounding.html">Forecast Model Vertical Sounding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GOES_CIRA_Product_Writer.html">GOES CIRA Product Writer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GOES_Geostationary_Lightning_Mapper.html">GOES Geostationary Lightning Mapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Grid_Levels_and_Parameters.html">Grid Levels and Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="METAR_Station_Plot_with_MetPy.html">METAR Station Plot with MetPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Map_Resources_and_Topography.html">Map Resources and Topography</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Model_Sounding_Data.html">Model Sounding Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NEXRAD_Level3_Radar.html">NEXRAD Level3 Radar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Precip_Accumulation-Region_Of_Interest.html">Precip Accumulation-Region Of Interest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Regional_Surface_Obs_Plot.html">Regional Surface Obs Plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Satellite_Imagery.html">Satellite Imagery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Upper_Air_BUFR_Soundings.html">Upper Air BUFR Soundings</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Watch Warning and Advisory Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#objectives">Objectives</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#imports">1 Imports</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#function-make-map">2 Function: make_map()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#function-get-color">3 Function: get_color()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#function-get-title">4 Function get_title()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#inital-setup">5 Inital Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#filter-by-time">6 Filter by Time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#use-the-data">7 Use the Data!</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#plot-the-data">8 Plot the Data!</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#see-also">9 See Also</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev.html">Development Guide</a></li>
+<li class="toctree-l1"><a class="reference external" href="http://unidata.github.io/awips2/appendix/appendix-grid-parameters/">AWIPS Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About Unidata AWIPS</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">python-awips</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Data Plotting Examples</a> &raquo;</li>
+      <li>Watch Warning and Advisory Plotting</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/examples/generated/Watch_Warning_and_Advisory_Plotting.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="watch-warning-and-advisory-plotting">
+<h1>Watch Warning and Advisory Plotting<a class="headerlink" href="#watch-warning-and-advisory-plotting" title="Permalink to this headline"></a></h1>
+<p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Watch_Warning_and_Advisory_Plotting.ipynb">Notebook</a>
+Python-AWIPS Tutorial Notebook</p>
+<hr class="docutils" />
+<section id="objectives">
+<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Create a colorized plot with <a class="reference external" href="https://weather.cod.edu/notes/criteria/">Warnings, Watches, Advisories and
+Statements (WWAs)</a></p></li>
+<li><p>Use python-awips to connect to an EDEX server</p></li>
+<li><p>Create and filter the data request specifically for a warning data
+type</p></li>
+<li><p>Create and use accurate time filter for data requests</p></li>
+<li><p>Define and use functions</p></li>
+<li><p>Define and use dictionaries</p></li>
+<li><p>Colorize shapes based on a dictionary</p></li>
+<li><p>Overlay warnings, watches, and advisories with state and political
+maps</p></li>
+</ul>
+<hr class="docutils" />
+<section id="table-of-contents">
+<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline"></a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#imports">1
+Imports</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#functions-make-map">2 Functions:
+make_map()</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#functions-get-color">3 Functions:
+get_color()</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#functions-get-title">4 Functions:
+get_title()</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#initial-setup">5 Initial
+Setup</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#edex-connection">5.1 EDEX
+Connection</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#significance-sig-constraints">5.2 Significance (Sig)
+Constraints</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#filter-by-time">6 Filter by
+Time</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#use-the-data">7 Use the
+Data!</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#get-the-data">7.1 Get the
+Data</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#extract-phensigs-geometries-and-times">7.2 Extract Phensigs, Geometries, and
+Times</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#plot-the-data">8 Plot the
+Data!</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#create-state-and-political-boundaries">8.1 Create State and Political
+Boundaries</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#draw-the-plot-and-legend-for-wwas">8.2 Draw the Plot and Legend for
+WWAs</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#see-also">9 See
+Also</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#related-notebooks">9.1 Related
+Notebooks</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#additional-documentation">9.2 Additional
+Documentation</a></div>
+</div>
+</section>
+<section id="imports">
+<h3>1 Imports<a class="headerlink" href="#imports" title="Permalink to this headline"></a></h3>
+<p>The imports below are used throughout the notebook. The python-awips
+imports allow us to connect to an EDEX server, use the warning lookup
+dictionary, and define a TimeRange. The additional imports are for data
+manipulation and visualization.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">mpatches</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
+<span class="kn">import</span> <span class="nn">cartopy.feature</span> <span class="k">as</span> <span class="nn">cfeature</span>
+<span class="kn">from</span> <span class="nn">cartopy.feature</span> <span class="kn">import</span> <span class="n">ShapelyFeature</span><span class="p">,</span> <span class="n">NaturalEarthFeature</span>
+<span class="kn">from</span> <span class="nn">cartopy.mpl.gridliner</span> <span class="kn">import</span> <span class="n">LONGITUDE_FORMATTER</span><span class="p">,</span> <span class="n">LATITUDE_FORMATTER</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">MultiPolygon</span><span class="p">,</span> <span class="n">Polygon</span>
+
+<span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">DataAccessLayer</span>
+<span class="kn">from</span> <span class="nn">awips.tables</span> <span class="kn">import</span> <span class="n">vtec</span>
+<span class="kn">from</span> <span class="nn">dynamicserialize.dstypes.com.raytheon.uf.common.time</span> <span class="kn">import</span> <span class="n">TimeRange</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html">Top</a></p>
+</section>
+<hr class="docutils" />
+<section id="function-make-map">
+<h3>2 Function: make_map()<a class="headerlink" href="#function-make-map" title="Permalink to this headline"></a></h3>
+<p>In order to plot more than one image, it’s easiest to define common
+logic in a function. However, for this notebook we only use it in one
+place. It is a function you will find in most of our example notebooks.</p>
+<p>Here, a new function called <strong>make_map</strong> is defined. This function uses
+the <a class="reference external" href="https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.html">matplotlib.pyplot package
+(plt)</a>
+to create a figure and axis. The lat/lon grids are added.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_map</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">()):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">12</span><span class="p">),</span>
+            <span class="n">subplot_kw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="n">projection</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_extent</span><span class="p">(</span><span class="n">bbox</span><span class="p">)</span>
+    <span class="n">gl</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">gridlines</span><span class="p">(</span><span class="n">draw_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">gl</span><span class="o">.</span><span class="n">top_labels</span> <span class="o">=</span> <span class="n">gl</span><span class="o">.</span><span class="n">right_labels</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">gl</span><span class="o">.</span><span class="n">xformatter</span> <span class="o">=</span> <span class="n">LONGITUDE_FORMATTER</span>
+    <span class="n">gl</span><span class="o">.</span><span class="n">yformatter</span> <span class="o">=</span> <span class="n">LATITUDE_FORMATTER</span>
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html">Top</a></p>
+</section>
+<hr class="docutils" />
+<section id="function-get-color">
+<h3>3 Function: get_color()<a class="headerlink" href="#function-get-color" title="Permalink to this headline"></a></h3>
+<p>Since we’ll be needing to access the color using the vtec lookup table
+in several places, creating an easily recognizable function is useful.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_color</span><span class="p">(</span><span class="n">phensig</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">vtec</span><span class="p">[</span><span class="n">phensig</span><span class="p">][</span><span class="s1">&#39;color&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html">Top</a></p>
+</section>
+<hr class="docutils" />
+<section id="function-get-title">
+<h3>4 Function get_title()<a class="headerlink" href="#function-get-title" title="Permalink to this headline"></a></h3>
+<p>Similar to the color function just defined, accessing the full name for
+the phensig will also be necessary, so this function will be helpful.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_title</span><span class="p">(</span><span class="n">phensig</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">vtec</span><span class="p">[</span><span class="n">phensig</span><span class="p">][</span><span class="s1">&#39;hdln&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html">Top</a></p>
+</section>
+<hr class="docutils" />
+<section id="inital-setup">
+<h3>5 Inital Setup<a class="headerlink" href="#inital-setup" title="Permalink to this headline"></a></h3>
+<section id="edex-connection">
+<h4>5.1 EDEX Connection<a class="headerlink" href="#edex-connection" title="Permalink to this headline"></a></h4>
+<p>First we establish a connection to Unidata’s public EDEX server. With
+that connection made, we can create a <a class="reference external" href="http://unidata.github.io/python-awips/api/IDataRequest.html">new data request
+object</a>
+and set the data type to <strong>warning</strong>, and set the Parameters to
+<strong>phensig</strong> and <strong>sig</strong>.</p>
+<div class="alert-info docutils container">
+<p>Note: Remember, to see all available parameters use the
+DataAccess.getAvailableParameters() method as shown in the Grid
+Levels and Parameters Notebook.</p>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="s2">&quot;edex-cloud.unidata.ucar.edu&quot;</span><span class="p">)</span>
+<span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">()</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setDatatype</span><span class="p">(</span><span class="s2">&quot;warning&quot;</span><span class="p">)</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;phensig&quot;</span><span class="p">,</span> <span class="s2">&quot;sig&quot;</span><span class="p">]</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="significance-sig-constants">
+<h4>5.2 Significance (Sig) Constants<a class="headerlink" href="#significance-sig-constants" title="Permalink to this headline"></a></h4>
+<p>The two parameters we’re requesting for our warning objects are
+<strong>phensig</strong> and <strong>sig</strong> where phensig is styled “XX.Y” and sig is “Y”.
+Phen stands for “Phenomena” and sig stands for “Significance”. <a class="reference external" href="https://www.weather.gov/media/vtec/VTEC_explanation4-20.pdf">A more
+detailed description of phensigs and how they’re used is provided with
+this NWS
+pamphlet</a>.</p>
+<p>The constants in this section correlate the <strong>sig</strong> to what type of
+message it is (what significance it is).</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">WATCH_SIG</span> <span class="o">=</span> <span class="s1">&#39;A&#39;</span>
+<span class="n">WARN_SIG</span> <span class="o">=</span> <span class="s1">&#39;W&#39;</span>
+<span class="n">ADVIS_SIG</span> <span class="o">=</span> <span class="s1">&#39;Y&#39;</span>
+<span class="n">STATEM_SIG</span> <span class="o">=</span> <span class="s1">&#39;S&#39;</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html">Top</a></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="filter-by-time">
+<h3>6 Filter by Time<a class="headerlink" href="#filter-by-time" title="Permalink to this headline"></a></h3>
+<p>Here we decide how much data we want to pull from EDEX. By default we’ll
+request 12 hours, but that value can easily be modified by <cite>adjusting
+the
+``timedelta(hours = 12)`</cite> &lt;<a class="reference external" href="https://docs.python.org/3/library/datetime.html#timedelta-objects">https://docs.python.org/3/library/datetime.html#timedelta-objects</a>&gt;`__
+in line <code class="docutils literal notranslate"><span class="pre">2</span></code>. The more data we request, the longer the next section
+will take to run.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get records from the last 12 hours</span>
+<span class="n">lastHourDateTime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span> <span class="o">=</span> <span class="mi">12</span><span class="p">)</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">lastHourDateTime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+<span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+
+<span class="n">beginRange</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span> <span class="n">start</span> <span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+<span class="n">endRange</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span> <span class="n">end</span> <span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+<span class="n">timerange</span> <span class="o">=</span> <span class="n">TimeRange</span><span class="p">(</span><span class="n">beginRange</span><span class="p">,</span> <span class="n">endRange</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html">Top</a></p>
+</section>
+<hr class="docutils" />
+<section id="use-the-data">
+<h3>7 Use the Data!<a class="headerlink" href="#use-the-data" title="Permalink to this headline"></a></h3>
+<section id="get-the-data">
+<h4>7.1 Get the Data<a class="headerlink" href="#get-the-data" title="Permalink to this headline"></a></h4>
+<p>Now that we have our <code class="docutils literal notranslate"><span class="pre">request</span></code> and TimeRange <code class="docutils literal notranslate"><span class="pre">timerange</span></code> objects
+ready, it’s time to request the data array from EDEX.</p>
+<div class="alert-info docutils container">
+<p>Note: Above we set timerange to be 12 hours worth of data. This can
+return on the order of ~2000 records and can take a little while to
+run.</p>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get response</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">timerange</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; records&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Using</span> <span class="mi">1502</span> <span class="n">records</span>
+</pre></div>
+</div>
+</section>
+<section id="extract-phensigs-geometries-and-times">
+<h4>7.2 Extract Phensigs, Geometries, and Times<a class="headerlink" href="#extract-phensigs-geometries-and-times" title="Permalink to this headline"></a></h4>
+<p>In this section we start gathering all the information we’ll need to
+properly display our data. First we create an array to keep track of
+unique phensigs. This is useful summary information and will be used to
+help create the legend which we’ll display along with our plot.</p>
+<p>Next, we create arrays for each of the 4 types of significance a
+statement can have. We will group our records this way, so we can easily
+toggle which records to display or not.</p>
+<p>Then, we create two time variables to keep track of the earliest time
+from our records and the latest time, and will display that information
+in the title of our plot.</p>
+<p>This section has optional print statements at lines <code class="docutils literal notranslate"><span class="pre">65</span></code> and <code class="docutils literal notranslate"><span class="pre">85</span></code>.
+The first prints out the title, phensig, ref time, and shape for each
+unique phensig, and the second prints out a sum of how many unique
+phensigs there are.</p>
+<p>We cycle through all the data produced from our <code class="docutils literal notranslate"><span class="pre">response</span></code> object,
+access its geometries, and create a new
+<a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/reference/generated/cartopy.feature.ShapelyFeature.html">ShapelyFeature</a>
+with the corresponding color. Then we place this new feature in the
+appropriate <code class="docutils literal notranslate"><span class="pre">shapes</span></code> array. During this process we also populate the
+phensigs array with all unique phensig entries.</p>
+<p>Finally, after we’re done looping through all the <code class="docutils literal notranslate"><span class="pre">response</span></code> data, we
+create a mapping of phensigs to their corresponding titles. This will be
+used later to sort the legend alphabetically by titles (which differs
+from simply sorting by phensig). Ex. <em>Blizzard Warning (BZ.W)</em> would
+come before <em>Areal Flood Advisory (FA.Y)</em> if we simply sorted by
+phensig.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Keep track of unique phensigs, to use in legend</span>
+<span class="n">phensigs</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Sort the geometries based on their sig</span>
+<span class="n">watch_shapes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">warning_shapes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">advisory_shapes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">statement_shapes</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Keep track of the earliest and latest reftime for title</span>
+<span class="c1"># start with the first time from the first object in the response</span>
+<span class="n">time_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getRefTime</span><span class="p">())</span>
+<span class="c1"># truncate the decimal seconds for datetime parsing</span>
+<span class="n">time_str</span> <span class="o">=</span> <span class="n">time_str</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+<span class="c1"># convert to datetime object for easy comparison</span>
+<span class="n">first_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">time_str</span><span class="p">,</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+<span class="n">last_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">time_str</span><span class="p">,</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ob</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
+
+    <span class="c1"># get the geometry for the object</span>
+    <span class="n">poly</span> <span class="o">=</span> <span class="n">ob</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">()</span>
+    <span class="c1"># get the reftime for the object</span>
+    <span class="n">ref</span>  <span class="o">=</span> <span class="n">ob</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getRefTime</span><span class="p">()</span>
+
+    <span class="c1"># do not plot if phensig is blank (SPS)</span>
+    <span class="k">if</span> <span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s1">&#39;phensig&#39;</span><span class="p">):</span>
+
+        <span class="c1"># look at the reftime</span>
+        <span class="c1"># convert reftime to a string and parse the decimal seconds</span>
+        <span class="n">ref_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+        <span class="n">ref_str</span> <span class="o">=</span> <span class="n">ref_str</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+        <span class="c1"># convert reftime to a datetime object for comparison</span>
+        <span class="n">ref_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">ref_str</span><span class="p">,</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+        <span class="c1"># compare current time with first and last times and set if appropriate</span>
+        <span class="k">if</span> <span class="n">ref_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ref_time</span> <span class="o">&lt;</span> <span class="n">first_time</span><span class="p">:</span>
+                <span class="n">first_time</span> <span class="o">=</span> <span class="n">ref_time</span>
+            <span class="k">elif</span> <span class="n">ref_time</span> <span class="o">&gt;</span> <span class="n">last_time</span><span class="p">:</span>
+                <span class="n">last_time</span> <span class="o">=</span> <span class="n">ref_time</span>
+
+        <span class="c1"># get the phensig and sig values from object</span>
+        <span class="n">phensigString</span> <span class="o">=</span> <span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s1">&#39;phensig&#39;</span><span class="p">)</span>
+        <span class="n">sig</span> <span class="o">=</span> <span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s1">&#39;sig&#39;</span><span class="p">)</span>
+
+        <span class="c1"># set the geometries based on whether it&#39;s a MultiPolygon or Polygon</span>
+        <span class="k">if</span> <span class="n">poly</span><span class="o">.</span><span class="n">geom_type</span> <span class="o">==</span> <span class="s1">&#39;MultiPolygon&#39;</span><span class="p">:</span>
+            <span class="n">geometries</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+            <span class="n">geometries</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">geometries</span><span class="p">,</span><span class="n">MultiPolygon</span><span class="p">(</span><span class="n">poly</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">geometries</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+            <span class="n">geometries</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">geometries</span><span class="p">,</span><span class="n">Polygon</span><span class="p">(</span><span class="n">poly</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="n">geometries</span><span class="p">:</span>
+            <span class="n">bounds</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span>
+            <span class="n">intersection</span> <span class="o">=</span> <span class="n">bounds</span><span class="o">.</span><span class="n">intersection</span>
+            <span class="n">geoms</span> <span class="o">=</span> <span class="p">(</span><span class="n">intersection</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span> <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="n">geometries</span> <span class="k">if</span> <span class="n">bounds</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">geom</span><span class="p">))</span>
+
+        <span class="c1"># Store the unique phensigs</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">phensigString</span> <span class="ow">in</span> <span class="n">phensigs</span><span class="p">:</span>
+            <span class="n">phensigs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">phensigString</span><span class="p">)</span>
+            <span class="c1"># Optional printout of unique Phensigs</span>
+<span class="c1">#             print(get_title(phensigString) + &quot; (&quot; + phensigString + &quot;)</span>
+
+        <span class="c1"># get the corresponding color using the dictionary</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">get_color</span><span class="p">(</span><span class="n">phensigString</span><span class="p">)</span>
+        <span class="c1"># create a new shape feature for the object</span>
+        <span class="n">shape_feature</span> <span class="o">=</span> <span class="n">ShapelyFeature</span><span class="p">(</span><span class="n">geoms</span><span class="p">,</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span>
+                        <span class="n">facecolor</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+        <span class="c1"># store the shape feature in the correct array</span>
+        <span class="k">if</span> <span class="n">sig</span> <span class="ow">is</span> <span class="n">WARN_SIG</span><span class="p">:</span>
+            <span class="n">warning_shapes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shape_feature</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">sig</span> <span class="ow">is</span> <span class="n">WATCH_SIG</span><span class="p">:</span>
+            <span class="n">watch_shapes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shape_feature</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">sig</span> <span class="ow">is</span> <span class="n">ADVIS_SIG</span><span class="p">:</span>
+            <span class="n">advisory_shapes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shape_feature</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">sig</span> <span class="ow">is</span> <span class="n">STATEM_SIG</span><span class="p">:</span>
+            <span class="n">statement_shapes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shape_feature</span><span class="p">)</span>
+
+<span class="c1"># Optional printout for the number of unique phensigs</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">phensigs</span><span class="p">),</span> <span class="s2">&quot; Unique Phensigs&quot;</span><span class="p">)</span>
+
+<span class="c1"># Map phensigs to their titles (used for displaying alphabetically by</span>
+<span class="c1"># title in legend)</span>
+<span class="n">phensig_titles</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">phensig</span> <span class="ow">in</span> <span class="n">phensigs</span><span class="p">:</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="n">get_title</span><span class="p">(</span><span class="n">phensig</span><span class="p">)</span>
+    <span class="n">phensig_titles</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">phensig</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">14</span>  <span class="n">Unique</span> <span class="n">Phensigs</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html">Top</a></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="plot-the-data">
+<h3>8 Plot the Data!<a class="headerlink" href="#plot-the-data" title="Permalink to this headline"></a></h3>
+<section id="create-state-and-political-boundaries">
+<h4>8.1 Create State and Political Boundaries<a class="headerlink" href="#create-state-and-political-boundaries" title="Permalink to this headline"></a></h4>
+<p>Define the state and political boundaries that we’ll use in our plot to
+give more of a frame of reference. These objects are standard method
+calls in the <a class="reference external" href="https://scitools.org.uk/cartopy/docs/v0.14/matplotlib/feature_interface.html#cartopy.feature.NaturalEarthFeature">Cartopy Feature package, using the NaturalEarthFeature
+function</a>.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the state and political boundaries for the plot</span>
+<span class="n">states_provinces</span> <span class="o">=</span> <span class="n">cfeature</span><span class="o">.</span><span class="n">NaturalEarthFeature</span><span class="p">(</span>
+        <span class="n">category</span><span class="o">=</span><span class="s1">&#39;cultural&#39;</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;admin_1_states_provinces_lines&#39;</span><span class="p">,</span>
+        <span class="n">scale</span><span class="o">=</span><span class="s1">&#39;50m&#39;</span><span class="p">,</span>
+        <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+<span class="n">political_boundaries</span> <span class="o">=</span> <span class="n">cfeature</span><span class="o">.</span><span class="n">NaturalEarthFeature</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="s1">&#39;cultural&#39;</span><span class="p">,</span>
+                               <span class="n">name</span><span class="o">=</span><span class="s1">&#39;admin_0_boundary_lines_land&#39;</span><span class="p">,</span>
+                               <span class="n">scale</span><span class="o">=</span><span class="s1">&#39;50m&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="draw-the-plot-and-legend-for-wwas">
+<h4>8.2 Draw the Plot and Legend for WWAs<a class="headerlink" href="#draw-the-plot-and-legend-for-wwas" title="Permalink to this headline"></a></h4>
+<p>Here is where we finally get ot draw something! The very first few lines
+of this section are constants that we can manually “switch on and off”
+for what records we want displayed. By default we have all significance
+types drawn. If we want to “turn off” any of the significance records,
+simply set it’s corresponding constant to false, and re-run this cell to
+see how that plot compares.</p>
+<p>The next step involves creating the objects that are used to define the
+legend. We use the <code class="docutils literal notranslate"><span class="pre">phensig_titles</span></code> dictionary to loop through all the
+phensigs in alphabetical (by title) order. Then, we compare if the
+phensig will be displayed or not based on the display constants from the
+previous lines. If the significance will be drawn then we create a new
+<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.patches.Patch.html#matplotlib.patches.Patch">Patch
+object</a>
+of the corresponding color with the corresponding label and add it to
+our <code class="docutils literal notranslate"><span class="pre">handles</span></code> array.</p>
+<p>After that we define our bounding box and create our new plot with its
+figure and axes.</p>
+<p>Our next step is to create our Title for our plot. We create a title
+based on the draw variables to accurately describe what is being drawn
+in our plot. Here is where we use the first and last times defined in a
+previous cell.</p>
+<p>Finally, we create and show our plot. We add the title to the plot, add
+all the features to the axes, and add the legend as well.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set these variables for which records to draw</span>
+<span class="n">DRAW_ADVISORY</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">DRAW_WATCH</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">DRAW_WARNING</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">DRAW_STATEMENT</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="c1"># Create handles for legend and add items alphabetically by title and</span>
+<span class="c1"># only display based on the display values above</span>
+<span class="n">handles</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">title</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">phensig_titles</span><span class="p">):</span>
+    <span class="n">phensig</span> <span class="o">=</span> <span class="n">phensig_titles</span><span class="p">[</span><span class="n">title</span><span class="p">]</span>
+    <span class="c1"># check draw booleans</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="s2">&quot;.&quot;</span><span class="o">+</span><span class="n">ADVIS_SIG</span> <span class="ow">in</span> <span class="n">phensig</span> <span class="ow">and</span> <span class="n">DRAW_ADVISORY</span> <span class="ow">or</span>
+        <span class="s2">&quot;.&quot;</span><span class="o">+</span><span class="n">WATCH_SIG</span> <span class="ow">in</span> <span class="n">phensig</span> <span class="ow">and</span> <span class="n">DRAW_WATCH</span> <span class="ow">or</span>
+        <span class="s2">&quot;.&quot;</span><span class="o">+</span><span class="n">WARN_SIG</span> <span class="ow">in</span> <span class="n">phensig</span> <span class="ow">and</span> <span class="n">DRAW_WARNING</span> <span class="ow">or</span>
+        <span class="s2">&quot;.&quot;</span><span class="o">+</span><span class="n">STATEM_SIG</span> <span class="ow">in</span> <span class="n">phensig</span> <span class="ow">and</span> <span class="n">DRAW_STATEMENT</span> <span class="p">):</span>
+        <span class="n">entry</span> <span class="o">=</span> <span class="n">mpatches</span><span class="o">.</span><span class="n">Patch</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">get_color</span><span class="p">(</span><span class="n">phensig</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="n">title</span><span class="p">)</span>
+        <span class="n">handles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+
+<span class="c1"># Create the plot</span>
+<span class="n">bbox</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">127</span><span class="p">,</span><span class="o">-</span><span class="mi">64</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">49</span><span class="p">]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">make_map</span><span class="p">(</span><span class="n">bbox</span><span class="o">=</span><span class="n">bbox</span><span class="p">)</span>
+
+<span class="c1"># Add the title</span>
+<span class="c1"># Construct the title based on which record types are being displayed</span>
+<span class="n">title_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="k">if</span> <span class="n">DRAW_WATCH</span><span class="p">:</span>
+    <span class="n">title_string</span> <span class="o">+=</span> <span class="s2">&quot;Watches, &quot;</span>
+<span class="k">if</span> <span class="n">DRAW_WARNING</span><span class="p">:</span>
+    <span class="n">title_string</span> <span class="o">+=</span> <span class="s2">&quot;Warnings, &quot;</span>
+<span class="k">if</span> <span class="n">DRAW_ADVISORY</span><span class="p">:</span>
+    <span class="n">title_string</span> <span class="o">+=</span> <span class="s2">&quot;Advisories, &quot;</span>
+<span class="k">if</span> <span class="n">DRAW_STATEMENT</span><span class="p">:</span>
+    <span class="n">title_string</span> <span class="o">+=</span> <span class="s2">&quot;Statements, &quot;</span>
+<span class="c1"># remove the last comma and space</span>
+<span class="n">title_string</span> <span class="o">=</span> <span class="n">title_string</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="c1"># add the time range</span>
+<span class="n">title_string</span> <span class="o">+=</span> <span class="s2">&quot; from &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">first_time</span><span class="p">)[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; to &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">last_time</span><span class="p">)[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; UTC&quot;</span>
+<span class="c1"># set the title on the plot, give it a bigger font size, and increase</span>
+<span class="c1"># the vertical padding between the title and the figure</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title_string</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Draw all features on the plot</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">LAND</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">COASTLINE</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">states_provinces</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">political_boundaries</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+
+<span class="c1"># Draw WWAs in order: Advisory -&gt; Watch &gt; Warning &gt; Statement</span>
+<span class="k">if</span> <span class="n">DRAW_ADVISORY</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">shape</span> <span class="ow">in</span> <span class="n">advisory_shapes</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">DRAW_WATCH</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">shape</span> <span class="ow">in</span> <span class="n">watch_shapes</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">DRAW_WARNING</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">shape</span> <span class="ow">in</span> <span class="n">warning_shapes</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">DRAW_STATEMENT</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">shape</span> <span class="ow">in</span> <span class="n">statement_shapes</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># Draw the legend</span>
+<span class="c1"># use the handles defined earlier for the color associations to</span>
+<span class="c1"># phensig titles, set the location to the lower center, give it</span>
+<span class="c1"># 5 columns so it uses all the horizonatal space, place it under</span>
+<span class="c1"># the actual figure, and give it a larger fontsize</span>
+<span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.12</span> <span class="o">+</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">handles</span><span class="p">)</span><span class="o">//</span><span class="mi">5</span> <span class="o">*</span><span class="mf">.04</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">handles</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower center&#39;</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="n">bottom</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+<span class="c1"># Show the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../../_images/Watch_Warning_and_Advisory_Plotting_34_0.png" src="../../_images/Watch_Warning_and_Advisory_Plotting_34_0.png" />
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html">Top</a></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="see-also">
+<h3>9 See Also<a class="headerlink" href="#see-also" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.weather.gov/lwx/warningsdefined#:~:text=A%20Winter%20Storm%20Warning%20is%20issued%20when%20a,combination%20of%20snow%20and%2For%20ice%20accumulation%20with%20wind.">National Weather Service WWA Definitions (Baltimore
+Office)</a></p></li>
+<li><p><a class="reference external" href="https://weather.cod.edu/notes/criteria/">College of Dupage WWA
+Definitions</a></p></li>
+<li><p><a class="reference external" href="https://www.weather.gov/media/vtec/VTEC_explanation4-20.pdf">Phensig
+Explanation</a></p></li>
+</ul>
+<section id="related-notebooks">
+<h4>9.1 Related Notebooks<a class="headerlink" href="#related-notebooks" title="Permalink to this headline"></a></h4>
+<ul class="simple">
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html">Grid Levels and
+Parameters</a></p></li>
+</ul>
+</section>
+<section id="additional-documentation">
+<h4>9.2 Additional Documentation<a class="headerlink" href="#additional-documentation" title="Permalink to this headline"></a></h4>
+<p><strong>python-awips</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost">DataAccessLayer.changeEDEXHost()</a></p></li>
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.newDataRequest">DataAccessLayer.newDataRequest()</a></p></li>
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableParameters">DataAccessLayer.getAvailableParameters()</a></p></li>
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/api/IDataRequest.html">IDataRequest</a></p></li>
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/api/PyGeometryData.html">GeometryData</a></p></li>
+</ul>
+<p><strong>datetime</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime-objects">datetime.datetime</a></p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#timedelta-objects">datetime.timedelta</a></p></li>
+</ul>
+<p><strong>cartopy</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://scitools.org.uk/cartopy/docs/v0.14/matplotlib/feature_interface.html">cartopy feature
+interface</a></p></li>
+<li><p><a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/reference/generated/cartopy.feature.ShapelyFeature.html">cartopy.feature.ShaeplyFeature</a></p></li>
+</ul>
+<p><strong>matplotlib</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html">matplotlib.pyplot()</a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.legend.html">matplotlib.pyplot.legend()</a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.axes.html">matplotlib.pyplot.axes()</a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html">matplotlib.pyplot.figure()</a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.title.html">matplotlib.pyplot.title()</a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.patches.Patch.html#matplotlib.patches.Patch">matplotlib.pathes.Patch</a></p></li>
+</ul>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html">Top</a></p>
+<hr class="docutils" />
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Upper_Air_BUFR_Soundings.html" class="btn btn-neutral float-left" title="Upper Air BUFR Soundings" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../dev.html" class="btn btn-neutral float-right" title="Development Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018, Unidata.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
