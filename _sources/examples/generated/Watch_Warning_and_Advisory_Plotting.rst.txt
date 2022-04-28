@@ -28,18 +28,18 @@ Table of Contents
 
 | `1
   Imports <https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#imports>`__\ 
-| `2 Functions:
-  make_map() <https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#functions-make-map>`__\ 
-| `3 Functions:
-  get_color() <https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#functions-get-color>`__\ 
-| `4 Functions:
-  get_title() <https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#functions-get-title>`__\ 
+| `2 Function:
+  make_map() <https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#function-make-map>`__\ 
+| `3 Function:
+  get_color() <https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#function-get-color>`__\ 
+| `4 Function:
+  get_title() <https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#function-get-title>`__\ 
 | `5 Initial
   Setup <https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#initial-setup>`__\ 
 |     `5.1 EDEX
   Connection <https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#edex-connection>`__\ 
 |     `5.2 Significance (Sig)
-  Constraints <https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#significance-sig-constraints>`__\ 
+  Constants <https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#significance-sig-constants>`__\ 
 | `6 Filter by
   Time <https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#filter-by-time>`__\ 
 | `7 Use the
@@ -148,8 +148,8 @@ the phensig will also be necessary, so this function will be helpful.
 
 --------------
 
-5 Inital Setup
---------------
+5 Initial Setup
+---------------
 
 5.1 EDEX Connection
 ~~~~~~~~~~~~~~~~~~~
