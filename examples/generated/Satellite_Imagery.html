@@ -14,6 +14,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../../about.html" />
@@ -99,13 +100,13 @@
            <div itemprop="articleBody">
              
   <section id="satellite-imagery">
-<h1>Satellite Imagery<a class="headerlink" href="#satellite-imagery" title="Permalink to this headline"></a></h1>
+<h1>Satellite Imagery<a class="headerlink" href="#satellite-imagery" title="Permalink to this heading"></a></h1>
 <p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Satellite_Imagery.ipynb">Notebook</a>
 Satellite images are returned by Python AWIPS as grids, and can be
 rendered with Cartopy pcolormesh the same as gridded forecast models in
 other python-awips examples.</p>
 <section id="available-sources-creating-entities-sectors-and-products">
-<h2>Available Sources, Creating Entities, Sectors, and Products<a class="headerlink" href="#available-sources-creating-entities-sectors-and-products" title="Permalink to this headline"></a></h2>
+<h2>Available Sources, Creating Entities, Sectors, and Products<a class="headerlink" href="#available-sources-creating-entities-sectors-and-products" title="Permalink to this heading"></a></h2>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">DataAccessLayer</span>
 <span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
 <span class="kn">import</span> <span class="nn">cartopy.feature</span> <span class="k">as</span> <span class="nn">cfeat</span>
@@ -653,7 +654,7 @@ other python-awips examples.</p>
 </pre></div>
 </div>
 <section id="goes-16-mesoscale-sectors">
-<h3>GOES 16 Mesoscale Sectors<a class="headerlink" href="#goes-16-mesoscale-sectors" title="Permalink to this headline"></a></h3>
+<h3>GOES 16 Mesoscale Sectors<a class="headerlink" href="#goes-16-mesoscale-sectors" title="Permalink to this heading"></a></h3>
 <p>Define our imports, and define our map properties first.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
 

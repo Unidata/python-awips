@@ -14,6 +14,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../../about.html" />
@@ -108,12 +109,12 @@
            <div itemprop="articleBody">
              
   <section id="watch-warning-and-advisory-plotting">
-<h1>Watch Warning and Advisory Plotting<a class="headerlink" href="#watch-warning-and-advisory-plotting" title="Permalink to this headline"></a></h1>
+<h1>Watch Warning and Advisory Plotting<a class="headerlink" href="#watch-warning-and-advisory-plotting" title="Permalink to this heading"></a></h1>
 <p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Watch_Warning_and_Advisory_Plotting.ipynb">Notebook</a>
 Python-AWIPS Tutorial Notebook</p>
 <hr class="docutils" />
 <section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline"></a></h2>
+<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>Create a colorized plot with <a class="reference external" href="https://weather.cod.edu/notes/criteria/">Warnings, Watches, Advisories and
 Statements (WWAs)</a></p></li>
@@ -129,7 +130,7 @@ maps</p></li>
 </ul>
 <hr class="docutils" />
 <section id="table-of-contents">
-<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline"></a></h3>
+<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading"></a></h3>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#imports">1
 Imports</a></div>
@@ -168,7 +169,7 @@ Documentation</a></div>
 </div>
 </section>
 <section id="imports">
-<h3>1 Imports<a class="headerlink" href="#imports" title="Permalink to this headline"></a></h3>
+<h3>1 Imports<a class="headerlink" href="#imports" title="Permalink to this heading"></a></h3>
 <p>The imports below are used throughout the notebook. The python-awips
 imports allow us to connect to an EDEX server, use the warning lookup
 dictionary, and define a TimeRange. The additional imports are for data
@@ -193,7 +194,7 @@ manipulation and visualization.</p>
 </section>
 <hr class="docutils" />
 <section id="function-make-map">
-<h3>2 Function: make_map()<a class="headerlink" href="#function-make-map" title="Permalink to this headline"></a></h3>
+<h3>2 Function: make_map()<a class="headerlink" href="#function-make-map" title="Permalink to this heading"></a></h3>
 <p>In order to plot more than one image, it’s easiest to define common
 logic in a function. However, for this notebook we only use it in one
 place. It is a function you will find in most of our example notebooks.</p>
@@ -216,7 +217,7 @@ to create a figure and axis. The lat/lon grids are added.</p>
 </section>
 <hr class="docutils" />
 <section id="function-get-color">
-<h3>3 Function: get_color()<a class="headerlink" href="#function-get-color" title="Permalink to this headline"></a></h3>
+<h3>3 Function: get_color()<a class="headerlink" href="#function-get-color" title="Permalink to this heading"></a></h3>
 <p>Since we’ll be needing to access the color using the vtec lookup table
 in several places, creating an easily recognizable function is useful.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_color</span><span class="p">(</span><span class="n">phensig</span><span class="p">):</span>
@@ -227,7 +228,7 @@ in several places, creating an easily recognizable function is useful.</p>
 </section>
 <hr class="docutils" />
 <section id="function-get-title">
-<h3>4 Function get_title()<a class="headerlink" href="#function-get-title" title="Permalink to this headline"></a></h3>
+<h3>4 Function get_title()<a class="headerlink" href="#function-get-title" title="Permalink to this heading"></a></h3>
 <p>Similar to the color function just defined, accessing the full name for
 the phensig will also be necessary, so this function will be helpful.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_title</span><span class="p">(</span><span class="n">phensig</span><span class="p">):</span>
@@ -238,9 +239,9 @@ the phensig will also be necessary, so this function will be helpful.</p>
 </section>
 <hr class="docutils" />
 <section id="initial-setup">
-<h3>5 Initial Setup<a class="headerlink" href="#initial-setup" title="Permalink to this headline"></a></h3>
+<h3>5 Initial Setup<a class="headerlink" href="#initial-setup" title="Permalink to this heading"></a></h3>
 <section id="edex-connection">
-<h4>5.1 EDEX Connection<a class="headerlink" href="#edex-connection" title="Permalink to this headline"></a></h4>
+<h4>5.1 EDEX Connection<a class="headerlink" href="#edex-connection" title="Permalink to this heading"></a></h4>
 <p>First we establish a connection to Unidata’s public EDEX server. With
 that connection made, we can create a <a class="reference external" href="http://unidata.github.io/python-awips/api/IDataRequest.html">new data request
 object</a>
@@ -260,7 +261,7 @@ Levels and Parameters Notebook.</p>
 </div>
 </section>
 <section id="significance-sig-constants">
-<h4>5.2 Significance (Sig) Constants<a class="headerlink" href="#significance-sig-constants" title="Permalink to this headline"></a></h4>
+<h4>5.2 Significance (Sig) Constants<a class="headerlink" href="#significance-sig-constants" title="Permalink to this heading"></a></h4>
 <p>The two parameters we’re requesting for our warning objects are
 <strong>phensig</strong> and <strong>sig</strong> where phensig is styled “XX.Y” and sig is “Y”.
 Phen stands for “Phenomena” and sig stands for “Significance”. <a class="reference external" href="https://www.weather.gov/media/vtec/VTEC_explanation4-20.pdf">A more
@@ -280,7 +281,7 @@ message it is (what significance it is).</p>
 </section>
 <hr class="docutils" />
 <section id="filter-by-time">
-<h3>6 Filter by Time<a class="headerlink" href="#filter-by-time" title="Permalink to this headline"></a></h3>
+<h3>6 Filter by Time<a class="headerlink" href="#filter-by-time" title="Permalink to this heading"></a></h3>
 <p>Here we decide how much data we want to pull from EDEX. By default we’ll
 request 12 hours, but that value can easily be modified by <cite>adjusting
 the
@@ -301,9 +302,9 @@ will take to run.</p>
 </section>
 <hr class="docutils" />
 <section id="use-the-data">
-<h3>7 Use the Data!<a class="headerlink" href="#use-the-data" title="Permalink to this headline"></a></h3>
+<h3>7 Use the Data!<a class="headerlink" href="#use-the-data" title="Permalink to this heading"></a></h3>
 <section id="get-the-data">
-<h4>7.1 Get the Data<a class="headerlink" href="#get-the-data" title="Permalink to this headline"></a></h4>
+<h4>7.1 Get the Data<a class="headerlink" href="#get-the-data" title="Permalink to this heading"></a></h4>
 <p>Now that we have our <code class="docutils literal notranslate"><span class="pre">request</span></code> and TimeRange <code class="docutils literal notranslate"><span class="pre">timerange</span></code> objects
 ready, it’s time to request the data array from EDEX.</p>
 <div class="alert-info docutils container">
@@ -321,7 +322,7 @@ run.</p>
 </div>
 </section>
 <section id="extract-phensigs-geometries-and-times">
-<h4>7.2 Extract Phensigs, Geometries, and Times<a class="headerlink" href="#extract-phensigs-geometries-and-times" title="Permalink to this headline"></a></h4>
+<h4>7.2 Extract Phensigs, Geometries, and Times<a class="headerlink" href="#extract-phensigs-geometries-and-times" title="Permalink to this heading"></a></h4>
 <p>In this section we start gathering all the information we’ll need to
 properly display our data. First we create an array to keep track of
 unique phensigs. This is useful summary information and will be used to
@@ -446,9 +447,9 @@ phensig.</p>
 </section>
 <hr class="docutils" />
 <section id="plot-the-data">
-<h3>8 Plot the Data!<a class="headerlink" href="#plot-the-data" title="Permalink to this headline"></a></h3>
+<h3>8 Plot the Data!<a class="headerlink" href="#plot-the-data" title="Permalink to this heading"></a></h3>
 <section id="create-state-and-political-boundaries">
-<h4>8.1 Create State and Political Boundaries<a class="headerlink" href="#create-state-and-political-boundaries" title="Permalink to this headline"></a></h4>
+<h4>8.1 Create State and Political Boundaries<a class="headerlink" href="#create-state-and-political-boundaries" title="Permalink to this heading"></a></h4>
 <p>Define the state and political boundaries that we’ll use in our plot to
 give more of a frame of reference. These objects are standard method
 calls in the <a class="reference external" href="https://scitools.org.uk/cartopy/docs/v0.14/matplotlib/feature_interface.html#cartopy.feature.NaturalEarthFeature">Cartopy Feature package, using the NaturalEarthFeature
@@ -466,7 +467,7 @@ function</a>.</p>
 </div>
 </section>
 <section id="draw-the-plot-and-legend-for-wwas">
-<h4>8.2 Draw the Plot and Legend for WWAs<a class="headerlink" href="#draw-the-plot-and-legend-for-wwas" title="Permalink to this headline"></a></h4>
+<h4>8.2 Draw the Plot and Legend for WWAs<a class="headerlink" href="#draw-the-plot-and-legend-for-wwas" title="Permalink to this heading"></a></h4>
 <p>Here is where we finally get ot draw something! The very first few lines
 of this section are constants that we can manually “switch on and off”
 for what records we want displayed. By default we have all significance
@@ -570,7 +571,7 @@ all the features to the axes, and add the legend as well.</p>
 </section>
 <hr class="docutils" />
 <section id="see-also">
-<h3>9 See Also<a class="headerlink" href="#see-also" title="Permalink to this headline"></a></h3>
+<h3>9 See Also<a class="headerlink" href="#see-also" title="Permalink to this heading"></a></h3>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.weather.gov/lwx/warningsdefined#:~:text=A%20Winter%20Storm%20Warning%20is%20issued%20when%20a,combination%20of%20snow%20and%2For%20ice%20accumulation%20with%20wind.">National Weather Service WWA Definitions (Baltimore
 Office)</a></p></li>
@@ -580,14 +581,14 @@ Definitions</a></p></li>
 Explanation</a></p></li>
 </ul>
 <section id="related-notebooks">
-<h4>9.1 Related Notebooks<a class="headerlink" href="#related-notebooks" title="Permalink to this headline"></a></h4>
+<h4>9.1 Related Notebooks<a class="headerlink" href="#related-notebooks" title="Permalink to this heading"></a></h4>
 <ul class="simple">
 <li><p><a class="reference external" href="http://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html">Grid Levels and
 Parameters</a></p></li>
 </ul>
 </section>
 <section id="additional-documentation">
-<h4>9.2 Additional Documentation<a class="headerlink" href="#additional-documentation" title="Permalink to this headline"></a></h4>
+<h4>9.2 Additional Documentation<a class="headerlink" href="#additional-documentation" title="Permalink to this heading"></a></h4>
 <p><strong>python-awips</strong></p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost">DataAccessLayer.changeEDEXHost()</a></p></li>

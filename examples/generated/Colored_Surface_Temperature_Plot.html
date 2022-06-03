@@ -14,6 +14,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../../about.html" />
@@ -106,12 +107,12 @@
            <div itemprop="articleBody">
              
   <section id="colored-surface-temperature-plot">
-<h1>Colored Surface Temperature Plot<a class="headerlink" href="#colored-surface-temperature-plot" title="Permalink to this headline"></a></h1>
+<h1>Colored Surface Temperature Plot<a class="headerlink" href="#colored-surface-temperature-plot" title="Permalink to this heading"></a></h1>
 <p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Colored_Surface_Temperature_Plot.ipynb">Notebook</a>
 Python-AWIPS Tutorial Notebook</p>
 <hr class="docutils" />
 <section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline"></a></h2>
+<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>Use python-awips to connect to an edex server</p></li>
 <li><p>Define and filter data request for METAR surface obs</p></li>
@@ -120,7 +121,7 @@ Python-AWIPS Tutorial Notebook</p>
 </ul>
 <hr class="docutils" />
 <section id="table-of-contents">
-<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline"></a></h3>
+<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading"></a></h3>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#imports">1
 Imports</a></div>
@@ -146,7 +147,7 @@ Documentation</a></div>
 </section>
 <hr class="docutils" />
 <section id="imports">
-<h3>1 Imports<a class="headerlink" href="#imports" title="Permalink to this headline"></a></h3>
+<h3>1 Imports<a class="headerlink" href="#imports" title="Permalink to this heading"></a></h3>
 <p>The imports below are used throughout the notebook. Note the first
 import is coming directly from python-awips and allows us to connect to
 an EDEX server. The subsequent imports are for data manipulation and
@@ -166,9 +167,9 @@ visualization.</p>
 </section>
 <hr class="docutils" />
 <section id="initial-setup">
-<h3>2 Initial Setup<a class="headerlink" href="#initial-setup" title="Permalink to this headline"></a></h3>
+<h3>2 Initial Setup<a class="headerlink" href="#initial-setup" title="Permalink to this heading"></a></h3>
 <section id="geographic-filter">
-<h4>2.1 Geographic Filter<a class="headerlink" href="#geographic-filter" title="Permalink to this headline"></a></h4>
+<h4>2.1 Geographic Filter<a class="headerlink" href="#geographic-filter" title="Permalink to this heading"></a></h4>
 <p>By defining a bounding box for the Continental US (CONUS), we’re able to
 optimize the data request sent to the EDEX server.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># CONUS bounding box and envelope geometry</span>
@@ -180,7 +181,7 @@ optimize the data request sent to the EDEX server.</p>
 </div>
 </section>
 <section id="edex-connection">
-<h4>2.2 EDEX Connection<a class="headerlink" href="#edex-connection" title="Permalink to this headline"></a></h4>
+<h4>2.2 EDEX Connection<a class="headerlink" href="#edex-connection" title="Permalink to this heading"></a></h4>
 <p>First we establish a connection to Unidata’s public EDEX server. With
 that connection made, we can create a <a class="reference external" href="http://unidata.github.io/python-awips/api/IDataRequest.html">new data request
 object</a>
@@ -199,7 +200,7 @@ just created.</p>
 </section>
 <hr class="docutils" />
 <section id="filter-by-time">
-<h3>3 Filter by Time<a class="headerlink" href="#filter-by-time" title="Permalink to this headline"></a></h3>
+<h3>3 Filter by Time<a class="headerlink" href="#filter-by-time" title="Permalink to this heading"></a></h3>
 <p>We then want to limit our results based on time, so we create a time
 range for the last 15 minutes, and then send the request to the EDEX
 server to get our results, which are kept in the <strong>obs</strong> variable.</p>
@@ -230,7 +231,7 @@ server to get our results, which are kept in the <strong>obs</strong> variable.<
 </section>
 <hr class="docutils" />
 <section id="access-and-convert-temp-data">
-<h3>4 Access and Convert Temp Data<a class="headerlink" href="#access-and-convert-temp-data" title="Permalink to this headline"></a></h3>
+<h3>4 Access and Convert Temp Data<a class="headerlink" href="#access-and-convert-temp-data" title="Permalink to this heading"></a></h3>
 <p>We access the <em>temperature</em> data from the <strong>obs</strong> variable which is
 stored in degrees Celsius (°C). To make it more relatable, we then
 convert the data to degrees Fahreheit (°F)</p>
@@ -247,7 +248,7 @@ convert the data to degrees Fahreheit (°F)</p>
 </section>
 <hr class="docutils" />
 <section id="define-temperature-thresholds">
-<h3>5 Define Temperature Thresholds<a class="headerlink" href="#define-temperature-thresholds" title="Permalink to this headline"></a></h3>
+<h3>5 Define Temperature Thresholds<a class="headerlink" href="#define-temperature-thresholds" title="Permalink to this heading"></a></h3>
 <p>In order to distinguish the temperatures, we’ll create a color map to
 separate the values into different colors. This mapping will be used
 when plotting the temperature values on the map of the United States.</p>
@@ -271,7 +272,7 @@ affects the final plot.</p>
 </section>
 <hr class="docutils" />
 <section id="plot-the-data">
-<h3>6 Plot the Data!<a class="headerlink" href="#plot-the-data" title="Permalink to this headline"></a></h3>
+<h3>6 Plot the Data!<a class="headerlink" href="#plot-the-data" title="Permalink to this heading"></a></h3>
 <p>Here we create a plot and cycle through all the values from our color
 mapping. For each segement of our color mapping, mask the temperature
 values to only include the relevent temperatures and draw those on the
@@ -306,9 +307,9 @@ final, colored figure.</p>
 </section>
 <hr class="docutils" />
 <section id="see-also">
-<h3>7 See Also<a class="headerlink" href="#see-also" title="Permalink to this headline"></a></h3>
+<h3>7 See Also<a class="headerlink" href="#see-also" title="Permalink to this heading"></a></h3>
 <section id="additional-documention">
-<h4>7.1 Additional Documention<a class="headerlink" href="#additional-documention" title="Permalink to this headline"></a></h4>
+<h4>7.1 Additional Documention<a class="headerlink" href="#additional-documention" title="Permalink to this heading"></a></h4>
 <p><strong>python-awips</strong></p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost">DataAccessLayer.changeEDEXHost()</a></p></li>

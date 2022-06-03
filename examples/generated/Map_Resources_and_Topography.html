@@ -14,6 +14,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../../about.html" />
@@ -110,12 +111,12 @@
            <div itemprop="articleBody">
              
   <section id="map-resources-and-topography">
-<h1>Map Resources and Topography<a class="headerlink" href="#map-resources-and-topography" title="Permalink to this headline"></a></h1>
+<h1>Map Resources and Topography<a class="headerlink" href="#map-resources-and-topography" title="Permalink to this heading"></a></h1>
 <p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Map_Resources_and_Topography.ipynb">Notebook</a>
 Python-AWIPS Tutorial Notebook</p>
 <hr class="docutils" />
 <section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline"></a></h2>
+<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>Use python-awips to connect to an edex server</p></li>
 <li><p>Define data request object specifically for the maps database</p></li>
@@ -125,7 +126,7 @@ context</p></li>
 </ul>
 <hr class="docutils" />
 <section id="table-of-contents">
-<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline"></a></h3>
+<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading"></a></h3>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html#imports">1
 Imports</a></div>
@@ -154,7 +155,7 @@ Documentation</a></div>
 </div>
 </section>
 <section id="imports">
-<h3>1 Imports<a class="headerlink" href="#imports" title="Permalink to this headline"></a></h3>
+<h3>1 Imports<a class="headerlink" href="#imports" title="Permalink to this heading"></a></h3>
 <p>The imports below are used throughout the notebook. Note the first
 import is coming directly from python-awips and allows us to connect to
 an EDEX server. The subsequent imports are for data manipulation and
@@ -172,7 +173,7 @@ visualization.</p>
 </section>
 <hr class="docutils" />
 <section id="connect-to-edex">
-<h3>2 Connect to EDEX<a class="headerlink" href="#connect-to-edex" title="Permalink to this headline"></a></h3>
+<h3>2 Connect to EDEX<a class="headerlink" href="#connect-to-edex" title="Permalink to this heading"></a></h3>
 <p>First we establish a connection to Unidata’s public EDEX server. With
 that connection made, we can create a <a class="reference external" href="http://unidata.github.io/python-awips/api/IDataRequest.html">new data request
 object</a>
@@ -186,7 +187,7 @@ and set the data type to <strong>maps</strong>.</p>
 </section>
 <hr class="docutils" />
 <section id="function-make-map">
-<h3>3 Function: make_map()<a class="headerlink" href="#function-make-map" title="Permalink to this headline"></a></h3>
+<h3>3 Function: make_map()<a class="headerlink" href="#function-make-map" title="Permalink to this heading"></a></h3>
 <p>In many of our notebooks we end up plotting map images, and this logic
 below is the same from those other notebooks. Typically, functions are
 defined when they are called multiple times throughout a notebook. In
@@ -210,7 +211,7 @@ logic neatly defined for consistency.</p>
 </section>
 <hr class="docutils" />
 <section id="create-initial-map-from-cwa">
-<h3>4 Create Initial Map From CWA<a class="headerlink" href="#create-initial-map-from-cwa" title="Permalink to this headline"></a></h3>
+<h3>4 Create Initial Map From CWA<a class="headerlink" href="#create-initial-map-from-cwa" title="Permalink to this heading"></a></h3>
 <p>The python-awips package provides access to the entire AWIPS Maps
 Database for use in Python GIS applications. Map objects are returned as
 Shapely geometries and can be easily plotted by many Python packages.</p>
@@ -292,7 +293,7 @@ to refine our query to EDEX.</p>
 </section>
 <hr class="docutils" />
 <section id="draw-merged-cwa">
-<h3>5 Draw Merged CWA<a class="headerlink" href="#draw-merged-cwa" title="Permalink to this headline"></a></h3>
+<h3>5 Draw Merged CWA<a class="headerlink" href="#draw-merged-cwa" title="Permalink to this heading"></a></h3>
 <p>In the previous section we created a merged polygon with the applicable
 counties. Here, we draw this new shape on top of our existing map in a
 burnt orange color.</p>
@@ -309,7 +310,7 @@ burnt orange color.</p>
 </section>
 <hr class="docutils" />
 <section id="draw-interstates-using-boundary-filter">
-<h3>6 Draw Interstates using Boundary Filter<a class="headerlink" href="#draw-interstates-using-boundary-filter" title="Permalink to this headline"></a></h3>
+<h3>6 Draw Interstates using Boundary Filter<a class="headerlink" href="#draw-interstates-using-boundary-filter" title="Permalink to this heading"></a></h3>
 <p>Now, we’ll use the previously-defined
 <strong>envelope=merged_counties.buffer(2)</strong> in a <strong>newDataRequest()</strong> to
 request interstate geometries which fall inside the buffered boundary.</p>
@@ -336,7 +337,7 @@ request interstate geometries which fall inside the buffered boundary.</p>
 </section>
 <hr class="docutils" />
 <section id="draw-nearby-cities">
-<h3>7 Draw Nearby Cities<a class="headerlink" href="#draw-nearby-cities" title="Permalink to this headline"></a></h3>
+<h3>7 Draw Nearby Cities<a class="headerlink" href="#draw-nearby-cities" title="Permalink to this heading"></a></h3>
 <p>Request the city table based using the <strong>envelope</strong> attribute and filter
 by population and progressive disclosure level.</p>
 <blockquote>
@@ -383,7 +384,7 @@ values appear to change significantly depending on WFO site.</p>
 </section>
 <hr class="docutils" />
 <section id="draw-nearby-lakes">
-<h3>8 Draw Nearby Lakes<a class="headerlink" href="#draw-nearby-lakes" title="Permalink to this headline"></a></h3>
+<h3>8 Draw Nearby Lakes<a class="headerlink" href="#draw-nearby-lakes" title="Permalink to this heading"></a></h3>
 <p>Again, use the <strong>envelope</strong> attribute to define a new data requst for
 the nearby lakes.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define request for lakes</span>
@@ -410,7 +411,7 @@ the nearby lakes.</p>
 </section>
 <hr class="docutils" />
 <section id="draw-major-rivers">
-<h3>9 Draw Major Rivers<a class="headerlink" href="#draw-major-rivers" title="Permalink to this headline"></a></h3>
+<h3>9 Draw Major Rivers<a class="headerlink" href="#draw-major-rivers" title="Permalink to this heading"></a></h3>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define request for rivers</span>
 <span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s1">&#39;maps&#39;</span><span class="p">,</span> <span class="n">envelope</span><span class="o">=</span><span class="n">envelope</span><span class="p">)</span>
 <span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="s1">&#39;mapdata.majorrivers&#39;</span><span class="p">)</span>
@@ -433,7 +434,7 @@ the nearby lakes.</p>
 </section>
 <hr class="docutils" />
 <section id="draw-topography">
-<h3>10 Draw Topography<a class="headerlink" href="#draw-topography" title="Permalink to this headline"></a></h3>
+<h3>10 Draw Topography<a class="headerlink" href="#draw-topography" title="Permalink to this heading"></a></h3>
 <p>Spatial envelopes are required for topo requests, which can become slow
 to download and render for large (CONUS) maps.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define topography request</span>
@@ -485,9 +486,9 @@ to download and render for large (CONUS) maps.</p>
 </section>
 <hr class="docutils" />
 <section id="see-also">
-<h3>11 See Also<a class="headerlink" href="#see-also" title="Permalink to this headline"></a></h3>
+<h3>11 See Also<a class="headerlink" href="#see-also" title="Permalink to this heading"></a></h3>
 <section id="additional-documentation">
-<h4>11.1 Additional Documentation<a class="headerlink" href="#additional-documentation" title="Permalink to this headline"></a></h4>
+<h4>11.1 Additional Documentation<a class="headerlink" href="#additional-documentation" title="Permalink to this heading"></a></h4>
 <ul>
 <li><p>This notebook requires: <strong>python-awips, numpy, matplotplib, cartopy,
 shapely</strong></p></li>

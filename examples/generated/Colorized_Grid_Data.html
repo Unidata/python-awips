@@ -14,6 +14,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../../about.html" />
@@ -105,12 +106,12 @@
            <div itemprop="articleBody">
              
   <section id="colorized-grid-data">
-<h1>Colorized Grid Data<a class="headerlink" href="#colorized-grid-data" title="Permalink to this headline"></a></h1>
+<h1>Colorized Grid Data<a class="headerlink" href="#colorized-grid-data" title="Permalink to this heading"></a></h1>
 <p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Colorized_Grid_Data.ipynb">Notebook</a>
 Python-AWIPS Tutorial Notebook</p>
 <hr class="docutils" />
 <section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline"></a></h2>
+<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>Create a colorized plot for the continental US of model data (grib).</p></li>
 <li><p>Access the model data from an EDEX server and limit the data returned
@@ -120,7 +121,7 @@ compare the differences between the two.</p></li>
 </ul>
 <hr class="docutils" />
 <section id="table-of-contents">
-<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline"></a></h3>
+<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading"></a></h3>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colorized_Grid_Data.html#imports">1
 Imports</a></div>
@@ -146,7 +147,7 @@ Documentation</a></div>
 </section>
 <hr class="docutils" />
 <section id="imports">
-<h3>1 Imports<a class="headerlink" href="#imports" title="Permalink to this headline"></a></h3>
+<h3>1 Imports<a class="headerlink" href="#imports" title="Permalink to this heading"></a></h3>
 <p>Start by importing both the python-awips specific library, as well as
 the libraries needed for plotting and manipulating the data</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">DataAccessLayer</span>
@@ -160,7 +161,7 @@ the libraries needed for plotting and manipulating the data</p>
 </section>
 <hr class="docutils" />
 <section id="define-data-request">
-<h3>2 Define Data Request<a class="headerlink" href="#define-data-request" title="Permalink to this headline"></a></h3>
+<h3>2 Define Data Request<a class="headerlink" href="#define-data-request" title="Permalink to this heading"></a></h3>
 <p>If you read through the <a class="reference external" href="https://nbviewer.jupyter.org/github/Unidata/pyaos-ams-2021/blob/master/notebooks/dataAccess/python-awips-HowToAccessData.ipynb">python-awips: How to Access
 Data</a>
 training, you will know that we need to set an EDEX url to access our
@@ -187,7 +188,7 @@ in meters), respectively.</p>
 </section>
 <hr class="docutils" />
 <section id="limit-results-based-on-time">
-<h3>3 Limit Results Based on Time<a class="headerlink" href="#limit-results-based-on-time" title="Permalink to this headline"></a></h3>
+<h3>3 Limit Results Based on Time<a class="headerlink" href="#limit-results-based-on-time" title="Permalink to this heading"></a></h3>
 <p>Models produce many different time variants during their runs, so let’s
 limit the data to the most recent time and forecast run.</p>
 <blockquote>
@@ -213,7 +214,7 @@ to see the differences.</p>
 </section>
 <hr class="docutils" />
 <section id="function-make-map">
-<h3>4 Function: make_map()<a class="headerlink" href="#function-make-map" title="Permalink to this headline"></a></h3>
+<h3>4 Function: make_map()<a class="headerlink" href="#function-make-map" title="Permalink to this heading"></a></h3>
 <p>In order to plot more than one image, it’s easiest to define common
 logic in a function. Here, a new function called <strong>make_map</strong> is
 defined. This function uses the <a class="reference external" href="https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.html">matplotlib.pyplot package
@@ -236,7 +237,7 @@ added, along with lat/lon grids.</p>
 </section>
 <hr class="docutils" />
 <section id="use-the-grid-data">
-<h3>5 Use the Grid Data!<a class="headerlink" href="#use-the-grid-data" title="Permalink to this headline"></a></h3>
+<h3>5 Use the Grid Data!<a class="headerlink" href="#use-the-grid-data" title="Permalink to this heading"></a></h3>
 <p>Here we get our grid data object from our previous response, and then
 get the raw data array off that object. We also get the latitude and
 longitude arrays, and create a bounding box that we’ll use when creating
@@ -254,7 +255,7 @@ understandable.</p>
 </pre></div>
 </div>
 <section id="plot-using-pcolormesh">
-<h4>5.1 Plot Using pcolormesh<a class="headerlink" href="#plot-using-pcolormesh" title="Permalink to this headline"></a></h4>
+<h4>5.1 Plot Using pcolormesh<a class="headerlink" href="#plot-using-pcolormesh" title="Permalink to this heading"></a></h4>
 <p>This example shows how to use
 <a class="reference external" href="https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.pcolormesh.html">matplotlib.pyplot.pcolormesh</a>
 to create a colorized plot. We use our <strong>make_map</strong> function to create a
@@ -280,7 +281,7 @@ okay, and will go away with subsequent runs of the cell.</p>
 <img alt="../../_images/Colorized_Grid_Data_21_1.png" src="../../_images/Colorized_Grid_Data_21_1.png" />
 </section>
 <section id="plot-using-contourf">
-<h4>5.2 Plot Using contourf<a class="headerlink" href="#plot-using-contourf" title="Permalink to this headline"></a></h4>
+<h4>5.2 Plot Using contourf<a class="headerlink" href="#plot-using-contourf" title="Permalink to this heading"></a></h4>
 <p>This example shows how to use
 <a class="reference external" href="https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.contourf.html">matplotlib.pyplot.contourf</a>
 to create a colorized plot. We use our <strong>make_map</strong> function to create a
@@ -301,16 +302,16 @@ a label for our plot.</p>
 </section>
 <hr class="docutils" />
 <section id="see-also">
-<h3>6 See Also<a class="headerlink" href="#see-also" title="Permalink to this headline"></a></h3>
+<h3>6 See Also<a class="headerlink" href="#see-also" title="Permalink to this heading"></a></h3>
 <section id="related-notebooks">
-<h4>6.1 Related Notebooks<a class="headerlink" href="#related-notebooks" title="Permalink to this headline"></a></h4>
+<h4>6.1 Related Notebooks<a class="headerlink" href="#related-notebooks" title="Permalink to this heading"></a></h4>
 <ul class="simple">
 <li><p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html">Grid Levels and
 Parameters</a></p></li>
 </ul>
 </section>
 <section id="additional-documentation">
-<h4>6.2 Additional Documentation<a class="headerlink" href="#additional-documentation" title="Permalink to this headline"></a></h4>
+<h4>6.2 Additional Documentation<a class="headerlink" href="#additional-documentation" title="Permalink to this heading"></a></h4>
 <p><strong>python-awips:</strong></p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html">awips.DataAccessLayer</a></p></li>

@@ -14,6 +14,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="#" />
@@ -87,7 +88,7 @@
            <div itemprop="articleBody">
              
   <section id="about-unidata-awips">
-<h1>About Unidata AWIPS<a class="headerlink" href="#about-unidata-awips" title="Permalink to this headline"></a></h1>
+<h1>About Unidata AWIPS<a class="headerlink" href="#about-unidata-awips" title="Permalink to this heading"></a></h1>
 <p>AWIPS is a weather forecasting display and analysis package
 developed by the National Weather Service and Raytheon. AWIPS is a
 Java application consisting of a data-rendering client (CAVE, which runs
@@ -110,7 +111,7 @@ inter-process communication.</p>
 </figcaption>
 </figure>
 <section id="license">
-<h2>License<a class="headerlink" href="#license" title="Permalink to this headline"></a></h2>
+<h2>License<a class="headerlink" href="#license" title="Permalink to this heading"></a></h2>
 <p>The AWIPS software package released by the Unidata Program Center is considered to
 be in the public domain since it is released without proprietary code. As such, export
 controls do not apply.  Any person is free to download, modify, distribute, or share
@@ -120,7 +121,7 @@ to ensure that they remain compatible with the associated terms (see
 FOSS_COTS_License.pdf at <a class="reference external" href="https://github.com/Unidata/awips2">https://github.com/Unidata/awips2</a>).</p>
 </section>
 <section id="about-awips">
-<h2>About AWIPS<a class="headerlink" href="#about-awips" title="Permalink to this headline"></a></h2>
+<h2>About AWIPS<a class="headerlink" href="#about-awips" title="Permalink to this heading"></a></h2>
 <p>The primary AWIPS application for data ingest, processing, and
 storage is the Environmental Data EXchange (<strong>EDEX</strong>) server; the
 primary AWIPS application for visualization/data manipulation is the
@@ -133,7 +134,7 @@ several commercial off-the-shelf (COTS) and Free or Open Source software
 working together and communicating, compose the entire AWIPS system.</p>
 </section>
 <section id="edex">
-<h2>EDEX<a class="headerlink" href="#edex" title="Permalink to this headline"></a></h2>
+<h2>EDEX<a class="headerlink" href="#edex" title="Permalink to this heading"></a></h2>
 <p>The main server for AWIPS. Qpid sends alerts to EDEX when data stored
 by the LDM is ready for processing. These Qpid messages include file
 header information which allows EDEX to determine the appropriate data
@@ -147,7 +148,7 @@ ingest and request servers are started and stopped with the commands
 <code class="docutils literal notranslate"><span class="pre">/etc/rc.d/init.d/edex_camel</span></code></p>
 </section>
 <section id="cave">
-<h2>CAVE<a class="headerlink" href="#cave" title="Permalink to this headline"></a></h2>
+<h2>CAVE<a class="headerlink" href="#cave" title="Permalink to this heading"></a></h2>
 <p>Common AWIPS Visualization Environment. The data rendering and
 visualization tool for AWIPS. CAVE contains of a number of different
 data display configurations called perspectives. Perspectives used in
@@ -163,7 +164,7 @@ Two-Dimensional), <strong>GFE</strong> (Graphical Forecast Editor), and <strong>
 </figure>
 </section>
 <section id="alertviz">
-<h2>Alertviz<a class="headerlink" href="#alertviz" title="Permalink to this headline"></a></h2>
+<h2>Alertviz<a class="headerlink" href="#alertviz" title="Permalink to this heading"></a></h2>
 <p><strong>Alertviz</strong> is a modernized version of an AWIPS I application, designed
 to present various notifications, error messages, and alarms to the user
 (forecaster). AlertViz can be executed either independently or from CAVE
@@ -172,7 +173,7 @@ not required to be run separately. The toolbar is also <strong>hidden from
 view</strong> and is accessed by right-click on the desktop taskbar icon.</p>
 </section>
 <section id="id1">
-<h2>LDM<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
+<h2>LDM<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
 <p><a class="reference external" href="http://www.unidata.ucar.edu/software/ldm/">http://www.unidata.ucar.edu/software/ldm/</a></p>
 <p>The <strong>LDM</strong> (Local Data Manager), developed and supported by Unidata, is
 a suite of client and server programs designed for data distribution,
@@ -186,14 +187,14 @@ processing. The LDM is started and stopped with the commands
 <code class="docutils literal notranslate"><span class="pre">service</span> <span class="pre">edex_ldm</span> <span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">service</span> <span class="pre">edex_ldm</span> <span class="pre">stop</span></code></p>
 </section>
 <section id="edexbridge">
-<h2>edexBridge<a class="headerlink" href="#edexbridge" title="Permalink to this headline"></a></h2>
+<h2>edexBridge<a class="headerlink" href="#edexbridge" title="Permalink to this heading"></a></h2>
 <p>edexBridge, invoked in the LDM configuration file
 <code class="docutils literal notranslate"><span class="pre">/awips2/ldm/etc/ldmd.conf</span></code>, is used by the LDM to post “data
 available” messaged to Qpid, which alerts the EDEX Ingest server that a
 file is ready for processing.</p>
 </section>
 <section id="id2">
-<h2>Qpid<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
+<h2>Qpid<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
 <p><a class="reference external" href="http://qpid.apache.org">http://qpid.apache.org</a></p>
 <p><strong>Apache Qpid</strong>, the Queue Processor Interface Daemon, is the messaging
 system used by AWIPS to facilitate communication between services.
@@ -205,7 +206,7 @@ and stopped by <code class="docutils literal notranslate"><span class="pre">edex
 the system script <code class="docutils literal notranslate"><span class="pre">/etc/rc.d/init.d/qpidd</span></code></p>
 </section>
 <section id="postgresql">
-<h2>PostgreSQL<a class="headerlink" href="#postgresql" title="Permalink to this headline"></a></h2>
+<h2>PostgreSQL<a class="headerlink" href="#postgresql" title="Permalink to this heading"></a></h2>
 <p><a class="reference external" href="http://www.postgresql.org">http://www.postgresql.org</a></p>
 <p><strong>PostgreSQL</strong>, known simply as Postgres, is a relational database
 management system (DBMS) which handles the storage and retrieval of
@@ -217,7 +218,7 @@ called <strong>psql</strong>. Postgres is started and stopped by <code class="do
 <code class="docutils literal notranslate"><span class="pre">/etc/rc.d/init.d/edex_postgres</span></code></p>
 </section>
 <section id="hdf5">
-<h2>HDF5<a class="headerlink" href="#hdf5" title="Permalink to this headline"></a></h2>
+<h2>HDF5<a class="headerlink" href="#hdf5" title="Permalink to this heading"></a></h2>
 <p><a class="reference external" href="http://www.hdfgroup.org/HDF5/">http://www.hdfgroup.org/HDF5/</a></p>
 <p><strong>Hierarchical Data Format (v.5)</strong> is
 the primary data storage format used by AWIPS for processed grids,
@@ -230,7 +231,7 @@ also contain data from multiple radars. HDF5 is stored in
 <code class="docutils literal notranslate"><span class="pre">/awips2/edex/data/hdf5/</span></code></p>
 </section>
 <section id="pypies-httpd-pypies">
-<h2>PyPIES (httpd-pypies)<a class="headerlink" href="#pypies-httpd-pypies" title="Permalink to this headline"></a></h2>
+<h2>PyPIES (httpd-pypies)<a class="headerlink" href="#pypies-httpd-pypies" title="Permalink to this heading"></a></h2>
 <p><strong>PyPIES</strong>, Python Process Isolated Enhanced Storage, was created for
 AWIPS to isolate the management of HDF5 Processed Data Storage from
 the EDEX processes. PyPIES manages access, i.e., reads and writes, of

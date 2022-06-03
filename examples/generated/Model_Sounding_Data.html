@@ -14,6 +14,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../../about.html" />
@@ -99,7 +100,7 @@
            <div itemprop="articleBody">
              
   <section id="model-sounding-data">
-<h1>Model Sounding Data<a class="headerlink" href="#model-sounding-data" title="Permalink to this headline"></a></h1>
+<h1>Model Sounding Data<a class="headerlink" href="#model-sounding-data" title="Permalink to this heading"></a></h1>
 <p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Model_Sounding_Data.ipynb">Notebook</a>
 The EDEX modelsounding plugin creates 64-level vertical profiles from
 GFS and ETA (NAM) BUFR products distirubted over NOAAport. Paramters
@@ -126,7 +127,7 @@ which are requestable are <strong>pressure</strong>, <strong>temperature</strong
 </pre></div>
 </div>
 <section id="available-locations">
-<h2>Available Locations<a class="headerlink" href="#available-locations" title="Permalink to this headline"></a></h2>
+<h2>Available Locations<a class="headerlink" href="#available-locations" title="Permalink to this heading"></a></h2>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">locations</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableLocationNames</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 <span class="n">locations</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
 <span class="nb">list</span><span class="p">(</span><span class="n">locations</span><span class="p">)</span>
@@ -1150,7 +1151,7 @@ which are requestable are <strong>pressure</strong>, <strong>temperature</strong
 </div>
 </section>
 <section id="model-sounding-parameters">
-<h2>Model Sounding Parameters<a class="headerlink" href="#model-sounding-parameters" title="Permalink to this headline"></a></h2>
+<h2>Model Sounding Parameters<a class="headerlink" href="#model-sounding-parameters" title="Permalink to this heading"></a></h2>
 <p>Construct arrays for each parameter to plot (temperature, pressure,
 moisutre (spec. humidity), wind components, and cloud cover)</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tmp</span><span class="p">,</span><span class="n">prs</span><span class="p">,</span><span class="n">sh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
@@ -1185,7 +1186,7 @@ moisutre (spec. humidity), wind components, and cloud cover)</p>
 </div>
 </section>
 <section id="calculating-dewpoint-from-specific-humidity">
-<h2>Calculating Dewpoint from Specific Humidity<a class="headerlink" href="#calculating-dewpoint-from-specific-humidity" title="Permalink to this headline"></a></h2>
+<h2>Calculating Dewpoint from Specific Humidity<a class="headerlink" href="#calculating-dewpoint-from-specific-humidity" title="Permalink to this heading"></a></h2>
 <p>Because the modelsounding plugin does not return dewpoint values, we
 must calculate the profile ourselves. Here are three examples of
 dewpoint calculated from specific humidity, including a manual
@@ -1223,7 +1224,7 @@ calculation following NCEP AWIPS/NSHARP.</p>
 </div>
 </section>
 <section id="metpy-skewt-and-hodograph">
-<h2>MetPy SkewT and Hodograph<a class="headerlink" href="#metpy-skewt-and-hodograph" title="Permalink to this headline"></a></h2>
+<h2>MetPy SkewT and Hodograph<a class="headerlink" href="#metpy-skewt-and-hodograph" title="Permalink to this heading"></a></h2>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
 
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>

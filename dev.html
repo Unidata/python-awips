@@ -14,6 +14,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
@@ -90,14 +91,14 @@
            <div itemprop="articleBody">
              
   <section id="development-guide">
-<h1>Development Guide<a class="headerlink" href="#development-guide" title="Permalink to this headline"></a></h1>
+<h1>Development Guide<a class="headerlink" href="#development-guide" title="Permalink to this heading"></a></h1>
 <p>The Data Access Framework allows developers to retrieve different types
 of data without having dependencies on those types of data. It provides
 a single, unified data type that can be customized by individual
 implementing plug-ins to provide full functionality pertinent to each
 data type.</p>
 <section id="writing-a-new-factory">
-<h2>Writing a New Factory<a class="headerlink" href="#writing-a-new-factory" title="Permalink to this headline"></a></h2>
+<h2>Writing a New Factory<a class="headerlink" href="#writing-a-new-factory" title="Permalink to this heading"></a></h2>
 <p>Factories will most often be written in a dataplugin, but should always
 be written in a common plug-in. This will allow for clean dependencies
 from both CAVE and EDEX.</p>
@@ -168,7 +169,7 @@ should be thrown.</p></li>
 </ul>
 </section>
 <section id="registering-the-factory-with-the-framework">
-<h2>Registering the Factory with the Framework<a class="headerlink" href="#registering-the-factory-with-the-framework" title="Permalink to this headline"></a></h2>
+<h2>Registering the Factory with the Framework<a class="headerlink" href="#registering-the-factory-with-the-framework" title="Permalink to this heading"></a></h2>
 <p>The following needs to be added in a spring file in the plug-in that
 contains the new factory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">bean</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;radarGridFactory&quot;</span>
@@ -184,7 +185,7 @@ allows it to be used any time the code makes a request for the data type
 “radar.”</p>
 </section>
 <section id="retrieving-data-using-the-factory">
-<h2>Retrieving Data Using the Factory<a class="headerlink" href="#retrieving-data-using-the-factory" title="Permalink to this headline"></a></h2>
+<h2>Retrieving Data Using the Factory<a class="headerlink" href="#retrieving-data-using-the-factory" title="Permalink to this heading"></a></h2>
 <p>For ease of use and more diverse use, there are multiple interfaces into
 the Data Access Layer. Currently, there is a Python implementation and a
 Java implementation, which have very similar method calls and work in a
@@ -248,7 +249,7 @@ the best way to identify what parameters are to be used is to reference
 the code.</p>
 </section>
 <section id="development-background">
-<h2>Development Background<a class="headerlink" href="#development-background" title="Permalink to this headline"></a></h2>
+<h2>Development Background<a class="headerlink" href="#development-background" title="Permalink to this heading"></a></h2>
 <p>In support of Hazard Services Raytheon Technical Services is building a
 generic data access framework that can be called via JAVA or Python. The
 data access framework code can be found within the AWIPS Baseline in</p>
@@ -289,7 +290,7 @@ classes</p>
 attached and modified slightly.</p>
 </section>
 <section id="design-implementation">
-<h2>Design/Implementation<a class="headerlink" href="#design-implementation" title="Permalink to this headline"></a></h2>
+<h2>Design/Implementation<a class="headerlink" href="#design-implementation" title="Permalink to this heading"></a></h2>
 <p>The Data Access Framework is designed to provide a consistent interface
 for requesting and using geospatial data within CAVE or EDEX. Examples
 of geospatial data are grids, satellite, radar, metars, maps, river gage
@@ -349,7 +350,7 @@ the framework will make use of existing APIs such as <strong>IDataStore</strong>
 </ul>
 </section>
 <section id="how-users-of-the-framework-retrieve-and-use-the-data">
-<h2>How users of the framework retrieve and use the data<a class="headerlink" href="#how-users-of-the-framework-retrieve-and-use-the-data" title="Permalink to this headline"></a></h2>
+<h2>How users of the framework retrieve and use the data<a class="headerlink" href="#how-users-of-the-framework-retrieve-and-use-the-data" title="Permalink to this heading"></a></h2>
 <p>When a user of the framework wishes to request data, they must
 instantiate a request object and set some of the values on that request.
 Two request interfaces will be supported, for detailed methods see
@@ -391,7 +392,7 @@ making the request and returned data objects pure python it will not be
 a huge undertaking to add this support in the future.</p>
 </section>
 <section id="how-plugin-developers-contribute-support-for-new-datatypes">
-<h2>How plugin developers contribute support for new datatypes<a class="headerlink" href="#how-plugin-developers-contribute-support-for-new-datatypes" title="Permalink to this headline"></a></h2>
+<h2>How plugin developers contribute support for new datatypes<a class="headerlink" href="#how-plugin-developers-contribute-support-for-new-datatypes" title="Permalink to this heading"></a></h2>
 <p>When a developer wishes to add support for another data type to the
 framework, they must implement one or both of the factory interfaces
 within a common plugin. Two factory interfaces will be supported, for
@@ -455,7 +456,7 @@ both.</p>
 </div>
 </section>
 <section id="how-the-framework-works-when-it-receives-a-request">
-<h2>How the framework works when it receives a request<a class="headerlink" href="#how-the-framework-works-when-it-receives-a-request" title="Permalink to this headline"></a></h2>
+<h2>How the framework works when it receives a request<a class="headerlink" href="#how-the-framework-works-when-it-receives-a-request" title="Permalink to this heading"></a></h2>
 <p><strong>IDataRequest</strong> requires a datatype to be set on every request. The
 framework will have a registry of existing factories for each data type
 (grid and geometry). When the Data Access Layer methods are called, it
@@ -485,7 +486,7 @@ be tasked to add the factories necessary to support the needed data
 types.</p>
 </section>
 <section id="request-interfaces">
-<h2>Request interfaces<a class="headerlink" href="#request-interfaces" title="Permalink to this headline"></a></h2>
+<h2>Request interfaces<a class="headerlink" href="#request-interfaces" title="Permalink to this heading"></a></h2>
 <p>Requests and returned data interfaces will exist in both Java and
 Python. The Java interfaces are listed below and the Python interfaces
 will match the Java interfaces except where noted. Factories will only
@@ -531,7 +532,7 @@ requesting data by names such as ICAOs, airports, stationIDs, etc</p></li>
 as rectangular polygons)</p></li>
 </ul>
 <section id="data-interfaces">
-<h3>Data Interfaces<a class="headerlink" href="#data-interfaces" title="Permalink to this headline"></a></h3>
+<h3>Data Interfaces<a class="headerlink" href="#data-interfaces" title="Permalink to this heading"></a></h3>
 <p><strong>IData</strong></p>
 <ul class="simple">
 <li><p><strong>Object getAttribute(String key)</strong> - <strong>getAttribute</strong> provides a way
@@ -604,7 +605,7 @@ cell</p></li>
 </ul>
 </section>
 <section id="factory-interfaces-java-only">
-<h3>Factory Interfaces (Java only)<a class="headerlink" href="#factory-interfaces-java-only" title="Permalink to this headline"></a></h3>
+<h3>Factory Interfaces (Java only)<a class="headerlink" href="#factory-interfaces-java-only" title="Permalink to this heading"></a></h3>
 <ul class="simple">
 <li><p><strong>IDataFactory</strong></p></li>
 <li><p><strong>DataTime[] getAvailableTimes(R request)</strong> - queries the

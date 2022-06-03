@@ -2,8 +2,60 @@
 METAR Station Plot with MetPy
 =============================
 `Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/METAR_Station_Plot_with_MetPy.ipynb>`_
-This exercise creates a METAR plot for North America using AWIPS METAR
-observations (datatype *obs*) and MetPy.
+Python-AWIPS Tutorial Notebook
+
+--------------
+
+Objectives
+==========
+
+-  Use python-awips to connect to an edex server
+-  Define and filter data request for METAR surface obs
+-  Extract necessary data and reformat it for plotting
+-  Stylize and plot METAR station data using Cartopy, Matplotlib, and
+   MetPy
+
+--------------
+
+Table of Contents
+-----------------
+
+| `1
+  Imports <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#imports>`__\ 
+| `2 Function:
+  get_cloud_cover() <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#function-get-cloud-cover>`__\ 
+| `3 Initial
+  Setup <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#initial-setup>`__\ 
+|     `3.1 Initial EDEX
+  Connection <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#initial-edex-connection>`__\ 
+|     `3.2 Setting Connection Location
+  Names <https://unidata.github.io/python-awips/examples/generated/WMETAR_Station_Plot_with_MetPy.html#setting-connection-location-names>`__\ 
+| `4 Filter by
+  Time <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#filter-by-time>`__\ 
+| `5 Use the
+  Data! <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#use-the-data>`__\ 
+|     `5.1 Get the
+  Data! <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#get-the-data>`__\ 
+|     `5.2 Extract all
+  Parameters <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#extract-all-parameters>`__\ 
+|     `5.3 Populate the Data
+  Dictionary <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#populate-the-data-dictionary>`__\ 
+| `6 Plot the
+  Data! <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#plot-the-data>`__\ 
+| `7 See
+  Also <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#see-also>`__\ 
+|     `7.1 Related
+  Notebooks <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#related-notebooks>`__\ 
+|     `7.2 Additional
+  Documentation <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#additional-documentation>`__\ 
+
+1 Imports
+---------
+
+The imports below are used throughout the notebook. Note the first two
+imports are coming directly from python-awips and allow us to connect to
+an EDEX server, and define a timrange used for filtering the data. The
+subsequent imports are for data manipulation and visualization.
 
 .. code:: ipython3
 
@@ -15,36 +67,53 @@ observations (datatype *obs*) and MetPy.
     import cartopy.feature as cfeature
     import matplotlib.pyplot as plt
     from metpy.calc import wind_components
-    from metpy.plots import StationPlot, StationPlotLayout
+    from metpy.plots import StationPlot, StationPlotLayout, sky_cover
     from metpy.units import units
-    import warnings
-    %matplotlib inline
-    warnings.filterwarnings("ignore",category =RuntimeWarning)
-    
+
+`Top <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html>`__
+
+--------------
+
+2 Function: get_cloud_cover()
+-----------------------------
+
+Returns the cloud fraction values as integer codes (0 through 8).
+
+.. code:: ipython3
+
     def get_cloud_cover(code):
         if 'OVC' in code:
-            return 1.0
+            return 8
         elif 'BKN' in code:
-            return 6.0/8.0
+            return 6
         elif 'SCT' in code:
-            return 4.0/8.0
+            return 4
         elif 'FEW' in code:
-            return 2.0/8.0
+            return 2
         else:
             return 0
-    
-    # Pull out these specific stations (prepend K for AWIPS identifiers)
-    selected = ['PDX', 'OKC', 'ICT', 'GLD', 'MEM', 'BOS', 'MIA', 'MOB', 'ABQ', 'PHX', 'TTF',
-                'ORD', 'BIL', 'BIS', 'CPR', 'LAX', 'ATL', 'MSP', 'SLC', 'DFW', 'NYC', 'PHL',
-                'PIT', 'IND', 'OLY', 'SYR', 'LEX', 'CHS', 'TLH', 'HOU', 'GJT', 'LBB', 'LSV',
-                'GRB', 'CLT', 'LNK', 'DSM', 'BOI', 'FSD', 'RAP', 'RIC', 'JAN', 'HSV', 'CRW',
-                'SAT', 'BUY', '0CO', 'ZPC', 'VIH', 'BDG', 'MLF', 'ELY', 'WMC', 'OTH', 'CAR',
-                'LMT', 'RDM', 'PDT', 'SEA', 'UIL', 'EPH', 'PUW', 'COE', 'MLP', 'PIH', 'IDA', 
-                'MSO', 'ACV', 'HLN', 'BIL', 'OLF', 'RUT', 'PSM', 'JAX', 'TPA', 'SHV', 'MSY',
-                'ELP', 'RNO', 'FAT', 'SFO', 'NYL', 'BRO', 'MRF', 'DRT', 'FAR', 'BDE', 'DLH',
-                'HOT', 'LBF', 'FLG', 'CLE', 'UNV']
-    selected = ['K{0}'.format(id) for id in selected]
-    data_arr = []
+
+`Top <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html>`__
+
+--------------
+
+3 Initial Setup
+---------------
+
+3.1 Initial EDEX Connection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+First we establish a connection to Unidata’s public EDEX server. With
+that connection made, we can create a `new data request
+object <http://unidata.github.io/python-awips/api/IDataRequest.html>`__
+and set the data type to **obs**.
+
+Then, because we’re going to uses MetPy’s
+`StationPlot <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.StationPlot.html>`__
+and
+`StationPlotLayout <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.StationPlotLayout.html>`__
+we need to define several parameters, and then set them on the data
+request object.
 
 .. code:: ipython3
 
@@ -52,21 +121,52 @@ observations (datatype *obs*) and MetPy.
     edexServer = "edex-cloud.unidata.ucar.edu"
     DataAccessLayer.changeEDEXHost(edexServer)
     request = DataAccessLayer.newDataRequest("obs")
-    availableProducts = DataAccessLayer.getAvailableParameters(request)
     
+    # define desired parameters
     single_value_params = ["timeObs", "stationName", "longitude", "latitude", 
                            "temperature", "dewpoint", "windDir",
-                           "windSpeed", "seaLevelPress"]
-    multi_value_params = ["presWeather", "skyCover", "skyLayerBase"]
-    pres_weather, sky_cov, sky_layer_base = [],[],[]
-    params = single_value_params + multi_value_params
-    obs = dict({params: [] for params in params})
+                           "windSpeed"]
+    multi_value_params = ["skyCover"]
     
+    params = single_value_params + multi_value_params
+    
+    # set all parameters on the request
     request.setParameters(*(params))
+
+3.2 Setting Connection Location Names
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+We are also going to define specific station IDs so that our plot is not
+too cluttered.
+
+.. code:: ipython3
+
+    # Define a list of station IDs to plot
+    selected = ['KPDX', 'KOKC', 'KICT', 'KGLD', 'KMEM', 'KBOS', 'KMIA', 'KMOB', 'KABQ', 'KPHX', 'KTTF',
+                'KORD', 'KBIL', 'KBIS', 'KCPR', 'KLAX', 'KATL', 'KMSP', 'KSLC', 'KDFW', 'KNYC', 'KPHL',
+                'KPIT', 'KIND', 'KOLY', 'KSYR', 'KLEX', 'KCHS', 'KTLH', 'KHOU', 'KGJT', 'KLBB', 'KLSV',
+                'KGRB', 'KCLT', 'KLNK', 'KDSM', 'KBOI', 'KFSD', 'KRAP', 'KRIC', 'KJAN', 'KHSV', 'KCRW',
+                'KSAT', 'KBUY', 'K0CO', 'KZPC', 'KVIH', 'KBDG', 'KMLF', 'KELY', 'KWMC', 'KOTH', 'KCAR',
+                'KLMT', 'KRDM', 'KPDT', 'KSEA', 'KUIL', 'KEPH', 'KPUW', 'KCOE', 'KMLP', 'KPIH', 'KIDA', 
+                'KMSO', 'KACV', 'KHLN', 'KBIL', 'KOLF', 'KRUT', 'KPSM', 'KJAX', 'KTPA', 'KSHV', 'KMSY',
+                'KELP', 'KRNO', 'KFAT', 'KSFO', 'KNYL', 'KBRO', 'KMRF', 'KDRT', 'KFAR', 'KBDE', 'KDLH',
+                'KHOT', 'KLBF', 'KFLG', 'KCLE', 'KUNV']
+    
+    # set the location names to the desired station IDs 
     request.setLocationNames(*(selected))
 
-Here we use the Python-AWIPS class **TimeRange** to prepare a beginning
-and end time span for requesting observations (the last hour):
+`Top <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html>`__
+
+--------------
+
+4 Filter by Time
+----------------
+
+Here we decide how much data we want to pull from EDEX. By default we’ll
+request 1 hour, but that value can easily be modified by `adjusting the
+``timedelta(hours = 1)`` <https://docs.python.org/3/library/datetime.html#timedelta-objects>`__
+in line ``2``. The more data we request, the longer this section will
+take to run.
 
 .. code:: ipython3
 
@@ -76,20 +176,65 @@ and end time span for requesting observations (the last hour):
     beginRange = datetime.strptime( start + ":00:00", "%Y-%m-%d %H:%M:%S")
     endRange = datetime.strptime( start + ":59:59", "%Y-%m-%d %H:%M:%S")
     timerange = TimeRange(beginRange, endRange)
-    
-    response = DataAccessLayer.getGeometryData(request,timerange)
+
+`Top <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html>`__
+
+--------------
+
+5 Use the Data!
+---------------
+
+5.1 Get the Data!
+~~~~~~~~~~~~~~~~~
+
+Now that we have our ``request`` and TimeRange ``timerange`` objects
+ready, we’re ready to get the data array from EDEX.
 
 .. code:: ipython3
 
+    # Get response
+    response = DataAccessLayer.getGeometryData(request,timerange)
+
+5.2 Extract all Parameters
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In this section we start gathering all the information we’ll need to
+properly display our data. First we create an empty dictionary and array
+to keep track of all data and unique station IDs. We also create a
+boolean to help us only grab the first entry for ``skyCover`` related to
+a station id.
+
+.. container:: alert-info
+
+   ::
+
+      <b>Note:</b>  The way the data responses are returned, we recieve many <code>skyCover</code> entries for each station ID, but we only want to keep track of the most recent one (first one returned).
+
+After defining these variables, we are ready to start looping through
+our response data. If the response is an entry of ``skyCover``, and this
+is a new station id, then set the skyCover value in the obs dictionary.
+If this is not a skyCover entry, then explicitly set the ``timeObs``
+variable (because we have to manipulate it slightly), and dynamically
+set all the remaining parameters.
+
+.. code:: ipython3
+
+    # define a dictionary and array that will be populated from our for loop below
+    obs = dict({params: [] for params in params})
     station_names = []
+    
+    # only grab the first skyCover record related to a station 
+    new_station_id = True
+    # cycle through all the data in the response
     for ob in response:
         avail_params = ob.getParameters()
-        if "presWeather" in avail_params:
-            pres_weather.append(ob.getString("presWeather"))
-        elif "skyCover" in avail_params and "skyLayerBase" in avail_params:
-            sky_cov.append(ob.getString("skyCover"))
-            sky_layer_base.append(ob.getNumber("skyLayerBase"))
-        else:
+        # if it has cloud information and is the first entry for this station id
+        if "skyCover" in avail_params and new_station_id:
+            # store the associated cloud cover int for the skyCover string
+            obs['skyCover'].append(get_cloud_cover(ob.getString("skyCover")))
+            new_station_id = False
+        elif "stationName" in avail_params:
+            new_station_id=True
             # If we already have a record for this stationName, skip
             if ob.getString('stationName') not in station_names:
                 station_names.append(ob.getString('stationName'))
@@ -104,21 +249,14 @@ and end time span for requesting observations (the last hour):
                                 obs[param].append(ob.getString(param))
                     else:
                         obs[param].append(None)
-            
-                obs['presWeather'].append(pres_weather);
-                obs['skyCover'].append(sky_cov);
-                obs['skyLayerBase'].append(sky_layer_base);
-                pres_weather = []
-                sky_cov = []
-                sky_layer_base = []
 
-Next grab the simple variables out of the data we have (attaching
-correct units), and put them into a dictionary that we will hand the
-plotting function later:
+5.3 Populate the Data Dictionary
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
--  Get wind components from speed and direction
--  Convert cloud fraction values to integer codes [0 - 8]
--  Map METAR weather codes to WMO codes for weather symbols
+Next grab the variables out of the obs dictionary we just populated,
+attach correct units, (calculate their components, in the instance of
+wind) and put them into a new dictionary that we will hand the plotting
+function later.
 
 .. code:: ipython3
 
@@ -128,7 +266,6 @@ plotting function later:
     data['longitude'] = np.array(obs['longitude'])
     data['air_temperature'] = np.array(obs['temperature'], dtype=float)* units.degC
     data['dew_point_temperature'] = np.array(obs['dewpoint'], dtype=float)* units.degC
-    data['air_pressure_at_sea_level'] = np.array(obs['seaLevelPress'])* units('mbar')
     
     direction = np.array(obs['windDir'])
     direction[direction == -9999.0] = 'nan'
@@ -136,37 +273,35 @@ plotting function later:
     u, v = wind_components(np.array(obs['windSpeed']) * units('knots'),
                                direction * units.degree)
     data['eastward_wind'], data['northward_wind'] = u, v
-    data['cloud_coverage'] = [int(get_cloud_cover(x)*8) for x in obs['skyCover']]
-    data['present_weather'] = obs['presWeather']
+    data['cloud_coverage'] = np.array(obs['skyCover'])
 
-.. code:: ipython3
+`Top <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html>`__
 
-    print(obs['stationName'])
+--------------
 
+6 Plot the Data!
+----------------
 
-.. parsed-literal::
+Now we have all the data we need to create our plot! First we’ll assign
+a projection and create our figure and axes.
 
-    ['K0CO', 'KHOT', 'KSHV', 'KIND', 'KBDE', 'KPSM', 'KORD', 'KDFW', 'KPHL', 'KTTF', 'KBDG', 'KOLY', 'KNYC', 'KABQ', 'KLEX', 'KDRT', 'KELP', 'KRUT', 'KRIC', 'KPIT', 'KMSP', 'KHSV', 'KUNV', 'KSAT', 'KCLE', 'KPHX', 'KMIA', 'KBOI', 'KBRO', 'KLAX', 'KLBB', 'KMSO', 'KPDX', 'KTLH', 'KUIL', 'KTPA', 'KVIH', 'KBIL', 'KMLF', 'KCPR', 'KATL', 'KBIS', 'KCLT', 'KOKC', 'KRAP', 'KACV', 'KEPH', 'KELY', 'KFAR', 'KFAT', 'KMSY', 'KOLF', 'KPDT', 'KLMT', 'KHLN', 'KHOU', 'KICT', 'KIDA', 'KPIH', 'KPUW', 'KGJT', 'KGLD', 'KGRB', 'KLBF', 'KMLP', 'KBOS', 'KSYR', 'KDLH', 'KCOE', 'KOTH', 'KCRW', 'KSEA', 'KCAR', 'KDSM', 'KJAN', 'KSLC', 'KBUY', 'KLNK', 'KMEM', 'KNYL', 'KRDM', 'KCHS', 'KFSD', 'KJAX', 'KMOB', 'KRNO', 'KSFO', 'KWMC', 'KFLG', 'KLSV']
+Next, we use Cartopy to add common features (land, ocean, lakes,
+borders, etc) to help give us a more contextual map of the United States
+to plot the METAR stations on. We create and add a title for our figure
+as well.
 
+Additionally, we use `MetPy’s
+StationPlotLayout <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.StationPlotLayout.html>`__
+to instantiate a custom layout and define all the attributes we want
+displayed. We need to then set the data dictionary (containing all of
+our data values) on the custom layout so it knows what to draw.
 
-MetPy Surface Obs Plot
-----------------------
+Finally, we display the plot!
 
 .. code:: ipython3
 
     proj = ccrs.LambertConformal(central_longitude=-95, central_latitude=35,
                                  standard_parallels=[35])
-    
-    # Change the DPI of the figure
-    plt.rcParams['savefig.dpi'] = 255
-    
-    # Winds, temps, dewpoint, station id
-    custom_layout = StationPlotLayout()
-    custom_layout.add_barb('eastward_wind', 'northward_wind', units='knots')
-    custom_layout.add_value('NW', 'air_temperature', fmt='.0f', units='degF', color='darkred')
-    custom_layout.add_value('SW', 'dew_point_temperature', fmt='.0f', units='degF', color='darkgreen')
-    custom_layout.add_value('E', 'precipitation', fmt='0.1f', units='inch', color='blue')
-    
     # Create the figure
     fig = plt.figure(figsize=(20, 10))
     ax = fig.add_subplot(1, 1, 1, projection=proj)
@@ -183,13 +318,87 @@ MetPy Surface Obs Plot
     ax.set_extent((-118, -73, 23, 50))
     ax.set_title(str(ob.getDataTime()) + " | METAR | " + edexServer)
     
+    # Winds, temps, dewpoint, station id
+    custom_layout = StationPlotLayout()
+    custom_layout.add_barb('eastward_wind', 'northward_wind', units='knots')
+    custom_layout.add_value('NW', 'air_temperature', fmt='.0f', units='degF', color='darkred')
+    custom_layout.add_value('SW', 'dew_point_temperature', fmt='.0f', units='degF', color='darkgreen')
+    custom_layout.add_symbol('C', 'cloud_coverage', sky_cover)
+    
     stationplot = StationPlot(ax, data['longitude'], data['latitude'], clip_on=True,
                               transform=ccrs.PlateCarree(), fontsize=10)
     stationplot.plot_text((2, 0), data['stid'])
     custom_layout.plot(stationplot, data)
+    
     plt.show()
 
 
 
-.. image:: METAR_Station_Plot_with_MetPy_files/METAR_Station_Plot_with_MetPy_10_0.png
+.. image:: METAR_Station_Plot_with_MetPy_files/METAR_Station_Plot_with_MetPy_26_0.png
 
+
+`Top <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html>`__
+
+--------------
+
+7 See Also
+----------
+
+-  `Aviation Weather Center Static METAR Plots
+   Information <https://www.aviationweather.gov/metar/help?page=plot>`__
+
+7.1 Related Notebooks
+~~~~~~~~~~~~~~~~~~~~~
+
+-  `Grid Levels and
+   Parameters <http://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html>`__
+-  `Colored Surface Temperature
+   Plot <http://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html>`__
+
+7.2 Additional Documentation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**python-awips:**
+
+-  `DataAccessLayer.changeEDEXHost() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost>`__
+-  `DataAccessLayer.newDataRequest() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.newDataRequest>`__
+-  `IDataRequest <http://unidata.github.io/python-awips/api/IDataRequest.html>`__
+-  `DataAccessLayer.getGeometryData <http://unidata.github.io/python-awips/api/PyGeometryData.html>`__
+
+**datetime:**
+
+-  `datetime.datetime <https://docs.python.org/3/library/datetime.html#datetime-objects>`__
+-  `datetime.utcnow() <https://docs.python.org/3/library/datetime.html?#datetime.datetime.utcnow>`__
+-  `datetime.timedelta <https://docs.python.org/3/library/datetime.html#timedelta-objects>`__
+-  `datetime.strftime() and
+   datetime.strptime() <https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior>`__
+
+**numpy:**
+
+-  `np.array <https://numpy.org/doc/stable/reference/generated/numpy.array.html>`__
+
+**cartopy:**
+
+-  `cartopy projection
+   list <https://scitools.org.uk/cartopy/docs/v0.14/crs/projections.html?#cartopy-projection-list>`__
+-  `cartopy feature
+   interface <https://scitools.org.uk/cartopy/docs/v0.14/matplotlib/feature_interface.html>`__
+
+**matplotlib:**
+
+-  `matplotlib.pyplot() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html>`__
+-  `matplotlib.pyplot.figure() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html>`__
+-  `matplotlib.pyplot.figure.add_subplot <https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure.add_subplot>`__
+-  `ax.set_extent <https://matplotlib.org/stable/api/image_api.html?highlight=set_extent#matplotlib.image.AxesImage.set_extent>`__
+-  `ax.set_title <https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_title.html>`__
+
+**metpy:**
+
+-  `metpy.calc.wind_components <https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.wind_components.html>`__
+-  `metpy.plots.StationPlot() <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.StationPlot.html>`__
+-  `metpy.plots.StationPlotLayout() <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.StationPlotLayout.html>`__
+-  `metpy.units <https://unidata.github.io/MetPy/latest/api/generated/metpy.units.html>`__
+
+`Top <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html>`__
+
+--------------

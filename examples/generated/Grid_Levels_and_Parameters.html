@@ -14,6 +14,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../../about.html" />
@@ -109,12 +110,12 @@
            <div itemprop="articleBody">
              
   <section id="grid-levels-and-parameters">
-<h1>Grid Levels and Parameters<a class="headerlink" href="#grid-levels-and-parameters" title="Permalink to this headline"></a></h1>
+<h1>Grid Levels and Parameters<a class="headerlink" href="#grid-levels-and-parameters" title="Permalink to this heading"></a></h1>
 <p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Grid_Levels_and_Parameters.ipynb">Notebook</a>
 Python-AWIPS Tutorial Notebook</p>
 <hr class="docutils" />
 <section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline"></a></h2>
+<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>Cover the relevant methods for accessing EDEX and investigating what
 data is available.</p></li>
@@ -127,7 +128,7 @@ might be a helpful reference.</p></li>
 </ul>
 <hr class="docutils" />
 <section id="table-of-contents">
-<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline"></a></h3>
+<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading"></a></h3>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#imports">1
 Imports</a></div>
@@ -155,7 +156,7 @@ Notebooks</a></div>
 </section>
 <hr class="docutils" />
 <section id="imports">
-<h3>1 Imports<a class="headerlink" href="#imports" title="Permalink to this headline"></a></h3>
+<h3>1 Imports<a class="headerlink" href="#imports" title="Permalink to this heading"></a></h3>
 <p>Start by importing the DataAccessLayer package from python-awips:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">DataAccessLayer</span>
 </pre></div>
@@ -164,7 +165,7 @@ Notebooks</a></div>
 </section>
 <hr class="docutils" />
 <section id="connect-to-edex">
-<h3>2 Connect to EDEX<a class="headerlink" href="#connect-to-edex" title="Permalink to this headline"></a></h3>
+<h3>2 Connect to EDEX<a class="headerlink" href="#connect-to-edex" title="Permalink to this heading"></a></h3>
 <p>Define a url for your EDEX connection, and then point python-awips at
 that EDEX</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Unidata&#39;s cloud EDEX instance is used in this example</span>
@@ -176,7 +177,7 @@ that EDEX</p>
 </section>
 <hr class="docutils" />
 <section id="get-a-list-of-supported-data-types">
-<h3>3 Get a List of Supported Data Types<a class="headerlink" href="#get-a-list-of-supported-data-types" title="Permalink to this headline"></a></h3>
+<h3>3 Get a List of Supported Data Types<a class="headerlink" href="#get-a-list-of-supported-data-types" title="Permalink to this heading"></a></h3>
 <p><a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getSupportedDatatypes">DataAccessLayer.getSupportedDatatypes()</a>
 returns a list of supported data types offered by the EDEX server
 defined above. The code below shows how to populate, sort, and print out
@@ -219,7 +220,7 @@ that list.</p>
 </section>
 <hr class="docutils" />
 <section id="create-a-new-data-request-and-set-the-type">
-<h3>4 Create a New Data Request and Set the Type<a class="headerlink" href="#create-a-new-data-request-and-set-the-type" title="Permalink to this headline"></a></h3>
+<h3>4 Create a New Data Request and Set the Type<a class="headerlink" href="#create-a-new-data-request-and-set-the-type" title="Permalink to this heading"></a></h3>
 <p>Now create a new data request using
 <a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.newDataRequest">DataAccessLayer.newDataRequest()</a>,
 and set the data type using
@@ -238,7 +239,7 @@ is where the model data can be found, along with some other datasets
 </section>
 <hr class="docutils" />
 <section id="get-available-locations">
-<h3>5 Get Available Locations<a class="headerlink" href="#get-available-locations" title="Permalink to this headline"></a></h3>
+<h3>5 Get Available Locations<a class="headerlink" href="#get-available-locations" title="Permalink to this heading"></a></h3>
 <p>Use the
 <a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableLocationNames">DataAccessLayer.getAvailableLocationNames(request)</a>
 method to find out what locations are available for the given dataset.
@@ -316,7 +317,7 @@ outputted for the grid_request, for example.</p>
 </section>
 <hr class="docutils" />
 <section id="get-available-parameters">
-<h3>6 Get Available Parameters<a class="headerlink" href="#get-available-parameters" title="Permalink to this headline"></a></h3>
+<h3>6 Get Available Parameters<a class="headerlink" href="#get-available-parameters" title="Permalink to this heading"></a></h3>
 <p>We’re setting the “location” (in this case, what model we are interested
 in) to specify our request before we look at the available parameters.</p>
 <p>Take a look at the available parameters for the data set by using
@@ -608,7 +609,7 @@ in) to specify our request before we look at the available parameters.</p>
 </section>
 <hr class="docutils" />
 <section id="get-available-levels">
-<h3>7 Get Available Levels<a class="headerlink" href="#get-available-levels" title="Permalink to this headline"></a></h3>
+<h3>7 Get Available Levels<a class="headerlink" href="#get-available-levels" title="Permalink to this heading"></a></h3>
 <p>Setting the parameters is just an option, you do not need to filter the
 data if you do not wish to. Also, although we are only setting one
 parameter in this example, you can set multiple parameters by using an
@@ -899,7 +900,7 @@ likely because levels are not supported for that data type.</p>
 </section>
 <hr class="docutils" />
 <section id="get-available-times">
-<h3>8 Get Available Times<a class="headerlink" href="#get-available-times" title="Permalink to this headline"></a></h3>
+<h3>8 Get Available Times<a class="headerlink" href="#get-available-times" title="Permalink to this heading"></a></h3>
 <p>Take a look at what time options are available for the data you’re
 looking at using the
 <a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableTimes">DataAccessLayer.getAvailableTimes()</a>
@@ -986,7 +987,7 @@ single forecast cycle.</p></li>
 </section>
 <hr class="docutils" />
 <section id="get-the-data">
-<h3>9 Get the Data!<a class="headerlink" href="#get-the-data" title="Permalink to this headline"></a></h3>
+<h3>9 Get the Data!<a class="headerlink" href="#get-the-data" title="Permalink to this heading"></a></h3>
 <p>Now that we have our <code class="docutils literal notranslate"><span class="pre">request</span></code> and DataTime <code class="docutils literal notranslate"><span class="pre">fcstRun</span></code> arrays ready,
 it’s time to request the data array from EDEX. Depending on what kind of
 data we’re working with, we’ll either use
@@ -1022,13 +1023,13 @@ visualize the data once you have what you want.</p>
 </section>
 <hr class="docutils" />
 <section id="see-also">
-<h3>10 See Also<a class="headerlink" href="#see-also" title="Permalink to this headline"></a></h3>
+<h3>10 See Also<a class="headerlink" href="#see-also" title="Permalink to this heading"></a></h3>
 <p>Several functions are used throughout this notebook from the
 DataAccessLayer class in python-awips, to see full documentation for
 these functions vist
 <a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#">here</a>.</p>
 <section id="related-notebooks">
-<h4>10.1 Related Notebooks<a class="headerlink" href="#related-notebooks" title="Permalink to this headline"></a></h4>
+<h4>10.1 Related Notebooks<a class="headerlink" href="#related-notebooks" title="Permalink to this heading"></a></h4>
 <ul class="simple">
 <li><p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html">Colored Surface Temperature
 Plot</a></p></li>

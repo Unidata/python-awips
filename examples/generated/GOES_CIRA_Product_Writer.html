@@ -14,6 +14,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../../about.html" />
@@ -105,12 +106,12 @@
            <div itemprop="articleBody">
              
   <section id="goes-cira-product-writer">
-<h1>GOES CIRA Product Writer<a class="headerlink" href="#goes-cira-product-writer" title="Permalink to this headline"></a></h1>
+<h1>GOES CIRA Product Writer<a class="headerlink" href="#goes-cira-product-writer" title="Permalink to this heading"></a></h1>
 <p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/GOES_CIRA_Product_Writer.ipynb">Notebook</a>
 Python-AWIPS Tutorial Notebook</p>
 <hr class="docutils" />
 <section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline"></a></h2>
+<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>Use python-awips to connect to an EDEX server</p></li>
 <li><p>Define and filter the data request specifically for new <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#additional-documentation">CIRA GOES16
@@ -122,7 +123,7 @@ products</a></p></li>
 </ul>
 <hr class="docutils" />
 <section id="table-of-contents">
-<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline"></a></h3>
+<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading"></a></h3>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#imports">1
 Imports</a></div>
@@ -154,7 +155,7 @@ Documentation</a></div>
 </section>
 <hr class="docutils" />
 <section id="imports">
-<h3>1 Imports<a class="headerlink" href="#imports" title="Permalink to this headline"></a></h3>
+<h3>1 Imports<a class="headerlink" href="#imports" title="Permalink to this heading"></a></h3>
 <p>The imports below are used throughout the notebook. Note the first
 import is coming directly from python-awips and allows us to connect to
 an EDEX server. The subsequent imports are for data manipulation and
@@ -172,9 +173,9 @@ visualization.</p>
 </section>
 <hr class="docutils" />
 <section id="initial-setup">
-<h3>2 Initial Setup<a class="headerlink" href="#initial-setup" title="Permalink to this headline"></a></h3>
+<h3>2 Initial Setup<a class="headerlink" href="#initial-setup" title="Permalink to this heading"></a></h3>
 <section id="edex-connection">
-<h4>2.1 EDEX Connection<a class="headerlink" href="#edex-connection" title="Permalink to this headline"></a></h4>
+<h4>2.1 EDEX Connection<a class="headerlink" href="#edex-connection" title="Permalink to this heading"></a></h4>
 <p>First we establish a connection to Unidata’s public EDEX server. With
 that connection made, we can create a <a class="reference external" href="http://unidata.github.io/python-awips/api/IDataRequest.html">new data request
 object</a>
@@ -187,7 +188,7 @@ and set the data type to <strong>satellite</strong>.</p>
 </div>
 </section>
 <section id="parameter-definition">
-<h4>2.2 Parameter Definition<a class="headerlink" href="#parameter-definition" title="Permalink to this headline"></a></h4>
+<h4>2.2 Parameter Definition<a class="headerlink" href="#parameter-definition" title="Permalink to this heading"></a></h4>
 <p>After establishing the python-awips specific objects, we create a few
 other parameters that will be used for the data query based off of known
 values: projection, and extent.</p>
@@ -207,7 +208,7 @@ values: projection, and extent.</p>
 </section>
 <hr class="docutils" />
 <section id="function-set-size">
-<h3>3 Function: set_size()<a class="headerlink" href="#function-set-size" title="Permalink to this headline"></a></h3>
+<h3>3 Function: set_size()<a class="headerlink" href="#function-set-size" title="Permalink to this heading"></a></h3>
 <p>Here we’re defining a function that will allow us to pass in the
 dimensions of the output file we desire in pixels. Default Python
 methods require the size to be set in inches, which is confusing in our
@@ -247,7 +248,7 @@ pixels, with no padding or buffers.</p>
 </section>
 <hr class="docutils" />
 <section id="function-write-img">
-<h3>4 Function: write_img()<a class="headerlink" href="#function-write-img" title="Permalink to this headline"></a></h3>
+<h3>4 Function: write_img()<a class="headerlink" href="#function-write-img" title="Permalink to this heading"></a></h3>
 <p>Next, we’re defining another function which takes the image data, file
 name, projection, extent, reference time, and whether or not to print
 out a footnote.</p>
@@ -292,9 +293,9 @@ modify these values if you wish to print out an image of another size
 </section>
 <hr class="docutils" />
 <section id="get-the-data-and-write-it-out">
-<h3>5 Get the Data and Write it Out!<a class="headerlink" href="#get-the-data-and-write-it-out" title="Permalink to this headline"></a></h3>
+<h3>5 Get the Data and Write it Out!<a class="headerlink" href="#get-the-data-and-write-it-out" title="Permalink to this heading"></a></h3>
 <section id="filter-the-data">
-<h4>5.1 Filter the Data<a class="headerlink" href="#filter-the-data" title="Permalink to this headline"></a></h4>
+<h4>5.1 Filter the Data<a class="headerlink" href="#filter-the-data" title="Permalink to this heading"></a></h4>
 <p>Define exactly what data we want to be printing out. This notebook is
 designed to loop through and print out multiple images, so here we can
 pick which images we’re wanting to print out. We’re specifying
@@ -332,7 +333,7 @@ after the dataType has been set to satellite on the request object:</p>
 </div>
 </section>
 <section id="define-output-location">
-<h4>5.2 Define Output Location<a class="headerlink" href="#define-output-location" title="Permalink to this headline"></a></h4>
+<h4>5.2 Define Output Location<a class="headerlink" href="#define-output-location" title="Permalink to this heading"></a></h4>
 <p>Here we define a folder for where the satellite images will be written
 to. The default directory is a new folder called ‘output’ that lives
 whereever this notebook lives.</p>
@@ -361,7 +362,7 @@ depend on where this notebook is located. For example (for a Mac):</p>
 </div>
 </section>
 <section id="write-out-goes-images">
-<h4>5.3 Write Out GOES Images<a class="headerlink" href="#write-out-goes-images" title="Permalink to this headline"></a></h4>
+<h4>5.3 Write Out GOES Images<a class="headerlink" href="#write-out-goes-images" title="Permalink to this heading"></a></h4>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># First loop through the sectors (location names)</span>
 <span class="k">for</span> <span class="n">sector</span> <span class="ow">in</span> <span class="n">sectors</span><span class="p">:</span>
 
@@ -471,16 +472,16 @@ Done!
 </section>
 <hr class="docutils" />
 <section id="see-also">
-<h3>6 See Also<a class="headerlink" href="#see-also" title="Permalink to this headline"></a></h3>
+<h3>6 See Also<a class="headerlink" href="#see-also" title="Permalink to this heading"></a></h3>
 <section id="related-notebooks">
-<h4>6.1 Related Notebooks<a class="headerlink" href="#related-notebooks" title="Permalink to this headline"></a></h4>
+<h4>6.1 Related Notebooks<a class="headerlink" href="#related-notebooks" title="Permalink to this heading"></a></h4>
 <ul class="simple">
 <li><p><a class="reference external" href="http://unidata.github.io/python-awips/examples/generated/Satellite_Imagery.html">Satellite
 Imagery</a></p></li>
 </ul>
 </section>
 <section id="additional-documentation">
-<h4>6.2 Additional Documentation<a class="headerlink" href="#additional-documentation" title="Permalink to this headline"></a></h4>
+<h4>6.2 Additional Documentation<a class="headerlink" href="#additional-documentation" title="Permalink to this heading"></a></h4>
 <p><strong>CIRA Quick Guides</strong></p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://rammb.cira.colostate.edu/training/visit/quick_guides/QuickGuide_DEBRA-Dust_20210217.pdf">DEBRA-Dust</a></p></li>
