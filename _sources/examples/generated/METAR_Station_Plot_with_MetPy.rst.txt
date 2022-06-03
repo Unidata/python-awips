@@ -29,7 +29,7 @@ Table of Contents
 |     `3.1 Initial EDEX
   Connection <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#initial-edex-connection>`__\ 
 |     `3.2 Setting Connection Location
-  Names <https://unidata.github.io/python-awips/examples/generated/WMETAR_Station_Plot_with_MetPy.html#setting-connection-location-names>`__\ 
+  Names <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#setting-connection-location-names>`__\ 
 | `4 Filter by
   Time <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#filter-by-time>`__\ 
 | `5 Use the
