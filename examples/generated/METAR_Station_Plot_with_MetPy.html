@@ -214,7 +214,7 @@ request object.</p>
 <span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">&quot;obs&quot;</span><span class="p">)</span>
 
 <span class="c1"># define desired parameters</span>
-<span class="n">single_value_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;timeObs&quot;</span><span class="p">,</span> <span class="s2">&quot;stationName&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span>
+<span class="n">single_value_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;stationName&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span>
                        <span class="s2">&quot;temperature&quot;</span><span class="p">,</span> <span class="s2">&quot;dewpoint&quot;</span><span class="p">,</span> <span class="s2">&quot;windDir&quot;</span><span class="p">,</span>
                        <span class="s2">&quot;windSpeed&quot;</span><span class="p">]</span>
 <span class="n">multi_value_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;skyCover&quot;</span><span class="p">]</span>
@@ -300,6 +300,7 @@ set all the remaining parameters.</p>
 <span class="n">obs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">({</span><span class="n">params</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">params</span> <span class="ow">in</span> <span class="n">params</span><span class="p">})</span>
 <span class="n">station_names</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">time_title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
 
 <span class="c1"># cycle through all the data in the response, in reverse order to get the most recent data first</span>
 <span class="k">for</span> <span class="n">ob</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">response</span><span class="p">):</span>
@@ -316,17 +317,14 @@ set all the remaining parameters.</p>
         <span class="k">if</span> <span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s1">&#39;stationName&#39;</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">station_names</span><span class="p">:</span>
             <span class="n">station_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s1">&#39;stationName&#39;</span><span class="p">))</span>
             <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="n">time_title</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                <span class="n">time_title</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">())</span>
             <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">single_value_params</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">avail_params</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">param</span> <span class="o">==</span> <span class="s1">&#39;timeObs&#39;</span><span class="p">:</span>
-                        <span class="n">obs</span><span class="p">[</span><span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="n">param</span><span class="p">)</span><span class="o">/</span><span class="mf">1000.0</span><span class="p">))</span>
-                        <span class="k">if</span> <span class="n">time_title</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
-                            <span class="n">time_title</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">())</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="k">try</span><span class="p">:</span>
-                            <span class="n">obs</span><span class="p">[</span><span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="n">param</span><span class="p">))</span>
-                        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-                            <span class="n">obs</span><span class="p">[</span><span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="n">param</span><span class="p">))</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">obs</span><span class="p">[</span><span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="n">param</span><span class="p">))</span>
+                    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+                        <span class="n">obs</span><span class="p">[</span><span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="n">param</span><span class="p">))</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">obs</span><span class="p">[</span><span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>

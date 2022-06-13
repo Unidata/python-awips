@@ -123,7 +123,7 @@ request object.
     request = DataAccessLayer.newDataRequest("obs")
     
     # define desired parameters
-    single_value_params = ["timeObs", "stationName", "longitude", "latitude", 
+    single_value_params = ["stationName", "longitude", "latitude", 
                            "temperature", "dewpoint", "windDir",
                            "windSpeed"]
     multi_value_params = ["skyCover"]
@@ -221,6 +221,7 @@ set all the remaining parameters.
     obs = dict({params: [] for params in params})
     station_names = []
     time_title = ""
+    i = 0
     
     # cycle through all the data in the response, in reverse order to get the most recent data first
     for ob in reversed(response):
@@ -237,17 +238,14 @@ set all the remaining parameters.
             if ob.getString('stationName') not in station_names:
                 station_names.append(ob.getString('stationName'))
                 i = 0
+                if time_title == "":
+                    time_title = str(ob.getDataTime())
                 for param in single_value_params:            
                     if param in avail_params:
-                        if param == 'timeObs':
-                            obs[param].append(datetime.fromtimestamp(ob.getNumber(param)/1000.0))
-                            if time_title == "":
-                                time_title = str(ob.getDataTime())
-                        else:
-                            try:
-                                obs[param].append(ob.getNumber(param))
-                            except TypeError:
-                                obs[param].append(ob.getString(param))
+                        try:
+                            obs[param].append(ob.getNumber(param))
+                        except TypeError:
+                            obs[param].append(ob.getString(param))
                     else:
                         obs[param].append(None)
 
