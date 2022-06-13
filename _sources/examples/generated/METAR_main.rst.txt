@@ -1,10 +1,21 @@
-=============================
-METAR Station Plot with MetPy
-=============================
-`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/METAR_Station_Plot_with_MetPy.ipynb>`_
-Python-AWIPS Tutorial Notebook
+==========
+METAR main
+==========
+`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/METAR_main.ipynb>`_
+.. container::
+
+   .. container::
+
+   .. rubric:: METAR Staion Plot with MetPy
+      :name: metar-staion-plot-with-metpy
+
+   **Python-AWIPS Tutorial Notebook**
+
+   .. container::
 
 --------------
+
+.. container::
 
 Objectives
 ==========
@@ -17,40 +28,192 @@ Objectives
 
 --------------
 
+.. raw:: html
+
+   <h1>
+
 Table of Contents
------------------
 
-| `1
-  Imports <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#imports>`__\ 
-| `2 Function:
-  get_cloud_cover() <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#function-get-cloud-cover>`__\ 
-| `3 Initial
-  Setup <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#initial-setup>`__\ 
-|     `3.1 Initial EDEX
-  Connection <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#initial-edex-connection>`__\ 
-|     `3.2 Setting Connection Location
-  Names <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#setting-connection-location-names>`__\ 
-| `4 Filter by
-  Time <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#filter-by-time>`__\ 
-| `5 Use the
-  Data! <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#use-the-data>`__\ 
-|     `5.1 Get the
-  Data! <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#get-the-data>`__\ 
-|     `5.2 Extract all
-  Parameters <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#extract-all-parameters>`__\ 
-|     `5.3 Populate the Data
-  Dictionary <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#populate-the-data-dictionary>`__\ 
-| `6 Plot the
-  Data! <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#plot-the-data>`__\ 
-| `7 See
-  Also <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#see-also>`__\ 
-|     `7.1 Related
-  Notebooks <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#related-notebooks>`__\ 
-|     `7.2 Additional
-  Documentation <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#additional-documentation>`__\ 
+.. raw:: html
 
-1 Imports
----------
+   </h1>
+
+.. container:: toc
+
+   .. raw:: html
+
+      <ul class="toc-item">
+
+   .. raw:: html
+
+      <li>
+
+   1  Imports
+
+   .. raw:: html
+
+      </li>
+
+   .. raw:: html
+
+      <li>
+
+   2  Function: get_cloud_cover()
+
+   .. raw:: html
+
+      </li>
+
+   .. raw:: html
+
+      <li>
+
+   3  Initial Setup
+
+   .. raw:: html
+
+      <ul class="toc-item">
+
+   .. raw:: html
+
+      <li>
+
+   3.1  Initial EDEX Connection
+
+   .. raw:: html
+
+      </li>
+
+   .. raw:: html
+
+      <li>
+
+   3.2  Setting Connection Location Names
+
+   .. raw:: html
+
+      </li>
+
+   .. raw:: html
+
+      </ul>
+
+   .. raw:: html
+
+      </li>
+
+   .. raw:: html
+
+      <li>
+
+   4  Filter by Time
+
+   .. raw:: html
+
+      </li>
+
+   .. raw:: html
+
+      <li>
+
+   5  Use the Data!
+
+   .. raw:: html
+
+      <ul class="toc-item">
+
+   .. raw:: html
+
+      <li>
+
+   5.1  Get the Data!
+
+   .. raw:: html
+
+      </li>
+
+   .. raw:: html
+
+      <li>
+
+   5.2  Extract all Parameters
+
+   .. raw:: html
+
+      </li>
+
+   .. raw:: html
+
+      <li>
+
+   5.3  Populate the Data Dictionary
+
+   .. raw:: html
+
+      </li>
+
+   .. raw:: html
+
+      </ul>
+
+   .. raw:: html
+
+      </li>
+
+   .. raw:: html
+
+      <li>
+
+   6  Plot the Data!
+
+   .. raw:: html
+
+      </li>
+
+   .. raw:: html
+
+      <li>
+
+   7  See Also
+
+   .. raw:: html
+
+      <ul class="toc-item">
+
+   .. raw:: html
+
+      <li>
+
+   7.1  Related Notebooks
+
+   .. raw:: html
+
+      </li>
+
+   .. raw:: html
+
+      <li>
+
+   7.2  Additional Documentation
+
+   .. raw:: html
+
+      </li>
+
+   .. raw:: html
+
+      </ul>
+
+   .. raw:: html
+
+      </li>
+
+   .. raw:: html
+
+      </ul>
+
+Imports
+-------
 
 The imports below are used throughout the notebook. Note the first two
 imports are coming directly from python-awips and allow us to connect to
@@ -70,12 +233,12 @@ subsequent imports are for data manipulation and visualization.
     from metpy.plots import StationPlot, StationPlotLayout, sky_cover
     from metpy.units import units
 
-`Top <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html>`__
+Top
 
 --------------
 
-2 Function: get_cloud_cover()
------------------------------
+Function: get_cloud_cover()
+---------------------------
 
 Returns the cloud fraction values as integer codes (0 through 8).
 
@@ -93,15 +256,15 @@ Returns the cloud fraction values as integer codes (0 through 8).
         else:
             return 0
 
-`Top <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html>`__
+Top
 
 --------------
 
-3 Initial Setup
----------------
+Initial Setup
+-------------
 
-3.1 Initial EDEX Connection
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Initial EDEX Connection
+~~~~~~~~~~~~~~~~~~~~~~~
 
 First we establish a connection to Unidata’s public EDEX server. With
 that connection made, we can create a `new data request
@@ -133,8 +296,8 @@ request object.
     # set all parameters on the request
     request.setParameters(*(params))
 
-3.2 Setting Connection Location Names
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Setting Connection Location Names
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 We are also going to define specific station IDs so that our plot is not
 too cluttered.
@@ -155,12 +318,12 @@ too cluttered.
     # set the location names to the desired station IDs 
     request.setLocationNames(*(selected))
 
-`Top <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html>`__
+Top
 
 --------------
 
-4 Filter by Time
-----------------
+Filter by Time
+--------------
 
 Here we decide how much data we want to pull from EDEX. By default we’ll
 request 1 hour, but that value can easily be modified by `adjusting the
@@ -177,15 +340,15 @@ take to run.
     endRange = datetime.strptime( start + ":59:59", "%Y-%m-%d %H:%M:%S")
     timerange = TimeRange(beginRange, endRange)
 
-`Top <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html>`__
+Top
 
 --------------
 
-5 Use the Data!
----------------
+Use the Data!
+-------------
 
-5.1 Get the Data!
-~~~~~~~~~~~~~~~~~
+Get the Data!
+~~~~~~~~~~~~~
 
 Now that we have our ``request`` and TimeRange ``timerange`` objects
 ready, we’re ready to get the data array from EDEX.
@@ -195,8 +358,8 @@ ready, we’re ready to get the data array from EDEX.
     # Get response
     response = DataAccessLayer.getGeometryData(request,timerange)
 
-5.2 Extract all Parameters
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+Extract all Parameters
+~~~~~~~~~~~~~~~~~~~~~~
 
 In this section we start gathering all the information we’ll need to
 properly display our data. First we create an empty dictionary and array
@@ -204,9 +367,11 @@ to keep track of all data and unique station IDs. We also create a
 boolean to help us only grab the first entry for ``skyCover`` related to
 a station id.
 
-   **Note**: The way the data responses are returned, we recieve many
-   ``skyCover`` entries for each station ID, but we only want to keep
-   track of the most recent one (first one returned).
+.. container:: alert-info
+
+   ::
+
+      <b>Note:</b>  The way the data responses are returned, we recieve many <code>skyCover</code> entries for each station ID, but we only want to keep track of the most recent one (first one returned).
 
 After defining these variables, we are ready to start looping through
 our response data. If the response is an entry of ``skyCover``, and this
@@ -251,8 +416,8 @@ set all the remaining parameters.
                     else:
                         obs[param].append(None)
 
-5.3 Populate the Data Dictionary
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Populate the Data Dictionary
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Next grab the variables out of the obs dictionary we just populated,
 attach correct units, (calculate their components, in the instance of
@@ -276,12 +441,12 @@ function later.
     data['eastward_wind'], data['northward_wind'] = u, v
     data['cloud_coverage'] = np.array(obs['skyCover'])
 
-`Top <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html>`__
+Top
 
 --------------
 
-6 Plot the Data!
-----------------
+Plot the Data!
+--------------
 
 Now we have all the data we need to create our plot! First we’ll assign
 a projection and create our figure and axes.
@@ -335,29 +500,29 @@ Finally, we display the plot!
 
 
 
-.. image:: METAR_Station_Plot_with_MetPy_files/METAR_Station_Plot_with_MetPy_26_0.png
+.. image:: METAR_main_files/METAR_main_25_0.png
 
 
-`Top <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html>`__
+Top
 
 --------------
 
-7 See Also
-----------
+See Also
+--------
 
 -  `Aviation Weather Center Static METAR Plots
    Information <https://www.aviationweather.gov/metar/help?page=plot>`__
 
-7.1 Related Notebooks
-~~~~~~~~~~~~~~~~~~~~~
+Related Notebooks
+~~~~~~~~~~~~~~~~~
 
 -  `Grid Levels and
    Parameters <http://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html>`__
 -  `Colored Surface Temperature
    Plot <http://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html>`__
 
-7.2 Additional Documentation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Additional Documentation
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 **python-awips:**
 
@@ -400,6 +565,6 @@ Finally, we display the plot!
 -  `metpy.plots.StationPlotLayout() <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.StationPlotLayout.html>`__
 -  `metpy.units <https://unidata.github.io/MetPy/latest/api/generated/metpy.units.html>`__
 
-`Top <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html>`__
+Top
 
 --------------
