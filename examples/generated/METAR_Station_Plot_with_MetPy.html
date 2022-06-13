@@ -285,11 +285,11 @@ properly display our data. First we create an empty dictionary and array
 to keep track of all data and unique station IDs. We also create a
 boolean to help us only grab the first entry for <code class="docutils literal notranslate"><span class="pre">skyCover</span></code> related to
 a station id.</p>
-<div class="alert-info docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">b</span><span class="o">&gt;</span><span class="n">Note</span><span class="p">:</span><span class="o">&lt;/</span><span class="n">b</span><span class="o">&gt;</span>  <span class="n">The</span> <span class="n">way</span> <span class="n">the</span> <span class="n">data</span> <span class="n">responses</span> <span class="n">are</span> <span class="n">returned</span><span class="p">,</span> <span class="n">we</span> <span class="n">recieve</span> <span class="n">many</span> <span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">skyCover</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span> <span class="n">entries</span> <span class="k">for</span> <span class="n">each</span> <span class="n">station</span> <span class="n">ID</span><span class="p">,</span> <span class="n">but</span> <span class="n">we</span> <span class="n">only</span> <span class="n">want</span> <span class="n">to</span> <span class="n">keep</span> <span class="n">track</span> <span class="n">of</span> <span class="n">the</span> <span class="n">most</span> <span class="n">recent</span> <span class="n">one</span> <span class="p">(</span><span class="n">first</span> <span class="n">one</span> <span class="n">returned</span><span class="p">)</span><span class="o">.</span>
-</pre></div>
-</div>
-</div>
+<blockquote>
+<div><p><strong>Note</strong>: The way the data responses are returned, we recieve many
+<code class="docutils literal notranslate"><span class="pre">skyCover</span></code> entries for each station ID, but we only want to keep
+track of the most recent one (first one returned).</p>
+</div></blockquote>
 <p>After defining these variables, we are ready to start looping through
 our response data. If the response is an entry of <code class="docutils literal notranslate"><span class="pre">skyCover</span></code>, and this
 is a new station id, then set the skyCover value in the obs dictionary.

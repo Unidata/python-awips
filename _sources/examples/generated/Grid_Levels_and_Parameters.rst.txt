@@ -826,26 +826,11 @@ are available for the data set you’re looking at using
     1000.0_500.0LYRMB
 
 
-.. container:: alert-info
-
-   Note:
-
-   .. raw:: html
-
-      <li>
-
-   0.0SFC is the Surface level
-
-   .. raw:: html
-
-      </li>
-
-   ::
-
-      <li><b>HAG</b> stands for Fixed Height Above Ground (in meters)</li>
-      <li><b>NTAT</b> stands for Nominal Top of the ATmosphere</li>
-      <li><b>BL</b> stands for Boundary Layer, where <b>0.0_30.0BL</b> reads as <i>0-30 mb above ground level</i></li> 
-      <li><b>TROP</b> is the Tropopause level
+   Note - **0.0SFC** is the Surface level - **HAG** stands for Fixed
+   Height Above Ground (in meters) - **NTAT** stands for Nominal Top of
+   the ATmosphere - **BL** stands for Boundary Layer, where
+   **0.0_30.0BL** reads as *0-30 mb above ground level* - **TROP** is
+   the Tropopause level
 
 .. code:: ipython3
 

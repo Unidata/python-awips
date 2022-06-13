@@ -204,11 +204,9 @@ to keep track of all data and unique station IDs. We also create a
 boolean to help us only grab the first entry for ``skyCover`` related to
 a station id.
 
-.. container:: alert-info
-
-   ::
-
-      <b>Note:</b>  The way the data responses are returned, we recieve many <code>skyCover</code> entries for each station ID, but we only want to keep track of the most recent one (first one returned).
+   **Note**: The way the data responses are returned, we recieve many
+   ``skyCover`` entries for each station ID, but we only want to keep
+   track of the most recent one (first one returned).
 
 After defining these variables, we are ready to start looping through
 our response data. If the response is an entry of ``skyCover``, and this
