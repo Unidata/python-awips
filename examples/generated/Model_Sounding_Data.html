@@ -55,10 +55,18 @@
 <li class="toctree-l2"><a class="reference internal" href="METAR_Station_Plot_with_MetPy.html">METAR Station Plot with MetPy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Map_Resources_and_Topography.html">Map Resources and Topography</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Model Sounding Data</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#available-locations">Available Locations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#model-sounding-parameters">Model Sounding Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#calculating-dewpoint-from-specific-humidity">Calculating Dewpoint from Specific Humidity</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#metpy-skewt-and-hodograph">MetPy SkewT and Hodograph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#objectives">Objectives</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#imports">1 Imports</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edex-connection">2 EDEX Connection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setting-location">3 Setting Location</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#filtering-by-time">4 Filtering by Time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-the-data">5 Get the Data!</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#use-the-data">6 Use the Data!</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#plot-the-data">7 Plot the Data!</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="NEXRAD_Level3_Radar.html">NEXRAD Level3 Radar</a></li>
@@ -102,32 +110,106 @@
   <section id="model-sounding-data">
 <h1>Model Sounding Data<a class="headerlink" href="#model-sounding-data" title="Permalink to this heading"></a></h1>
 <p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Model_Sounding_Data.ipynb">Notebook</a>
-The EDEX modelsounding plugin creates 64-level vertical profiles from
-GFS and ETA (NAM) BUFR products distirubted over NOAAport. Paramters
-which are requestable are <strong>pressure</strong>, <strong>temperature</strong>, <strong>specHum</strong>,
-<strong>uComp</strong>, <strong>vComp</strong>, <strong>omega</strong>, <strong>cldCvr</strong>.</p>
+Python-AWIPS Tutorial Notebook</p>
+<hr class="docutils" />
+<section id="objectives">
+<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>Use python-awips to connect to an edex server</p></li>
+<li><p>Define and filter data request for model sounding data</p></li>
+<li><p>Create vertical profiles from GFS BUFR products</p></li>
+<li><p>Use MetPy to create
+<a class="reference external" href="https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.SkewT.html">SkewT</a>
+and
+<a class="reference external" href="https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.Hodograph.html">Hodograph</a>
+plots</p></li>
+</ul>
+<hr class="docutils" />
+<section id="table-of-contents">
+<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading"></a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#imports">1
+Imports</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#edex-connection">2 EDEX
+Connection</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#setting-location">3 Setting
+Location</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#available-location-names">3.1 Available Location
+Names</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#setting-the-location-name">3.2 Setting the Location
+Name</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#filtering-by-time">4 Filtering by
+Time</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#get-the-data">5 Get the
+Data!</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#use-the-data">6 Use the
+Data!</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#prepare-the-data">6.1 Prepare the
+Data!</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#calculate-dewpoint-from-specific-humidity">6.2 Calculate Dewpoint from Specific
+Humidity</a></div>
+<div class="line">        <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#method-1">6.2.1 Method
+1</a></div>
+<div class="line">        <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#method-2">6.2.2 Method
+2</a></div>
+<div class="line">        <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#method-3">6.2.3 Method
+3</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#plot-the-data">7 Plot the
+Data!</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#see-also">8 See
+Also</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#related-notebooks">8.1 Related
+Notebooks</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#additional-documentation">8.2 Additional
+Documentation</a></div>
+</div>
+</section>
+<section id="imports">
+<h3>1 Imports<a class="headerlink" href="#imports" title="Permalink to this heading"></a></h3>
+<p>The imports below are used throughout the notebook. Note the first
+import is coming directly from python-awips and allows us to connect to
+an EDEX server. The subsequent imports are for data manipulation and
+visualization.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">DataAccessLayer</span>
-<span class="kn">import</span> <span class="nn">matplotlib.tri</span> <span class="k">as</span> <span class="nn">mtri</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">mpl_toolkits.axes_grid1.inset_locator</span> <span class="kn">import</span> <span class="n">inset_axes</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">exp</span><span class="p">,</span> <span class="n">log</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">metpy.calc</span> <span class="kn">import</span> <span class="n">wind_components</span><span class="p">,</span> <span class="n">lcl</span><span class="p">,</span> <span class="n">dry_lapse</span><span class="p">,</span> <span class="n">parcel_profile</span><span class="p">,</span> <span class="n">dewpoint</span>
-<span class="kn">from</span> <span class="nn">metpy.calc</span> <span class="kn">import</span> <span class="n">wind_speed</span><span class="p">,</span> <span class="n">wind_direction</span><span class="p">,</span> <span class="n">thermo</span><span class="p">,</span> <span class="n">vapor_pressure</span>
+<span class="kn">from</span> <span class="nn">metpy.calc</span> <span class="kn">import</span> <span class="n">dewpoint</span><span class="p">,</span> <span class="n">vapor_pressure</span><span class="p">,</span> <span class="n">wind_speed</span><span class="p">,</span> <span class="n">wind_direction</span>
 <span class="kn">from</span> <span class="nn">metpy.plots</span> <span class="kn">import</span> <span class="n">SkewT</span><span class="p">,</span> <span class="n">Hodograph</span>
-<span class="kn">from</span> <span class="nn">metpy.units</span> <span class="kn">import</span> <span class="n">units</span><span class="p">,</span> <span class="n">concatenate</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span><span class="n">category</span> <span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">)</span>
-
-<span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="s2">&quot;edex-cloud.unidata.ucar.edu&quot;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">metpy.units</span> <span class="kn">import</span> <span class="n">units</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html">Top</a></p>
+</section>
+<hr class="docutils" />
+<section id="edex-connection">
+<h3>2 EDEX Connection<a class="headerlink" href="#edex-connection" title="Permalink to this heading"></a></h3>
+<p>First we establish a connection to Unidata’s public EDEX server. With
+that connection made, we can create a <a class="reference external" href="http://unidata.github.io/python-awips/api/IDataRequest.html">new data request
+object</a>
+and set the data type to <strong>modelsounding</strong>, and define additional
+parameters and an identifier on the request.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="s2">&quot;edex-cloud.unidata.ucar.edu&quot;</span><span class="p">)</span>
 <span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">&quot;modelsounding&quot;</span><span class="p">)</span>
 <span class="n">forecastModel</span> <span class="o">=</span> <span class="s2">&quot;GFS&quot;</span>
 <span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s2">&quot;reportType&quot;</span><span class="p">,</span> <span class="n">forecastModel</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s2">&quot;pressure&quot;</span><span class="p">,</span><span class="s2">&quot;temperature&quot;</span><span class="p">,</span><span class="s2">&quot;specHum&quot;</span><span class="p">,</span><span class="s2">&quot;uComp&quot;</span><span class="p">,</span><span class="s2">&quot;vComp&quot;</span><span class="p">,</span><span class="s2">&quot;omega&quot;</span><span class="p">,</span><span class="s2">&quot;cldCvr&quot;</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s2">&quot;pressure&quot;</span><span class="p">,</span><span class="s2">&quot;temperature&quot;</span><span class="p">,</span><span class="s2">&quot;specHum&quot;</span><span class="p">,</span><span class="s2">&quot;uComp&quot;</span><span class="p">,</span><span class="s2">&quot;vComp&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<section id="available-locations">
-<h2>Available Locations<a class="headerlink" href="#available-locations" title="Permalink to this heading"></a></h2>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html">Top</a></p>
+</section>
+<hr class="docutils" />
+<section id="setting-location">
+<h3>3 Setting Location<a class="headerlink" href="#setting-location" title="Permalink to this heading"></a></h3>
+<section id="available-location-names">
+<h4>3.1 Available Location Names<a class="headerlink" href="#available-location-names" title="Permalink to this heading"></a></h4>
+<p>When working with a new data type, it is often useful to investigate all
+available options for a particular setting. Shown below is how to see
+all available location names for a data request with type
+<code class="docutils literal notranslate"><span class="pre">modelsounding</span></code> and <code class="docutils literal notranslate"><span class="pre">reportType</span></code> identifier of <code class="docutils literal notranslate"><span class="pre">GFS</span></code>. This step is
+not necessary if you already know exactly what the location name(s)
+you’re interested in is.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">locations</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableLocationNames</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 <span class="n">locations</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
 <span class="nb">list</span><span class="p">(</span><span class="n">locations</span><span class="p">)</span>
@@ -1136,8 +1218,23 @@ which are requestable are <strong>pressure</strong>, <strong>temperature</strong
  <span class="o">...</span><span class="p">]</span>
 </pre></div>
 </div>
+</section>
+<section id="setting-the-location-name">
+<h4>3.2 Setting the Location Name<a class="headerlink" href="#setting-the-location-name" title="Permalink to this heading"></a></h4>
+<p>In this case we’re setting the location name to <code class="docutils literal notranslate"><span class="pre">KFRM</span></code> which is the
+Municipal Airport in Fairmont, Minnesota.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">request</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="s2">&quot;KFRM&quot;</span><span class="p">)</span>
-<span class="n">cycles</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html">Top</a></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="filtering-by-time">
+<h3>4 Filtering by Time<a class="headerlink" href="#filtering-by-time" title="Permalink to this heading"></a></h3>
+<p>Models produce many different time variants during their runs, so let’s
+limit the data to the most recent time and forecast run.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cycles</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 <span class="n">times</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 
 <span class="k">try</span><span class="p">:</span>
@@ -1149,104 +1246,190 @@ which are requestable are <strong>pressure</strong>, <strong>temperature</strong
     <span class="n">exit</span>
 </pre></div>
 </div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html">Top</a></p>
 </section>
-<section id="model-sounding-parameters">
-<h2>Model Sounding Parameters<a class="headerlink" href="#model-sounding-parameters" title="Permalink to this heading"></a></h2>
-<p>Construct arrays for each parameter to plot (temperature, pressure,
-moisutre (spec. humidity), wind components, and cloud cover)</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tmp</span><span class="p">,</span><span class="n">prs</span><span class="p">,</span><span class="n">sh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
-<span class="n">uc</span><span class="p">,</span><span class="n">vc</span><span class="p">,</span><span class="n">om</span><span class="p">,</span><span class="n">cld</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+<hr class="docutils" />
+<section id="get-the-data">
+<h3>5 Get the Data!<a class="headerlink" href="#get-the-data" title="Permalink to this heading"></a></h3>
+<p>Here we can now request our data response from the EDEX server with our
+defined time filter. Printing out some data about the response verifies
+we received the data we were interested in.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">obj</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;parms    = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getParameters</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;site     = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getLocationName</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;geom     = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;datetime = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;reftime  = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getRefTime</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;fcstHour = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getFcstTime</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;period   = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getValidPeriod</span><span class="p">()))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">parms</span>    <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;pressure&#39;</span><span class="p">,</span> <span class="s1">&#39;vComp&#39;</span><span class="p">,</span> <span class="s1">&#39;uComp&#39;</span><span class="p">,</span> <span class="s1">&#39;specHum&#39;</span><span class="p">]</span>
+<span class="n">site</span>     <span class="o">=</span> <span class="n">KFRM</span>
+<span class="n">geom</span>     <span class="o">=</span> <span class="n">POINT</span> <span class="p">(</span><span class="o">-</span><span class="mf">94.41999816894531</span> <span class="mf">43.65000152587891</span><span class="p">)</span>
+<span class="n">datetime</span> <span class="o">=</span> <span class="mi">2022</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">19</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+<span class="n">reftime</span>  <span class="o">=</span> <span class="n">Aug</span> <span class="mi">19</span> <span class="mi">22</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="n">GMT</span>
+<span class="n">fcstHour</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">period</span>   <span class="o">=</span> <span class="p">(</span><span class="n">Aug</span> <span class="mi">19</span> <span class="mi">22</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="p">,</span> <span class="n">Aug</span> <span class="mi">19</span> <span class="mi">22</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html">Top</a></p>
+</section>
+<hr class="docutils" />
+<section id="use-the-data">
+<h3>6 Use the Data!<a class="headerlink" href="#use-the-data" title="Permalink to this heading"></a></h3>
+<p>Since we filtered on time, and requested the data in the previous cell,
+we now have a <code class="docutils literal notranslate"><span class="pre">response</span></code> object we can work with.</p>
+<section id="prepare-data-objects">
+<h4>6.2 Prepare data objects<a class="headerlink" href="#prepare-data-objects" title="Permalink to this heading"></a></h4>
+<p>Here we construct arrays for each parameter to plot (temperature,
+pressure, moisture (spec. humidity), wind components, and cloud cover).
+We have two sets of arrays for temperature and pressure, where the
+second set only has values as long as the specific humidity is not zero.
+That is because we are going to do some calculations with specific
+humidity, temperature, and pressure and we need all those arrays to be
+the same length, and for the specific humidty to not equal zero.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create new arrays to populate from our response objects</span>
+<span class="n">tmp</span><span class="p">,</span><span class="n">prs</span><span class="p">,</span><span class="n">sh</span><span class="p">,</span><span class="n">prs2</span><span class="p">,</span><span class="n">tmp2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+<span class="n">uc</span><span class="p">,</span><span class="n">vc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+
+<span class="c1"># Cycle through all response objects to populate new arrays</span>
 <span class="k">for</span> <span class="n">ob</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
     <span class="n">tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">&quot;temperature&quot;</span><span class="p">))</span>
     <span class="n">prs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prs</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">&quot;pressure&quot;</span><span class="p">))</span>
-    <span class="n">sh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sh</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">&quot;specHum&quot;</span><span class="p">))</span>
     <span class="n">uc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">uc</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">&quot;uComp&quot;</span><span class="p">))</span>
     <span class="n">vc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vc</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">&quot;vComp&quot;</span><span class="p">))</span>
-    <span class="n">om</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">om</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">&quot;omega&quot;</span><span class="p">))</span>
-    <span class="n">cld</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cld</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">&quot;cldCvr&quot;</span><span class="p">))</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;parms    = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getParameters</span><span class="p">()))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;site     = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getLocationName</span><span class="p">()))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;geom     = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">()))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;datetime = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;reftime  = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getRefTime</span><span class="p">()))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;fcstHour = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getFcstTime</span><span class="p">()))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;period   = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getValidPeriod</span><span class="p">()))</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">parms</span>    <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;pressure&#39;</span><span class="p">,</span> <span class="s1">&#39;vComp&#39;</span><span class="p">,</span> <span class="s1">&#39;uComp&#39;</span><span class="p">,</span> <span class="s1">&#39;cldCvr&#39;</span><span class="p">,</span> <span class="s1">&#39;specHum&#39;</span><span class="p">,</span> <span class="s1">&#39;omega&#39;</span><span class="p">]</span>
-<span class="n">site</span>     <span class="o">=</span> <span class="n">KFRM</span>
-<span class="n">geom</span>     <span class="o">=</span> <span class="n">POINT</span> <span class="p">(</span><span class="o">-</span><span class="mf">94.41999816894531</span> <span class="mf">43.65000152587891</span><span class="p">)</span>
-<span class="n">datetime</span> <span class="o">=</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">04</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
-<span class="n">reftime</span>  <span class="o">=</span> <span class="n">Sep</span> <span class="mi">04</span> <span class="mi">20</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="n">GMT</span>
-<span class="n">fcstHour</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">period</span>   <span class="o">=</span> <span class="p">(</span><span class="n">Sep</span> <span class="mi">04</span> <span class="mi">20</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="p">,</span> <span class="n">Sep</span> <span class="mi">04</span> <span class="mi">20</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="p">)</span>
+    <span class="c1"># don&#39;t include data with 0 specific humidity</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">&quot;specHum&quot;</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">):</span>
+        <span class="k">continue</span>
+    <span class="n">sh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sh</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">&quot;specHum&quot;</span><span class="p">))</span>
+    <span class="n">prs2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prs2</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">&quot;pressure&quot;</span><span class="p">))</span>
+    <span class="n">tmp2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp2</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">&quot;temperature&quot;</span><span class="p">))</span>
 </pre></div>
 </div>
 </section>
-<section id="calculating-dewpoint-from-specific-humidity">
-<h2>Calculating Dewpoint from Specific Humidity<a class="headerlink" href="#calculating-dewpoint-from-specific-humidity" title="Permalink to this heading"></a></h2>
+<section id="calculate-dewpoint-from-specific-humidity">
+<h4>6.2 Calculate Dewpoint from Specific Humidity<a class="headerlink" href="#calculate-dewpoint-from-specific-humidity" title="Permalink to this heading"></a></h4>
 <p>Because the modelsounding plugin does not return dewpoint values, we
 must calculate the profile ourselves. Here are three examples of
 dewpoint calculated from specific humidity, including a manual
 calculation following NCEP AWIPS/NSHARP.</p>
-<p><strong>1) MetPy calculated mixing ratio and vapor pressure</strong></p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">tmp</span><span class="o">-</span><span class="mf">273.15</span><span class="p">)</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">degC</span>
-<span class="n">p</span> <span class="o">=</span> <span class="n">prs</span><span class="o">/</span><span class="mi">100</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">mbar</span>
+<p>First, we’ll set up variables that are used in all three methods (and
+later in the notebook).</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tfull</span> <span class="o">=</span> <span class="p">(</span><span class="n">tmp</span><span class="o">-</span><span class="mf">273.15</span><span class="p">)</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">degC</span>
+<span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">tmp2</span><span class="o">-</span><span class="mf">273.15</span><span class="p">)</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">degC</span>
+
+<span class="n">pfull</span> <span class="o">=</span> <span class="n">prs</span><span class="o">/</span><span class="mi">100</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">mbar</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">prs2</span><span class="o">/</span><span class="mi">100</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">mbar</span>
 
 <span class="n">u</span><span class="p">,</span><span class="n">v</span> <span class="o">=</span> <span class="n">uc</span><span class="o">*</span><span class="mf">1.94384</span><span class="p">,</span><span class="n">vc</span><span class="o">*</span><span class="mf">1.94384</span> <span class="c1"># m/s to knots</span>
 <span class="n">spd</span> <span class="o">=</span> <span class="n">wind_speed</span><span class="p">(</span><span class="n">u</span><span class="o">*</span><span class="n">units</span><span class="o">.</span><span class="n">knots</span><span class="p">,</span> <span class="n">v</span><span class="o">*</span><span class="n">units</span><span class="o">.</span><span class="n">knots</span><span class="p">)</span>
 <span class="nb">dir</span> <span class="o">=</span> <span class="n">wind_direction</span><span class="p">(</span><span class="n">u</span><span class="o">*</span><span class="n">units</span><span class="o">.</span><span class="n">knots</span><span class="p">,</span> <span class="n">v</span><span class="o">*</span><span class="n">units</span><span class="o">.</span><span class="n">knots</span><span class="p">)</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">deg</span>
 </pre></div>
 </div>
+<section id="method-1">
+<h5>6.2.1 Method 1<a class="headerlink" href="#method-1" title="Permalink to this heading"></a></h5>
+<p>Here we’ll calculate the dewpoint using MetPy calculated mixing ratio
+and the vapor pressure.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rmix</span> <span class="o">=</span> <span class="p">(</span><span class="n">sh</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">sh</span><span class="p">))</span> <span class="o">*</span><span class="mi">1000</span> <span class="o">*</span> <span class="n">units</span><span class="p">(</span><span class="s1">&#39;g/kg&#39;</span><span class="p">)</span>
 <span class="n">e</span> <span class="o">=</span> <span class="n">vapor_pressure</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">rmix</span><span class="p">)</span>
 <span class="n">td</span> <span class="o">=</span> <span class="n">dewpoint</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>2) metpy calculated assuming spec. humidity = mixing ratio</strong></p>
+</section>
+<section id="method-2">
+<h5>6.2.2 Method 2<a class="headerlink" href="#method-2" title="Permalink to this heading"></a></h5>
+<p>Here we’ll calculate dewpoint using MetPy while assuming the mixing
+ratio is equal to the specific humidity.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">td2</span> <span class="o">=</span> <span class="n">dewpoint</span><span class="p">(</span><span class="n">vapor_pressure</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">sh</span><span class="p">))</span>
 </pre></div>
 </div>
-<p><strong>3) NCEP AWIPS soundingrequest plugin</strong></p>
-<p>based on GEMPAK/NSHARP, from
-<a class="reference external" href="https://github.com/Unidata/awips2-ncep/blob/unidata_16.2.2/edex/gov.noaa.nws.ncep.edex.plugin.soundingrequest/src/gov/noaa/nws/ncep/edex/plugin/soundingrequest/handler/MergeSounding.java#L1783">https://github.com/Unidata/awips2-ncep/blob/unidata_16.2.2/edex/gov.noaa.nws.ncep.edex.plugin.soundingrequest/src/gov/noaa/nws/ncep/edex/plugin/soundingrequest/handler/MergeSounding.java#L1783</a></p>
+</section>
+<section id="method-3">
+<h5>6.2.3 Method 3<a class="headerlink" href="#method-3" title="Permalink to this heading"></a></h5>
+<p>Here we use logic from the NCEP AWIPS soundingrequest plugin. This logic
+was based on <a class="reference external" href="https://github.com/Unidata/awips2-ncep/blob/unidata_16.2.2/edex/gov.noaa.nws.ncep.edex.plugin.soundingrequest/src/gov/noaa/nws/ncep/edex/plugin/soundingrequest/handler/MergeSounding.java#L1783">GEMPAK and NSHARP
+calculations</a>.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># new arrays</span>
-<span class="n">ntmp</span> <span class="o">=</span> <span class="n">tmp</span>
+<span class="n">ntmp</span> <span class="o">=</span> <span class="n">tmp2</span>
 
 <span class="c1"># where p=pressure(pa), T=temp(C), T0=reference temp(273.16)</span>
-<span class="n">rh</span> <span class="o">=</span> <span class="mf">0.263</span><span class="o">*</span><span class="n">prs</span><span class="o">*</span><span class="n">sh</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">17.67</span><span class="o">*</span><span class="n">ntmp</span><span class="o">/</span><span class="p">(</span><span class="n">ntmp</span><span class="o">+</span><span class="mf">273.15</span><span class="o">-</span><span class="mf">29.65</span><span class="p">)))</span>
+<span class="n">rh</span> <span class="o">=</span> <span class="mf">0.263</span><span class="o">*</span><span class="n">prs2</span><span class="o">*</span><span class="n">sh</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">17.67</span><span class="o">*</span><span class="n">ntmp</span><span class="o">/</span><span class="p">(</span><span class="n">ntmp</span><span class="o">+</span><span class="mf">273.15</span><span class="o">-</span><span class="mf">29.65</span><span class="p">)))</span>
 <span class="n">vaps</span> <span class="o">=</span>  <span class="mf">6.112</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="mf">17.67</span> <span class="o">*</span> <span class="n">ntmp</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">ntmp</span> <span class="o">+</span> <span class="mf">243.5</span><span class="p">))</span>
 <span class="n">vapr</span> <span class="o">=</span> <span class="n">rh</span> <span class="o">*</span> <span class="n">vaps</span> <span class="o">/</span> <span class="mi">100</span>
 <span class="n">dwpc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mf">243.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">6.112</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">vapr</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">vapr</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">6.112</span><span class="p">)</span> <span class="o">-</span> <span class="mf">17.67</span><span class="p">))</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">degC</span>
 </pre></div>
 </div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html">Top</a></p>
 </section>
-<section id="metpy-skewt-and-hodograph">
-<h2>MetPy SkewT and Hodograph<a class="headerlink" href="#metpy-skewt-and-hodograph" title="Permalink to this heading"></a></h2>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
+</section>
+</section>
+<hr class="docutils" />
+<section id="plot-the-data">
+<h3>7 Plot the Data!<a class="headerlink" href="#plot-the-data" title="Permalink to this heading"></a></h3>
+<p>Create and display SkewT and Hodograph plots using MetPy.</p>
+<p>Since we’re displaying all three dewpoint plots, we also create a
+“zoomed in” view to highlight the slight differences between the three
+calculations.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a new figure and define the size</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">))</span>
 
 <span class="c1"># Create a skewT plot</span>
-<span class="n">skew</span> <span class="o">=</span> <span class="n">SkewT</span><span class="p">()</span>
+<span class="n">skew</span> <span class="o">=</span> <span class="n">SkewT</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
 
 <span class="c1"># Plot the data</span>
-<span class="n">skew</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">skew</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pfull</span><span class="p">,</span> <span class="n">tfull</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">skew</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">td</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">skew</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">td2</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">skew</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">td2</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">skew</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">dwpc</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="n">skew</span><span class="o">.</span><span class="n">plot_barbs</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+<span class="n">skew</span><span class="o">.</span><span class="n">plot_barbs</span><span class="p">(</span><span class="n">pfull</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+<span class="c1"># set the domain and range (these may need to be adjusted</span>
+<span class="c1"># depending on the exact data for best viewing purposes)</span>
 <span class="n">skew</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">skew</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+<span class="n">skew</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">70</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span> <span class="n">forecastModel</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> \
-          <span class="o">+</span> <span class="n">ob</span><span class="o">.</span><span class="n">getLocationName</span><span class="p">()</span> \
-          <span class="o">+</span> <span class="s2">&quot;(&quot;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span> \
-          <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">())</span>
-<span class="p">)</span>
+<span class="c1"># Add title to the plot</span>
+<span class="c1"># format: &quot;2022-08-18 18Z FH 0  | GFS KFRM (43.65,-94.42)&quot;</span>
+<span class="n">datetime</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">())[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">6</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;Z&quot;</span>
+<span class="n">forecastHr</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getFcstTime</span><span class="p">())</span>
+<span class="n">site</span> <span class="o">=</span> <span class="n">ob</span><span class="o">.</span><span class="n">getLocationName</span><span class="p">()</span>
+<span class="n">lat</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+<span class="n">lon</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<span class="n">coords</span> <span class="o">=</span> <span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="n">lat</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> <span class="n">lon</span> <span class="o">+</span><span class="s2">&quot;)&quot;</span>
+
+<span class="n">title</span> <span class="o">=</span> <span class="n">datetime</span> <span class="o">+</span> <span class="s2">&quot; FH &quot;</span> <span class="o">+</span> <span class="n">forecastHr</span> <span class="o">+</span> <span class="s2">&quot; | &quot;</span> <span class="o">+</span> <span class="n">forecastModel</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">site</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">coords</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+
+<span class="c1"># Create a secondary axes for the &quot;zoomed in&quot; view</span>
+<span class="n">zoom_ax</span> <span class="o">=</span> <span class="n">inset_axes</span><span class="p">(</span><span class="n">skew</span><span class="o">.</span><span class="n">ax</span><span class="p">,</span> <span class="s1">&#39;35%&#39;</span><span class="p">,</span> <span class="s1">&#39;35%&#39;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                     <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">.05</span><span class="p">,</span> <span class="mf">.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                     <span class="n">bbox_transform</span><span class="o">=</span><span class="n">skew</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
+<span class="c1"># create a secondary plot for zoomed in section</span>
+<span class="n">fig2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">skew2</span> <span class="o">=</span> <span class="n">SkewT</span><span class="p">(</span><span class="n">fig2</span><span class="p">)</span>
+<span class="n">skew2</span><span class="o">.</span><span class="n">ax</span> <span class="o">=</span> <span class="n">zoom_ax</span>
+<span class="n">skew2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">td</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;MetPy calculated mixing ratio&#39;</span><span class="p">)</span>
+<span class="n">skew2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">td2</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;MetPy spec. hum = mixing ratio&#39;</span><span class="p">)</span>
+<span class="n">skew2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">dwpc</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;GEMPAK legacy caluclation&#39;</span><span class="p">)</span>
+<span class="c1"># create a legend to explain the three lines</span>
+<span class="n">skew2</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># remove the axis title on the zoomed plot since they</span>
+<span class="c1"># are redundant and just clutter the plot</span>
+<span class="n">skew2</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">skew2</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="c1"># these exact bounds may need to change depending on</span>
+<span class="c1"># the most recent data</span>
+<span class="n">skew2</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">970</span><span class="p">,</span> <span class="mi">900</span><span class="p">)</span>
+<span class="n">skew2</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
+
+<span class="c1"># draw an indicator in the main plot of the &quot;zoomed in&quot; region</span>
+<span class="n">skew</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">indicate_inset_zoom</span><span class="p">(</span><span class="n">zoom_ax</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+
+<span class="c1"># dispose of the second figure, since creating a new</span>
+<span class="c1"># skewt in metpy automatically creates a new figure</span>
+<span class="c1"># which is unnecessary in this case</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig2</span><span class="p">)</span>
 
 <span class="c1"># An example of a slanted line at constant T -- in this case the 0 isotherm</span>
 <span class="n">l</span> <span class="o">=</span> <span class="n">skew</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
@@ -1261,7 +1444,37 @@ calculation following NCEP AWIPS/NSHARP.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../../_images/Model_Sounding_Data_15_0.png" src="../../_images/Model_Sounding_Data_15_0.png" />
+<img alt="../../_images/Model_Sounding_Data_34_0.png" src="../../_images/Model_Sounding_Data_34_0.png" />
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html">Top</a></p>
+</section>
+<hr class="docutils" />
+<section id="see-also">
+<h3>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading"></a></h3>
+<section id="related-notebooks">
+<h4>Related Notebooks<a class="headerlink" href="#related-notebooks" title="Permalink to this heading"></a></h4>
+<ul class="simple">
+<li><p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html">Grid Levels and
+Parameters</a></p></li>
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html">Upper Air BUFR
+Soundings</a></p></li>
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html">Forecast Model Vertical
+Sounding</a></p></li>
+</ul>
+</section>
+<section id="additional-documentation">
+<h4>Additional Documentation<a class="headerlink" href="#additional-documentation" title="Permalink to this heading"></a></h4>
+<p><strong>python-awips:</strong> *
+<a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html">awips.DataAccessLayer</a>
+*
+<a class="reference external" href="http://unidata.github.io/python-awips/api/PyGeometryData.html">awips.PyGeometryData</a></p>
+<p><strong>matplotlib:</strong> *
+<a class="reference external" href="https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.html">matplotlib.pyplot</a>
+*
+<a class="reference external" href="https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.SkewT.html">metpy.skewt</a></p>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html">Top</a></p>
+<hr class="docutils" />
+</section>
+</section>
 </section>
 </section>
 

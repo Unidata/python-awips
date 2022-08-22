@@ -2,34 +2,118 @@
 Model Sounding Data
 ===================
 `Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Model_Sounding_Data.ipynb>`_
-The EDEX modelsounding plugin creates 64-level vertical profiles from
-GFS and ETA (NAM) BUFR products distirubted over NOAAport. Paramters
-which are requestable are **pressure**, **temperature**, **specHum**,
-**uComp**, **vComp**, **omega**, **cldCvr**.
+Python-AWIPS Tutorial Notebook
+
+--------------
+
+Objectives
+==========
+
+-  Use python-awips to connect to an edex server
+-  Define and filter data request for model sounding data
+-  Create vertical profiles from GFS BUFR products
+-  Use MetPy to create
+   `SkewT <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.SkewT.html>`__
+   and
+   `Hodograph <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.Hodograph.html>`__
+   plots
+
+--------------
+
+Table of Contents
+-----------------
+
+| `1
+  Imports <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#imports>`__\ 
+| `2 EDEX
+  Connection <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#edex-connection>`__\ 
+| `3 Setting
+  Location <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#setting-location>`__\ 
+|     `3.1 Available Location
+  Names <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#available-location-names>`__\ 
+|     `3.2 Setting the Location
+  Name <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#setting-the-location-name>`__\ 
+| `4 Filtering by
+  Time <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#filtering-by-time>`__\ 
+| `5 Get the
+  Data! <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#get-the-data>`__\ 
+| `6 Use the
+  Data! <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#use-the-data>`__\ 
+|     `6.1 Prepare the
+  Data! <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#prepare-the-data>`__\ 
+|     `6.2 Calculate Dewpoint from Specific
+  Humidity <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#calculate-dewpoint-from-specific-humidity>`__\ 
+|         `6.2.1 Method
+  1 <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#method-1>`__\ 
+|         `6.2.2 Method
+  2 <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#method-2>`__\ 
+|         `6.2.3 Method
+  3 <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#method-3>`__\ 
+| `7 Plot the
+  Data! <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#plot-the-data>`__\ 
+| `8 See
+  Also <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#see-also>`__\ 
+|     `8.1 Related
+  Notebooks <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#related-notebooks>`__\ 
+|     `8.2 Additional
+  Documentation <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#additional-documentation>`__\ 
+
+1 Imports
+---------
+
+The imports below are used throughout the notebook. Note the first
+import is coming directly from python-awips and allows us to connect to
+an EDEX server. The subsequent imports are for data manipulation and
+visualization.
 
 .. code:: ipython3
 
     from awips.dataaccess import DataAccessLayer
-    import matplotlib.tri as mtri
     import matplotlib.pyplot as plt
     from mpl_toolkits.axes_grid1.inset_locator import inset_axes
     from math import exp, log
     import numpy as np
-    from metpy.calc import wind_components, lcl, dry_lapse, parcel_profile, dewpoint
-    from metpy.calc import wind_speed, wind_direction, thermo, vapor_pressure
+    from metpy.calc import dewpoint, vapor_pressure, wind_speed, wind_direction
     from metpy.plots import SkewT, Hodograph
-    from metpy.units import units, concatenate
-    import warnings
-    warnings.filterwarnings("ignore",category =RuntimeWarning)
-    
+    from metpy.units import units
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html>`__
+
+--------------
+
+2 EDEX Connection
+-----------------
+
+First we establish a connection to Unidata’s public EDEX server. With
+that connection made, we can create a `new data request
+object <http://unidata.github.io/python-awips/api/IDataRequest.html>`__
+and set the data type to **modelsounding**, and define additional
+parameters and an identifier on the request.
+
+.. code:: ipython3
+
     DataAccessLayer.changeEDEXHost("edex-cloud.unidata.ucar.edu")
     request = DataAccessLayer.newDataRequest("modelsounding")
     forecastModel = "GFS"
     request.addIdentifier("reportType", forecastModel)
-    request.setParameters("pressure","temperature","specHum","uComp","vComp","omega","cldCvr")
+    request.setParameters("pressure","temperature","specHum","uComp","vComp")
 
-Available Locations
--------------------
+`Top <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html>`__
+
+--------------
+
+3 Setting Location
+------------------
+
+3.1 Available Location Names
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When working with a new data type, it is often useful to investigate all
+available options for a particular setting. Shown below is how to see
+all available location names for a data request with type
+``modelsounding`` and ``reportType`` identifier of ``GFS``. This step is
+not necessary if you already know exactly what the location name(s)
+you’re interested in is.
 
 .. code:: ipython3
 
@@ -1046,9 +1130,28 @@ Available Locations
 
 
 
+3.2 Setting the Location Name
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In this case we’re setting the location name to ``KFRM`` which is the
+Municipal Airport in Fairmont, Minnesota.
+
 .. code:: ipython3
 
     request.setLocationNames("KFRM")
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html>`__
+
+--------------
+
+4 Filtering by Time
+-------------------
+
+Models produce many different time variants during their runs, so let’s
+limit the data to the most recent time and forecast run.
+
+.. code:: ipython3
+
     cycles = DataAccessLayer.getAvailableTimes(request, True)
     times = DataAccessLayer.getAvailableTimes(request)
     
@@ -1060,64 +1163,109 @@ Available Locations
         print('No times available')
         exit
 
-Model Sounding Parameters
--------------------------
+`Top <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html>`__
 
-Construct arrays for each parameter to plot (temperature, pressure,
-moisutre (spec. humidity), wind components, and cloud cover)
+--------------
+
+5 Get the Data!
+---------------
+
+Here we can now request our data response from the EDEX server with our
+defined time filter. Printing out some data about the response verifies
+we received the data we were interested in.
 
 .. code:: ipython3
 
-    tmp,prs,sh = np.array([]),np.array([]),np.array([])
-    uc,vc,om,cld = np.array([]),np.array([]),np.array([]),np.array([])
+    obj = response[0]
     
-    for ob in response:
-        tmp = np.append(tmp,ob.getNumber("temperature"))
-        prs = np.append(prs,ob.getNumber("pressure"))
-        sh = np.append(sh,ob.getNumber("specHum"))
-        uc = np.append(uc,ob.getNumber("uComp"))
-        vc = np.append(vc,ob.getNumber("vComp"))
-        om = np.append(om,ob.getNumber("omega"))
-        cld = np.append(cld,ob.getNumber("cldCvr"))
-    
-    print("parms    = " + str(ob.getParameters()))
-    print("site     = " + str(ob.getLocationName()))
-    print("geom     = " + str(ob.getGeometry()))
-    print("datetime = " + str(ob.getDataTime()))
-    print("reftime  = " + str(ob.getDataTime().getRefTime()))
-    print("fcstHour = " + str(ob.getDataTime().getFcstTime()))
-    print("period   = " + str(ob.getDataTime().getValidPeriod()))
+    print("parms    = " + str(obj.getParameters()))
+    print("site     = " + str(obj.getLocationName()))
+    print("geom     = " + str(obj.getGeometry()))
+    print("datetime = " + str(obj.getDataTime()))
+    print("reftime  = " + str(obj.getDataTime().getRefTime()))
+    print("fcstHour = " + str(obj.getDataTime().getFcstTime()))
+    print("period   = " + str(obj.getDataTime().getValidPeriod()))
 
 
 .. parsed-literal::
 
-    parms    = ['temperature', 'pressure', 'vComp', 'uComp', 'cldCvr', 'specHum', 'omega']
+    parms    = ['temperature', 'pressure', 'vComp', 'uComp', 'specHum']
     site     = KFRM
     geom     = POINT (-94.41999816894531 43.65000152587891)
-    datetime = 2020-09-04 12:00:00
-    reftime  = Sep 04 20 12:00:00 GMT
+    datetime = 2022-08-19 12:00:00
+    reftime  = Aug 19 22 12:00:00 GMT
     fcstHour = 0
-    period   = (Sep 04 20 12:00:00 , Sep 04 20 12:00:00 )
+    period   = (Aug 19 22 12:00:00 , Aug 19 22 12:00:00 )
 
 
-Calculating Dewpoint from Specific Humidity
--------------------------------------------
+`Top <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html>`__
+
+--------------
+
+6 Use the Data!
+---------------
+
+Since we filtered on time, and requested the data in the previous cell,
+we now have a ``response`` object we can work with.
+
+6.2 Prepare data objects
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Here we construct arrays for each parameter to plot (temperature,
+pressure, moisture (spec. humidity), wind components, and cloud cover).
+We have two sets of arrays for temperature and pressure, where the
+second set only has values as long as the specific humidity is not zero.
+That is because we are going to do some calculations with specific
+humidity, temperature, and pressure and we need all those arrays to be
+the same length, and for the specific humidty to not equal zero.
+
+.. code:: ipython3
+
+    # Create new arrays to populate from our response objects
+    tmp,prs,sh,prs2,tmp2 = np.array([]),np.array([]),np.array([]),np.array([]),np.array([])
+    uc,vc = np.array([]),np.array([])
+    
+    # Cycle through all response objects to populate new arrays
+    for ob in response:
+        tmp = np.append(tmp,ob.getNumber("temperature"))
+        prs = np.append(prs,ob.getNumber("pressure"))
+        uc = np.append(uc,ob.getNumber("uComp"))
+        vc = np.append(vc,ob.getNumber("vComp"))
+        # don't include data with 0 specific humidity
+        if(ob.getNumber("specHum")==0):
+            continue
+        sh = np.append(sh,ob.getNumber("specHum"))
+        prs2 = np.append(prs2,ob.getNumber("pressure"))
+        tmp2 = np.append(tmp2,ob.getNumber("temperature"))
+
+6.2 Calculate Dewpoint from Specific Humidity
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Because the modelsounding plugin does not return dewpoint values, we
 must calculate the profile ourselves. Here are three examples of
 dewpoint calculated from specific humidity, including a manual
 calculation following NCEP AWIPS/NSHARP.
 
-**1) MetPy calculated mixing ratio and vapor pressure**
+First, we’ll set up variables that are used in all three methods (and
+later in the notebook).
 
 .. code:: ipython3
 
-    t = (tmp-273.15) * units.degC
-    p = prs/100 * units.mbar
+    tfull = (tmp-273.15) * units.degC
+    t = (tmp2-273.15) * units.degC
+    
+    pfull = prs/100 * units.mbar
+    p = prs2/100 * units.mbar
     
     u,v = uc*1.94384,vc*1.94384 # m/s to knots
     spd = wind_speed(u*units.knots, v*units.knots)
     dir = wind_direction(u*units.knots, v*units.knots) * units.deg
+
+6.2.1 Method 1
+^^^^^^^^^^^^^^
+
+Here we’ll calculate the dewpoint using MetPy calculated mixing ratio
+and the vapor pressure.
 
 .. code:: ipython3
 
@@ -1125,55 +1273,107 @@ calculation following NCEP AWIPS/NSHARP.
     e = vapor_pressure(p, rmix)
     td = dewpoint(e)
 
-**2) metpy calculated assuming spec. humidity = mixing ratio**
+6.2.2 Method 2
+^^^^^^^^^^^^^^
+
+Here we’ll calculate dewpoint using MetPy while assuming the mixing
+ratio is equal to the specific humidity.
 
 .. code:: ipython3
 
     td2 = dewpoint(vapor_pressure(p, sh))
 
-**3) NCEP AWIPS soundingrequest plugin**
+6.2.3 Method 3
+^^^^^^^^^^^^^^
 
-based on GEMPAK/NSHARP, from
-https://github.com/Unidata/awips2-ncep/blob/unidata_16.2.2/edex/gov.noaa.nws.ncep.edex.plugin.soundingrequest/src/gov/noaa/nws/ncep/edex/plugin/soundingrequest/handler/MergeSounding.java#L1783
+Here we use logic from the NCEP AWIPS soundingrequest plugin. This logic
+was based on `GEMPAK and NSHARP
+calculations <https://github.com/Unidata/awips2-ncep/blob/unidata_16.2.2/edex/gov.noaa.nws.ncep.edex.plugin.soundingrequest/src/gov/noaa/nws/ncep/edex/plugin/soundingrequest/handler/MergeSounding.java#L1783>`__.
 
 .. code:: ipython3
 
     # new arrays
-    ntmp = tmp
+    ntmp = tmp2
     
     # where p=pressure(pa), T=temp(C), T0=reference temp(273.16)
-    rh = 0.263*prs*sh / (np.exp(17.67*ntmp/(ntmp+273.15-29.65)))
+    rh = 0.263*prs2*sh / (np.exp(17.67*ntmp/(ntmp+273.15-29.65)))
     vaps =  6.112 * np.exp((17.67 * ntmp) / (ntmp + 243.5))
     vapr = rh * vaps / 100
     dwpc = np.array(243.5 * (np.log(6.112) - np.log(vapr)) / (np.log(vapr) - np.log(6.112) - 17.67)) * units.degC
 
-MetPy SkewT and Hodograph
--------------------------
+`Top <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html>`__
+
+--------------
+
+7 Plot the Data!
+----------------
+
+Create and display SkewT and Hodograph plots using MetPy.
+
+Since we’re displaying all three dewpoint plots, we also create a
+“zoomed in” view to highlight the slight differences between the three
+calculations.
 
 .. code:: ipython3
 
-    %matplotlib inline
-    
-    plt.rcParams['figure.figsize'] = (12, 14)
+    # Create a new figure and define the size
+    fig = plt.figure(figsize=(12, 14))
     
     # Create a skewT plot
-    skew = SkewT()
+    skew = SkewT(fig)
     
     # Plot the data
-    skew.plot(p, t, 'r', linewidth=2)
+    skew.plot(pfull, tfull, 'r', linewidth=2)
     skew.plot(p, td, 'b', linewidth=2)
-    skew.plot(p, td2, 'y')
+    skew.plot(p, td2, 'y', linewidth=2)
     skew.plot(p, dwpc, 'g', linewidth=2)
-    
-    skew.plot_barbs(p, u, v)
+    skew.plot_barbs(pfull, u, v)
+    # set the domain and range (these may need to be adjusted
+    # depending on the exact data for best viewing purposes)
     skew.ax.set_ylim(1000, 100)
-    skew.ax.set_xlim(-40, 60)
+    skew.ax.set_xlim(-70, 40)
     
-    plt.title( forecastModel + " " \
-              + ob.getLocationName() \
-              + "("+ str(ob.getGeometry()) + ")" \
-              + ", " + str(ob.getDataTime())
-    )
+    # Add title to the plot
+    # format: "2022-08-18 18Z FH 0  | GFS KFRM (43.65,-94.42)"
+    datetime = str(ob.getDataTime())[0:-6]+"Z"
+    forecastHr = str(ob.getDataTime().getFcstTime())
+    site = ob.getLocationName()
+    lat = "{:.2f}".format(ob.getGeometry().y)
+    lon = "{:.2f}".format(ob.getGeometry().x)
+    coords = "(" + lat + ", " + lon +")"
+    
+    title = datetime + " FH " + forecastHr + " | " + forecastModel + " " + site + " " + coords
+    plt.title(title)
+    
+    # Create a secondary axes for the "zoomed in" view
+    zoom_ax = inset_axes(skew.ax, '35%', '35%', loc=3,
+                         bbox_to_anchor=(.05, .05, 1, 1),
+                         bbox_transform=skew.ax.transAxes)
+    # create a secondary plot for zoomed in section
+    fig2 = plt.figure()
+    skew2 = SkewT(fig2)
+    skew2.ax = zoom_ax
+    skew2.plot(p, td, 'b', linewidth=2, label='MetPy calculated mixing ratio')
+    skew2.plot(p, td2, 'y', linewidth=2, label='MetPy spec. hum = mixing ratio')
+    skew2.plot(p, dwpc, 'g', linewidth=2, label='GEMPAK legacy caluclation')
+    # create a legend to explain the three lines
+    skew2.ax.legend(loc=1)
+    # remove the axis title on the zoomed plot since they
+    # are redundant and just clutter the plot
+    skew2.ax.set_xlabel("")
+    skew2.ax.set_ylabel("")
+    # these exact bounds may need to change depending on
+    # the most recent data
+    skew2.ax.set_ylim(970, 900)
+    skew2.ax.set_xlim(11, 14)
+    
+    # draw an indicator in the main plot of the "zoomed in" region
+    skew.ax.indicate_inset_zoom(zoom_ax, edgecolor="black")
+    
+    # dispose of the second figure, since creating a new
+    # skewt in metpy automatically creates a new figure
+    # which is unnecessary in this case
+    plt.close(fig2)
     
     # An example of a slanted line at constant T -- in this case the 0 isotherm
     l = skew.ax.axvline(0, color='c', linestyle='--', linewidth=2)
@@ -1189,6 +1389,39 @@ MetPy SkewT and Hodograph
 
 
 
-.. image:: Model_Sounding_Data_files/Model_Sounding_Data_15_0.png
+.. image:: Model_Sounding_Data_files/Model_Sounding_Data_34_0.png
 
 
+`Top <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html>`__
+
+--------------
+
+See Also
+--------
+
+Related Notebooks
+~~~~~~~~~~~~~~~~~
+
+-  `Grid Levels and
+   Parameters <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html>`__
+-  `Upper Air BUFR
+   Soundings <http://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html>`__
+-  `Forecast Model Vertical
+   Sounding <http://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html>`__
+
+Additional Documentation
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+**python-awips:** \*
+`awips.DataAccessLayer <http://unidata.github.io/python-awips/api/DataAccessLayer.html>`__
+\*
+`awips.PyGeometryData <http://unidata.github.io/python-awips/api/PyGeometryData.html>`__
+
+**matplotlib:** \*
+`matplotlib.pyplot <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.html>`__
+\*
+`metpy.skewt <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.SkewT.html>`__
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html>`__
+
+--------------
