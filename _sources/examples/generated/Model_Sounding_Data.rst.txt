@@ -39,8 +39,8 @@ Table of Contents
   Data! <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#get-the-data>`__\ 
 | `6 Use the
   Data! <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#use-the-data>`__\ 
-|     `6.1 Prepare the
-  Data! <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#prepare-the-data>`__\ 
+|     `6.1 Prepare Data
+  Objects <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#prepare-data-objects>`__\ 
 |     `6.2 Calculate Dewpoint from Specific
   Humidity <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#calculate-dewpoint-from-specific-humidity>`__\ 
 |         `6.2.1 Method
@@ -1208,7 +1208,7 @@ we received the data we were interested in.
 Since we filtered on time, and requested the data in the previous cell,
 we now have a ``response`` object we can work with.
 
-6.2 Prepare data objects
+6.1 Prepare Data Objects
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 Here we construct arrays for each parameter to plot (temperature,
@@ -1396,11 +1396,11 @@ calculations.
 
 --------------
 
-See Also
---------
+8 See Also
+----------
 
-Related Notebooks
-~~~~~~~~~~~~~~~~~
+8.1 Related Notebooks
+~~~~~~~~~~~~~~~~~~~~~
 
 -  `Grid Levels and
    Parameters <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html>`__
@@ -1409,18 +1409,18 @@ Related Notebooks
 -  `Forecast Model Vertical
    Sounding <http://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html>`__
 
-Additional Documentation
-~~~~~~~~~~~~~~~~~~~~~~~~
+8.2 Additional Documentation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**python-awips:** \*
-`awips.DataAccessLayer <http://unidata.github.io/python-awips/api/DataAccessLayer.html>`__
-\*
-`awips.PyGeometryData <http://unidata.github.io/python-awips/api/PyGeometryData.html>`__
+**python-awips:**
 
-**matplotlib:** \*
-`matplotlib.pyplot <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.html>`__
-\*
-`metpy.skewt <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.SkewT.html>`__
+-  `awips.DataAccessLayer <http://unidata.github.io/python-awips/api/DataAccessLayer.html>`__
+-  `awips.PyGeometryData <http://unidata.github.io/python-awips/api/PyGeometryData.html>`__
+
+**matplotlib:**
+
+-  `matplotlib.pyplot <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.html>`__
+-  `metpy.skewt <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.SkewT.html>`__
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html>`__
 
