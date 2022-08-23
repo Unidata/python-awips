@@ -1420,7 +1420,15 @@ calculations.
 **matplotlib:**
 
 -  `matplotlib.pyplot <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.html>`__
+
+**MetPy**
+
+-  `metpy.wind_speed <https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.wind_speed.html>`__
+-  `metpy.wind_direction <https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.wind_direction.html>`__
+-  `metpy.vapor_pressure <https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.vapor_pressure.html>`__
+-  `metpy.dewpoint <https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.dewpoint.html>`__
 -  `metpy.skewt <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.SkewT.html>`__
+-  `metpy.hodograph <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.Hodograph.html>`__
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html>`__
 
