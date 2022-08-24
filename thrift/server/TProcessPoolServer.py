@@ -23,7 +23,7 @@ from multiprocessing import  Process, Value, Condition, reduction
 
 from .TServer import TServer
 from thrift.transport.TTransport import TTransportException
-import collections
+import collections.abc
 
 
 class TProcessPoolServer(TServer):
@@ -41,7 +41,7 @@ class TProcessPoolServer(TServer):
         self.postForkCallback = None
 
     def setPostForkCallback(self, callback):
-        if not isinstance(callback, collections.Callable):
+        if not isinstance(callback, collections.abc.Callable):
             raise TypeError("This is not a callback!")
         self.postForkCallback = callback
 

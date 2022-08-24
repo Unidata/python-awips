@@ -2,7 +2,7 @@
  channels:
    - https://conda.anaconda.org/conda-forge
  dependencies:
-   - python=3.9
+   - python=3
    - numpy
    - nomkl
    - matplotlib

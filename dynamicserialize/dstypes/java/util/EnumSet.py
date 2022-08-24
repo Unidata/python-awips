@@ -17,10 +17,10 @@
 # values to your EnumSet.
 ##
 
-import collections
+import collections.abc
 
 
-class EnumSet(collections.MutableSet):
+class EnumSet(collections.abc.MutableSet):
 
     def __init__(self, enumClassName, iterable=[]):
         self.__enumClassName = enumClassName
