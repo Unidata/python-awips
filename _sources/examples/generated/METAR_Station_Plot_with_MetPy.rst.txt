@@ -77,7 +77,7 @@ subsequent imports are for data manipulation and visualization.
 2 Function: get_cloud_cover()
 -----------------------------
 
-Returns the cloud fraction values as integer codes (0 through 8).
+Returns the cloud coverage values as integer codes (0 through 8).
 
 .. code:: ipython3
 

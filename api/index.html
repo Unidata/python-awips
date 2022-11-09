@@ -16,6 +16,7 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
@@ -79,8 +80,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>API Documentation</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">API Documentation</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -94,19 +95,86 @@
 <h1>API Documentation<a class="headerlink" href="#api-documentation" title="Permalink to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="DataAccessLayer.html">DataAccessLayer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="IDataRequest.html">IDataRequest (newDataRequest())</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PyData.html">PyData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PyGridData.html">PyGridData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PyGeometryData.html">PyGeometryData</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ModelSounding.html">ModelSounding</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ThriftClientRouter.html">ThriftClientRouter</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ThriftClient.html">ThriftClient</a></li>
-<li class="toctree-l1"><a class="reference internal" href="TimeUtil.html">TimeUtil</a></li>
-<li class="toctree-l1"><a class="reference internal" href="RadarCommon.html">RadarCommon</a></li>
-<li class="toctree-l1"><a class="reference internal" href="IFPClient.html">IFPClient</a></li>
-<li class="toctree-l1"><a class="reference internal" href="DateTimeConverter.html">DateTimeConverter</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CombinedTimeQuery.html">CombinedTimeQuery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataAccessLayer.html">DataAccessLayer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost"><code class="docutils literal notranslate"><span class="pre">changeEDEXHost()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableLevels"><code class="docutils literal notranslate"><span class="pre">getAvailableLevels()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableLocationNames"><code class="docutils literal notranslate"><span class="pre">getAvailableLocationNames()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableParameters"><code class="docutils literal notranslate"><span class="pre">getAvailableParameters()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableTimes"><code class="docutils literal notranslate"><span class="pre">getAvailableTimes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getForecastRun"><code class="docutils literal notranslate"><span class="pre">getForecastRun()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getGeometryData"><code class="docutils literal notranslate"><span class="pre">getGeometryData()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getGridData"><code class="docutils literal notranslate"><span class="pre">getGridData()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getIdentifierValues"><code class="docutils literal notranslate"><span class="pre">getIdentifierValues()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getMetarObs"><code class="docutils literal notranslate"><span class="pre">getMetarObs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getOptionalIdentifiers"><code class="docutils literal notranslate"><span class="pre">getOptionalIdentifiers()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getRadarProductIDs"><code class="docutils literal notranslate"><span class="pre">getRadarProductIDs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getRadarProductNames"><code class="docutils literal notranslate"><span class="pre">getRadarProductNames()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getRequiredIdentifiers"><code class="docutils literal notranslate"><span class="pre">getRequiredIdentifiers()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getSupportedDatatypes"><code class="docutils literal notranslate"><span class="pre">getSupportedDatatypes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getSynopticObs"><code class="docutils literal notranslate"><span class="pre">getSynopticObs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="DataAccessLayer.html#awips.dataaccess.DataAccessLayer.newDataRequest"><code class="docutils literal notranslate"><span class="pre">newDataRequest()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="DataAccessLayer.html#awips.dataaccess.DataAccessLayer.setLazyLoadGridLatLon"><code class="docutils literal notranslate"><span class="pre">setLazyLoadGridLatLon()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="IDataRequest.html">IDataRequest (newDataRequest())</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="IDataRequest.html#awips.dataaccess.IDataRequest"><code class="docutils literal notranslate"><span class="pre">IDataRequest</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PyData.html">PyData</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PyData.html#awips.dataaccess.PyData.PyData"><code class="docutils literal notranslate"><span class="pre">PyData</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PyGridData.html">PyGridData</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PyGridData.html#awips.dataaccess.PyGridData.PyGridData"><code class="docutils literal notranslate"><span class="pre">PyGridData</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PyGeometryData.html">PyGeometryData</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PyGeometryData.html#awips.dataaccess.PyGeometryData.PyGeometryData"><code class="docutils literal notranslate"><span class="pre">PyGeometryData</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ModelSounding.html">ModelSounding</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ModelSounding.html#awips.dataaccess.ModelSounding.changeEDEXHost"><code class="docutils literal notranslate"><span class="pre">changeEDEXHost()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="ModelSounding.html#awips.dataaccess.ModelSounding.getSounding"><code class="docutils literal notranslate"><span class="pre">getSounding()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ThriftClientRouter.html">ThriftClientRouter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ThriftClientRouter.html#awips.dataaccess.ThriftClientRouter.LazyGridLatLon"><code class="docutils literal notranslate"><span class="pre">LazyGridLatLon</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="ThriftClientRouter.html#awips.dataaccess.ThriftClientRouter.ThriftClientRouter"><code class="docutils literal notranslate"><span class="pre">ThriftClientRouter</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ThriftClient.html">ThriftClient</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ThriftClient.html#awips.ThriftClient.ThriftClient"><code class="docutils literal notranslate"><span class="pre">ThriftClient</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="ThriftClient.html#awips.ThriftClient.ThriftRequestException"><code class="docutils literal notranslate"><span class="pre">ThriftRequestException</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="TimeUtil.html">TimeUtil</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="TimeUtil.html#awips.TimeUtil.determineDrtOffset"><code class="docutils literal notranslate"><span class="pre">determineDrtOffset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="TimeUtil.html#awips.TimeUtil.makeTime"><code class="docutils literal notranslate"><span class="pre">makeTime()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="RadarCommon.html">RadarCommon</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="RadarCommon.html#awips.RadarCommon.encode_dep_vals"><code class="docutils literal notranslate"><span class="pre">encode_dep_vals()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="RadarCommon.html#awips.RadarCommon.encode_radial"><code class="docutils literal notranslate"><span class="pre">encode_radial()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="RadarCommon.html#awips.RadarCommon.encode_thresh_vals"><code class="docutils literal notranslate"><span class="pre">encode_thresh_vals()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="RadarCommon.html#awips.RadarCommon.get_data_type"><code class="docutils literal notranslate"><span class="pre">get_data_type()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="RadarCommon.html#awips.RadarCommon.get_datetime_str"><code class="docutils literal notranslate"><span class="pre">get_datetime_str()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="RadarCommon.html#awips.RadarCommon.get_hdf5_data"><code class="docutils literal notranslate"><span class="pre">get_hdf5_data()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="RadarCommon.html#awips.RadarCommon.get_header"><code class="docutils literal notranslate"><span class="pre">get_header()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="IFPClient.html">IFPClient</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="IFPClient.html#awips.gfe.IFPClient.IFPClient"><code class="docutils literal notranslate"><span class="pre">IFPClient</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DateTimeConverter.html">DateTimeConverter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DateTimeConverter.html#awips.DateTimeConverter.constructTimeRange"><code class="docutils literal notranslate"><span class="pre">constructTimeRange()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="DateTimeConverter.html#awips.DateTimeConverter.convertToDateTime"><code class="docutils literal notranslate"><span class="pre">convertToDateTime()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CombinedTimeQuery.html">CombinedTimeQuery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CombinedTimeQuery.html#awips.dataaccess.CombinedTimeQuery.getAvailableTimes"><code class="docutils literal notranslate"><span class="pre">getAvailableTimes()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </div>
 <ul class="simple">

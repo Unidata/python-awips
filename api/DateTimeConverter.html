@@ -16,6 +16,7 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
@@ -55,7 +56,11 @@
 <li class="toctree-l2"><a class="reference internal" href="TimeUtil.html">TimeUtil</a></li>
 <li class="toctree-l2"><a class="reference internal" href="RadarCommon.html">RadarCommon</a></li>
 <li class="toctree-l2"><a class="reference internal" href="IFPClient.html">IFPClient</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">DateTimeConverter</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">DateTimeConverter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#awips.DateTimeConverter.constructTimeRange"><code class="docutils literal notranslate"><span class="pre">constructTimeRange()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.DateTimeConverter.convertToDateTime"><code class="docutils literal notranslate"><span class="pre">convertToDateTime()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="CombinedTimeQuery.html">CombinedTimeQuery</a></li>
 </ul>
 </li>
@@ -79,9 +84,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">API Documentation</a> &raquo;</li>
-      <li>DateTimeConverter</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">API Documentation</a></li>
+      <li class="breadcrumb-item active">DateTimeConverter</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/DateTimeConverter.rst.txt" rel="nofollow"> View page source</a>
       </li>

@@ -16,6 +16,7 @@
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -94,9 +95,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">Data Plotting Examples</a> &raquo;</li>
-      <li>METAR Station Plot with MetPy</li>
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Data Plotting Examples</a></li>
+      <li class="breadcrumb-item active">METAR Station Plot with MetPy</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/examples/generated/METAR_Station_Plot_with_MetPy.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -177,7 +178,7 @@ subsequent imports are for data manipulation and visualization.</p>
 <hr class="docutils" />
 <section id="function-get-cloud-cover">
 <h3>2 Function: get_cloud_cover()<a class="headerlink" href="#function-get-cloud-cover" title="Permalink to this heading"></a></h3>
-<p>Returns the cloud fraction values as integer codes (0 through 8).</p>
+<p>Returns the cloud coverage values as integer codes (0 through 8).</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_cloud_cover</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
     <span class="k">if</span> <span class="s1">&#39;OVC&#39;</span> <span class="ow">in</span> <span class="n">code</span><span class="p">:</span>
         <span class="k">return</span> <span class="mi">8</span>

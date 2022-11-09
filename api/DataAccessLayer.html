@@ -16,6 +16,7 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
@@ -44,7 +45,27 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">API Documentation</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">DataAccessLayer</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">DataAccessLayer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.changeEDEXHost"><code class="docutils literal notranslate"><span class="pre">changeEDEXHost()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getAvailableLevels"><code class="docutils literal notranslate"><span class="pre">getAvailableLevels()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getAvailableLocationNames"><code class="docutils literal notranslate"><span class="pre">getAvailableLocationNames()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getAvailableParameters"><code class="docutils literal notranslate"><span class="pre">getAvailableParameters()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getAvailableTimes"><code class="docutils literal notranslate"><span class="pre">getAvailableTimes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getForecastRun"><code class="docutils literal notranslate"><span class="pre">getForecastRun()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getGeometryData"><code class="docutils literal notranslate"><span class="pre">getGeometryData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getGridData"><code class="docutils literal notranslate"><span class="pre">getGridData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getIdentifierValues"><code class="docutils literal notranslate"><span class="pre">getIdentifierValues()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getMetarObs"><code class="docutils literal notranslate"><span class="pre">getMetarObs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getOptionalIdentifiers"><code class="docutils literal notranslate"><span class="pre">getOptionalIdentifiers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getRadarProductIDs"><code class="docutils literal notranslate"><span class="pre">getRadarProductIDs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getRadarProductNames"><code class="docutils literal notranslate"><span class="pre">getRadarProductNames()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getRequiredIdentifiers"><code class="docutils literal notranslate"><span class="pre">getRequiredIdentifiers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getSupportedDatatypes"><code class="docutils literal notranslate"><span class="pre">getSupportedDatatypes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getSynopticObs"><code class="docutils literal notranslate"><span class="pre">getSynopticObs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.newDataRequest"><code class="docutils literal notranslate"><span class="pre">newDataRequest()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.setLazyLoadGridLatLon"><code class="docutils literal notranslate"><span class="pre">setLazyLoadGridLatLon()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="IDataRequest.html">IDataRequest (newDataRequest())</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PyData.html">PyData</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PyGridData.html">PyGridData</a></li>
@@ -79,9 +100,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">API Documentation</a> &raquo;</li>
-      <li>DataAccessLayer</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">API Documentation</a></li>
+      <li class="breadcrumb-item active">DataAccessLayer</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/DataAccessLayer.rst.txt" rel="nofollow"> View page source</a>
       </li>
