@@ -305,11 +305,8 @@ the maps database called **state**. We can take the results from that
 filter and get a geographic **envelope** based on the Florida polygon
 that was returned from the previous cell.
 
-.. container:: alert-warning
-
-   ::
-
-      <b>Note:</b>  Without such a filter you may be requesting many tens of thousands of records.
+   Warning: Without such a filter you may be requesting many tens of
+   thousands of records.
 
 .. code:: ipython3
 
@@ -357,11 +354,9 @@ Both the METAR and Synoptic datasets should be filtered by time to avoid
 requesting an unreasonable amount of data. By defining one filter now,
 we can use it in both of their data requests to EDEX.
 
-.. container:: alert-info
-
-   ::
-
-      <b>Note:</b>  Here we will use the most recent hour as our default filter.  Try adjusting the timerange and see the difference in the final plots.
+   Note: Here we will use the most recent hour as our default filter.
+   Try adjusting the timerange and see the difference in the final
+   plots.
 
 .. code:: ipython3
 

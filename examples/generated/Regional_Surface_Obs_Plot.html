@@ -380,11 +380,10 @@ and Synoptic data requests.</p>
 the maps database called <strong>state</strong>. We can take the results from that
 filter and get a geographic <strong>envelope</strong> based on the Florida polygon
 that was returned from the previous cell.</p>
-<div class="alert-warning docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">b</span><span class="o">&gt;</span><span class="n">Note</span><span class="p">:</span><span class="o">&lt;/</span><span class="n">b</span><span class="o">&gt;</span>  <span class="n">Without</span> <span class="n">such</span> <span class="n">a</span> <span class="nb">filter</span> <span class="n">you</span> <span class="n">may</span> <span class="n">be</span> <span class="n">requesting</span> <span class="n">many</span> <span class="n">tens</span> <span class="n">of</span> <span class="n">thousands</span> <span class="n">of</span> <span class="n">records</span><span class="o">.</span>
-</pre></div>
-</div>
-</div>
+<blockquote>
+<div><p>Warning: Without such a filter you may be requesting many tens of
+thousands of records.</p>
+</div></blockquote>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Append each geometry to a numpy array</span>
 <span class="n">states</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
 <span class="k">for</span> <span class="n">ob</span> <span class="ow">in</span> <span class="n">maps_response</span><span class="p">:</span>
@@ -426,11 +425,11 @@ that was returned from the previous cell.</p>
 <p>Both the METAR and Synoptic datasets should be filtered by time to avoid
 requesting an unreasonable amount of data. By defining one filter now,
 we can use it in both of their data requests to EDEX.</p>
-<div class="alert-info docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">b</span><span class="o">&gt;</span><span class="n">Note</span><span class="p">:</span><span class="o">&lt;/</span><span class="n">b</span><span class="o">&gt;</span>  <span class="n">Here</span> <span class="n">we</span> <span class="n">will</span> <span class="n">use</span> <span class="n">the</span> <span class="n">most</span> <span class="n">recent</span> <span class="n">hour</span> <span class="k">as</span> <span class="n">our</span> <span class="n">default</span> <span class="nb">filter</span><span class="o">.</span>  <span class="n">Try</span> <span class="n">adjusting</span> <span class="n">the</span> <span class="n">timerange</span> <span class="ow">and</span> <span class="n">see</span> <span class="n">the</span> <span class="n">difference</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">final</span> <span class="n">plots</span><span class="o">.</span>
-</pre></div>
-</div>
-</div>
+<blockquote>
+<div><p>Note: Here we will use the most recent hour as our default filter.
+Try adjusting the timerange and see the difference in the final
+plots.</p>
+</div></blockquote>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filter for the last hour</span>
 <span class="n">lastHourDateTime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span> <span class="o">=</span> <span class="mi">60</span><span class="p">)</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">lastHourDateTime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
