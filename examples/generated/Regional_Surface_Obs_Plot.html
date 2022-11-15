@@ -59,9 +59,19 @@
 <li class="toctree-l2"><a class="reference internal" href="NEXRAD_Level3_Radar.html">NEXRAD Level3 Radar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Precip_Accumulation-Region_Of_Interest.html">Precip Accumulation-Region Of Interest</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Regional Surface Obs Plot</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#plot-metar-obs">Plot METAR (obs)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#plot-synoptic-sfcobs">Plot Synoptic (sfcobs)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#plot-both-metar-and-synop">Plot both METAR and SYNOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#objectives">Objectives</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#imports">Imports</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#function-get-cloud-cover">Function: get_cloud_cover()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#function-make-map">Function: make_map()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#function-extract-plotting-data">Function: extract_plotting_data()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#function-plot-data">Function: plot_data()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#initial-setup">Initial Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-the-data">Get the Data!</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#plot-the-data">Plot the Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Satellite_Imagery.html">Satellite Imagery</a></li>
@@ -102,11 +112,78 @@
   <section id="regional-surface-obs-plot">
 <h1>Regional Surface Obs Plot<a class="headerlink" href="#regional-surface-obs-plot" title="Permalink to this heading"></a></h1>
 <p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Regional_Surface_Obs_Plot.ipynb">Notebook</a>
-This exercise creates a surface observsation station plot for the state
-of Florida, using both METAR (datatype <em>obs</em>) and Synoptic (datatype
-<em>sfcobs</em>). Because we are using the AWIPS Map Database for state and
-county boundaries, there is no use of Cartopy <code class="docutils literal notranslate"><span class="pre">cfeature</span></code> in this
-exercise.</p>
+Python-AWIPS Tutorial Notebook</p>
+<hr class="docutils" />
+<section id="objectives">
+<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>Use python-awips to connect to an edex server</p></li>
+<li><p>Create a plot for a regional area of the United States (Florida)</p></li>
+<li><p>Define and filter data request for METAR and Synoptic surface obs</p></li>
+<li><p>Use the maps database to request and draw state boundaries (no use of
+Cartopy.Feature in this example)</p></li>
+<li><p>Stylize and plot surface data using Metpy</p></li>
+</ul>
+<hr class="docutils" />
+<section id="table-of-contents">
+<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading"></a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#imports">1
+Imports</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#function-get-cloud-cover">2 Function:
+get_cloud_cover()</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#function-make-map">3 Function:
+make_map()</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#function-extract-plotting-data">4 Function:
+extract_plotting_data()</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#function-plot-data">5 Function:
+plot_data()</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#initial-setup">6 Initial
+Setup</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#initial-edex-connection">6.1 Initial EDEX
+Connection</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#maps-request-and-response">6.2 Maps Request and
+Response</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#define-geographic-filter">6.3 Define Geographic
+Filter</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#define-time-filter">6.4 Define Time
+Filter</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#define-common-parameters-for-data-requests">6.5 Define Common Parameters for Data
+Requests</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#define-metar-request">6.6 Define METAR
+Request</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#define-synoptic-request">6.7 Define Synoptic
+Request</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#get-the-data">7 Get the
+Data!</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#get-the-edex-responses">7.1 Get the EDEX
+Responses</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#extract-plotting-data">7.2 Extract Plotting
+Data</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#get-the-data">8 Plot the
+Data</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#draw-the-region">8.1 Draw the
+Region</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#plot-metar-data">8.2 Plot METAR
+Data</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#plot-synoptic-data">8.3 Plot Synoptic
+Data</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#plot-both-metar-and-synopitc-data">8.4 Plot both METAR and Synoptic
+Data</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#see-also">9 See
+Also</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#related-notebooks">9.1 Related
+Notebooks</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#additional-documentation">9.2 Additional
+Documentation</a></div>
+</div>
+</section>
+<section id="imports">
+<h3>Imports<a class="headerlink" href="#imports" title="Permalink to this heading"></a></h3>
+<p>The imports below are used throughout the notebook. Note the first two
+imports are coming directly from python-awips and allow us to connect to
+an EDEX server, and define a timrange used for filtering the data. The
+subsequent imports are for data manipulation and visualization.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">DataAccessLayer</span>
 <span class="kn">from</span> <span class="nn">dynamicserialize.dstypes.com.raytheon.uf.common.time</span> <span class="kn">import</span> <span class="n">TimeRange</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
@@ -118,75 +195,40 @@ exercise.</p>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">metpy.units</span> <span class="kn">import</span> <span class="n">units</span>
 <span class="kn">from</span> <span class="nn">metpy.calc</span> <span class="kn">import</span> <span class="n">wind_components</span>
-<span class="kn">from</span> <span class="nn">metpy.plots</span> <span class="kn">import</span> <span class="n">simple_layout</span><span class="p">,</span> <span class="n">StationPlot</span><span class="p">,</span> <span class="n">StationPlotLayout</span>
+<span class="kn">from</span> <span class="nn">metpy.plots</span> <span class="kn">import</span> <span class="n">simple_layout</span><span class="p">,</span> <span class="n">StationPlot</span><span class="p">,</span> <span class="n">StationPlotLayout</span><span class="p">,</span> <span class="n">sky_cover</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
-
-<span class="k">def</span> <span class="nf">get_cloud_cover</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html.html">Top</a></p>
+</section>
+<hr class="docutils" />
+<section id="function-get-cloud-cover">
+<h3>Function: get_cloud_cover()<a class="headerlink" href="#function-get-cloud-cover" title="Permalink to this heading"></a></h3>
+<p>Returns the cloud coverage values as integer codes (0 through 8).</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_cloud_cover</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
     <span class="k">if</span> <span class="s1">&#39;OVC&#39;</span> <span class="ow">in</span> <span class="n">code</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mf">1.0</span>
+        <span class="k">return</span> <span class="mi">8</span>
     <span class="k">elif</span> <span class="s1">&#39;BKN&#39;</span> <span class="ow">in</span> <span class="n">code</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mf">6.0</span><span class="o">/</span><span class="mf">8.0</span>
+        <span class="k">return</span> <span class="mi">6</span>
     <span class="k">elif</span> <span class="s1">&#39;SCT&#39;</span> <span class="ow">in</span> <span class="n">code</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mf">4.0</span><span class="o">/</span><span class="mf">8.0</span>
+        <span class="k">return</span> <span class="mi">4</span>
     <span class="k">elif</span> <span class="s1">&#39;FEW&#39;</span> <span class="ow">in</span> <span class="n">code</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mf">2.0</span><span class="o">/</span><span class="mf">8.0</span>
+        <span class="k">return</span> <span class="mi">2</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="mi">0</span>
 </pre></div>
 </div>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># EDEX request for a single state</span>
-<span class="n">edexServer</span> <span class="o">=</span> <span class="s2">&quot;edex-cloud.unidata.ucar.edu&quot;</span>
-<span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="n">edexServer</span><span class="p">)</span>
-<span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s1">&#39;maps&#39;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="s1">&#39;mapdata.states&#39;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;FL&#39;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;geomField&#39;</span><span class="p">,</span> <span class="s1">&#39;the_geom&#39;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">,</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;lon&#39;</span><span class="p">)</span>
-<span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-<span class="n">record</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Found &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; MultiPolygon&quot;</span><span class="p">)</span>
-<span class="n">state</span><span class="o">=</span><span class="p">{}</span>
-<span class="n">state</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
-<span class="n">state</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">)</span>
-<span class="n">state</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s1">&#39;lat&#39;</span><span class="p">)</span>
-<span class="n">state</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s1">&#39;lon&#39;</span><span class="p">)</span>
-<span class="c1">#state[&#39;geom&#39;] = record.getGeometry()</span>
-<span class="n">state</span><span class="p">[</span><span class="s1">&#39;bounds&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">()</span><span class="o">.</span><span class="n">bounds</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">],</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">],</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">],</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;bounds&#39;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">()</span>
-
-<span class="c1"># EDEX request for multiple states</span>
-<span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s1">&#39;maps&#39;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="s1">&#39;mapdata.states&#39;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;geomField&#39;</span><span class="p">,</span> <span class="s1">&#39;the_geom&#39;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;inLocation&#39;</span><span class="p">,</span> <span class="s1">&#39;true&#39;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;locationField&#39;</span><span class="p">,</span> <span class="s1">&#39;state&#39;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">,</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;lon&#39;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="s1">&#39;FL&#39;</span><span class="p">,</span><span class="s1">&#39;GA&#39;</span><span class="p">,</span><span class="s1">&#39;MS&#39;</span><span class="p">,</span><span class="s1">&#39;AL&#39;</span><span class="p">,</span><span class="s1">&#39;SC&#39;</span><span class="p">,</span><span class="s1">&#39;LA&#39;</span><span class="p">)</span>
-<span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Found &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; MultiPolygons&quot;</span><span class="p">)</span>
-
-<span class="c1"># Append each geometry to a numpy array</span>
-<span class="n">states</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
-<span class="k">for</span> <span class="n">ob</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">),</span> <span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">),</span> <span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s1">&#39;lat&#39;</span><span class="p">),</span> <span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s1">&#39;lon&#39;</span><span class="p">))</span>
-    <span class="n">states</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">states</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">())</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Found</span> <span class="mi">1</span> <span class="n">MultiPolygon</span>
-<span class="n">Florida</span> <span class="n">FL</span> <span class="mf">28.67402</span> <span class="o">-</span><span class="mf">82.50934</span> <span class="p">(</span><span class="o">-</span><span class="mf">87.63429260299995</span><span class="p">,</span> <span class="mf">24.521051616000022</span><span class="p">,</span> <span class="o">-</span><span class="mf">80.03199876199994</span><span class="p">,</span> <span class="mf">31.001012802000048</span><span class="p">)</span>
-
-<span class="n">Found</span> <span class="mi">6</span> <span class="n">MultiPolygons</span>
-<span class="n">Florida</span> <span class="n">FL</span> <span class="mf">28.67402</span> <span class="o">-</span><span class="mf">82.50934</span>
-<span class="n">Georgia</span> <span class="n">GA</span> <span class="mf">32.65155</span> <span class="o">-</span><span class="mf">83.44848</span>
-<span class="n">Louisiana</span> <span class="n">LA</span> <span class="mf">31.0891</span> <span class="o">-</span><span class="mf">92.02905</span>
-<span class="n">Alabama</span> <span class="n">AL</span> <span class="mf">32.79354</span> <span class="o">-</span><span class="mf">86.82676</span>
-<span class="n">Mississippi</span> <span class="n">MS</span> <span class="mf">32.75201</span> <span class="o">-</span><span class="mf">89.66553</span>
-<span class="n">South</span> <span class="n">Carolina</span> <span class="n">SC</span> <span class="mf">33.93574</span> <span class="o">-</span><span class="mf">80.89899</span>
-</pre></div>
-</div>
-<p>Now make sure we can plot the states with a lat/lon grid.</p>
+<p>Top</p>
+</section>
+<hr class="docutils" />
+<section id="function-make-map">
+<h3>Function: make_map()<a class="headerlink" href="#function-make-map" title="Permalink to this heading"></a></h3>
+<p>In order to plot more than one image, it’s easiest to define common
+logic in a function. Here, a new function called <strong>make_map</strong> is
+defined. This function uses the <a class="reference external" href="https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.html">matplotlib.pyplot package
+(plt)</a>
+to create a figure and axis. The geographic extent is set and lat/lon
+gridlines are added for context.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_map</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="n">proj</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">()):</span>
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">12</span><span class="p">),</span><span class="n">subplot_kw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="n">proj</span><span class="p">))</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_extent</span><span class="p">(</span><span class="n">bbox</span><span class="p">)</span>
@@ -195,205 +237,457 @@ exercise.</p>
     <span class="n">gl</span><span class="o">.</span><span class="n">xformatter</span> <span class="o">=</span> <span class="n">LONGITUDE_FORMATTER</span>
     <span class="n">gl</span><span class="o">.</span><span class="n">yformatter</span> <span class="o">=</span> <span class="n">LATITUDE_FORMATTER</span>
     <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html.html">Top</a></p>
+</section>
+<hr class="docutils" />
+<section id="function-extract-plotting-data">
+<h3>Function: extract_plotting_data()<a class="headerlink" href="#function-extract-plotting-data" title="Permalink to this heading"></a></h3>
+<p>Grab the simple variables out of the response data we have (attaching
+correct units), and put them into a dictionary that we will hand the
+plotting function later:</p>
+<ul class="simple">
+<li><p>Get wind components from speed and direction</p></li>
+<li><p>Convert cloud coverage values to integer codes [0 - 8]</p></li>
+<li><p>Assign temperature, dewpoint, and sea level pressure the the correct
+units</p></li>
+<li><p>Account for missing values (by using <code class="docutils literal notranslate"><span class="pre">nan</span></code>)</p></li>
+</ul>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">extract_plotting_data</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">datatype</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract all necessary data for plotting for either</span>
+<span class="sd">    datatype: &#39;obs&#39; or &#39;sfcobs&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-<span class="c1"># buffer our bounds by +/i degrees lat/lon</span>
-<span class="n">bounds</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;bounds&#39;</span><span class="p">]</span>
-<span class="n">bbox</span><span class="o">=</span><span class="p">[</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="mi">3</span><span class="p">,</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">+</span><span class="mf">1.5</span><span class="p">]</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">])</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">])</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">dpt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="s1">&#39;dewpoint&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">direction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="s1">&#39;windDir&#39;</span><span class="p">])</span>
 
+    <span class="c1"># Suppress nan masking warnings</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span><span class="n">category</span> <span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">)</span>
+
+    <span class="c1"># Account for missing values</span>
+    <span class="n">tmp</span><span class="p">[</span><span class="n">tmp</span> <span class="o">==</span> <span class="o">-</span><span class="mf">9999.0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;nan&#39;</span>
+    <span class="n">dpt</span><span class="p">[</span><span class="n">dpt</span> <span class="o">==</span> <span class="o">-</span><span class="mf">9999.</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;nan&#39;</span>
+    <span class="n">direction</span><span class="p">[</span><span class="n">direction</span> <span class="o">==</span> <span class="o">-</span><span class="mf">9999.0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;nan&#39;</span>
+
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;air_pressure_at_sea_level&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="s1">&#39;seaLevelPress&#39;</span><span class="p">])</span><span class="o">*</span> <span class="n">units</span><span class="p">(</span><span class="s1">&#39;mbar&#39;</span><span class="p">)</span>
+    <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">wind_components</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="s1">&#39;windSpeed&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="n">units</span><span class="p">(</span><span class="s1">&#39;knots&#39;</span><span class="p">),</span>
+                               <span class="n">direction</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">degree</span><span class="p">)</span>
+
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;eastward_wind&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;northward_wind&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;present_weather&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="s1">&#39;presWeather&#39;</span><span class="p">]</span>
+
+
+    <span class="c1"># metars uses &#39;stationName&#39; for its identifier and temps are in deg C</span>
+    <span class="c1"># metars also has sky coverage</span>
+    <span class="k">if</span> <span class="n">datatype</span> <span class="o">==</span> <span class="s2">&quot;obs&quot;</span><span class="p">:</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;stid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="s1">&#39;stationName&#39;</span><span class="p">])</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;air_temperature&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">degC</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;dew_point_temperature&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dpt</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">degC</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;cloud_coverage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">get_cloud_cover</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">arr</span><span class="p">[</span><span class="s1">&#39;skyCover&#39;</span><span class="p">]]</span>
+
+    <span class="c1"># synoptic obs uses &#39;stationId&#39;, and temps are in Kelvin</span>
+    <span class="k">elif</span> <span class="n">datatype</span> <span class="o">==</span> <span class="s2">&quot;sfcobs&quot;</span><span class="p">:</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;stid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="s1">&#39;stationId&#39;</span><span class="p">])</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;air_temperature&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">kelvin</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;dew_point_temperature&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dpt</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">kelvin</span>
+
+    <span class="k">return</span> <span class="n">data</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html.html">Top</a></p>
+</section>
+<hr class="docutils" />
+<section id="function-plot-data">
+<h3>Function: plot_data()<a class="headerlink" href="#function-plot-data" title="Permalink to this heading"></a></h3>
+<p>This function makse use of Metpy.StationPlotLayout and Metpy.StationPlot
+to add all surface observation data to our plot. The logic is very
+similar for both METAR and Synoptic data, so a <code class="docutils literal notranslate"><span class="pre">datatype</span></code> argument is
+used to distinguish between which data is being drawn, and then draws
+the appropriate features.</p>
+<p>This function plots: - Wind barbs - Air temperature - Dew point
+temperature - Precipitation - Cloud coverage (for METARS)</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">datatype</span><span class="p">):</span>
+    <span class="n">custom_layout</span> <span class="o">=</span> <span class="n">StationPlotLayout</span><span class="p">()</span>
+    <span class="n">custom_layout</span><span class="o">.</span><span class="n">add_barb</span><span class="p">(</span><span class="s1">&#39;eastward_wind&#39;</span><span class="p">,</span> <span class="s1">&#39;northward_wind&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;knots&#39;</span><span class="p">)</span>
+    <span class="n">custom_layout</span><span class="o">.</span><span class="n">add_value</span><span class="p">(</span><span class="s1">&#39;NW&#39;</span><span class="p">,</span> <span class="s1">&#39;air_temperature&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.0f&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;degF&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkred&#39;</span><span class="p">)</span>
+    <span class="n">custom_layout</span><span class="o">.</span><span class="n">add_value</span><span class="p">(</span><span class="s1">&#39;SW&#39;</span><span class="p">,</span> <span class="s1">&#39;dew_point_temperature&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.0f&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;degF&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkgreen&#39;</span><span class="p">)</span>
+    <span class="n">custom_layout</span><span class="o">.</span><span class="n">add_value</span><span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;precipitation&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;0.1f&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;inch&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+    <span class="c1"># metars has sky coverage</span>
+    <span class="k">if</span> <span class="n">datatype</span> <span class="o">==</span> <span class="s1">&#39;obs&#39;</span><span class="p">:</span>
+        <span class="n">custom_layout</span><span class="o">.</span><span class="n">add_symbol</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;cloud_coverage&#39;</span><span class="p">,</span> <span class="n">sky_cover</span><span class="p">)</span>
+    <span class="n">axes</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">stationplot</span> <span class="o">=</span> <span class="n">StationPlot</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">],</span> <span class="n">clip_on</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                              <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">custom_layout</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">stationplot</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html.html">Top</a></p>
+</section>
+<hr class="docutils" />
+<section id="initial-setup">
+<h3>Initial Setup<a class="headerlink" href="#initial-setup" title="Permalink to this heading"></a></h3>
+<p>Connect to an EDEX server and define several <a class="reference external" href="http://unidata.github.io/python-awips/api/IDataRequest.html">new data request
+objects</a>.</p>
+<p>In this example we’re using multiple different datatypes from EDEX, so
+we’ll create a request object for each of the following: - <a class="reference external" href="#Define-Maps-Request">The states
+outlines (datatype maps)</a> - <a class="reference external" href="#Define-METAR-Request">The METAR data
+(datatype obs)</a> - <a class="reference external" href="#Define-Synoptic-Request">The Synoptic data (datatype
+sfc)</a></p>
+<p>Some of the request use filters, so we’ll also create several filters
+than can be used for the various data requests as well.</p>
+<section id="initial-edex-connection">
+<h4>Initial EDEX Connection<a class="headerlink" href="#initial-edex-connection" title="Permalink to this heading"></a></h4>
+<p>First we establish a connection to Unidata’s public EDEX server.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># EDEX connection</span>
+<span class="n">edexServer</span> <span class="o">=</span> <span class="s2">&quot;edex-cloud.unidata.ucar.edu&quot;</span>
+<span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="n">edexServer</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="maps-request-and-response">
+<h4>Maps Request and Response<a class="headerlink" href="#maps-request-and-response" title="Permalink to this heading"></a></h4>
+<p>The maps data request will give us data to draw our state outlines of
+interest (Florida and its neighboring states). We will retrieve the data
+response object here so we can create a geographic filter for the METAR
+and Synoptic data requests.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the maps request</span>
+<span class="n">maps_request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s1">&#39;maps&#39;</span><span class="p">)</span>
+<span class="c1"># filter for multiple states</span>
+<span class="n">maps_request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s1">&#39;maps&#39;</span><span class="p">)</span>
+<span class="n">maps_request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="s1">&#39;mapdata.states&#39;</span><span class="p">)</span>
+<span class="n">maps_request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;geomField&#39;</span><span class="p">,</span> <span class="s1">&#39;the_geom&#39;</span><span class="p">)</span>
+<span class="n">maps_request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;inLocation&#39;</span><span class="p">,</span> <span class="s1">&#39;true&#39;</span><span class="p">)</span>
+<span class="n">maps_request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s1">&#39;locationField&#39;</span><span class="p">,</span> <span class="s1">&#39;state&#39;</span><span class="p">)</span>
+<span class="n">maps_request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">,</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;lon&#39;</span><span class="p">)</span>
+<span class="n">maps_request</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="s1">&#39;FL&#39;</span><span class="p">,</span><span class="s1">&#39;GA&#39;</span><span class="p">,</span><span class="s1">&#39;MS&#39;</span><span class="p">,</span><span class="s1">&#39;AL&#39;</span><span class="p">,</span><span class="s1">&#39;SC&#39;</span><span class="p">,</span><span class="s1">&#39;LA&#39;</span><span class="p">)</span>
+<span class="n">maps_response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">maps_request</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Found &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">maps_response</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; MultiPolygons&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Found</span> <span class="mi">6</span> <span class="n">MultiPolygons</span>
+</pre></div>
+</div>
+</section>
+<section id="define-geographic-filter">
+<h4>Define Geographic Filter<a class="headerlink" href="#define-geographic-filter" title="Permalink to this heading"></a></h4>
+<p>The previous EDEX request limited the data by using a <strong>parameter</strong> for
+the maps database called <strong>state</strong>. We can take the results from that
+filter and get a geographic <strong>envelope</strong> based on the Florida polygon
+that was returned from the previous cell.</p>
+<div class="alert-warning docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">b</span><span class="o">&gt;</span><span class="n">Note</span><span class="p">:</span><span class="o">&lt;/</span><span class="n">b</span><span class="o">&gt;</span>  <span class="n">Without</span> <span class="n">such</span> <span class="n">a</span> <span class="nb">filter</span> <span class="n">you</span> <span class="n">may</span> <span class="n">be</span> <span class="n">requesting</span> <span class="n">many</span> <span class="n">tens</span> <span class="n">of</span> <span class="n">thousands</span> <span class="n">of</span> <span class="n">records</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Append each geometry to a numpy array</span>
+<span class="n">states</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+<span class="k">for</span> <span class="n">ob</span> <span class="ow">in</span> <span class="n">maps_response</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">),</span> <span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">),</span> <span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s1">&#39;lat&#39;</span><span class="p">),</span> <span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s1">&#39;lon&#39;</span><span class="p">))</span>
+    <span class="n">states</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">states</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">())</span>
+    <span class="c1"># if this is Florida grab geographic info</span>
+    <span class="k">if</span> <span class="n">ob</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;Florida&quot;</span><span class="p">:</span>
+        <span class="n">bounds</span> <span class="o">=</span> <span class="n">ob</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">()</span><span class="o">.</span><span class="n">bounds</span>
+        <span class="n">fl_lat</span> <span class="o">=</span> <span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s1">&#39;lat&#39;</span><span class="p">)</span>
+        <span class="n">fl_lon</span> <span class="o">=</span> <span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s1">&#39;lon&#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">bounds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error, no record found for Florida!&quot;</span><span class="p">)</span>
+
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># buffer our bounds by +/i degrees lat/lon</span>
+    <span class="n">bbox</span><span class="o">=</span><span class="p">[</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="mi">3</span><span class="p">,</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">+</span><span class="mf">1.5</span><span class="p">]</span>
+
+    <span class="c1"># Create envelope geometry</span>
+    <span class="n">envelope</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">([(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">]),(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span>
+                        <span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">]),(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
+                        <span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">])])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">envelope</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Florida</span> <span class="n">FL</span> <span class="mf">28.67402</span> <span class="o">-</span><span class="mf">82.50934</span>
+<span class="n">Georgia</span> <span class="n">GA</span> <span class="mf">32.65155</span> <span class="o">-</span><span class="mf">83.44848</span>
+<span class="n">Louisiana</span> <span class="n">LA</span> <span class="mf">31.0891</span> <span class="o">-</span><span class="mf">92.02905</span>
+<span class="n">Alabama</span> <span class="n">AL</span> <span class="mf">32.79354</span> <span class="o">-</span><span class="mf">86.82676</span>
+<span class="n">Mississippi</span> <span class="n">MS</span> <span class="mf">32.75201</span> <span class="o">-</span><span class="mf">89.66553</span>
+<span class="n">South</span> <span class="n">Carolina</span> <span class="n">SC</span> <span class="mf">33.93574</span> <span class="o">-</span><span class="mf">80.89899</span>
+<span class="n">POLYGON</span> <span class="p">((</span><span class="o">-</span><span class="mf">90.63429260299995</span> <span class="mf">23.02105161600002</span><span class="p">,</span> <span class="o">-</span><span class="mf">90.63429260299995</span> <span class="mf">32.50101280200016</span><span class="p">,</span> <span class="o">-</span><span class="mf">77.03199876199994</span> <span class="mf">32.50101280200016</span><span class="p">,</span> <span class="o">-</span><span class="mf">77.03199876199994</span> <span class="mf">23.02105161600002</span><span class="p">,</span> <span class="o">-</span><span class="mf">90.63429260299995</span> <span class="mf">23.02105161600002</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="define-time-filter">
+<h4>Define Time Filter<a class="headerlink" href="#define-time-filter" title="Permalink to this heading"></a></h4>
+<p>Both the METAR and Synoptic datasets should be filtered by time to avoid
+requesting an unreasonable amount of data. By defining one filter now,
+we can use it in both of their data requests to EDEX.</p>
+<div class="alert-info docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">b</span><span class="o">&gt;</span><span class="n">Note</span><span class="p">:</span><span class="o">&lt;/</span><span class="n">b</span><span class="o">&gt;</span>  <span class="n">Here</span> <span class="n">we</span> <span class="n">will</span> <span class="n">use</span> <span class="n">the</span> <span class="n">most</span> <span class="n">recent</span> <span class="n">hour</span> <span class="k">as</span> <span class="n">our</span> <span class="n">default</span> <span class="nb">filter</span><span class="o">.</span>  <span class="n">Try</span> <span class="n">adjusting</span> <span class="n">the</span> <span class="n">timerange</span> <span class="ow">and</span> <span class="n">see</span> <span class="n">the</span> <span class="n">difference</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">final</span> <span class="n">plots</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filter for the last hour</span>
+<span class="n">lastHourDateTime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span> <span class="o">=</span> <span class="mi">60</span><span class="p">)</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">lastHourDateTime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+<span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+
+<span class="n">beginRange</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span> <span class="n">start</span> <span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+<span class="n">endRange</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span> <span class="n">end</span> <span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+<span class="n">timerange</span> <span class="o">=</span> <span class="n">TimeRange</span><span class="p">(</span><span class="n">beginRange</span><span class="p">,</span> <span class="n">endRange</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">timerange</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Nov</span> <span class="mi">11</span> <span class="mi">22</span> <span class="mi">19</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">54</span> <span class="p">,</span> <span class="n">Nov</span> <span class="mi">11</span> <span class="mi">22</span> <span class="mi">20</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">54</span> <span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="define-common-parameters-for-data-requests">
+<h4>Define Common Parameters for Data Requests<a class="headerlink" href="#define-common-parameters-for-data-requests" title="Permalink to this heading"></a></h4>
+<p>METAR obs and Synoptic obs share several of the same parameters. By
+defining them here, they can be reused for both of the requests and this
+makes our code more efficient.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shared_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;timeObs&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;temperature&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dewpoint&quot;</span><span class="p">,</span> <span class="s2">&quot;windDir&quot;</span><span class="p">,</span> <span class="s2">&quot;windSpeed&quot;</span><span class="p">,</span> <span class="s2">&quot;seaLevelPress&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;presWeather&quot;</span><span class="p">,</span> <span class="s2">&quot;skyLayerBase&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">shared_params</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;timeObs&#39;</span><span class="p">,</span> <span class="s1">&#39;longitude&#39;</span><span class="p">,</span> <span class="s1">&#39;latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;dewpoint&#39;</span><span class="p">,</span> <span class="s1">&#39;windDir&#39;</span><span class="p">,</span> <span class="s1">&#39;windSpeed&#39;</span><span class="p">,</span> <span class="s1">&#39;seaLevelPress&#39;</span><span class="p">,</span> <span class="s1">&#39;presWeather&#39;</span><span class="p">,</span> <span class="s1">&#39;skyLayerBase&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="define-metar-request">
+<h4>Define METAR Request<a class="headerlink" href="#define-metar-request" title="Permalink to this heading"></a></h4>
+<p>To get METAR data we must use the <strong>obs</strong> datatype. To help limit the
+amount of data returned, we will narrow the request by using a
+geographic <strong>envelope</strong>, setting the request <strong>parameters</strong>, and using
+<strong>timerange</strong> as a time filter.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># New metar request</span>
+<span class="n">metar_request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">&quot;obs&quot;</span><span class="p">,</span> <span class="n">envelope</span><span class="o">=</span><span class="n">envelope</span><span class="p">)</span>
+
+<span class="c1"># metar specifc parameters</span>
+<span class="n">metar_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;stationName&quot;</span><span class="p">,</span> <span class="s2">&quot;skyCover&quot;</span><span class="p">]</span>
+<span class="c1"># combine all parameters</span>
+<span class="n">all_metar_params</span> <span class="o">=</span> <span class="n">shared_params</span> <span class="o">+</span> <span class="n">metar_params</span>
+<span class="c1"># set the parameters on the metar request</span>
+<span class="n">metar_request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">all_metar_params</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">metar_request</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DefaultDataRequest</span><span class="p">(</span><span class="n">datatype</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="n">identifiers</span><span class="o">=</span><span class="p">{},</span> <span class="n">parameters</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;timeObs&#39;</span><span class="p">,</span> <span class="s1">&#39;longitude&#39;</span><span class="p">,</span> <span class="s1">&#39;latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;dewpoint&#39;</span><span class="p">,</span> <span class="s1">&#39;windDir&#39;</span><span class="p">,</span> <span class="s1">&#39;windSpeed&#39;</span><span class="p">,</span> <span class="s1">&#39;seaLevelPress&#39;</span><span class="p">,</span> <span class="s1">&#39;presWeather&#39;</span><span class="p">,</span> <span class="s1">&#39;skyLayerBase&#39;</span><span class="p">,</span> <span class="s1">&#39;stationName&#39;</span><span class="p">,</span> <span class="s1">&#39;skyCover&#39;</span><span class="p">],</span> <span class="n">levels</span><span class="o">=</span><span class="p">[],</span> <span class="n">locationNames</span><span class="o">=</span><span class="p">[],</span> <span class="n">envelope</span><span class="o">=&lt;</span><span class="n">dynamicserialize</span><span class="o">.</span><span class="n">dstypes</span><span class="o">.</span><span class="n">com</span><span class="o">.</span><span class="n">vividsolutions</span><span class="o">.</span><span class="n">jts</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">Envelope</span><span class="o">.</span><span class="n">Envelope</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x13abe40a0</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="define-synoptic-request">
+<h4>Define Synoptic Request<a class="headerlink" href="#define-synoptic-request" title="Permalink to this heading"></a></h4>
+<p>Similar to the request above, we will limit the amount of data returned
+by using a geographic <strong>envelope</strong>, setting the request <strong>parameters</strong>,
+and using <strong>timerange</strong> as a time filter.</p>
+<p>However, in order to access synoptic observations we will use the
+<strong>sfcobs</strong> datatype.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># New sfcobs/SYNOP request</span>
+<span class="n">syn_request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">&quot;sfcobs&quot;</span><span class="p">,</span> <span class="n">envelope</span><span class="o">=</span><span class="n">envelope</span><span class="p">)</span>
+
+<span class="c1"># (sfcobs) uses stationId, while (obs) uses stationName</span>
+<span class="n">syn_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;stationId&quot;</span><span class="p">]</span>
+<span class="c1"># combine all parameters</span>
+<span class="n">all_syn_params</span> <span class="o">=</span> <span class="n">shared_params</span> <span class="o">+</span> <span class="n">syn_params</span>
+<span class="c1"># set the parameters on the synoptic request</span>
+<span class="n">syn_request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">all_syn_params</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">syn_request</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DefaultDataRequest</span><span class="p">(</span><span class="n">datatype</span><span class="o">=</span><span class="n">sfcobs</span><span class="p">,</span> <span class="n">identifiers</span><span class="o">=</span><span class="p">{},</span> <span class="n">parameters</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;timeObs&#39;</span><span class="p">,</span> <span class="s1">&#39;longitude&#39;</span><span class="p">,</span> <span class="s1">&#39;latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;dewpoint&#39;</span><span class="p">,</span> <span class="s1">&#39;windDir&#39;</span><span class="p">,</span> <span class="s1">&#39;windSpeed&#39;</span><span class="p">,</span> <span class="s1">&#39;seaLevelPress&#39;</span><span class="p">,</span> <span class="s1">&#39;presWeather&#39;</span><span class="p">,</span> <span class="s1">&#39;skyLayerBase&#39;</span><span class="p">,</span> <span class="s1">&#39;stationId&#39;</span><span class="p">],</span> <span class="n">levels</span><span class="o">=</span><span class="p">[],</span> <span class="n">locationNames</span><span class="o">=</span><span class="p">[],</span> <span class="n">envelope</span><span class="o">=&lt;</span><span class="n">dynamicserialize</span><span class="o">.</span><span class="n">dstypes</span><span class="o">.</span><span class="n">com</span><span class="o">.</span><span class="n">vividsolutions</span><span class="o">.</span><span class="n">jts</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">Envelope</span><span class="o">.</span><span class="n">Envelope</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x105048bb0</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html.html">Top</a></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="get-the-data">
+<h3>Get the Data!<a class="headerlink" href="#get-the-data" title="Permalink to this heading"></a></h3>
+<p>We have already obtained our maps data, but we still have to collect our
+observation data.</p>
+<section id="get-the-edex-responses">
+<h4>Get the EDEX Responses<a class="headerlink" href="#get-the-edex-responses" title="Permalink to this heading"></a></h4>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># METARs data</span>
+<span class="n">metar_response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">metar_request</span><span class="p">,</span><span class="n">timerange</span><span class="p">)</span>
+<span class="c1"># function getMetarObs was added in python-awips 18.1.4</span>
+<span class="n">metars</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getMetarObs</span><span class="p">(</span><span class="n">metar_response</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Found &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">metar_response</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; METAR records&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Using &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">metars</span><span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s2">&quot; temperature records&quot;</span><span class="p">)</span>
+
+<span class="c1"># Synoptic data</span>
+<span class="n">syn_response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">syn_request</span><span class="p">,</span><span class="n">timerange</span><span class="p">)</span>
+<span class="c1"># function getSynopticObs was added in python-awips 18.1.4</span>
+<span class="n">synoptic</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getSynopticObs</span><span class="p">(</span><span class="n">syn_response</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Found &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">syn_response</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; Synoptic records&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Using &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">synoptic</span><span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s2">&quot; temperature records&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Found</span> <span class="mi">4116</span> <span class="n">METAR</span> <span class="n">records</span>
+    <span class="n">Using</span> <span class="mi">179</span> <span class="n">temperature</span> <span class="n">records</span>
+<span class="n">Found</span> <span class="mi">259</span> <span class="n">Synoptic</span> <span class="n">records</span>
+    <span class="n">Using</span> <span class="mi">63</span> <span class="n">temperature</span> <span class="n">records</span>
+</pre></div>
+</div>
+</section>
+<section id="extract-plotting-data">
+<h4>Extract Plotting Data<a class="headerlink" href="#extract-plotting-data" title="Permalink to this heading"></a></h4>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pull all necessary plotting information for the metar data</span>
+<span class="n">metars_data</span> <span class="o">=</span> <span class="n">extract_plotting_data</span><span class="p">(</span><span class="n">metars</span><span class="p">,</span> <span class="s1">&#39;obs&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">metars_data</span><span class="p">[</span><span class="s1">&#39;stid&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s2">&quot; METARs stations&quot;</span><span class="p">)</span>
+
+<span class="c1"># Pull all necessary plotting information for the synoptic data</span>
+<span class="n">synoptic_data</span> <span class="o">=</span> <span class="n">extract_plotting_data</span><span class="p">(</span><span class="n">synoptic</span><span class="p">,</span> <span class="s1">&#39;sfcobs&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">synoptic_data</span><span class="p">[</span><span class="s1">&#39;stid&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s2">&quot; Synoptic stations&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">179</span> <span class="n">METARs</span> <span class="n">stations</span>
+<span class="mi">63</span> <span class="n">Synoptic</span> <span class="n">stations</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html.html">Top</a></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="plot-the-data">
+<h3>Plot the Data<a class="headerlink" href="#plot-the-data" title="Permalink to this heading"></a></h3>
+<section id="draw-the-region">
+<h4>Draw the Region<a class="headerlink" href="#draw-the-region" title="Permalink to this heading"></a></h4>
+<p>Here we will draw our region by using the <strong>states</strong> polygons we
+retreived from EDEX <a class="reference external" href="#Maps-Request-and-Response">earlier in this
+example</a>. To create this plot we use the
+<a class="reference external" href="#Function:-make_map()">make_map()</a> function which also adds lines of
+latitude and longitude for additional context.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create the figure and axes used for the plot</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">make_map</span><span class="p">(</span><span class="n">bbox</span><span class="o">=</span><span class="n">bbox</span><span class="p">)</span>
+<span class="c1"># Create a feature based off our states polygons</span>
 <span class="n">shape_feature</span> <span class="o">=</span> <span class="n">ShapelyFeature</span><span class="p">(</span><span class="n">states</span><span class="p">,</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span>
                     <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;#000000&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">shape_feature</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">cartopy</span><span class="o">.</span><span class="n">mpl</span><span class="o">.</span><span class="n">feature_artist</span><span class="o">.</span><span class="n">FeatureArtist</span> <span class="n">at</span> <span class="mh">0x11dcfedd8</span><span class="o">&gt;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">cartopy</span><span class="o">.</span><span class="n">mpl</span><span class="o">.</span><span class="n">feature_artist</span><span class="o">.</span><span class="n">FeatureArtist</span> <span class="n">at</span> <span class="mh">0x13b2ae5e0</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<img alt="../../_images/Regional_Surface_Obs_Plot_4_1.png" src="../../_images/Regional_Surface_Obs_Plot_4_1.png" />
-<hr class="docutils" />
-<section id="plot-metar-obs">
-<h2>Plot METAR (obs)<a class="headerlink" href="#plot-metar-obs" title="Permalink to this heading"></a></h2>
-<p>Here we use a spatial envelope to limit the request to the boundary or
-our plot. Without such a filter you may be requesting many tens of
-thousands of records.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create envelope geometry</span>
-<span class="n">envelope</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">([(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">]),(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span>
-                    <span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">]),(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
-                    <span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">])])</span>
-
-<span class="c1"># New obs request</span>
-<span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="n">edexServer</span><span class="p">)</span>
-<span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">&quot;obs&quot;</span><span class="p">,</span> <span class="n">envelope</span><span class="o">=</span><span class="n">envelope</span><span class="p">)</span>
-<span class="n">availableProducts</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableParameters</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-<span class="n">single_value_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;timeObs&quot;</span><span class="p">,</span> <span class="s2">&quot;stationName&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span>
-                       <span class="s2">&quot;temperature&quot;</span><span class="p">,</span> <span class="s2">&quot;dewpoint&quot;</span><span class="p">,</span> <span class="s2">&quot;windDir&quot;</span><span class="p">,</span>
-                       <span class="s2">&quot;windSpeed&quot;</span><span class="p">,</span> <span class="s2">&quot;seaLevelPress&quot;</span><span class="p">]</span>
-<span class="n">multi_value_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;presWeather&quot;</span><span class="p">,</span> <span class="s2">&quot;skyCover&quot;</span><span class="p">,</span> <span class="s2">&quot;skyLayerBase&quot;</span><span class="p">]</span>
-<span class="n">params</span> <span class="o">=</span> <span class="n">single_value_params</span> <span class="o">+</span> <span class="n">multi_value_params</span>
-<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
-
-<span class="c1"># Time range</span>
-<span class="n">lastHourDateTime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span> <span class="o">=</span> <span class="mi">60</span><span class="p">)</span>
-<span class="n">start</span> <span class="o">=</span> <span class="n">lastHourDateTime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
-<span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
-
-<span class="n">beginRange</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span> <span class="n">start</span> <span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
-<span class="n">endRange</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span> <span class="n">end</span> <span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
-<span class="n">timerange</span> <span class="o">=</span> <span class="n">TimeRange</span><span class="p">(</span><span class="n">beginRange</span><span class="p">,</span> <span class="n">endRange</span><span class="p">)</span>
-<span class="c1"># Get response</span>
-<span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">timerange</span><span class="p">)</span>
-<span class="c1"># function getMetarObs was added in python-awips 18.1.4</span>
-<span class="n">obs</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getMetarObs</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Found &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; records&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s2">&quot; temperature records&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Found</span> <span class="mi">3468</span> <span class="n">records</span>
-<span class="n">Using</span> <span class="mi">152</span> <span class="n">temperature</span> <span class="n">records</span>
-</pre></div>
-</div>
-<p>Next grab the simple variables out of the data we have (attaching
-correct units), and put them into a dictionary that we will hand the
-plotting function later:</p>
-<ul class="simple">
-<li><p>Get wind components from speed and direction</p></li>
-<li><p>Convert cloud fraction values to integer codes [0 - 8]</p></li>
-<li><p>Map METAR weather codes to WMO codes for weather symbols</p></li>
-</ul>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;stid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;stationName&#39;</span><span class="p">])</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">])</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">])</span>
-<span class="n">tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-<span class="n">dpt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;dewpoint&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-
-<span class="c1"># Suppress nan masking warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span><span class="n">category</span> <span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">)</span>
-
-<span class="n">tmp</span><span class="p">[</span><span class="n">tmp</span> <span class="o">==</span> <span class="o">-</span><span class="mf">9999.0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;nan&#39;</span>
-<span class="n">dpt</span><span class="p">[</span><span class="n">dpt</span> <span class="o">==</span> <span class="o">-</span><span class="mf">9999.</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;nan&#39;</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;air_temperature&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">degC</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;dew_point_temperature&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dpt</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">degC</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;air_pressure_at_sea_level&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;seaLevelPress&#39;</span><span class="p">])</span><span class="o">*</span> <span class="n">units</span><span class="p">(</span><span class="s1">&#39;mbar&#39;</span><span class="p">)</span>
-<span class="n">direction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;windDir&#39;</span><span class="p">])</span>
-<span class="n">direction</span><span class="p">[</span><span class="n">direction</span> <span class="o">==</span> <span class="o">-</span><span class="mf">9999.0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;nan&#39;</span>
-<span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">wind_components</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;windSpeed&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="n">units</span><span class="p">(</span><span class="s1">&#39;knots&#39;</span><span class="p">),</span>
-                           <span class="n">direction</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">degree</span><span class="p">)</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;eastward_wind&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;northward_wind&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;cloud_coverage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">get_cloud_cover</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="mi">8</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">obs</span><span class="p">[</span><span class="s1">&#39;skyCover&#39;</span><span class="p">]]</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;present_weather&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">obs</span><span class="p">[</span><span class="s1">&#39;presWeather&#39;</span><span class="p">]</span>
-<span class="n">proj</span> <span class="o">=</span> <span class="n">ccrs</span><span class="o">.</span><span class="n">LambertConformal</span><span class="p">(</span><span class="n">central_longitude</span><span class="o">=</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">],</span> <span class="n">central_latitude</span><span class="o">=</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">],</span>
-                             <span class="n">standard_parallels</span><span class="o">=</span><span class="p">[</span><span class="mi">35</span><span class="p">])</span>
-<span class="n">custom_layout</span> <span class="o">=</span> <span class="n">StationPlotLayout</span><span class="p">()</span>
-<span class="n">custom_layout</span><span class="o">.</span><span class="n">add_barb</span><span class="p">(</span><span class="s1">&#39;eastward_wind&#39;</span><span class="p">,</span> <span class="s1">&#39;northward_wind&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;knots&#39;</span><span class="p">)</span>
-<span class="n">custom_layout</span><span class="o">.</span><span class="n">add_value</span><span class="p">(</span><span class="s1">&#39;NW&#39;</span><span class="p">,</span> <span class="s1">&#39;air_temperature&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.0f&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;degF&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkred&#39;</span><span class="p">)</span>
-<span class="n">custom_layout</span><span class="o">.</span><span class="n">add_value</span><span class="p">(</span><span class="s1">&#39;SW&#39;</span><span class="p">,</span> <span class="s1">&#39;dew_point_temperature&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.0f&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;degF&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkgreen&#39;</span><span class="p">)</span>
-<span class="n">custom_layout</span><span class="o">.</span><span class="n">add_value</span><span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;precipitation&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;0.1f&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;inch&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot; | METAR Surface Obs | &quot;</span> <span class="o">+</span> <span class="n">edexServer</span><span class="p">)</span>
-<span class="n">stationplot</span> <span class="o">=</span> <span class="n">StationPlot</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">],</span> <span class="n">clip_on</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                          <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">custom_layout</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">stationplot</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+<img alt="../../_images/Regional_Surface_Obs_Plot_42_1.png" src="../../_images/Regional_Surface_Obs_Plot_42_1.png" />
+</section>
+<section id="plot-metar-data">
+<h4>Plot METAR Data<a class="headerlink" href="#plot-metar-data" title="Permalink to this heading"></a></h4>
+<p>On the same axes (<strong>ax</strong>) and figure (<strong>fig</strong>) plot the METAR data.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a title for the plot</span>
+<span class="n">title</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">metar_response</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot; | METAR Surface Obs | &quot;</span> <span class="o">+</span> <span class="n">edexServer</span>
+<span class="c1"># Plot the station information for METARs data</span>
+<span class="n">plot_data</span><span class="p">(</span><span class="n">metars_data</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="s1">&#39;obs&#39;</span><span class="p">)</span>
+<span class="c1"># Display the figure</span>
 <span class="n">fig</span>
 </pre></div>
 </div>
-<img alt="../../_images/Regional_Surface_Obs_Plot_8_0.png" src="../../_images/Regional_Surface_Obs_Plot_8_0.png" />
+<img alt="../../_images/Regional_Surface_Obs_Plot_44_0.png" src="../../_images/Regional_Surface_Obs_Plot_44_0.png" />
 </section>
-<hr class="docutils" />
 <section id="plot-synoptic-sfcobs">
-<h2>Plot Synoptic (sfcobs)<a class="headerlink" href="#plot-synoptic-sfcobs" title="Permalink to this heading"></a></h2>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># New sfcobs/SYNOP request</span>
-<span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="n">edexServer</span><span class="p">)</span>
-<span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">&quot;sfcobs&quot;</span><span class="p">,</span> <span class="n">envelope</span><span class="o">=</span><span class="n">envelope</span><span class="p">)</span>
-<span class="n">availableProducts</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableParameters</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-<span class="c1"># (sfcobs) uses stationId, while (obs) uses stationName,</span>
-<span class="c1"># the rest of these parameters are the same.</span>
-<span class="n">single_value_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;timeObs&quot;</span><span class="p">,</span> <span class="s2">&quot;stationId&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span>
-                       <span class="s2">&quot;temperature&quot;</span><span class="p">,</span> <span class="s2">&quot;dewpoint&quot;</span><span class="p">,</span> <span class="s2">&quot;windDir&quot;</span><span class="p">,</span>
-                       <span class="s2">&quot;windSpeed&quot;</span><span class="p">,</span> <span class="s2">&quot;seaLevelPress&quot;</span><span class="p">]</span>
-<span class="n">multi_value_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;presWeather&quot;</span><span class="p">,</span> <span class="s2">&quot;skyCover&quot;</span><span class="p">,</span> <span class="s2">&quot;skyLayerBase&quot;</span><span class="p">]</span>
-<span class="n">pres_weather</span><span class="p">,</span> <span class="n">sky_cov</span><span class="p">,</span> <span class="n">sky_layer_base</span> <span class="o">=</span> <span class="p">[],[],[]</span>
-<span class="n">params</span> <span class="o">=</span> <span class="n">single_value_params</span> <span class="o">+</span> <span class="n">multi_value_params</span>
-<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
-
-<span class="c1"># Time range</span>
-<span class="n">lastHourDateTime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span> <span class="o">=</span> <span class="mi">60</span><span class="p">)</span>
-<span class="n">start</span> <span class="o">=</span> <span class="n">lastHourDateTime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
-<span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
-
-<span class="n">beginRange</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span> <span class="n">start</span> <span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
-<span class="n">endRange</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span> <span class="n">end</span> <span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
-<span class="n">timerange</span> <span class="o">=</span> <span class="n">TimeRange</span><span class="p">(</span><span class="n">beginRange</span><span class="p">,</span> <span class="n">endRange</span><span class="p">)</span>
-
-<span class="c1"># Get response</span>
-<span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">timerange</span><span class="p">)</span>
-<span class="c1"># function getSynopticObs was added in python-awips 18.1.4</span>
-<span class="n">sfcobs</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getSynopticObs</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Found &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; records&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sfcobs</span><span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s2">&quot; temperature records&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Found</span> <span class="mi">260</span> <span class="n">records</span>
-<span class="n">Using</span> <span class="mi">78</span> <span class="n">temperature</span> <span class="n">records</span>
-</pre></div>
-</div>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;stid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sfcobs</span><span class="p">[</span><span class="s1">&#39;stationId&#39;</span><span class="p">])</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sfcobs</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">])</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sfcobs</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">])</span>
-
-<span class="c1"># Synop/sfcobs temps are stored in kelvin (degC for METAR/obs)</span>
-<span class="n">tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sfcobs</span><span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-<span class="n">dpt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sfcobs</span><span class="p">[</span><span class="s1">&#39;dewpoint&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-<span class="n">direction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sfcobs</span><span class="p">[</span><span class="s1">&#39;windDir&#39;</span><span class="p">])</span>
-<span class="c1"># Account for missing values</span>
-<span class="n">tmp</span><span class="p">[</span><span class="n">tmp</span> <span class="o">==</span> <span class="o">-</span><span class="mf">9999.0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;nan&#39;</span>
-<span class="n">dpt</span><span class="p">[</span><span class="n">dpt</span> <span class="o">==</span> <span class="o">-</span><span class="mf">9999.</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;nan&#39;</span>
-<span class="n">direction</span><span class="p">[</span><span class="n">direction</span> <span class="o">==</span> <span class="o">-</span><span class="mf">9999.0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;nan&#39;</span>
-
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;air_temperature&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">kelvin</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;dew_point_temperature&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dpt</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">kelvin</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;air_pressure_at_sea_level&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sfcobs</span><span class="p">[</span><span class="s1">&#39;seaLevelPress&#39;</span><span class="p">])</span><span class="o">*</span> <span class="n">units</span><span class="p">(</span><span class="s1">&#39;mbar&#39;</span><span class="p">)</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;eastward_wind&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;northward_wind&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wind_components</span><span class="p">(</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sfcobs</span><span class="p">[</span><span class="s1">&#39;windSpeed&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="n">units</span><span class="p">(</span><span class="s1">&#39;knots&#39;</span><span class="p">),</span><span class="n">direction</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">degree</span><span class="p">)</span>
-    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;present_weather&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sfcobs</span><span class="p">[</span><span class="s1">&#39;presWeather&#39;</span><span class="p">]</span>
-<span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-    <span class="k">pass</span>
-
-<span class="n">fig_synop</span><span class="p">,</span> <span class="n">ax_synop</span> <span class="o">=</span> <span class="n">make_map</span><span class="p">(</span><span class="n">bbox</span><span class="o">=</span><span class="n">bbox</span><span class="p">)</span>
+<h4>Plot Synoptic (sfcobs)<a class="headerlink" href="#plot-synoptic-sfcobs" title="Permalink to this heading"></a></h4>
+<p>On a new axes and figure (<strong>ax_syn</strong>, <strong>fig_syn</strong>) plot the map and
+synoptic data.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a new figure and axes for the synoptic data</span>
+<span class="n">fig_syn</span><span class="p">,</span> <span class="n">ax_syn</span> <span class="o">=</span> <span class="n">make_map</span><span class="p">(</span><span class="n">bbox</span><span class="o">=</span><span class="n">bbox</span><span class="p">)</span>
+<span class="c1"># Create the states feature from the polygons</span>
 <span class="n">shape_feature</span> <span class="o">=</span> <span class="n">ShapelyFeature</span><span class="p">(</span><span class="n">states</span><span class="p">,</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span>
                     <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;#000000&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ax_synop</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">shape_feature</span><span class="p">)</span>
-
-<span class="n">custom_layout</span> <span class="o">=</span> <span class="n">StationPlotLayout</span><span class="p">()</span>
-<span class="n">custom_layout</span><span class="o">.</span><span class="n">add_barb</span><span class="p">(</span><span class="s1">&#39;eastward_wind&#39;</span><span class="p">,</span> <span class="s1">&#39;northward_wind&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;knots&#39;</span><span class="p">)</span>
-<span class="n">custom_layout</span><span class="o">.</span><span class="n">add_value</span><span class="p">(</span><span class="s1">&#39;NW&#39;</span><span class="p">,</span> <span class="s1">&#39;air_temperature&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.0f&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;degF&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkred&#39;</span><span class="p">)</span>
-<span class="n">custom_layout</span><span class="o">.</span><span class="n">add_value</span><span class="p">(</span><span class="s1">&#39;SW&#39;</span><span class="p">,</span> <span class="s1">&#39;dew_point_temperature&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.0f&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;degF&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkgreen&#39;</span><span class="p">)</span>
-<span class="n">custom_layout</span><span class="o">.</span><span class="n">add_value</span><span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;precipitation&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;0.1f&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;inch&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
-<span class="n">ax_synop</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot; | SYNOP Surface Obs | &quot;</span> <span class="o">+</span> <span class="n">edexServer</span><span class="p">)</span>
-<span class="n">stationplot</span> <span class="o">=</span> <span class="n">StationPlot</span><span class="p">(</span><span class="n">ax_synop</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">],</span> <span class="n">clip_on</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                          <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">custom_layout</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">stationplot</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+<span class="n">ax_syn</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">shape_feature</span><span class="p">)</span>
+<span class="c1"># Create a title for the figure</span>
+<span class="n">title</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">syn_response</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot; | SYNOP Surface Obs | &quot;</span> <span class="o">+</span> <span class="n">edexServer</span>
+<span class="c1"># Draw the synoptic data</span>
+<span class="n">plot_data</span><span class="p">(</span><span class="n">synoptic_data</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">ax_syn</span><span class="p">,</span> <span class="s1">&#39;sfcobs&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../../_images/Regional_Surface_Obs_Plot_11_0.png" src="../../_images/Regional_Surface_Obs_Plot_11_0.png" />
+<img alt="../../_images/Regional_Surface_Obs_Plot_46_0.png" src="../../_images/Regional_Surface_Obs_Plot_46_0.png" />
 </section>
-<hr class="docutils" />
-<section id="plot-both-metar-and-synop">
-<h2>Plot both METAR and SYNOP<a class="headerlink" href="#plot-both-metar-and-synop" title="Permalink to this heading"></a></h2>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">custom_layout</span> <span class="o">=</span> <span class="n">StationPlotLayout</span><span class="p">()</span>
-<span class="n">custom_layout</span><span class="o">.</span><span class="n">add_barb</span><span class="p">(</span><span class="s1">&#39;eastward_wind&#39;</span><span class="p">,</span> <span class="s1">&#39;northward_wind&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;knots&#39;</span><span class="p">)</span>
-<span class="n">custom_layout</span><span class="o">.</span><span class="n">add_value</span><span class="p">(</span><span class="s1">&#39;NW&#39;</span><span class="p">,</span> <span class="s1">&#39;air_temperature&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.0f&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;degF&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkred&#39;</span><span class="p">)</span>
-<span class="n">custom_layout</span><span class="o">.</span><span class="n">add_value</span><span class="p">(</span><span class="s1">&#39;SW&#39;</span><span class="p">,</span> <span class="s1">&#39;dew_point_temperature&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.0f&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;degF&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkgreen&#39;</span><span class="p">)</span>
-<span class="n">custom_layout</span><span class="o">.</span><span class="n">add_value</span><span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;precipitation&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;0.1f&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;inch&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot; | METAR/SYNOP Surface Obs | &quot;</span> <span class="o">+</span> <span class="n">edexServer</span><span class="p">)</span>
-<span class="n">stationplot</span> <span class="o">=</span> <span class="n">StationPlot</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">],</span> <span class="n">clip_on</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                          <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">custom_layout</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">stationplot</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+<section id="plot-both-metar-and-synoptic-data">
+<h4>Plot both METAR and Synoptic Data<a class="headerlink" href="#plot-both-metar-and-synoptic-data" title="Permalink to this heading"></a></h4>
+<p>Add the synoptic data to our first axes and figure (<strong>ax</strong>, <strong>fig</strong>)
+that already contains our map and METARs data.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a title for both the METAR and Synopotic data</span>
+<span class="n">title</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">syn_response</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot; | METAR &amp; Synoptic Surface Obs | &quot;</span> <span class="o">+</span> <span class="n">edexServer</span>
+<span class="c1"># Draw the synoptic on the first axes that already has the metar data</span>
+<span class="n">plot_data</span><span class="p">(</span><span class="n">synoptic_data</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="s1">&#39;sfcobs&#39;</span><span class="p">)</span>
+<span class="c1"># Display the figure</span>
 <span class="n">fig</span>
 </pre></div>
 </div>
-<img alt="../../_images/Regional_Surface_Obs_Plot_13_0.png" src="../../_images/Regional_Surface_Obs_Plot_13_0.png" />
+<img alt="../../_images/Regional_Surface_Obs_Plot_48_0.png" src="../../_images/Regional_Surface_Obs_Plot_48_0.png" />
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html.html">Top</a></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="see-also">
+<h3>See Also<a class="headerlink" href="#see-also" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.aviationweather.gov/metar/help?page=plot">Aviation Weather Center Static METAR Plots
+Information</a></p></li>
+</ul>
+<section id="related-notebooks">
+<h4>Related Notebooks<a class="headerlink" href="#related-notebooks" title="Permalink to this heading"></a></h4>
+<ul class="simple">
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html">Metar Station Plot with
+MetPy</a></p></li>
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html">Map Resources and
+Topography</a></p></li>
+</ul>
+</section>
+<section id="additional-documentation">
+<h4>Additional Documentation<a class="headerlink" href="#additional-documentation" title="Permalink to this heading"></a></h4>
+<p><strong>python-awips:</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost">DataAccessLayer.changeEDEXHost()</a></p></li>
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.newDataRequest">DataAccessLayer.newDataRequest()</a></p></li>
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/api/IDataRequest.html">IDataRequest</a></p></li>
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/api/PyGeometryData.html">DataAccessLayer.getGeometryData</a></p></li>
+</ul>
+<p><strong>datetime:</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime-objects">datetime.datetime</a></p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html?#datetime.datetime.utcnow">datetime.utcnow()</a></p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#timedelta-objects">datetime.timedelta</a></p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior">datetime.strftime() and
+datetime.strptime()</a></p></li>
+</ul>
+<p><strong>numpy:</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.array.html">np.array</a></p></li>
+</ul>
+<p><strong>cartopy:</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://scitools.org.uk/cartopy/docs/v0.14/crs/projections.html?#cartopy-projection-list">cartopy projection
+list</a></p></li>
+</ul>
+<p><strong>matplotlib:</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html">matplotlib.pyplot()</a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html">matplotlib.pyplot.figure()</a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/api/image_api.html?highlight=set_extent#matplotlib.image.AxesImage.set_extent">ax.set_extent</a></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_title.html">ax.set_title</a></p></li>
+</ul>
+<p><strong>metpy:</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.wind_components.html">metpy.calc.wind_components</a></p></li>
+<li><p><a class="reference external" href="https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.StationPlot.html">metpy.plots.StationPlot()</a></p></li>
+<li><p><a class="reference external" href="https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.StationPlotLayout.html">metpy.plots.StationPlotLayout()</a></p></li>
+<li><p><a class="reference external" href="https://unidata.github.io/MetPy/latest/api/generated/metpy.units.html">metpy.units</a></p></li>
+</ul>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html.html">Top</a></p>
+<hr class="docutils" />
+</section>
+</section>
 </section>
 </section>
 
