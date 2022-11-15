@@ -381,7 +381,7 @@ the maps database called <strong>state</strong>. We can take the results from th
 filter and get a geographic <strong>envelope</strong> based on the Florida polygon
 that was returned from the previous cell.</p>
 <blockquote>
-<div><p>Warning: Without such a filter you may be requesting many tens of
+<div><p><strong>Warning</strong>: Without such a filter you may be requesting many tens of
 thousands of records.</p>
 </div></blockquote>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Append each geometry to a numpy array</span>
@@ -426,9 +426,9 @@ thousands of records.</p>
 requesting an unreasonable amount of data. By defining one filter now,
 we can use it in both of their data requests to EDEX.</p>
 <blockquote>
-<div><p>Note: Here we will use the most recent hour as our default filter.
-Try adjusting the timerange and see the difference in the final
-plots.</p>
+<div><p><strong>Note</strong>: Here we will use the most recent hour as our default
+filter. Try adjusting the timerange and see the difference in the
+final plots.</p>
 </div></blockquote>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filter for the last hour</span>
 <span class="n">lastHourDateTime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span> <span class="o">=</span> <span class="mi">60</span><span class="p">)</span>
