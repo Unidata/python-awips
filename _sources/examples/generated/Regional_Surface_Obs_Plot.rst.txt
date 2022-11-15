@@ -94,7 +94,7 @@ subsequent imports are for data manipulation and visualization.
     from metpy.plots import simple_layout, StationPlot, StationPlotLayout, sky_cover
     import warnings
 
-`Top <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html.html>`__
+`Top <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html>`__
 
 --------------
 
@@ -117,7 +117,7 @@ Returns the cloud coverage values as integer codes (0 through 8).
         else:
             return 0
 
-Top
+`Top <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html>`__
 
 --------------
 
@@ -142,7 +142,7 @@ gridlines are added for context.
         gl.yformatter = LATITUDE_FORMATTER
         return fig, ax
 
-`Top <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html.html>`__
+`Top <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html>`__
 
 --------------
 
@@ -206,7 +206,7 @@ plotting function later:
         
         return data
 
-`Top <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html.html>`__
+`Top <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html>`__
 
 --------------
 
@@ -238,7 +238,7 @@ temperature - Precipitation - Cloud coverage (for METARS)
                                   transform=ccrs.PlateCarree(), fontsize=10)
         custom_layout.plot(stationplot, data)
 
-`Top <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html.html>`__
+`Top <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html>`__
 
 --------------
 
@@ -460,7 +460,7 @@ However, in order to access synoptic observations we will use the
     DefaultDataRequest(datatype=sfcobs, identifiers={}, parameters=['timeObs', 'longitude', 'latitude', 'temperature', 'dewpoint', 'windDir', 'windSpeed', 'seaLevelPress', 'presWeather', 'skyLayerBase', 'stationId'], levels=[], locationNames=[], envelope=<dynamicserialize.dstypes.com.vividsolutions.jts.geom.Envelope.Envelope object at 0x105048bb0>)
 
 
-`Top <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html.html>`__
+`Top <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html>`__
 
 --------------
 
@@ -518,7 +518,7 @@ Extract Plotting Data
     63 Synoptic stations
 
 
-`Top <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html.html>`__
+`Top <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html>`__
 
 --------------
 
@@ -623,7 +623,7 @@ that already contains our map and METARs data.
 
 
 
-`Top <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html.html>`__
+`Top <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html>`__
 
 --------------
 
@@ -682,6 +682,6 @@ Additional Documentation
 -  `metpy.plots.StationPlotLayout() <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.StationPlotLayout.html>`__
 -  `metpy.units <https://unidata.github.io/MetPy/latest/api/generated/metpy.units.html>`__
 
-`Top <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html.html>`__
+`Top <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html>`__
 
 --------------
