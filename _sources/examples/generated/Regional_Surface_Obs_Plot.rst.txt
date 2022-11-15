@@ -54,7 +54,7 @@ Table of Contents
 |     `7.2 Extract Plotting
   Data <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#extract-plotting-data>`__\ 
 | `8 Plot the
-  Data <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#get-the-data>`__\ 
+  Data <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#plot-the-data>`__\ 
 |     `8.1 Draw the
   Region <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#draw-the-region>`__\ 
 |     `8.2 Plot METAR
@@ -62,7 +62,7 @@ Table of Contents
 |     `8.3 Plot Synoptic
   Data <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#plot-synoptic-data>`__\ 
 |     `8.4 Plot both METAR and Synoptic
-  Data <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#plot-both-metar-and-synopitc-data>`__\ 
+  Data <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#plot-both-metar-and-synoptic-data>`__\ 
 | `9 See
   Also <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#see-also>`__\ 
 |     `9.1 Related
@@ -577,8 +577,8 @@ On the same axes (**ax**) and figure (**fig**) plot the METAR data.
 
 
 
-Plot Synoptic (sfcobs)
-~~~~~~~~~~~~~~~~~~~~~~
+Plot Synoptic Data
+~~~~~~~~~~~~~~~~~~
 
 On a new axes and figure (**ax_syn**, **fig_syn**) plot the map and
 synoptic data.
