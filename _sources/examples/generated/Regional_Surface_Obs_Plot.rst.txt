@@ -281,7 +281,6 @@ and Synoptic data requests.
     # Define the maps request
     maps_request = DataAccessLayer.newDataRequest('maps')
     # filter for multiple states
-    maps_request = DataAccessLayer.newDataRequest('maps')
     maps_request.addIdentifier('table', 'mapdata.states')
     maps_request.addIdentifier('geomField', 'the_geom')
     maps_request.addIdentifier('inLocation', 'true')
