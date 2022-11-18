@@ -486,11 +486,13 @@ to download and render for large (CONUS) maps.
 
 -  This notebook requires: **python-awips, numpy, matplotplib, cartopy,
    shapely**
+
 -  Use datatype **maps** and **addIdentifier(‘table’, <postgres maps
    schema>)** to define the map table:
    DataAccessLayer.changeEDEXHost(“edex-cloud.unidata.ucar.edu”) request
    = DataAccessLayer.newDataRequest(‘maps’)
    request.addIdentifier(‘table’, ‘mapdata.county’)
+
 -  Use **request.setLocationNames()** and **request.addIdentifier()** to
    spatially filter a map resource. In the example below, WFO ID **BOU**
    (Boulder, Colorado) is used to query counties within the BOU county
