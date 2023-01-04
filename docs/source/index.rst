@@ -54,10 +54,6 @@ Below are instructions on how to install the source code of python-awips, with a
     python setup.py install --force
     jupyter notebook examples
     
-**If you are experiencing issues, and have previously setup the conda environment, you may need to run:**
-::
-    conda update --all
-    
     
 Questions -- Contact Us!
 ------------------------
