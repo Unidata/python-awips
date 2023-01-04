@@ -118,7 +118,7 @@
 
 
 <div class="viewcode-block" id="getRadarProductIDs"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getRadarProductIDs">[docs]</a><span class="k">def</span> <span class="nf">getRadarProductIDs</span><span class="p">(</span><span class="n">availableParms</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get only the numeric idetifiers for NEXRAD3 products.</span>
 
 <span class="sd">    Args:</span>
@@ -139,7 +139,7 @@
 
 
 <div class="viewcode-block" id="getRadarProductNames"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getRadarProductNames">[docs]</a><span class="k">def</span> <span class="nf">getRadarProductNames</span><span class="p">(</span><span class="n">availableParms</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">     Get only the named idetifiers for NEXRAD3 products.</span>
 
 <span class="sd">    Args:</span>
@@ -157,7 +157,7 @@
 
 
 <div class="viewcode-block" id="getMetarObs"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getMetarObs">[docs]</a><span class="k">def</span> <span class="nf">getMetarObs</span><span class="p">(</span><span class="n">response</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Processes a DataAccessLayer &quot;obs&quot; response into a dictionary,</span>
 <span class="sd">    with special consideration for multi-value parameters</span>
 <span class="sd">    &quot;presWeather&quot;, &quot;skyCover&quot;, and &quot;skyLayerBase&quot;.</span>
@@ -209,7 +209,7 @@
 
 
 <div class="viewcode-block" id="getSynopticObs"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getSynopticObs">[docs]</a><span class="k">def</span> <span class="nf">getSynopticObs</span><span class="p">(</span><span class="n">response</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Processes a DataAccessLayer &quot;sfcobs&quot; response into a dictionary</span>
 <span class="sd">    of available parameters.</span>
 
@@ -240,7 +240,7 @@
 
 
 <div class="viewcode-block" id="getForecastRun"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getForecastRun">[docs]</a><span class="k">def</span> <span class="nf">getForecastRun</span><span class="p">(</span><span class="n">cycle</span><span class="p">,</span> <span class="n">times</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get the latest forecast run (list of objects) from all</span>
 <span class="sd">    all cycles and times returned from DataAccessLayer &quot;grid&quot;</span>
 <span class="sd">    response.</span>
@@ -260,7 +260,7 @@
 
 
 <div class="viewcode-block" id="getAvailableTimes"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableTimes">[docs]</a><span class="k">def</span> <span class="nf">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get the times of available data to the request.</span>
 
 <span class="sd">    Args:</span>
@@ -275,7 +275,7 @@
 
 
 <div class="viewcode-block" id="getGridData"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getGridData">[docs]</a><span class="k">def</span> <span class="nf">getGridData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="p">[]):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Gets the grid data that matches the request at the specified times.  Each</span>
 <span class="sd">    combination of parameter, level, and dataTime will be returned as a</span>
 <span class="sd">    separate IGridData.</span>
@@ -292,7 +292,7 @@
 
 
 <div class="viewcode-block" id="getGeometryData"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getGeometryData">[docs]</a><span class="k">def</span> <span class="nf">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="p">[]):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Gets the geometry data that matches the request at the specified times.</span>
 <span class="sd">    Each combination of geometry, level, and dataTime will be returned as a</span>
 <span class="sd">    separate IGeometryData.</span>
@@ -309,7 +309,7 @@
 
 
 <div class="viewcode-block" id="getAvailableLocationNames"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableLocationNames">[docs]</a><span class="k">def</span> <span class="nf">getAvailableLocationNames</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Gets the available location names that match the request without actually</span>
 <span class="sd">    requesting the data.</span>
 
@@ -323,7 +323,7 @@
 
 
 <div class="viewcode-block" id="getAvailableParameters"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableParameters">[docs]</a><span class="k">def</span> <span class="nf">getAvailableParameters</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Gets the available parameters names that match the request without actually</span>
 <span class="sd">    requesting the data.</span>
 
@@ -337,7 +337,7 @@
 
 
 <div class="viewcode-block" id="getAvailableLevels"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableLevels">[docs]</a><span class="k">def</span> <span class="nf">getAvailableLevels</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Gets the available levels that match the request without actually</span>
 <span class="sd">    requesting the data.</span>
 
@@ -351,7 +351,7 @@
 
 
 <div class="viewcode-block" id="getRequiredIdentifiers"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getRequiredIdentifiers">[docs]</a><span class="k">def</span> <span class="nf">getRequiredIdentifiers</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Gets the required identifiers for this request.  These identifiers</span>
 <span class="sd">    must be set on a request for the request of this datatype to succeed.</span>
 
@@ -368,7 +368,7 @@
 
 
 <div class="viewcode-block" id="getOptionalIdentifiers"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getOptionalIdentifiers">[docs]</a><span class="k">def</span> <span class="nf">getOptionalIdentifiers</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Gets the optional identifiers for this request.</span>
 
 <span class="sd">    Args:</span>
@@ -384,7 +384,7 @@
 
 
 <div class="viewcode-block" id="getIdentifierValues"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getIdentifierValues">[docs]</a><span class="k">def</span> <span class="nf">getIdentifierValues</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">identifierKey</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Gets the allowed values for a particular identifier on this datatype.</span>
 
 <span class="sd">    Args:</span>
@@ -398,7 +398,7 @@
 
 
 <div class="viewcode-block" id="newDataRequest"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.newDataRequest">[docs]</a><span class="k">def</span> <span class="nf">newDataRequest</span><span class="p">(</span><span class="n">datatype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates a new instance of IDataRequest suitable for the runtime environment.</span>
 <span class="sd">    All args are optional and exist solely for convenience.</span>
 
@@ -417,7 +417,7 @@
 
 
 <div class="viewcode-block" id="getSupportedDatatypes"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getSupportedDatatypes">[docs]</a><span class="k">def</span> <span class="nf">getSupportedDatatypes</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Gets the datatypes that are supported by the framework</span>
 
 <span class="sd">    Returns:</span>
@@ -427,7 +427,7 @@
 
 
 <div class="viewcode-block" id="changeEDEXHost"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost">[docs]</a><span class="k">def</span> <span class="nf">changeEDEXHost</span><span class="p">(</span><span class="n">newHostName</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Changes the EDEX host the Data Access Framework is communicating with. Only</span>
 <span class="sd">    works if using the native Python client implementation, otherwise, this</span>
 <span class="sd">    method will throw a TypeError.</span>
@@ -445,7 +445,7 @@
 
 
 <div class="viewcode-block" id="setLazyLoadGridLatLon"><a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.setLazyLoadGridLatLon">[docs]</a><span class="k">def</span> <span class="nf">setLazyLoadGridLatLon</span><span class="p">(</span><span class="n">lazyLoadGridLatLon</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Provide a hint to the Data Access Framework indicating whether to load the</span>
 <span class="sd">    lat/lon data for a grid immediately or wait until it is needed. This is</span>
 <span class="sd">    provided as a performance tuning hint and should not affect the way the</span>

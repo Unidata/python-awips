@@ -108,13 +108,13 @@
 
 
 <div class="viewcode-block" id="IDataRequest"><a class="viewcode-back" href="../../api/IDataRequest.html#awips.dataaccess.IDataRequest">[docs]</a><span class="k">class</span> <span class="nc">IDataRequest</span><span class="p">(</span><span class="n">with_metaclass</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">,</span> <span class="nb">object</span><span class="p">)):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An IDataRequest to be submitted to the DataAccessLayer to retrieve data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="IDataRequest.setDatatype"><a class="viewcode-back" href="../../api/IDataRequest.html#awips.dataaccess.IDataRequest.setDatatype">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">setDatatype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">datatype</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the datatype of the request.</span>
 
 <span class="sd">        Args:</span>
@@ -124,7 +124,7 @@
 
 <div class="viewcode-block" id="IDataRequest.addIdentifier"><a class="viewcode-back" href="../../api/IDataRequest.html#awips.dataaccess.IDataRequest.addIdentifier">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">addIdentifier</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds an identifier to the request.  Identifiers are specific to the</span>
 <span class="sd">        datatype being requested.</span>
 
@@ -136,7 +136,7 @@
 
 <div class="viewcode-block" id="IDataRequest.setParameters"><a class="viewcode-back" href="../../api/IDataRequest.html#awips.dataaccess.IDataRequest.setParameters">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">setParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the parameters of data to request.</span>
 
 <span class="sd">        Args:</span>
@@ -146,7 +146,7 @@
 
 <div class="viewcode-block" id="IDataRequest.setLevels"><a class="viewcode-back" href="../../api/IDataRequest.html#awips.dataaccess.IDataRequest.setLevels">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">setLevels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">levels</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the levels of data to request.  Not all datatypes support levels.</span>
 
 <span class="sd">        Args:</span>
@@ -156,7 +156,7 @@
 
 <div class="viewcode-block" id="IDataRequest.setEnvelope"><a class="viewcode-back" href="../../api/IDataRequest.html#awips.dataaccess.IDataRequest.setEnvelope">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">setEnvelope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the envelope of the request.  If supported by the datatype factory,</span>
 <span class="sd">        the data returned for the request will be constrained to only the data</span>
 <span class="sd">        within the envelope.</span>
@@ -168,7 +168,7 @@
 
 <div class="viewcode-block" id="IDataRequest.setLocationNames"><a class="viewcode-back" href="../../api/IDataRequest.html#awips.dataaccess.IDataRequest.setLocationNames">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">setLocationNames</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locationNames</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the location names of the request.</span>
 
 <span class="sd">        Args:</span>
@@ -178,7 +178,7 @@
 
 <div class="viewcode-block" id="IDataRequest.getDatatype"><a class="viewcode-back" href="../../api/IDataRequest.html#awips.dataaccess.IDataRequest.getDatatype">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">getDatatype</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the datatype of the request</span>
 
 <span class="sd">        Returns:</span>
@@ -188,7 +188,7 @@
 
 <div class="viewcode-block" id="IDataRequest.getIdentifiers"><a class="viewcode-back" href="../../api/IDataRequest.html#awips.dataaccess.IDataRequest.getIdentifiers">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">getIdentifiers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the identifiers on the request</span>
 
 <span class="sd">        Returns:</span>
@@ -198,7 +198,7 @@
 
 <div class="viewcode-block" id="IDataRequest.getLevels"><a class="viewcode-back" href="../../api/IDataRequest.html#awips.dataaccess.IDataRequest.getLevels">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">getLevels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the levels on the request</span>
 
 <span class="sd">        Returns:</span>
@@ -208,7 +208,7 @@
 
 <div class="viewcode-block" id="IDataRequest.getLocationNames"><a class="viewcode-back" href="../../api/IDataRequest.html#awips.dataaccess.IDataRequest.getLocationNames">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">getLocationNames</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the location names on the request</span>
 
 <span class="sd">        Returns:</span>
@@ -218,7 +218,7 @@
 
 <div class="viewcode-block" id="IDataRequest.getEnvelope"><a class="viewcode-back" href="../../api/IDataRequest.html#awips.dataaccess.IDataRequest.getEnvelope">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">getEnvelope</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the envelope on the request</span>
 
 <span class="sd">        Returns:</span>
@@ -228,13 +228,13 @@
 
 
 <span class="k">class</span> <span class="nc">IData</span><span class="p">(</span><span class="n">with_metaclass</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">,</span> <span class="nb">object</span><span class="p">)):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An IData representing data returned from the DataAccessLayer.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">getAttribute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets an attribute of the data.</span>
 
 <span class="sd">        Args:</span>
@@ -247,7 +247,7 @@
 
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">getAttributes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the valid attributes for the data.</span>
 
 <span class="sd">        Returns:</span>
@@ -257,7 +257,7 @@
 
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">getDataTime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the data time of the data.</span>
 
 <span class="sd">        Returns:</span>
@@ -267,7 +267,7 @@
 
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">getLevel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the level of the data.</span>
 
 <span class="sd">        Returns:</span>
@@ -277,7 +277,7 @@
 
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">getLocationName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the location name of the data.</span>
 
 <span class="sd">        Returns:</span>
@@ -288,13 +288,13 @@
 
 
 <span class="k">class</span> <span class="nc">IGridData</span><span class="p">(</span><span class="n">IData</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An IData representing grid data that is returned by the DataAccessLayer.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">getParameter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the parameter of the data.</span>
 
 <span class="sd">        Returns:</span>
@@ -304,7 +304,7 @@
 
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">getUnit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the unit of the data.</span>
 
 <span class="sd">        Returns:</span>
@@ -314,7 +314,7 @@
 
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">getRawData</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the grid data as a numpy array.</span>
 
 <span class="sd">        Returns:</span>
@@ -324,7 +324,7 @@
 
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">getLatLonCoords</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the lat/lon coordinates of the grid data.</span>
 
 <span class="sd">        Returns:</span>
@@ -335,13 +335,13 @@
 
 
 <span class="k">class</span> <span class="nc">IGeometryData</span><span class="p">(</span><span class="n">IData</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An IData representing geometry data that is returned by the DataAccessLayer.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">getGeometry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the geometry of the data.</span>
 
 <span class="sd">        Returns:</span>
@@ -351,7 +351,7 @@
 
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">getParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Gets the parameters of the data.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets the parameters of the data.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">                a list of strings of the parameter names</span>
@@ -360,7 +360,7 @@
 
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">getString</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the string value of the specified param.</span>
 
 <span class="sd">        Args:</span>
@@ -373,7 +373,7 @@
 
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">getNumber</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the number value of the specified param.</span>
 
 <span class="sd">        Args:</span>
@@ -386,7 +386,7 @@
 
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">getUnit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the unit of the specified param.</span>
 
 <span class="sd">        Args:</span>
@@ -399,7 +399,7 @@
 
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">getType</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the type of the param.</span>
 
 <span class="sd">        Args:</span>
@@ -413,14 +413,14 @@
 
 
 <span class="k">class</span> <span class="nc">INotificationSubscriber</span><span class="p">(</span><span class="n">with_metaclass</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">,</span> <span class="nb">object</span><span class="p">)):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An INotificationSubscriber representing a notification filter returned from</span>
 <span class="sd">    the DataNotificationLayer.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">subscribe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Subscribes to the requested data. Method will not return until close is</span>
 <span class="sd">        called in a separate thread.</span>
 
@@ -432,12 +432,12 @@
 
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Closes the notification subscriber&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Closes the notification subscriber&quot;&quot;&quot;</span>
         <span class="k">pass</span>
 
 
 <span class="k">class</span> <span class="nc">INotificationFilter</span><span class="p">(</span><span class="n">with_metaclass</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">,</span> <span class="nb">object</span><span class="p">)):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents data required to filter a set of URIs and</span>
 <span class="sd">    return a corresponding list of IDataRequest to retrieve data for.</span>
 <span class="sd">    &quot;&quot;&quot;</span>

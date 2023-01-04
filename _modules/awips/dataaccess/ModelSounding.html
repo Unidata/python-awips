@@ -94,7 +94,7 @@
 
 
 <div class="viewcode-block" id="getSounding"><a class="viewcode-back" href="../../../api/ModelSounding.html#awips.dataaccess.ModelSounding.getSounding">[docs]</a><span class="k">def</span> <span class="nf">getSounding</span><span class="p">(</span><span class="n">modelName</span><span class="p">,</span> <span class="n">weatherElements</span><span class="p">,</span> <span class="n">levels</span><span class="p">,</span> <span class="n">samplePoint</span><span class="p">,</span> <span class="n">timeRange</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Performs a series of Data Access Framework requests to retrieve a sounding object</span>
 <span class="sd">    based on the specified request parameters.</span>
 
@@ -127,7 +127,7 @@
 
 
 <div class="viewcode-block" id="changeEDEXHost"><a class="viewcode-back" href="../../../api/ModelSounding.html#awips.dataaccess.ModelSounding.changeEDEXHost">[docs]</a><span class="k">def</span> <span class="nf">changeEDEXHost</span><span class="p">(</span><span class="n">host</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Changes the EDEX host the Data Access Framework is communicating with.</span>
 
 <span class="sd">    Args:</span>
@@ -163,7 +163,7 @@
 
 
 <span class="k">class</span> <span class="nc">_SoundingCube</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The top-level sounding object returned when calling ModelSounding.getSounding.</span>
 
 <span class="sd">    This object acts as a 3-tiered dict which is keyed by time then level</span>
@@ -196,7 +196,7 @@
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">times</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the valid times for this sounding.</span>
 
 <span class="sd">        Returns:</span>
@@ -206,7 +206,7 @@
 
 
 <span class="k">class</span> <span class="nc">_SoundingTimeLayer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The second-level sounding object returned when calling ModelSounding.getSounding.</span>
 
 <span class="sd">    This object acts as a 2-tiered dict which is keyed by level then parameter</span>
@@ -235,7 +235,7 @@
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the DataTime for this sounding cube layer.</span>
 
 <span class="sd">        Returns:</span>
@@ -244,7 +244,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataTime</span>
 
     <span class="k">def</span> <span class="nf">levels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the valid levels for this sounding.</span>
 
 <span class="sd">        Returns:</span>
@@ -257,7 +257,7 @@
 
 
 <span class="k">class</span> <span class="nc">_SoundingTimeAndLevelLayer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The bottom-level sounding object returned when calling ModelSounding.getSounding.</span>
 
 <span class="sd">    This object acts as a dict which is keyed by parameter name. Calling</span>
@@ -281,7 +281,7 @@
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">level</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the level for this sounding cube layer.</span>
 
 <span class="sd">        Returns:</span>
@@ -290,7 +290,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_level</span>
 
     <span class="k">def</span> <span class="nf">parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the valid parameters for this sounding.</span>
 
 <span class="sd">        Returns:</span>
@@ -299,7 +299,7 @@
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 
     <span class="k">def</span> <span class="nf">time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the DataTime for this sounding cube layer.</span>
 
 <span class="sd">        Returns:</span>
