@@ -51,7 +51,6 @@ Below are instructions on how to install the source code of python-awips, with a
     cd python-awips
     conda env create -f environment.yml
     conda activate python3-awips
-    python setup.py install --force
     jupyter notebook examples
     
     
