@@ -24,3 +24,5 @@
    - six
    - pip
    - jupyter_contrib_nbextensions
+   - python-awips
+   
