@@ -11,7 +11,6 @@
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/sphinx_highlight.js"></script>
@@ -153,7 +152,7 @@ are returned as Kelvin and wind components as m/s.</p></li>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using &quot;</span> <span class="o">+</span> <span class="n">model</span> <span class="o">+</span> <span class="s2">&quot; forecast time &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">fcstRun</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Using</span> <span class="n">NAM40</span> <span class="n">forecast</span> <span class="n">time</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Using</span> <span class="n">NAM40</span> <span class="n">forecast</span> <span class="n">time</span> <span class="mi">2023</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">17</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
 </pre></div>
 </div>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">u</span><span class="p">,</span><span class="n">v</span> <span class="o">=</span> <span class="p">[],[],[],[],[]</span>
@@ -174,7 +173,7 @@ are returned as Kelvin and wind components as m/s.</p></li>
                     <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">use_parms</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">use_level</span><span class="p">))</span> <span class="o">+</span><span class="s2">&quot;]&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Found</span> <span class="n">surface</span> <span class="n">record</span> <span class="n">at</span> <span class="mf">836.4</span><span class="n">MB</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Found</span> <span class="n">surface</span> <span class="n">record</span> <span class="n">at</span> <span class="mf">830.1</span><span class="n">MB</span>
 </pre></div>
 </div>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get isobaric levels with our requested parameters</span>
@@ -229,7 +228,7 @@ are returned as Kelvin and wind components as m/s.</p></li>
       <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%.1f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">max</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; and &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%.1f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">min</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;MB&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Using</span> <span class="mi">32</span> <span class="n">levels</span> <span class="n">between</span> <span class="mf">836.4</span> <span class="ow">and</span> <span class="mf">50.0</span><span class="n">MB</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Using</span> <span class="mi">32</span> <span class="n">levels</span> <span class="n">between</span> <span class="mf">830.1</span> <span class="ow">and</span> <span class="mf">50.0</span><span class="n">MB</span>
 </pre></div>
 </div>
 <hr class="docutils" />
@@ -268,7 +267,7 @@ are returned as Kelvin and wind components as m/s.</p></li>
 </section>
 <section id="model-sounding-comparison">
 <h2>Model Sounding Comparison<a class="headerlink" href="#model-sounding-comparison" title="Permalink to this heading"></a></h2>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">models</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;CMC&quot;</span><span class="p">,</span> <span class="s2">&quot;GFS20&quot;</span><span class="p">,</span> <span class="s2">&quot;NAM40&quot;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">models</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;RAP13&quot;</span><span class="p">,</span> <span class="s2">&quot;GFS20&quot;</span><span class="p">,</span> <span class="s2">&quot;NAM40&quot;</span><span class="p">]</span>
 <span class="n">parms</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">,</span><span class="s1">&#39;DpT&#39;</span><span class="p">,</span><span class="s1">&#39;uW&#39;</span><span class="p">,</span><span class="s1">&#39;vW&#39;</span><span class="p">]</span>
 
 <span class="k">for</span> <span class="n">modelName</span> <span class="ow">in</span> <span class="n">models</span><span class="p">:</span>
@@ -368,21 +367,21 @@ are returned as Kelvin and wind components as m/s.</p></li>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Using</span> <span class="n">CMC</span> <span class="n">forecast</span> <span class="n">time</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">15</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
-<span class="n">Found</span> <span class="n">surface</span> <span class="n">record</span> <span class="n">at</span> <span class="mf">848.6</span><span class="n">MB</span>
-<span class="n">Using</span> <span class="mi">19</span> <span class="n">levels</span> <span class="n">between</span> <span class="mf">848.6</span> <span class="ow">and</span> <span class="mf">50.0</span><span class="n">MB</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Using</span> <span class="n">RAP13</span> <span class="n">forecast</span> <span class="n">time</span> <span class="mi">2023</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">17</span> <span class="mi">20</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+<span class="n">Found</span> <span class="n">surface</span> <span class="n">record</span> <span class="n">at</span> <span class="mf">833.8</span><span class="n">MB</span>
+<span class="n">Using</span> <span class="mi">30</span> <span class="n">levels</span> <span class="n">between</span> <span class="mf">833.8</span> <span class="ow">and</span> <span class="mf">100.0</span><span class="n">MB</span>
 </pre></div>
 </div>
 <img alt="../../_images/Forecast_Model_Vertical_Sounding_7_1.png" src="../../_images/Forecast_Model_Vertical_Sounding_7_1.png" />
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Using</span> <span class="n">GFS20</span> <span class="n">forecast</span> <span class="n">time</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">15</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
-<span class="n">Found</span> <span class="n">surface</span> <span class="n">record</span> <span class="n">at</span> <span class="mf">848.1</span><span class="n">MB</span>
-<span class="n">Using</span> <span class="mi">22</span> <span class="n">levels</span> <span class="n">between</span> <span class="mf">848.1</span> <span class="ow">and</span> <span class="mf">100.0</span><span class="n">MB</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Using</span> <span class="n">GFS20</span> <span class="n">forecast</span> <span class="n">time</span> <span class="mi">2023</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">17</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+<span class="n">Found</span> <span class="n">surface</span> <span class="n">record</span> <span class="n">at</span> <span class="mf">839.9</span><span class="n">MB</span>
+<span class="n">Using</span> <span class="mi">22</span> <span class="n">levels</span> <span class="n">between</span> <span class="mf">839.9</span> <span class="ow">and</span> <span class="mf">100.0</span><span class="n">MB</span>
 </pre></div>
 </div>
 <img alt="../../_images/Forecast_Model_Vertical_Sounding_7_3.png" src="../../_images/Forecast_Model_Vertical_Sounding_7_3.png" />
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Using</span> <span class="n">NAM40</span> <span class="n">forecast</span> <span class="n">time</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">15</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
-<span class="n">Found</span> <span class="n">surface</span> <span class="n">record</span> <span class="n">at</span> <span class="mf">837.7</span><span class="n">MB</span>
-<span class="n">Using</span> <span class="mi">32</span> <span class="n">levels</span> <span class="n">between</span> <span class="mf">837.7</span> <span class="ow">and</span> <span class="mf">50.0</span><span class="n">MB</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Using</span> <span class="n">NAM40</span> <span class="n">forecast</span> <span class="n">time</span> <span class="mi">2023</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">17</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+<span class="n">Found</span> <span class="n">surface</span> <span class="n">record</span> <span class="n">at</span> <span class="mf">829.4</span><span class="n">MB</span>
+<span class="n">Using</span> <span class="mi">32</span> <span class="n">levels</span> <span class="n">between</span> <span class="mf">829.4</span> <span class="ow">and</span> <span class="mf">50.0</span><span class="n">MB</span>
 </pre></div>
 </div>
 <img alt="../../_images/Forecast_Model_Vertical_Sounding_7_5.png" src="../../_images/Forecast_Model_Vertical_Sounding_7_5.png" />

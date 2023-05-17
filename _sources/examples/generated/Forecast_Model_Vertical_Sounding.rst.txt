@@ -59,7 +59,7 @@ any available AWIPS model with isobaric levels.
 
 .. parsed-literal::
 
-    Using NAM40 forecast time 2018-10-15 12:00:00
+    Using NAM40 forecast time 2023-05-17 12:00:00
 
 
 .. code:: ipython3
@@ -86,7 +86,7 @@ any available AWIPS model with isobaric levels.
 
 .. parsed-literal::
 
-    Found surface record at 836.4MB
+    Found surface record at 830.1MB
 
 
 .. code:: ipython3
@@ -146,7 +146,7 @@ any available AWIPS model with isobaric levels.
 
 .. parsed-literal::
 
-    Using 32 levels between 836.4 and 50.0MB
+    Using 32 levels between 830.1 and 50.0MB
 
 
 --------------
@@ -194,7 +194,7 @@ Model Sounding Comparison
 
 .. code:: ipython3
 
-    models = ["CMC", "GFS20", "NAM40"]
+    models = ["RAP13", "GFS20", "NAM40"]
     parms = ['T','DpT','uW','vW']
     
     for modelName in models:
@@ -296,9 +296,9 @@ Model Sounding Comparison
 
 .. parsed-literal::
 
-    Using CMC forecast time 2018-10-15 12:00:00
-    Found surface record at 848.6MB
-    Using 19 levels between 848.6 and 50.0MB
+    Using RAP13 forecast time 2023-05-17 20:00:00
+    Found surface record at 833.8MB
+    Using 30 levels between 833.8 and 100.0MB
 
 
 
@@ -307,9 +307,9 @@ Model Sounding Comparison
 
 .. parsed-literal::
 
-    Using GFS20 forecast time 2018-10-15 18:00:00
-    Found surface record at 848.1MB
-    Using 22 levels between 848.1 and 100.0MB
+    Using GFS20 forecast time 2023-05-17 12:00:00
+    Found surface record at 839.9MB
+    Using 22 levels between 839.9 and 100.0MB
 
 
 
@@ -318,11 +318,12 @@ Model Sounding Comparison
 
 .. parsed-literal::
 
-    Using NAM40 forecast time 2018-10-15 18:00:00
-    Found surface record at 837.7MB
-    Using 32 levels between 837.7 and 50.0MB
+    Using NAM40 forecast time 2023-05-17 18:00:00
+    Found surface record at 829.4MB
+    Using 32 levels between 829.4 and 50.0MB
 
 
 
 .. image:: Forecast_Model_Vertical_Sounding_files/Forecast_Model_Vertical_Sounding_7_5.png
+
 
