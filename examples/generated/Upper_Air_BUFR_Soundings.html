@@ -60,7 +60,20 @@
 <li class="toctree-l2"><a class="reference internal" href="Precip_Accumulation-Region_Of_Interest.html">Precip Accumulation-Region Of Interest</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Regional_Surface_Obs_Plot.html">Regional Surface Obs Plot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Satellite_Imagery.html">Satellite Imagery</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Upper Air BUFR Soundings</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Upper Air BUFR Soundings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#objectives">Objectives</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#imports">1 Imports</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edex-connection">2 EDEX Connection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#filtering-by-time">3 Filtering by Time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-the-data">4 Get the Data!</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#use-the-data">5 Use the Data!</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#plot-the-data">6 Plot the Data!</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#see-also">7 See Also</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="Watch_Warning_and_Advisory_Plotting.html">Watch Warning and Advisory Plotting</a></li>
 </ul>
 </li>
@@ -97,53 +110,198 @@
   <section id="upper-air-bufr-soundings">
 <h1>Upper Air BUFR Soundings<a class="headerlink" href="#upper-air-bufr-soundings" title="Permalink to this heading"></a></h1>
 <p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Upper_Air_BUFR_Soundings.ipynb">Notebook</a>
-The following script takes you through the steps of retrieving an Upper
-Air vertical profile from an AWIPS EDEX server and plotting a
-Skew-T/Log-P chart with Matplotlib and MetPy.</p>
-<p>The <strong>bufrua</strong> plugin returns separate objects for parameters at
-<strong>mandatory levels</strong> and at <strong>significant temperature levels</strong>. For the
-Skew-T/Log-P plot, significant temperature levels are used to plot the
-pressure, temperature, and dewpoint lines, while mandatory levels are
-used to plot the wind profile.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">DataAccessLayer</span>
-<span class="kn">import</span> <span class="nn">matplotlib.tri</span> <span class="k">as</span> <span class="nn">mtri</span>
+Python-AWIPS Tutorial Notebook</p>
+<hr class="docutils" />
+<section id="objectives">
+<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>Retrieve an Upper Air vertical profile from EDEX</p></li>
+<li><p>Plot a Skew-T/Log-P chart with
+<a class="reference external" href="https://matplotlib.org/">Matplotlib</a> and
+<a class="reference external" href="https://unidata.github.io/MetPy/latest/index.html">MetPy</a></p></li>
+<li><p>Understand the <strong>bufrua</strong> plugin returns separate objects for
+parameters at <em>mandatory levels</em> and at <em>significant temperature
+levels</em></p>
+<ul>
+<li><p><em>Significant temperature levels</em> are used to plot the pressure,
+temperature and dewpoint lines</p></li>
+<li><p><em>Mandatory levels</em> are used to plot the wind profile</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<section id="table-of-contents">
+<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading"></a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#imports">1
+Imports</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#edex-connection">2 EDEX
+Connection</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#initial-edex-connection">2.1 Initial EDEX
+Connection</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#setting-additional-request-parameters">2.2 Setting Additional Request
+Parameters</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#available-location-names">2.3 Available Location
+Names</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#setting-the-location-name">2.4 Setting the Location
+Name</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Sounding.html#filtering-by-time">3 Filtering by
+Time</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#get-the-data">4 Get the
+Data!</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#use-the-data">5 Use the
+Data!</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#prepare-data-objects">5.1 Prepare Data
+Objects</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#convert-units">5.2 Convert
+Units</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#plot-the-data">6 Plot the
+Data!</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#see-also">7 See
+Also</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#related-notebooks">7.1 Related
+Notebooks</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#additional-documentation">7.2 Additional
+Documentation</a></div>
+</div>
+</section>
+<section id="imports">
+<h3>1 Imports<a class="headerlink" href="#imports" title="Permalink to this heading"></a></h3>
+<p>The imports below are used throughout the notebook. Note the first
+import is coming directly from python-awips and allows us to connect to
+an EDEX server. The subsequent imports are for data manipulation and
+visualization.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">DataAccessLayer</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">mpl_toolkits.axes_grid1.inset_locator</span> <span class="kn">import</span> <span class="n">inset_axes</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">from</span> <span class="nn">metpy.calc</span> <span class="kn">import</span> <span class="n">wind_speed</span><span class="p">,</span> <span class="n">wind_components</span><span class="p">,</span> <span class="n">lcl</span><span class="p">,</span> <span class="n">dry_lapse</span><span class="p">,</span> <span class="n">parcel_profile</span>
+<span class="kn">from</span> <span class="nn">metpy.calc</span> <span class="kn">import</span> <span class="n">wind_components</span><span class="p">,</span> <span class="n">lcl</span><span class="p">,</span> <span class="n">parcel_profile</span>
 <span class="kn">from</span> <span class="nn">metpy.plots</span> <span class="kn">import</span> <span class="n">SkewT</span><span class="p">,</span> <span class="n">Hodograph</span>
-<span class="kn">from</span> <span class="nn">metpy.units</span> <span class="kn">import</span> <span class="n">units</span><span class="p">,</span> <span class="n">concatenate</span>
-
-<span class="c1"># Set host</span>
+<span class="kn">from</span> <span class="nn">metpy.units</span> <span class="kn">import</span> <span class="n">units</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html">Top</a></p>
+</section>
+<hr class="docutils" />
+<section id="edex-connection">
+<h3>2 EDEX Connection<a class="headerlink" href="#edex-connection" title="Permalink to this heading"></a></h3>
+<section id="initial-edex-connection">
+<h4>2.1 Initial EDEX Connection<a class="headerlink" href="#initial-edex-connection" title="Permalink to this heading"></a></h4>
+<p>First we establish a connection to Unidata’s public EDEX server. With
+that connection made, we can create a <a class="reference external" href="http://unidata.github.io/python-awips/api/IDataRequest.html">new data request
+object</a>
+and set the data type to <strong>bufrua</strong>, and define additional parameters
+and an identifier on the request.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set the edex server</span>
 <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="s2">&quot;edex-cloud.unidata.ucar.edu&quot;</span><span class="p">)</span>
 <span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">()</span>
 
 <span class="c1"># Set data type</span>
 <span class="n">request</span><span class="o">.</span><span class="n">setDatatype</span><span class="p">(</span><span class="s2">&quot;bufrua&quot;</span><span class="p">)</span>
-<span class="n">availableLocs</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableLocationNames</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-<span class="n">availableLocs</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-
-<span class="n">MAN_PARAMS</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;prMan&#39;</span><span class="p">,</span> <span class="s1">&#39;htMan&#39;</span><span class="p">,</span> <span class="s1">&#39;tpMan&#39;</span><span class="p">,</span> <span class="s1">&#39;tdMan&#39;</span><span class="p">,</span> <span class="s1">&#39;wdMan&#39;</span><span class="p">,</span> <span class="s1">&#39;wsMan&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<section id="setting-additional-request-parameters">
+<h4>2.2 Setting Additional Request Parameters<a class="headerlink" href="#setting-additional-request-parameters" title="Permalink to this heading"></a></h4>
+<p>Here we populate arrays of all the parameters that will be necessary for
+plotting the Skew-T. The <code class="docutils literal notranslate"><span class="pre">MAN_PARAMS</span></code> are the <em>mandatory levels</em> and
+the <code class="docutils literal notranslate"><span class="pre">SIGT_PARAMS</span></code> are the <em>significant temperature</em> parameters that
+were both mentioned in the <a class="reference external" href="#Objectives">objectives section</a> above.</p>
+<p>Also request the station name and ID to use in the figure title later
+on.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MAN_PARAMS</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;prMan&#39;</span><span class="p">,</span> <span class="s1">&#39;tpMan&#39;</span><span class="p">,</span> <span class="s1">&#39;tdMan&#39;</span><span class="p">,</span> <span class="s1">&#39;wdMan&#39;</span><span class="p">,</span> <span class="s1">&#39;wsMan&#39;</span><span class="p">])</span>
 <span class="n">SIGT_PARAMS</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;prSigT&#39;</span><span class="p">,</span> <span class="s1">&#39;tpSigT&#39;</span><span class="p">,</span> <span class="s1">&#39;tdSigT&#39;</span><span class="p">])</span>
-<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s2">&quot;wmoStaNum&quot;</span><span class="p">,</span> <span class="s2">&quot;validTime&quot;</span><span class="p">,</span> <span class="s2">&quot;rptType&quot;</span><span class="p">,</span> <span class="s2">&quot;staElev&quot;</span><span class="p">,</span> <span class="s2">&quot;numMand&quot;</span><span class="p">,</span>
-                      <span class="s2">&quot;numSigT&quot;</span><span class="p">,</span> <span class="s2">&quot;numSigW&quot;</span><span class="p">,</span> <span class="s2">&quot;numTrop&quot;</span><span class="p">,</span> <span class="s2">&quot;numMwnd&quot;</span><span class="p">,</span> <span class="s2">&quot;staName&quot;</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s2">&quot;staElev&quot;</span><span class="p">,</span> <span class="s2">&quot;staName&quot;</span><span class="p">)</span>
 <span class="n">request</span><span class="o">.</span><span class="n">getParameters</span><span class="p">()</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">MAN_PARAMS</span><span class="p">)</span>
 <span class="n">request</span><span class="o">.</span><span class="n">getParameters</span><span class="p">()</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">SIGT_PARAMS</span><span class="p">)</span>
-<span class="n">locations</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableLocationNames</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="available-location-names">
+<h4>2.3 Available Location Names<a class="headerlink" href="#available-location-names" title="Permalink to this heading"></a></h4>
+<p>When working with a new data type, it is often useful to investigate all
+available options for a particular setting. Shown below is how to see
+all available location names for a data request with type <strong>bufrua</strong>.
+This step is not necessary if you already know exactly what the location
+ID you’re interested in is.</p>
+<div class="alert-info docutils container">
+<p>Note: It is important to note the location names are listed by their
+WMO Station ID. Their corresponding location and site identifier can
+be looked up in this table from UNdata.</p>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">locations</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableLocationNames</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 <span class="n">locations</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-
-<span class="c1"># Set station ID (not name)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">locations</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;21824&#39;</span><span class="p">,</span> <span class="s1">&#39;21946&#39;</span><span class="p">,</span> <span class="s1">&#39;24266&#39;</span><span class="p">,</span> <span class="s1">&#39;24343&#39;</span><span class="p">,</span> <span class="s1">&#39;24641&#39;</span><span class="p">,</span> <span class="s1">&#39;24688&#39;</span><span class="p">,</span> <span class="s1">&#39;24959&#39;</span><span class="p">,</span> <span class="s1">&#39;25123&#39;</span><span class="p">,</span> <span class="s1">&#39;25703&#39;</span><span class="p">,</span> <span class="s1">&#39;25913&#39;</span><span class="p">,</span> <span class="s1">&#39;31004&#39;</span><span class="p">,</span> <span class="s1">&#39;31088&#39;</span><span class="p">,</span> <span class="s1">&#39;31300&#39;</span><span class="p">,</span> <span class="s1">&#39;31369&#39;</span><span class="p">,</span> <span class="s1">&#39;31510&#39;</span><span class="p">,</span> <span class="s1">&#39;31538&#39;</span><span class="p">,</span> <span class="s1">&#39;31770&#39;</span><span class="p">,</span> <span class="s1">&#39;31873&#39;</span><span class="p">,</span> <span class="s1">&#39;32061&#39;</span><span class="p">,</span> <span class="s1">&#39;32098&#39;</span><span class="p">,</span> <span class="s1">&#39;32150&#39;</span><span class="p">,</span> <span class="s1">&#39;32389&#39;</span><span class="p">,</span> <span class="s1">&#39;32477&#39;</span><span class="p">,</span> <span class="s1">&#39;32540&#39;</span><span class="p">,</span> <span class="s1">&#39;32618&#39;</span><span class="p">,</span> <span class="s1">&#39;47122&#39;</span><span class="p">,</span> <span class="s1">&#39;47138&#39;</span><span class="p">,</span> <span class="s1">&#39;47158&#39;</span><span class="p">,</span> <span class="s1">&#39;47401&#39;</span><span class="p">,</span> <span class="s1">&#39;47412&#39;</span><span class="p">,</span> <span class="s1">&#39;47582&#39;</span><span class="p">,</span> <span class="s1">&#39;47646&#39;</span><span class="p">,</span> <span class="s1">&#39;47678&#39;</span><span class="p">,</span> <span class="s1">&#39;47807&#39;</span><span class="p">,</span> <span class="s1">&#39;47827&#39;</span><span class="p">,</span> <span class="s1">&#39;47909&#39;</span><span class="p">,</span> <span class="s1">&#39;47918&#39;</span><span class="p">,</span> <span class="s1">&#39;47945&#39;</span><span class="p">,</span> <span class="s1">&#39;47971&#39;</span><span class="p">,</span> <span class="s1">&#39;47991&#39;</span><span class="p">,</span> <span class="s1">&#39;70026&#39;</span><span class="p">,</span> <span class="s1">&#39;70133&#39;</span><span class="p">,</span> <span class="s1">&#39;70200&#39;</span><span class="p">,</span> <span class="s1">&#39;70219&#39;</span><span class="p">,</span> <span class="s1">&#39;70231&#39;</span><span class="p">,</span> <span class="s1">&#39;70261&#39;</span><span class="p">,</span> <span class="s1">&#39;70273&#39;</span><span class="p">,</span> <span class="s1">&#39;70308&#39;</span><span class="p">,</span> <span class="s1">&#39;70316&#39;</span><span class="p">,</span> <span class="s1">&#39;70326&#39;</span><span class="p">,</span> <span class="s1">&#39;70350&#39;</span><span class="p">,</span> <span class="s1">&#39;70361&#39;</span><span class="p">,</span> <span class="s1">&#39;70398&#39;</span><span class="p">,</span> <span class="s1">&#39;70414&#39;</span><span class="p">,</span> <span class="s1">&#39;71043&#39;</span><span class="p">,</span> <span class="s1">&#39;71081&#39;</span><span class="p">,</span> <span class="s1">&#39;71082&#39;</span><span class="p">,</span> <span class="s1">&#39;71109&#39;</span><span class="p">,</span> <span class="s1">&#39;71119&#39;</span><span class="p">,</span> <span class="s1">&#39;71603&#39;</span><span class="p">,</span> <span class="s1">&#39;71722&#39;</span><span class="p">,</span> <span class="s1">&#39;71802&#39;</span><span class="p">,</span> <span class="s1">&#39;71811&#39;</span><span class="p">,</span> <span class="s1">&#39;71815&#39;</span><span class="p">,</span> <span class="s1">&#39;71816&#39;</span><span class="p">,</span> <span class="s1">&#39;71823&#39;</span><span class="p">,</span> <span class="s1">&#39;71845&#39;</span><span class="p">,</span> <span class="s1">&#39;71867&#39;</span><span class="p">,</span> <span class="s1">&#39;71906&#39;</span><span class="p">,</span> <span class="s1">&#39;71907&#39;</span><span class="p">,</span> <span class="s1">&#39;71909&#39;</span><span class="p">,</span> <span class="s1">&#39;71913&#39;</span><span class="p">,</span> <span class="s1">&#39;71917&#39;</span><span class="p">,</span> <span class="s1">&#39;71924&#39;</span><span class="p">,</span> <span class="s1">&#39;71925&#39;</span><span class="p">,</span> <span class="s1">&#39;71926&#39;</span><span class="p">,</span> <span class="s1">&#39;71934&#39;</span><span class="p">,</span> <span class="s1">&#39;71945&#39;</span><span class="p">,</span> <span class="s1">&#39;71957&#39;</span><span class="p">,</span> <span class="s1">&#39;71964&#39;</span><span class="p">,</span> <span class="s1">&#39;72201&#39;</span><span class="p">,</span> <span class="s1">&#39;72202&#39;</span><span class="p">,</span> <span class="s1">&#39;72206&#39;</span><span class="p">,</span> <span class="s1">&#39;72208&#39;</span><span class="p">,</span> <span class="s1">&#39;72210&#39;</span><span class="p">,</span> <span class="s1">&#39;72214&#39;</span><span class="p">,</span> <span class="s1">&#39;72215&#39;</span><span class="p">,</span> <span class="s1">&#39;72230&#39;</span><span class="p">,</span> <span class="s1">&#39;72233&#39;</span><span class="p">,</span> <span class="s1">&#39;72235&#39;</span><span class="p">,</span> <span class="s1">&#39;72240&#39;</span><span class="p">,</span> <span class="s1">&#39;72248&#39;</span><span class="p">,</span> <span class="s1">&#39;72249&#39;</span><span class="p">,</span> <span class="s1">&#39;72250&#39;</span><span class="p">,</span> <span class="s1">&#39;72251&#39;</span><span class="p">,</span> <span class="s1">&#39;72261&#39;</span><span class="p">,</span> <span class="s1">&#39;72265&#39;</span><span class="p">,</span> <span class="s1">&#39;72274&#39;</span><span class="p">,</span> <span class="s1">&#39;72293&#39;</span><span class="p">,</span> <span class="s1">&#39;72305&#39;</span><span class="p">,</span> <span class="s1">&#39;72317&#39;</span><span class="p">,</span> <span class="s1">&#39;72318&#39;</span><span class="p">,</span> <span class="s1">&#39;72327&#39;</span><span class="p">,</span> <span class="s1">&#39;72340&#39;</span><span class="p">,</span> <span class="s1">&#39;72357&#39;</span><span class="p">,</span> <span class="s1">&#39;72363&#39;</span><span class="p">,</span> <span class="s1">&#39;72364&#39;</span><span class="p">,</span> <span class="s1">&#39;72365&#39;</span><span class="p">,</span> <span class="s1">&#39;72376&#39;</span><span class="p">,</span> <span class="s1">&#39;72381&#39;</span><span class="p">,</span> <span class="s1">&#39;72388&#39;</span><span class="p">,</span> <span class="s1">&#39;72393&#39;</span><span class="p">,</span> <span class="s1">&#39;72402&#39;</span><span class="p">,</span> <span class="s1">&#39;72403&#39;</span><span class="p">,</span> <span class="s1">&#39;72426&#39;</span><span class="p">,</span> <span class="s1">&#39;72440&#39;</span><span class="p">,</span> <span class="s1">&#39;72451&#39;</span><span class="p">,</span> <span class="s1">&#39;72456&#39;</span><span class="p">,</span> <span class="s1">&#39;72469&#39;</span><span class="p">,</span> <span class="s1">&#39;72476&#39;</span><span class="p">,</span> <span class="s1">&#39;72489&#39;</span><span class="p">,</span> <span class="s1">&#39;72493&#39;</span><span class="p">,</span> <span class="s1">&#39;72501&#39;</span><span class="p">,</span> <span class="s1">&#39;72518&#39;</span><span class="p">,</span> <span class="s1">&#39;72520&#39;</span><span class="p">,</span> <span class="s1">&#39;72528&#39;</span><span class="p">,</span> <span class="s1">&#39;72558&#39;</span><span class="p">,</span> <span class="s1">&#39;72562&#39;</span><span class="p">,</span> <span class="s1">&#39;72572&#39;</span><span class="p">,</span> <span class="s1">&#39;72582&#39;</span><span class="p">,</span> <span class="s1">&#39;72597&#39;</span><span class="p">,</span> <span class="s1">&#39;72632&#39;</span><span class="p">,</span> <span class="s1">&#39;72634&#39;</span><span class="p">,</span> <span class="s1">&#39;72645&#39;</span><span class="p">,</span> <span class="s1">&#39;72649&#39;</span><span class="p">,</span> <span class="s1">&#39;72659&#39;</span><span class="p">,</span> <span class="s1">&#39;72662&#39;</span><span class="p">,</span> <span class="s1">&#39;72672&#39;</span><span class="p">,</span> <span class="s1">&#39;72681&#39;</span><span class="p">,</span> <span class="s1">&#39;72694&#39;</span><span class="p">,</span> <span class="s1">&#39;72712&#39;</span><span class="p">,</span> <span class="s1">&#39;72747&#39;</span><span class="p">,</span> <span class="s1">&#39;72764&#39;</span><span class="p">,</span> <span class="s1">&#39;72768&#39;</span><span class="p">,</span> <span class="s1">&#39;72776&#39;</span><span class="p">,</span> <span class="s1">&#39;72786&#39;</span><span class="p">,</span> <span class="s1">&#39;72797&#39;</span><span class="p">,</span> <span class="s1">&#39;74004&#39;</span><span class="p">,</span> <span class="s1">&#39;74005&#39;</span><span class="p">,</span> <span class="s1">&#39;74006&#39;</span><span class="p">,</span> <span class="s1">&#39;74389&#39;</span><span class="p">,</span> <span class="s1">&#39;74455&#39;</span><span class="p">,</span> <span class="s1">&#39;74560&#39;</span><span class="p">,</span> <span class="s1">&#39;74794&#39;</span><span class="p">,</span> <span class="s1">&#39;78016&#39;</span><span class="p">,</span> <span class="s1">&#39;78384&#39;</span><span class="p">,</span> <span class="s1">&#39;78397&#39;</span><span class="p">,</span> <span class="s1">&#39;78486&#39;</span><span class="p">,</span> <span class="s1">&#39;78526&#39;</span><span class="p">,</span> <span class="s1">&#39;78583&#39;</span><span class="p">,</span> <span class="s1">&#39;78866&#39;</span><span class="p">,</span> <span class="s1">&#39;78954&#39;</span><span class="p">,</span> <span class="s1">&#39;78970&#39;</span><span class="p">,</span> <span class="s1">&#39;78988&#39;</span><span class="p">,</span> <span class="s1">&#39;80001&#39;</span><span class="p">,</span> <span class="s1">&#39;91165&#39;</span><span class="p">,</span> <span class="s1">&#39;91212&#39;</span><span class="p">,</span> <span class="s1">&#39;91285&#39;</span><span class="p">,</span> <span class="s1">&#39;91334&#39;</span><span class="p">,</span> <span class="s1">&#39;91348&#39;</span><span class="p">,</span> <span class="s1">&#39;91366&#39;</span><span class="p">,</span> <span class="s1">&#39;91376&#39;</span><span class="p">,</span> <span class="s1">&#39;91408&#39;</span><span class="p">,</span> <span class="s1">&#39;91413&#39;</span><span class="p">,</span> <span class="s1">&#39;91610&#39;</span><span class="p">,</span> <span class="s1">&#39;91643&#39;</span><span class="p">,</span> <span class="s1">&#39;91680&#39;</span><span class="p">,</span> <span class="s1">&#39;91765&#39;</span><span class="p">,</span> <span class="s1">&#39;94120&#39;</span><span class="p">,</span> <span class="s1">&#39;94203&#39;</span><span class="p">,</span> <span class="s1">&#39;94299&#39;</span><span class="p">,</span> <span class="s1">&#39;94332&#39;</span><span class="p">,</span> <span class="s1">&#39;94461&#39;</span><span class="p">,</span> <span class="s1">&#39;94510&#39;</span><span class="p">,</span> <span class="s1">&#39;94578&#39;</span><span class="p">,</span> <span class="s1">&#39;94637&#39;</span><span class="p">,</span> <span class="s1">&#39;94638&#39;</span><span class="p">,</span> <span class="s1">&#39;94653&#39;</span><span class="p">,</span> <span class="s1">&#39;94659&#39;</span><span class="p">,</span> <span class="s1">&#39;94672&#39;</span><span class="p">,</span> <span class="s1">&#39;94711&#39;</span><span class="p">,</span> <span class="s1">&#39;94776&#39;</span><span class="p">,</span> <span class="s1">&#39;94995&#39;</span><span class="p">,</span> <span class="s1">&#39;94996&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="setting-the-location-name">
+<h4>2.4 Setting the Location Name<a class="headerlink" href="#setting-the-location-name" title="Permalink to this heading"></a></h4>
+<p>In this case we’re setting the location name to the ID for <code class="docutils literal notranslate"><span class="pre">KLBF</span></code>
+which is the North Platte Regional Airport/Lee Bird, Field in Nebraska.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set station ID (not name)</span>
 <span class="n">request</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="s2">&quot;72562&quot;</span><span class="p">)</span> <span class="c1">#KLBF</span>
-
-<span class="c1"># Get all times</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html">Top</a></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="filtering-by-time">
+<h3>3 Filtering by Time<a class="headerlink" href="#filtering-by-time" title="Permalink to this heading"></a></h3>
+<p>Models produce many different time variants during their runs, so let’s
+limit the data to the most recent time and forecast run.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get all times</span>
 <span class="n">datatimes</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-
-<span class="c1"># Get most recent record</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html">Top</a></p>
+</section>
+<hr class="docutils" />
+<section id="get-the-data">
+<h3>4 Get the Data!<a class="headerlink" href="#get-the-data" title="Permalink to this heading"></a></h3>
+<p>Here we can now request our data response from the EDEX server with our
+defined time filter.</p>
+<p>Printing out some data from the first object in the response array can
+help verify we received the data we were interested in.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get most recent record</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">times</span><span class="o">=</span><span class="n">datatimes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">validPeriod</span><span class="p">)</span>
+<span class="n">obj</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-<span class="c1"># Initialize data arrays</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;parms    = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getParameters</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;site     = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getLocationName</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;geom     = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;datetime = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;reftime  = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getRefTime</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;fcstHour = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getFcstTime</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;period   = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getValidPeriod</span><span class="p">()))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">parms</span>    <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;staElev&#39;</span><span class="p">,</span> <span class="s1">&#39;staName&#39;</span><span class="p">]</span>
+<span class="n">site</span>     <span class="o">=</span> <span class="mi">72562</span>
+<span class="n">geom</span>     <span class="o">=</span> <span class="n">POINT</span> <span class="p">(</span><span class="o">-</span><span class="mf">100.7005615234375</span> <span class="mf">41.14971923828125</span><span class="p">)</span>
+<span class="n">datetime</span> <span class="o">=</span> <span class="mi">2023</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">19</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+<span class="n">reftime</span>  <span class="o">=</span> <span class="n">May</span> <span class="mi">19</span> <span class="mi">23</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="n">GMT</span>
+<span class="n">fcstHour</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">period</span>   <span class="o">=</span> <span class="p">(</span><span class="n">May</span> <span class="mi">19</span> <span class="mi">23</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="p">,</span> <span class="n">May</span> <span class="mi">19</span> <span class="mi">23</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html">Top</a></p>
+</section>
+<hr class="docutils" />
+<section id="use-the-data">
+<h3>5 Use the Data!<a class="headerlink" href="#use-the-data" title="Permalink to this heading"></a></h3>
+<p>Since we filtered on time, and requested the data in the previous cell,
+we now have a <code class="docutils literal notranslate"><span class="pre">response</span></code> object we can work with.</p>
+<section id="prepare-data-objects">
+<h4>5.1 Prepare data objects<a class="headerlink" href="#prepare-data-objects" title="Permalink to this heading"></a></h4>
+<p>Here we construct arrays for each parameter to plot (temperature,
+pressure, and wind components). After populating each of the arrays, we
+sort and mask missing data.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize data arrays</span>
 <span class="n">tdMan</span><span class="p">,</span><span class="n">tpMan</span><span class="p">,</span><span class="n">prMan</span><span class="p">,</span><span class="n">wdMan</span><span class="p">,</span><span class="n">wsMan</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
 <span class="n">prSig</span><span class="p">,</span><span class="n">tpSig</span><span class="p">,</span><span class="n">tdSig</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
 <span class="n">manGeos</span> <span class="o">=</span> <span class="p">[]</span>
@@ -184,8 +342,16 @@ used to plot the wind profile.</p>
 <span class="n">dman</span><span class="p">[</span><span class="n">dman</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="mi">9999</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 <span class="n">direc</span><span class="p">[</span><span class="n">direc</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="mi">9999</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 <span class="n">spd</span><span class="p">[</span><span class="n">spd</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="mi">9999</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-
-<span class="c1"># assign units</span>
+</pre></div>
+</div>
+</section>
+<section id="convert-units">
+<h4>5.2 Convert Units<a class="headerlink" href="#convert-units" title="Permalink to this heading"></a></h4>
+<p>We need to modify the units several of the data parameters are returned
+in. Here we convert Temperature from Fahrenheit to Celcius, convert
+pressure to milibars, and extract wind for both the u and v directional
+components in Knots and Radians.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># assign units</span>
 <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="n">prSig</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">mbar</span>
 <span class="n">wpres</span> <span class="o">=</span> <span class="p">(</span><span class="n">wpres</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">mbar</span>
 <span class="n">u</span><span class="p">,</span><span class="n">v</span> <span class="o">=</span> <span class="n">wind_components</span><span class="p">(</span><span class="n">spd</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">knots</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">direc</span><span class="p">))</span>
@@ -195,8 +361,16 @@ used to plot the wind profile.</p>
     <span class="n">Td</span> <span class="o">=</span> <span class="p">(</span><span class="n">tdSig</span><span class="o">-</span><span class="mf">273.15</span><span class="p">)</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">degC</span>
     <span class="n">tman</span> <span class="o">=</span> <span class="n">tman</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">degC</span>
     <span class="n">dman</span> <span class="o">=</span> <span class="n">dman</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">degC</span>
-
-<span class="c1"># Create SkewT/LogP</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html">Top</a></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="plot-the-data">
+<h3>6 Plot the Data!<a class="headerlink" href="#plot-the-data" title="Permalink to this heading"></a></h3>
+<p>Create and display SkewT and Hodograph plots using MetPy.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create SkewT/LogP</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
 <span class="n">skew</span> <span class="o">=</span> <span class="n">SkewT</span><span class="p">()</span>
 <span class="n">skew</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
@@ -234,7 +408,48 @@ used to plot the wind profile.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../../_images/Upper_Air_BUFR_Soundings_1_0.png" src="../../_images/Upper_Air_BUFR_Soundings_1_0.png" />
+<img alt="../../_images/Upper_Air_BUFR_Soundings_28_0.png" src="../../_images/Upper_Air_BUFR_Soundings_28_0.png" />
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html">Top</a></p>
+</section>
+<hr class="docutils" />
+<section id="see-also">
+<h3>7 See Also<a class="headerlink" href="#see-also" title="Permalink to this heading"></a></h3>
+<section id="related-notebooks">
+<h4>7.1 Related Notebooks<a class="headerlink" href="#related-notebooks" title="Permalink to this heading"></a></h4>
+<ul class="simple">
+<li><p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html">Grid Levels and
+Parameters</a></p></li>
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html">Model Sounding
+Data</a></p></li>
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html">Forecast Model Vertical
+Sounding</a></p></li>
+</ul>
+</section>
+<section id="additional-documentation">
+<h4>7.2 Additional Documentation<a class="headerlink" href="#additional-documentation" title="Permalink to this heading"></a></h4>
+<p><strong>python-awips:</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html">awips.DataAccessLayer</a></p></li>
+<li><p><a class="reference external" href="http://unidata.github.io/python-awips/api/PyGeometryData.html">awips.PyGeometryData</a></p></li>
+</ul>
+<p><strong>matplotlib:</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.html">matplotlib.pyplot</a></p></li>
+</ul>
+<p><strong>MetPy</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.wind_components.html">metpy.wind_components</a></p></li>
+<li><p><a class="reference external" href="https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.lcl.html">metpy.lcl</a>
+(Lifted Condensation Level)</p></li>
+<li><p><a class="reference external" href="https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.parcel_profile.html">metpy.parcel_profile</a></p></li>
+<li><p><a class="reference external" href="https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.SkewT.html">metpy.skewt</a></p></li>
+<li><p><a class="reference external" href="https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.Hodograph.html">metpy.hodograph</a></p></li>
+</ul>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html">Top</a></p>
+<hr class="docutils" />
+</section>
+</section>
+</section>
 </section>
 
 

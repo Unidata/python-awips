@@ -2,56 +2,234 @@
 Upper Air BUFR Soundings
 ========================
 `Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Upper_Air_BUFR_Soundings.ipynb>`_
-The following script takes you through the steps of retrieving an Upper
-Air vertical profile from an AWIPS EDEX server and plotting a
-Skew-T/Log-P chart with Matplotlib and MetPy.
+Python-AWIPS Tutorial Notebook
 
-The **bufrua** plugin returns separate objects for parameters at
-**mandatory levels** and at **significant temperature levels**. For the
-Skew-T/Log-P plot, significant temperature levels are used to plot the
-pressure, temperature, and dewpoint lines, while mandatory levels are
-used to plot the wind profile.
+--------------
+
+Objectives
+==========
+
+-  Retrieve an Upper Air vertical profile from EDEX
+-  Plot a Skew-T/Log-P chart with
+   `Matplotlib <https://matplotlib.org/>`__ and
+   `MetPy <https://unidata.github.io/MetPy/latest/index.html>`__
+-  Understand the **bufrua** plugin returns separate objects for
+   parameters at *mandatory levels* and at *significant temperature
+   levels*
+
+   -  *Significant temperature levels* are used to plot the pressure,
+      temperature and dewpoint lines
+   -  *Mandatory levels* are used to plot the wind profile
+
+--------------
+
+Table of Contents
+-----------------
+
+| `1
+  Imports <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#imports>`__\ 
+| `2 EDEX
+  Connection <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#edex-connection>`__\ 
+|     `2.1 Initial EDEX
+  Connection <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#initial-edex-connection>`__\ 
+|     `2.2 Setting Additional Request
+  Parameters <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#setting-additional-request-parameters>`__\ 
+|     `2.3 Available Location
+  Names <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#available-location-names>`__\ 
+|     `2.4 Setting the Location
+  Name <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#setting-the-location-name>`__\ 
+| `3 Filtering by
+  Time <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Sounding.html#filtering-by-time>`__\ 
+| `4 Get the
+  Data! <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#get-the-data>`__\ 
+| `5 Use the
+  Data! <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#use-the-data>`__\ 
+|     `5.1 Prepare Data
+  Objects <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#prepare-data-objects>`__\ 
+|     `5.2 Convert
+  Units <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#convert-units>`__\ 
+| `6 Plot the
+  Data! <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#plot-the-data>`__\ 
+| `7 See
+  Also <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#see-also>`__\ 
+|     `7.1 Related
+  Notebooks <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#related-notebooks>`__\ 
+|     `7.2 Additional
+  Documentation <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#additional-documentation>`__\ 
+
+1 Imports
+---------
+
+The imports below are used throughout the notebook. Note the first
+import is coming directly from python-awips and allows us to connect to
+an EDEX server. The subsequent imports are for data manipulation and
+visualization.
 
 .. code:: ipython3
 
-    %matplotlib inline
     from awips.dataaccess import DataAccessLayer
-    import matplotlib.tri as mtri
     import matplotlib.pyplot as plt
     from mpl_toolkits.axes_grid1.inset_locator import inset_axes
     import numpy as np
-    import math
-    from metpy.calc import wind_speed, wind_components, lcl, dry_lapse, parcel_profile
+    from metpy.calc import wind_components, lcl, parcel_profile
     from metpy.plots import SkewT, Hodograph
-    from metpy.units import units, concatenate
-    
-    # Set host
+    from metpy.units import units
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html>`__
+
+--------------
+
+2 EDEX Connection
+-----------------
+
+2.1 Initial EDEX Connection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+First we establish a connection to Unidata’s public EDEX server. With
+that connection made, we can create a `new data request
+object <http://unidata.github.io/python-awips/api/IDataRequest.html>`__
+and set the data type to **bufrua**, and define additional parameters
+and an identifier on the request.
+
+.. code:: ipython3
+
+    # Set the edex server
     DataAccessLayer.changeEDEXHost("edex-cloud.unidata.ucar.edu")
     request = DataAccessLayer.newDataRequest()
     
     # Set data type
     request.setDatatype("bufrua")
-    availableLocs = DataAccessLayer.getAvailableLocationNames(request)
-    availableLocs.sort()
-        
-    MAN_PARAMS = set(['prMan', 'htMan', 'tpMan', 'tdMan', 'wdMan', 'wsMan'])
+
+2.2 Setting Additional Request Parameters
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Here we populate arrays of all the parameters that will be necessary for
+plotting the Skew-T. The ``MAN_PARAMS`` are the *mandatory levels* and
+the ``SIGT_PARAMS`` are the *significant temperature* parameters that
+were both mentioned in the `objectives section <#Objectives>`__ above.
+
+Also request the station name and ID to use in the figure title later
+on.
+
+.. code:: ipython3
+
+    MAN_PARAMS = set(['prMan', 'tpMan', 'tdMan', 'wdMan', 'wsMan'])
     SIGT_PARAMS = set(['prSigT', 'tpSigT', 'tdSigT'])
-    request.setParameters("wmoStaNum", "validTime", "rptType", "staElev", "numMand",
-                          "numSigT", "numSigW", "numTrop", "numMwnd", "staName")
+    request.setParameters("staElev", "staName")
     request.getParameters().extend(MAN_PARAMS)
     request.getParameters().extend(SIGT_PARAMS)
+
+2.3 Available Location Names
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When working with a new data type, it is often useful to investigate all
+available options for a particular setting. Shown below is how to see
+all available location names for a data request with type **bufrua**.
+This step is not necessary if you already know exactly what the location
+ID you’re interested in is.
+
+.. container:: alert-info
+
+   Note: It is important to note the location names are listed by their
+   WMO Station ID. Their corresponding location and site identifier can
+   be looked up in this table from UNdata.
+
+.. code:: ipython3
+
     locations = DataAccessLayer.getAvailableLocationNames(request)
     locations.sort()
-    
+    print(locations)
+
+
+.. parsed-literal::
+
+    ['21824', '21946', '24266', '24343', '24641', '24688', '24959', '25123', '25703', '25913', '31004', '31088', '31300', '31369', '31510', '31538', '31770', '31873', '32061', '32098', '32150', '32389', '32477', '32540', '32618', '47122', '47138', '47158', '47401', '47412', '47582', '47646', '47678', '47807', '47827', '47909', '47918', '47945', '47971', '47991', '70026', '70133', '70200', '70219', '70231', '70261', '70273', '70308', '70316', '70326', '70350', '70361', '70398', '70414', '71043', '71081', '71082', '71109', '71119', '71603', '71722', '71802', '71811', '71815', '71816', '71823', '71845', '71867', '71906', '71907', '71909', '71913', '71917', '71924', '71925', '71926', '71934', '71945', '71957', '71964', '72201', '72202', '72206', '72208', '72210', '72214', '72215', '72230', '72233', '72235', '72240', '72248', '72249', '72250', '72251', '72261', '72265', '72274', '72293', '72305', '72317', '72318', '72327', '72340', '72357', '72363', '72364', '72365', '72376', '72381', '72388', '72393', '72402', '72403', '72426', '72440', '72451', '72456', '72469', '72476', '72489', '72493', '72501', '72518', '72520', '72528', '72558', '72562', '72572', '72582', '72597', '72632', '72634', '72645', '72649', '72659', '72662', '72672', '72681', '72694', '72712', '72747', '72764', '72768', '72776', '72786', '72797', '74004', '74005', '74006', '74389', '74455', '74560', '74794', '78016', '78384', '78397', '78486', '78526', '78583', '78866', '78954', '78970', '78988', '80001', '91165', '91212', '91285', '91334', '91348', '91366', '91376', '91408', '91413', '91610', '91643', '91680', '91765', '94120', '94203', '94299', '94332', '94461', '94510', '94578', '94637', '94638', '94653', '94659', '94672', '94711', '94776', '94995', '94996']
+
+
+2.4 Setting the Location Name
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In this case we’re setting the location name to the ID for ``KLBF``
+which is the North Platte Regional Airport/Lee Bird, Field in Nebraska.
+
+.. code:: ipython3
+
     # Set station ID (not name)
     request.setLocationNames("72562") #KLBF
-    
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html>`__
+
+--------------
+
+3 Filtering by Time
+-------------------
+
+Models produce many different time variants during their runs, so let’s
+limit the data to the most recent time and forecast run.
+
+.. code:: ipython3
+
     # Get all times
     datatimes = DataAccessLayer.getAvailableTimes(request)
-    
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html>`__
+
+--------------
+
+4 Get the Data!
+---------------
+
+Here we can now request our data response from the EDEX server with our
+defined time filter.
+
+Printing out some data from the first object in the response array can
+help verify we received the data we were interested in.
+
+.. code:: ipython3
+
     # Get most recent record
     response = DataAccessLayer.getGeometryData(request,times=datatimes[-1].validPeriod)
+    obj = response[0]
     
+    print("parms    = " + str(obj.getParameters()))
+    print("site     = " + str(obj.getLocationName()))
+    print("geom     = " + str(obj.getGeometry()))
+    print("datetime = " + str(obj.getDataTime()))
+    print("reftime  = " + str(obj.getDataTime().getRefTime()))
+    print("fcstHour = " + str(obj.getDataTime().getFcstTime()))
+    print("period   = " + str(obj.getDataTime().getValidPeriod()))
+
+
+.. parsed-literal::
+
+    parms    = ['staElev', 'staName']
+    site     = 72562
+    geom     = POINT (-100.7005615234375 41.14971923828125)
+    datetime = 2023-05-19 12:00:00
+    reftime  = May 19 23 12:00:00 GMT
+    fcstHour = 0
+    period   = (May 19 23 12:00:00 , May 19 23 12:00:00 )
+
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html>`__
+
+--------------
+
+5 Use the Data!
+---------------
+
+Since we filtered on time, and requested the data in the previous cell,
+we now have a ``response`` object we can work with.
+
+5.1 Prepare data objects
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Here we construct arrays for each parameter to plot (temperature,
+pressure, and wind components). After populating each of the arrays, we
+sort and mask missing data.
+
+.. code:: ipython3
+
     # Initialize data arrays
     tdMan,tpMan,prMan,wdMan,wsMan = np.array([]),np.array([]),np.array([]),np.array([]),np.array([])
     prSig,tpSig,tdSig = np.array([]),np.array([]),np.array([])
@@ -93,7 +271,17 @@ used to plot the wind profile.
     dman[dman <= -9999] = np.nan
     direc[direc <= -9999] = np.nan
     spd[spd <= -9999] = np.nan
-    
+
+5.2 Convert Units
+~~~~~~~~~~~~~~~~~
+
+We need to modify the units several of the data parameters are returned
+in. Here we convert Temperature from Fahrenheit to Celcius, convert
+pressure to milibars, and extract wind for both the u and v directional
+components in Knots and Radians.
+
+.. code:: ipython3
+
     # assign units
     p = (prSig/100) * units.mbar
     wpres = (wpres/100) * units.mbar
@@ -104,7 +292,18 @@ used to plot the wind profile.
         Td = (tdSig-273.15) * units.degC
         tman = tman * units.degC
         dman = dman * units.degC
-    
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html>`__
+
+--------------
+
+6 Plot the Data!
+----------------
+
+Create and display SkewT and Hodograph plots using MetPy.
+
+.. code:: ipython3
+
     # Create SkewT/LogP
     plt.rcParams['figure.figsize'] = (10, 12)
     skew = SkewT()
@@ -144,5 +343,48 @@ used to plot the wind profile.
 
 
 
-.. image:: Upper_Air_BUFR_Soundings_files/Upper_Air_BUFR_Soundings_1_0.png
+.. image:: Upper_Air_BUFR_Soundings_files/Upper_Air_BUFR_Soundings_28_0.png
+
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html>`__
+
+--------------
+
+7 See Also
+----------
+
+7.1 Related Notebooks
+~~~~~~~~~~~~~~~~~~~~~
+
+-  `Grid Levels and
+   Parameters <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html>`__
+-  `Model Sounding
+   Data <http://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html>`__
+-  `Forecast Model Vertical
+   Sounding <http://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html>`__
+
+7.2 Additional Documentation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**python-awips:**
+
+-  `awips.DataAccessLayer <http://unidata.github.io/python-awips/api/DataAccessLayer.html>`__
+-  `awips.PyGeometryData <http://unidata.github.io/python-awips/api/PyGeometryData.html>`__
+
+**matplotlib:**
+
+-  `matplotlib.pyplot <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.html>`__
+
+**MetPy**
+
+-  `metpy.wind_components <https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.wind_components.html>`__
+-  `metpy.lcl <https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.lcl.html>`__
+   (Lifted Condensation Level)
+-  `metpy.parcel_profile <https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.parcel_profile.html>`__
+-  `metpy.skewt <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.SkewT.html>`__
+-  `metpy.hodograph <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.Hodograph.html>`__
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html>`__
+
+--------------
 
