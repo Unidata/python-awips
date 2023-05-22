@@ -145,7 +145,7 @@ Parameters</a></div>
 Names</a></div>
 <div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#setting-the-location-name">2.4 Setting the Location
 Name</a></div>
-<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Sounding.html#filtering-by-time">3 Filtering by
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#filtering-by-time">3 Filtering by
 Time</a></div>
 <div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#get-the-data">4 Get the
 Data!</a></div>
@@ -206,7 +206,9 @@ and an identifier on the request.</p>
 <p>Here we populate arrays of all the parameters that will be necessary for
 plotting the Skew-T. The <code class="docutils literal notranslate"><span class="pre">MAN_PARAMS</span></code> are the <em>mandatory levels</em> and
 the <code class="docutils literal notranslate"><span class="pre">SIGT_PARAMS</span></code> are the <em>significant temperature</em> parameters that
-were both mentioned in the <a class="reference external" href="#Objectives">objectives section</a> above.</p>
+were both mentioned in the <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#objectives">objectives
+section</a>
+above.</p>
 <p>Also request the station name and ID to use in the figure title later
 on.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MAN_PARAMS</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;prMan&#39;</span><span class="p">,</span> <span class="s1">&#39;tpMan&#39;</span><span class="p">,</span> <span class="s1">&#39;tdMan&#39;</span><span class="p">,</span> <span class="s1">&#39;wdMan&#39;</span><span class="p">,</span> <span class="s1">&#39;wsMan&#39;</span><span class="p">])</span>
@@ -297,7 +299,7 @@ help verify we received the data we were interested in.</p>
 <p>Since we filtered on time, and requested the data in the previous cell,
 we now have a <code class="docutils literal notranslate"><span class="pre">response</span></code> object we can work with.</p>
 <section id="prepare-data-objects">
-<h4>5.1 Prepare data objects<a class="headerlink" href="#prepare-data-objects" title="Permalink to this heading"></a></h4>
+<h4>5.1 Prepare Data objects<a class="headerlink" href="#prepare-data-objects" title="Permalink to this heading"></a></h4>
 <p>Here we construct arrays for each parameter to plot (temperature,
 pressure, and wind components). After populating each of the arrays, we
 sort and mask missing data.</p>

@@ -39,7 +39,7 @@ Table of Contents
 |     `2.4 Setting the Location
   Name <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#setting-the-location-name>`__\ 
 | `3 Filtering by
-  Time <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Sounding.html#filtering-by-time>`__\ 
+  Time <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#filtering-by-time>`__\ 
 | `4 Get the
   Data! <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#get-the-data>`__\ 
 | `5 Use the
@@ -106,7 +106,9 @@ and an identifier on the request.
 Here we populate arrays of all the parameters that will be necessary for
 plotting the Skew-T. The ``MAN_PARAMS`` are the *mandatory levels* and
 the ``SIGT_PARAMS`` are the *significant temperature* parameters that
-were both mentioned in the `objectives section <#Objectives>`__ above.
+were both mentioned in the `objectives
+section <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#objectives>`__
+above.
 
 Also request the station name and ID to use in the figure title later
 on.
@@ -221,7 +223,7 @@ help verify we received the data we were interested in.
 Since we filtered on time, and requested the data in the previous cell,
 we now have a ``response`` object we can work with.
 
-5.1 Prepare data objects
+5.1 Prepare Data objects
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 Here we construct arrays for each parameter to plot (temperature,
