@@ -222,7 +222,7 @@ help verify we received the data we were interested in.
 Since we filtered on time, and requested the data in the previous cell,
 we now have a ``response`` object we can work with.
 
-5.1 Prepare Data objects
+5.1 Prepare Data Objects
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 Here we construct arrays for each parameter to plot (temperature,
