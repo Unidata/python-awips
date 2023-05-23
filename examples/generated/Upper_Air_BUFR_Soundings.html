@@ -11,6 +11,8 @@
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/sphinx_highlight.js"></script>
@@ -226,11 +228,12 @@ available options for a particular setting. Shown below is how to see
 all available location names for a data request with type <strong>bufrua</strong>.
 This step is not necessary if you already know exactly what the location
 ID you’re interested in is.</p>
-<div class="alert-info docutils container">
-<p>Note: It is important to note the location names are listed by their
-WMO Station ID. Their corresponding location and site identifier can
-be looked up in this table from UNdata.</p>
-</div>
+<blockquote>
+<div><p><strong>Note:</strong> It is important to note the location names are listed by
+their WMO Station ID. Their corresponding location and site
+identifier can be looked up in <a class="reference external" href="https://data.un.org/Data.aspx?d=CLINO&amp;f=ElementCode%3a15%3bCountryCode%3aUS&amp;c=2,5,6,7,10,15,18,19,20,22,24,26,28,30,32,34,36,38,40,42,44,46&amp;s=CountryName:asc,WmoStationNumber:asc,StatisticCode:asc&amp;v=1">this table from
+UNdata</a>.</p>
+</div></blockquote>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">locations</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableLocationNames</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 <span class="n">locations</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">locations</span><span class="p">)</span>
