@@ -110,12 +110,12 @@ were both mentioned in the `objectives
 section <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#objectives>`__
 above.
 
-Also request the station name and ID to use in the figure title later
-on.
+Also request the station name and elevation to use in the figure title
+later on.
 
 .. code:: ipython3
 
-    MAN_PARAMS = set(['prMan', 'tpMan', 'tdMan', 'wdMan', 'wsMan'])
+    MAN_PARAMS = set(['prMan', 'wdMan', 'wsMan'])
     SIGT_PARAMS = set(['prSigT', 'tpSigT', 'tdSigT'])
     request.setParameters("staElev", "staName")
     request.getParameters().extend(MAN_PARAMS)
@@ -144,7 +144,7 @@ ID you’re interested in is.
 
 .. parsed-literal::
 
-    ['21824', '21946', '24266', '24343', '24641', '24688', '24959', '25123', '25703', '25913', '31004', '31088', '31300', '31369', '31510', '31538', '31770', '31873', '32061', '32098', '32150', '32389', '32477', '32540', '32618', '47122', '47138', '47158', '47401', '47412', '47582', '47646', '47678', '47807', '47827', '47909', '47918', '47945', '47971', '47991', '70026', '70133', '70200', '70219', '70231', '70261', '70273', '70308', '70316', '70326', '70350', '70361', '70398', '70414', '71043', '71081', '71082', '71109', '71119', '71603', '71722', '71802', '71811', '71815', '71816', '71823', '71845', '71867', '71906', '71907', '71909', '71913', '71917', '71924', '71925', '71926', '71934', '71945', '71957', '71964', '72201', '72202', '72206', '72208', '72210', '72214', '72215', '72230', '72233', '72235', '72240', '72248', '72249', '72250', '72251', '72261', '72265', '72274', '72293', '72305', '72317', '72318', '72327', '72340', '72357', '72363', '72364', '72365', '72376', '72381', '72388', '72393', '72402', '72403', '72426', '72440', '72451', '72456', '72469', '72476', '72489', '72493', '72501', '72518', '72520', '72528', '72558', '72562', '72572', '72582', '72597', '72632', '72634', '72645', '72649', '72659', '72662', '72672', '72681', '72694', '72712', '72747', '72764', '72768', '72776', '72786', '72797', '74004', '74005', '74006', '74389', '74455', '74560', '74794', '78016', '78384', '78397', '78486', '78526', '78583', '78866', '78954', '78970', '78988', '80001', '91165', '91212', '91285', '91334', '91348', '91366', '91376', '91408', '91413', '91610', '91643', '91680', '91765', '94120', '94203', '94299', '94332', '94461', '94510', '94578', '94637', '94638', '94653', '94659', '94672', '94711', '94776', '94995', '94996']
+    ['21824', '21946', '24266', '24343', '24641', '24688', '24959', '25123', '25703', '25913', '31004', '31088', '31300', '31369', '31510', '31538', '31770', '31873', '32061', '32098', '32150', '32389', '32477', '32540', '32618', '47122', '47138', '47158', '47401', '47412', '47582', '47646', '47678', '47807', '47827', '47909', '47918', '47945', '47971', '47991', '70026', '70133', '70200', '70219', '70231', '70261', '70273', '70308', '70316', '70326', '70350', '70361', '70398', '70414', '71043', '71081', '71082', '71109', '71119', '71603', '71722', '71802', '71811', '71815', '71816', '71823', '71845', '71867', '71906', '71907', '71909', '71913', '71917', '71924', '71925', '71926', '71934', '71945', '71957', '71964', '72201', '72202', '72206', '72208', '72210', '72214', '72215', '72221', '72230', '72233', '72235', '72240', '72248', '72249', '72250', '72251', '72261', '72265', '72274', '72293', '72305', '72317', '72318', '72327', '72340', '72357', '72363', '72364', '72365', '72376', '72381', '72388', '72393', '72402', '72403', '72426', '72440', '72451', '72456', '72469', '72476', '72489', '72493', '72501', '72518', '72520', '72528', '72558', '72562', '72572', '72582', '72597', '72632', '72634', '72645', '72649', '72659', '72662', '72672', '72681', '72694', '72712', '72747', '72764', '72768', '72776', '72786', '72797', '74004', '74005', '74389', '74455', '74560', '74794', '78016', '78384', '78397', '78486', '78526', '78583', '78866', '78954', '78970', '78988', '80001', '91165', '91212', '91285', '91334', '91348', '91366', '91376', '91408', '91413', '91610', '91643', '91680', '91765', '94120', '94203', '94299', '94332', '94461', '94510', '94578', '94637', '94638', '94653', '94659', '94672', '94711', '94776', '94996']
 
 
 2.4 Setting the Location Name
@@ -203,13 +203,13 @@ help verify we received the data we were interested in.
 
 .. parsed-literal::
 
-    parms    = ['staElev', 'staName']
+    parms    = ['tpSigT', 'prSigT', 'tdSigT']
     site     = 72562
     geom     = POINT (-100.7005615234375 41.14971923828125)
-    datetime = 2023-05-19 12:00:00
-    reftime  = May 19 23 12:00:00 GMT
+    datetime = 2023-05-25 12:00:00
+    reftime  = May 25 23 12:00:00 GMT
     fcstHour = 0
-    period   = (May 19 23 12:00:00 , May 19 23 12:00:00 )
+    period   = (May 25 23 12:00:00 , May 25 23 12:00:00 )
 
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html>`__
@@ -226,13 +226,13 @@ we now have a ``response`` object we can work with.
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 Here we construct arrays for each parameter to plot (temperature,
-pressure, and wind components). After populating each of the arrays, we
-sort and mask missing data.
+dewpoint, pressure, and wind components). After populating each of the
+arrays, we sort and mask missing data.
 
 .. code:: ipython3
 
     # Initialize data arrays
-    tdMan,tpMan,prMan,wdMan,wsMan = np.array([]),np.array([]),np.array([]),np.array([]),np.array([])
+    prMan,wdMan,wsMan = np.array([]),np.array([]),np.array([])
     prSig,tpSig,tdSig = np.array([]),np.array([]),np.array([])
     manGeos = []
     sigtGeos = []
@@ -243,8 +243,6 @@ sort and mask missing data.
         if set(parm_array) & MAN_PARAMS:
             manGeos.append(ob)
             prMan = np.append(prMan,ob.getNumber("prMan"))
-            tpMan, tpUnit = np.append(tpMan,ob.getNumber("tpMan")), ob.getUnit("tpMan")
-            tdMan, tdUnit = np.append(tdMan,ob.getNumber("tdMan")), ob.getUnit("tdMan")
             wdMan = np.append(wdMan,ob.getNumber("wdMan"))
             wsMan, wsUnit = np.append(wsMan,ob.getNumber("wsMan")), ob.getUnit("wsMan")
             continue
@@ -252,6 +250,7 @@ sort and mask missing data.
             sigtGeos.append(ob)
             prSig = np.append(prSig,ob.getNumber("prSigT"))
             tpSig = np.append(tpSig,ob.getNumber("tpSigT"))
+            tpUnit = ob.getUnit("tpSigT")
             tdSig = np.append(tdSig,ob.getNumber("tdSigT"))
             continue
     
@@ -260,16 +259,12 @@ sort and mask missing data.
     wpres = prMan[ps]
     direc = wdMan[ps]
     spd   = wsMan[ps]
-    tman = tpMan[ps]
-    dman = tdMan[ps]
     
     # Flag missing data
     prSig[prSig <= -9999] = np.nan
     tpSig[tpSig <= -9999] = np.nan
     tdSig[tdSig <= -9999] = np.nan
     wpres[wpres <= -9999] = np.nan
-    tman[tman <= -9999] = np.nan
-    dman[dman <= -9999] = np.nan
     direc[direc <= -9999] = np.nan
     spd[spd <= -9999] = np.nan
 
@@ -277,9 +272,9 @@ sort and mask missing data.
 ~~~~~~~~~~~~~~~~~
 
 We need to modify the units several of the data parameters are returned
-in. Here we convert Temperature from Fahrenheit to Celcius, convert
-pressure to milibars, and extract wind for both the u and v directional
-components in Knots and Radians.
+in. Here we convert the units for Temperature and Dewpoint from Kelvin
+to Celsius, convert pressure to milibars, and extract wind for both the
+u and v directional components in Knots and Radians.
 
 .. code:: ipython3
 
@@ -291,8 +286,6 @@ components in Knots and Radians.
     if tpUnit == 'K':
         T = (tpSig-273.15) * units.degC
         Td = (tdSig-273.15) * units.degC
-        tman = tman * units.degC
-        dman = dman * units.degC
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html>`__
 
@@ -388,4 +381,3 @@ Create and display SkewT and Hodograph plots using MetPy.
 `Top <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html>`__
 
 --------------
-
