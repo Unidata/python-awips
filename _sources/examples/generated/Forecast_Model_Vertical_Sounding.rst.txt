@@ -2,50 +2,83 @@
 Forecast Model Vertical Sounding
 ================================
 `Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Forecast_Model_Vertical_Sounding.ipynb>`_
-The ModelSounding class allows us to create a vertical sounding through
-any available AWIPS model with isobaric levels.
+Python-AWIPS Tutorial Notebook
 
--  A Shapely Point geometry is used to select longitude and latitude:
-   from shapely.geometry import Point point = Point(-104.67,39.87)
+--------------
 
--  Parameters ``['T','DpT','uW','vW']`` are requested for all isobaric
-   levels available for the selected model.
+Objectives
+==========
 
--  There is a single-record query performed for ``level = "0.0FHAG"`` to
-   determine the surface pressure level.
+-  Use python-awips to connect to an edex server
+-  Request data using the `ModelSounding
+   class <http://unidata.github.io/python-awips/api/ModelSounding.html>`__
+   in addition to using the normal `DataAccess
+   class <http://unidata.github.io/python-awips/api/DataAccessLayer.html>`__
+-  Create and compare vertical sounding from different AWIPS model data
+   with isobaric levels
+-  Use `Shapely Point
+   geometry <https://shapely.readthedocs.io/en/stable/reference/shapely.Point.html>`__
+   to define a point
+-  Convert between units when necessary
+-  Use MetPy to create
+   `SkewT <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.SkewT.html>`__
+   and
+   `Hodograph <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.Hodograph.html>`__
+   plots
 
--  Pay attention to units when switching models. This notebook was
-   written for the NAM 40km AWIPS model where temperature and dewpoint
-   are returned as Kelvin and wind components as m/s.
+--------------
+
+1 Imports
+---------
+
+The imports below are used throughout the notebook. Note the first
+import is coming directly from python-awips and allows us to connect to
+an EDEX server. The subsequent imports are for data manipulation and
+visualization.
 
 .. code:: ipython3
 
-    %matplotlib inline
     from awips.dataaccess import DataAccessLayer, ModelSounding
-    from awips import ThriftClient
     import matplotlib.pyplot as plt
     import numpy as np
     from metpy.plots import SkewT, Hodograph
     from metpy.units import units
     from mpl_toolkits.axes_grid1.inset_locator import inset_axes
     from math import sqrt
-    from datetime import datetime, timedelta
-    from shapely.geometry import Point, Polygon
-    import shapely.wkb
-    import timeit
-    model="NAM40"
-    parms = ['T','DpT','uW','vW']
+    from shapely.geometry import Point
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html>`__
+
+--------------
+
+2 EDEX Connection
+-----------------
+
+First we establish a connection to Unidata’s public EDEX server. This
+sets the proper server on the **DataAccessLayer**, which we will use
+numerous times throughout the notebook.
+
+.. code:: ipython3
+
     server = 'edex-cloud.unidata.ucar.edu'
     DataAccessLayer.changeEDEXHost(server)
-    
-    # note the order is LON,lat and not lat,LON
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html>`__
+
+--------------
+
+3 Define Useful Variables
+-------------------------
+
+The plotting in this notebook needs a model name, a location point
+(defined by latitude and longitude), and the most recent time range with
+the initial forecast run.
+
+.. code:: ipython3
+
+    # Note the order is Lon,Lat and not Lat,Lon
     point = Point(-104.67,39.87)
-    
-    inc = 0.005
-    bbox=[point.y-inc, point.y+inc, point.x-inc, point.x+inc]
-    polygon = Polygon([(bbox[0],bbox[2]),(bbox[0],bbox[3]), 
-                       (bbox[1],bbox[3]),(bbox[1],bbox[2]),
-                       (bbox[0],bbox[2])])
+    model="NAM40"
     
     # Get latest forecast cycle run
     timeReq = DataAccessLayer.newDataRequest("grid")
@@ -54,276 +87,332 @@ any available AWIPS model with isobaric levels.
     times = DataAccessLayer.getAvailableTimes(timeReq)
     fcstRun = DataAccessLayer.getForecastRun(cycles[-2], times)
     
-    print("Using " + model + " forecast time " + str(fcstRun[0]))
+    timeRange = [fcstRun[0]]
+    
+    print("Using " + model + " forecast time " + str(timeRange))
 
 
 .. parsed-literal::
 
-    Using NAM40 forecast time 2023-05-17 12:00:00
+    Using NAM40 forecast time [<DataTime instance: 2023-07-25 12:00:00 >]
 
 
-.. code:: ipython3
-
-    p,t,d,u,v = [],[],[],[],[]
-    use_parms = ['T','DpT','uW','vW','P']
-    use_level = "0.0FHAG"
-    sndObject = ModelSounding.getSounding(model, use_parms, 
-                                          ["0.0FHAG"], point, timeRange=[fcstRun[0]])
-    if len(sndObject) > 0:
-        for time in sndObject._dataDict:
-            p.append(float(sndObject._dataDict[time][use_level]['P']))
-            t.append(float(sndObject._dataDict[time][use_level]['T']))
-            d.append(float(sndObject._dataDict[time][use_level]['DpT']))
-            u.append(float(sndObject._dataDict[time][use_level]['uW']))
-            v.append(float(sndObject._dataDict[time][use_level]['vW']))
-        print("Found surface record at " + "%.1f" % p[0] + "MB")
-    else:
-        raise ValueError("sndObject returned empty for query [" 
-                        + ', '.join(str(x) for x in (model, use_parms, point, use_level)) +"]")
-        
-
-
-
-.. parsed-literal::
-
-    Found surface record at 830.1MB
-
-
-.. code:: ipython3
-
-    
-    # Get isobaric levels with our requested parameters
-    levelReq = DataAccessLayer.newDataRequest("grid", envelope=point)
-    levelReq.setLocationNames(model)
-    levelReq.setParameters('T','DpT','uW','vW')
-    availableLevels = DataAccessLayer.getAvailableLevels(levelReq)
-    
-    # Clean levels list of unit string (MB, FHAG, etc.)
-    levels = []
-    for lvl in availableLevels:
-        name=str(lvl)
-        if 'MB' in name and '_' not in name:
-            # If this level is above (less than in mb) our 0.0FHAG record
-            if float(name.replace('MB','')) < p[0]:
-                levels.append(lvl)
-    
-    # Get Sounding
-    sndObject = ModelSounding.getSounding(model, parms, levels, point, 
-                            timeRange=[fcstRun[0]])
-    
-    if not len(sndObject) > 0:
-        raise ValueError("sndObject returned empty for query [" 
-                        + ', '.join(str(x) for x in (model, parms, point, levels)) +"]")
-        
-    for time in sndObject._dataDict:
-        for lvl in sndObject._dataDict[time].levels():
-            for parm in sndObject._dataDict[time][lvl].parameters():
-                if parm == "T":
-                    t.append(float(sndObject._dataDict[time][lvl][parm]))
-                elif parm == "DpT":
-                    d.append(float(sndObject._dataDict[time][lvl][parm]))
-                elif parm == 'uW':
-                    u.append(float(sndObject._dataDict[time][lvl][parm]))
-                elif parm == 'vW':
-                    v.append(float(sndObject._dataDict[time][lvl][parm]))
-                else:
-                    print("WHAT IS THIS")
-                    print(sndObject._dataDict[time][lvl][parm])
-            # Pressure is our requested level rather than a returned parameter
-            p.append(float(lvl.replace('MB','')))
-    
-    # convert to numpy.array()
-    p = np.array(p, dtype=float)
-    t = (np.array(t, dtype=float) - 273.15) * units.degC
-    d = (np.array(d, dtype=float) - 273.15) * units.degC
-    u = (np.array(u, dtype=float) * units('m/s')).to('knots')
-    v = (np.array(v, dtype=float) * units('m/s')).to('knots')
-    w = np.sqrt(u**2 + v**2)
-    
-    print("Using " + str(len(levels)) + " levels between " + 
-          str("%.1f" % max(p)) + " and " + str("%.1f" % min(p)) + "MB")
-
-
-.. parsed-literal::
-
-    Using 32 levels between 830.1 and 50.0MB
-
+`Top <https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html>`__
 
 --------------
 
-Skew-T/Log-P
-------------
+4 Function: get_surface_data()
+------------------------------
+
+This function is used to get the initial forecast model data for surface
+height. This is done separately from the rest of the heights to
+determine the surface pressure. It uses the
+`ModelSounding <http://unidata.github.io/python-awips/api/ModelSounding.html>`__
+data object from python-awips to retrieve all the relevant information.
+
+This function takes the model name, location, and time as attributes,
+and returns arrays for pressure, temperature, dewpoint, and the u and v
+wind components.
 
 .. code:: ipython3
 
-    plt.rcParams['figure.figsize'] = (12, 14)
-    
-    # Skew-T
-    skew = SkewT(rotation=45)
-    skew.plot(p, t, 'r', linewidth=2)
-    skew.plot(p, d, 'g', linewidth=2)
-    skew.plot_barbs(p, u, v)
-    skew.plot_dry_adiabats()
-    skew.plot_moist_adiabats()
-    skew.plot_mixing_lines(linestyle=':')
-    
-    skew.ax.set_ylim(1000, np.min(p))
-    skew.ax.set_xlim(-50, 40)
-    
-    # Title
-    plt.title( model + " (" + str(point) + ") " + str(time.getRefTime()))
-    
-    # Hodograph
-    ax_hod = inset_axes(skew.ax, '40%', '40%', loc=2)
-    h = Hodograph(ax_hod, component_range=max(w.magnitude))
-    h.add_grid(increment=20)
-    h.plot_colormapped(u, v, w)
-    
-    # Dotted line at 0C isotherm
-    l = skew.ax.axvline(0, color='c', linestyle='-', linewidth=1)
-    
-    plt.show()
-
-
-
-.. image:: Forecast_Model_Vertical_Sounding_files/Forecast_Model_Vertical_Sounding_5_0.png
-
-
-Model Sounding Comparison
--------------------------
-
-.. code:: ipython3
-
-    models = ["RAP13", "GFS20", "NAM40"]
-    parms = ['T','DpT','uW','vW']
-    
-    for modelName in models:
-        timeReq = DataAccessLayer.newDataRequest("grid")
-        timeReq.setLocationNames(modelName)
-        cycles = DataAccessLayer.getAvailableTimes(timeReq, True)
-        times = DataAccessLayer.getAvailableTimes(timeReq)
-        fcstRun = DataAccessLayer.getForecastRun(cycles[-1], times)
-        print("Using " + modelName + " forecast time " + str(fcstRun[0]))
+    def get_surface_data(modelName, location, time):
+        """ model name, location, and timeRange desire """
         
-        p,t,d,u,v = [],[],[],[],[]
+        # request data and sort response
+        pressure,temp,dpt,ucomp,vcomp = [],[],[],[],[]
         use_parms = ['T','DpT','uW','vW','P']
         use_level = "0.0FHAG"
         
-        sndObject = ModelSounding.getSounding(modelName, use_parms, 
-                                              [use_level], point, timeRange=[fcstRun[0]])
+        sndObject = ModelSounding.getSounding(modelName, use_parms, [use_level], location, time)
         if len(sndObject) > 0:
             for time in sndObject._dataDict:
-                p.append(float(sndObject._dataDict[time][use_level]['P']))
-                t.append(float(sndObject._dataDict[time][use_level]['T']))
-                d.append(float(sndObject._dataDict[time][use_level]['DpT']))
-                u.append(float(sndObject._dataDict[time][use_level]['uW']))
-                v.append(float(sndObject._dataDict[time][use_level]['vW']))
-            print("Found surface record at " + "%.1f" % p[0] + "MB")
+                pressure.append(float(sndObject._dataDict[time][use_level]['P']))
+                temp.append(float(sndObject._dataDict[time][use_level]['T']))
+                dpt.append(float(sndObject._dataDict[time][use_level]['DpT']))
+                ucomp.append(float(sndObject._dataDict[time][use_level]['uW']))
+                vcomp.append(float(sndObject._dataDict[time][use_level]['vW']))
+            print("Found surface record at " + "%.1f" % pressure[0] + "MB")
         else:
             raise ValueError("sndObject returned empty for query [" 
                             + ', '.join(str(x) for x in (modelName, use_parms, point, use_level)) +"]")
-            
+    
+        # return information for plotting
+        return pressure,temp,dpt,ucomp,vcomp
+
+Top
+
+--------------
+
+5 Function: get_levels_data()
+-----------------------------
+
+This function is similar to *get_surface_data()*, except it gets data
+values for presure heights above the surface. It uses the
+`ModelSounding <http://unidata.github.io/python-awips/api/ModelSounding.html>`__
+data object from python-awips to retrieve all the relevant information.
+
+It takes the model name, location, and time (similar to the other
+function), and also takes the instantiated pressure, temperature,
+dewpoint, and wind vector arrays.
+
+It returns the fully populated pressure, temperature, dewpoint,
+u-component, v-component, and computed wind arrays.
+
+.. code:: ipython3
+
+    def get_levels_data(modelName, location, time, pressure, temp, dpt, ucomp, vcomp):
+        
         # Get isobaric levels with our requested parameters
+        parms = ['T','DpT','uW','vW']
         levelReq = DataAccessLayer.newDataRequest("grid", envelope=point)
-        levelReq.setLocationNames(modelName)
-        levelReq.setParameters('T','DpT','uW','vW')
+        levelReq.setLocationNames(model)
+        levelReq.setParameters(*(parms))
         availableLevels = DataAccessLayer.getAvailableLevels(levelReq)
+        
         # Clean levels list of unit string (MB, FHAG, etc.)
         levels = []
         for lvl in availableLevels:
             name=str(lvl)
             if 'MB' in name and '_' not in name:
                 # If this level is above (less than in mb) our 0.0FHAG record
-                if float(name.replace('MB','')) < p[0]:
+                if float(name.replace('MB','')) < pressure[0]:
                     levels.append(lvl)
-                    
+    
         # Get Sounding
-        sndObject = ModelSounding.getSounding(modelName, parms, levels, point, 
-                                timeRange=[fcstRun[0]])
+        sndObject = ModelSounding.getSounding(modelName, parms, levels, location, time)
+    
         if not len(sndObject) > 0:
             raise ValueError("sndObject returned empty for query [" 
-                            + ', '.join(str(x) for x in (modelName, parms, point, levels)) +"]")
+                            + ', '.join(str(x) for x in (model, parms, point, levels)) +"]")
+    
         for time in sndObject._dataDict:
             for lvl in sndObject._dataDict[time].levels():
                 for parm in sndObject._dataDict[time][lvl].parameters():
                     if parm == "T":
-                        t.append(float(sndObject._dataDict[time][lvl][parm]))
+                        temp.append(float(sndObject._dataDict[time][lvl][parm]))
                     elif parm == "DpT":
-                        d.append(float(sndObject._dataDict[time][lvl][parm]))
+                        dpt.append(float(sndObject._dataDict[time][lvl][parm]))
                     elif parm == 'uW':
-                        u.append(float(sndObject._dataDict[time][lvl][parm]))
+                        ucomp.append(float(sndObject._dataDict[time][lvl][parm]))
                     elif parm == 'vW':
-                        v.append(float(sndObject._dataDict[time][lvl][parm]))
+                        vcomp.append(float(sndObject._dataDict[time][lvl][parm]))
                     else:
                         print("WHAT IS THIS")
                         print(sndObject._dataDict[time][lvl][parm])
                 # Pressure is our requested level rather than a returned parameter
-                p.append(float(lvl.replace('MB','')))
+                pressure.append(float(lvl.replace('MB','')))
     
         # convert to numpy.array()
-        p = np.array(p, dtype=float)
-        t = (np.array(t, dtype=float) - 273.15) * units.degC
-        d = (np.array(d, dtype=float) - 273.15) * units.degC
-        u = (np.array(u, dtype=float) * units('m/s')).to('knots')
-        v = (np.array(v, dtype=float) * units('m/s')).to('knots')
-        w = np.sqrt(u**2 + v**2)
+        pressure = np.array(pressure, dtype=float)
+        temp = (np.array(temp, dtype=float) - 273.15) * units.degC
+        dpt = (np.array(dpt, dtype=float) - 273.15) * units.degC
+        ucomp = (np.array(ucomp, dtype=float) * units('m/s')).to('knots')
+        vcomp = (np.array(vcomp, dtype=float) * units('m/s')).to('knots')
+        wind = np.sqrt(ucomp**2 + vcomp**2)
     
         print("Using " + str(len(levels)) + " levels between " + 
-              str("%.1f" % max(p)) + " and " + str("%.1f" % min(p)) + "MB")
+              str("%.1f" % max(pressure)) + " and " + str("%.1f" % min(pressure)) + "MB")
+        return pressure,temp,dpt,ucomp,vcomp,wind
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html>`__
+
+--------------
+
+6 Function: plot_skewT()
+------------------------
+
+Since we’re plotting many different models for comparison, all that code
+was used to create this function.
+
+The function takes the model name, reference time, and the pressure,
+temperature, dewpoint, u-component, v-component, and wind arrays. It
+plots a skewT and hodograph using metpy.
+
+.. code:: ipython3
+
+    def plot_skewT(modelName, pressure, temp, dpt, ucomp, vcomp, wind, refTime):
+        plt.rcParams['figure.figsize'] = (12, 14)
     
         # Skew-T
-        plt.rcParams['figure.figsize'] = (12, 14)
         skew = SkewT(rotation=45)
-        skew.plot(p, t, 'r', linewidth=2)
-        skew.plot(p, d, 'g', linewidth=2)
-        skew.plot_barbs(p, u, v)
+        skew.plot(pressure, temp, 'r', linewidth=2)
+        skew.plot(pressure, dpt, 'g', linewidth=2)
+        skew.plot_barbs(pressure, ucomp, vcomp)
         skew.plot_dry_adiabats()
         skew.plot_moist_adiabats()
         skew.plot_mixing_lines(linestyle=':')
-        skew.ax.set_ylim(1000, 100)
+    
+        skew.ax.set_ylim(1000, np.min(pressure))
         skew.ax.set_xlim(-50, 40)
+    
         # Title
-        plt.title( modelName + " (" + str(point) + ") " + str(time.getRefTime()))
+        plt.title(modelName + " (" + str(point) + ") " + str(refTime))
+    
         # Hodograph
         ax_hod = inset_axes(skew.ax, '40%', '40%', loc=2)
-        h = Hodograph(ax_hod, component_range=max(w.magnitude))
+        h = Hodograph(ax_hod, component_range=max(wind.magnitude))
         h.add_grid(increment=20)
-        h.plot_colormapped(u, v, w)
+        h.plot_colormapped(ucomp, vcomp, wind)
+    
         # Dotted line at 0C isotherm
         l = skew.ax.axvline(0, color='c', linestyle='-', linewidth=1)
+    
         plt.show()
 
+`Top <https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html>`__
+
+--------------
+
+7 Retrieve Necessary Plotting Data
+----------------------------------
+
+First we get the initial data at surface level using the
+get_surface_data function, and then pass those initial data arrays onto
+the get_levels_data request to finish populating for additional heights
+needed for Skew-T plots. We want to keep track of the pressure,
+temeperature, dewpoint, u-component, v-component, and wind arrays so we
+store them in variables to use later on.
+
+.. code:: ipython3
+
+    p,t,d,u,v = get_surface_data(model,point,timeRange)
+    
+    p,t,d,u,v,w = get_levels_data(model,point,timeRange,p,t,d,u,v)
+
 
 .. parsed-literal::
 
-    Using RAP13 forecast time 2023-05-17 20:00:00
+    Found surface record at 833.2MB
+    Using 32 levels between 833.2 and 50.0MB
+
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html>`__
+
+--------------
+
+8 Skew-T/Log-P
+--------------
+
+Here we use our plot_skewT function to generate our skewT & hodograph
+charts for the data we retreived so far. This is where the pressure,
+temperature, dewpoint, and wind data is needed.
+
+.. code:: ipython3
+
+    plot_skewT(model, p, t, d, u, v, w, timeRange[0])
+
+
+
+.. image:: Forecast_Model_Vertical_Sounding_files/Forecast_Model_Vertical_Sounding_24_0.png
+
+
+`Top <https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html>`__
+
+--------------
+
+9 Model Sounding Comparison
+---------------------------
+
+Now that we know how to retreive and plot the data for one model, we can
+run a loop to retreive data for various models and plot them for
+comparison. In this example we’ll also plot RAP13 and GFS20 data to
+compare with NAM40.
+
+This is also where our functions become so important, because we can
+easily recall all that logic and keep this for-loop fairly simple.
+
+.. code:: ipython3
+
+    models = ["RAP13", "GFS20", "NAM40"]
+    
+    for modelName in models:
+        timeReq = DataAccessLayer.newDataRequest("grid")
+        timeReq.setLocationNames(modelName)
+        cycles = DataAccessLayer.getAvailableTimes(timeReq, True)
+        times = DataAccessLayer.getAvailableTimes(timeReq)
+        fr = DataAccessLayer.getForecastRun(cycles[-1], times)
+        print("Using " + modelName + " forecast time " + str(fr[0]))
+        tr = [fr[0]]
+        
+        p,t,d,u,v = get_surface_data(modelName,point,tr)
+        p,t,d,u,v,w = get_levels_data(modelName,point,tr,p,t,d,u,v)
+        
+        # Skew-T
+        plot_skewT(modelName,p,t,d,u,v,w,tr[0])
+
+
+.. parsed-literal::
+
+    Using RAP13 forecast time 2023-07-25 19:00:00
+    Found surface record at 839.4MB
+    Using 32 levels between 839.4 and 100.0MB
+
+
+
+.. image:: Forecast_Model_Vertical_Sounding_files/Forecast_Model_Vertical_Sounding_27_1.png
+
+
+.. parsed-literal::
+
+    Using GFS20 forecast time 2023-07-25 12:00:00
+    Found surface record at 842.5MB
+    Using 32 levels between 842.5 and 100.0MB
+
+
+
+.. image:: Forecast_Model_Vertical_Sounding_files/Forecast_Model_Vertical_Sounding_27_3.png
+
+
+.. parsed-literal::
+
+    Using NAM40 forecast time 2023-07-25 18:00:00
     Found surface record at 833.8MB
-    Using 30 levels between 833.8 and 100.0MB
+    Using 32 levels between 833.8 and 50.0MB
 
 
 
-.. image:: Forecast_Model_Vertical_Sounding_files/Forecast_Model_Vertical_Sounding_7_1.png
+.. image:: Forecast_Model_Vertical_Sounding_files/Forecast_Model_Vertical_Sounding_27_5.png
 
 
-.. parsed-literal::
+`Top <https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html>`__
 
-    Using GFS20 forecast time 2023-05-17 12:00:00
-    Found surface record at 839.9MB
-    Using 22 levels between 839.9 and 100.0MB
+--------------
 
+10 See Also
+-----------
 
+10.1 Related Notebooks
+~~~~~~~~~~~~~~~~~~~~~~
 
-.. image:: Forecast_Model_Vertical_Sounding_files/Forecast_Model_Vertical_Sounding_7_3.png
+-  `Grid Levels and
+   Parameters <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html>`__
+-  `Upper Air BUFR
+   Soundings <http://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html>`__
+-  `Model Sounding
+   Data <http://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html>`__
 
+10.2 Additional Documentation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. parsed-literal::
+**python-awips:**
 
-    Using NAM40 forecast time 2023-05-17 18:00:00
-    Found surface record at 829.4MB
-    Using 32 levels between 829.4 and 50.0MB
+-  `awips.DataAccessLayer <http://unidata.github.io/python-awips/api/DataAccessLayer.html>`__
+-  `awips.ModelSounding <https://unidata.github.io/python-awips/api/ModelSounding.html>`__
 
+**matplotlib:**
 
+-  `matplotlib.pyplot <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.html>`__
 
-.. image:: Forecast_Model_Vertical_Sounding_files/Forecast_Model_Vertical_Sounding_7_5.png
+**MetPy**
 
+-  `metpy.wind_speed <https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.wind_speed.html>`__
+-  `metpy.wind_direction <https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.wind_direction.html>`__
+-  `metpy.vapor_pressure <https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.vapor_pressure.html>`__
+-  `metpy.dewpoint <https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.dewpoint.html>`__
+-  `metpy.skewt <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.SkewT.html>`__
+-  `metpy.hodograph <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.Hodograph.html>`__
 
+`Top <https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html>`__
+
+--------------
