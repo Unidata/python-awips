@@ -54,6 +54,7 @@
 <li class="toctree-l2"><a class="reference internal" href="Colorized_Grid_Data.html">Colorized Grid Data</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Forecast Model Vertical Sounding</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#objectives">Objectives</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#table-of-contents">Table of Contents</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#imports">1 Imports</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#edex-connection">2 EDEX Connection</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#define-useful-variables">3 Define Useful Variables</a></li>
@@ -137,6 +138,35 @@ and
 plots</p></li>
 </ul>
 <hr class="docutils" />
+<section id="table-of-contents">
+<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading"></a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#imports">1
+Imports</a></div>
+<div class="line"><a class="reference external" href="http://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#edex-connection">2 EDEX
+Connection</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#define-useful-variables">3 Define Useful
+Variables</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#function-get-surface-data">4 Function:
+get_surface_data()</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#function-get-levels-data">5 Function:
+get_levels_data()</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#function-plot-skewt">6 Function:
+plot_skewT()</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#retrieve-necessary-plotting-data">7 Retrieve Necessary Plotting
+Data</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#skew-t-log-p">8
+Skew-T/Log-P</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#model-sounding-comparison">9 Model Sounding
+Comparison</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#see-also">10 See
+Also</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#related-notebooks">10.1 Related
+Notebooks</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#additional-documentation">10.2 Additional
+Documentation</a></div>
+</div>
+</section>
 <section id="imports">
 <h3>1 Imports<a class="headerlink" href="#imports" title="Permalink to this heading"></a></h3>
 <p>The imports below are used throughout the notebook. Note the first
@@ -230,7 +260,7 @@ wind components.</p>
     <span class="k">return</span> <span class="n">pressure</span><span class="p">,</span><span class="n">temp</span><span class="p">,</span><span class="n">dpt</span><span class="p">,</span><span class="n">ucomp</span><span class="p">,</span><span class="n">vcomp</span>
 </pre></div>
 </div>
-<p>Top</p>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html">Top</a></p>
 </section>
 <hr class="docutils" />
 <section id="function-get-levels-data">
@@ -370,7 +400,7 @@ temperature, dewpoint, and wind data is needed.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_skewT</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">timeRange</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
-<img alt="../../_images/Forecast_Model_Vertical_Sounding_24_0.png" src="../../_images/Forecast_Model_Vertical_Sounding_24_0.png" />
+<img alt="../../_images/Forecast_Model_Vertical_Sounding_25_0.png" src="../../_images/Forecast_Model_Vertical_Sounding_25_0.png" />
 <p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html">Top</a></p>
 </section>
 <hr class="docutils" />
@@ -405,19 +435,19 @@ easily recall all that logic and keep this for-loop fairly simple.</p>
 <span class="n">Using</span> <span class="mi">32</span> <span class="n">levels</span> <span class="n">between</span> <span class="mf">839.4</span> <span class="ow">and</span> <span class="mf">100.0</span><span class="n">MB</span>
 </pre></div>
 </div>
-<img alt="../../_images/Forecast_Model_Vertical_Sounding_27_1.png" src="../../_images/Forecast_Model_Vertical_Sounding_27_1.png" />
+<img alt="../../_images/Forecast_Model_Vertical_Sounding_28_1.png" src="../../_images/Forecast_Model_Vertical_Sounding_28_1.png" />
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Using</span> <span class="n">GFS20</span> <span class="n">forecast</span> <span class="n">time</span> <span class="mi">2023</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">25</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
 <span class="n">Found</span> <span class="n">surface</span> <span class="n">record</span> <span class="n">at</span> <span class="mf">842.5</span><span class="n">MB</span>
 <span class="n">Using</span> <span class="mi">32</span> <span class="n">levels</span> <span class="n">between</span> <span class="mf">842.5</span> <span class="ow">and</span> <span class="mf">100.0</span><span class="n">MB</span>
 </pre></div>
 </div>
-<img alt="../../_images/Forecast_Model_Vertical_Sounding_27_3.png" src="../../_images/Forecast_Model_Vertical_Sounding_27_3.png" />
+<img alt="../../_images/Forecast_Model_Vertical_Sounding_28_3.png" src="../../_images/Forecast_Model_Vertical_Sounding_28_3.png" />
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Using</span> <span class="n">NAM40</span> <span class="n">forecast</span> <span class="n">time</span> <span class="mi">2023</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">25</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
 <span class="n">Found</span> <span class="n">surface</span> <span class="n">record</span> <span class="n">at</span> <span class="mf">833.8</span><span class="n">MB</span>
 <span class="n">Using</span> <span class="mi">32</span> <span class="n">levels</span> <span class="n">between</span> <span class="mf">833.8</span> <span class="ow">and</span> <span class="mf">50.0</span><span class="n">MB</span>
 </pre></div>
 </div>
-<img alt="../../_images/Forecast_Model_Vertical_Sounding_27_5.png" src="../../_images/Forecast_Model_Vertical_Sounding_27_5.png" />
+<img alt="../../_images/Forecast_Model_Vertical_Sounding_28_5.png" src="../../_images/Forecast_Model_Vertical_Sounding_28_5.png" />
 <p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html">Top</a></p>
 </section>
 <hr class="docutils" />

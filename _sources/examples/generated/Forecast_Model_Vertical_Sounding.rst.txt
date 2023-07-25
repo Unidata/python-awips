@@ -28,6 +28,34 @@ Objectives
 
 --------------
 
+Table of Contents
+-----------------
+
+| `1
+  Imports <https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#imports>`__\ 
+| `2 EDEX
+  Connection <http://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#edex-connection>`__\ 
+| `3 Define Useful
+  Variables <https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#define-useful-variables>`__\ 
+| `4 Function:
+  get_surface_data() <https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#function-get-surface-data>`__\ 
+| `5 Function:
+  get_levels_data() <https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#function-get-levels-data>`__\ 
+| `6 Function:
+  plot_skewT() <https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#function-plot-skewt>`__\ 
+| `7 Retrieve Necessary Plotting
+  Data <https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#retrieve-necessary-plotting-data>`__\ 
+| `8
+  Skew-T/Log-P <https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#skew-t-log-p>`__\ 
+| `9 Model Sounding
+  Comparison <https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#model-sounding-comparison>`__\ 
+| `10 See
+  Also <https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#see-also>`__\ 
+|     `10.1 Related
+  Notebooks <https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#related-notebooks>`__\ 
+|     `10.2 Additional
+  Documentation <https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#additional-documentation>`__\ 
+
 1 Imports
 ---------
 
@@ -140,7 +168,7 @@ wind components.
         # return information for plotting
         return pressure,temp,dpt,ucomp,vcomp
 
-Top
+`Top <https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html>`__
 
 --------------
 
@@ -304,7 +332,7 @@ temperature, dewpoint, and wind data is needed.
 
 
 
-.. image:: Forecast_Model_Vertical_Sounding_files/Forecast_Model_Vertical_Sounding_24_0.png
+.. image:: Forecast_Model_Vertical_Sounding_files/Forecast_Model_Vertical_Sounding_25_0.png
 
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html>`__
@@ -350,7 +378,7 @@ easily recall all that logic and keep this for-loop fairly simple.
 
 
 
-.. image:: Forecast_Model_Vertical_Sounding_files/Forecast_Model_Vertical_Sounding_27_1.png
+.. image:: Forecast_Model_Vertical_Sounding_files/Forecast_Model_Vertical_Sounding_28_1.png
 
 
 .. parsed-literal::
@@ -361,7 +389,7 @@ easily recall all that logic and keep this for-loop fairly simple.
 
 
 
-.. image:: Forecast_Model_Vertical_Sounding_files/Forecast_Model_Vertical_Sounding_27_3.png
+.. image:: Forecast_Model_Vertical_Sounding_files/Forecast_Model_Vertical_Sounding_28_3.png
 
 
 .. parsed-literal::
@@ -372,7 +400,7 @@ easily recall all that logic and keep this for-loop fairly simple.
 
 
 
-.. image:: Forecast_Model_Vertical_Sounding_files/Forecast_Model_Vertical_Sounding_27_5.png
+.. image:: Forecast_Model_Vertical_Sounding_files/Forecast_Model_Vertical_Sounding_28_5.png
 
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html>`__
