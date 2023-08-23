@@ -36,9 +36,9 @@
 
 import abc
 
-from ufpy.dataaccess import DataAccessLayer
-from ufpy.dataaccess import INotificationSubscriber
-from ufpy.QpidSubscriber import QpidSubscriber
+from awips.dataaccess import DataAccessLayer
+from awips.dataaccess import INotificationSubscriber
+from awips.QpidSubscriber import QpidSubscriber
 from dynamicserialize.dstypes.com.raytheon.uf.common.time import DataTime
 
 

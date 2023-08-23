@@ -20,7 +20,7 @@
 
 
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
-from ufpy.dataaccess import DataAccessLayer as DAL
+from awips.dataaccess import DataAccessLayer as DAL
 
 from . import baseDafTestCase
 from . import params

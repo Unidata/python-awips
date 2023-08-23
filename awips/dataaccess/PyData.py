@@ -31,7 +31,7 @@
 #    
 #
 
-from ufpy.dataaccess import IData
+from awips.dataaccess import IData
 
 class PyData(IData):
     

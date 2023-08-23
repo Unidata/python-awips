@@ -61,9 +61,9 @@ from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request import G
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request import GetSupportedDatatypesRequest
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request import GetNotificationFilterRequest
 
-from ufpy import ThriftClient
-from ufpy.dataaccess import PyGeometryData
-from ufpy.dataaccess import PyGridData
+from awips import ThriftClient
+from awips.dataaccess import PyGeometryData
+from awips.dataaccess import PyGridData
 
 
 class LazyGridLatLon(object):

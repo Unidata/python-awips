@@ -1,4 +1,4 @@
-##
+#
 # This software was developed and / or modified by Raytheon Company,
 # pursuant to Contract DG133W-05-CQ-1067 with the US Government.
 #
@@ -18,7 +18,7 @@
 # further licensing information.
 ##
 
-from ufpy.dataaccess import DataAccessLayer as DAL
+from awips.dataaccess import DataAccessLayer as DAL
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
 
 from . import baseRadarTestCase

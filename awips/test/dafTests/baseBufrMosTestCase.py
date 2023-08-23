@@ -18,7 +18,7 @@
 # further licensing information.
 ##
 
-from ufpy.dataaccess import DataAccessLayer as DAL
+from awips.dataaccess import DataAccessLayer as DAL
 
 from . import baseDafTestCase
 from . import params

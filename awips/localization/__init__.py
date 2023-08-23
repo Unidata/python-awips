@@ -19,7 +19,7 @@
 ##
 
 #
-# __init__.py for ufpy.localization package
+# __init__.py for awips.localization package
 #
 #
 # SOFTWARE HISTORY

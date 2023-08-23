@@ -30,7 +30,7 @@
 
 import unittest
 
-from ufpy.localization.LocalizationFileManager import (LocalizationFileManager,
+from awips.localization.LocalizationFileManager import (LocalizationFileManager,
                                                        LocalizationFileVersionConflictException,
                                                        LocalizationContext,
                                                        LocalizationFileIsNotDirectoryException,

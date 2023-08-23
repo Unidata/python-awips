@@ -38,8 +38,8 @@
 import numpy
 import warnings
 
-from ufpy.dataaccess import IGridData
-from ufpy.dataaccess import PyData
+from awips.dataaccess import IGridData
+from awips.dataaccess import PyData
 
 NO_UNIT_CONVERT_WARNING = """
 The ability to unit convert grid data is not currently available in this version of the Data Access Framework.

@@ -1,4 +1,4 @@
-##
+#
 # This software was developed and / or modified by Raytheon Company,
 # pursuant to Contract DG133W-05-CQ-1067 with the US Government.
 #
@@ -19,8 +19,8 @@
 ##
 
 
-from ufpy.dataaccess import DataAccessLayer as DAL
-from ufpy.ThriftClient import ThriftRequestException
+from awips.dataaccess import DataAccessLayer as DAL
+from awips.ThriftClient import ThriftRequestException
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
 
 

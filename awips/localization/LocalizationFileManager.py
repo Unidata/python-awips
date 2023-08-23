@@ -254,7 +254,7 @@ def _getHost():
 
 def _getSiteFromServer(host):
     try:
-        from ufpy import ThriftClient
+        from awips import ThriftClient
         from dynamicserialize.dstypes.com.raytheon.uf.common.site.requests import GetPrimarySiteRequest
         client = ThriftClient.ThriftClient(host)
         return client.sendRequest(GetPrimarySiteRequest())

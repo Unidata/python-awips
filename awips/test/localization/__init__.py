@@ -20,7 +20,7 @@
 
 
 #
-# __init__.py for ufpy.test.localization package
+# __init__.py for awips.test.localization package
 #
 #
 # SOFTWARE HISTORY

@@ -36,7 +36,7 @@ from dynamicserialize.dstypes.com.raytheon.uf.common.alertviz import AlertVizReq
 #    Date            Ticket#       Engineer       Description
 #    ------------    ----------    -----------    --------------------------
 #    09/30/08                      chammack       Initial Creation.
-#    11/03/10        5849          cjeanbap       Moved to ufpy package from
+#    11/03/10        5849          cjeanbap       Moved to awips package from
 #                                                     com.raytheon.uf.tools.cli
 #    01/07/11        5645          cjeanbap       Added audio file to Status Message.
 #    05/27/11        3050          cjeanbap       Added if-statement to check Priority

@@ -20,8 +20,8 @@
 
 
 import datetime
-from ufpy.dataaccess import DataAccessLayer as DAL
-from ufpy.ThriftClient import ThriftRequestException
+from awips.dataaccess import DataAccessLayer as DAL
+from awips.ThriftClient import ThriftRequestException
 
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
 from dynamicserialize.dstypes.com.raytheon.uf.common.time import TimeRange

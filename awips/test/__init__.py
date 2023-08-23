@@ -20,7 +20,7 @@
 
 
 #
-# __init__.py for ufpy package
+# __init__.py for awips package
 #  
 #    
 #     SOFTWARE HISTORY

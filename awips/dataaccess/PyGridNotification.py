@@ -33,7 +33,7 @@
 
 import dynamicserialize
 import traceback
-from ufpy.dataaccess.PyNotification import PyNotification
+from awips.dataaccess.PyNotification import PyNotification
 
 class PyGridNotification(PyNotification):
 
