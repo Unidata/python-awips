@@ -17,5 +17,10 @@
 # under the License.
 #
 
-__all__ = ['fastbinary', 'TBase', 'TBinaryProtocol', 'TCompactProtocol',
-           'TJSONProtocol', 'TProtocol', 'TProtocolDecorator']
+
+class TProtocolDecorator(object):
+    def __new__(cls, protocol, *args, **kwargs):
+        decorated_cls = type(''.join(['Decorated', protocol.__class__.__name__]),
+                             (cls, protocol.__class__),
+                             protocol.__dict__)
+        return object.__new__(decorated_cls)

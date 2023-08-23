@@ -17,5 +17,23 @@
 # under the License.
 #
 
-__all__ = ['fastbinary', 'TBase', 'TBinaryProtocol', 'TCompactProtocol',
-           'TJSONProtocol', 'TProtocol', 'TProtocolDecorator']
+from thrift.Thrift import TMessageType
+from thrift.protocol import TProtocolDecorator
+
+SEPARATOR = ":"
+
+
+class TMultiplexedProtocol(TProtocolDecorator.TProtocolDecorator):
+    def __init__(self, protocol, serviceName):
+        self.serviceName = serviceName
+
+    def writeMessageBegin(self, name, type, seqid):
+        if (type == TMessageType.CALL or
+                type == TMessageType.ONEWAY):
+            super(TMultiplexedProtocol, self).writeMessageBegin(
+                self.serviceName + SEPARATOR + name,
+                type,
+                seqid
+            )
+        else:
+            super(TMultiplexedProtocol, self).writeMessageBegin(name, type, seqid)
