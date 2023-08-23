@@ -49,10 +49,7 @@ import sys
 import subprocess
 import warnings
 
-THRIFT_HOST = subprocess.check_output(
-                    "source /awips2/fxa/bin/setup.env; echo $DEFAULT_HOST",
-                    shell=True).decode().strip()
-
+THRIFT_HOST = "edex"
 
 USING_NATIVE_THRIFT = False
 
