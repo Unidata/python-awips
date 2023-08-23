@@ -1,10 +1,11 @@
-#
+
+# File auto-generated against equivalent DynamicSerialize Java class
+# 
 #      SOFTWARE HISTORY
-#
+# 
 #     Date            Ticket#       Engineer       Description
 #     ------------    ----------    -----------    --------------------------
 #     May 06, 2016                  root           Generated
-
 
 class ActivityMapData(object):
 
@@ -51,3 +52,4 @@ class ActivityMapData(object):
 
     def setActivityName(self, activityName):
         self.activityName = activityName
+

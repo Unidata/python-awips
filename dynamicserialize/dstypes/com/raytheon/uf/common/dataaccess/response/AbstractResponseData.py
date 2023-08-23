@@ -1,8 +1,29 @@
+##
+# This software was developed and / or modified by Raytheon Company,
+# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
+# 
+# U.S. EXPORT CONTROLLED TECHNICAL DATA
+# This software product contains export-restricted data whose
+# export/transfer/disclosure is restricted by U.S. law. Dissemination
+# to non-U.S. persons whether in the United States or abroad requires
+# an export license or other authorization.
+# 
+# Contractor Name:        Raytheon Company
+# Contractor Address:     6825 Pine Street, Suite 340
+#                         Mail Stop B8
+#                         Omaha, NE 68106
+#                         402.291.0100
+# 
+# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
+# further licensing information.
+##
+
+# File auto-generated against equivalent DynamicSerialize Java class
+
 import abc
-import six
 
 
-class AbstractResponseData(six.with_metaclass(abc.ABCMeta, object)):
+class AbstractResponseData(object, metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def __init__(self):
         self.time = None
@@ -23,30 +44,14 @@ class AbstractResponseData(six.with_metaclass(abc.ABCMeta, object)):
         self.level = level
 
     def getLocationName(self):
-        if six.PY2:
-            return self.locationName
-        if self.locationName is not None:
-            return self.locationName.decode('utf-8')
         return self.locationName
 
     def setLocationName(self, locationName):
         self.locationName = locationName
 
     def getAttributes(self):
-        if six.PY2:
-            return self.attributes
-        return self.convert(self.attributes)
+        return self.attributes
 
     def setAttributes(self, attributes):
         self.attributes = attributes
 
-    def convert(self, data):
-        if isinstance(data, dict):
-            return dict(map(self.convert, data.items()))
-        if isinstance(data, bytes):
-            return data.decode('utf-8')
-        if isinstance(data, tuple):
-            return tuple(map(self.convert, data))
-        if isinstance(data, list):
-            return list(map(self.convert, data))
-        return data

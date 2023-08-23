@@ -1,5 +1,26 @@
+##
+# This software was developed and / or modified by Raytheon Company,
+# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
 #
-# __init__.py for awips.dataaccess package
+# U.S. EXPORT CONTROLLED TECHNICAL DATA
+# This software product contains export-restricted data whose
+# export/transfer/disclosure is restricted by U.S. law. Dissemination
+# to non-U.S. persons whether in the United States or abroad requires
+# an export license or other authorization.
+#
+# Contractor Name:        Raytheon Company
+# Contractor Address:     6825 Pine Street, Suite 340
+#                         Mail Stop B8
+#                         Omaha, NE 68106
+#                         402.291.0100
+#
+# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
+# further licensing information.
+##
+
+
+#
+# __init__.py for ufpy.dataaccess package
 #
 #
 #     SOFTWARE HISTORY
@@ -18,20 +39,12 @@
 #
 
 __all__ = [
-    'IData',
-    'IDataRequest',
-    'IGeometryData',
-    'IGridData',
-    'IGeometryData',
-    'INotificationFilter',
-    'INotificationSubscriber'
-]
+
+           ]
 
 import abc
-from six import with_metaclass
 
-
-class IDataRequest(with_metaclass(abc.ABCMeta, object)):
+class IDataRequest(object, metaclass=abc.ABCMeta):
     """
     An IDataRequest to be submitted to the DataAccessLayer to retrieve data.
     """
@@ -151,7 +164,8 @@ class IDataRequest(with_metaclass(abc.ABCMeta, object)):
         return
 
 
-class IData(with_metaclass(abc.ABCMeta, object)):
+
+class IData(object, metaclass=abc.ABCMeta):
     """
     An IData representing data returned from the DataAccessLayer.
     """
@@ -211,6 +225,7 @@ class IData(with_metaclass(abc.ABCMeta, object)):
         return
 
 
+
 class IGridData(IData):
     """
     An IData representing grid data that is returned by the DataAccessLayer.
@@ -256,6 +271,7 @@ class IGridData(IData):
             second element is a numpy array of lats
         """
         return
+
 
 
 class IGeometryData(IData):
@@ -336,7 +352,7 @@ class IGeometryData(IData):
         return
 
 
-class INotificationSubscriber(with_metaclass(abc.ABCMeta, object)):
+class INotificationSubscriber(object, metaclass=abc.ABCMeta):
     """
     An INotificationSubscriber representing a notification filter returned from
     the DataNotificationLayer.
@@ -359,8 +375,7 @@ class INotificationSubscriber(with_metaclass(abc.ABCMeta, object)):
         """Closes the notification subscriber"""
         pass
 
-
-class INotificationFilter(with_metaclass(abc.ABCMeta, object)):
+class INotificationFilter(object, metaclass=abc.ABCMeta):
     """
     Represents data required to filter a set of URIs and
     return a corresponding list of IDataRequest to retrieve data for.

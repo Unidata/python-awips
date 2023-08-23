@@ -1,3 +1,27 @@
+##
+# This software was developed and / or modified by Raytheon Company,
+# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
+#
+# U.S. EXPORT CONTROLLED TECHNICAL DATA
+# This software product contains export-restricted data whose
+# export/transfer/disclosure is restricted by U.S. law. Dissemination
+# to non-U.S. persons whether in the United States or abroad requires
+# an export license or other authorization.
+#
+# Contractor Name:        Raytheon Company
+# Contractor Address:     6825 Pine Street, Suite 340
+#                         Mail Stop B8
+#                         Omaha, NE 68106
+#                         402.291.0100
+#
+# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
+# further licensing information.
+##
+
+from dynamicserialize.dstypes.com.raytheon.uf.common.time import DataTime
+
+import unittest
+
 #
 # Unit tests for Python implementation of RequestConstraint
 #
@@ -8,10 +32,6 @@
 #    08/02/16        2416          tgurney        Initial creation
 #
 #
-
-from dynamicserialize.dstypes.com.raytheon.uf.common.time import DataTime
-
-import unittest
 
 
 class DataTimeTestCase(unittest.TestCase):
@@ -37,14 +57,14 @@ class DataTimeTestCase(unittest.TestCase):
         self.assertEqual(expected, str(DataTime(s)))
         s = s.replace(' ', '_')
         self.assertEqual(expected, str(DataTime(s)))
-
+    
     def testFromStrWithFcstTimeHr(self):
         s = '2016-08-02 01:23:45 (17)'
         expected = s
         self.assertEqual(expected, str(DataTime(s)))
         s = s.replace(' ', '_')
         self.assertEqual(expected, str(DataTime(s)))
-
+        
     def testFromStrWithFcstTimeHrZeroMillis(self):
         s = '2016-08-02 01:23:45.0 (17)'
         expected = '2016-08-02 01:23:45 (17)'
@@ -58,7 +78,7 @@ class DataTimeTestCase(unittest.TestCase):
         self.assertEqual(expected, str(DataTime(s)))
         s = s.replace(' ', '_')
         self.assertEqual(expected, str(DataTime(s)))
-
+        
     def testFromStrWithFcstTimeHrMin(self):
         s = '2016-08-02 01:23:45 (17:34)'
         expected = s
@@ -72,28 +92,28 @@ class DataTimeTestCase(unittest.TestCase):
         self.assertEqual(expected, str(DataTime(s)))
         s = s.replace(' ', '_')
         self.assertEqual(expected, str(DataTime(s)))
-
+        
     def testFromStrWithPeriod(self):
         s = '2016-08-02 01:23:45[2016-08-02 02:34:45--2016-08-02 03:45:56]'
         expected = s
         self.assertEqual(expected, str(DataTime(s)))
         s = s.replace(' ', '_')
         self.assertEqual(expected, str(DataTime(s)))
-
+    
     def testFromStrWithPeriodZeroMillis(self):
         s = '2016-08-02 01:23:45.0[2016-08-02 02:34:45.0--2016-08-02 03:45:56.0]'
         expected = '2016-08-02 01:23:45[2016-08-02 02:34:45--2016-08-02 03:45:56]'
         self.assertEqual(expected, str(DataTime(s)))
         s = s.replace(' ', '_')
         self.assertEqual(expected, str(DataTime(s)))
-
+    
     def testFromStrWithEverything(self):
         s = '2016-08-02 01:23:45.0_(17:34)[2016-08-02 02:34:45.0--2016-08-02 03:45:56.0]'
         expected = '2016-08-02 01:23:45 (17:34)[2016-08-02 02:34:45--2016-08-02 03:45:56]'
         self.assertEqual(expected, str(DataTime(s)))
         s = s.replace(' ', '_')
         self.assertEqual(expected, str(DataTime(s)))
-
+        
     def testDataTimeReconstructItselfFromString(self):
         times = [
              '2016-08-02 01:23:45',

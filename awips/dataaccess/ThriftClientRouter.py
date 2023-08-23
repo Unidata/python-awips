@@ -1,5 +1,26 @@
+# #
+# This software was developed and / or modified by Raytheon Company,
+# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
+#
+# U.S. EXPORT CONTROLLED TECHNICAL DATA
+# This software product contains export-restricted data whose
+# export/transfer/disclosure is restricted by U.S. law. Dissemination
+# to non-U.S. persons whether in the United States or abroad requires
+# an export license or other authorization.
+#
+# Contractor Name:        Raytheon Company
+# Contractor Address:     6825 Pine Street, Suite 340
+#                         Mail Stop B8
+#                         Omaha, NE 68106
+#                         402.291.0100
+#
+# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
+# further licensing information.
+# #
+
 #
 # Routes requests to the Data Access Framework through Python Thrift.
+#
 #
 #
 #    SOFTWARE HISTORY
@@ -22,8 +43,8 @@
 #    10/26/16        5919          njensen        Speed up geometry creation in getGeometryData()
 #
 
+
 import numpy
-import six
 import shapely.wkb
 
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.impl import DefaultDataRequest
@@ -40,9 +61,9 @@ from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request import G
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request import GetSupportedDatatypesRequest
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.request import GetNotificationFilterRequest
 
-from awips import ThriftClient
-from awips.dataaccess import PyGeometryData
-from awips.dataaccess import PyGridData
+from ufpy import ThriftClient
+from ufpy.dataaccess import PyGeometryData
+from ufpy.dataaccess import PyGridData
 
 
 class LazyGridLatLon(object):
@@ -121,13 +142,7 @@ class ThriftClientRouter(object):
         retVal = []
         for gridDataRecord in response.getGridData():
             locationName = gridDataRecord.getLocationName()
-            if locationName is not None:
-                if six.PY2:
-                    locData = locSpecificData[locationName]
-                else:
-                    locData = locSpecificData[locationName.encode('utf-8')]
-            else:
-                locData = locSpecificData[locationName]
+            locData = locSpecificData[locationName]
             if self._lazyLoadGridLatLon:
                 retVal.append(PyGridData.PyGridData(gridDataRecord, locData[
                               0], locData[1], latLonDelegate=locData[2]))
@@ -165,20 +180,12 @@ class ThriftClientRouter(object):
         locNamesRequest = GetAvailableLocationNamesRequest()
         locNamesRequest.setRequestParameters(request)
         response = self._client.sendRequest(locNamesRequest)
-        if six.PY2:
-            return response
-        if response is not None:
-            return [x.decode('utf-8') for x in response]
         return response
 
     def getAvailableParameters(self, request):
         paramReq = GetAvailableParametersRequest()
         paramReq.setRequestParameters(request)
         response = self._client.sendRequest(paramReq)
-        if six.PY2:
-            return response
-        if response is not None:
-            return [x.decode('utf-8') for x in response]
         return response
 
     def getAvailableLevels(self, request):
@@ -194,10 +201,6 @@ class ThriftClientRouter(object):
         idReq = GetRequiredIdentifiersRequest()
         idReq.setRequest(request)
         response = self._client.sendRequest(idReq)
-        if six.PY2:
-            return response
-        if response is not None:
-            return [x.decode('utf-8') for x in response]
         return response
 
     def getOptionalIdentifiers(self, request):
@@ -207,10 +210,6 @@ class ThriftClientRouter(object):
         idReq = GetOptionalIdentifiersRequest()
         idReq.setRequest(request)
         response = self._client.sendRequest(idReq)
-        if six.PY2:
-            return response
-        if response is not None:
-            return [x.decode('utf-8') for x in response]
         return response
 
     def getIdentifierValues(self, request, identifierKey):
@@ -218,14 +217,9 @@ class ThriftClientRouter(object):
         idValReq.setIdentifierKey(identifierKey)
         idValReq.setRequestParameters(request)
         response = self._client.sendRequest(idValReq)
-        if six.PY2:
-            return response
-        if response is not None:
-            return [x.decode('utf-8') for x in response]
         return response
 
-    def newDataRequest(self, datatype, parameters=[], levels=[], locationNames=[],
-                       envelope=None, **kwargs):
+    def newDataRequest(self, datatype, parameters=[], levels=[], locationNames=[], envelope=None, **kwargs):
         req = DefaultDataRequest()
         if datatype:
             req.setDatatype(datatype)
@@ -244,10 +238,6 @@ class ThriftClientRouter(object):
 
     def getSupportedDatatypes(self):
         response = self._client.sendRequest(GetSupportedDatatypesRequest())
-        if six.PY2:
-            return response
-        if response is not None:
-            return [x.decode('utf-8') for x in response]
         return response
 
     def getNotificationFilter(self, request):

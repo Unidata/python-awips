@@ -1,3 +1,26 @@
+# #
+# This software was developed and / or modified by Raytheon Company,
+# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
+#
+# U.S. EXPORT CONTROLLED TECHNICAL DATA
+# This software product contains export-restricted data whose
+# export/transfer/disclosure is restricted by U.S. law. Dissemination
+# to non-U.S. persons whether in the United States or abroad requires
+# an export license or other authorization.
+#
+# Contractor Name:        Raytheon Company
+# Contractor Address:     6825 Pine Street, Suite 340
+#                         Mail Stop B8
+#                         Omaha, NE 68106
+#                         402.291.0100
+#
+# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
+# further licensing information.
+# #
+
+# File auto-generated against equivalent DynamicSerialize Java class
+# and then modified post-generation to add additional features to better
+# match Java implementation.
 #
 #     SOFTWARE HISTORY
 #
@@ -14,14 +37,16 @@
 #    05/26/16         2416         rjpeter        Added str based constructor.
 #    08/02/16         2416         tgurney        Forecast time regex bug fix,
 #                                                 plus misc cleanup
-#
+#    09/13/19         7888         tgurney        Python 3 division fixes
+#    11/18/19         7881         tgurney        Fix __hash__
+
 
 import calendar
 import datetime
-import re
-import time
 import numpy
-from six.moves import cStringIO as StringIO
+import re
+import io
+import time
 
 from dynamicserialize.dstypes.java.util import Date
 from dynamicserialize.dstypes.java.util import EnumSet
@@ -30,11 +55,16 @@ from .TimeRange import TimeRange
 
 _DATE = r'(\d{4}-\d{2}-\d{2})'
 _TIME = r'(\d{2}:\d{2}:\d{2})'
-_MILLIS = '(?:\.(\d{1,3})(?:\d{1,4})?)?'  # might have microsecond but that is thrown out
+# might have microsecond but that is thrown out
+_MILLIS = '(?:\.(\d{1,3})(?:\d{1,4})?)?'
 REFTIME_PATTERN_STR = _DATE + '[ _]' + _TIME + _MILLIS
 FORECAST_PATTERN_STR = r'(?:[ _]\((\d+)(?::(\d{1,2}))?\))?'
-VALID_PERIOD_PATTERN_STR = r'(?:\[' + REFTIME_PATTERN_STR + '--' + REFTIME_PATTERN_STR + r'\])?'
-STR_PATTERN = re.compile(REFTIME_PATTERN_STR + FORECAST_PATTERN_STR + VALID_PERIOD_PATTERN_STR)
+VALID_PERIOD_PATTERN_STR = r'(?:\[' + REFTIME_PATTERN_STR + \
+    '--' + REFTIME_PATTERN_STR + r'\])?'
+STR_PATTERN = re.compile(
+    REFTIME_PATTERN_STR +
+    FORECAST_PATTERN_STR +
+    VALID_PERIOD_PATTERN_STR)
 
 
 class DataTime(object):
@@ -58,14 +88,18 @@ class DataTime(object):
             self.fcstTime = 0
         self.refTime = refTime
         if validPeriod is not None and not isinstance(validPeriod, TimeRange):
-            raise ValueError("Invalid validPeriod object specified for DataTime.")
+            raise ValueError(
+                "Invalid validPeriod object specified for DataTime.")
         self.validPeriod = validPeriod
-        self.utilityFlags = EnumSet('com.raytheon.uf.common.time.DataTime$FLAG')
+        self.utilityFlags = EnumSet(
+            'com.raytheon.uf.common.time.DataTime$FLAG')
         self.levelValue = numpy.float64(-1.0)
 
         if self.refTime is not None:
             if isinstance(self.refTime, datetime.datetime):
-                self.refTime = int(calendar.timegm(self.refTime.utctimetuple()) * 1000)
+                self.refTime = int(
+                    calendar.timegm(
+                        self.refTime.utctimetuple()) * 1000)
             elif isinstance(self.refTime, time.struct_time):
                 self.refTime = int(calendar.timegm(self.refTime) * 1000)
             elif hasattr(self.refTime, 'getTime'):
@@ -83,12 +117,15 @@ class DataTime(object):
                                          + str(refTime))
 
                     groups = match.groups()
+                    rDate = groups[0]
+                    rTime = groups[1]
                     rMillis = groups[2] or 0
                     fcstTimeHr = groups[3]
                     fcstTimeMin = groups[4]
                     periodStart = groups[5], groups[6], (groups[7] or 0)
                     periodEnd = groups[8], groups[9], (groups[10] or 0)
-                    self.refTime = self._getTimeAsEpochMillis(groups[0], groups[1], rMillis)
+                    self.refTime = self._getTimeAsEpochMillis(
+                        rDate, rTime, rMillis)
 
                     if fcstTimeHr is not None:
                         self.fcstTime = int(fcstTimeHr) * 3600
@@ -97,18 +134,19 @@ class DataTime(object):
 
                     if periodStart[0] is not None:
                         self.validPeriod = TimeRange()
-                        periodStartTime = self._getTimeAsEpochMillis(*periodStart)
-                        self.validPeriod.setStart(periodStartTime / 1000)
+                        periodStartTime = self._getTimeAsEpochMillis(
+                            *periodStart)
+                        self.validPeriod.setStart(periodStartTime // 1000)
                         periodEndTime = self._getTimeAsEpochMillis(*periodEnd)
-                        self.validPeriod.setEnd(periodEndTime / 1000)
+                        self.validPeriod.setEnd(periodEndTime // 1000)
 
             self.refTime = Date(self.refTime)
 
             if self.validPeriod is None:
                 validTimeMillis = self.refTime.getTime() + int(self.fcstTime * 1000)
                 self.validPeriod = TimeRange()
-                self.validPeriod.setStart(validTimeMillis / 1000)
-                self.validPeriod.setEnd(validTimeMillis / 1000)
+                self.validPeriod.setStart(validTimeMillis // 1000)
+                self.validPeriod.setEnd(validTimeMillis // 1000)
 
         # figure out utility flags
         if self.fcstTime:
@@ -147,45 +185,44 @@ class DataTime(object):
         self.levelValue = numpy.float64(levelValue)
 
     def __str__(self):
-        sbuffer = StringIO()
+        buffer = io.StringIO()
 
         if self.refTime is not None:
-            refTimeInSecs = self.refTime.getTime() / 1000
+            refTimeInSecs = self.refTime.getTime() // 1000
             micros = (self.refTime.getTime() % 1000) * 1000
             dtObj = datetime.datetime.utcfromtimestamp(refTimeInSecs)
             dtObj = dtObj.replace(microsecond=micros)
-            # This won't be compatible with java or string from java since its to microsecond
-            sbuffer.write(dtObj.isoformat(' '))
+            # This won't be compatible with java or string from java since its
+            # to microsecond
+            buffer.write(dtObj.isoformat(' '))
 
         if "FCST_USED" in self.utilityFlags:
             hrs = int(self.fcstTime / 3600)
             mins = int((self.fcstTime - (hrs * 3600)) / 60)
-            sbuffer.write(" (" + str(hrs))
+            buffer.write(" (" + str(hrs))
             if mins != 0:
-                sbuffer.write(":" + str(mins))
-            sbuffer.write(")")
+                buffer.write(":" + str(mins))
+            buffer.write(")")
 
         if "PERIOD_USED" in self.utilityFlags:
-            sbuffer.write("[")
-            sbuffer.write(self.validPeriod.start.isoformat(' '))
-            sbuffer.write("--")
-            sbuffer.write(self.validPeriod.end.isoformat(' '))
-            sbuffer.write("]")
+            buffer.write("[")
+            buffer.write(self.validPeriod.start.isoformat(' '))
+            buffer.write("--")
+            buffer.write(self.validPeriod.end.isoformat(' '))
+            buffer.write("]")
 
-        strVal = sbuffer.getvalue()
-        sbuffer.close()
+        strVal = buffer.getvalue()
+        buffer.close()
         return strVal
 
     def __repr__(self):
         return "<DataTime instance: " + str(self) + " >"
 
     def __hash__(self):
-        hashCode = hash(self.refTime) ^ hash(self.fcstTime)
-        if self.validPeriod is not None and self.validPeriod.isValid():
-            hashCode ^= hash(self.validPeriod.getStart())
-            hashCode ^= hash(self.validPeriod.getEnd())
-        hashCode ^= hash(self.levelValue)
-        return hashCode
+        if self.getRefTime() is None:
+            return hash(self.fcstTime)
+        return hash((self.refTime, self.fcstTime,
+                     self.validPeriod, self.levelValue))
 
     def __eq__(self, other):
         if not isinstance(self, type(other)):
@@ -194,8 +231,16 @@ class DataTime(object):
         if other.getRefTime() is None:
             return self.fcstTime == other.fcstTime
 
-        dataTime1 = (self.refTime, self.fcstTime, self.validPeriod, self.levelValue)
-        dataTime2 = (other.refTime, other.fcstTime, other.validPeriod, other.levelValue)
+        dataTime1 = (
+            self.refTime,
+            self.fcstTime,
+            self.validPeriod,
+            self.levelValue)
+        dataTime2 = (
+            other.refTime,
+            other.fcstTime,
+            other.validPeriod,
+            other.levelValue)
         return dataTime1 == dataTime2
 
     def __ne__(self, other):

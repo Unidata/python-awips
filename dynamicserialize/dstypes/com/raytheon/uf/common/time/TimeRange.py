@@ -1,3 +1,25 @@
+##
+# This software was developed and / or modified by Raytheon Company,
+# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
+#
+# U.S. EXPORT CONTROLLED TECHNICAL DATA
+# This software product contains export-restricted data whose
+# export/transfer/disclosure is restricted by U.S. law. Dissemination
+# to non-U.S. persons whether in the United States or abroad requires
+# an export license or other authorization.
+#
+# Contractor Name:        Raytheon Company
+# Contractor Address:     6825 Pine Street, Suite 340
+#                         Mail Stop B8
+#                         Omaha, NE 68106
+#                         402.291.0100
+#
+# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
+# further licensing information.
+##
+
+# File auto-generated against equivalent DynamicSerialize Java class. Then modified to add functionality
+#
 #
 #     SOFTWARE HISTORY
 #
@@ -7,6 +29,7 @@
 #    01/22/14        2667          bclement       fixed millisecond support
 #    02/28/14        2667          bclement       constructor can take extra micros for start and end
 #    06/24/15        4480          dgilling       fix __eq__.
+#
 #
 #
 
@@ -19,7 +42,8 @@ MICROS_IN_SECOND = 1000000
 
 
 class TimeRange(object):
-    def __init__(self, start=None, end=None, startExtraMicros=None, endExtraMicros=None):
+    def __init__(self, start=None, end=None,
+                 startExtraMicros=None, endExtraMicros=None):
         self.start = self.__convertToDateTimeWithExtra(start, startExtraMicros)
         self.end = self.__convertToDateTimeWithExtra(end, endExtraMicros)
 
@@ -27,22 +51,19 @@ class TimeRange(object):
         return self.__repr__()
 
     def __repr__(self):
-        return "(" + self.start.strftime("%b %d %y %H:%M:%S %Z") + ", " + \
-               self.end.strftime("%b %d %y %H:%M:%S %Z") + ")"
+        return "(" + self.start.strftime("%b %d %y %H:%M:%S %Z") + \
+            ", " + self.end.strftime("%b %d %y %H:%M:%S %Z") + ")"
 
     def __eq__(self, other):
-        if not isinstance(self, type(other)):
+        if not isinstance(other, TimeRange):
             return False
-
-        if self.isValid() and other.isValid():
-            return self.getStart() == other.getStart() and self.getEnd() == other.getEnd()
-        elif not self.isValid() and not other.isValid():
-            return True
-        else:
-            return False
+        return (self.start, self.end) == (other.start, other.end)
 
     def __ne__(self, other):
-        return not self.__eq__(other)
+        return (not self.__eq__(other))
+
+    def __hash__(self):
+        return hash((self.start, self.end))
 
     def __convertToDateTimeWithExtra(self, timeArg, extraMicros):
         rval = self.__convertToDateTime(timeArg)
@@ -110,20 +131,22 @@ class TimeRange(object):
                 return self.__eq__(timeArg)
             elif timeArg.duration() == 0:
                 return self.contains(timeArg.start)
-            return timeArg.start >= self.start and timeArg.end <= self.end
+            return (timeArg.start >= self.start and timeArg.end <= self.end)
         else:
             convTime = self.__convertToDateTime(timeArg)
             if not isinstance(convTime, datetime.datetime):
-                raise TypeError("Invalid type for argument time specified to TimeRange.contains().")
+                raise TypeError(
+                    "Invalid type for argument time specified to TimeRange.contains().")
             if self.duration() != 0:
-                return self.start <= convTime < self.end
+                return (convTime >= self.start and convTime < self.end)
             return convTime == self.start
 
     def isValid(self):
         return bool(self.start != self.end)
 
     def overlaps(self, timeRange):
-        return timeRange.contains(self.start) or self.contains(timeRange.start)
+        return (timeRange.contains(self.start)
+                or self.contains(timeRange.start))
 
     def combineWith(self, timeRange):
         if self.isValid() and timeRange.isValid():

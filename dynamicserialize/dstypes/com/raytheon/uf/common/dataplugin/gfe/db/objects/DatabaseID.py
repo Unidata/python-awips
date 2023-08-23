@@ -1,3 +1,24 @@
+##
+# This software was developed and / or modified by Raytheon Company,
+# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
+#
+# U.S. EXPORT CONTROLLED TECHNICAL DATA
+# This software product contains export-restricted data whose
+# export/transfer/disclosure is restricted by U.S. law. Dissemination
+# to non-U.S. persons whether in the United States or abroad requires
+# an export license or other authorization.
+#
+# Contractor Name:        Raytheon Company
+# Contractor Address:     6825 Pine Street, Suite 340
+#                         Mail Stop B8
+#                         Omaha, NE 68106
+#                         402.291.0100
+#
+# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
+# further licensing information.
+##
+
+# File auto-generated against equivalent DynamicSerialize Java class
 # Modified by njensen to add __repr__
 
 import time
@@ -14,7 +35,7 @@ class DatabaseID(object):
         self.modelId = None
         self.shortModelId = None
         if dbIdentifier is not None:
-            if self.__decodeIdentifier(dbIdentifier):
+            if (self.__decodeIdentifier(dbIdentifier)):
                 self.__encodeIdentifier()
             else:
                 self.format = "NONE"
@@ -37,8 +58,8 @@ class DatabaseID(object):
     def getFormat(self):
         return self.format
 
-    def setFormat(self, dbformat):
-        self.format = dbformat
+    def setFormat(self, format):
+        self.format = format
 
     def getDbType(self):
         return self.dbType
@@ -72,11 +93,10 @@ class DatabaseID(object):
 
     def __encodeIdentifier(self):
         if self.dbType is not None:
-            self.modelId = self.siteId + "_" + self.format + "_" \
-                           + self.dbType + "_" + self.modelName
+            self.modelId = self.siteId + "_" + self.format + \
+                "_" + self.dbType + "_" + self.modelName
         else:
-            self.modelId = self.siteId + "_" + self.format + "__" \
-                           + self.modelName
+            self.modelId = self.siteId + "_" + self.format + "__" + self.modelName
 
         self.shortModelId = self.modelName
         if self.dbType is not None and self.dbType != "":
@@ -84,7 +104,8 @@ class DatabaseID(object):
 
         if self.modelTime != "00000000_0000":
             self.modelId += "_" + self.modelTime
-            self.shortModelId += "_" + self.modelTime[6:8] + self.modelTime[9:11]
+            self.shortModelId += "_" + \
+                self.modelTime[6:8] + self.modelTime[9:11]
         else:
             self.modelId += "_" + "00000000_0000"
 
@@ -113,7 +134,7 @@ class DatabaseID(object):
         self.modelName = strings[3]
 
         # date-time group
-        if len(strings[4]) != 8 or len(strings[5]) != 4:
+        if (len(strings[4]) != 8 or len(strings[5]) != 4):
             return False
 
         # make sure the digits are there
@@ -129,15 +150,15 @@ class DatabaseID(object):
         dateStruct = time.gmtime(0)
         try:
             dateStruct = time.strptime(dtgString, "%Y%m%d_%H%M")
-        except ValueError:
-            return False, dateStruct
-        return True, dateStruct
+        except Exception:
+            return (False, dateStruct)
+        return (True, dateStruct)
 
     def __decodeDtg(self, dtgString):
         try:
             time.strptime(dtgString, "%Y%m%d_%H%M")
             self.modelTime = dtgString
-        except ValueError:
+        except Exception:
             return False
         return True
 
@@ -154,14 +175,8 @@ class DatabaseID(object):
         return self.modelId
 
     def __hash__(self):
-        prime = 31
-        result = 1
-        result = prime * result + (0 if self.dbType is None else hash(self.dbType))
-        result = prime * result + (0 if self.format is None else hash(self.format))
-        result = prime * result + (0 if self.modelId is None else hash(self.modelId))
-        result = prime * result + (0 if self.modelTime is None else hash(self.modelTime))
-        result = prime * result + (0 if self.siteId is None else hash(self.siteId))
-        return result
+        return hash((self.dbType, self.format, self.modelId,
+                     self.modelTime, self.siteId))
 
     def __cmp__(self, other):
         if not isinstance(other, DatabaseID):
@@ -188,7 +203,7 @@ class DatabaseID(object):
     def __eq__(self, other):
         if not isinstance(other, DatabaseID):
             return False
-        return str(self) == str(other)
+        return (str(self) == str(other))
 
     def __ne__(self, other):
-        return not self.__eq__(other)
+        return (not self.__eq__(other))

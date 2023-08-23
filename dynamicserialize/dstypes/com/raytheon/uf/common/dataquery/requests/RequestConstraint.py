@@ -1,3 +1,23 @@
+##
+# This software was developed and / or modified by Raytheon Company,
+# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
+#
+# U.S. EXPORT CONTROLLED TECHNICAL DATA
+# This software product contains export-restricted data whose
+# export/transfer/disclosure is restricted by U.S. law. Dissemination
+# to non-U.S. persons whether in the United States or abroad requires
+# an export license or other authorization.
+#
+# Contractor Name:        Raytheon Company
+# Contractor Address:     6825 Pine Street, Suite 340
+#                         Mail Stop B8
+#                         Omaha, NE 68106
+#                         402.291.0100
+#
+# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
+# further licensing information.
+##
+
 #
 #      SOFTWARE HISTORY
 #
@@ -6,13 +26,12 @@
 #     Jun 01, 2016    5574          tgurney        Initial creation
 #     Jun 27, 2016    5725          tgurney        Add NOT IN
 #     Jul 22, 2016    2416          tgurney        Add evaluate()
-#     Oct 05, 2018                  mjames@ucar    Python 3 types
+#     Jun 26, 2019    7888          tgurney        Python 3 fixes
 #
 #
 
 import re
-import six
-from dynamicserialize.dstypes.com.raytheon.uf.common.time import DataTime
+from ...time import DataTime
 
 
 class RequestConstraint(object):
@@ -81,7 +100,7 @@ class RequestConstraint(object):
         """Make a pattern using % wildcard into a regex"""
         pattern = re.escape(pattern)
         pattern = pattern.replace('\\%', '.*')
-        pattern = pattern.replace('\\_', '.')
+        pattern = pattern.replace('_', '.')
         pattern = pattern + '$'
         return re.compile(pattern, flags)
 
@@ -113,33 +132,35 @@ class RequestConstraint(object):
             self._evalValue = self._adjustValueType(self.constraintValue)
 
     def _adjustValueType(self, value):
-        """
+        '''
         Try to take part of a constraint value, encoded as a string, and
         return it as its 'true type'.
 
         _adjustValueType('3.0') -> 3.0
         _adjustValueType('3') -> 3.0
         _adjustValueType('a string') -> 'a string'
-        """
+        '''
         try:
             return float(value)
-        except ValueError:
+        except Exception:
             pass
         try:
             return DataTime(value)
-        except ValueError:
+        except Exception:
             pass
         return value
 
     def _matchType(self, value, otherValue):
-        """
+        '''
         Return value coerced to be the same type as otherValue. If this is
         not possible, just return value unmodified.
-        """
+        '''
+        # cannot use type() because otherValue might be an instance of an
+        # old-style class (then it would just be of type "instance")
         if not isinstance(value, otherValue.__class__):
             try:
                 return otherValue.__class__(value)
-            except ValueError:
+            except Exception:
                 pass
         return value
 
@@ -147,7 +168,8 @@ class RequestConstraint(object):
         value = self._matchType(value, self._evalValue)
         if isinstance(value, float):
             return abs(float(self._evalValue) - value) < self.TOLERANCE
-        return value == self._evalValue
+        else:
+            return value == self._evalValue
 
     def _evalGreaterThan(self, value):
         value = self._matchType(value, self._evalValue)
@@ -167,7 +189,7 @@ class RequestConstraint(object):
 
     def _evalBetween(self, value):
         value = self._matchType(value, self._evalValue[0])
-        return self._evalValue[0] <= value <= self._evalValue[1]
+        return value >= self._evalValue[0] and value <= self._evalValue[1]
 
     def _evalIn(self, value):
         anEvalValue = next(iter(self._evalValue))
@@ -176,11 +198,12 @@ class RequestConstraint(object):
                 try:
                     if abs(otherValue - float(value)) < self.TOLERANCE:
                         return True
-                except ValueError:
+                except Exception:
                     pass
             return False
-        value = self._matchType(value, anEvalValue)
-        return value in self._evalValue
+        else:
+            value = self._matchType(value, anEvalValue)
+            return value in self._evalValue
 
     def _evalLike(self, value):
         value = self._matchType(value, self._evalValue)
@@ -189,7 +212,7 @@ class RequestConstraint(object):
         return self._evalValue.match(value) is not None
 
     def _evalIsNull(self, value):
-        return value is None or value == 'null'
+        return value is None or 'null' == value
 
     # DAF-specific stuff begins here ##########################################
 
@@ -205,24 +228,18 @@ class RequestConstraint(object):
 
     @staticmethod
     def _stringify(value):
-        if six.PY2:
-            if isinstance(value, (str, int, long, bool, float, unicode)):
-                return str(value)
-            else:
-                # Collections are not allowed; they are handled separately.
-                # Arbitrary objects are not allowed because the string
-                # representation may not be sufficient to reconstruct the object.
-                raise TypeError('Constraint values of type ' + repr(type(value)) +
-                                'are not allowed')
+        if type(value) in {int, bool, float}:
+            return str(value)
+        elif type(value) is str:
+            return value
+        elif type(value) is bytes:
+            return value.decode()
         else:
-            if isinstance(value, (str, int, bool, float)):
-                return str(value)
-            else:
-                # Collections are not allowed; they are handled separately.
-                # Arbitrary objects are not allowed because the string
-                # representation may not be sufficient to reconstruct the object.
-                raise TypeError('Constraint values of type ' + repr(type(value)) +
-                                'are not allowed')
+            # Collections are not allowed; they are handled separately.
+            # Arbitrary objects are not allowed because the string
+            # representation may not be sufficient to reconstruct the object.
+            raise TypeError('Constraint values of type ' + repr(type(value)) +
+                            'are not allowed')
 
     @classmethod
     def _constructIn(cls, constraintType, constraintValue):
@@ -232,7 +249,7 @@ class RequestConstraint(object):
         except TypeError:
             raise TypeError("value for IN / NOT IN constraint must be an iterable")
         stringValue = ', '.join(cls._stringify(item) for item in iterator)
-        if not stringValue:
+        if len(stringValue) == 0:
             raise ValueError('cannot use IN / NOT IN with empty collection')
         obj = cls()
         obj.setConstraintType(constraintType)
@@ -268,12 +285,14 @@ class RequestConstraint(object):
         """Build a new RequestConstraint."""
         try:
             constraintType = cls.CONSTRAINT_MAP[operator.upper()]
-        except KeyError:
+        except (KeyError, AttributeError) as e:
             errmsg = '{} is not a valid operator. Valid operators are: {}'
             validOperators = list(sorted(cls.CONSTRAINT_MAP.keys()))
-            raise ValueError(errmsg.format(operator, validOperators))
+            raise ValueError(errmsg.format(operator, validOperators)) from e
         if constraintType in ('IN', 'NOT_IN'):
             return cls._constructIn(constraintType, constraintValue)
         elif constraintType in {'EQUALS', 'NOT_EQUALS'}:
             return cls._constructEq(constraintType, constraintValue)
-        return cls._construct(constraintType, constraintValue)
+        else:
+            return cls._construct(constraintType, constraintValue)
+

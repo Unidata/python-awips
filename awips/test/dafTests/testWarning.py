@@ -1,3 +1,30 @@
+##
+# This software was developed and / or modified by Raytheon Company,
+# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
+#
+# U.S. EXPORT CONTROLLED TECHNICAL DATA
+# This software product contains export-restricted data whose
+# export/transfer/disclosure is restricted by U.S. law. Dissemination
+# to non-U.S. persons whether in the United States or abroad requires
+# an export license or other authorization.
+#
+# Contractor Name:        Raytheon Company
+# Contractor Address:     6825 Pine Street, Suite 340
+#                         Mail Stop B8
+#                         Omaha, NE 68106
+#                         402.291.0100
+#
+# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
+# further licensing information.
+##
+
+
+from awips.dataaccess import DataAccessLayer as DAL
+
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
+from . import baseDafTestCase
+import unittest
+
 #
 # Test DAF support for warning data
 #
@@ -16,15 +43,9 @@
 #    06/21/16        5548          tgurney        Skip tests that cause errors
 #    06/30/16        5725          tgurney        Add test for NOT IN
 #    12/12/16        5981          tgurney        Improve test performance
+#    02/20/18        7220          mapeters       Added test for getting filtered
+#                                                 column identifier values
 #
-#
-
-from __future__ import print_function
-from awips.dataaccess import DataAccessLayer as DAL
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
-
-from awips.test.dafTests import baseDafTestCase
-import unittest
 
 
 class WarningTestCase(baseDafTestCase.DafTestCase):
@@ -95,13 +116,12 @@ class WarningTestCase(baseDafTestCase.DafTestCase):
     def testGetColumnIdentifierValues(self):
         self.runGetIdValuesTest(['act'])
 
-    @unittest.skip('avoid EDEX error')
-    def testGetInvalidIdentifierValuesThrowsException(self):
-        self.runInvalidIdValuesTest()
-
-    @unittest.skip('avoid EDEX error')
-    def testGetNonexistentIdentifierValuesThrowsException(self):
-        self.runNonexistentIdValuesTest()
+    def testGetFilteredColumnIdentifierValues(self):
+        req = DAL.newDataRequest(self.datatype)
+        req.addIdentifier('sig', 'W')
+        phensigs = DAL.getIdentifierValues(req, 'phensig')
+        for phensig in phensigs:
+            self.assertTrue(phensig.endswith('.W'))
 
     def _runConstraintTest(self, key, operator, value):
         req = DAL.newDataRequest(self.datatype)
@@ -116,11 +136,6 @@ class WarningTestCase(baseDafTestCase.DafTestCase):
             self.assertEqual(record.getString('sig'), 'Y')
 
     def testGetDataWithEqualsInt(self):
-        geometryData = self._runConstraintTest('etn', '=', 1000)
-        for record in geometryData:
-            self.assertEqual(record.getString('etn'), '1000')
-
-    def testGetDataWithEqualsLong(self):
         geometryData = self._runConstraintTest('etn', '=', 1000)
         for record in geometryData:
             self.assertEqual(record.getString('etn'), '1000')

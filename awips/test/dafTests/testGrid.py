@@ -1,3 +1,33 @@
+##
+# This software was developed and / or modified by Raytheon Company,
+# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
+#
+# U.S. EXPORT CONTROLLED TECHNICAL DATA
+# This software product contains export-restricted data whose
+# export/transfer/disclosure is restricted by U.S. law. Dissemination
+# to non-U.S. persons whether in the United States or abroad requires
+# an export license or other authorization.
+#
+# Contractor Name:        Raytheon Company
+# Contractor Address:     6825 Pine Street, Suite 340
+#                         Mail Stop B8
+#                         Omaha, NE 68106
+#                         402.291.0100
+#
+# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
+# further licensing information.
+##
+
+
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
+from shapely.geometry import box, Point
+from ufpy.dataaccess import DataAccessLayer as DAL
+from ufpy.ThriftClient import ThriftRequestException
+
+from . import baseDafTestCase
+from . import params
+import unittest
+
 #
 # Test DAF support for grid data
 #
@@ -18,17 +48,8 @@
 #    12/07/16        5981          tgurney        Parameterize
 #    01/06/17        5981          tgurney        Skip envelope test when no
 #                                                 data is available
+#    04/14/22        8845          njensen        Added testGetDataAtPoint
 #
-
-from __future__ import print_function
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
-from awips.dataaccess import DataAccessLayer as DAL
-from awips.ThriftClient import ThriftRequestException
-from shapely.geometry import box, Point
-
-from awips.test.dafTests import baseDafTestCase
-from awips.test.dafTests import params
-import unittest
 
 
 class GridTestCase(baseDafTestCase.DafTestCase):
@@ -86,6 +107,7 @@ class GridTestCase(baseDafTestCase.DafTestCase):
     def testGetNonexistentIdentifierValuesThrowsException(self):
         self.runNonexistentIdValuesTest()
 
+        
     def testGetDataWithEnvelope(self):
         req = DAL.newDataRequest(self.datatype)
         req.addIdentifier('info.datasetId', self.model)
@@ -98,14 +120,15 @@ class GridTestCase(baseDafTestCase.DafTestCase):
         lons, lats = gridData[0].getLatLonCoords()
         lons = lons.reshape(-1)
         lats = lats.reshape(-1)
-
+        
         # Ensure all points are within one degree of the original box
         # to allow slight margin of error for reprojection distortion.
         testEnv = box(params.ENVELOPE.bounds[0] - 1, params.ENVELOPE.bounds[1] - 1,
-                      params.ENVELOPE.bounds[2] + 1, params.ENVELOPE.bounds[3] + 1)
-
+                      params.ENVELOPE.bounds[2] + 1, params.ENVELOPE.bounds[3] + 1 )
+        
         for i in range(len(lons)):
             self.assertTrue(testEnv.contains(Point(lons[i], lats[i])))
+
 
     def _runConstraintTest(self, key, operator, value):
         req = DAL.newDataRequest(self.datatype)
@@ -123,11 +146,6 @@ class GridTestCase(baseDafTestCase.DafTestCase):
             self.assertEqual(record.getAttribute('info.level.levelonevalue'), 2000.0)
 
     def testGetDataWithEqualsInt(self):
-        gridData = self._runConstraintTest('info.level.levelonevalue', '=', 2000)
-        for record in gridData:
-            self.assertEqual(record.getAttribute('info.level.levelonevalue'), 2000)
-
-    def testGetDataWithEqualsLong(self):
         gridData = self._runConstraintTest('info.level.levelonevalue', '=', 2000)
         for record in gridData:
             self.assertEqual(record.getAttribute('info.level.levelonevalue'), 2000)
@@ -259,3 +277,11 @@ class GridTestCase(baseDafTestCase.DafTestCase):
             self.runGridDataTest(req)
         self.assertIn('IncompatibleRequestException', str(cm.exception))
         self.assertIn('info.level.masterLevel.name', str(cm.exception))
+
+    def testGetDataAtPoint(self):
+        req = DAL.newDataRequest(self.datatype)
+        req.addIdentifier('info.datasetId', self.model)
+        req.setLevels('2FHAG')
+        req.setParameters('T')
+        req.setEnvelope(params.POINT)
+        self.runGeometryDataTest(req)

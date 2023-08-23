@@ -1,4 +1,5 @@
 
+# File auto-generated against equivalent DynamicSerialize Java class
 
 class ResponseMessageValidate(object):
 
@@ -38,3 +39,4 @@ class ResponseMessageValidate(object):
 
     def setValidTime(self, validTime):
         self.validTime = validTime
+

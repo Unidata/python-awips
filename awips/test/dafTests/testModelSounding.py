@@ -1,3 +1,31 @@
+##
+# This software was developed and / or modified by Raytheon Company,
+# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
+#
+# U.S. EXPORT CONTROLLED TECHNICAL DATA
+# This software product contains export-restricted data whose
+# export/transfer/disclosure is restricted by U.S. law. Dissemination
+# to non-U.S. persons whether in the United States or abroad requires
+# an export license or other authorization.
+#
+# Contractor Name:        Raytheon Company
+# Contractor Address:     6825 Pine Street, Suite 340
+#                         Mail Stop B8
+#                         Omaha, NE 68106
+#                         402.291.0100
+#
+# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
+# further licensing information.
+##
+
+
+from ufpy.dataaccess import DataAccessLayer as DAL
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
+
+from . import baseDafTestCase
+from . import params
+import unittest
+
 #
 # Test DAF support for modelsounding data
 #
@@ -19,20 +47,11 @@
 #
 #
 
-from __future__ import print_function
-from awips.dataaccess import DataAccessLayer as DAL
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
-
-from awips.test.dafTests import baseDafTestCase
-from awips.test.dafTests import params
-
 
 class ModelSoundingTestCase(baseDafTestCase.DafTestCase):
     """Test DAF support for modelsounding data"""
 
     datatype = "modelsounding"
-
-    reporttype = "ETA"
 
     def testGetAvailableParameters(self):
         req = DAL.newDataRequest(self.datatype)
@@ -40,18 +59,18 @@ class ModelSoundingTestCase(baseDafTestCase.DafTestCase):
 
     def testGetAvailableLocations(self):
         req = DAL.newDataRequest(self.datatype)
-        req.addIdentifier("reportType", self.reporttype)
+        req.addIdentifier("reportType", "ETA")
         self.runLocationsTest(req)
 
     def testGetAvailableTimes(self):
         req = DAL.newDataRequest(self.datatype)
-        req.addIdentifier("reportType", self.reporttype)
+        req.addIdentifier("reportType", "ETA")
         req.setLocationNames(params.OBS_STATION)
         self.runTimesTest(req)
 
     def testGetGeometryData(self):
         req = DAL.newDataRequest(self.datatype)
-        req.addIdentifier("reportType", self.reporttype)
+        req.addIdentifier("reportType", "ETA")
         req.setLocationNames(params.OBS_STATION)
         req.setParameters("temperature", "pressure", "specHum", "sfcPress", "temp2", "q2")
         print("Testing getGeometryData()")
@@ -81,7 +100,7 @@ class ModelSoundingTestCase(baseDafTestCase.DafTestCase):
 
     def testGetGeometryDataWithEnvelope(self):
         req = DAL.newDataRequest(self.datatype)
-        req.addIdentifier("reportType", self.reporttype)
+        req.addIdentifier("reportType", "ETA")
         req.setEnvelope(params.ENVELOPE)
         req.setParameters("temperature", "pressure", "specHum", "sfcPress", "temp2", "q2")
         print("Testing getGeometryData()")

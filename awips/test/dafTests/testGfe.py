@@ -1,3 +1,32 @@
+##
+# This software was developed and / or modified by Raytheon Company,
+# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
+#
+# U.S. EXPORT CONTROLLED TECHNICAL DATA
+# This software product contains export-restricted data whose
+# export/transfer/disclosure is restricted by U.S. law. Dissemination
+# to non-U.S. persons whether in the United States or abroad requires
+# an export license or other authorization.
+#
+# Contractor Name:        Raytheon Company
+# Contractor Address:     6825 Pine Street, Suite 340
+#                         Mail Stop B8
+#                         Omaha, NE 68106
+#                         402.291.0100
+#
+# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
+# further licensing information.
+##
+
+
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
+from ufpy.dataaccess import DataAccessLayer as DAL
+from shapely.geometry import box, Point
+
+from . import baseDafTestCase
+from . import params
+import unittest
+
 #
 # Test DAF support for GFE data
 #
@@ -22,15 +51,6 @@
 #                                                 parmId.dbId.modelName
 #
 #
-
-from __future__ import print_function
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
-from awips.dataaccess import DataAccessLayer as DAL
-from shapely.geometry import box, Point
-
-from awips.test.dafTests import baseDafTestCase
-from awips.test.dafTests import params
-import unittest
 
 
 class GfeTestCase(baseDafTestCase.DafTestCase):
@@ -78,7 +98,7 @@ class GfeTestCase(baseDafTestCase.DafTestCase):
         # Ensure all points are within one degree of the original box
         # to allow slight margin of error for reprojection distortion.
         testEnv = box(params.ENVELOPE.bounds[0] - 1, params.ENVELOPE.bounds[1] - 1,
-                      params.ENVELOPE.bounds[2] + 1, params.ENVELOPE.bounds[3] + 1)
+                      params.ENVELOPE.bounds[2] + 1, params.ENVELOPE.bounds[3] + 1 )
 
         for i in range(len(lons)):
             self.assertTrue(testEnv.contains(Point(lons[i], lats[i])))
@@ -89,17 +109,17 @@ class GfeTestCase(baseDafTestCase.DafTestCase):
         req.addIdentifier('parmId.dbId.siteId', params.SITE_ID)
         req.setParameters('Wind')
         times = DAL.getAvailableTimes(req)
-        if not times:
+        if not(times):
             raise unittest.SkipTest('No Wind Data available for testing')
         gridData = DAL.getGridData(req, [times[0]])
         rawWind = None
         rawDir = None
         for grid in gridData:
             if grid.getParameter() == 'Wind':
-                self.assertEqual(grid.getUnit(), 'kts')
+                self.assertEqual(grid.getUnit(),'kts')
                 rawWind = grid.getRawData()
             elif grid.getParameter() == 'WindDirection':
-                self.assertEqual(grid.getUnit(), 'deg')
+                self.assertEqual(grid.getUnit(),'deg')
                 rawDir = grid.getRawData()
         self.assertIsNotNone(rawWind, 'Wind Magnitude grid is not present')
         self.assertIsNotNone(rawDir, 'Wind Direction grid is not present')
@@ -107,7 +127,7 @@ class GfeTestCase(baseDafTestCase.DafTestCase):
         self.assertTrue((rawWind >= 0).all(), 'Wind Speed should not contain negative values')
         self.assertTrue((rawDir >= 0).all(), 'Wind Direction should not contain negative values')
         self.assertTrue((rawDir <= 360).all(), 'Wind Direction should be less than or equal to 360')
-        self.assertFalse((rawDir == rawWind).all(), 'Wind Direction should be different from Wind Speed')
+        self.assertFalse((rawDir == rawWind).all(), 'Wind Direction should be different from Wind Speed')        
 
     def testGetIdentifierValues(self):
         req = DAL.newDataRequest(self.datatype)
@@ -192,3 +212,4 @@ class GfeTestCase(baseDafTestCase.DafTestCase):
     def testGetDataWithEmptyInConstraintThrowsException(self):
         with self.assertRaises(ValueError):
             self._runConstraintTest('parmId.dbId.modelName', 'in', [])
+

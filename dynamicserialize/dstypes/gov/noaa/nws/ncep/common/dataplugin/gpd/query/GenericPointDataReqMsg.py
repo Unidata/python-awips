@@ -1,4 +1,5 @@
 
+# File auto-generated against equivalent DynamicSerialize Java class
 
 class GenericPointDataReqMsg(object):
 
@@ -14,7 +15,7 @@ class GenericPointDataReqMsg(object):
         self.queryKey = None
         self.gpdDataString = None
         self.maxNumLevel = 1
-
+        
     def getReqType(self):
         return self.reqType
 
@@ -77,6 +78,7 @@ class GenericPointDataReqMsg(object):
 
     def getGpdDataString(self):
         return self.gpdDataString
-
+    
     def setGpdDataString(self, gpdDataString):
         self.gpdDataString = gpdDataString
+    

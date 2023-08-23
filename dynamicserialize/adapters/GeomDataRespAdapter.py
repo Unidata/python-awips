@@ -1,3 +1,24 @@
+##
+# This software was developed and / or modified by Raytheon Company,
+# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
+#
+# U.S. EXPORT CONTROLLED TECHNICAL DATA
+# This software product contains export-restricted data whose
+# export/transfer/disclosure is restricted by U.S. law. Dissemination
+# to non-U.S. persons whether in the United States or abroad requires
+# an export license or other authorization.
+#
+# Contractor Name:        Raytheon Company
+# Contractor Address:     6825 Pine Street, Suite 340
+#                         Mail Stop B8
+#                         Omaha, NE 68106
+#                         402.291.0100
+#
+# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
+# further licensing information.
+##
+
+
 #
 #    Efficient adapter for GetGeometryDataResponse
 #
@@ -11,8 +32,11 @@
 #
 #
 
+from thrift.Thrift import TType
+from dynamicserialize import SelfDescribingBinaryProtocol
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.response import GeometryResponseData
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.response import GetGeometryDataResponse
+
 
 ClassAdapter = 'com.raytheon.uf.common.dataaccess.response.GetGeometryDataResponse'
 
@@ -34,7 +58,7 @@ def serialize(context, resp):
         context.writeObject(geo.getTime())
         context.writeObject(geo.getLevel())
         context.writeObject(geo.getLocationName())
-        context.writeObject(geo.getAttributes())
+        context.writeObject(geo.getAttributes())        
 
         # write data map
         params = geo.getDataMap()
@@ -49,17 +73,16 @@ def serialize(context, resp):
             # unit
             context.writeObject(value[2])
 
-
 def deserialize(context):
     size = context.readI32()
     wkbs = []
-    for __ in range(size):
+    for i in range(size):
         wkb = context.readBinary()
         wkbs.append(wkb)
 
     geoData = []
     size = context.readI32()
-    for _ in range(size):
+    for i in range(size):
         data = GeometryResponseData()
         # wkb index
         wkbIndex = context.readI32()
@@ -77,7 +100,7 @@ def deserialize(context):
         # parameters
         paramSize = context.readI32()
         paramMap = {}
-        for __ in range(paramSize):
+        for k in range(paramSize):
             paramName = context.readString()
             value = context.readObject()
             tName = context.readString()

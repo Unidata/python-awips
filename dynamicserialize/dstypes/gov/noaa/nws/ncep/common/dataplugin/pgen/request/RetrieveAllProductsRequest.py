@@ -1,4 +1,5 @@
 
+# File auto-generated against equivalent DynamicSerialize Java class
 
 class RetrieveAllProductsRequest(object):
 
@@ -10,3 +11,4 @@ class RetrieveAllProductsRequest(object):
 
     def setDataURI(self, dataURI):
         self.dataURI = dataURI
+

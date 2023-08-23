@@ -1,3 +1,30 @@
+##
+# This software was developed and / or modified by Raytheon Company,
+# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
+#
+# U.S. EXPORT CONTROLLED TECHNICAL DATA
+# This software product contains export-restricted data whose
+# export/transfer/disclosure is restricted by U.S. law. Dissemination
+# to non-U.S. persons whether in the United States or abroad requires
+# an export license or other authorization.
+#
+# Contractor Name:        Raytheon Company
+# Contractor Address:     6825 Pine Street, Suite 340
+#                         Mail Stop B8
+#                         Omaha, NE 68106
+#                         402.291.0100
+#
+# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
+# further licensing information.
+##
+
+
+from ufpy.dataaccess import DataAccessLayer as DAL
+from ufpy.ThriftClient import ThriftRequestException
+
+from . import baseDafTestCase
+import shapely.geometry
+
 #
 # Test DAF support for topo data
 #
@@ -12,14 +39,9 @@
 #                                                 getIdentifierValues()
 #    06/01/16        5587          tgurney        Update testGetIdentifierValues
 #    07/18/17        6253          randerso       Removed referenced to GMTED
+#    02/20/18        7220          mapeters       Added tests for getting filtered
+#                                                 group/dataset identifier values
 #
-
-from __future__ import print_function
-from awips.dataaccess import DataAccessLayer as DAL
-from awips.ThriftClient import ThriftRequestException
-import shapely.geometry
-
-from awips.test.dafTests import baseDafTestCase
 
 
 class TopoTestCase(baseDafTestCase.DafTestCase):
@@ -49,6 +71,7 @@ class TopoTestCase(baseDafTestCase.DafTestCase):
             print("Sample grid data shape:\n" + str(gridData[0].getRawData().shape) + "\n")
             print("Sample grid data:\n" + str(gridData[0].getRawData()) + "\n")
 
+
     def testRequestingTooMuchDataThrowsResponseTooLargeException(self):
         req = DAL.newDataRequest(self.datatype)
         req.addIdentifier("group", "/")
@@ -66,6 +89,18 @@ class TopoTestCase(baseDafTestCase.DafTestCase):
         optionalIds = set(DAL.getOptionalIdentifiers(req))
         requiredIds = set(DAL.getRequiredIdentifiers(req))
         self.runGetIdValuesTest(optionalIds | requiredIds)
+
+    def testGetFilteredDatasetValues(self):
+        req = DAL.newDataRequest(self.datatype)
+        req.addIdentifier('group', '/')
+        datasetVals = DAL.getIdentifierValues(req, 'dataset')
+        self.assertSequenceEqual(datasetVals, ['full'])
+
+    def testGetFilteredGroupValues(self):
+        req = DAL.newDataRequest(self.datatype)
+        req.addIdentifier('dataset', '1')
+        groupVals = DAL.getIdentifierValues(req, 'group')
+        self.assertSequenceEqual(groupVals, ['/interpolated'])
 
     def testGetInvalidIdentifierValuesThrowsException(self):
         self.runInvalidIdValuesTest()

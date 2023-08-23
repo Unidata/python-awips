@@ -1,32 +1,61 @@
+# #
+# This software was developed and / or modified by Raytheon Company,
+# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
 #
-# Published interface for awips.dataaccess package
+# U.S. EXPORT CONTROLLED TECHNICAL DATA
+# This software product contains export-restricted data whose
+# export/transfer/disclosure is restricted by U.S. law. Dissemination
+# to non-U.S. persons whether in the United States or abroad requires
+# an export license or other authorization.
+#
+# Contractor Name:        Raytheon Company
+# Contractor Address:     6825 Pine Street, Suite 340
+#                         Mail Stop B8
+#                         Omaha, NE 68106
+#                         402.291.0100
+#
+# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
+# further licensing information.
+# #
+
+
+#
+# Published interface for ufpy.dataaccess package
 #
 #
 #     SOFTWARE HISTORY
 #
-#    Date           Ticket#  Engineer    Description
-#    ------------   -------  ----------  -------------------------
-#    12/10/12                njensen     Initial Creation.
-#    Feb 14, 2013   1614     bsteffen    refactor data access framework to use single request.
-#    04/10/13       1871     mnash       move getLatLonCoords to JGridData and add default args
-#    05/29/13       2023     dgilling    Hook up ThriftClientRouter.
-#    03/03/14       2673     bsteffen    Add ability to query only ref times.
-#    07/22/14       3185     njensen     Added optional/default args to newDataRequest
-#    07/30/14       3185     njensen     Renamed valid identifiers to optional
-#    Apr 26, 2015   4259     njensen     Updated for new JEP API
-#    Apr 13, 2016   5379     tgurney     Add getIdentifierValues(), getRequiredIdentifiers(),
-#                                        and getOptionalIdentifiers()
-#    Oct 07, 2016   ----     mjames@ucar Added getForecastRun
-#    Oct 18, 2016   5916     bsteffen    Add setLazyLoadGridLatLon
-#    Oct 11, 2018   ----     mjames@ucar Added getMetarObs() getSynopticObs()
+#    Date            Ticket#       Engineer       Description
+#    ------------    ----------    -----------    --------------------------
+#    12/10/12                      njensen        Initial Creation.
+#    Feb 14, 2013    1614          bsteffen       refactor data access framework
+#                                                 to use single request.
+#    04/10/13        1871          mnash          move getLatLonCoords to JGridData and add default args
+#    05/29/13        2023          dgilling       Hook up ThriftClientRouter.
+#    03/03/14        2673          bsteffen       Add ability to query only ref times.
+#    07/22/14        3185          njensen        Added optional/default args to newDataRequest
+#    07/30/14        3185          njensen        Renamed valid identifiers to optional
+#    Apr 26, 2015    4259          njensen        Updated for new JEP API
+#    Apr 13, 2016    5379          tgurney        Add getIdentifierValues()
+#    Jun 01, 2016    5587          tgurney        Add new signatures for
+#                                                 getRequiredIdentifiers() and
+#                                                 getOptionalIdentifiers()
+#    Oct 18, 2016    5916          bsteffen       Add setLazyLoadGridLatLon
+#
 #
 
+
 import sys
+import subprocess
 import warnings
 
-THRIFT_HOST = "edex"
+THRIFT_HOST = subprocess.check_output(
+                    "source /awips2/fxa/bin/setup.env; echo $DEFAULT_HOST",
+                    shell=True).decode().strip()
+
 
 USING_NATIVE_THRIFT = False
+
 
 if 'jep' in sys.modules:
     # intentionally do not catch if this fails to import, we want it to
@@ -35,151 +64,10 @@ if 'jep' in sys.modules:
     import JepRouter
     router = JepRouter
 else:
-    from awips.dataaccess import ThriftClientRouter
+    from ufpy.dataaccess import ThriftClientRouter
     router = ThriftClientRouter.ThriftClientRouter(THRIFT_HOST)
     USING_NATIVE_THRIFT = True
 
-
-def getRadarProductIDs(availableParms):
-    """
-    Get only the numeric idetifiers for NEXRAD3 products.
-
-    Args:
-            availableParms: Full list of radar parameters
-
-    Returns:
-            List of filtered parameters
-    """
-    productIDs = []
-    for p in list(availableParms):
-        try:
-            if isinstance(int(p), int):
-                productIDs.append(str(p))
-        except ValueError:
-            pass
-
-    return productIDs
-
-
-def getRadarProductNames(availableParms):
-    """
-     Get only the named idetifiers for NEXRAD3 products.
-
-    Args:
-            availableParms: Full list of radar parameters
-
-    Returns:
-            List of filtered parameters
-    """
-    productNames = []
-    for p in list(availableParms):
-        if len(p) > 3:
-            productNames.append(p)
-
-    return productNames
-
-
-def getMetarObs(response):
-    """
-    Processes a DataAccessLayer "obs" response into a dictionary,
-    with special consideration for multi-value parameters
-    "presWeather", "skyCover", and "skyLayerBase".
-
-    Args:
-            response: DAL getGeometry() list
-
-    Returns:
-            A dictionary of METAR obs
-    """
-    from datetime import datetime
-    single_val_params = ["timeObs", "stationName", "longitude", "latitude",
-                         "temperature", "dewpoint", "windDir",
-                         "windSpeed", "seaLevelPress"]
-    multi_val_params = ["presWeather", "skyCover", "skyLayerBase"]
-    params = single_val_params + multi_val_params
-    station_names, pres_weather, sky_cov, sky_layer_base = [], [], [], []
-    obs = dict({params: [] for params in params})
-    for ob in response:
-        avail_params = ob.getParameters()
-        if "presWeather" in avail_params:
-            pres_weather.append(ob.getString("presWeather"))
-        elif "skyCover" in avail_params and "skyLayerBase" in avail_params:
-            sky_cov.append(ob.getString("skyCover"))
-            sky_layer_base.append(ob.getNumber("skyLayerBase"))
-        else:
-            # If we already have a record for this stationName, skip
-            if ob.getString('stationName') not in station_names:
-                station_names.append(ob.getString('stationName'))
-                for param in single_val_params:
-                    if param in avail_params:
-                        if param == 'timeObs':
-                            obs[param].append(datetime.fromtimestamp(ob.getNumber(param) / 1000.0))
-                        else:
-                            try:
-                                obs[param].append(ob.getNumber(param))
-                            except TypeError:
-                                obs[param].append(ob.getString(param))
-                    else:
-                        obs[param].append(None)
-
-                obs['presWeather'].append(pres_weather)
-                obs['skyCover'].append(sky_cov)
-                obs['skyLayerBase'].append(sky_layer_base)
-                pres_weather = []
-                sky_cov = []
-                sky_layer_base = []
-    return obs
-
-
-def getSynopticObs(response):
-    """
-    Processes a DataAccessLayer "sfcobs" response into a dictionary
-    of available parameters.
-
-    Args:
-            response: DAL getGeometry() list
-
-    Returns:
-            A dictionary of synop obs
-    """
-    from datetime import datetime
-    station_names = []
-    params = response[0].getParameters()
-    sfcobs = dict({params: [] for params in params})
-    for sfcob in response:
-        # If we already have a record for this stationId, skip
-        if sfcob.getString('stationId') not in station_names:
-            station_names.append(sfcob.getString('stationId'))
-            for param in params:
-                if param == 'timeObs':
-                    sfcobs[param].append(datetime.fromtimestamp(sfcob.getNumber(param) / 1000.0))
-                else:
-                    try:
-                        sfcobs[param].append(sfcob.getNumber(param))
-                    except TypeError:
-                        sfcobs[param].append(sfcob.getString(param))
-
-    return sfcobs
-
-
-def getForecastRun(cycle, times):
-    """
-    Get the latest forecast run (list of objects) from all
-    all cycles and times returned from DataAccessLayer "grid"
-    response.
-
-    Args:
-            cycle: Forecast cycle reference time
-            times: All available times/cycles
-
-    Returns:
-            DataTime array for a single forecast run
-    """
-    fcstRun = []
-    for t in times:
-        if str(t)[:19] == str(cycle):
-            fcstRun.append(t)
-    return fcstRun
 
 
 def getAvailableTimes(request, refTimeOnly=False):
@@ -189,7 +77,7 @@ def getAvailableTimes(request, refTimeOnly=False):
     Args:
             request: the IDataRequest to get data for
             refTimeOnly: optional, use True if only unique refTimes should be
-                returned (without a forecastHr)
+                          returned (without a forecastHr)
 
     Returns:
             a list of DataTimes
@@ -206,7 +94,7 @@ def getGridData(request, times=[]):
     Args:
             request: the IDataRequest to get data for
             times: a list of DataTimes, a TimeRange, or None if the data is time
-                agnostic
+                    agnostic
 
     Returns:
             a list of IGridData
@@ -223,10 +111,10 @@ def getGeometryData(request, times=[]):
     Args:
             request: the IDataRequest to get data for
             times: a list of DataTimes, a TimeRange, or None if the data is time
-                agnostic
+                    agnostic
 
     Returns:
-       a list of IGeometryData
+            a list of IGeometryData
     """
     return router.getGeometryData(request, times)
 
@@ -319,9 +207,8 @@ def getIdentifierValues(request, identifierKey):
     """
     return router.getIdentifierValues(request, identifierKey)
 
-
 def newDataRequest(datatype=None, **kwargs):
-    """
+    """"
     Creates a new instance of IDataRequest suitable for the runtime environment.
     All args are optional and exist solely for convenience.
 
@@ -331,13 +218,12 @@ def newDataRequest(datatype=None, **kwargs):
             levels: a list of levels to set on the request
             locationNames: a list of locationNames to set on the request
             envelope: an envelope to limit the request
-            kwargs: any leftover kwargs will be set as identifiers
+            **kwargs: any leftover kwargs will be set as identifiers
 
     Returns:
             a new IDataRequest
     """
     return router.newDataRequest(datatype, **kwargs)
-
 
 def getSupportedDatatypes():
     """
@@ -356,7 +242,7 @@ def changeEDEXHost(newHostName):
     method will throw a TypeError.
 
     Args:
-            newHostName: the EDEX host to connect to
+            newHostHame: the EDEX host to connect to
     """
     if USING_NATIVE_THRIFT:
         global THRIFT_HOST
@@ -365,7 +251,6 @@ def changeEDEXHost(newHostName):
         router = ThriftClientRouter.ThriftClientRouter(THRIFT_HOST)
     else:
         raise TypeError("Cannot call changeEDEXHost when using JepRouter.")
-
 
 def setLazyLoadGridLatLon(lazyLoadGridLatLon):
     """
@@ -379,7 +264,7 @@ def setLazyLoadGridLatLon(lazyLoadGridLatLon):
     set to False if it is guaranteed that all lat/lon information is needed and
     it would be better to get any performance overhead for generating the
     lat/lon data out of the way during the initial request.
-
+    
 
     Args:
             lazyLoadGridLatLon: Boolean value indicating whether to lazy load.

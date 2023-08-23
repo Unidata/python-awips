@@ -1,3 +1,30 @@
+##
+# This software was developed and / or modified by Raytheon Company,
+# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
+#
+# U.S. EXPORT CONTROLLED TECHNICAL DATA
+# This software product contains export-restricted data whose
+# export/transfer/disclosure is restricted by U.S. law. Dissemination
+# to non-U.S. persons whether in the United States or abroad requires
+# an export license or other authorization.
+#
+# Contractor Name:        Raytheon Company
+# Contractor Address:     6825 Pine Street, Suite 340
+#                         Mail Stop B8
+#                         Omaha, NE 68106
+#                         402.291.0100
+#
+# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
+# further licensing information.
+##
+
+
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
+from ufpy.dataaccess import DataAccessLayer as DAL
+from ufpy.ThriftClient import ThriftRequestException
+
+from . import baseDafTestCase
+
 #
 # Test DAF support for maps data
 #
@@ -15,13 +42,6 @@
 #    01/06/17        5981          tgurney        Do not check data times
 #
 #
-
-from __future__ import print_function
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
-from awips.dataaccess import DataAccessLayer as DAL
-from awips.ThriftClient import ThriftRequestException
-
-from awips.test.dafTests import baseDafTestCase
 
 
 class MapsTestCase(baseDafTestCase.DafTestCase):
@@ -106,11 +126,6 @@ class MapsTestCase(baseDafTestCase.DafTestCase):
             self.assertEqual(record.getString('state'), 'NE')
 
     def testGetDataWithEqualsInt(self):
-        geometryData = self._runConstraintTest('reservoir', '=', 1)
-        for record in geometryData:
-            self.assertEqual(record.getNumber('reservoir'), 1)
-
-    def testGetDataWithEqualsLong(self):
         geometryData = self._runConstraintTest('reservoir', '=', 1)
         for record in geometryData:
             self.assertEqual(record.getNumber('reservoir'), 1)

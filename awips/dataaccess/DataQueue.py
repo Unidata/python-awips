@@ -1,3 +1,23 @@
+# #
+# This software was developed and / or modified by Raytheon Company,
+# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
+#
+# U.S. EXPORT CONTROLLED TECHNICAL DATA
+# This software product contains export-restricted data whose
+# export/transfer/disclosure is restricted by U.S. law. Dissemination
+# to non-U.S. persons whether in the United States or abroad requires
+# an export license or other authorization.
+#
+# Contractor Name:        Raytheon Company
+# Contractor Address:     6825 Pine Street, Suite 340
+#                         Mail Stop B8
+#                         Omaha, NE 68106
+#                         402.291.0100
+#
+# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
+# further licensing information.
+# #
+
 #
 #   Convenience class for using the DAF's notifications feature. This is a
 #   collection that, once connected to EDEX by calling start(), fills with
@@ -13,25 +33,24 @@
 #    07/29/16        2416          tgurney        Initial creation
 #
 
-from awips.dataaccess import DataNotificationLayer as DNL
+from ufpy.dataaccess import DataNotificationLayer as DNL
 
 import time
 from threading import Thread
-import sys
 
 
-if sys.version_info.major == 2:
-    from Queue import Queue, Empty
-else:  # Python 3 module renamed to 'queue'
-    from queue import Queue, Empty
+from queue import Queue, Empty
 
-# Used to indicate a DataQueue that will produce geometry data.
+
+"""Used to indicate a DataQueue that will produce geometry data."""
 GEOMETRY = object()
 
-# Used to indicate a DataQueue that will produce grid data.
+
+"""Used to indicate a DataQueue that will produce grid data."""
 GRID = object()
 
-# Default maximum queue size.
+
+"""Default maximum queue size."""
 _DEFAULT_MAXSIZE = 100
 
 
@@ -128,12 +147,12 @@ class DataQueue(object):
             return self._queue.get(block, timeout)
         except Empty:
             return None
-
+        
     def get_all(self):
         """
         Get all data waiting for processing, in a single list. Always returns
         immediately. Returns an empty list if no data has arrived yet.
-
+        
         Returns:
             List of IData
         """

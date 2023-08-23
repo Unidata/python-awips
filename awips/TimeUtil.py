@@ -1,3 +1,22 @@
+##
+# This software was developed and / or modified by Raytheon Company,
+# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
+# 
+# U.S. EXPORT CONTROLLED TECHNICAL DATA
+# This software product contains export-restricted data whose
+# export/transfer/disclosure is restricted by U.S. law. Dissemination
+# to non-U.S. persons whether in the United States or abroad requires
+# an export license or other authorization.
+# 
+# Contractor Name:        Raytheon Company
+# Contractor Address:     6825 Pine Street, Suite 340
+#                         Mail Stop B8
+#                         Omaha, NE 68106
+#                         402.291.0100
+# 
+# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
+# further licensing information.
+##
 # ----------------------------------------------------------------------------
 # This software is in the public domain, furnished "as is", without technical
 # support, and with no warranty, express or implied, as to its usefulness for
@@ -9,8 +28,8 @@
 # Author: hansen/romberg
 # ----------------------------------------------------------------------------
 
-import string
 import time
+
 
 # Given the timeStr, return the offset (in seconds)
 # from the current time.
@@ -20,7 +39,7 @@ import time
 # negative for time in the past.
 #
 # May still want it to be normalized to the most recent midnight.
-#
+# 
 # NOTES about synchronizing:
 # --With synchronizing on, the "current time" for all processes started
 #   within a given hour will be the same.
@@ -33,7 +52,7 @@ import time
 #     For example, if someone starts the GFE at 12:59 and someone
 #     else starts it at 1:01, they will have different offsets and
 #     current times.
-# --With synchronizing off, when the process starts, the current time
+# --With synchronizing off, when the process starts, the current time 
 #   matches the drtTime in the command line.  However, with synchronizing
 #   on, the current time will be offset by the fraction of the hour at
 #   which the process was started. Examples:
@@ -44,15 +63,14 @@ import time
 #     Synchronizing on:
 #        GFE Spatial Editor at StartUp: 20040616_0030
 #
-
-
 def determineDrtOffset(timeStr):
     launchStr = timeStr
     # Check for time difference
-    if timeStr.find(",") >= 0:
+    if timeStr.find(",") >=0:
         times = timeStr.split(",")
         t1 = makeTime(times[0])
         t2 = makeTime(times[1])
+        #print "time offset", t1-t2, (t1-t2)/3600
         return t1-t2, launchStr
     # Check for synchronized mode
     synch = 0
@@ -60,28 +78,30 @@ def determineDrtOffset(timeStr):
         timeStr = timeStr[1:]
         synch = 1
     drt_t = makeTime(timeStr)
+    #print "input", year, month, day, hour, minute
     gm = time.gmtime()
     cur_t = time.mktime(gm)
-
+    
     # Synchronize to most recent hour
     # i.e. "truncate" cur_t to most recent hour.
+    #print "gmtime", gm
     if synch:
         cur_t = time.mktime((gm[0], gm[1], gm[2], gm[3], 0, 0, 0, 0, 0))
-        curStr = '%4s%2s%2s_%2s00\n' % (repr(gm[0]), repr(gm[1]),
-                                        repr(gm[2]), repr(gm[3]))
-        curStr = curStr.replace(' ', '0')
+        curStr = time.strftime('%Y%m%d_%H00\n', gm)
         launchStr = timeStr + "," + curStr
-
-    offset = drt_t - cur_t
+    
+    #print "drt, cur", drt_t, cur_t
+    offset = drt_t - cur_t    
+    #print "offset", offset, offset/3600, launchStr
     return int(offset), launchStr
 
-
 def makeTime(timeStr):
-    year = string.atoi(timeStr[0:4])
-    month = string.atoi(timeStr[4:6])
-    day = string.atoi(timeStr[6:8])
-    hour = string.atoi(timeStr[9:11])
-    minute = string.atoi(timeStr[11:13])
+    year = int(timeStr[0:4])
+    month = int(timeStr[4:6])
+    day = int(timeStr[6:8])
+    hour = int(timeStr[9:11])
+    minute = int(timeStr[11:13])
     # Do not use daylight savings because gmtime is not in daylight
     # savings time.
     return time.mktime((year, month, day, hour, minute, 0, 0, 0, 0))
+

@@ -1,3 +1,27 @@
+##
+# This software was developed and / or modified by Raytheon Company,
+# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
+# 
+# U.S. EXPORT CONTROLLED TECHNICAL DATA
+# This software product contains export-restricted data whose
+# export/transfer/disclosure is restricted by U.S. law. Dissemination
+# to non-U.S. persons whether in the United States or abroad requires
+# an export license or other authorization.
+# 
+# Contractor Name:        Raytheon Company
+# Contractor Address:     6825 Pine Street, Suite 340
+#                         Mail Stop B8
+#                         Omaha, NE 68106
+#                         402.291.0100
+# 
+# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
+# further licensing information.
+##
+
+# File auto-generated against equivalent DynamicSerialize Java class
+
+import warnings
+
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.db.objects import GridLocation
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.db.objects import ParmID
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.db.objects import TimeConstraints
@@ -5,10 +29,10 @@ from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.db.objects i
 
 class GridParmInfo(object):
 
-    def __init__(self, parmid=None, gridLoc=None, gridType="NONE", unit=None,
+    def __init__(self, id=None, gridLoc=None, gridType="NONE", unit=None,
                  descriptiveName="", minValue=0.0, maxValue=0.0, precision=0,
                  timeIndependentParm=False, timeConstraints=None, rateParm=False):
-        self.parmID = parmid
+        self.parmID = id
         self.gridLoc = gridLoc
         self.gridType = gridType
         self.descriptiveName = descriptiveName
@@ -19,17 +43,18 @@ class GridParmInfo(object):
         self.rateParm = rateParm
         self.timeConstraints = timeConstraints
         self.timeIndependentParm = timeIndependentParm
-
+        
 #        (valid, errors) = self.__validCheck()
 #        if not valid:
 #            errorMessage = "GridParmInfo is invalid: " + str(errors)
 #            warnings.warn(errorMessage)
 #            self.__setDefaultValues()
-
+        
     def __str__(self):
         return self.__repr__()
-
+    
     def __repr__(self):
+        out = ""
         if self.isValid():
             out = "ParmID: " + str(self.parmID) + \
                   " TimeConstraints: " + str(self.timeConstraints) + \
@@ -41,9 +66,10 @@ class GridParmInfo(object):
                   " TimeIndependent: " + str(self.timeIndependentParm) + \
                   " RateParm: " + str(self.rateParm) + \
                   " GridType: " + self.gridType
-            return out
-        return "<Invalid>"
-
+        else:
+            out = "<Invalid>"
+        return out
+    
     def __eq__(self, other):
         if not isinstance(other, GridParmInfo):
             return False
@@ -70,13 +96,13 @@ class GridParmInfo(object):
         if self.unitString != other.unitString:
             return False
         return True
-
+    
     def __ne__(self, other):
-        return not self.__eq__(other)
-
+        return (not self.__eq__(other))
+    
     def __validCheck(self):
         status = []
-
+        
         if not self.parmID.isValid():
             status.append("GridParmInfo.ParmID is not valid [" + str(self.parmID) + "]")
         if not self.timeConstraints.isValid():
@@ -86,23 +112,23 @@ class GridParmInfo(object):
             status.append("GridParmInfo.GridLocation is not valid")
         if self.timeIndependentParm and self.timeConstraints.anyConstraints():
             status.append("GridParmInfo is invalid. There are time constraints" +
-                          " for a time independent parm. Constraints: " +
-                          str(self.timeConstraints))
-        if not self.unitString:
+                        " for a time independent parm. Constraints: " +
+                        str(self.timeConstraints))
+        if len(self.unitString) == 0:
             status.append("GridParmInfo.Units are not defined.")
         if self.precision < -2 or self.precision > 5:
             status.append("GridParmInfo is invalid. Precision out of limits." +
-                          " Precision is: " + str(self.precision) + ". Must be between -2 and 5.")
-
+                          " Precision is: " + str(precision) + ". Must be between -2 and 5.")
+        
         retVal = True
-        if status:
+        if len(status) > 0:
             retVal = False
-        return retVal, status
-
+        return (retVal, status)
+    
     def isValid(self):
         (valid, errors) = self.__validCheck()
         return valid
-
+    
     def __setDefaultValues(self):
         self.parmID = ParmID()
         self.gridLoc = GridLocation()
@@ -181,3 +207,4 @@ class GridParmInfo(object):
 
     def setTimeIndependentParm(self, timeIndependentParm):
         self.timeIndependentParm = timeIndependentParm
+

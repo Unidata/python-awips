@@ -1,3 +1,25 @@
+# This software was developed and / or modified by Raytheon Company,
+# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
+# 
+# U.S. EXPORT CONTROLLED TECHNICAL DATA
+# This software product contains export-restricted data whose
+# export/transfer/disclosure is restricted by U.S. law. Dissemination
+# to non-U.S. persons whether in the United States or abroad requires
+# an export license or other authorization.
+# 
+# Contractor Name:        Raytheon Company
+# Contractor Address:     6825 Pine Street, Suite 340
+#                         Mail Stop B8
+#                         Omaha, NE 68106
+#                         402.291.0100
+# 
+# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
+# further licensing information.
+
+# File auto-generated against equivalent DynamicSerialize Java class
+# and then modified by bsteffen and rjpeter
+#
+
 #
 # Compressed version of a DataRecord.
 #
@@ -8,10 +30,21 @@
 #    ------------    ----------    -----------    --------------------------
 #    12/02/16        5992          bsteffen       Initial Creation.
 #    06/26/17        6341          rjpeter        Optimize decompress
+#    Jun 25, 2019    7821          tgurney        Replace numpy.getbuffer with
+#                                                 memoryview
 #
 
 import numpy
 import zlib
+
+######################################
+# TODO Remove after switch to Python 3
+# This is necessary because some APIs in Python 2 expect a buffer and not a
+# memoryview.
+import sys
+if sys.version_info.major < 3:
+    memoryview = buffer
+######################################
 
 
 class CompressedDataRecord(object):
@@ -34,8 +67,8 @@ class CompressedDataRecord(object):
     def getType(self):
         return self.type
 
-    def setType(self, recordtype):
-        self.type = recordtype
+    def setType(self, type):
+        self.type = type
 
     def getCompressedData(self):
         return self.compressedData
@@ -102,7 +135,7 @@ class CompressedDataRecord(object):
 
     def setMaxChunkSize(self, maxChunkSize):
         self.maxChunkSize = maxChunkSize
-
+    
     def determineStorageType(self):
         if self.type == "BYTE":
             return numpy.byte
@@ -118,13 +151,13 @@ class CompressedDataRecord(object):
             return numpy.float64
         else:
             raise TypeError("Unexpected compressed type " + str(self.type))
-
+    
     # utilize zlib directly to take advantage of passing in initial size of the
     # decompress buffer, which prevents repeated allocation of a growing buffer
     # for each chunk
     def decompress(self):
         datatype = numpy.dtype(self.determineStorageType()).newbyteorder('>')
-        compressedBuffer = numpy.getbuffer(self.compressedData)
+        compressedBuffer = memoryview(self.compressedData)
         self.compressedData = None
         uncompressedSize = datatype.itemsize
         for s in self.sizes:
@@ -139,7 +172,7 @@ class CompressedDataRecord(object):
         if self.uncompressedData is None:
             self.decompress()
         return self.uncompressedData
-
+    
     def putDataObject(self, obj):
         self.compressedData = None
         self.uncompressedData = obj

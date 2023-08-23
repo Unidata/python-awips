@@ -1,4 +1,5 @@
 
+# File auto-generated against equivalent DynamicSerialize Java class
 
 class StoreDerivedProductRequest(object):
 
@@ -17,3 +18,4 @@ class StoreDerivedProductRequest(object):
 
     def setProductList(self, productList):
         self.productList = productList
+

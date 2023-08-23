@@ -1,5 +1,25 @@
-# Jul 27, 2015 4654     skorolev     Added filters
+##
+# This software was developed and / or modified by Raytheon Company,
+# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
+# 
+# U.S. EXPORT CONTROLLED TECHNICAL DATA
+# This software product contains export-restricted data whose
+# export/transfer/disclosure is restricted by U.S. law. Dissemination
+# to non-U.S. persons whether in the United States or abroad requires
+# an export license or other authorization.
+# 
+# Contractor Name:        Raytheon Company
+# Contractor Address:     6825 Pine Street, Suite 340
+#                         Mail Stop B8
+#                         Omaha, NE 68106
+#                         402.291.0100
+# 
+# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
+# further licensing information.
+##
 
+# File auto-generated against equivalent DynamicSerialize Java class
+# Jul 27, 2015 4654     skorolev     Added filters
 
 class AlertVizRequest(object):
 
@@ -11,7 +31,7 @@ class AlertVizRequest(object):
         self.category = None
         self.audioFile = None
         self.filters = None
-
+        
     def getMessage(self):
         return self.message
 
@@ -47,17 +67,18 @@ class AlertVizRequest(object):
 
     def setAudioFile(self, audioFile):
         self.audioFile = audioFile
-
+        
     def getFilters(self):
         return self.filters
-
+    
     def setFilters(self, filters):
         if filters is None:
-            self.filters = {}
-        elif not(None in filters
-                 or filters.values().count(None) > 0
-                 or '' in filters
-                 or filters.values().count('') > 0):
-            self.filters = filters
+           self.filters = {}
+        elif (None in filters
+                or None in filters.values()
+                or '' in filters
+                or '' in filters.values()):
+           msg = 'Filters must not contain None or empty keys or values: %s'
+           raise ValueError(msg % filters)
         else:
-            raise ValueError('Filters must not contain None or empty keys or values: %s' % filters)
+           self.filters = filters

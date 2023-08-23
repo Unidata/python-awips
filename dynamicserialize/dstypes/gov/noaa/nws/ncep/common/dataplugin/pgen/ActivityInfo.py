@@ -1,4 +1,5 @@
 
+# File auto-generated against equivalent DynamicSerialize Java class
 
 class ActivityInfo(object):
 
@@ -73,3 +74,4 @@ class ActivityInfo(object):
 
     def setStatus(self, status):
         self.status = status
+

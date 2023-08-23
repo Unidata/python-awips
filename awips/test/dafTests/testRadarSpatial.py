@@ -1,3 +1,30 @@
+##
+# This software was developed and / or modified by Raytheon Company,
+# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
+#
+# U.S. EXPORT CONTROLLED TECHNICAL DATA
+# This software product contains export-restricted data whose
+# export/transfer/disclosure is restricted by U.S. law. Dissemination
+# to non-U.S. persons whether in the United States or abroad requires
+# an export license or other authorization.
+#
+# Contractor Name:        Raytheon Company
+# Contractor Address:     6825 Pine Street, Suite 340
+#                         Mail Stop B8
+#                         Omaha, NE 68106
+#                         402.291.0100
+#
+# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
+# further licensing information.
+##
+
+
+from ufpy.dataaccess import DataAccessLayer as DAL
+
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
+from . import baseDafTestCase
+from . import params
+
 #
 # Test DAF support for radar_spatial data
 #
@@ -17,13 +44,6 @@
 #    01/06/17        5981          tgurney        Do not check data times
 #
 #
-
-from __future__ import print_function
-from awips.dataaccess import DataAccessLayer as DAL
-
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
-from awips.test.dafTests import baseDafTestCase
-from awips.test.dafTests import params
 
 
 class RadarSpatialTestCase(baseDafTestCase.DafTestCase):
@@ -70,11 +90,6 @@ class RadarSpatialTestCase(baseDafTestCase.DafTestCase):
         for record in geometryData:
             self.assertEqual(record.getNumber('immutablex'), 57)
 
-    def testGetDataWithEqualsLong(self):
-        geometryData = self._runConstraintTest('immutablex', '=', 57)
-        for record in geometryData:
-            self.assertEqual(record.getNumber('immutablex'), 57)
-
     def testGetDataWithEqualsFloat(self):
         geometryData = self._runConstraintTest('immutablex', '=', 57.0)
         for record in geometryData:
@@ -88,7 +103,7 @@ class RadarSpatialTestCase(baseDafTestCase.DafTestCase):
     def testGetDataWithNotEquals(self):
         geometryData = self._runConstraintTest('wfo_id', '!=', params.SITE_ID)
         for record in geometryData:
-            self.assertNotEquals(record.getString('wfo_id'), params.SITE_ID)
+            self.assertNotEqual(record.getString('wfo_id'), params.SITE_ID)
 
     def testGetDataWithNotEqualsNone(self):
         geometryData = self._runConstraintTest('wfo_id', '!=', None)

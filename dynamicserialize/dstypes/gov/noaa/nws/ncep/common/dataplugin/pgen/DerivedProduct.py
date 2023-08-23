@@ -1,4 +1,5 @@
 
+# File auto-generated against equivalent DynamicSerialize Java class
 
 class DerivedProduct(object):
 
@@ -24,3 +25,4 @@ class DerivedProduct(object):
 
     def setProduct(self, product):
         self.product = product
+

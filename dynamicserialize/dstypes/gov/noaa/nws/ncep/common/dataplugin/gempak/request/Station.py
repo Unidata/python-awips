@@ -1,12 +1,13 @@
-#
+
+# File auto-generated against equivalent DynamicSerialize Java class
+# 
 #      SOFTWARE HISTORY
-#
+# 
 #     Date            Ticket#       Engineer       Description
 #     ------------    ----------    -----------    --------------------------
 #     Sep 16, 2016                  pmoyer         Generated
 
 import numpy
-
 
 class Station(object):
 
@@ -60,3 +61,4 @@ class Station(object):
 
     def setCountry(self, country):
         self.country = country
+

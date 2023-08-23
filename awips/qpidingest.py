@@ -1,19 +1,10 @@
-# ===============================================================================
+#===============================================================================
 # qpidingest.py
 #
 # @author: Aaron Anderson
 # @organization: NOAA/WDTB OU/CIMMS
 # @version: 1.0 02/19/2010
-# @requires: QPID Python Client available from http://qpid.apache.org/download.html
-#            The Python Client is located under Single Component Package/Client
-#
-#            From the README.txt Installation Instructions
-#                = INSTALLATION =
-#                Extract the release archive into a directory of your choice and set
-#                your PYTHONPATH accordingly:
-#
-#                tar -xzf qpid-python-<version>.tar.gz -C <install-prefix>
-#                export PYTHONPATH=<install-prefix>/qpid-<version>/python
+# @requires: awips2-python and awips2-qpid-proton-python RPMs
 #
 #       ***EDEX and QPID must be running for this module to work***
 #
@@ -38,7 +29,7 @@
 # EXAMPLE:
 # Simple example program:
 #
-# ------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 # import qpidingest
 # #Tell EDEX to ingest a metar file from data_store. The filepath is
 # #/data_store/20100218/metar/00/standard/20100218_005920_SAUS46KSEW.metar
@@ -50,82 +41,102 @@
 #
 # conn.sendmessage('/data_store/20100218/metar/18/standard/20100218_185755_SAUS46KLOX.metar','SAUS46 KLOX')
 # conn.close()
-# -------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 #
-#    SOFTWARE HISTORY
+# SOFTWARE HISTORY
 #
-#    Date            Ticket#       Engineer       Description
-#    ------------    ----------    -----------    --------------------------
-#    ....
-#    06/13/2013      DR 16242      D. Friedman    Add Qpid authentication info
-#    03/06/2014      DR 17907      D. Friedman    Workaround for issue QPID-5569
-#    02/16/2017      DR 6084       bsteffen       Support ssl connections
+# Date          Ticket#  Engineer     Description
+# ------------- -------- ------------ ------------------------------------------
+# Jun 13, 2013  16242    D. Friedman  Add Qpid authentication info
+# Mar 06, 2014  17907    D. Friedman  Workaround for issue QPID-5569
+# Feb 16, 2017  6084     bsteffen     Support ssl connections
+# Jun 14, 2019  7870     mrichardson  MHS env workaround
+# Jul 23, 2019  7724     mrichardson  Upgrade Qpid to Qpid Proton
+# Nov 06, 2019  7724     tgurney      Remove the unnecessary
+#                                     QpidQueueManager
+# Dec 12, 2019  7995     dgilling     Revert interface changes from #7724.
+# Jul 07, 2020  8187     randerso     Added qpid connection_id
 #
-# ===============================================================================
+#===============================================================================   
 
+import logging
 import os
+import pwd
 import os.path
+import socket
 
-import qpid
-from qpid.util import connect
-from qpid.connection import Connection
-from qpid.datatypes import Message, uuid4
+import proton
+import proton.utils
+import proton.reactor
 
-QPID_USERNAME = 'guest'
-QPID_PASSWORD = 'guest'
+log = logging.getLogger("qpidingest")
 
+
+class QpidIngestException(Exception):
+    """Exception subclass for broker communication exceptions."""
+    pass
 
 class IngestViaQPID:
-    def __init__(self, host='localhost', port=5672, ssl=None):
-        """
+    def __init__(self, host="localhost", port=5672, program="qpidingest"):
+        '''
         Connect to QPID and make bindings to route message to external.dropbox queue
         @param host: string hostname of computer running EDEX and QPID (default localhost)
         @param port: integer port used to connect to QPID (default 5672)
-        @param ssl: boolean to determine whether ssl is used, default value of None will use
-            ssl only if a client certificate is found.
-        """
+        '''
+
+        pwuid = pwd.getpwuid(os.getuid())
+        certdb = os.getenv("QPID_SSL_CERT_DB", os.path.join(pwuid.pw_dir, ".qpid"))
+        certname = os.getenv("QPID_SSL_CERT_NAME", "guest")
+        cert_password = os.getenv("QPID_SSL_CERT_PASSWORD", "password")
+        certfile = os.path.join(certdb, f"{certname}.crt")
+        keyfile = os.path.join(certdb, f"{certname}.key")
+
+        url = f"amqps://{host}:{port}"
+        ADDRESS = "external.dropbox"
+        ssl_domain = proton.SSLDomain(mode=proton.SSLDomain.MODE_CLIENT)
+        ssl_domain.set_credentials(certfile, keyfile, cert_password)
+        
+        clientID = ":".join([
+            socket.gethostname(), 
+            pwuid.pw_name, 
+            program, 
+            str(os.getpid()), 
+        ])
 
         try:
-            #
-            socket = connect(host, port)
-            if "QPID_SSL_CERT_DB" in os.environ:
-                certdb = os.environ["QPID_SSL_CERT_DB"]
-            else:
-                certdb = os.path.expanduser("~/.qpid/")
-            if "QPID_SSL_CERT_NAME" in os.environ:
-                certname = os.environ["QPID_SSL_CERT_NAME"]
-            else:
-                certname = QPID_USERNAME
-            certfile = os.path.join(certdb, certname + ".crt")
-            if ssl or (ssl is None and os.path.exists(certfile)):
-                keyfile = os.path.join(certdb, certname + ".key")
-                trustfile = os.path.join(certdb, "root.crt")
-                socket = qpid.util.ssl(socket, keyfile=keyfile, certfile=certfile, ca_certs=trustfile)
-            self.connection = Connection(sock=socket, username=QPID_USERNAME, password=QPID_PASSWORD)
-            self.connection.start()
-            self.session = self.connection.session(str(uuid4()))
-            self.session.exchange_bind(exchange='amq.direct', queue='external.dropbox', binding_key='external.dropbox')
-            print('Connected to Qpid')
-        except ValueError:
-            print('Unable to connect to Qpid')
+            container = proton.reactor.Container()
+            container.container_id = clientID 
+            self._conn = proton.utils.BlockingConnection(url, ssl_domain=ssl_domain)
+            self._sender = self._conn.create_sender(ADDRESS)
+            log.debug("Connected to broker [%s], endpoint [%s].", url, ADDRESS)
+        except proton.ProtonException as e:
+            log.exception("Failed to connect to broker [%s].", url)
+            raise QpidIngestException("Failed to connect to broker [{}].".format(url)) from e
 
     def sendmessage(self, filepath, header):
-        """
+        '''
         This function sends a message to the external.dropbox queue providing the path
         to the file to be ingested and a header to determine the plugin to be used to
         decode the file.
         @param filepath: string full path to file to be ingested
         @param header: string header used to determine plugin decoder to use
-        """
-        props = self.session.delivery_properties(routing_key='external.dropbox')
-        head = self.session.message_properties(application_headers={'header': header},
-                                               user_id=QPID_USERNAME)
-        self.session.message_transfer(destination='amq.direct', message=Message(props, head, filepath))
+        '''
+        try:
+            self._sender.send(proton.Message(body=filepath, subject=header))
+        except proton.ProtonException as e:
+            log.exception("Failed to send file [%s] to broker.", filepath)
+            raise QpidIngestException("Failed to send file [{}] to broker.".format(filepath)) from e 
 
     def close(self):
-        """
+        '''
         After all messages are sent call this function to close connection and make sure
         there are no threads left open
-        """
-        self.session.close(timeout=10)
-        print('Connection to Qpid closed')
+        '''
+        try:
+            self._sender.close()
+            self._conn.close()
+            log.debug("Disconnected from broker.")
+        except proton.ProtonException as e:
+            log.warning("Failed to disconnect from broker.", exc_info=True)
+            raise QpidIngestException("Failed to disconnect from broker.") from e 
+

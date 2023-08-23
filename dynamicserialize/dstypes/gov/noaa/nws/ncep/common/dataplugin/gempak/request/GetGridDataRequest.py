@@ -1,10 +1,11 @@
-#
+
+# File auto-generated against equivalent DynamicSerialize Java class
+# 
 #      SOFTWARE HISTORY
-#
+# 
 #     Date            Ticket#       Engineer       Description
 #     ------------    ----------    -----------    --------------------------
 #     Sep 16, 2016                  pmoyer         Generated
-
 
 class GetGridDataRequest(object):
 
@@ -65,3 +66,4 @@ class GetGridDataRequest(object):
 
     def setFcstsec(self, fcstsec):
         self.fcstsec = fcstsec
+

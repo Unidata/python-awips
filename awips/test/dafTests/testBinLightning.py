@@ -1,3 +1,31 @@
+##
+# This software was developed and / or modified by Raytheon Company,
+# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
+#
+# U.S. EXPORT CONTROLLED TECHNICAL DATA
+# This software product contains export-restricted data whose
+# export/transfer/disclosure is restricted by U.S. law. Dissemination
+# to non-U.S. persons whether in the United States or abroad requires
+# an export license or other authorization.
+#
+# Contractor Name:        Raytheon Company
+# Contractor Address:     6825 Pine Street, Suite 340
+#                         Mail Stop B8
+#                         Omaha, NE 68106
+#                         402.291.0100
+#
+# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
+# further licensing information.
+##
+
+
+from ufpy.dataaccess import DataAccessLayer as DAL
+from ufpy.ThriftClient import ThriftRequestException
+from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
+
+
+from . import baseDafTestCase
+
 #
 # Test DAF support for binlightning data
 #
@@ -18,20 +46,14 @@
 #    06/13/16        5574          tgurney        Typo
 #    06/30/16        5725          tgurney        Add test for NOT IN
 #    11/08/16        5985          tgurney        Do not check data times
+#    
 #
-#
-from __future__ import print_function
-from awips.dataaccess import DataAccessLayer as DAL
-from awips.ThriftClient import ThriftRequestException
-from dynamicserialize.dstypes.com.raytheon.uf.common.dataquery.requests import RequestConstraint
-from awips.test.dafTests import baseDafTestCase
 
 
 class BinLightningTestCase(baseDafTestCase.DafTestCase):
     """Test DAF support for binlightning data"""
 
     datatype = "binlightning"
-    source = "GLMfl"
 
     def testGetAvailableParameters(self):
         req = DAL.newDataRequest(self.datatype)
@@ -39,18 +61,18 @@ class BinLightningTestCase(baseDafTestCase.DafTestCase):
 
     def testGetAvailableTimes(self):
         req = DAL.newDataRequest(self.datatype)
-        req.addIdentifier('source', self.source)
+        req.addIdentifier("source", "NLDN")
         self.runTimesTest(req)
 
     def testGetGeometryDataSingleSourceSingleParameter(self):
         req = DAL.newDataRequest(self.datatype)
-        req.addIdentifier('source', self.source)
+        req.addIdentifier("source", "NLDN")
         req.setParameters('intensity')
         self.runGeometryDataTest(req, checkDataTimes=False)
 
     def testGetGeometryDataInvalidParamRaisesIncompatibleRequestException(self):
         req = DAL.newDataRequest(self.datatype)
-        req.addIdentifier('source', self.source)
+        req.addIdentifier("source", "NLDN")
         req.setParameters('blahblahblah')
         with self.assertRaises(ThriftRequestException) as cm:
             self.runGeometryDataTest(req)
@@ -58,7 +80,7 @@ class BinLightningTestCase(baseDafTestCase.DafTestCase):
 
     def testGetGeometryDataSingleSourceAllParameters(self):
         req = DAL.newDataRequest(self.datatype)
-        req.addIdentifier('source', self.source)
+        req.addIdentifier("source", "NLDN")
         req.setParameters(*DAL.getAvailableParameters(req))
         self.runGeometryDataTest(req, checkDataTimes=False)
 
@@ -82,16 +104,11 @@ class BinLightningTestCase(baseDafTestCase.DafTestCase):
         return self.runGeometryDataTest(req, checkDataTimes=False)
 
     def testGetDataWithEqualsString(self):
-        geomData = self._runConstraintTest('source', '=', self.source)
+        geomData = self._runConstraintTest('source', '=', 'NLDN')
         for record in geomData:
-            self.assertEqual(record.getAttribute('source'), self.source)
+            self.assertEqual(record.getAttribute('source'), 'NLDN')
 
     def testGetDataWithEqualsInt(self):
-        geomData = self._runConstraintTest('source', '=', 1000)
-        for record in geomData:
-            self.assertEqual(record.getAttribute('source'), 1000)
-
-    def testGetDataWithEqualsLong(self):
         geomData = self._runConstraintTest('source', '=', 1000)
         for record in geomData:
             self.assertEqual(record.getAttribute('source'), 1000)
@@ -107,9 +124,9 @@ class BinLightningTestCase(baseDafTestCase.DafTestCase):
             self.assertIsNone(record.getAttribute('source'))
 
     def testGetDataWithNotEquals(self):
-        geomData = self._runConstraintTest('source', '!=', self.source)
+        geomData = self._runConstraintTest('source', '!=', 'NLDN')
         for record in geomData:
-            self.assertNotEqual(record.getAttribute('source'), self.source)
+            self.assertNotEqual(record.getAttribute('source'), 'NLDN')
 
     def testGetDataWithNotEqualsNone(self):
         geomData = self._runConstraintTest('source', '!=', None)
@@ -117,49 +134,49 @@ class BinLightningTestCase(baseDafTestCase.DafTestCase):
             self.assertIsNotNone(record.getAttribute('source'))
 
     def testGetDataWithGreaterThan(self):
-        geomData = self._runConstraintTest('source', '>', self.source)
+        geomData = self._runConstraintTest('source', '>', 'NLDN')
         for record in geomData:
-            self.assertGreater(record.getAttribute('source'), self.source)
+            self.assertGreater(record.getAttribute('source'), 'NLDN')
 
     def testGetDataWithLessThan(self):
-        geomData = self._runConstraintTest('source', '<', self.source)
+        geomData = self._runConstraintTest('source', '<', 'NLDN')
         for record in geomData:
-            self.assertLess(record.getAttribute('source'), self.source)
+            self.assertLess(record.getAttribute('source'), 'NLDN')
 
     def testGetDataWithGreaterThanEquals(self):
-        geomData = self._runConstraintTest('source', '>=', self.source)
+        geomData = self._runConstraintTest('source', '>=', 'NLDN')
         for record in geomData:
-            self.assertGreaterEqual(record.getAttribute('source'), self.source)
+            self.assertGreaterEqual(record.getAttribute('source'), 'NLDN')
 
     def testGetDataWithLessThanEquals(self):
-        geomData = self._runConstraintTest('source', '<=', self.source)
+        geomData = self._runConstraintTest('source', '<=', 'NLDN')
         for record in geomData:
-            self.assertLessEqual(record.getAttribute('source'), self.source)
+            self.assertLessEqual(record.getAttribute('source'), 'NLDN')
 
     def testGetDataWithInTuple(self):
-        geomData = self._runConstraintTest('source', 'in', (self.source, 'GLMev'))
+        geomData = self._runConstraintTest('source', 'in', ('NLDN', 'ENTLN'))
         for record in geomData:
-            self.assertIn(record.getAttribute('source'), (self.source, 'GLMev'))
+            self.assertIn(record.getAttribute('source'), ('NLDN', 'ENTLN'))
 
     def testGetDataWithInList(self):
-        geomData = self._runConstraintTest('source', 'in', [self.source, 'GLMev'])
+        geomData = self._runConstraintTest('source', 'in', ['NLDN', 'ENTLN'])
         for record in geomData:
-            self.assertIn(record.getAttribute('source'), (self.source, 'GLMev'))
+            self.assertIn(record.getAttribute('source'), ('NLDN', 'ENTLN'))
 
     def testGetDataWithInGenerator(self):
-        generator = (item for item in (self.source, 'GLMev'))
+        generator = (item for item in ('NLDN', 'ENTLN'))
         geomData = self._runConstraintTest('source', 'in', generator)
         for record in geomData:
-            self.assertIn(record.getAttribute('source'), (self.source, 'GLMev'))
+            self.assertIn(record.getAttribute('source'), ('NLDN', 'ENTLN'))
 
     def testGetDataWithNotInList(self):
-        geomData = self._runConstraintTest('source', 'not in', [self.source, 'blah'])
+        geomData = self._runConstraintTest('source', 'not in', ['NLDN', 'blah'])
         for record in geomData:
-            self.assertNotIn(record.getAttribute('source'), (self.source, 'blah'))
+            self.assertNotIn(record.getAttribute('source'), ('NLDN', 'blah'))
 
     def testGetDataWithInvalidConstraintTypeThrowsException(self):
         with self.assertRaises(ValueError):
-            self._runConstraintTest('source', 'junk', self.source)
+            self._runConstraintTest('source', 'junk', 'NLDN')
 
     def testGetDataWithInvalidConstraintValueThrowsException(self):
         with self.assertRaises(TypeError):

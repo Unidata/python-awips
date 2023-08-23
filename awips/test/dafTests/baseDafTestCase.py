@@ -1,3 +1,32 @@
+##
+# This software was developed and / or modified by Raytheon Company,
+# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
+#
+# U.S. EXPORT CONTROLLED TECHNICAL DATA
+# This software product contains export-restricted data whose
+# export/transfer/disclosure is restricted by U.S. law. Dissemination
+# to non-U.S. persons whether in the United States or abroad requires
+# an export license or other authorization.
+#
+# Contractor Name:        Raytheon Company
+# Contractor Address:     6825 Pine Street, Suite 340
+#                         Mail Stop B8
+#                         Omaha, NE 68106
+#                         402.291.0100
+#
+# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
+# further licensing information.
+##
+
+
+
+from ufpy.dataaccess import DataAccessLayer as DAL
+from ufpy.ThriftClient import ThriftRequestException
+
+import os
+import numpy
+import unittest
+
 #
 # Base TestCase for DAF tests. This class provides helper methods and
 # tests common to all DAF test cases.
@@ -24,15 +53,10 @@
 #                                                 time-agnostic data
 #    03/13/17        5981          tgurney        Do not check valid period on
 #                                                 data time
+#    04/14/22        8845          njensen        Add checks for NaNs in geometry
+#                                                 data tests
 #
 #
-
-from __future__ import print_function
-from awips.dataaccess import DataAccessLayer as DAL
-from awips.ThriftClient import ThriftRequestException
-
-import os
-import unittest
 
 
 class DafTestCase(unittest.TestCase):
@@ -56,7 +80,7 @@ class DafTestCase(unittest.TestCase):
     def setUpClass(cls):
         host = os.environ.get('DAF_TEST_HOST')
         if host is None:
-            host = 'edex-cloud.unidata.ucar.edu'
+            host = 'localhost'
         DAL.changeEDEXHost(host)
 
     @staticmethod
@@ -68,13 +92,13 @@ class DafTestCase(unittest.TestCase):
         try:
             times = DAL.getAvailableTimes(req)
         except ThriftRequestException as e:
-            if 'TimeAgnosticDataException' not in str(e):
+            if not 'TimeAgnosticDataException' in str(e):
                 raise
         return times
 
     def testDatatypeIsSupported(self):
-        allSupported = DAL.getSupportedDatatypes()
-        self.assertIn(self.datatype, allSupported)
+        allSupported = (item.lower() for item in DAL.getSupportedDatatypes())
+        self.assertIn(self.datatype.lower(), allSupported)
 
     def testGetRequiredIdentifiers(self):
         req = DAL.newDataRequest(self.datatype)
@@ -89,21 +113,21 @@ class DafTestCase(unittest.TestCase):
         print("Optional identifiers:", optional)
 
     def runGetIdValuesTest(self, identifiers):
-        for identifier in identifiers:
-            if identifier.lower() == 'datauri':
+        for id in identifiers:
+            if id.lower() == 'datauri':
                 continue
             req = DAL.newDataRequest(self.datatype)
-            idValues = DAL.getIdentifierValues(req, identifier)
+            idValues = DAL.getIdentifierValues(req, id)
             self.assertTrue(hasattr(idValues, '__iter__'))
 
     def runInvalidIdValuesTest(self):
         badString = 'id from ' + self.datatype + '; select 1;'
-        with self.assertRaises(ThriftRequestException):
+        with self.assertRaises(ThriftRequestException) as cm:
             req = DAL.newDataRequest(self.datatype)
             DAL.getIdentifierValues(req, badString)
 
     def runNonexistentIdValuesTest(self):
-        with self.assertRaises(ThriftRequestException):
+        with self.assertRaises(ThriftRequestException) as cm:
             req = DAL.newDataRequest(self.datatype)
             DAL.getIdentifierValues(req, 'idthatdoesnotexist')
 
@@ -145,9 +169,22 @@ class DafTestCase(unittest.TestCase):
         times = DafTestCase.getTimesIfSupported(req)
         geomData = DAL.getGeometryData(req, times[:self.numTimesToLimit])
         self.assertIsNotNone(geomData)
+        if times:
+            self.assertNotEqual(len(geomData), 0)
         if not geomData:
             raise unittest.SkipTest("No data available")
         print("Number of geometry records: " + str(len(geomData)))
+        print("Sample geometry data:")
+        for record in geomData[:self.sampleDataLimit]:
+            if (checkDataTimes and times and
+                    "PERIOD_USED" not in record.getDataTime().getUtilityFlags()):
+                self.assertIn(record.getDataTime(), times[:self.numTimesToLimit])
+            print("geometry=" + str(record.getGeometry()), end="")
+            for p in req.getParameters():
+                print(" " + p + "=" + record.getString(p), end="")
+                if record.getType(p) in ['FLOAT', 'DOUBLE']:
+                    self.assertFalse(numpy.isnan(record.getNumber(p)))
+            print()
         return geomData
 
     def runGeometryDataTestWithTimeRange(self, req, timeRange):
@@ -160,6 +197,16 @@ class DafTestCase(unittest.TestCase):
         if not geomData:
             raise unittest.SkipTest("No data available")
         print("Number of geometry records: " + str(len(geomData)))
+        print("Sample geometry data:")
+        for record in geomData[:self.sampleDataLimit]:
+            self.assertGreaterEqual(record.getDataTime().getRefTime().getTime(), timeRange.getStartInMillis())
+            self.assertLessEqual(record.getDataTime().getRefTime().getTime(), timeRange.getEndInMillis())
+            print("geometry=" + str(record.getGeometry()), end="")
+            for p in req.getParameters():
+                print(" " + p + "=" + record.getString(p), end="")
+                if record.getType(p) in ['FLOAT', 'DOUBLE']:
+                    self.assertFalse(numpy.isnan(record.getNumber(p)))
+            print()
         return geomData
 
     def runGridDataTest(self, req, testSameShape=True):
@@ -168,7 +215,6 @@ class DafTestCase(unittest.TestCase):
         request.
 
         Args:
-            req: the grid request
             testSameShape: whether or not to verify that all the retrieved data
                            have the same shape (most data don't change shape)
         """

@@ -1,3 +1,22 @@
+##
+# This software was developed and / or modified by Raytheon Company,
+# pursuant to Contract DG133W-05-CQ-1067 with the US Government.
+#
+# U.S. EXPORT CONTROLLED TECHNICAL DATA
+# This software product contains export-restricted data whose
+# export/transfer/disclosure is restricted by U.S. law. Dissemination
+# to non-U.S. persons whether in the United States or abroad requires
+# an export license or other authorization.
+#
+# Contractor Name:        Raytheon Company
+# Contractor Address:     6825 Pine Street, Suite 340
+#                         Mail Stop B8
+#                         Omaha, NE 68106
+#                         402.291.0100
+#
+# See the AWIPS II Master Rights File ("Master Rights File.pdf") for
+# further licensing information.
+##
 #
 # SOFTWARE HISTORY
 #
@@ -5,6 +24,7 @@
 # ------------- -------- --------- ---------------------------------------------
 # Feb 13, 2017  6092     randerso  Added StoreTimeAction
 #
+##
 
 import argparse
 import sys
@@ -14,7 +34,6 @@ from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.db.objects i
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.db.objects import ParmID
 
 TIME_FORMAT = "%Y%m%d_%H%M"
-
 
 class UsageArgumentParser(argparse.ArgumentParser):
     """
@@ -26,8 +45,7 @@ class UsageArgumentParser(argparse.ArgumentParser):
         self.print_help()
         sys.exit(2)
 
-
-# Custom actions for ArgumentParser objects
+## Custom actions for ArgumentParser objects ##
 class StoreDatabaseIDAction(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
         did = DatabaseID(values)
@@ -36,18 +54,17 @@ class StoreDatabaseIDAction(argparse.Action):
         else:
             parser.error("DatabaseID [" + values + "] not a valid identifier")
 
-
 class AppendParmNameAndLevelAction(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
         tx = ParmID.parmNameAndLevel(values)
         comp = tx[0] + '_' + tx[1]
-        if (hasattr(namespace, self.dest)) and (getattr(namespace, self.dest) is not None):
+        if (hasattr(namespace, self.dest)) and \
+            (getattr(namespace, self.dest) is not None):
                 currentValues = getattr(namespace, self.dest)
                 currentValues.append(comp)
                 setattr(namespace, self.dest, currentValues)
         else:
             setattr(namespace, self.dest, [comp])
-
 
 class StoreTimeAction(argparse.Action):
     """
@@ -57,6 +74,8 @@ class StoreTimeAction(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
         try:
             timeStruct = time.strptime(values, TIME_FORMAT)
-            setattr(namespace, self.dest, timeStruct)
-        except ValueError:
+        except:
             parser.error(str(values) + " is not a valid time string of the format YYYYMMDD_hhmm")
+
+        setattr(namespace, self.dest, timeStruct)
+
