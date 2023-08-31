@@ -42,7 +42,7 @@ from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.server.messa
 #    Date            Ticket#       Engineer       Description
 #    ------------    ----------    -----------    --------------------------
 #    07/26/12                      dgilling       Initial Creation.
-#    
+#    08/31/23                      srcarter@ucar  From MJ - replace type with isinstance
 # 
 #
 
@@ -59,7 +59,7 @@ class IFPClient(object):
         self.__siteId = site
         
     def commitGrid(self, request):
-        if type(request) is CommitGridRequest:
+        if isinstance(request, CommitGridRequest):
             return self.__commitGrid([request])
         elif self.__isHomogenousIterable(request, CommitGridRequest):
             return self.__commitGrid([cgr for cgr in request])
@@ -74,8 +74,7 @@ class IFPClient(object):
         return ssr
     
     def getParmList(self, id):
-        argType = type(id)
-        if argType is DatabaseID:
+        if isinstance(argType, DatabaseID):
             return self.__getParmList([id])
         elif self.__isHomogenousIterable(id, DatabaseID):
             return self.__getParmList([dbid for dbid in id])
@@ -102,7 +101,7 @@ class IFPClient(object):
         return True
     
     def getGridInventory(self, parmID):
-        if type(parmID) is ParmID:
+        if isinstance(parmID, ParmID):
             sr = self.__getGridInventory([parmID])
             list = []
             try:

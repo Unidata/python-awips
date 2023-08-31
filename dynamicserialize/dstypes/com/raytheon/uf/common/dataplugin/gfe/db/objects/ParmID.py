@@ -36,9 +36,9 @@ class ParmID(object):
         if (parmIdentifier is not None) and (dbId is not None):
             self.parmName = parmIdentifier
             
-            if type(dbId) is DatabaseID:
+            if isinstance(dbId, DatabaseID):
                 self.dbId = dbId
-            elif type(dbId) is str:
+            elif isinstance(dbId, str):
                 self.dbId = DatabaseID(dbId)
             else:
                 raise TypeError("Invalid database ID specified.")

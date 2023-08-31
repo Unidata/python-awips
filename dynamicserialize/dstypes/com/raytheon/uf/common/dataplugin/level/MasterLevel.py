@@ -30,7 +30,7 @@
 #    06/29/15         4480         dgilling       Implement __hash__, __eq__
 #                                                 and __str__.
 #    02/17/22         8608         mapeters       Subclass PersistableDataObject
-#
+#    08/31/23                      srcarter@ucar  From MJ - replace type with isinstance
 #
 
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.persist import PersistableDataObject
@@ -49,7 +49,7 @@ class MasterLevel(PersistableDataObject):
         return hash(self.name)
 
     def __eq__(self, other):
-        if type(self) != type(other):
+        if not isinstance(self, type(other)):
             return False
         else:
             return self.name == other.name
