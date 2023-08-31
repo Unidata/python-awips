@@ -39,12 +39,12 @@ class GFERecord(PersistableDataObject):
         self.dataTime = None
         self.parmId = None
         if timeRange is not None:
-            if type(timeRange) is TimeRange:
+            if isinstance(timeRange, TimeRange):
                 self.dataTime = DataTime(refTime=timeRange.getStart(), validPeriod=timeRange)
             else:
                 raise TypeError("Invalid TimeRange object specified.")
         if parmId is not None:
-            if type(parmId) is ParmID.ParmID:
+            if isinstance(parmId, ParmID.ParmID):
                 self.parmId = parmId
                 self.parmName = parmId.getParmName()
                 self.parmLevel = parmId.getParmLevel()

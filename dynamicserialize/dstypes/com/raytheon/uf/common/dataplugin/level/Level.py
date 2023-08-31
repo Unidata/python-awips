@@ -31,7 +31,7 @@
 #    06/29/15         4480         dgilling       Implement __hash__, __eq__,
 #                                                 __str__ and rich comparison operators.
 #    02/17/22         8608         mapeters       Subclass PersistableDataObject
-#
+#    08/31/23                      srcarter@ucar  From MJ - replace type with isinstance
 #
 
 import numpy
@@ -71,17 +71,15 @@ class Level(PersistableDataObject):
         return hashCode
     
     def __eq__(self, other):
-        if type(self) != type(other):
-            return False
-        else:
+        if isinstance(self, type(other)):
             return (self.masterLevel, self.levelonevalue, self.leveltwovalue) == \
                 (other.masterLevel, other.levelonevalue, other.leveltwovalue)
-                
+        return False
     def __ne__(self, other):
         return not self.__eq__(other)
     
     def __lt__(self, other):
-        if type(self) != type(other):
+        if not isinstance(self, type(other)):
             return NotImplemented
         elif self.masterLevel.getName() != other.masterLevel.getName():
             return NotImplemented
@@ -113,7 +111,7 @@ class Level(PersistableDataObject):
         return False
     
     def __le__(self, other):
-        if type(self) != type(other):
+        if not isinstance(self, type(other)):
             return NotImplemented 
         elif self.masterLevel.getName() != other.masterLevel.getName():
             return NotImplemented
@@ -121,7 +119,7 @@ class Level(PersistableDataObject):
         return self.__lt__(other) or self.__eq__(other)
     
     def __gt__(self, other):
-        if type(self) != type(other):
+        if not isinstance(self, type(other)):
             return NotImplemented
         elif self.masterLevel.getName() != other.masterLevel.getName():
             return NotImplemented
@@ -153,7 +151,7 @@ class Level(PersistableDataObject):
         return False
     
     def __ge__(self, other):
-        if type(self) != type(other):
+        if not isinstance(self, type(other)):
             return NotImplemented
         elif self.masterLevel.getName() != other.masterLevel.getName():
             return NotImplemented
