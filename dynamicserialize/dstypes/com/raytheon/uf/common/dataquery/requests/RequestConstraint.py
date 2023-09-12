@@ -27,11 +27,11 @@
 #     Jun 27, 2016    5725          tgurney        Add NOT IN
 #     Jul 22, 2016    2416          tgurney        Add evaluate()
 #     Jun 26, 2019    7888          tgurney        Python 3 fixes
-#     Aug 31, 2023                  srcarter@ucar  Small formatting and logic changes
+#
 #
 
 import re
-from dynamicserialize.dstypes.com.raytheon.uf.common.time import DataTime
+from ...time import DataTime
 
 
 class RequestConstraint(object):
@@ -212,7 +212,7 @@ class RequestConstraint(object):
         return self._evalValue.match(value) is not None
 
     def _evalIsNull(self, value):
-        return value is None or value == 'null'
+        return value is None or 'null' == value
 
     # DAF-specific stuff begins here ##########################################
 
@@ -228,11 +228,11 @@ class RequestConstraint(object):
 
     @staticmethod
     def _stringify(value):
-        if isinstance(value, (int, bool, float)):
+        if type(value) in {int, bool, float}:
             return str(value)
-        elif isinstance(value, str):
+        elif type(value) is str:
             return value
-        elif isinstance(value, bytes):
+        elif type(value) is bytes:
             return value.decode()
         else:
             # Collections are not allowed; they are handled separately.
@@ -249,7 +249,7 @@ class RequestConstraint(object):
         except TypeError:
             raise TypeError("value for IN / NOT IN constraint must be an iterable")
         stringValue = ', '.join(cls._stringify(item) for item in iterator)
-        if not stringValue:
+        if len(stringValue) == 0:
             raise ValueError('cannot use IN / NOT IN with empty collection')
         obj = cls()
         obj.setConstraintType(constraintType)

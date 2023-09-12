@@ -31,7 +31,7 @@
 #
 
 
-from awips.dataaccess import IDataRequest
+from ufpy.dataaccess import IDataRequest
 
 from dynamicserialize.dstypes.org.locationtech.jts.geom import Envelope
 from dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.level import Level

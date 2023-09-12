@@ -31,7 +31,7 @@
 #
 
 
-from awips.dataaccess import INotificationFilter
+from ufpy.dataaccess import INotificationFilter
 import sys
 
 class DefaultNotificationFilter(INotificationFilter):

@@ -1,6 +1,0 @@
-sphinx>=1.3
-nbconvert>=4.1
-enum34
-jupyter
-shapely
-numpy

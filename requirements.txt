@@ -1,4 +1,0 @@
-numpy
-six
-shapely
-h5py
