@@ -9,6 +9,8 @@ The python-awips package provides a data access framework for requesting meteoro
 .. _Jupyter Notebook: http://nbviewer.jupyter.org/github/Unidata/python-awips/tree/master/examples/notebooks
 
 
+.. important:: There is now a :ref:`Beta Python-AWIPS<Beta Python-AWIPS Install>` available for v20.
+
 Pre-requisite Software
 ----------------------
 
@@ -55,6 +57,27 @@ Below are instructions on how to install the source code of python-awips, with a
     jupyter notebook examples
     
     
+
+Beta Python-AWIPS Install
+-------------------------
+
+The beta version of python-awips (v20) is currently only available as a source code download and installation.  The beta version only works with our beta EDEX server (edex-beta.unidata.ucar.edu) and is not backwards compatible with our production (v18) EDEX server.
+
+Similar to the :ref:`Source Code Install <Source Code with Examples Install>` above, these instructions will create a new environment called ``python-awips-beta20`` and launch a browser with our jupyter notebook examples.
+
+When AWIPS v20 becomes production, this version of python-awips will be the default that is on pip and conda, but until then, this is how you can access and use python-awips v20.
+
+::
+  
+    git clone --single-branch --branch v20 https://github.com/Unidata/python-awips.git
+    cd python-awips
+    conda env create -f environment.yml
+    conda activate python-awips-beta20
+    python setup.py install --force
+    jupyter notebook examples
+
+
+
 Questions -- Contact Us!
 ------------------------
 
