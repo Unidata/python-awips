@@ -6,11 +6,11 @@ import sys
 from distutils.core import setup
 from setuptools import find_packages
 
-dependencies = ['numpy', 'six']
+dependencies = ['numpy']
 if sys.version_info < (3, 4):
     dependencies.append('enum34')
 
-ver = "18.1.11"
+ver = "20"
 
 setup(
     name='python-awips',
@@ -19,7 +19,6 @@ setup(
     packages=find_packages(exclude='data'),
     license='BSD',
     url='http://unidata.github.io/python-awips',
-    download_url='https://github.com/Unidata/python-awips/archive/{}.tar.gz'.format(ver),
     author='Unidata',
     author_email='support-awips@ucar.edu',
     install_requires=dependencies,
