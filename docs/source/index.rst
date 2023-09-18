@@ -73,7 +73,7 @@ When AWIPS v20 becomes production, this version of python-awips will be the defa
     cd python-awips
     conda env create -f environment.yml
     conda activate python-awips-beta20
-    python setup.py install --force
+    pip install .
     jupyter notebook examples
 
 
