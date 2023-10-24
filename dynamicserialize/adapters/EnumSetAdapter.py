@@ -29,7 +29,6 @@
 #    ------------    ----------    -----------    --------------------------
 #    07/28/11                      dgilling       Initial Creation.
 #    12/02/13        2537          bsteffen       Serialize empty enum sets.
-#    09/11/23                      srcarter@ucar  MJ change for set has no attribute getEnumClass
 # 
 #
 
@@ -43,7 +42,7 @@ ClassAdapter = ['java.util.EnumSet', 'java.util.RegularEnumSet']
 def serialize(context, set):
     setSize = len(set)
     context.writeI32(setSize)
-    context.writeString(bufferset.getEnumClass())
+    context.writeString(set.getEnumClass())
     for val in set:
         context.writeString(val)
     
