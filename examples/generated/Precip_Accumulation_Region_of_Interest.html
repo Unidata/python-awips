@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Precip Accumulation Region of Interest &mdash; python-awips  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Regional Surface Obs Plot" href="Regional_Surface_Obs_Plot.html" />
+    <link rel="prev" title="NEXRAD Level3 Radar" href="NEXRAD_Level3_Radar.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            python-awips
+          </a>
+              <div class="version">
+                18.1.8
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../datatypes.html">Available Data Types</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Data Plotting Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Colored_Surface_Temperature_Plot.html">Colored Surface Temperature Plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Colorized_Grid_Data.html">Colorized Grid Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Forecast_Model_Vertical_Sounding.html">Forecast Model Vertical Sounding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GOES_CIRA_Product_Writer.html">GOES CIRA Product Writer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Grid_Levels_and_Parameters.html">Grid Levels and Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="METAR_Station_Plot_with_MetPy.html">METAR Station Plot with MetPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Map_Resources_and_Topography.html">Map Resources and Topography</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Model_Sounding_Data.html">Model Sounding Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NEXRAD_Level3_Radar.html">NEXRAD Level3 Radar</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Precip Accumulation Region of Interest</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#objectives">Objectives</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#imports">1 Imports</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#initial-setup">2 Initial Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#function-calculate-accumulated-precip">3 Function: calculate_accumulated_precip()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fuction-make-map">4 Fuction: make_map()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-the-data">5 Get the Data!</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#plot-the-data">6 Plot the Data!</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#high-resolution-roi">7 High Resolution ROI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#see-also">8 See Also</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Regional_Surface_Obs_Plot.html">Regional Surface Obs Plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Satellite_Imagery.html">Satellite Imagery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Upper_Air_BUFR_Soundings.html">Upper Air BUFR Soundings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Watch_Warning_and_Advisory_Plotting.html">Watch Warning and Advisory Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev.html">Development Guide</a></li>
+<li class="toctree-l1"><a class="reference external" href="http://unidata.github.io/awips2/appendix/appendix-grid-parameters/">AWIPS Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About Unidata AWIPS</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">python-awips</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Data Plotting Examples</a></li>
+      <li class="breadcrumb-item active">Precip Accumulation Region of Interest</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/examples/generated/Precip_Accumulation_Region_of_Interest.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="precip-accumulation-region-of-interest">
+<h1>Precip Accumulation Region of Interest<a class="headerlink" href="#precip-accumulation-region-of-interest" title="Permalink to this heading"></a></h1>
+<p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Precip_Accumulation_Region_of_Interest.ipynb">Notebook</a>
+Python-AWIPS Tutorial Notebook</p>
+<hr class="docutils" />
+<section id="objectives">
+<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>Access the model data from an EDEX server and limit the data returned
+by using model specific parameters</p></li>
+<li><p>Calculate the total precipitation over several model runs</p></li>
+<li><p>Create a colorized plot for the continental US of the accumulated
+precipitation data</p></li>
+<li><p>Calculate and identify area of highest of precipitation</p></li>
+<li><p>Use higher resolution data to draw region of interest</p></li>
+</ul>
+<hr class="docutils" />
+<section id="table-of-contents">
+<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading"></a></h3>
+<div class="line-block">
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#imports">1
+Imports</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#initial-setup">2 Initial
+Setup</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#geographic-filter">2.1 Geographic
+Filter</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#edex-connection">2.2 EDEX
+Connnection</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#refine-the-request">2.3 Refine the
+Request</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#get-times">2.4 Get
+Times</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#function-calculate-accumulated-precip">3 Function:
+calculate_accumulated_precip()</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interes.htmlt#function-make-map">4 Function:
+make_map()</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#get-the-data">5 Get the
+Data!</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#plot-the-data">6 Plot the
+Data!</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#create-conus-image">6.1 Create CONUS
+Image</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#create-region-of-interest-image">6.2 Create Region of Interest
+Image</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#high-resolution-roi">7 High Resolution
+ROI</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#new-data-request">7.1 New Data
+Request</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#calculate-data">7.2 Calculate
+Data</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#plot-roi">7.3 Plot
+ROI</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest#see-also">8 See
+Also</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#related-notebooks">8.1 Related
+Notebooks</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#additional-documentation">8.2 Additional
+Documentation</a></div>
+</div>
+</section>
+<section id="imports">
+<h3>1 Imports<a class="headerlink" href="#imports" title="Permalink to this heading"></a></h3>
+<p>The imports below are used throughout the notebook. Note the first
+import is coming directly from python-awips and allows us to connect to
+an EDEX server. The subsequent imports are for data manipulation and
+visualization.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">DataAccessLayer</span>
+<span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">metpy.units</span> <span class="kn">import</span> <span class="n">units</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Polygon</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html">Top</a></p>
+</section>
+<hr class="docutils" />
+<section id="initial-setup">
+<h3>2 Initial Setup<a class="headerlink" href="#initial-setup" title="Permalink to this heading"></a></h3>
+<section id="geographic-filter">
+<h4>2.1 Geographic Filter<a class="headerlink" href="#geographic-filter" title="Permalink to this heading"></a></h4>
+<p>By defining a bounding box for the Continental US (CONUS), we’re able to
+optimize the data request sent to the EDEX server.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">conus</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">125</span><span class="p">,</span> <span class="o">-</span><span class="mi">65</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">55</span><span class="p">]</span>
+<span class="n">conus_envelope</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">([(</span><span class="n">conus</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">conus</span><span class="p">[</span><span class="mi">2</span><span class="p">]),(</span><span class="n">conus</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">conus</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span>
+                          <span class="p">(</span><span class="n">conus</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">conus</span><span class="p">[</span><span class="mi">3</span><span class="p">]),(</span><span class="n">conus</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">conus</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
+                          <span class="p">(</span><span class="n">conus</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">conus</span><span class="p">[</span><span class="mi">2</span><span class="p">])])</span>
+</pre></div>
+</div>
+</section>
+<section id="edex-connection">
+<h4>2.2 EDEX Connection<a class="headerlink" href="#edex-connection" title="Permalink to this heading"></a></h4>
+<p>First we establish a connection to Unidata’s public EDEX server. With
+that connection made, we can create a <a class="reference external" href="http://unidata.github.io/python-awips/api/IDataRequest.html">new data request
+object</a>
+and set the data type to <strong>grid</strong>, and use the geographic envelope we
+just created.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="s2">&quot;edex-cloud.unidata.ucar.edu&quot;</span><span class="p">)</span>
+<span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="n">envelope</span><span class="o">=</span><span class="n">conus_envelope</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="refine-the-request">
+<h4>2.3 Refine the Request<a class="headerlink" href="#refine-the-request" title="Permalink to this heading"></a></h4>
+<p>Here we specify which model we’re interested in by setting the
+<em>LocationNames</em>, and the specific data we’re interested in by setting
+the <em>Levels</em> and <em>Parameters</em>.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">request</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="s2">&quot;GFS1p0&quot;</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setLevels</span><span class="p">(</span><span class="s2">&quot;0.0SFC&quot;</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s2">&quot;TP&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="get-times">
+<h4>2.4 Get Times<a class="headerlink" href="#get-times" title="Permalink to this heading"></a></h4>
+<p>We need to get the available times and cycles for our model data</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cycles</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">times</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="n">fcstRun</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getForecastRun</span><span class="p">(</span><span class="n">cycles</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">times</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html">Top</a></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="function-calculate-accumulated-precip">
+<h3>3 Function: calculate_accumulated_precip()<a class="headerlink" href="#function-calculate-accumulated-precip" title="Permalink to this heading"></a></h3>
+<p>Since we’ll want to calculate the accumulated precipitation of our data
+more than once, it makes sense to create a function that we can call
+instead of duplicating the logic.</p>
+<p>This function cycles through all the grid data responses and adds up all
+of the rainfall to produce a numpy array with the total ammount of
+rainfall for the given data request. It also finds the maximum rainfall
+point in x and y coordinates.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calculate_accumulated_precip</span><span class="p">(</span><span class="n">dataRequest</span><span class="p">,</span> <span class="n">forecastRun</span><span class="p">):</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">tt</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">forecastRun</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGridData</span><span class="p">(</span><span class="n">dataRequest</span><span class="p">,</span> <span class="p">[</span><span class="n">tt</span><span class="p">])</span>
+        <span class="n">grid</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">i</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">+=</span> <span class="n">grid</span><span class="o">.</span><span class="n">getRawData</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">getRawData</span><span class="p">()</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">data</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="mi">9999</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">grid</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getFcstTime</span><span class="p">()</span><span class="o">/</span><span class="mi">3600</span><span class="p">)</span>
+
+    <span class="c1"># Convert from mm to inches</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">data</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.0393701</span><span class="p">)</span>
+
+    <span class="n">ii</span><span class="p">,</span><span class="n">jj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">result</span><span class="o">==</span><span class="n">result</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+    <span class="n">i</span><span class="o">=</span><span class="n">ii</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">j</span><span class="o">=</span><span class="n">jj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">result</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html">Top</a></p>
+</section>
+<hr class="docutils" />
+<section id="fuction-make-map">
+<h3>4 Fuction: make_map()<a class="headerlink" href="#fuction-make-map" title="Permalink to this heading"></a></h3>
+<p>This function creates the basics of the map we’re going to plot our data
+on. It takes in a bounding box to determine the extent and then adds
+coastlines for easy frame of reference.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_map</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">()):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span>
+            <span class="n">subplot_kw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="n">projection</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_extent</span><span class="p">(</span><span class="n">bbox</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">coastlines</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="s1">&#39;50m&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html">Top</a></p>
+</section>
+<hr class="docutils" />
+<section id="get-the-data">
+<h3>5 Get the Data!<a class="headerlink" href="#get-the-data" title="Permalink to this heading"></a></h3>
+<p>Access the data from the DataAccessLayer interface using the
+<em>getGridData</em> function. Use that data to calculate the accumulated
+rainfall, the maximum rainfall point, and the region of interest
+bounding box.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## get the grid response from edex</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGridData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="p">[</span><span class="n">fcstRun</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+<span class="c1">## take the first result to get the location information from</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1">## get the location coordinates and create a bounding box for our map</span>
+<span class="n">lons</span><span class="p">,</span> <span class="n">lats</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">getLatLonCoords</span><span class="p">()</span>
+<span class="n">bbox</span> <span class="o">=</span> <span class="p">[</span><span class="n">lons</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">lons</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">lats</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">lats</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span>
+<span class="n">fcstHr</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getFcstTime</span><span class="p">()</span><span class="o">/</span><span class="mi">3600</span><span class="p">)</span>
+
+<span class="c1">## calculate the total precipitation</span>
+<span class="n">tp_inch</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">calculate_accumulated_precip</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">fcstRun</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tp_inch</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">tp_inch</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+
+<span class="c1">## use the max points coordinates to get the max point in lat/lon coords</span>
+<span class="n">maxPoint</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">lons</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">lats</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+<span class="n">inc</span> <span class="o">=</span> <span class="mf">3.5</span>
+<span class="c1">## create a region of interest bounding box</span>
+<span class="n">roi_box</span><span class="o">=</span><span class="p">[</span><span class="n">maxPoint</span><span class="o">.</span><span class="n">x</span><span class="o">-</span><span class="n">inc</span><span class="p">,</span> <span class="n">maxPoint</span><span class="o">.</span><span class="n">x</span><span class="o">+</span><span class="n">inc</span><span class="p">,</span> <span class="n">maxPoint</span><span class="o">.</span><span class="n">y</span><span class="o">-</span><span class="n">inc</span><span class="p">,</span> <span class="n">maxPoint</span><span class="o">.</span><span class="n">y</span><span class="o">+</span><span class="n">inc</span><span class="p">]</span>
+<span class="n">roi_polygon</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">([(</span><span class="n">roi_box</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">roi_box</span><span class="p">[</span><span class="mi">2</span><span class="p">]),(</span><span class="n">roi_box</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">roi_box</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span>
+                <span class="p">(</span><span class="n">roi_box</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">roi_box</span><span class="p">[</span><span class="mi">3</span><span class="p">]),(</span><span class="n">roi_box</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">roi_box</span><span class="p">[</span><span class="mi">2</span><span class="p">]),(</span><span class="n">roi_box</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">roi_box</span><span class="p">[</span><span class="mi">2</span><span class="p">])])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">maxPoint</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.0</span> <span class="mf">10.0625</span> <span class="mf">6.0</span>
+<span class="mf">0.0</span> <span class="mf">21.75</span> <span class="mf">12.0</span>
+<span class="mf">0.0</span> <span class="mf">35.1875</span> <span class="mf">18.0</span>
+<span class="mf">0.0</span> <span class="mf">43.5</span> <span class="mf">24.0</span>
+<span class="mf">0.0</span> <span class="mf">45.5625</span> <span class="mf">42.0</span>
+<span class="mf">0.0</span> <span class="mf">47.9375</span> <span class="mf">48.0</span>
+<span class="mf">0.0</span> <span class="mf">52.0625</span> <span class="mf">54.0</span>
+<span class="mf">0.0</span> <span class="mf">56.375</span> <span class="mf">60.0</span>
+<span class="mf">0.0</span> <span class="mf">86.625</span> <span class="mf">66.0</span>
+<span class="mf">0.0</span> <span class="mf">92.4375</span> <span class="mf">72.0</span>
+<span class="mf">0.0</span> <span class="mf">94.375</span> <span class="mf">78.0</span>
+<span class="mf">0.0</span> <span class="mf">95.375</span> <span class="mf">84.0</span>
+<span class="mf">0.0</span> <span class="mf">98.3125</span> <span class="mf">90.0</span>
+<span class="mf">0.0</span> <span class="mf">100.125</span> <span class="mf">96.0</span>
+<span class="mf">0.0</span> <span class="mf">101.6875</span> <span class="mf">102.0</span>
+<span class="mf">0.0</span> <span class="mf">104.0</span> <span class="mf">108.0</span>
+<span class="mf">0.0</span> <span class="mf">107.1875</span> <span class="mf">114.0</span>
+<span class="mf">0.0</span> <span class="mf">115.25</span> <span class="mf">120.0</span>
+<span class="mf">0.0</span> <span class="mf">129.0</span> <span class="mf">126.0</span>
+<span class="mf">0.0</span> <span class="mf">136.375</span> <span class="mf">132.0</span>
+<span class="mf">0.0</span> <span class="mf">141.125</span> <span class="mf">138.0</span>
+<span class="mf">0.0</span> <span class="mf">145.25</span> <span class="mf">144.0</span>
+<span class="mf">0.0</span> <span class="mf">147.375</span> <span class="mf">150.0</span>
+<span class="mf">0.0</span> <span class="mf">5.802169</span>
+<span class="n">POINT</span> <span class="p">(</span><span class="o">-</span><span class="mi">124</span> <span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html">Top</a></p>
+</section>
+<hr class="docutils" />
+<section id="plot-the-data">
+<h3>6 Plot the Data!<a class="headerlink" href="#plot-the-data" title="Permalink to this heading"></a></h3>
+<section id="create-conus-image">
+<h4>6.1 Create CONUS Image<a class="headerlink" href="#create-conus-image" title="Permalink to this heading"></a></h4>
+<p>Plot our data on our CONUS map.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;rainbow&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">make_map</span><span class="p">(</span><span class="n">bbox</span><span class="o">=</span><span class="n">bbox</span><span class="p">)</span>
+<span class="n">cs</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">lons</span><span class="p">,</span> <span class="n">lats</span><span class="p">,</span> <span class="n">tp_inch</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+<span class="n">cbar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cs</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">)</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">getLocationName</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; Total precipitation in inches, &quot;</span> \
+               <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">fcstHr</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;-hr fcst valid &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getRefTime</span><span class="p">()))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">maxPoint</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">maxPoint</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+           <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span><span class="n">marker</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">,</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">add_geometries</span><span class="p">([</span><span class="n">roi_polygon</span><span class="p">],</span> <span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">cartopy</span><span class="o">.</span><span class="n">mpl</span><span class="o">.</span><span class="n">feature_artist</span><span class="o">.</span><span class="n">FeatureArtist</span> <span class="n">at</span> <span class="mh">0x13eb32340</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<img alt="../../_images/Precip_Accumulation_Region_of_Interest_27_1.png" src="../../_images/Precip_Accumulation_Region_of_Interest_27_1.png" />
+</section>
+<section id="create-region-of-interest-image">
+<h4>6.2 Create Region of Interest Image<a class="headerlink" href="#create-region-of-interest-image" title="Permalink to this heading"></a></h4>
+<p>Now crop the data and zoom in on the region of interest (ROI) to create
+a new plot.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># cmap = plt.get_cmap(&#39;rainbow&#39;)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">make_map</span><span class="p">(</span><span class="n">bbox</span><span class="o">=</span><span class="n">roi_box</span><span class="p">)</span>
+
+<span class="n">cs</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">lons</span><span class="p">,</span> <span class="n">lats</span><span class="p">,</span> <span class="n">tp_inch</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+<span class="n">cbar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cs</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">)</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">getLocationName</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; Total precipitation in inches, &quot;</span> \
+               <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">fcstHr</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;-hr fcst valid &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getRefTime</span><span class="p">()))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">maxPoint</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">maxPoint</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+           <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span><span class="n">marker</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">,</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">collections</span><span class="o">.</span><span class="n">PathCollection</span> <span class="n">at</span> <span class="mh">0x13ed521c0</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<img alt="../../_images/Precip_Accumulation_Region_of_Interest_29_1.png" src="../../_images/Precip_Accumulation_Region_of_Interest_29_1.png" />
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html">Top</a></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="high-resolution-roi">
+<h3>7 High Resolution ROI<a class="headerlink" href="#high-resolution-roi" title="Permalink to this heading"></a></h3>
+<section id="new-data-request">
+<h4>7.1 New Data Request<a class="headerlink" href="#new-data-request" title="Permalink to this heading"></a></h4>
+<p>To see the region of interest more clearly, we can redo the process with
+a higher resolution model (GFS20 vs. GFS1.0).</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">roiRequest</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="n">envelope</span><span class="o">=</span><span class="n">conus_envelope</span><span class="p">)</span>
+<span class="n">roiRequest</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="s2">&quot;GFS20&quot;</span><span class="p">)</span>
+<span class="n">roiRequest</span><span class="o">.</span><span class="n">setLevels</span><span class="p">(</span><span class="s2">&quot;0.0SFC&quot;</span><span class="p">)</span>
+<span class="n">roiRequest</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s2">&quot;TP&quot;</span><span class="p">)</span>
+
+<span class="n">roiCycles</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">roiRequest</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">roiTimes</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">roiRequest</span><span class="p">)</span>
+<span class="n">roiFcstRun</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getForecastRun</span><span class="p">(</span><span class="n">roiCycles</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">roiTimes</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="calculate-data">
+<h4>7.2 Calculate Data<a class="headerlink" href="#calculate-data" title="Permalink to this heading"></a></h4>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">roiResponse</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGridData</span><span class="p">(</span><span class="n">roiRequest</span><span class="p">,</span> <span class="p">[</span><span class="n">roiFcstRun</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">roiResponse</span><span class="p">)</span>
+<span class="n">roiGrid</span> <span class="o">=</span> <span class="n">roiResponse</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">roiLons</span><span class="p">,</span> <span class="n">roiLats</span> <span class="o">=</span> <span class="n">roiGrid</span><span class="o">.</span><span class="n">getLatLonCoords</span><span class="p">()</span>
+
+<span class="n">roi_data</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">calculate_accumulated_precip</span><span class="p">(</span><span class="n">roiRequest</span><span class="p">,</span> <span class="n">roiFcstRun</span><span class="p">)</span>
+
+<span class="n">roiFcstHr</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">roiGrid</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getFcstTime</span><span class="p">()</span><span class="o">/</span><span class="mi">3600</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="o">&lt;</span><span class="n">awips</span><span class="o">.</span><span class="n">dataaccess</span><span class="o">.</span><span class="n">PyGridData</span><span class="o">.</span><span class="n">PyGridData</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x13ecb4eb0</span><span class="o">&gt;</span><span class="p">]</span>
+<span class="mf">0.0</span> <span class="mf">22.5625</span> <span class="mf">3.0</span>
+<span class="mf">0.0</span> <span class="mf">35.375</span> <span class="mf">6.0</span>
+<span class="mf">0.0</span> <span class="mf">38.375</span> <span class="mf">9.0</span>
+<span class="mf">0.0</span> <span class="mf">38.375</span> <span class="mf">12.0</span>
+<span class="mf">0.0</span> <span class="mf">41.375</span> <span class="mf">15.0</span>
+<span class="mf">0.0</span> <span class="mf">48.625</span> <span class="mf">18.0</span>
+<span class="mf">0.0</span> <span class="mf">73.0625</span> <span class="mf">30.0</span>
+<span class="mf">0.0</span> <span class="mf">94.9375</span> <span class="mf">33.0</span>
+<span class="mf">0.0</span> <span class="mf">96.125</span> <span class="mf">36.0</span>
+<span class="mf">0.0</span> <span class="mf">97.0</span> <span class="mf">39.0</span>
+<span class="mf">0.0</span> <span class="mf">99.375</span> <span class="mf">45.0</span>
+<span class="mf">0.0</span> <span class="mf">100.0625</span> <span class="mf">48.0</span>
+<span class="mf">0.0</span> <span class="mf">100.25</span> <span class="mf">51.0</span>
+<span class="mf">0.0</span> <span class="mf">100.4375</span> <span class="mf">57.0</span>
+<span class="mf">0.0</span> <span class="mf">100.4375</span> <span class="mf">63.0</span>
+<span class="mf">0.0</span> <span class="mf">118.25</span> <span class="mf">66.0</span>
+<span class="mf">0.0</span> <span class="mf">127.625</span> <span class="mf">69.0</span>
+<span class="mf">0.0</span> <span class="mf">131.125</span> <span class="mf">75.0</span>
+<span class="mf">0.0</span> <span class="mf">131.375</span> <span class="mf">78.0</span>
+<span class="mf">0.0</span> <span class="mf">131.5</span> <span class="mf">81.0</span>
+<span class="mf">0.0</span> <span class="mf">131.875</span> <span class="mf">84.0</span>
+<span class="mf">0.0</span> <span class="mf">132.875</span> <span class="mf">90.0</span>
+<span class="mf">0.0</span> <span class="mf">133.375</span> <span class="mf">96.0</span>
+<span class="mf">0.0</span> <span class="mf">139.1875</span> <span class="mf">102.0</span>
+<span class="mf">0.0</span> <span class="mf">141.625</span> <span class="mf">120.0</span>
+<span class="mf">0.0</span> <span class="mf">141.75</span> <span class="mf">126.0</span>
+<span class="mf">0.0</span> <span class="mf">142.1875</span> <span class="mf">132.0</span>
+<span class="mf">0.0</span> <span class="mf">143.375</span> <span class="mf">138.0</span>
+<span class="mf">0.0</span> <span class="mf">148.6875</span> <span class="mf">144.0</span>
+<span class="mf">0.0</span> <span class="mf">156.25</span> <span class="mf">150.0</span>
+</pre></div>
+</div>
+</section>
+<section id="plot-roi">
+<h4>7.3 Plot ROI<a class="headerlink" href="#plot-roi" title="Permalink to this heading"></a></h4>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># cmap = plt.get_cmap(&#39;rainbow&#39;)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">make_map</span><span class="p">(</span><span class="n">bbox</span><span class="o">=</span><span class="n">roi_box</span><span class="p">)</span>
+
+<span class="n">cs</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">roiLons</span><span class="p">,</span> <span class="n">roiLats</span><span class="p">,</span> <span class="n">roi_data</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+<span class="n">cbar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cs</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">)</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="n">roiGrid</span><span class="o">.</span><span class="n">getLocationName</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; Total precipitation in inches, &quot;</span> \
+               <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">roiFcstHr</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;-hr fcst valid &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">roiGrid</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getRefTime</span><span class="p">()))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">maxPoint</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">maxPoint</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+           <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span><span class="n">marker</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">,</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">scarter</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">python3</span><span class="o">-</span><span class="n">awips</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">cartopy</span><span class="o">/</span><span class="n">mpl</span><span class="o">/</span><span class="n">geoaxes</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">1702</span><span class="p">:</span> <span class="ne">UserWarning</span><span class="p">:</span> <span class="n">The</span> <span class="nb">input</span> <span class="n">coordinates</span> <span class="n">to</span> <span class="n">pcolormesh</span> <span class="n">are</span> <span class="n">interpreted</span> <span class="k">as</span> <span class="n">cell</span> <span class="n">centers</span><span class="p">,</span> <span class="n">but</span> <span class="n">are</span> <span class="ow">not</span> <span class="n">monotonically</span> <span class="n">increasing</span> <span class="ow">or</span> <span class="n">decreasing</span><span class="o">.</span> <span class="n">This</span> <span class="n">may</span> <span class="n">lead</span> <span class="n">to</span> <span class="n">incorrectly</span> <span class="n">calculated</span> <span class="n">cell</span> <span class="n">edges</span><span class="p">,</span> <span class="ow">in</span> <span class="n">which</span> <span class="n">case</span><span class="p">,</span> <span class="n">please</span> <span class="n">supply</span> <span class="n">explicit</span> <span class="n">cell</span> <span class="n">edges</span> <span class="n">to</span> <span class="n">pcolormesh</span><span class="o">.</span>
+  <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">shading</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pcolorargs</span><span class="p">(</span><span class="s1">&#39;pcolormesh&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">collections</span><span class="o">.</span><span class="n">PathCollection</span> <span class="n">at</span> <span class="mh">0x13edc39a0</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<img alt="../../_images/Precip_Accumulation_Region_of_Interest_37_2.png" src="../../_images/Precip_Accumulation_Region_of_Interest_37_2.png" />
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html">Top</a></p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="see-also">
+<h3>8 See Also<a class="headerlink" href="#see-also" title="Permalink to this heading"></a></h3>
+<section id="related-notebooks">
+<h4>8.1 Related Notebooks<a class="headerlink" href="#related-notebooks" title="Permalink to this heading"></a></h4>
+<ul class="simple">
+<li><p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colorized_Grid_Data.html">Colorized Grid
+Data</a></p></li>
+<li><p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html">Grid Levels and
+Parameters</a></p></li>
+</ul>
+</section>
+<section id="additional-documentation">
+<h4>8.2 Additional Documentation<a class="headerlink" href="#additional-documentation" title="Permalink to this heading"></a></h4>
+<p><strong>python-awips:</strong> *
+<a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html">awips.DataAccessLayer</a>
+*
+<a class="reference external" href="http://unidata.github.io/python-awips/api/PyGridData.html">awips.PyGridData</a></p>
+<p><strong>matplotlib:</strong> *
+<a class="reference external" href="https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.html">matplotlib.pyplot</a>
+*
+<a class="reference external" href="https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.subplot.html">matplotlib.pyplot.subplot</a>
+*
+<a class="reference external" href="https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.pcolormesh.html">matplotlib.pyplot.pcolormesh</a></p>
+<p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html">Top</a></p>
+<hr class="docutils" />
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="NEXRAD_Level3_Radar.html" class="btn btn-neutral float-left" title="NEXRAD Level3 Radar" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Regional_Surface_Obs_Plot.html" class="btn btn-neutral float-right" title="Regional Surface Obs Plot" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018, Unidata.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
