@@ -167,7 +167,7 @@ point in x and y coordinates.
             print(data.min(), data.max(), grid.getDataTime().getFcstTime()/3600)
     
         # Convert from mm to inches
-        result = data * (0.0393701)
+        result = (data * units.mm).to(units.inch)
         
         ii,jj = np.where(result==result.max())
         i=ii[0]
@@ -281,7 +281,7 @@ Plot our data on our CONUS map.
     fig, ax = make_map(bbox=bbox)
     cs = ax.pcolormesh(lons, lats, tp_inch, cmap=cmap)
     cbar = fig.colorbar(cs, shrink=0.7, orientation='horizontal')
-    cbar.set_label(grid.getLocationName() + " Total precipitation in inches, " \
+    cbar.set_label(grid.getLocationName() + " Total accumulated precipitation in inches, " \
                    + str(fcstHr) + "-hr fcst valid " + str(grid.getDataTime().getRefTime()))
     
     ax.scatter(maxPoint.x, maxPoint.y, s=300,
@@ -315,7 +315,7 @@ a new plot.
     
     cs = ax.pcolormesh(lons, lats, tp_inch, cmap=cmap)
     cbar = fig.colorbar(cs, shrink=0.7, orientation='horizontal')
-    cbar.set_label(grid.getLocationName() + " Total precipitation in inches, " \
+    cbar.set_label(grid.getLocationName() + " Total accumulated precipitation in inches, " \
                    + str(fcstHr) + "-hr fcst valid " + str(grid.getDataTime().getRefTime()))
     
     ax.scatter(maxPoint.x, maxPoint.y, s=300,
@@ -419,7 +419,7 @@ a higher resolution model (GFS20 vs. GFS1.0).
     
     cs = ax.pcolormesh(roiLons, roiLats, roi_data, cmap=cmap)
     cbar = fig.colorbar(cs, shrink=0.7, orientation='horizontal')
-    cbar.set_label(roiGrid.getLocationName() + " Total precipitation in inches, " \
+    cbar.set_label(roiGrid.getLocationName() + " Total accumulated precipitation in inches, " \
                    + str(roiFcstHr) + "-hr fcst valid " + str(roiGrid.getDataTime().getRefTime()))
     
     ax.scatter(maxPoint.x, maxPoint.y, s=300,
