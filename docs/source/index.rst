@@ -9,8 +9,6 @@ The python-awips package provides a data access framework for requesting meteoro
 .. _Jupyter Notebook: http://nbviewer.jupyter.org/github/Unidata/python-awips/tree/master/examples/notebooks
 
 
-.. important:: There is now a :ref:`Beta Python-AWIPS<Beta Python-AWIPS Install>` available for v20.
-
 Pre-requisite Software
 ----------------------
 
