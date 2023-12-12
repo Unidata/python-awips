@@ -23,4 +23,4 @@
    - shapely
    - six
    - pip
-   
+   - python-awips  
