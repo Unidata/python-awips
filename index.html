@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Python AWIPS Data Access Framework &mdash; python-awips  documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -35,7 +37,7 @@
             python-awips
           </a>
               <div class="version">
-                18.1.8
+                20.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -82,10 +84,6 @@
 <h1>Python AWIPS Data Access Framework<a class="headerlink" href="#python-awips-data-access-framework" title="Permalink to this heading"></a></h1>
 <p>The python-awips package provides a data access framework for requesting meteorological and geographic datasets from an <a class="reference external" href="http://unidata.github.io/awips2/#edex">EDEX</a> server.</p>
 <p><a class="reference external" href="http://unidata.github.io/awips2">AWIPS</a> is a weather display and analysis package developed by the National Weather Service for operational forecasting.  UCAR’s <a class="reference external" href="http://www.unidata.ucar.edu/software/awips2/">Unidata Program Center</a> supports a non-operational open-source release of the AWIPS software (<a class="reference external" href="http://unidata.github.io/awips2/#edex">EDEX</a>, <a class="reference external" href="http://unidata.github.io/awips2/#cave">CAVE</a>, and <a class="reference external" href="https://github.com/Unidata/python-awips">python-awips</a>).</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>There is now a <a class="reference internal" href="#beta-python-awips-install"><span class="std std-ref">Beta Python-AWIPS</span></a> available for v20.</p>
-</div>
 <section id="pre-requisite-software">
 <h2>Pre-requisite Software<a class="headerlink" href="#pre-requisite-software" title="Permalink to this heading"></a></h2>
 <dl class="simple">
@@ -120,25 +118,10 @@ The package can be installed with either of the two well known package managers:
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">Unidata</span><span class="o">/</span><span class="n">python</span><span class="o">-</span><span class="n">awips</span><span class="o">.</span><span class="n">git</span>
 <span class="n">cd</span> <span class="n">python</span><span class="o">-</span><span class="n">awips</span>
 <span class="n">conda</span> <span class="n">env</span> <span class="n">create</span> <span class="o">-</span><span class="n">f</span> <span class="n">environment</span><span class="o">.</span><span class="n">yml</span>
-<span class="n">conda</span> <span class="n">activate</span> <span class="n">python3</span><span class="o">-</span><span class="n">awips</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">python</span><span class="o">-</span><span class="n">awips</span><span class="o">-</span><span class="n">v20</span>
 <span class="n">jupyter</span> <span class="n">notebook</span> <span class="n">examples</span>
 </pre></div>
 </div>
-</section>
-<section id="beta-python-awips-install">
-<h2>Beta Python-AWIPS Install<a class="headerlink" href="#beta-python-awips-install" title="Permalink to this heading"></a></h2>
-<p>The beta version of python-awips (v20) is currently only available as a source code download and installation.  The beta version only works with our beta EDEX server (edex-beta.unidata.ucar.edu) and is not backwards compatible with our production (v18) EDEX server.</p>
-<p>Similar to the <a class="reference internal" href="#source-code-with-examples-install"><span class="std std-ref">Source Code Install</span></a> above, these instructions will create a new environment called <code class="docutils literal notranslate"><span class="pre">python-awips-beta20</span></code> and launch a browser with our jupyter notebook examples.</p>
-<p>When AWIPS v20 becomes production, this version of python-awips will be the default that is on pip and conda, but until then, this is how you can access and use python-awips v20.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="o">--</span><span class="n">single</span><span class="o">-</span><span class="n">branch</span> <span class="o">--</span><span class="n">branch</span> <span class="n">v20</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">Unidata</span><span class="o">/</span><span class="n">python</span><span class="o">-</span><span class="n">awips</span><span class="o">.</span><span class="n">git</span>
-<span class="n">cd</span> <span class="n">python</span><span class="o">-</span><span class="n">awips</span>
-<span class="n">conda</span> <span class="n">env</span> <span class="n">create</span> <span class="o">-</span><span class="n">f</span> <span class="n">environment</span><span class="o">.</span><span class="n">yml</span>
-<span class="n">conda</span> <span class="n">activate</span> <span class="n">python</span><span class="o">-</span><span class="n">awips</span><span class="o">-</span><span class="n">beta20</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
-<span class="n">jupyter</span> <span class="n">notebook</span> <span class="n">examples</span>
-</pre></div>
-</div>
-<p>If you come across issues/bugs/missing functionality, please report it using <a class="reference external" href="https://docs.google.com/forms/d/e/1FAIpQLSf6jyZtbh49g-GCBoAQYzTVwAIf_aKz0QOeAr7gDVFhPrjAmw/viewform?usp=sf_link">this short form</a>.</p>
 </section>
 <section id="questions-contact-us">
 <h2>Questions – Contact Us!<a class="headerlink" href="#questions-contact-us" title="Permalink to this heading"></a></h2>
@@ -158,7 +141,7 @@ The package can be installed with either of the two well known package managers:
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2018, Unidata.</p>
+    <p>&#169; Copyright 2018, NSF Unidata.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
