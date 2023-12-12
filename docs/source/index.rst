@@ -52,31 +52,9 @@ Below are instructions on how to install the source code of python-awips, with a
     git clone https://github.com/Unidata/python-awips.git
     cd python-awips
     conda env create -f environment.yml
-    conda activate python3-awips
+    conda activate python-awips-v20
     jupyter notebook examples
     
-    
-
-Beta Python-AWIPS Install
--------------------------
-
-The beta version of python-awips (v20) is currently only available as a source code download and installation.  The beta version only works with our beta EDEX server (edex-beta.unidata.ucar.edu) and is not backwards compatible with our production (v18) EDEX server.
-
-Similar to the :ref:`Source Code Install <Source Code with Examples Install>` above, these instructions will create a new environment called ``python-awips-beta20`` and launch a browser with our jupyter notebook examples.
-
-When AWIPS v20 becomes production, this version of python-awips will be the default that is on pip and conda, but until then, this is how you can access and use python-awips v20.
-
-::
-
-    git clone --single-branch --branch v20 https://github.com/Unidata/python-awips.git
-    cd python-awips
-    conda env create -f environment.yml
-    conda activate python-awips-beta20
-    pip install .
-    jupyter notebook examples
-
-If you come across issues/bugs/missing functionality, please report it using `this short form <https://docs.google.com/forms/d/e/1FAIpQLSf6jyZtbh49g-GCBoAQYzTVwAIf_aKz0QOeAr7gDVFhPrjAmw/viewform?usp=sf_link>`_.
-
 
 Questions -- Contact Us!
 ------------------------
