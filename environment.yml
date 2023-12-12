@@ -1,4 +1,4 @@
- name: python-awips-beta20
+ name: python-awips-v20
  channels:
    - https://conda.anaconda.org/conda-forge
  dependencies:
