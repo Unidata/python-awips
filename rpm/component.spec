@@ -109,5 +109,5 @@ rm -rf %{_python_build_loc}
 
 %files
 %defattr(644,awips,fxalpha,755)
-%dir /awips2/python/lib/python2.7/site-packages
-/awips2/python/lib/python2.7/site-packages/*
+%dir /awips2/python/lib/python3.6/site-packages
+/awips2/python/lib/python3.6/site-packages/*
