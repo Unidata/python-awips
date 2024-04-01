@@ -56,6 +56,10 @@
 #                                     QpidQueueManager
 # Dec 12, 2019  7995     dgilling     Revert interface changes from #7724.
 # Jul 07, 2020  8187     randerso     Added qpid connection_id
+# Mar 08, 2021  7899     tbucher      Updated JMS password to use new decryption class
+# Apr 12, 2022  8677     tgurney      Remove unnecessary password retrieval code
+# Jun 28, 2023  2035875  dgilling     Add additional CA verification to fix SSL/TLS
+#                                     connections to QPID.
 #
 #===============================================================================   
 
@@ -76,7 +80,9 @@ class QpidIngestException(Exception):
     """Exception subclass for broker communication exceptions."""
     pass
 
+
 class IngestViaQPID:
+
     def __init__(self, host="localhost", port=5672, program="qpidingest"):
         '''
         Connect to QPID and make bindings to route message to external.dropbox queue
@@ -87,20 +93,21 @@ class IngestViaQPID:
         pwuid = pwd.getpwuid(os.getuid())
         certdb = os.getenv("QPID_SSL_CERT_DB", os.path.join(pwuid.pw_dir, ".qpid"))
         certname = os.getenv("QPID_SSL_CERT_NAME", "guest")
-        cert_password = os.getenv("QPID_SSL_CERT_PASSWORD", "password")
         certfile = os.path.join(certdb, f"{certname}.crt")
         keyfile = os.path.join(certdb, f"{certname}.key")
 
         url = f"amqps://{host}:{port}"
         ADDRESS = "external.dropbox"
         ssl_domain = proton.SSLDomain(mode=proton.SSLDomain.MODE_CLIENT)
-        ssl_domain.set_credentials(certfile, keyfile, cert_password)
+        ssl_domain.set_trusted_ca_db(os.path.join(certdb, "root.crt"))
+        ssl_domain.set_peer_authentication(proton.SSLDomain.VERIFY_PEER)
+        ssl_domain.set_credentials(certfile, keyfile, None)
         
         clientID = ":".join([
-            socket.gethostname(), 
-            pwuid.pw_name, 
-            program, 
-            str(os.getpid()), 
+            socket.gethostname(),
+            pwuid.pw_name,
+            program,
+            str(os.getpid()),
         ])
 
         try:

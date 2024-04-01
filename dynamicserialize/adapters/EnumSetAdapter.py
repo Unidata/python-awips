@@ -29,6 +29,7 @@
 #    ------------    ----------    -----------    --------------------------
 #    07/28/11                      dgilling       Initial Creation.
 #    12/02/13        2537          bsteffen       Serialize empty enum sets.
+#    
 # 
 #
 
