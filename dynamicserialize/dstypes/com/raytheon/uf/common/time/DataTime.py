@@ -39,7 +39,8 @@
 #                                                 plus misc cleanup
 #    09/13/19         7888         tgurney        Python 3 division fixes
 #    11/18/19         7881         tgurney        Fix __hash__
-#    08/31/23                      srcarter@ucar  Small formatting fixes to match MJ's changes
+#    10/28/22         8959         mapeters       Add levelType
+#    07/28/23         2035971      mapeters       Remove incorrect levelType comparison in __lt__
 
 
 import calendar
@@ -60,8 +61,12 @@ _TIME = r'(\d{2}:\d{2}:\d{2})'
 _MILLIS = '(?:\.(\d{1,3})(?:\d{1,4})?)?'
 REFTIME_PATTERN_STR = _DATE + '[ _]' + _TIME + _MILLIS
 FORECAST_PATTERN_STR = r'(?:[ _]\((\d+)(?::(\d{1,2}))?\))?'
-VALID_PERIOD_PATTERN_STR = r'(?:\[' + REFTIME_PATTERN_STR + '--' + REFTIME_PATTERN_STR + r'\])?'
-STR_PATTERN = re.compile(REFTIME_PATTERN_STR + FORECAST_PATTERN_STR + VALID_PERIOD_PATTERN_STR)
+VALID_PERIOD_PATTERN_STR = r'(?:\[' + REFTIME_PATTERN_STR + \
+    '--' + REFTIME_PATTERN_STR + r'\])?'
+STR_PATTERN = re.compile(
+    REFTIME_PATTERN_STR +
+    FORECAST_PATTERN_STR +
+    VALID_PERIOD_PATTERN_STR)
 
 
 class DataTime(object):
@@ -85,14 +90,19 @@ class DataTime(object):
             self.fcstTime = 0
         self.refTime = refTime
         if validPeriod is not None and not isinstance(validPeriod, TimeRange):
-            raise ValueError("Invalid validPeriod object specified for DataTime.")
+            raise ValueError(
+                "Invalid validPeriod object specified for DataTime.")
         self.validPeriod = validPeriod
-        self.utilityFlags = EnumSet('com.raytheon.uf.common.time.DataTime$FLAG')
+        self.utilityFlags = EnumSet(
+            'com.raytheon.uf.common.time.DataTime$FLAG')
         self.levelValue = numpy.float64(-1.0)
+        self.levelType = None
 
         if self.refTime is not None:
             if isinstance(self.refTime, datetime.datetime):
-                self.refTime = int(calendar.timegm(self.refTime.utctimetuple()) * 1000)
+                self.refTime = int(
+                    calendar.timegm(
+                        self.refTime.utctimetuple()) * 1000)
             elif isinstance(self.refTime, time.struct_time):
                 self.refTime = int(calendar.timegm(self.refTime) * 1000)
             elif hasattr(self.refTime, 'getTime'):
@@ -117,7 +127,8 @@ class DataTime(object):
                     fcstTimeMin = groups[4]
                     periodStart = groups[5], groups[6], (groups[7] or 0)
                     periodEnd = groups[8], groups[9], (groups[10] or 0)
-                    self.refTime = self._getTimeAsEpochMillis(rDate, rTime, rMillis)
+                    self.refTime = self._getTimeAsEpochMillis(
+                        rDate, rTime, rMillis)
 
                     if fcstTimeHr is not None:
                         self.fcstTime = int(fcstTimeHr) * 3600
@@ -126,7 +137,8 @@ class DataTime(object):
 
                     if periodStart[0] is not None:
                         self.validPeriod = TimeRange()
-                        periodStartTime = self._getTimeAsEpochMillis(*periodStart)
+                        periodStartTime = self._getTimeAsEpochMillis(
+                            *periodStart)
                         self.validPeriod.setStart(periodStartTime // 1000)
                         periodEndTime = self._getTimeAsEpochMillis(*periodEnd)
                         self.validPeriod.setEnd(periodEndTime // 1000)
@@ -175,6 +187,12 @@ class DataTime(object):
     def setLevelValue(self, levelValue):
         self.levelValue = numpy.float64(levelValue)
 
+    def getLevelType(self):
+        return self.levelType
+
+    def setLevelType(self, levelType):
+        self.levelType = levelType
+
     def __str__(self):
         buffer = io.StringIO()
 
@@ -213,7 +231,7 @@ class DataTime(object):
         if self.getRefTime() is None:
             return hash(self.fcstTime)
         return hash((self.refTime, self.fcstTime,
-                     self.validPeriod, self.levelValue))
+                     self.validPeriod, self.levelValue, self.levelType))
 
     def __eq__(self, other):
         if not isinstance(self, type(other)):
@@ -226,12 +244,14 @@ class DataTime(object):
             self.refTime,
             self.fcstTime,
             self.validPeriod,
-            self.levelValue)
+            self.levelValue,
+            self.levelType)
         dataTime2 = (
             other.refTime,
             other.fcstTime,
             other.validPeriod,
-            other.levelValue)
+            other.levelValue,
+            other.levelType)
         return dataTime1 == dataTime2
 
     def __ne__(self, other):
@@ -248,6 +268,12 @@ class DataTime(object):
 
         if self.fcstTime < other.fcstTime:
             return True
+
+        if self.levelType != other.levelType:
+            if self.levelType is None:
+                return True
+            elif other.levelType is not None and self.levelType < other.levelType:
+                return True
 
         if self.levelValue < other.levelValue:
             return True
@@ -277,6 +303,12 @@ class DataTime(object):
 
         if self.fcstTime > other.fcstTime:
             return True
+
+        if self.levelType != other.levelType:
+            if other.levelType is None:
+                return True
+            elif self.levelType is not None and self.levelType > other.levelType:
+                return True
 
         if self.levelValue > other.levelValue:
             return True

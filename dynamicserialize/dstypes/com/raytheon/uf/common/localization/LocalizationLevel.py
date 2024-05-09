@@ -63,13 +63,13 @@ class LocalizationLevel(object):
 
     def setOrder(self, order):
         self.order = int(order)
-        
+
     def isSystemLevel(self):
         return self.systemLevel
-        
+
     def __str__(self):
         return self.__repr__()
-    
+
     def __repr__(self):
         return str(self.text)
 
