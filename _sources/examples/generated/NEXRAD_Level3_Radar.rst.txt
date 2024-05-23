@@ -2,9 +2,53 @@
 NEXRAD Level3 Radar
 ===================
 `Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/NEXRAD_Level3_Radar.ipynb>`_
-.. code:: ipython3
+Python-AWIPS Tutorial Notebook
 
-    This example plots NEXRAD 3 algorithm, precipitation, and derived products (not base data).
+--------------
+
+Objectives
+==========
+
+-  Use python-awips to connect to an edex server
+-  Define and filter data request for radar data
+-  Plot NEXRAD 3 algorithm, precipitation, and derived products (not
+   base data)
+
+--------------
+
+Table of Contents
+-----------------
+
+| `1
+  Imports <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#imports>`__\ 
+| `2 EDEX
+  Connection <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#edex-connection>`__\ 
+| `3 Investigate
+  Data <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#investigate_data>`__\ 
+|     `3.1 Available
+  Locations <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#available-locations>`__\ 
+|     `3.2 Available
+  Parameters <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#available-parameters>`__\ 
+|     `3.3 Radar Product IDs and
+  Names <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#radar-product-ids-and-names>`__\ 
+| `4 Function:
+  make_map() <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#function-make-mapy>`__\ 
+| `5 Plot the
+  Data! <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#plot-the-data>`__\ 
+| `6 See
+  Also <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#see-also>`__\ 
+|     `6.1 Related
+  Notebooks <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#related-notebooks>`__\ 
+|     `6.2 Additional
+  Documentation <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#additional-documentation>`__\ 
+
+1 Imports
+---------
+
+The imports below are used throughout the notebook. Note the first
+import is coming directly from python-awips and allows us to connect to
+an EDEX server. The subsequent imports are for data manipulation and
+visualization.
 
 .. code:: ipython3
 
@@ -14,18 +58,91 @@ NEXRAD Level3 Radar
     import cartopy.crs as ccrs
     import numpy as np
     from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
-    %matplotlib inline
-    
+
+`Top <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html>`__
+
+--------------
+
+2 EDEX Connection
+-----------------
+
+First we establish a connection to Unidata’s public EDEX server. This
+sets the proper server on the **DataAccessLayer**, which we will use
+numerous times throughout the notebook.
+
+.. code:: ipython3
+
     DataAccessLayer.changeEDEXHost("edex-cloud.unidata.ucar.edu")
     request = DataAccessLayer.newDataRequest("radar")
+
+`Top <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html>`__
+
+--------------
+
+3 Investigate Data
+------------------
+
+Now that we’ve created a new radar data request, let’s take a look at
+what locations and parameters are available for our current request.
+
+3.1 Available Locations
+~~~~~~~~~~~~~~~~~~~~~~~
+
+We can take a look at what “locations” are available for our radar
+request. For radar, we’ll see that radar station names are returned when
+looking at the availalbe location names.
+
+For this example we’ll use Baltimore, MD/Washington DC as our region of
+interest. You can easily look up other station IDs and where they are
+using `this NWS
+webpage <https://radar.weather.gov/station/KMHX/standard>`__.
+
+.. code:: ipython3
+
     available_locs = DataAccessLayer.getAvailableLocationNames(request)
     available_locs.sort()
-    list(available_locs)
-    request.setLocationNames("kmhx")
+    print(available_locs)
+    
+    # Set our location to Baltimore (klwx)
+    request.setLocationNames("klwx")
+
+
+.. parsed-literal::
+
+    ['kabr', 'kabx', 'kakq', 'kama', 'kamx', 'kapx', 'karx', 'katx', 'kbbx', 'kbgm', 'kbhx', 'kbis', 'kblx', 'kbmx', 'kbox', 'kbro', 'kbuf', 'kbyx', 'kcae', 'kcbw', 'kcbx', 'kccx', 'kcle', 'kclx', 'kcrp', 'kcxx', 'kcys', 'kdax', 'kddc', 'kdfx', 'kdgx', 'kdix', 'kdlh', 'kdmx', 'kdox', 'kdtx', 'kdvn', 'kdyx', 'keax', 'kemx', 'kenx', 'keox', 'kepz', 'kesx', 'kevx', 'kewx', 'keyx', 'kfcx', 'kfdr', 'kfdx', 'kffc', 'kfsd', 'kfsx', 'kftg', 'kfws', 'kggw', 'kgjx', 'kgld', 'kgrb', 'kgrk', 'kgrr', 'kgsp', 'kgwx', 'kgyx', 'khdc', 'khdx', 'khgx', 'khnx', 'khpx', 'khtx', 'kict', 'kicx', 'kiln', 'kilx', 'kind', 'kinx', 'kiwa', 'kiwx', 'kjax', 'kjgx', 'kjkl', 'klbb', 'klch', 'klgx', 'klnx', 'klot', 'klrx', 'klsx', 'kltx', 'klvx', 'klwx', 'klzk', 'kmaf', 'kmax', 'kmbx', 'kmhx', 'kmkx', 'kmlb', 'kmob', 'kmpx', 'kmqt', 'kmrx', 'kmsx', 'kmtx', 'kmux', 'kmvx', 'kmxx', 'knkx', 'knqa', 'koax', 'kohx', 'kokx', 'kotx', 'kpah', 'kpbz', 'kpdt', 'kpoe', 'kpux', 'krax', 'krgx', 'kriw', 'krlx', 'krtx', 'ksfx', 'ksgf', 'kshv', 'ksjt', 'ksox', 'ksrx', 'ktbw', 'ktfx', 'ktlh', 'ktlx', 'ktwx', 'ktyx', 'kudx', 'kuex', 'kvax', 'kvbx', 'kvnx', 'kvtx', 'kvwx', 'kyux', 'pabc', 'pacg', 'paec', 'pahg', 'paih', 'pakc', 'papd', 'phki', 'phkm', 'phmo', 'phwa', 'rkjk', 'rksg', 'tadw', 'tatl', 'tbna', 'tbos', 'tbwi', 'tclt', 'tcmh', 'tcvg', 'tdal', 'tday', 'tdca', 'tden', 'tdfw', 'tdtw', 'tewr', 'tfll', 'thou', 'tiad', 'tiah', 'tich', 'tids', 'tjfk', 'tjua', 'tlas', 'tlve', 'tmci', 'tmco', 'tmdw', 'tmem', 'tmia', 'tmke', 'tmsp', 'tmsy', 'tokc', 'tord', 'tpbi', 'tphl', 'tphx', 'tpit', 'trdu', 'tsdf', 'tsju', 'tslc', 'tstl', 'ttpa', 'ttul']
+
+
+3.2 Available Parameters
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Next, let’s look at the parameters returned from the available
+parameters request. If we look closely, we can see that some of the
+parameters appear different from the others.
+
+.. code:: ipython3
+
     availableParms = DataAccessLayer.getAvailableParameters(request)
     availableParms.sort()
-    #list(availableParms)
-    
+    print(availableParms)
+
+
+.. parsed-literal::
+
+    ['134', '135', '141', '153', '154', '159', '161', '163', '165', '166', '169', '170', '172', '173', '176', '177', '32', '37', '56', '57', '58', '81', '99', 'CC', 'CZ', 'Composite Refl', 'Correlation Coeff', 'DAA', 'DHR', 'DPA', 'DPR', 'DUA', 'DVL', 'Diff Reflectivity', 'Digital Hybrid Scan Refl', 'Digital Inst Precip Rate', 'Digital Precip Array', 'Digital Vert Integ Liq', 'EET', 'Enhanced Echo Tops', 'HC', 'HHC', 'HV', 'HZ', 'Hybrid Hydrometeor Class', 'Hydrometeor Class', 'KDP', 'MD', 'ML', 'Melting Layer', 'Mesocyclone', 'OHA', 'One Hour Accum', 'One Hour Unbiased Accum', 'Reflectivity', 'SRM', 'STA', 'STI', 'Specific Diff Phase', 'Storm Rel Velocity', 'Storm Total Accum', 'Storm Track', 'User Select Accum', 'V', 'VIL', 'Velocity', 'Vert Integ Liq', 'ZDR']
+
+
+3.3 Radar Product IDs and Names
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+As we saw above, some parameters seem to be describing different things
+from the rest. The DataAccessLayer has a built in function to parse the
+available parameters into the separate **Product IDs** and **Product
+Names**. Here, we take a look at the two different arrays that are
+returned when parsing the *availableParms* array we just recieved in the
+previous code cell.
+
+.. code:: ipython3
+
     productIDs = DataAccessLayer.getRadarProductIDs(availableParms)
     productNames = DataAccessLayer.getRadarProductNames(availableParms)
     print(productIDs)
@@ -34,14 +151,26 @@ NEXRAD Level3 Radar
 
 .. parsed-literal::
 
-    ['134', '135', '138', '141', '159', '161', '163', '165', '166', '169', '170', '171', '172', '173', '174', '175', '176', '177', '19', '20', '27', '32', '37', '41', '56', '57', '58', '78', '80', '81', '94', '99']
-    ['Composite Refl', 'Correlation Coeff', 'Diff Reflectivity', 'Digital Hybrid Scan Refl', 'Digital Inst Precip Rate', 'Digital Precip Array', 'Digital Vert Integ Liq', 'Echo Tops', 'Enhanced Echo Tops', 'Hybrid Hydrometeor Class', 'Hydrometeor Class', 'Melting Layer', 'Mesocyclone', 'One Hour Accum', 'One Hour Diff', 'One Hour Precip', 'One Hour Unbiased Accum', 'Reflectivity', 'Specific Diff Phase', 'Storm Rel Velocity', 'Storm Total Accum', 'Storm Total Diff', 'Storm Total Precip', 'Storm Track', 'User Select Accum', 'Velocity', 'Vert Integ Liq']
+    ['134', '135', '141', '153', '154', '159', '161', '163', '165', '166', '169', '170', '172', '173', '176', '177', '32', '37', '56', '57', '58', '81', '99']
+    ['Composite Refl', 'Correlation Coeff', 'Diff Reflectivity', 'Digital Hybrid Scan Refl', 'Digital Inst Precip Rate', 'Digital Precip Array', 'Digital Vert Integ Liq', 'Enhanced Echo Tops', 'Hybrid Hydrometeor Class', 'Hydrometeor Class', 'Melting Layer', 'Mesocyclone', 'One Hour Accum', 'One Hour Unbiased Accum', 'Reflectivity', 'Specific Diff Phase', 'Storm Rel Velocity', 'Storm Total Accum', 'Storm Track', 'User Select Accum', 'Velocity', 'Vert Integ Liq']
 
+
+`Top <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html>`__
+
+--------------
+
+4 Function: make_map()
+----------------------
+
+In order to plot more than one image, it’s easiest to define common
+logic in a function. Here, a new function called **make_map** is
+defined. This function uses the `matplotlib.pyplot package
+(plt) <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.html>`__
+to create a figure and axis. The coastlines (continental boundaries) are
+added, along with lat/lon grids.
 
 .. code:: ipython3
 
-    warnings.filterwarnings("ignore",category =RuntimeWarning)
-    
     def make_map(bbox, projection=ccrs.PlateCarree()):
         fig, ax = plt.subplots(figsize=(16, 16),
                                subplot_kw=dict(projection=projection))
@@ -52,13 +181,31 @@ NEXRAD Level3 Radar
         gl.xformatter = LONGITUDE_FORMATTER
         gl.yformatter = LATITUDE_FORMATTER
         return fig, ax
+
+`Top <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html>`__
+
+--------------
+
+5 Plot the Data!
+----------------
+
+Here we’ll create a plot for each of the Radar Product Names from our
+*productNames* array from the `previous
+section <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#Radar-Product-IDs-and-Names>`__.
+
+.. code:: ipython3
+
+    # suppress a few warnings that come from plotting
+    warnings.filterwarnings("ignore",category =RuntimeWarning)
+    warnings.filterwarnings("ignore",category =UserWarning)
     
-    nexrad_data = {}
-    
+    # Cycle through all of the products to try and plot each one
     for prod in productNames:
         
         request.setParameters(prod)
         availableLevels = DataAccessLayer.getAvailableLevels(request)
+        
+        # Check the available levels, if there are none, then skip this product
         if availableLevels:
             request.setLevels(availableLevels[0])
         else:
@@ -79,8 +226,6 @@ NEXRAD Level3 Radar
                 continue
             data = grid.getRawData()
             lons, lats = grid.getLatLonCoords()
-    
-            nexrad_data[prod] = data
             
             print('Time :', str(grid.getDataTime()))
             flat = np.ndarray.flatten(data)
@@ -105,16 +250,16 @@ NEXRAD Level3 Radar
 
     
     Recs :  1
-    Time : 2018-10-17 16:37:23
-    Name : kmhx_0.0_464_464
+    Time : 2024-05-22 21:53:42
+    Name : klwx_0.0_464_464
     Prod : Composite Refl
-    Range: 5.0  to  50.0  (Unit : dBZ )
+    Range: 5.0  to  60.0  (Unit : dBZ )
     Size : (464, 464)
     
 
 
 
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_2_1.png
+.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_21_1.png
 
 
 .. parsed-literal::
@@ -123,88 +268,72 @@ NEXRAD Level3 Radar
     No levels found for Diff Reflectivity
     
     Recs :  1
-    Time : 2018-10-17 16:42:31
-    Name : kmhx_0.0_230_360_0.0_359.0
+    Time : 2024-05-22 21:57:59
+    Name : klwx_0.0_230_360_0.0_359.0
     Prod : Digital Hybrid Scan Refl
-    Range: -27.5  to  51.5  (Unit : dBZ )
+    Range: -16.0  to  57.0  (Unit : dBZ )
     Size : (230, 360)
     
 
 
 
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_2_3.png
+.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_21_3.png
 
 
 .. parsed-literal::
 
     
     Recs :  1
-    Time : 2018-10-17 16:42:31
-    Name : kmhx_0.0_920_360_0.0_359.0
+    Time : 2024-05-22 21:57:59
+    Name : klwx_0.0_920_360_0.0_359.0
     Prod : Digital Inst Precip Rate
-    Range: 7.0555557e-09  to  2.3071667e-05  (Unit : m*sec^-1 )
+    Range: 7.0555557e-09  to  4.0117888e-05  (Unit : m*sec^-1 )
     Size : (920, 360)
     
 
 
 
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_2_5.png
+.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_21_5.png
 
 
 .. parsed-literal::
 
     
     Recs :  1
-    Time : 2018-10-17 16:42:31
-    Name : kmhx_0.0_13_13
+    Time : 2024-05-22 21:57:59
+    Name : klwx_0.0_13_13
     Prod : Digital Precip Array
-    Range: 190.0  to  690.0  (Unit : count )
+    Range: -60.0  to  690.0  (Unit : count )
     Size : (13, 13)
     
 
 
 
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_2_7.png
+.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_21_7.png
 
 
 .. parsed-literal::
 
     
     Recs :  1
-    Time : 2018-10-17 16:37:23
-    Name : kmhx_0.0_460_360_0.0_359.0
+    Time : 2024-05-22 21:53:42
+    Name : klwx_0.0_460_360_0.0_359.0
     Prod : Digital Vert Integ Liq
-    Range: 0.0  to  18.834518  (Unit : kg*m^-2 )
+    Range: 0.0  to  46.34034  (Unit : kg*m^-2 )
     Size : (460, 360)
     
 
 
 
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_2_9.png
+.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_21_9.png
 
 
 .. parsed-literal::
 
     
     Recs :  1
-    Time : 2018-10-17 16:37:23
-    Name : kmhx_0.0_116_116
-    Prod : Echo Tops
-    Range: 0.0  to  12192.0  (Unit : m )
-    Size : (116, 116)
-    
-
-
-
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_2_11.png
-
-
-.. parsed-literal::
-
-    
-    Recs :  1
-    Time : 2018-10-17 16:37:23
-    Name : kmhx_0.0_346_360_0.0_359.0
+    Time : 2024-05-22 21:53:42
+    Name : klwx_0.0_346_360_0.0_359.0
     Prod : Enhanced Echo Tops
     Range: nan  to  nan  (Unit : m )
     Size : (346, 360)
@@ -212,23 +341,23 @@ NEXRAD Level3 Radar
 
 
 
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_2_13.png
+.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_21_11.png
 
 
 .. parsed-literal::
 
     
     Recs :  1
-    Time : 2018-10-17 16:42:31
-    Name : kmhx_0.0_920_360_0.0_359.0
+    Time : 2024-05-22 21:57:59
+    Name : klwx_0.0_920_360_0.0_359.0
     Prod : Hybrid Hydrometeor Class
-    Range: 1.0  to  14.0  (Unit : count )
+    Range: 1.0  to  10.0  (Unit : count )
     Size : (920, 360)
     
 
 
 
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_2_15.png
+.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_21_13.png
 
 
 .. parsed-literal::
@@ -239,64 +368,32 @@ NEXRAD Level3 Radar
     Recs :  0
     
     Recs :  1
-    Time : 2018-10-17 16:42:31
-    Name : kmhx_0.0_115_360_359.0_359.0
+    Time : 2024-05-22 21:57:59
+    Name : klwx_0.0_115_360_359.0_359.0
     Prod : One Hour Accum
-    Range: 0.0  to  0.0127  (Unit : m )
+    Range: 0.0  to  0.0254  (Unit : m )
     Size : (115, 360)
     
 
 
 
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_2_17.png
+.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_21_15.png
 
 
 .. parsed-literal::
 
     
     Recs :  1
-    Time : 2018-10-17 16:42:31
-    Name : kmhx_0.0_920_360_0.0_359.0
-    Prod : One Hour Diff
-    Range: -0.008382  to  0.0027720002  (Unit : m )
-    Size : (920, 360)
-    
-
-
-
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_2_19.png
-
-
-.. parsed-literal::
-
-    
-    Recs :  1
-    Time : 2018-10-17 16:42:31
-    Name : kmhx_0.0_115_360_359.0_359.0
-    Prod : One Hour Precip
-    Range: 0.0  to  0.0127  (Unit : m )
-    Size : (115, 360)
-    
-
-
-
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_2_21.png
-
-
-.. parsed-literal::
-
-    
-    Recs :  1
-    Time : 2018-10-17 16:42:31
-    Name : kmhx_0.0_920_360_0.0_359.0
+    Time : 2024-05-22 21:57:59
+    Name : klwx_0.0_920_360_0.0_359.0
     Prod : One Hour Unbiased Accum
-    Range: 2.5775646e-05  to  0.017472787  (Unit : m )
+    Range: 2.54e-05  to  0.030784799  (Unit : m )
     Size : (920, 360)
     
 
 
 
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_2_23.png
+.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_21_17.png
 
 
 .. parsed-literal::
@@ -305,82 +402,68 @@ NEXRAD Level3 Radar
     No levels found for Specific Diff Phase
     No levels found for Storm Rel Velocity
     
-    Recs :  2
-    Time : 2018-10-17 16:42:31
-    Name : kmhx_0.0_920_360_0.0_359.0
-    Prod : Storm Total Accum
-    Range: 0.000508  to  0.082804  (Unit : m )
-    Size : (920, 360)
-    
-
-
-
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_2_25.png
-
-
-.. parsed-literal::
-
-    
     Recs :  1
-    Time : 2018-10-17 16:42:31
-    Name : kmhx_0.0_920_360_0.0_359.0
-    Prod : Storm Total Diff
-    Range: -0.08255  to  0.019499999  (Unit : m )
+    Time : 2024-05-22 21:57:59
+    Name : klwx_0.0_920_360_0.0_359.0
+    Prod : Storm Total Accum
+    Range: 0.000254  to  0.051054  (Unit : m )
     Size : (920, 360)
     
 
 
 
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_2_27.png
-
-
-.. parsed-literal::
-
-    
-    Recs :  2
-    Time : 2018-10-17 16:42:31
-    Name : kmhx_0.0_116_360_0.0_359.0
-    Prod : Storm Total Precip
-    Range: 0.0  to  0.088392  (Unit : m )
-    Size : (116, 360)
-    
-
-
-
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_2_29.png
+.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_21_19.png
 
 
 .. parsed-literal::
 
     
     Recs :  0
-    
-    Recs :  1
-    Time : 2018-10-17 16:11:08
-    Name : kmhx_0.0_920_360_0.0_359.0
-    Prod : User Select Accum
-    Range: 2.5399999e-05  to  0.033959802  (Unit : m )
-    Size : (920, 360)
-    
-
-
-
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_2_31.png
-
-
-.. parsed-literal::
-
+    No levels found for User Select Accum
     No levels found for Velocity
     
     Recs :  1
-    Time : 2018-10-17 16:42:31
-    Name : kmhx_0.0_116_116
+    Time : 2024-05-22 21:57:59
+    Name : klwx_0.0_116_116
     Prod : Vert Integ Liq
-    Range: 1.0  to  20.0  (Unit : kg*m^-2 )
+    Range: 1.0  to  45.0  (Unit : kg*m^-2 )
     Size : (116, 116)
     
 
 
 
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_2_33.png
+.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_21_21.png
 
+
+`Top <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html>`__
+
+--------------
+
+6 See Also
+----------
+
+6.1 Related Notebooks
+~~~~~~~~~~~~~~~~~~~~~
+
+-  `Grid Levels and
+   Parameters <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html>`__
+
+6.2 Additional Documention
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**python-awips**
+
+-  `DataAccessLayer.changeEDEXHost() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost>`__
+-  `DataAccessLayer.newDataRequest() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.newDataRequest>`__
+-  `DataAccessLayer.getRadarProductIDs() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getRadarProductIDs>`__
+-  `DataAccessLayer.getRadarProductNames() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getRadarProductNames>`__
+
+**matplotlib**
+
+-  `matplotlib.pyplot() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html>`__
+-  `matplotlib.pyplot.axes() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.axes.html>`__
+-  `matplotlib.pyplot.figure() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html>`__
+
+`Top <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html>`__
+
+--------------
