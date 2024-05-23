@@ -238,8 +238,8 @@ final, colored figure.
 7 See Also
 ----------
 
-7.1 Additional Documention
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+7.1 Additional Documentation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **python-awips**
 

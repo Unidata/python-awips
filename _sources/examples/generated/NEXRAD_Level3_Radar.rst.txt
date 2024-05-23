@@ -24,7 +24,7 @@ Table of Contents
 | `2 EDEX
   Connection <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#edex-connection>`__\ 
 | `3 Investigate
-  Data <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#investigate_data>`__\ 
+  Data <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#investigate-data>`__\ 
 |     `3.1 Available
   Locations <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#available-locations>`__\ 
 |     `3.2 Available
@@ -32,7 +32,7 @@ Table of Contents
 |     `3.3 Radar Product IDs and
   Names <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#radar-product-ids-and-names>`__\ 
 | `4 Function:
-  make_map() <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#function-make-mapy>`__\ 
+  make_map() <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#function-make-map>`__\ 
 | `5 Plot the
   Data! <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#plot-the-data>`__\ 
 | `6 See
@@ -448,8 +448,8 @@ section <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3
 -  `Grid Levels and
    Parameters <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html>`__
 
-6.2 Additional Documention
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+6.2 Additional Documentation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **python-awips**
 
