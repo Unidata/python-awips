@@ -1,7 +1,7 @@
 =================
 Satellite Imagery
 =================
-`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Satellite_Imagery.ipynb>`_
+`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/website/examples/notebooks/Satellite_Imagery.ipynb>`_
 Python-AWIPS Tutorial Notebook
 
 --------------

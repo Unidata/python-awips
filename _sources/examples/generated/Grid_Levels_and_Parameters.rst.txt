@@ -1,7 +1,7 @@
 ==========================
 Grid Levels and Parameters
 ==========================
-`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Grid_Levels_and_Parameters.ipynb>`_
+`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/website/examples/notebooks/Grid_Levels_and_Parameters.ipynb>`_
 Python-AWIPS Tutorial Notebook
 
 --------------

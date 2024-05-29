@@ -1,7 +1,7 @@
 =============================
 METAR Station Plot with MetPy
 =============================
-`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/METAR_Station_Plot_with_MetPy.ipynb>`_
+`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/website/examples/notebooks/METAR_Station_Plot_with_MetPy.ipynb>`_
 Python-AWIPS Tutorial Notebook
 
 --------------

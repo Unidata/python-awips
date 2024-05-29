@@ -1,7 +1,7 @@
 ========================
 Upper Air BUFR Soundings
 ========================
-`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Upper_Air_BUFR_Soundings.ipynb>`_
+`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/website/examples/notebooks/Upper_Air_BUFR_Soundings.ipynb>`_
 Python-AWIPS Tutorial Notebook
 
 --------------

@@ -1,7 +1,7 @@
 ===================
 Colorized Grid Data
 ===================
-`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Colorized_Grid_Data.ipynb>`_
+`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/website/examples/notebooks/Colorized_Grid_Data.ipynb>`_
 Python-AWIPS Tutorial Notebook
 
 --------------

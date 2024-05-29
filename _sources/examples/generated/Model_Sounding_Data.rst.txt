@@ -1,7 +1,7 @@
 ===================
 Model Sounding Data
 ===================
-`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Model_Sounding_Data.ipynb>`_
+`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/website/examples/notebooks/Model_Sounding_Data.ipynb>`_
 Python-AWIPS Tutorial Notebook
 
 --------------
