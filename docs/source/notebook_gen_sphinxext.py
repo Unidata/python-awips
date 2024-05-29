@@ -37,7 +37,7 @@ def nb_to_rst(nb_path):
     resources['metadata']['basename'] = basename
     resources['metadata']['name'] = basename.replace('_', ' ')
     resources['metadata']['imgdir'] = imgdir
-    base_url = ('http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/'
+    base_url = ('http://nbviewer.ipython.org/github/Unidata/python-awips/blob/website/'
                 'examples/notebooks/')
     out_lines = ['`Notebook <%s>`_' % (base_url + os.path.basename(nb_path))]
     for line in out.split('\n'):
