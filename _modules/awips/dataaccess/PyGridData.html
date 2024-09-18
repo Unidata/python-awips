@@ -50,7 +50,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../datatypes.html">Available Data Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Data Plotting Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../dev.html">Development Guide</a></li>
-<li class="toctree-l1"><a class="reference external" href="http://unidata.github.io/awips2/appendix/appendix-grid-parameters/">AWIPS Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gridparms.html">Grid Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../about.html">About Unidata AWIPS</a></li>
 </ul>
 
@@ -80,25 +80,45 @@
            <div itemprop="articleBody">
              
   <h1>Source code for awips.dataaccess.PyGridData</h1><div class="highlight"><pre>
-<span></span><span class="c1">#</span>
+<span></span><span class="c1"># #</span>
+<span class="c1"># This software was developed and / or modified by Raytheon Company,</span>
+<span class="c1"># pursuant to Contract DG133W-05-CQ-1067 with the US Government.</span>
+<span class="c1"># </span>
+<span class="c1"># U.S. EXPORT CONTROLLED TECHNICAL DATA</span>
+<span class="c1"># This software product contains export-restricted data whose</span>
+<span class="c1"># export/transfer/disclosure is restricted by U.S. law. Dissemination</span>
+<span class="c1"># to non-U.S. persons whether in the United States or abroad requires</span>
+<span class="c1"># an export license or other authorization.</span>
+<span class="c1"># </span>
+<span class="c1"># Contractor Name:        Raytheon Company</span>
+<span class="c1"># Contractor Address:     6825 Pine Street, Suite 340</span>
+<span class="c1">#                         Mail Stop B8</span>
+<span class="c1">#                         Omaha, NE 68106</span>
+<span class="c1">#                         402.291.0100</span>
+<span class="c1"># </span>
+<span class="c1"># See the AWIPS II Master Rights File (&quot;Master Rights File.pdf&quot;) for</span>
+<span class="c1"># further licensing information.</span>
+<span class="c1"># #</span>
+
+<span class="c1">#</span>
 <span class="c1"># Implements IGridData for use by native Python clients to the Data Access</span>
 <span class="c1"># Framework.</span>
-<span class="c1">#</span>
-<span class="c1">#</span>
+<span class="c1">#  </span>
+<span class="c1">#    </span>
 <span class="c1">#     SOFTWARE HISTORY</span>
-<span class="c1">#</span>
+<span class="c1">#    </span>
 <span class="c1">#    Date            Ticket#       Engineer       Description</span>
 <span class="c1">#    ------------    ----------    -----------    --------------------------</span>
 <span class="c1">#    06/03/13         #2023        dgilling      Initial Creation.</span>
 <span class="c1">#    10/13/16         #5916        bsteffen      Correct grid shape, allow lat/lon</span>
 <span class="c1">#    11/10/16         #5900        bsteffen      Correct grid shape</span>
 <span class="c1">#                                                to be requested by a delegate</span>
+<span class="c1">#    </span>
 <span class="c1">#</span>
-<span class="c1">#</span>
+
 
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">import</span> <span class="nn">six</span>
 
 <span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">IGridData</span>
 <span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">PyData</span>
@@ -109,8 +129,8 @@
 
 
 <div class="viewcode-block" id="PyGridData"><a class="viewcode-back" href="../../../api/PyGridData.html#awips.dataaccess.PyGridData.PyGridData">[docs]</a><span class="k">class</span> <span class="nc">PyGridData</span><span class="p">(</span><span class="n">IGridData</span><span class="p">,</span> <span class="n">PyData</span><span class="o">.</span><span class="n">PyData</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gridDataRecord</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">latLonGrid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">latLonDelegate</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gridDataRecord</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">latLonGrid</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">latLonDelegate</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="n">PyData</span><span class="o">.</span><span class="n">PyData</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gridDataRecord</span><span class="p">)</span>
         <span class="n">nx</span> <span class="o">=</span> <span class="n">nx</span>
         <span class="n">ny</span> <span class="o">=</span> <span class="n">ny</span>
@@ -120,16 +140,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__latLonGrid</span> <span class="o">=</span> <span class="n">latLonGrid</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__latLonDelegate</span> <span class="o">=</span> <span class="n">latLonDelegate</span>
 
+    
 <div class="viewcode-block" id="PyGridData.getParameter"><a class="viewcode-back" href="../../../api/PyGridData.html#awips.dataaccess.PyGridData.PyGridData.getParameter">[docs]</a>    <span class="k">def</span> <span class="nf">getParameter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__parameter</span></div>
-
+    
 <div class="viewcode-block" id="PyGridData.getUnit"><a class="viewcode-back" href="../../../api/PyGridData.html#awips.dataaccess.PyGridData.PyGridData.getUnit">[docs]</a>    <span class="k">def</span> <span class="nf">getUnit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">six</span><span class="o">.</span><span class="n">PY2</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__unit</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__unit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__unit</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__unit</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__unit</span></div>
-
+    
 <div class="viewcode-block" id="PyGridData.getRawData"><a class="viewcode-back" href="../../../api/PyGridData.html#awips.dataaccess.PyGridData.PyGridData.getRawData">[docs]</a>    <span class="k">def</span> <span class="nf">getRawData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="c1"># TODO: Find a proper python library that deals will with numpy and</span>
         <span class="c1"># javax.measure style unit strings and hook it in to this method to</span>
@@ -137,7 +154,7 @@
         <span class="k">if</span> <span class="n">unit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">NO_UNIT_CONVERT_WARNING</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__gridData</span></div>
-
+    
 <div class="viewcode-block" id="PyGridData.getLatLonCoords"><a class="viewcode-back" href="../../../api/PyGridData.html#awips.dataaccess.PyGridData.PyGridData.getLatLonCoords">[docs]</a>    <span class="k">def</span> <span class="nf">getLatLonCoords</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__latLonGrid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__latLonGrid</span>

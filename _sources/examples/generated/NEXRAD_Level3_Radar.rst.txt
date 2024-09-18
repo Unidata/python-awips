@@ -1,7 +1,7 @@
 ===================
 NEXRAD Level3 Radar
 ===================
-`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/website/examples/notebooks/NEXRAD_Level3_Radar.ipynb>`_
+`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/NEXRAD_Level3_Radar.ipynb>`_
 Python-AWIPS Tutorial Notebook
 
 --------------

@@ -50,7 +50,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../datatypes.html">Available Data Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Data Plotting Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../dev.html">Development Guide</a></li>
-<li class="toctree-l1"><a class="reference external" href="http://unidata.github.io/awips2/appendix/appendix-grid-parameters/">AWIPS Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gridparms.html">Grid Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../about.html">About Unidata AWIPS</a></li>
 </ul>
 
@@ -80,8 +80,29 @@
            <div itemprop="articleBody">
              
   <h1>Source code for awips.dataaccess.ThriftClientRouter</h1><div class="highlight"><pre>
-<span></span><span class="c1">#</span>
+<span></span><span class="c1"># #</span>
+<span class="c1"># This software was developed and / or modified by Raytheon Company,</span>
+<span class="c1"># pursuant to Contract DG133W-05-CQ-1067 with the US Government.</span>
+<span class="c1">#</span>
+<span class="c1"># U.S. EXPORT CONTROLLED TECHNICAL DATA</span>
+<span class="c1"># This software product contains export-restricted data whose</span>
+<span class="c1"># export/transfer/disclosure is restricted by U.S. law. Dissemination</span>
+<span class="c1"># to non-U.S. persons whether in the United States or abroad requires</span>
+<span class="c1"># an export license or other authorization.</span>
+<span class="c1">#</span>
+<span class="c1"># Contractor Name:        Raytheon Company</span>
+<span class="c1"># Contractor Address:     6825 Pine Street, Suite 340</span>
+<span class="c1">#                         Mail Stop B8</span>
+<span class="c1">#                         Omaha, NE 68106</span>
+<span class="c1">#                         402.291.0100</span>
+<span class="c1">#</span>
+<span class="c1"># See the AWIPS II Master Rights File (&quot;Master Rights File.pdf&quot;) for</span>
+<span class="c1"># further licensing information.</span>
+<span class="c1"># #</span>
+
+<span class="c1">#</span>
 <span class="c1"># Routes requests to the Data Access Framework through Python Thrift.</span>
+<span class="c1">#</span>
 <span class="c1">#</span>
 <span class="c1">#</span>
 <span class="c1">#    SOFTWARE HISTORY</span>
@@ -104,8 +125,8 @@
 <span class="c1">#    10/26/16        5919          njensen        Speed up geometry creation in getGeometryData()</span>
 <span class="c1">#</span>
 
+
 <span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">import</span> <span class="nn">six</span>
 <span class="kn">import</span> <span class="nn">shapely.wkb</span>
 
 <span class="kn">from</span> <span class="nn">dynamicserialize.dstypes.com.raytheon.uf.common.dataaccess.impl</span> <span class="kn">import</span> <span class="n">DefaultDataRequest</span>
@@ -203,13 +224,7 @@
         <span class="n">retVal</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">gridDataRecord</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">getGridData</span><span class="p">():</span>
             <span class="n">locationName</span> <span class="o">=</span> <span class="n">gridDataRecord</span><span class="o">.</span><span class="n">getLocationName</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">locationName</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">six</span><span class="o">.</span><span class="n">PY2</span><span class="p">:</span>
-                    <span class="n">locData</span> <span class="o">=</span> <span class="n">locSpecificData</span><span class="p">[</span><span class="n">locationName</span><span class="p">]</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">locData</span> <span class="o">=</span> <span class="n">locSpecificData</span><span class="p">[</span><span class="n">locationName</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">locData</span> <span class="o">=</span> <span class="n">locSpecificData</span><span class="p">[</span><span class="n">locationName</span><span class="p">]</span>
+            <span class="n">locData</span> <span class="o">=</span> <span class="n">locSpecificData</span><span class="p">[</span><span class="n">locationName</span><span class="p">]</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lazyLoadGridLatLon</span><span class="p">:</span>
                 <span class="n">retVal</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">PyGridData</span><span class="o">.</span><span class="n">PyGridData</span><span class="p">(</span><span class="n">gridDataRecord</span><span class="p">,</span> <span class="n">locData</span><span class="p">[</span>
                               <span class="mi">0</span><span class="p">],</span> <span class="n">locData</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">latLonDelegate</span><span class="o">=</span><span class="n">locData</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
@@ -247,20 +262,12 @@
         <span class="n">locNamesRequest</span> <span class="o">=</span> <span class="n">GetAvailableLocationNamesRequest</span><span class="p">()</span>
         <span class="n">locNamesRequest</span><span class="o">.</span><span class="n">setRequestParameters</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">sendRequest</span><span class="p">(</span><span class="n">locNamesRequest</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">six</span><span class="o">.</span><span class="n">PY2</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">response</span>
-        <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">response</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">response</span></div>
 
 <div class="viewcode-block" id="ThriftClientRouter.getAvailableParameters"><a class="viewcode-back" href="../../../api/ThriftClientRouter.html#awips.dataaccess.ThriftClientRouter.ThriftClientRouter.getAvailableParameters">[docs]</a>    <span class="k">def</span> <span class="nf">getAvailableParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
         <span class="n">paramReq</span> <span class="o">=</span> <span class="n">GetAvailableParametersRequest</span><span class="p">()</span>
         <span class="n">paramReq</span><span class="o">.</span><span class="n">setRequestParameters</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">sendRequest</span><span class="p">(</span><span class="n">paramReq</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">six</span><span class="o">.</span><span class="n">PY2</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">response</span>
-        <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">response</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">response</span></div>
 
 <div class="viewcode-block" id="ThriftClientRouter.getAvailableLevels"><a class="viewcode-back" href="../../../api/ThriftClientRouter.html#awips.dataaccess.ThriftClientRouter.ThriftClientRouter.getAvailableLevels">[docs]</a>    <span class="k">def</span> <span class="nf">getAvailableLevels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
@@ -276,10 +283,6 @@
         <span class="n">idReq</span> <span class="o">=</span> <span class="n">GetRequiredIdentifiersRequest</span><span class="p">()</span>
         <span class="n">idReq</span><span class="o">.</span><span class="n">setRequest</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">sendRequest</span><span class="p">(</span><span class="n">idReq</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">six</span><span class="o">.</span><span class="n">PY2</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">response</span>
-        <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">response</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">response</span></div>
 
 <div class="viewcode-block" id="ThriftClientRouter.getOptionalIdentifiers"><a class="viewcode-back" href="../../../api/ThriftClientRouter.html#awips.dataaccess.ThriftClientRouter.ThriftClientRouter.getOptionalIdentifiers">[docs]</a>    <span class="k">def</span> <span class="nf">getOptionalIdentifiers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
@@ -289,10 +292,6 @@
         <span class="n">idReq</span> <span class="o">=</span> <span class="n">GetOptionalIdentifiersRequest</span><span class="p">()</span>
         <span class="n">idReq</span><span class="o">.</span><span class="n">setRequest</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">sendRequest</span><span class="p">(</span><span class="n">idReq</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">six</span><span class="o">.</span><span class="n">PY2</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">response</span>
-        <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">response</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">response</span></div>
 
 <div class="viewcode-block" id="ThriftClientRouter.getIdentifierValues"><a class="viewcode-back" href="../../../api/ThriftClientRouter.html#awips.dataaccess.ThriftClientRouter.ThriftClientRouter.getIdentifierValues">[docs]</a>    <span class="k">def</span> <span class="nf">getIdentifierValues</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">identifierKey</span><span class="p">):</span>
@@ -300,14 +299,9 @@
         <span class="n">idValReq</span><span class="o">.</span><span class="n">setIdentifierKey</span><span class="p">(</span><span class="n">identifierKey</span><span class="p">)</span>
         <span class="n">idValReq</span><span class="o">.</span><span class="n">setRequestParameters</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">sendRequest</span><span class="p">(</span><span class="n">idValReq</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">six</span><span class="o">.</span><span class="n">PY2</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">response</span>
-        <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">response</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">response</span></div>
 
-<div class="viewcode-block" id="ThriftClientRouter.newDataRequest"><a class="viewcode-back" href="../../../api/ThriftClientRouter.html#awips.dataaccess.ThriftClientRouter.ThriftClientRouter.newDataRequest">[docs]</a>    <span class="k">def</span> <span class="nf">newDataRequest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">datatype</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="p">[],</span> <span class="n">levels</span><span class="o">=</span><span class="p">[],</span> <span class="n">locationNames</span><span class="o">=</span><span class="p">[],</span>
-                       <span class="n">envelope</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="ThriftClientRouter.newDataRequest"><a class="viewcode-back" href="../../../api/ThriftClientRouter.html#awips.dataaccess.ThriftClientRouter.ThriftClientRouter.newDataRequest">[docs]</a>    <span class="k">def</span> <span class="nf">newDataRequest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">datatype</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="p">[],</span> <span class="n">levels</span><span class="o">=</span><span class="p">[],</span> <span class="n">locationNames</span><span class="o">=</span><span class="p">[],</span> <span class="n">envelope</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">req</span> <span class="o">=</span> <span class="n">DefaultDataRequest</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">datatype</span><span class="p">:</span>
             <span class="n">req</span><span class="o">.</span><span class="n">setDatatype</span><span class="p">(</span><span class="n">datatype</span><span class="p">)</span>
@@ -326,10 +320,6 @@
 
 <div class="viewcode-block" id="ThriftClientRouter.getSupportedDatatypes"><a class="viewcode-back" href="../../../api/ThriftClientRouter.html#awips.dataaccess.ThriftClientRouter.ThriftClientRouter.getSupportedDatatypes">[docs]</a>    <span class="k">def</span> <span class="nf">getSupportedDatatypes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">sendRequest</span><span class="p">(</span><span class="n">GetSupportedDatatypesRequest</span><span class="p">())</span>
-        <span class="k">if</span> <span class="n">six</span><span class="o">.</span><span class="n">PY2</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">response</span>
-        <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">response</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">response</span></div>
 
 <div class="viewcode-block" id="ThriftClientRouter.getNotificationFilter"><a class="viewcode-back" href="../../../api/ThriftClientRouter.html#awips.dataaccess.ThriftClientRouter.ThriftClientRouter.getNotificationFilter">[docs]</a>    <span class="k">def</span> <span class="nf">getNotificationFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>

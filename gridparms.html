@@ -1,0 +1,5901 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grid Parameters &mdash; python-awips  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="About Unidata AWIPS" href="about.html" />
+    <link rel="prev" title="Development Guide" href="dev.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            python-awips
+          </a>
+              <div class="version">
+                20.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datatypes.html">Available Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Data Plotting Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev.html">Development Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Unidata AWIPS</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">python-awips</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Grid Parameters</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/gridparms.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="grid-parameters">
+<h1>Grid Parameters<a class="headerlink" href="#grid-parameters" title="Permalink to this heading"></a></h1>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Abbreviation</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Units</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>WSPD</p></td>
+<td><p>10 Metre neutral wind speed over waves</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>WDRT</p></td>
+<td><p>10 Metre Wind Direction Over Waves</p></td>
+<td><p>Degree</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI12H1000YR</p></td>
+<td><p>12H Average Recurrance Interval Accumulation 1000 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI12H100YR</p></td>
+<td><p>12H Average Recurrance Interval Accumulation 100 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI12H10YR</p></td>
+<td><p>12H Average Recurrance Interval Accumulation 10 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI12H1YR</p></td>
+<td><p>12H Average Recurrance Interval Accumulation 1 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI12H200YR</p></td>
+<td><p>12H Average Recurrance Interval Accumulation 200 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI12H25YR</p></td>
+<td><p>12H Average Recurrance Interval Accumulation 25 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI12H2YR</p></td>
+<td><p>12H Average Recurrance Interval Accumulation 2 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI12H500YR</p></td>
+<td><p>12H Average Recurrance Interval Accumulation 500 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI12H50YR</p></td>
+<td><p>12H Average Recurrance Interval Accumulation 50 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI12H5YR</p></td>
+<td><p>12H Average Recurrance Interval Accumulation 5 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>PRP12H</p></td>
+<td><p>12 hour Precipitation Accumulation Return Period</p></td>
+<td><p>year</p></td>
+</tr>
+<tr class="row-odd"><td><p>GaugeInfIndex12H</p></td>
+<td><p>12 hour QPE Gauge Influence Index</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>FFG12</p></td>
+<td><p>12-hr flash flood guidance</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>FFR12</p></td>
+<td><p>12-hr flash flood runoff values</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>EchoTop18</p></td>
+<td><p>18 dBZ Echo Top</p></td>
+<td><p>km</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI1H1000YR</p></td>
+<td><p>1H Average Recurrance Interval Accumulation 1000 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI1H100YR</p></td>
+<td><p>1H Average Recurrance Interval Accumulation 100 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI1H10YR</p></td>
+<td><p>1H Average Recurrance Interval Accumulation 10 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI1H1YR</p></td>
+<td><p>1H Average Recurrance Interval Accumulation 1 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI1H200YR</p></td>
+<td><p>1H Average Recurrance Interval Accumulation 200 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI1H25YR</p></td>
+<td><p>1H Average Recurrance Interval Accumulation 25 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI1H2YR</p></td>
+<td><p>1H Average Recurrance Interval Accumulation 2 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI1H500YR</p></td>
+<td><p>1H Average Recurrance Interval Accumulation 500 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI1H50YR</p></td>
+<td><p>1H Average Recurrance Interval Accumulation 50 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI1H5YR</p></td>
+<td><p>1H Average Recurrance Interval Accumulation 5 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>PRP01H</p></td>
+<td><p>1 hour Precipitation Accumulation Return Period</p></td>
+<td><p>year</p></td>
+</tr>
+<tr class="row-even"><td><p>GaugeInfIndex01H</p></td>
+<td><p>1 hour QPE Gauge Influence Index</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>QPEFFG01H</p></td>
+<td><p>1 hour QPE-to-FFG Ratio</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>FFG01</p></td>
+<td><p>1-hr flash flood guidance</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>FFR01</p></td>
+<td><p>1-hr flash flood runoff values</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPE01</p></td>
+<td><p>1-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPE01_ACR</p></td>
+<td><p>1-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPE01_ALR</p></td>
+<td><p>1-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPE01_FWR</p></td>
+<td><p>1-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPE01_KRF</p></td>
+<td><p>1-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPE01_MSR</p></td>
+<td><p>1-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPE01_ORN</p></td>
+<td><p>1-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPE01_PTR</p></td>
+<td><p>1-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPE01_RHA</p></td>
+<td><p>1-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPE01_RSA</p></td>
+<td><p>1-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPE01_STR</p></td>
+<td><p>1-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPE01_TAR</p></td>
+<td><p>1-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPE01_TIR</p></td>
+<td><p>1-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPE01_TUA</p></td>
+<td><p>1-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>EVEC1</p></td>
+<td><p>1st Vector Component of Electric Field</p></td>
+<td><p>V*m^1</p></td>
+</tr>
+<tr class="row-odd"><td><p>BVEC1</p></td>
+<td><p>1st Vector Component of Magnetic Field</p></td>
+<td><p>T</p></td>
+</tr>
+<tr class="row-even"><td><p>VEL1</p></td>
+<td><p>1st Vector Component of Velocity (Coordinate system dependent)</p></td>
+<td><p>m*s^1</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCSRG20</p></td>
+<td><p>20% Tropical Cyclone Storm Surge Exceedance</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI24H1000YR</p></td>
+<td><p>24H Average Recurrance Interval Accumulation 1000 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI24H100YR</p></td>
+<td><p>24H Average Recurrance Interval Accumulation 100 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI24H10YR</p></td>
+<td><p>24H Average Recurrance Interval Accumulation 10 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI24H1YR</p></td>
+<td><p>24H Average Recurrance Interval Accumulation 1 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI24H200YR</p></td>
+<td><p>24H Average Recurrance Interval Accumulation 200 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI24H25YR</p></td>
+<td><p>24H Average Recurrance Interval Accumulation 25 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI24H2YR</p></td>
+<td><p>24H Average Recurrance Interval Accumulation 2 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI24H500YR</p></td>
+<td><p>24H Average Recurrance Interval Accumulation 500 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI24H50YR</p></td>
+<td><p>24H Average Recurrance Interval Accumulation 50 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI24H5YR</p></td>
+<td><p>24H Average Recurrance Interval Accumulation 5 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>PRP24H</p></td>
+<td><p>24 hour Precipitation Accumulation Return Period</p></td>
+<td><p>year</p></td>
+</tr>
+<tr class="row-odd"><td><p>GaugeInfIndex24H</p></td>
+<td><p>24 hour QPE Gauge Influence Index</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>FFG24</p></td>
+<td><p>24-hr flash flood guidance</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>FFR24</p></td>
+<td><p>24-hr flash flood runoff values</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPE24</p></td>
+<td><p>24-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPE24_ACR</p></td>
+<td><p>24-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPE24_ALR</p></td>
+<td><p>24-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPE24_FWR</p></td>
+<td><p>24-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPE24_KRF</p></td>
+<td><p>24-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPE24_MSR</p></td>
+<td><p>24-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPE24_ORN</p></td>
+<td><p>24-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPE24_PTR</p></td>
+<td><p>24-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPE24_RHA</p></td>
+<td><p>24-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPE24_RSA</p></td>
+<td><p>24-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPE24_STR</p></td>
+<td><p>24-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPE24_TAR</p></td>
+<td><p>24-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPE24_TIR</p></td>
+<td><p>24-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPE24_TUA</p></td>
+<td><p>24-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPF24</p></td>
+<td><p>24-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPF24_ACR</p></td>
+<td><p>24-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPF24_ALR 205</p></td>
+<td><p>24-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPF24_FWR</p></td>
+<td><p>24-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPF24_KRF</p></td>
+<td><p>24-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPF24_MSR</p></td>
+<td><p>24-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPF24_ORN</p></td>
+<td><p>24-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPF24_PTR</p></td>
+<td><p>24-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPF24_RHA</p></td>
+<td><p>24-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPF24_RSA</p></td>
+<td><p>24-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPF24_STR</p></td>
+<td><p>24-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPF24_TAR</p></td>
+<td><p>24-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPF24_TIR</p></td>
+<td><p>24-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPF24_TUA</p></td>
+<td><p>24-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI2H1000YR</p></td>
+<td><p>2H Average Recurrance Interval Accumulation 1000 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI2H100YR</p></td>
+<td><p>2H Average Recurrance Interval Accumulation 100 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI2H10YR</p></td>
+<td><p>2H Average Recurrance Interval Accumulation 10 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI2H1YR</p></td>
+<td><p>2H Average Recurrance Interval Accumulation 1 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI2H200YR</p></td>
+<td><p>2H Average Recurrance Interval Accumulation 200 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI2H25YR</p></td>
+<td><p>2H Average Recurrance Interval Accumulation 25 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI2H2YR</p></td>
+<td><p>2H Average Recurrance Interval Accumulation 2 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI2H500YR</p></td>
+<td><p>2H Average Recurrance Interval Accumulation 500 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI2H50YR</p></td>
+<td><p>2H Average Recurrance Interval Accumulation 50 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI2H5YR</p></td>
+<td><p>2H Average Recurrance Interval Accumulation 5 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>EVEC2</p></td>
+<td><p>2nd Vector Component of Electric Field</p></td>
+<td><p>V*m^1</p></td>
+</tr>
+<tr class="row-odd"><td><p>BVEC2</p></td>
+<td><p>2nd Vector Component of Magnetic Field</p></td>
+<td><p>T</p></td>
+</tr>
+<tr class="row-even"><td><p>VEL2</p></td>
+<td><p>2nd Vector Component of Velocity (Coordinate system dependent)</p></td>
+<td><p>m*s^1</p></td>
+</tr>
+<tr class="row-odd"><td><p>EchoTop30</p></td>
+<td><p>30 dBZ Echo Top</p></td>
+<td><p>km</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI30M1000YR</p></td>
+<td><p>30M Average Recurrance Interval Accumulation 1000 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI30M100YR</p></td>
+<td><p>30M Average Recurrance Interval Accumulation 100 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI30M10YR</p></td>
+<td><p>30M Average Recurrance Interval Accumulation 10 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI30M1YR</p></td>
+<td><p>30M Average Recurrance Interval Accumulation 1 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI30M200YR</p></td>
+<td><p>30M Average Recurrance Interval Accumulation 200 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI30M25YR</p></td>
+<td><p>30M Average Recurrance Interval Accumulation 25 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI30M2YR</p></td>
+<td><p>30M Average Recurrance Interval Accumulation 2 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI30M500YR</p></td>
+<td><p>30M Average Recurrance Interval Accumulation 500 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI30M50YR</p></td>
+<td><p>30M Average Recurrance Interval Accumulation 50 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI30M5YR</p></td>
+<td><p>30M Average Recurrance Interval Accumulation 5 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>PRP30min</p></td>
+<td><p>30 min Precipitation Accumulation Return Period</p></td>
+<td><p>year</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCSRG30</p></td>
+<td><p>30% Tropical Cyclone Storm Surge Exceedance</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>SALIN</p></td>
+<td><p>3-D Salinity</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>WTMPC</p></td>
+<td><p>3-D Temperature</p></td>
+<td><p>℃</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI3H1000YR</p></td>
+<td><p>3H Average Recurrance Interval Accumulation 1000 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI3H100YR</p></td>
+<td><p>3H Average Recurrance Interval Accumulation 100 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI3H10YR</p></td>
+<td><p>3H Average Recurrance Interval Accumulation 10 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI3H1YR</p></td>
+<td><p>3H Average Recurrance Interval Accumulation 1 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI3H200YR</p></td>
+<td><p>3H Average Recurrance Interval Accumulation 200 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI3H25YR</p></td>
+<td><p>3H Average Recurrance Interval Accumulation 25 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI3H2YR</p></td>
+<td><p>3H Average Recurrance Interval Accumulation 2 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI3H500YR</p></td>
+<td><p>3H Average Recurrance Interval Accumulation 500 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI3H50YR</p></td>
+<td><p>3H Average Recurrance Interval Accumulation 50 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI3H5YR</p></td>
+<td><p>3H Average Recurrance Interval Accumulation 5 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>PRP03H</p></td>
+<td><p>3 hour Precipitation Accumulation Return Period</p></td>
+<td><p>year</p></td>
+</tr>
+<tr class="row-odd"><td><p>GaugeInfIndex03H</p></td>
+<td><p>3 hour QPE Gauge Influence Index</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>QPEFFG03H</p></td>
+<td><p>3 hour QPE-to-FFG Ratio</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>FFG03</p></td>
+<td><p>3-hr flash flood guidance</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>FFR03</p></td>
+<td><p>3-hr flash flood runoff values</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>TSLSA</p></td>
+<td><p>3-hr pressure tendency (Std. Atmos. Reduction)</p></td>
+<td><p>Pa/s</p></td>
+</tr>
+<tr class="row-even"><td><p>EVEC3</p></td>
+<td><p>3rd Vector Component of Electric Field</p></td>
+<td><p>V*m^1</p></td>
+</tr>
+<tr class="row-odd"><td><p>BVEC3</p></td>
+<td><p>3rd Vector Component of Magnetic Field</p></td>
+<td><p>T</p></td>
+</tr>
+<tr class="row-even"><td><p>VEL3</p></td>
+<td><p>3rd Vector Component of Velocity (Coordinate system dependent)</p></td>
+<td><p>m*s^1</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCSRG40</p></td>
+<td><p>40% Tropical Cyclone Storm Surge Exceedance</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>GaugeInfIndex48H</p></td>
+<td><p>48 hour QPE Gauge Influence Index</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>EchoTop50</p></td>
+<td><p>50 dBZ Echo Top</p></td>
+<td><p>km</p></td>
+</tr>
+<tr class="row-even"><td><p>TCSRG50</p></td>
+<td><p>50% Tropical Cyclone Storm Surge Exceedance</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>5WAVA</p></td>
+<td><p>5-wave geopotential height anomaly</p></td>
+<td><p>gpm</p></td>
+</tr>
+<tr class="row-even"><td><p>5WAVA</p></td>
+<td><p>5-Wave Geopotential Height Anomaly</p></td>
+<td><p>gpm</p></td>
+</tr>
+<tr class="row-odd"><td><p>5WAVH</p></td>
+<td><p>5-wave geopotential height</p></td>
+<td><p>gpm</p></td>
+</tr>
+<tr class="row-even"><td><p>5WAVH</p></td>
+<td><p>5-Wave Geopotential Height</p></td>
+<td><p>gpm</p></td>
+</tr>
+<tr class="row-odd"><td><p>EchoTop60</p></td>
+<td><p>60 dBZ Echo Top</p></td>
+<td><p>km</p></td>
+</tr>
+<tr class="row-even"><td><p>TCSRG60</p></td>
+<td><p>60% Tropical Cyclone Storm Surge Exceedance</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI6H1000YR</p></td>
+<td><p>6H Average Recurrance Interval Accumulation 1000 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI6H100YR</p></td>
+<td><p>6H Average Recurrance Interval Accumulation 100 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI6H10YR</p></td>
+<td><p>6H Average Recurrance Interval Accumulation 10 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI6H1YR</p></td>
+<td><p>6H Average Recurrance Interval Accumulation 1 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI6H200YR</p></td>
+<td><p>6H Average Recurrance Interval Accumulation 200 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI6H25YR</p></td>
+<td><p>6H Average Recurrance Interval Accumulation 25 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI6H2YR</p></td>
+<td><p>6H Average Recurrance Interval Accumulation 2 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI6H500YR</p></td>
+<td><p>6H Average Recurrance Interval Accumulation 500 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARI6H50YR</p></td>
+<td><p>6H Average Recurrance Interval Accumulation 50 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-even"><td><p>ARI6H5YR</p></td>
+<td><p>6H Average Recurrance Interval Accumulation 5 Year</p></td>
+<td><p>in*1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>PRP06H</p></td>
+<td><p>6 hour Precipitation Accumulation Return Period</p></td>
+<td><p>year</p></td>
+</tr>
+<tr class="row-even"><td><p>GaugeInfIndex06H</p></td>
+<td><p>6 hour QPE Gauge Influence Index</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>QPEFFG06H</p></td>
+<td><p>6 hour QPE-to-FFG Ratio</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>FFG06</p></td>
+<td><p>6-hr flash flood guidance</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>FFR06</p></td>
+<td><p>6-hr flash flood runoff values</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPE06</p></td>
+<td><p>6-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPE06_ACR</p></td>
+<td><p>6-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPE06_ALR</p></td>
+<td><p>6-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPE06_FWR</p></td>
+<td><p>6-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPE06_KRF</p></td>
+<td><p>6-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPE06_MSR</p></td>
+<td><p>6-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPE06_ORN</p></td>
+<td><p>6-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPE06_PTR</p></td>
+<td><p>6-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPE06_RHA</p></td>
+<td><p>6-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPE06_RSA</p></td>
+<td><p>6-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPE06_STR</p></td>
+<td><p>6-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPE06_TAR</p></td>
+<td><p>6-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPE06_TIR</p></td>
+<td><p>6-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPE06_TUA</p></td>
+<td><p>6-hr Quantitative Precip Estimate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPF06</p></td>
+<td><p>6-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPF06_ACR</p></td>
+<td><p>6-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPF06_ALR</p></td>
+<td><p>6-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPF06_FWR</p></td>
+<td><p>6-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPF06_KRF</p></td>
+<td><p>6-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPF06_MSR</p></td>
+<td><p>6-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPF06_ORN</p></td>
+<td><p>6-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPF06_PTR</p></td>
+<td><p>6-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPF06_RHA</p></td>
+<td><p>6-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPF06_RSA</p></td>
+<td><p>6-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPF06_STR</p></td>
+<td><p>6-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPF06_TAR</p></td>
+<td><p>6-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>QPF06_TIR</p></td>
+<td><p>6-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPF06_TUA</p></td>
+<td><p>6-hr Quantitative Precip Forecast</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>TCSRG70</p></td>
+<td><p>70% Tropical Cyclone Storm Surge Exceedance</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>GaugeInfIndex72H</p></td>
+<td><p>72 hour QPE Gauge Influence Index</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>TCSRG80</p></td>
+<td><p>80% Tropical Cyclone Storm Surge Exceedance</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCSRG90</p></td>
+<td><p>90% Tropical Cyclone Storm Surge Exceedance</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>ABSD</p></td>
+<td><p>Absolute divergence</p></td>
+<td><p>s^-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>ABSH</p></td>
+<td><p>Absolute Humidity</p></td>
+<td><p>kg m-3</p></td>
+</tr>
+<tr class="row-even"><td><p>AH</p></td>
+<td><p>Absolute humidity</p></td>
+<td><p>kg/m^3</p></td>
+</tr>
+<tr class="row-odd"><td><p>ABSV</p></td>
+<td><p>Absolute vorticity</p></td>
+<td><p>s^-1</p></td>
+</tr>
+<tr class="row-even"><td><p>ASD</p></td>
+<td><p>Accumulated Snow Depth</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>ACOND</p></td>
+<td><p>Aerodynamic conductance</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>AETYP</p></td>
+<td><p>Aerosol type</p></td>
+<td><p>(Code table 4.205)</p></td>
+</tr>
+<tr class="row-odd"><td><p>AC137</p></td>
+<td><p>Air concentration of Caesium 137</p></td>
+<td><p>Bq/m^3</p></td>
+</tr>
+<tr class="row-even"><td><p>AI131</p></td>
+<td><p>Air concentration of Iodine 131</p></td>
+<td><p>Bq/m^3</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARADP</p></td>
+<td><p>Air concentration of radioactive pollutant</p></td>
+<td><p>Bq/m^3</p></td>
+</tr>
+<tr class="row-even"><td><p>ALBDO</p></td>
+<td><p>Albedo</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ACWVH</p></td>
+<td><p>Altimeter corrected wave height</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>ALRRC</p></td>
+<td><p>Altimeter Range Relative Correction</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>ASET</p></td>
+<td><p>Altimeter setting</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-even"><td><p>AWVH</p></td>
+<td><p>Altimeter wave height</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>ALTMSL</p></td>
+<td><p>Altitude above mean sea level</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>ANCConvectiveOutlook</p></td>
+<td><p>ANC Convective Outlook</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>ANCFinalForecast</p></td>
+<td><p>ANC Final Forecast</p></td>
+<td><p>dBZ</p></td>
+</tr>
+<tr class="row-even"><td><p>AOSGSO</p></td>
+<td><p>Angle Of Sub-Grid Scale Orography</p></td>
+<td><p>Rad</p></td>
+</tr>
+<tr class="row-odd"><td><p>ASGSO</p></td>
+<td><p>Anisotropy Of Sub-Grid Scale Orography</p></td>
+<td><p>Numeric</p></td>
+</tr>
+<tr class="row-even"><td><p>APTMP</p></td>
+<td><p>Apparent Temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARBTXT</p></td>
+<td><p>Arbitrary text string</p></td>
+<td><p>CCITTIA5</p></td>
+</tr>
+<tr class="row-even"><td><p>ASHFL</p></td>
+<td><p>Assimilative Heat Flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>AMIXL</p></td>
+<td><p>Asymptotic mixing length scale</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>ATMDIV</p></td>
+<td><p>Atmospheric Divergence</p></td>
+<td><p>s^-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>AVSFT</p></td>
+<td><p>Average surface skin temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>BARET</p></td>
+<td><p>Bare soil surface skin temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>BKENG</p></td>
+<td><p>Barotropic Kinectic Energy</p></td>
+<td><p>J/kg</p></td>
+</tr>
+<tr class="row-even"><td><p>UBARO</p></td>
+<td><p>Barotropic U velocity</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>UBARO</p></td>
+<td><p>Barotropic U Velocity</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>VBARO</p></td>
+<td><p>Barotropic V velocity</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>VBARO</p></td>
+<td><p>Barotropic V Velocity</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>BGRUN</p></td>
+<td><p>Baseflow-groundwater runoff</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>BASRV</p></td>
+<td><p>Base radial velocity</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>BASR</p></td>
+<td><p>Base reflectivity</p></td>
+<td><p>dB</p></td>
+</tr>
+<tr class="row-odd"><td><p>BASSW</p></td>
+<td><p>Base spectrum width</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>4LFTX</p></td>
+<td><p>Best (4-layer) lifted index</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>4LFTX</p></td>
+<td><p>Best (4 layer) Lifted Index</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>BLI</p></td>
+<td><p>Best lifted index (to 500 mb)</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>BMIXL</p></td>
+<td><p>Blackadars mixing length scale</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>BLST</p></td>
+<td><p>Bottom layer soil temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>NONE</p></td>
+<td><p>Bottom of Ocean Isothermal Layer</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>OBIL</p></td>
+<td><p>Bottom of Ocean Isothermal Layer</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>NONE</p></td>
+<td><p>Bottom of Ocean Mixed Layer (m)</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>OBML</p></td>
+<td><p>Bottom of Ocean Mixed Layer (m)</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>BCBL</p></td>
+<td><p>Boundary layer cloud bottom level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>BCBL</p></td>
+<td><p>Boundary Layer Cloud Bottom Level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>BCLY</p></td>
+<td><p>Boundary Layer Cloud Layer</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>BCY</p></td>
+<td><p>Boundary layer cloud layer</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>BCY</p></td>
+<td><p>Boundary Layer Cloud Layer</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>BCTL</p></td>
+<td><p>Boundary layer cloud top level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>BCTL</p></td>
+<td><p>Boundary Layer Cloud Top Level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>BLYSP</p></td>
+<td><p>Boundary layer dissipation</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>BrightBandBottomHeight</p></td>
+<td><p>Bright Band Bottom Height</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>BrightBandTopHeight</p></td>
+<td><p>Bright Band Top Height</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>BRTMP</p></td>
+<td><p>Brightness temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>CAIIRAD</p></td>
+<td><p>CaII-K Radiance</p></td>
+<td><p>W*s*r^1*m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>CCOND</p></td>
+<td><p>Canopy conductance</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>EVCW</p></td>
+<td><p>Canopy water evaporation</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>CONVP</p></td>
+<td><p>Categorical Convection</p></td>
+<td><p>categorical</p></td>
+</tr>
+<tr class="row-even"><td><p>CFRZR</p></td>
+<td><p>Categorical Freezing Rain</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CFRZR</p></td>
+<td><p>Categorical Freezing Rain</p></td>
+<td><p>Code table 4.222</p></td>
+</tr>
+<tr class="row-even"><td><p>CFRZR</p></td>
+<td><p>Categorical Freezing Rain</p></td>
+<td><p>non-dim</p></td>
+</tr>
+<tr class="row-odd"><td><p>CFRZR</p></td>
+<td><p>Categorical freezing rain</p></td>
+<td><p>(See Code table 4.222)</p></td>
+</tr>
+<tr class="row-even"><td><p>CFRZR</p></td>
+<td><p>Categorical Freezing Rain (yes=1; no=0)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CFRZR</p></td>
+<td><p>Categorical Freezing Rain (yes=1; no=0)</p></td>
+<td><p>non-dim</p></td>
+</tr>
+<tr class="row-even"><td><p>CICEP</p></td>
+<td><p>Categorical Ice Pellets</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CICEP</p></td>
+<td><p>Categorical Ice Pellets</p></td>
+<td><p>Code table 4.222</p></td>
+</tr>
+<tr class="row-even"><td><p>CICEP</p></td>
+<td><p>Categorical Ice Pellets</p></td>
+<td><p>non-dim</p></td>
+</tr>
+<tr class="row-odd"><td><p>CICEP</p></td>
+<td><p>Categorical ice pellets</p></td>
+<td><p>(See Code table 4.222)</p></td>
+</tr>
+<tr class="row-even"><td><p>CICEP</p></td>
+<td><p>Categorical Ice Pellets (yes=1; no=0)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CICEP</p></td>
+<td><p>Categorical Ice Pellets (yes=1; no=0)</p></td>
+<td><p>non-dim</p></td>
+</tr>
+<tr class="row-even"><td><p>CLGTN</p></td>
+<td><p>Categorical Lightning</p></td>
+<td><p>categorical</p></td>
+</tr>
+<tr class="row-odd"><td><p>OZCAT</p></td>
+<td><p>Categorical Ozone Concentration</p></td>
+<td><p>Non-Dim</p></td>
+</tr>
+<tr class="row-even"><td><p>OZCAT</p></td>
+<td><p>Categorical Ozone Concentration</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CRAIN</p></td>
+<td><p>Categorical Rain</p></td>
+<td><p>Code table 4.222</p></td>
+</tr>
+<tr class="row-even"><td><p>CRAIN</p></td>
+<td><p>Categorical Rain</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CRAIN</p></td>
+<td><p>Categorical Rain</p></td>
+<td><p>non-dim</p></td>
+</tr>
+<tr class="row-even"><td><p>CRAIN</p></td>
+<td><p>Categorical rain</p></td>
+<td><p>(See Code table 4.222)</p></td>
+</tr>
+<tr class="row-odd"><td><p>CRAIN</p></td>
+<td><p>Categorical Rain (yes=1; no=0)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CRAIN</p></td>
+<td><p>Categorical Rain (yes=1; no=0)</p></td>
+<td><p>non-dim</p></td>
+</tr>
+<tr class="row-odd"><td><p>SVRTS</p></td>
+<td><p>Categorical Servre Thunderstorm</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>SVRTS</p></td>
+<td><p>Categorical Severe Thunderstorm</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CSNOW</p></td>
+<td><p>Categorical Snow</p></td>
+<td><p>Code table 4.222</p></td>
+</tr>
+<tr class="row-even"><td><p>CSNOW</p></td>
+<td><p>Categorical Snow</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CSNOW</p></td>
+<td><p>Categorical Snow</p></td>
+<td><p>non-dim</p></td>
+</tr>
+<tr class="row-even"><td><p>CSNOW</p></td>
+<td><p>Categorical snow</p></td>
+<td><p>(See Code table 4.222)</p></td>
+</tr>
+<tr class="row-odd"><td><p>CSNOW</p></td>
+<td><p>Categorical Snow (yes=1; no=0)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CSNOW</p></td>
+<td><p>Categorical Snow (yes=1; no=0)</p></td>
+<td><p>non-dim</p></td>
+</tr>
+<tr class="row-odd"><td><p>CTSTM</p></td>
+<td><p>Categorical Thunderstorm (1-yes, 0-no)</p></td>
+<td><p>categorical</p></td>
+</tr>
+<tr class="row-even"><td><p>TSTMC</p></td>
+<td><p>Categorical Thunderstorm (1-yes, 0-no)</p></td>
+<td><p>categorical</p></td>
+</tr>
+<tr class="row-odd"><td><p>CCEIL</p></td>
+<td><p>Ceiling</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>LightningDensity15min</p></td>
+<td><p>CG Lightning Density (15 min.)</p></td>
+<td><p>Flashes/km^2/min</p></td>
+</tr>
+<tr class="row-odd"><td><p>LightningDensity1min</p></td>
+<td><p>CG Lightning Density (1 min.)</p></td>
+<td><p>Flashes/km^2/min</p></td>
+</tr>
+<tr class="row-even"><td><p>LightningDensity30min</p></td>
+<td><p>CG Lightning Density (30 min.)</p></td>
+<td><p>Flashes/km^2/min</p></td>
+</tr>
+<tr class="row-odd"><td><p>LightningDensity5min</p></td>
+<td><p>CG Lightning Density (5 min.)</p></td>
+<td><p>Flashes/km^2/min</p></td>
+</tr>
+<tr class="row-even"><td><p>LightningProbabilityNext30min</p></td>
+<td><p>CG Lightning Probability (0-30 min.)</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>CAT</p></td>
+<td><p>Clear Air Turbulence (CAT)</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>CAT</p></td>
+<td><p>Clear Air Turbulence(CAT)</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>CSDLF</p></td>
+<td><p>Clear Sky Downward Long Wave Flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>CSDSF</p></td>
+<td><p>Clear sky downward solar flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>CSULF</p></td>
+<td><p>Clear Sky Upward Long Wave Flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>CSUSF</p></td>
+<td><p>Clear Sky Upward Solar Flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>CDUVB</p></td>
+<td><p>Clear sky UV-B downward solar flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>CAMT</p></td>
+<td><p>Cloud amount</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>CBL</p></td>
+<td><p>Cloud Base Level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CBASE</p></td>
+<td><p>Cloud base</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>CEIL</p></td>
+<td><p>Cloud Ceiling</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CLG</p></td>
+<td><p>Cloud ceiling</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CLG</p></td>
+<td><p>Cloud Ceiling</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CloudCover</p></td>
+<td><p>Cloud Cover</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>CFNLF</p></td>
+<td><p>Cloud Forcing Net Long Wave Flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>CFNSF</p></td>
+<td><p>Cloud Forcing Net Solar Flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>CDCIMR</p></td>
+<td><p>Cloud Ice Mixing Ratio</p></td>
+<td><p>kg/kg</p></td>
+</tr>
+<tr class="row-even"><td><p>CICE</p></td>
+<td><p>Cloud ice</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLOUDM</p></td>
+<td><p>Cloud mask</p></td>
+<td><p>(Code table 4.217)</p></td>
+</tr>
+<tr class="row-even"><td><p>CLWMR</p></td>
+<td><p>Cloud Mixing Ratio</p></td>
+<td><p>kg kg-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>CLWMR</p></td>
+<td><p>Cloud mixing ratio</p></td>
+<td><p>kg/kg</p></td>
+</tr>
+<tr class="row-even"><td><p>CTOPHQI</p></td>
+<td><p>Cloud top height quality indicator</p></td>
+<td><p>(Code table 4.219)</p></td>
+</tr>
+<tr class="row-odd"><td><p>CTOP</p></td>
+<td><p>Cloud top</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>heightCTHGT</p></td>
+<td><p>Cloud top</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>CTYP</p></td>
+<td><p>Cloud type</p></td>
+<td><p>(Code table 4.203)</p></td>
+</tr>
+<tr class="row-even"><td><p>CWAT</p></td>
+<td><p>Cloud water</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>CWORK</p></td>
+<td><p>Cloud work function</p></td>
+<td><p>J/kg</p></td>
+</tr>
+<tr class="row-even"><td><p>CWORK</p></td>
+<td><p>Cloud Work Function</p></td>
+<td><p>J/kg</p></td>
+</tr>
+<tr class="row-odd"><td><p>CDWW</p></td>
+<td><p>Coefficient of Drag With Waves</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CISOILW</p></td>
+<td><p>Column-Integrated Soil Water</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>REFC</p></td>
+<td><p>Composite reflectivity</p></td>
+<td><p>dB</p></td>
+</tr>
+<tr class="row-even"><td><p>MergedReflectivityQCComposite</p></td>
+<td><p>Composite Reflectivity</p></td>
+<td><p>dBZ</p></td>
+</tr>
+<tr class="row-odd"><td><p>HeightCompositeReflectivity</p></td>
+<td><p>Composite Reflectivity Height</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>MergedReflectivityQComposite</p></td>
+<td><p>Composite Reflectivity Mosaic</p></td>
+<td><p>dBZ</p></td>
+</tr>
+<tr class="row-odd"><td><p>EF25M</p></td>
+<td><p>Cond 25% pcpn smy fractile past 24 hrs</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>EF50M</p></td>
+<td><p>Cond 50% pcpn smy fractile past 24 hrs</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCOND</p></td>
+<td><p>Condensate</p></td>
+<td><p>kg kg-1</p></td>
+</tr>
+<tr class="row-even"><td><p>CONDE</p></td>
+<td><p>Condensate</p></td>
+<td><p>kg/kg</p></td>
+</tr>
+<tr class="row-odd"><td><p>CONDP</p></td>
+<td><p>Condensation Pressure of Parcali Lifted From Indicate Surface</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-even"><td><p>CONDP</p></td>
+<td><p>Condensation Pressure of Parcal Lifted From Indicate Surface</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-odd"><td><p>CPPAF</p></td>
+<td><p>Conditional percent precipitation amount fractile for an overall period (Encoded as an accumulation)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>CICEL</p></td>
+<td><p>Confidence - Ceiling</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CIFLT</p></td>
+<td><p>Confidence - Flight Category</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CIVIS</p></td>
+<td><p>Confidence - Visibility</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CONTB</p></td>
+<td><p>Contrail base</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>CONTB</p></td>
+<td><p>Contrail Base</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>CONTE</p></td>
+<td><p>Contrail engine type</p></td>
+<td><p>(Code table 4.211)</p></td>
+</tr>
+<tr class="row-even"><td><p>CONTET</p></td>
+<td><p>Contrail Engine Type</p></td>
+<td><p>See Table 4.211</p></td>
+</tr>
+<tr class="row-odd"><td><p>CONTI</p></td>
+<td><p>Contrail intensity</p></td>
+<td><p>(Code table 4.210)</p></td>
+</tr>
+<tr class="row-even"><td><p>CONTI</p></td>
+<td><p>Contrail Intensity</p></td>
+<td><p>See Table 4.210</p></td>
+</tr>
+<tr class="row-odd"><td><p>CONTT</p></td>
+<td><p>Contrail top</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>CONTT</p></td>
+<td><p>Contrail Top</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>CONUSMergedReflectivity</p></td>
+<td><p>CONUS Merged Reflectivity</p></td>
+<td><p>dBZ</p></td>
+</tr>
+<tr class="row-even"><td><p>CONUSPlusMergedReflectivity</p></td>
+<td><p>CONUS-Plus Merged Reflectivity</p></td>
+<td><p>dBZ</p></td>
+</tr>
+<tr class="row-odd"><td><p>CONVP</p></td>
+<td><p>Convection Potential</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CAPE</p></td>
+<td><p>Convective available potential energy</p></td>
+<td><p>J/kg</p></td>
+</tr>
+<tr class="row-odd"><td><p>CCBL</p></td>
+<td><p>Convective cloud bottom level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CCBL</p></td>
+<td><p>Convective Cloud Bottom Level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CCLY</p></td>
+<td><p>Convective Cloud</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CCY</p></td>
+<td><p>Convective cloud</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CCY</p></td>
+<td><p>Convective Cloud</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CDCON</p></td>
+<td><p>Convective cloud cover</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>CUEFI</p></td>
+<td><p>Convective Cloud Efficiency</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CUEFI</p></td>
+<td><p>Convective Cloud Efficiency</p></td>
+<td><p>non-dim</p></td>
+</tr>
+<tr class="row-odd"><td><p>CUEFI</p></td>
+<td><p>Convective cloud efficiency</p></td>
+<td><p>Proportion</p></td>
+</tr>
+<tr class="row-even"><td><p>MFLUX</p></td>
+<td><p>Convective Cloud Mass Flux</p></td>
+<td><p>Pa/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>CCTL</p></td>
+<td><p>Convective cloud top level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CCTL</p></td>
+<td><p>Convective Cloud Top Level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CNVDEMF</p></td>
+<td><p>Convective detrainment mass flux</p></td>
+<td><p>mm/s</p></td>
+</tr>
+<tr class="row-even"><td><p>CNVDMF</p></td>
+<td><p>Convective downdraft mass flux</p></td>
+<td><p>mm/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>CNGWDV</p></td>
+<td><p>Convective Gravity wave drag meridional acceleration</p></td>
+<td><p>m/s^2</p></td>
+</tr>
+<tr class="row-even"><td><p>CNGWDU</p></td>
+<td><p>Convective Gravity wave drag zonal acceleration</p></td>
+<td><p>m/s^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>CIN</p></td>
+<td><p>Convective inhibition</p></td>
+<td><p>J/kg</p></td>
+</tr>
+<tr class="row-even"><td><p>CNVV</p></td>
+<td><p>Convective meridional momentum mixing acceleration</p></td>
+<td><p>m/s^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>ACPCP</p></td>
+<td><p>Convective Precipitation</p></td>
+<td><p>kg m-2</p></td>
+</tr>
+<tr class="row-even"><td><p>ACPCP</p></td>
+<td><p>Convective precipitation</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>ACPCPN</p></td>
+<td><p>Convective precipitation (nearest grid point)</p></td>
+<td><p>kg/m2</p></td>
+</tr>
+<tr class="row-even"><td><p>ACPCPN</p></td>
+<td><p>Convective precipitation (nearest grid point)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>CPRAT</p></td>
+<td><p>Convective Precipitation Rate</p></td>
+<td><p>kg m-2 s-1</p></td>
+</tr>
+<tr class="row-even"><td><p>CPRAT</p></td>
+<td><p>Convective Precipitation Rate</p></td>
+<td><p>kg*m^-2*s^-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>CPRAT</p></td>
+<td><p>Convective precipitation rate</p></td>
+<td><p>mm / s</p></td>
+</tr>
+<tr class="row-even"><td><p>CPRAT</p></td>
+<td><p>Convective Precipitation Rate</p></td>
+<td><p>mm / s</p></td>
+</tr>
+<tr class="row-odd"><td><p>CSRATE</p></td>
+<td><p>Convective Snowfall Rate</p></td>
+<td><p>m s-1</p></td>
+</tr>
+<tr class="row-even"><td><p>CSRATE</p></td>
+<td><p>Convective Snowfall Rate</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>CSRWE</p></td>
+<td><p>Convective Snowfall Rate Water Equivalent</p></td>
+<td><p>kg m-2s-1</p></td>
+</tr>
+<tr class="row-even"><td><p>CSRWE</p></td>
+<td><p>Convective Snowfall Rate Water Equivalent</p></td>
+<td><p>mm/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>SNOC</p></td>
+<td><p>Convective snow</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>CNVUMF</p></td>
+<td><p>Convective updraft mass flux</p></td>
+<td><p>mm/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>CWP</p></td>
+<td><p>Convective Water Precipitation</p></td>
+<td><p>kg m-2</p></td>
+</tr>
+<tr class="row-even"><td><p>CWP</p></td>
+<td><p>Convective Water Precipitation</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>CWDI</p></td>
+<td><p>Convective Weather Detection Index</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CNVU</p></td>
+<td><p>Convective zonal momentum mixing acceleration</p></td>
+<td><p>m/s^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>SNO C</p></td>
+<td><p>Convect Snow</p></td>
+<td><p>kg m-2</p></td>
+</tr>
+<tr class="row-even"><td><p>NTRNFLUX</p></td>
+<td><p>Cosmic Ray Neutron Flux</p></td>
+<td><p>h^1</p></td>
+</tr>
+<tr class="row-odd"><td><p>COVTZ</p></td>
+<td><p>Covariance between izonal component of the wind and temperature. Defined as [uT]-[u][T], where “[]” indicates the mean over the indicated time span.</p></td>
+<td><p>K*m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>COVMM</p></td>
+<td><p>Covariance between meridional and meridional components of the wind. Defined as [vv]-[v][v], where “[]” indicates the mean over the indicated time span.</p></td>
+<td><p>m^2/s^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>COVMZ</p></td>
+<td><p>Covariance between Meridional and Zonal Components of the wind.</p></td>
+<td><p>m^2/s^2</p></td>
+</tr>
+<tr class="row-even"><td><p>COVTM</p></td>
+<td><p>Covariance between meridional component of the wind and temperature. Defined as [vT]-[v][T], where “[]” indicates the mean over the indicated time span.</p></td>
+<td><p>K*m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>COVQM</p></td>
+<td><p>Covariance between specific humidity and meridional components of the wind. Defined as [vq]-[v][q], where “[]” indicates the mean over the indicated time span.</p></td>
+<td><p>kg/kg*m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>COVQQ</p></td>
+<td><p>Covariance between specific humidity and specific humidy. Defined as [qq]-[q][q], where “[]” indicates the mean over the indicated time span.</p></td>
+<td><p>kg/kg*kg/kg</p></td>
+</tr>
+<tr class="row-odd"><td><p>COVQVV</p></td>
+<td><p>Covariance between specific humidity and vertical components of the wind. Defined as [Ωq]-[Ω][q], where “[]” indicates the mean over the indicated time span.</p></td>
+<td><p>kg/kg*Pa/s</p></td>
+</tr>
+<tr class="row-even"><td><p>COVQZ</p></td>
+<td><p>Covariance between specific humidity and zonal components of the wind. Defined as [uq]-[u][q], where “[]” indicates the mean over the indicated time span.</p></td>
+<td><p>kg/kg*m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>COVPSPS</p></td>
+<td><p>Covariance between surface pressure and surface pressure. Defined as [Psfc]-[Psfc][Psfc], where “[]” indicates the mean over the indicated time span.</p></td>
+<td><p>Pa*Pa</p></td>
+</tr>
+<tr class="row-even"><td><p>COVTM</p></td>
+<td><p>Covariance between Temperature and Meridional Components of the wind.</p></td>
+<td><p>K*m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>COVTT</p></td>
+<td><p>Covariance between temperature and temperature. Defined as [TT]-[T][T], where “[]” indicates the mean over the indicated time span.</p></td>
+<td><p>K*K</p></td>
+</tr>
+<tr class="row-even"><td><p>COVTW</p></td>
+<td><p>Covariance between temperature and vertical component of the wind. Defined as [wT]-[w][T], where “[]” indicates the mean over the indicated time span.</p></td>
+<td><p>K*m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>COVTVV</p></td>
+<td><p>Covariance between temperature and vertical components of the wind. Defined as [ΩT]-[Ω][T], where “[]” indicates the mean over the indicated time span.</p></td>
+<td><p>K*Pa/s</p></td>
+</tr>
+<tr class="row-even"><td><p>COVTZ</p></td>
+<td><p>Covariance between Temperature and Zonal Components of the wind.</p></td>
+<td><p>K*m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>COVVVVV</p></td>
+<td><p>Covariance between vertical and vertical components of the wind. Defined as [ΩΩ]-[Ω][Ω], where “[]” indicates the mean over the indicated time span.</p></td>
+<td><p>Pa^2/s^2</p></td>
+</tr>
+<tr class="row-even"><td><p>COVMZ</p></td>
+<td><p>Covariance between zonal and meridional components of the wind. Defined as [uv]-[u][v], where “[]” indicates the mean over the indicated time span.</p></td>
+<td><p>m^2/s^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>COVZZ</p></td>
+<td><p>Covariance between zonal and zonal components of the wind. Defined as [uu]-[u][u], where “[]” indicates the mean over the indicated time span.</p></td>
+<td><p>m^2/s^2</p></td>
+</tr>
+<tr class="row-even"><td><p>CrestMaxStreamflow</p></td>
+<td><p>CREST Maximum Streamflow</p></td>
+<td><p>(m^3)*(s^-1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>CrestMaxUStreamflow</p></td>
+<td><p>CREST Maximum Unit Streamflow</p></td>
+<td><p>(m^3)*(s^-1)*(km^-2)</p></td>
+</tr>
+<tr class="row-even"><td><p>CrestSoilMoisture</p></td>
+<td><p>CREST Soil Moisture</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>CRTFRQ</p></td>
+<td><p>Critical Frequency</p></td>
+<td><p>Hz</p></td>
+</tr>
+<tr class="row-even"><td><p>CB</p></td>
+<td><p>Cumulonimbus Base</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>CBHE</p></td>
+<td><p>Cumulonimbus Horizontal Exten</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>CT</p></td>
+<td><p>Cumulonimbus Top</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>DIRC</p></td>
+<td><p>Current direction</p></td>
+<td><p>Degree true</p></td>
+</tr>
+<tr class="row-even"><td><p>SPC</p></td>
+<td><p>Current speed</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>DCBL</p></td>
+<td><p>Deep convective cloud bottom level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>DCBL</p></td>
+<td><p>Deep Convective Cloud Bottom Level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>DCCBL</p></td>
+<td><p>Deep Convective Cloud Bottom Level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>DCCTL</p></td>
+<td><p>Deep Convective Cloud Top Level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>DCTL</p></td>
+<td><p>Deep convective cloud top level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>DCTL</p></td>
+<td><p>Deep Convective Cloud Top Level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CNVHR</p></td>
+<td><p>Deep Convective Heating rate</p></td>
+<td><p>K/s</p></td>
+</tr>
+<tr class="row-even"><td><p>CNVMR</p></td>
+<td><p>Deep Convective Moistening Rate</p></td>
+<td><p>kg kg-1 s-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>CNVMR</p></td>
+<td><p>Deep Convective Moistening Rate</p></td>
+<td><p>kg/kg*s</p></td>
+</tr>
+<tr class="row-even"><td><p>DALT</p></td>
+<td><p>Density altitude</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>DEN</p></td>
+<td><p>Density</p></td>
+<td><p>kg/m^3</p></td>
+</tr>
+<tr class="row-even"><td><p>DBLL</p></td>
+<td><p>Depth Below Land surface</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>DPBLW</p></td>
+<td><p>Depth below land surface</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>DBSL</p></td>
+<td><p>Depth Below Sea Level</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>DPMSL</p></td>
+<td><p>Depth below sea level</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>REFZI</p></td>
+<td><p>Derived radar reflectivity backscatter from ice</p></td>
+<td><p>mm^6/m^3</p></td>
+</tr>
+<tr class="row-odd"><td><p>REFZI</p></td>
+<td><p>Derived radar reflectivity backscatter from ice</p></td>
+<td><p>mm^6*m^-3</p></td>
+</tr>
+<tr class="row-even"><td><p>REFZC</p></td>
+<td><p>Derived radar reflectivity backscatter from parameterized convection</p></td>
+<td><p>mm^6/m^3</p></td>
+</tr>
+<tr class="row-odd"><td><p>REFZC</p></td>
+<td><p>Derived radar reflectivity backscatter from parameterized convection</p></td>
+<td><p>mm^6*m^-3</p></td>
+</tr>
+<tr class="row-even"><td><p>REFZR</p></td>
+<td><p>Derived radar reflectivity backscatter from rain</p></td>
+<td><p>mm^6/m^3</p></td>
+</tr>
+<tr class="row-odd"><td><p>REFZR</p></td>
+<td><p>Derived radar reflectivity backscatter from rain</p></td>
+<td><p>mm^6*m^-3</p></td>
+</tr>
+<tr class="row-even"><td><p>REFD</p></td>
+<td><p>Derived radar reflectivity</p></td>
+<td><p>dB</p></td>
+</tr>
+<tr class="row-odd"><td><p>DEVMSL</p></td>
+<td><p>Deviation of sea level from mean</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>DEPR</p></td>
+<td><p>Dew point depression or deficit</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>DPT</p></td>
+<td><p>Dew point temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>DIREC</p></td>
+<td><p>Direct Evaporation Cease(Soil Moisture)</p></td>
+<td><p>kg/m^3</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMDRY</p></td>
+<td><p>Direct evaporation cease (soil moisture)</p></td>
+<td><p>Proportion</p></td>
+</tr>
+<tr class="row-even"><td><p>EVBS</p></td>
+<td><p>Direct evaporation from bare soil</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>DIRWWW</p></td>
+<td><p>Directional Width of The Wind Waves</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Degree true</p></td>
+<td><p>Direction Degrees true</p></td>
+<td><p>DIRDEGTRU</p></td>
+</tr>
+<tr class="row-odd"><td><p>WWSDIR</p></td>
+<td><p>Direction of combined wind waves and swell</p></td>
+<td><p>Degree</p></td>
+</tr>
+<tr class="row-even"><td><p>DICED</p></td>
+<td><p>Direction of ice drift</p></td>
+<td><p>Degree true</p></td>
+</tr>
+<tr class="row-odd"><td><p>SWDIR</p></td>
+<td><p>Direction of swell waves</p></td>
+<td><p>Degree</p></td>
+</tr>
+<tr class="row-even"><td><p>WVDIR</p></td>
+<td><p>Direction of wind waves</p></td>
+<td><p>Degree</p></td>
+</tr>
+<tr class="row-odd"><td><p>DSKDAY</p></td>
+<td><p>Disk Intensity Day</p></td>
+<td><p>J*m^2*s^1</p></td>
+</tr>
+<tr class="row-even"><td><p>DSKINT</p></td>
+<td><p>Disk Intensity</p></td>
+<td><p>j*m^2*s^1</p></td>
+</tr>
+<tr class="row-odd"><td><p>DSKNGT</p></td>
+<td><p>Disk Intensity Night</p></td>
+<td><p>J*m^2*s^1</p></td>
+</tr>
+<tr class="row-even"><td><p>DLWRF</p></td>
+<td><p>Downward Long-Wave Rad. Flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>DLWRF</p></td>
+<td><p>Downward long-wave radiation flux
+Downward Long-W/m^2</p></td>
+<td><p>W/m^2
+DLWRF</p></td>
+</tr>
+<tr class="row-even"><td><p>DSWRF</p></td>
+<td><p>Downward Short-Wave Rad. Flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>DSWRF</p></td>
+<td><p>Downward short-wave radiation flux
+Downward Short-W/m^2</p></td>
+<td><p>W/m^2
+DSWRF</p></td>
+</tr>
+<tr class="row-even"><td><p>DTRF</p></td>
+<td><p>Downward Total radiation Flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>DWUVR</p></td>
+<td><p>Downward UV Radiation</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>CD</p></td>
+<td><p>Drag Coefficient</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CD</p></td>
+<td><p>Drag coefficient</p></td>
+<td><p>Numeric</p></td>
+</tr>
+<tr class="row-even"><td><p>ELON</p></td>
+<td><p>East Longitude (0 - 360)</p></td>
+<td><p>deg</p></td>
+</tr>
+<tr class="row-odd"><td><p>ELON</p></td>
+<td><p>East Longitude (0 - 360)</p></td>
+<td><p>degrees</p></td>
+</tr>
+<tr class="row-even"><td><p>ELONN</p></td>
+<td><p>East Longitude (nearest neighbor) (0 - 360)</p></td>
+<td><p>degrees</p></td>
+</tr>
+<tr class="row-odd"><td><p>RETOP</p></td>
+<td><p>Echo Top</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>RADT</p></td>
+<td><p>Effective radiative skin temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>ETOT</p></td>
+<td><p>Electric Field Magnitude</p></td>
+<td><p>V*m^1</p></td>
+</tr>
+<tr class="row-even"><td><p>ELCDEN</p></td>
+<td><p>Electron Density</p></td>
+<td><p>m^3</p></td>
+</tr>
+<tr class="row-odd"><td><p>DIFEFLUX</p></td>
+<td><p>Electron Flux (Differential)</p></td>
+<td><p>(m^2*s*sr*eV)^1</p></td>
+</tr>
+<tr class="row-even"><td><p>INTEFLUX</p></td>
+<td><p>Electron Flux (Integral)</p></td>
+<td><p>(m^2*s*sr)^1</p></td>
+</tr>
+<tr class="row-odd"><td><p>ELECTMP</p></td>
+<td><p>Electron Temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>ELSCT</p></td>
+<td><p>Elevation of snow covered terrain</p></td>
+<td><p>(Code table 4.216)</p></td>
+</tr>
+<tr class="row-odd"><td><p>EHELX</p></td>
+<td><p>Energy helicity index</p></td>
+<td><p>Numeric</p></td>
+</tr>
+<tr class="row-even"><td><p>EATM</p></td>
+<td><p>Entire atmosphere (considered as a single layer)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>EA</p></td>
+<td><p>Entire Atmosphere</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>EATM</p></td>
+<td><p>Entire Atmosphere</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>NONE</p></td>
+<td><p>Entire Atmosphere</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>EOCN</p></td>
+<td><p>Entire ocean (considered as a single layer)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>EOCN</p></td>
+<td><p>Entire Ocean</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>NONE</p></td>
+<td><p>Entire Ocean</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>EHLT</p></td>
+<td><p>Equilibrium level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>EHLT</p></td>
+<td><p>Equilibrium Level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>REFZC</p></td>
+<td><p>Equivalent radar reflectivity factor for parameterized convection</p></td>
+<td><p>m m6 m-3</p></td>
+</tr>
+<tr class="row-even"><td><p>REFZR</p></td>
+<td><p>Equivalent radar reflectivity factor for rain</p></td>
+<td><p>m m6 m-3</p></td>
+</tr>
+<tr class="row-odd"><td><p>REFZI</p></td>
+<td><p>Equivalent radar reflectivity factor for snow</p></td>
+<td><p>m m6 m-3</p></td>
+</tr>
+<tr class="row-even"><td><p>ESTPC</p></td>
+<td><p>Estimated precipitation</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>ESTUWIND</p></td>
+<td><p>Estimated u component of wind</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>ESTVWIND</p></td>
+<td><p>Estimated v component of wind</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>ELYR</p></td>
+<td><p>Eta Level</p></td>
+<td><p>Eta value</p></td>
+</tr>
+<tr class="row-even"><td><p>ETAL</p></td>
+<td><p>Eta Level</p></td>
+<td><p>Eta value</p></td>
+</tr>
+<tr class="row-odd"><td><p>EUVRAD</p></td>
+<td><p>EUV Radiance</p></td>
+<td><p>W*s*r^1*m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>EVP</p></td>
+<td><p>Evaporation</p></td>
+<td><p>kg m-2</p></td>
+</tr>
+<tr class="row-odd"><td><p>EVP</p></td>
+<td><p>Evaporation
+Evaporation - Precipitation</p></td>
+<td><p>mm
+cm/day  EMNP</p></td>
+</tr>
+<tr class="row-even"><td><p>EMNP</p></td>
+<td><p>Evaporation - Precipitation</p></td>
+<td><p>cm/day</p></td>
+</tr>
+<tr class="row-odd"><td><p>EMNP</p></td>
+<td><p>Evaporation - Precipitation</p></td>
+<td><p>cm per day</p></td>
+</tr>
+<tr class="row-even"><td><p>EVAPT</p></td>
+<td><p>Evapotranspiration</p></td>
+<td><p>kg^-2*s^-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>SFEXC</p></td>
+<td><p>Exchange coefficient</p></td>
+<td><p>kg*m^-2*s^-1</p></td>
+</tr>
+<tr class="row-even"><td><p>SFEXC</p></td>
+<td><p>Exchange coefficient</p></td>
+<td><p>mm * s</p></td>
+</tr>
+<tr class="row-odd"><td><p>ETCWL</p></td>
+<td><p>Extra Tropical Storm Surge Combined Surge and Tide</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>ETSRG</p></td>
+<td><p>Extra Tropical Storm Surge</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>F107</p></td>
+<td><p>F10.7</p></td>
+<td><p>W*m^2*H*z^1</p></td>
+</tr>
+<tr class="row-even"><td><p>FLDCP</p></td>
+<td><p>Field Capacity</p></td>
+<td><p>fraction</p></td>
+</tr>
+<tr class="row-odd"><td><p>FIREDI</p></td>
+<td><p>Fire Detection Indicator</p></td>
+<td><p>(Code Table 4.223)</p></td>
+</tr>
+<tr class="row-even"><td><p>FIREODT</p></td>
+<td><p>Fire Outlook Due to Dry Thunderstorm</p></td>
+<td><p>index(see GRIB 2 code table 4.224)</p></td>
+</tr>
+<tr class="row-odd"><td><p>FIREOLK</p></td>
+<td><p>Fire Outlook</p></td>
+<td><p>index (see GRIB 2 code table 4.224)</p></td>
+</tr>
+<tr class="row-even"><td><p>FFG</p></td>
+<td><p>Flash flood guidance (Encoded as an accumulation over a floating subinterval of time between the reference time and valid time)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>FFRUN</p></td>
+<td><p>Flash flood runoff (Encoded as an accumulation over a floating subinterval of time)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>FLGHT</p></td>
+<td><p>Flight Category</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>QREC</p></td>
+<td><p>Flood plain recharge</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>ModelHeight0C</p></td>
+<td><p>Freezing Level Height</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>FRZR</p></td>
+<td><p>Freezing Rain</p></td>
+<td><p>kg/m2</p></td>
+</tr>
+<tr class="row-even"><td><p>FRZR</p></td>
+<td><p>Freezing Rain</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>FPRATE</p></td>
+<td><p>Freezing Rain Precipitation Rate</p></td>
+<td><p>kg m-2s-1</p></td>
+</tr>
+<tr class="row-even"><td><p>FPRATE</p></td>
+<td><p>Freezing Rain Precipitation Rate</p></td>
+<td><p>mm/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>FREQ</p></td>
+<td><p>Frequency</p></td>
+<td><p>s^-1</p></td>
+</tr>
+<tr class="row-even"><td><p>FRICV</p></td>
+<td><p>Frictional velocity</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>FRICV</p></td>
+<td><p>Frictional Velocity</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>FRICV</p></td>
+<td><p>Friction Velocity</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>FROZR</p></td>
+<td><p>Frozen Rain</p></td>
+<td><p>kg/m2</p></td>
+</tr>
+<tr class="row-even"><td><p>FROZR</p></td>
+<td><p>Frozen Rain</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>GHT</p></td>
+<td><p>Geometrical height</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>DBSS</p></td>
+<td><p>Geometric Depth Below Sea Surface</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>DIST</p></td>
+<td><p>Geometric height</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>GPA</p></td>
+<td><p>Geopotential height anomaly</p></td>
+<td><p>gpm</p></td>
+</tr>
+<tr class="row-odd"><td><p>GH</p></td>
+<td><p>Geopotential height</p></td>
+<td><p>gpm</p></td>
+</tr>
+<tr class="row-even"><td><p>HGT</p></td>
+<td><p>Geopotential height</p></td>
+<td><p>gpm</p></td>
+</tr>
+<tr class="row-odd"><td><p>HGTN</p></td>
+<td><p>Geopotential Height (nearest grid point)</p></td>
+<td><p>gpm</p></td>
+</tr>
+<tr class="row-even"><td><p>GP</p></td>
+<td><p>Geopotential</p></td>
+<td><p>m^2/s^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>GRAD</p></td>
+<td><p>Global radiation flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>GRAUP</p></td>
+<td><p>Graupel (snow pellets)</p></td>
+<td><p>kg/kg</p></td>
+</tr>
+<tr class="row-odd"><td><p>GRLE</p></td>
+<td><p>Grauple</p></td>
+<td><p>kg kg-1</p></td>
+</tr>
+<tr class="row-even"><td><p>GSGSO</p></td>
+<td><p>Gravity Of Sub-Grid Scale Orography</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>GWDV</p></td>
+<td><p>Gravity wave drag meridional acceleration</p></td>
+<td><p>m/s^2</p></td>
+</tr>
+<tr class="row-even"><td><p>GWDU</p></td>
+<td><p>Gravity wave drag zonal acceleration</p></td>
+<td><p>m/s^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>GCBL</p></td>
+<td><p>Grid scale cloud bottom level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>GCBL</p></td>
+<td><p>Grid Scale Cloud Bottom Level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>GSCBL</p></td>
+<td><p>Grid Scale Cloud Bottom Level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>GCTL</p></td>
+<td><p>Grid scale cloud top level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>GCTL</p></td>
+<td><p>Grid Scale Cloud Top Level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>GSCTL</p></td>
+<td><p>Grid Scale Cloud Top Level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>GC137</p></td>
+<td><p>Ground deposition of Caesium 137</p></td>
+<td><p>Bq/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>GI131</p></td>
+<td><p>Ground deposition of Iodine 131</p></td>
+<td><p>Bq/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>GRADP</p></td>
+<td><p>Ground deposition of radioactive</p></td>
+<td><p>Bq/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>GFLUX</p></td>
+<td><p>Ground heat flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>SFC</p></td>
+<td><p>Ground or Water Surface</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>GWREC</p></td>
+<td><p>Groundwater recharge</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>HAIL</p></td>
+<td><p>Hail</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>HAILPROB</p></td>
+<td><p>Hail probability</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>HINDEX</p></td>
+<td><p>Haines Index</p></td>
+<td><p>Numeric</p></td>
+</tr>
+<tr class="row-even"><td><p>SIGHAL</p></td>
+<td><p>Hall Conductivity</p></td>
+<td><p>S*m^1</p></td>
+</tr>
+<tr class="row-odd"><td><p>HARAD</p></td>
+<td><p>H-Alpha Radiance</p></td>
+<td><p>W*s*r^1*m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>HFLUX</p></td>
+<td><p>Heat Flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>HTX</p></td>
+<td><p>Heat index</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>DIFIFLUX</p></td>
+<td><p>Heavy Ion Flux (Differential)</p></td>
+<td><p>((m^2*s*sr*eV)/nuc)^1</p></td>
+</tr>
+<tr class="row-odd"><td><p>INTIFLUX</p></td>
+<td><p>Heavy Ion Flux (iIntegral)</p></td>
+<td><p>(m^2*s*sr)^1</p></td>
+</tr>
+<tr class="row-even"><td><p>HGTAG</p></td>
+<td><p>Height above ground (see Note 1)</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>H50Above0C</p></td>
+<td><p>Height of 50 dBZ Echo Above 0C</p></td>
+<td><p>km</p></td>
+</tr>
+<tr class="row-even"><td><p>H50AboveM20C</p></td>
+<td><p>Height of 50 dBZ Echo Above -20C</p></td>
+<td><p>km</p></td>
+</tr>
+<tr class="row-odd"><td><p>H60Above0C</p></td>
+<td><p>Height of 60 dBZ Echo Above 0C</p></td>
+<td><p>km</p></td>
+</tr>
+<tr class="row-even"><td><p>H60AboveM20C</p></td>
+<td><p>Height of 60 dBZ Echo Above -20C</p></td>
+<td><p>km</p></td>
+</tr>
+<tr class="row-odd"><td><p>HELCOR</p></td>
+<td><p>Heliospheric Radiance</p></td>
+<td><p>W*s*r^1*m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>ABSRB</p></td>
+<td><p>HF Absorption</p></td>
+<td><p>dB</p></td>
+</tr>
+<tr class="row-odd"><td><p>ABSFRQ</p></td>
+<td><p>HF Absorption Frequency</p></td>
+<td><p>Hz</p></td>
+</tr>
+<tr class="row-even"><td><p>HPRIMF</p></td>
+<td><p>h’F</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>HCBL</p></td>
+<td><p>High cloud bottom level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>HCBL</p></td>
+<td><p>High Cloud Bottom Level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>HCDC</p></td>
+<td><p>High cloud cover</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>HCL</p></td>
+<td><p>High cloud layer</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>HCL</p></td>
+<td><p>High Cloud Layer</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>HCLY</p></td>
+<td><p>High Cloud Layer</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>HCTL</p></td>
+<td><p>High cloud top level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>HCTL</p></td>
+<td><p>High Cloud Top Level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>HSCLW</p></td>
+<td><p>Highest top level of supercooled liquid water layer</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>HSCLW</p></td>
+<td><p>Highest Top Level of Supercooled Liquid Water Layer</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>HTSLW</p></td>
+<td><p>Highest Top Level of Supercooled Liquid Water Layer</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>HTFL</p></td>
+<td><p>Highest tropospheric freezing level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>HTFL</p></td>
+<td><p>Highest Tropospheric Freezing Level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>HighLayerCompositeReflectivity</p></td>
+<td><p>High Layer Composite Reflectivity (24-60 kft)</p></td>
+<td><p>dBZ</p></td>
+</tr>
+<tr class="row-odd"><td><p>HAVNI</p></td>
+<td><p>High-Level aviation interest</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>HRCONO</p></td>
+<td><p>High risk convective outlook</p></td>
+<td><p>categorical</p></td>
+</tr>
+<tr class="row-odd"><td><p>MCONV</p></td>
+<td><p>Horizontal Moisture Convergence</p></td>
+<td><p>kg kg-1 s-1</p></td>
+</tr>
+<tr class="row-even"><td><p>HMC</p></td>
+<td><p>Horizontal moisture convergence</p></td>
+<td><p>kg/kg*s</p></td>
+</tr>
+<tr class="row-odd"><td><p>MCONV</p></td>
+<td><p>Horizontal Moisture Divergence</p></td>
+<td><p>kg kg-1 s-1</p></td>
+</tr>
+<tr class="row-even"><td><p>MCONV</p></td>
+<td><p>Horizontal Moisture Divergence</p></td>
+<td><p>kg*kg^-1*s^-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>MCONV</p></td>
+<td><p>Horizontal moisture divergence</p></td>
+<td><p>kg/kg*s</p></td>
+</tr>
+<tr class="row-even"><td><p>MCONV</p></td>
+<td><p>Horizontal Moisture Divergence</p></td>
+<td><p>kg/kg*s</p></td>
+</tr>
+<tr class="row-odd"><td><p>MFLX</p></td>
+<td><p>Horizontal momentum flux</p></td>
+<td><p>N/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>MFLX</p></td>
+<td><p>Horizontal Momentum Flux</p></td>
+<td><p>N * m-2</p></td>
+</tr>
+<tr class="row-odd"><td><p>MFLX</p></td>
+<td><p>Horizontal Momentum Flux</p></td>
+<td><p>N/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>CompositeReflectivityMaxHourly</p></td>
+<td><p>Hourly Composite Reflectivity Maximum</p></td>
+<td><p>dBZ</p></td>
+</tr>
+<tr class="row-odd"><td><p>MAXDVV</p></td>
+<td><p>Hourly Maximum of Downward Vertical Vorticity in the lowest 400hPa</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>MAXREF</p></td>
+<td><p>Hourly Maximum of Simulated Reflectivity at 1 km AGL</p></td>
+<td><p>dB</p></td>
+</tr>
+<tr class="row-odd"><td><p>MXUPHL</p></td>
+<td><p>Hourly Maximum of Updraft Helicity over Layer 2-5 km AGL</p></td>
+<td><p>m^2/s^2</p></td>
+</tr>
+<tr class="row-even"><td><p>MXUPHL</p></td>
+<td><p>Hourly Maximum of Updraft Helicity over Layer 2km to 5 km AGL</p></td>
+<td><p>m^2/s^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>MAXUVV</p></td>
+<td><p>Hourly Maximum of Upward Vertical Vorticity in the lowest 400hPa</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>MIXR</p></td>
+<td><p>Humidity Mixing Ratio</p></td>
+<td><p>kg kg-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>MIXR</p></td>
+<td><p>Humidity mixing ratio</p></td>
+<td><p>kg/kg</p></td>
+</tr>
+<tr class="row-even"><td><p>RCQ</p></td>
+<td><p>Humidity parameterin canopy conductance</p></td>
+<td><p>Fraction</p></td>
+</tr>
+<tr class="row-odd"><td><p>RCQ</p></td>
+<td><p>Humidity parameter in canopy conductance</p></td>
+<td><p>Proportion</p></td>
+</tr>
+<tr class="row-even"><td><p>HYBL</p></td>
+<td><p>Hybrid Level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>HCBB</p></td>
+<td><p>ICAO Height at Cumulonimbus Bas</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>HCBT</p></td>
+<td><p>ICAO Height at Cumulonimbus To</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>HECBB</p></td>
+<td><p>ICAO Height at Embedded Cumulonimbus Bas</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>HECBT</p></td>
+<td><p>ICAO Height at Embedded Cumulonimbus To</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>ICAHT</p></td>
+<td><p>ICAO Standard Atmosphere Reference Height</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>ICEC</p></td>
+<td><p>Ice cover</p></td>
+<td><p>Proportion</p></td>
+</tr>
+<tr class="row-odd"><td><p>ICED</p></td>
+<td><p>Ice divergence</p></td>
+<td><p>s^-1</p></td>
+</tr>
+<tr class="row-even"><td><p>FICE</p></td>
+<td><p>Ice fraction of total condensate</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>FICE</p></td>
+<td><p>Ice fraction of total condensate</p></td>
+<td><p>non-dim</p></td>
+</tr>
+<tr class="row-even"><td><p>FICE</p></td>
+<td><p>Ice fraction of total condensate</p></td>
+<td><p>Proportion</p></td>
+</tr>
+<tr class="row-odd"><td><p>surface</p></td>
+<td><p>Ice-free water</p></td>
+<td><p>ICWAT</p></td>
+</tr>
+<tr class="row-even"><td><p>ICWAT</p></td>
+<td><p>Ice-free water surface</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ICEG</p></td>
+<td><p>Ice growth rate</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>IPRATE</p></td>
+<td><p>Ice Pellets Precipitation Rate</p></td>
+<td><p>kg m-2s-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>IPRATE</p></td>
+<td><p>Ice Pellets Precipitation Rate</p></td>
+<td><p>mm/s</p></td>
+</tr>
+<tr class="row-even"><td><p>ICE T</p></td>
+<td><p>Ice Temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>ICETK</p></td>
+<td><p>Ice thickness</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>ICMR</p></td>
+<td><p>Ice Water Mixing Ratio</p></td>
+<td><p>kg kg-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>ICMR</p></td>
+<td><p>Ice water mixing ratio</p></td>
+<td><p>kg/kg</p></td>
+</tr>
+<tr class="row-even"><td><p>ICIB</p></td>
+<td><p>Icing base</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>ICIB</p></td>
+<td><p>Icing Base</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>ICIP</p></td>
+<td><p>Icing</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>ICIP</p></td>
+<td><p>Icing Potential</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>TIPD</p></td>
+<td><p>Icing Potential</p></td>
+<td><p>non-dim</p></td>
+</tr>
+<tr class="row-odd"><td><p>ICPRB</p></td>
+<td><p>Icing probability</p></td>
+<td><p>non-dim</p></td>
+</tr>
+<tr class="row-even"><td><p>ICI</p></td>
+<td><p>Icing
+Icing Severity</p></td>
+<td><p>See Table 4.207
+ICI</p></td>
+</tr>
+<tr class="row-odd"><td><p>ICSEV</p></td>
+<td><p>Icing severity</p></td>
+<td><p>non-dim</p></td>
+</tr>
+<tr class="row-even"><td><p>ICIT</p></td>
+<td><p>Icing top</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>ICIT</p></td>
+<td><p>Icing Top</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>CTP</p></td>
+<td><p>In-Cloud Turbulence</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>IRBand4</p></td>
+<td><p>Infrared Imagery</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>INSTRR</p></td>
+<td><p>Instantaneous rain rate</p></td>
+<td><p>mm / s</p></td>
+</tr>
+<tr class="row-odd"><td><p>LIPMF</p></td>
+<td><p>Integrated column particulate matter (fine)</p></td>
+<td><p>log10(mg * m^-3)</p></td>
+</tr>
+<tr class="row-even"><td><p>LIPMF</p></td>
+<td><p>Integrated column particulate matter (fine)</p></td>
+<td><p>log10(mm*g/m^3)</p></td>
+</tr>
+<tr class="row-odd"><td><p>ILIQW</p></td>
+<td><p>Integrated Liquid Water</p></td>
+<td><p>kg m-2</p></td>
+</tr>
+<tr class="row-even"><td><p>ILW</p></td>
+<td><p>Integrated liquid water</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>TSI</p></td>
+<td><p>Integrated Solar Irradiance</p></td>
+<td><p>W*m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>INTFD</p></td>
+<td><p>Interface Depths</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>IMFTSW</p></td>
+<td><p>Inverse Mean Frequency of The Total Swell</p></td>
+<td><p>s</p></td>
+</tr>
+<tr class="row-even"><td><p>IMFWW</p></td>
+<td><p>Inverse Mean Frequency of The Wind Waves</p></td>
+<td><p>s</p></td>
+</tr>
+<tr class="row-odd"><td><p>IMWF</p></td>
+<td><p>Inverse Mean Wave Frequency</p></td>
+<td><p>s</p></td>
+</tr>
+<tr class="row-even"><td><p>IONDEN</p></td>
+<td><p>Ion Density</p></td>
+<td><p>m^3</p></td>
+</tr>
+<tr class="row-odd"><td><p>IDRL</p></td>
+<td><p>Ionospheric D-region level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>IERL</p></td>
+<td><p>Ionospheric E-region level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>IF1RL</p></td>
+<td><p>Ionospheric F1-region level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>IF2RL</p></td>
+<td><p>Ionospheric F2-region level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>IONTMP</p></td>
+<td><p>Ion Temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>THEL</p></td>
+<td><p>Isentropic (theta) level</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>ISBL</p></td>
+<td><p>Isobaric Surface</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-even"><td><p>TMPL</p></td>
+<td><p>Isothermal Level</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>KX</p></td>
+<td><p>K index</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>KENG</p></td>
+<td><p>Kinetic Energy</p></td>
+<td><p>J/kg</p></td>
+</tr>
+<tr class="row-odd"><td><p>MELBRNE</p></td>
+<td><p>KNES1</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>KOX</p></td>
+<td><p>KO index</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>BENINX</p></td>
+<td><p>Kurtosis of The Sea Surface Elevation Due to Waves</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>LAND</p></td>
+<td><p>Land cover (0=sea, 1=land)</p></td>
+<td><p>Proportion</p></td>
+</tr>
+<tr class="row-odd"><td><p>LANDN</p></td>
+<td><p>Land-sea coverage (nearest neighbor)</p></td>
+<td><p>[land=1,sea=0]</p></td>
+</tr>
+<tr class="row-even"><td><p>LSPA</p></td>
+<td><p>Land Surface Precipitation Accumulation</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>LANDU</p></td>
+<td><p>Land use</p></td>
+<td><p>(Code table 4.212)</p></td>
+</tr>
+<tr class="row-even"><td><p>LAPR</p></td>
+<td><p>Lapse rate</p></td>
+<td><p>K/m</p></td>
+</tr>
+<tr class="row-odd"><td><p>LRGHR</p></td>
+<td><p>Large Scale Condensate Heating rate</p></td>
+<td><p>K/s</p></td>
+</tr>
+<tr class="row-even"><td><p>LRGMR</p></td>
+<td><p>Large scale moistening rate</p></td>
+<td><p>kg/kg/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>NCPCP</p></td>
+<td><p>Large-Scale Precipitation (non-convective)</p></td>
+<td><p>kg m-2</p></td>
+</tr>
+<tr class="row-even"><td><p>NCPCP</p></td>
+<td><p>Large scale precipitation (non-convective)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>LSPRATE</p></td>
+<td><p>Large Scale Precipitation Rate</p></td>
+<td><p>kg m-2s-1</p></td>
+</tr>
+<tr class="row-even"><td><p>LSPRATE</p></td>
+<td><p>Large Scale Precipitation Rate</p></td>
+<td><p>mm/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>LSSRATE</p></td>
+<td><p>Large Scale Snowfall Rate</p></td>
+<td><p>m s-1</p></td>
+</tr>
+<tr class="row-even"><td><p>LSSRATE</p></td>
+<td><p>Large Scale Snowfall Rate</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>LSSRWE</p></td>
+<td><p>Large Scale Snowfall Rate Water Equivalent</p></td>
+<td><p>kg m-2s-1</p></td>
+</tr>
+<tr class="row-even"><td><p>LSSRWE</p></td>
+<td><p>Large Scale Snowfall Rate Water Equivalent</p></td>
+<td><p>mm/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>SNO L</p></td>
+<td><p>Large-Scale Snow</p></td>
+<td><p>kg m-2</p></td>
+</tr>
+<tr class="row-even"><td><p>SNOL</p></td>
+<td><p>Large scale snow</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>LSWP</p></td>
+<td><p>Large Scale Water Precipitation (Non-Convective)</p></td>
+<td><p>kg m-2</p></td>
+</tr>
+<tr class="row-even"><td><p>LSWP</p></td>
+<td><p>Large Scale Water Precipitation (Non-Convective)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>LHTFL</p></td>
+<td><p>Latent heat net flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>NLAT</p></td>
+<td><p>Latitude (-90 to +90)</p></td>
+<td><p>deg</p></td>
+</tr>
+<tr class="row-odd"><td><p>NLAT</p></td>
+<td><p>Latitude (-90 to +90)</p></td>
+<td><p>degrees</p></td>
+</tr>
+<tr class="row-even"><td><p>NLATN</p></td>
+<td><p>Latitude (nearest neighbor) (-90 to +90)</p></td>
+<td><p>degrees</p></td>
+</tr>
+<tr class="row-odd"><td><p>LAPP</p></td>
+<td><p>Latitude of Presure Point</p></td>
+<td><p>degrees</p></td>
+</tr>
+<tr class="row-even"><td><p>LAUV</p></td>
+<td><p>Latitude of U Wind Component of Velocity</p></td>
+<td><p>degrees</p></td>
+</tr>
+<tr class="row-odd"><td><p>LAVV</p></td>
+<td><p>Latitude of V Wind Component of Velocity</p></td>
+<td><p>degrees</p></td>
+</tr>
+<tr class="row-even"><td><p>NONE</p></td>
+<td><p>Layer Between Two Depths Below Ocean Surface</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>OLYR</p></td>
+<td><p>Layer between two depths below ocean surface</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>OLYR</p></td>
+<td><p>Layer Between Two Depths Below Ocean Surface</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>LBTHL</p></td>
+<td><p>Layer Between Two Hybrid Levels</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>NONE</p></td>
+<td><p>Layer Between Two Hybrid Levels</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>LMBSR</p></td>
+<td><p>Layer-maximum base reflectivity</p></td>
+<td><p>dB</p></td>
+</tr>
+<tr class="row-even"><td><p>LOS</p></td>
+<td><p>Layer Ocean Surface and 26C Ocean Isothermal Level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>NONE</p></td>
+<td><p>Layer Ocean Surface and 26C Ocean Isothermal Level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>LAYTH</p></td>
+<td><p>Layer Thickness</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>LAI</p></td>
+<td><p>Leaf Area Index</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>PDLY</p></td>
+<td><p>Level at Specified Pressure Difference from Ground to Level</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-odd"><td><p>SPDL</p></td>
+<td><p>Level at Specified Pressure Difference from Ground to Level</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-even"><td><p>0DEG</p></td>
+<td><p>level of 0C Isotherm</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>ADCL</p></td>
+<td><p>Level of Adiabatic Condensation Lifted from the Surface</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CTL</p></td>
+<td><p>Level of Cloud Tops</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>LTNG</p></td>
+<td><p>Lightning</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>LTNG</p></td>
+<td><p>Lightning</p></td>
+<td><p>non-dim</p></td>
+</tr>
+<tr class="row-odd"><td><p>LMBINT</p></td>
+<td><p>Limb Intensity</p></td>
+<td><p>J*m^2*s^1</p></td>
+</tr>
+<tr class="row-even"><td><p>ARAIN</p></td>
+<td><p>Liquid precipitation (rainfall)</p></td>
+<td><p>kg/m2</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARAIN</p></td>
+<td><p>Liquid precipitation (rainfall)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>LSOIL</p></td>
+<td><p>Liquid soil moisture content (non-frozen)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>LIQVSM</p></td>
+<td><p>Liquid Volumetric Soil Moisture (Non-Frozen)</p></td>
+<td><p>m^3/m^3</p></td>
+</tr>
+<tr class="row-even"><td><p>SOILL</p></td>
+<td><p>Liquid volumetric soil moisture (non-frozen)</p></td>
+<td><p>Proportion</p></td>
+</tr>
+<tr class="row-odd"><td><p>LOPP</p></td>
+<td><p>Longitude of Presure Point</p></td>
+<td><p>degrees</p></td>
+</tr>
+<tr class="row-even"><td><p>LOUV</p></td>
+<td><p>Longitude of U Wind Component of Velocity</p></td>
+<td><p>degrees</p></td>
+</tr>
+<tr class="row-odd"><td><p>LOVV</p></td>
+<td><p>Longitude of V Wind Component of Velocity</p></td>
+<td><p>degrees</p></td>
+</tr>
+<tr class="row-even"><td><p>LWAVR</p></td>
+<td><p>Long wave radiation flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>LWHR</p></td>
+<td><p>Long-Wave Radiative Heating Rate</p></td>
+<td><p>K/s</p></td>
+</tr>
+<tr class="row-even"><td><p>LCBL</p></td>
+<td><p>Low cloud bottom level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>LCBL</p></td>
+<td><p>Low Cloud Bottom Level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>LCDC</p></td>
+<td><p>Low cloud cover</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>LCLY</p></td>
+<td><p>Low Cloud Layer</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>LCY</p></td>
+<td><p>Low cloud layer</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>LCY</p></td>
+<td><p>Low Cloud Layer</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>LCTL</p></td>
+<td><p>Low cloud top level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>LCTL</p></td>
+<td><p>Low Cloud Top Level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>LLSM</p></td>
+<td><p>Lower layer soil moisture</p></td>
+<td><p>kg/m^3</p></td>
+</tr>
+<tr class="row-odd"><td><p>LBSLW</p></td>
+<td><p>Lowest Bottom Level of Supercooled Liquid Water Layer</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>LSCLW</p></td>
+<td><p>Lowest bottom level of supercooled liquid water layer</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>LSCLW</p></td>
+<td><p>Lowest Bottom Level of Supercooled Liquid Water Layer</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>LLTW</p></td>
+<td><p>Lowest level of the wet bulb zero</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>LLTW</p></td>
+<td><p>Lowest Level of the Wet Bulb Zero</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>LWBZ</p></td>
+<td><p>Lowest Level of the Wet Bulb Zero</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>WBZ</p></td>
+<td><p>Lowest Level of the Wet Bulb Zero</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>LowLayerCompositeReflectivity</p></td>
+<td><p>Low Layer Composite Reflectivity (0-24 kft)</p></td>
+<td><p>dBZ</p></td>
+</tr>
+<tr class="row-odd"><td><p>LAVNI</p></td>
+<td><p>Low-Level aviation interest</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>MergedAzShear02kmAGL</p></td>
+<td><p>Low-Level Azimuthal Shear (0-2km AGL)</p></td>
+<td><p>1/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>LLCompositeReflectivity</p></td>
+<td><p>Low-Level Composite Reflectivity</p></td>
+<td><p>dBZ</p></td>
+</tr>
+<tr class="row-even"><td><p>HeightLLCompositeReflectivity</p></td>
+<td><p>Low-Level Composite Reflectivity Height</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>RotationTrackLL120min</p></td>
+<td><p>Low-Level Rotation Tracks 0-2km AGL (120 min. accum.)</p></td>
+<td><p>1/s</p></td>
+</tr>
+<tr class="row-even"><td><p>RotationTrackLL1440min</p></td>
+<td><p>Low-Level Rotation Tracks 0-2km AGL (1440 min. accum.)</p></td>
+<td><p>1/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>RotationTrackLL240min</p></td>
+<td><p>Low-Level Rotation Tracks 0-2km AGL (240 min. accum.)</p></td>
+<td><p>1/s</p></td>
+</tr>
+<tr class="row-even"><td><p>RotationTrackLL30min</p></td>
+<td><p>Low-Level Rotation Tracks 0-2km AGL (30 min. accum.)</p></td>
+<td><p>1/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>RotationTrackLL360min</p></td>
+<td><p>Low-Level Rotation Tracks 0-2km AGL (360 min. accum.)</p></td>
+<td><p>1/s</p></td>
+</tr>
+<tr class="row-even"><td><p>RotationTrackLL60min</p></td>
+<td><p>Low-Level Rotation Tracks 0-2km AGL (60 min. accum.)</p></td>
+<td><p>1/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>BTOT</p></td>
+<td><p>Magnetic Field Magnitude</p></td>
+<td><p>T</p></td>
+</tr>
+<tr class="row-even"><td><p>MTHA</p></td>
+<td><p>Main thermocline anomaly</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>MTHD</p></td>
+<td><p>Main thermocline depth</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>LMH</p></td>
+<td><p>Mass Point Model Surface</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>MAXAH</p></td>
+<td><p>Maximum absolute humidity</p></td>
+<td><p>kg/m^3</p></td>
+</tr>
+<tr class="row-even"><td><p>MAXAH</p></td>
+<td><p>Maximum Absolute Humidity</p></td>
+<td><p>kg m-3</p></td>
+</tr>
+<tr class="row-odd"><td><p>MACAT</p></td>
+<td><p>Maximum Cloud Air Turbulence Potential</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>REFC</p></td>
+<td><p>Maximum/Composite radar reflectivity</p></td>
+<td><p>dB</p></td>
+</tr>
+<tr class="row-odd"><td><p>MTHE</p></td>
+<td><p>Maximum equivalent potential temperature level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>MTHE</p></td>
+<td><p>Maximum Equivalent Potential Temperature level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>MESH</p></td>
+<td><p>Maximum Estimated Size of Hail (MESH)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>MAIP</p></td>
+<td><p>Maximum Icing Potential</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>MAXWH</p></td>
+<td><p>Maximum Individual Wave Height</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>PRPMax</p></td>
+<td><p>Maximum Precipitation Return Period</p></td>
+<td><p>year</p></td>
+</tr>
+<tr class="row-odd"><td><p>QPEFFGMax</p></td>
+<td><p>Maximum QPE-to-FFG Ratio</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>MAXRH</p></td>
+<td><p>Maximum relative humidity</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>MAXRH</p></td>
+<td><p>Maximum Relative Humidity</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>MXSALB</p></td>
+<td><p>Maximum snow albedo</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>MXSALB</p></td>
+<td><p>Maximum Snow Albedo</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>MXSALB</p></td>
+<td><p>Maximum Snow Albedo*</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>QMAX</p></td>
+<td><p>Maximum specific humidity at 2m</p></td>
+<td><p>kg/kg</p></td>
+</tr>
+<tr class="row-even"><td><p>TMAX</p></td>
+<td><p>Maximum temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>MWSL</p></td>
+<td><p>Maximum Wind Level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>MAXWS</p></td>
+<td><p>Maximum wind speed</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>MACTP</p></td>
+<td><p>Max in-Cloud Turbulence Potential</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>MECAT</p></td>
+<td><p>Mean Cloud Air Turbulence Potential</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>MEI</p></td>
+<td><p>Mean Icing Potential</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>MECTP</p></td>
+<td><p>Mean in-Cloud Turbulence Potential</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>MWSPER</p></td>
+<td><p>Mean period of combined wind waves and swell</p></td>
+<td><p>s</p></td>
+</tr>
+<tr class="row-even"><td><p>SWPER</p></td>
+<td><p>Mean period of swell waves</p></td>
+<td><p>s</p></td>
+</tr>
+<tr class="row-odd"><td><p>WVPER</p></td>
+<td><p>Mean period of wind waves</p></td>
+<td><p>s</p></td>
+</tr>
+<tr class="row-even"><td><p>MSL</p></td>
+<td><p>Mean Sea Level</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-odd"><td><p>M2SPW</p></td>
+<td><p>Mean square slope of waves</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>MZPTSW</p></td>
+<td><p>Mean Zero-Crossing Period of The Total Swell</p></td>
+<td><p>s</p></td>
+</tr>
+<tr class="row-odd"><td><p>MZPWW</p></td>
+<td><p>Mean Zero-Crossing Period of The Wind Waves</p></td>
+<td><p>s</p></td>
+</tr>
+<tr class="row-even"><td><p>MZWPER</p></td>
+<td><p>Mean Zero-Crossing Wave Period</p></td>
+<td><p>s</p></td>
+</tr>
+<tr class="row-odd"><td><p>MCDC</p></td>
+<td><p>Medium cloud cover</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>MergedBaseReflectivityQC</p></td>
+<td><p>Merged Base Reflectivity</p></td>
+<td><p>dBZ</p></td>
+</tr>
+<tr class="row-odd"><td><p>MergedReflectivityAtLowestAltitude</p></td>
+<td><p>Merged Reflectivity At Lowest Altitude (RALA)</p></td>
+<td><p>dBZ</p></td>
+</tr>
+<tr class="row-even"><td><p>VGWD</p></td>
+<td><p>Meridional flux of gravity wave stress</p></td>
+<td><p>N/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>V-GWD</p></td>
+<td><p>Meridional Flux of Gravity Wave Stress</p></td>
+<td><p>N/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>MESHTrack120min</p></td>
+<td><p>MESH Tracks (120 min. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>MESHTrack1440min</p></td>
+<td><p>MESH Tracks (1440 min. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>MESHTrack240min</p></td>
+<td><p>MESH Tracks (240 min. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>MESHTrack30min</p></td>
+<td><p>MESH Tracks (30 min. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>MESHTrack360min</p></td>
+<td><p>MESH Tracks (360 min. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>MESHTrack60min</p></td>
+<td><p>MESH Tracks (60 min. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>MCBL</p></td>
+<td><p>Middle cloud bottom level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>MCBL</p></td>
+<td><p>Middle Cloud Bottom Level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>MCLY</p></td>
+<td><p>Middle Cloud Layer</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>MCY</p></td>
+<td><p>Middle cloud layer</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>MCY</p></td>
+<td><p>Middle Cloud Layer</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>MCTL</p></td>
+<td><p>Middle cloud top level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>MCTL</p></td>
+<td><p>Middle Cloud Top Level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>MergedAzShear36kmAGL</p></td>
+<td><p>Mid-Level Azimuthal Shear (3-6km AGL)</p></td>
+<td><p>1/s</p></td>
+</tr>
+<tr class="row-even"><td><p>RotationTrackML120min</p></td>
+<td><p>Mid-Level Rotation Tracks 3-6km AGL (120 min. accum.)</p></td>
+<td><p>1/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>RotationTrackML1440min</p></td>
+<td><p>Mid-Level Rotation Tracks 3-6km AGL (1440 min. accum.)</p></td>
+<td><p>1/s</p></td>
+</tr>
+<tr class="row-even"><td><p>RotationTrackML240min</p></td>
+<td><p>Mid-Level Rotation Tracks 3-6km AGL (240 min. accum.)</p></td>
+<td><p>1/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>RotationTrackML30min</p></td>
+<td><p>Mid-Level Rotation Tracks 3-6km AGL (30 min. accum.)</p></td>
+<td><p>1/s</p></td>
+</tr>
+<tr class="row-even"><td><p>RotationTrackML360min</p></td>
+<td><p>Mid-Level Rotation Tracks 3-6km AGL (360 min. accum.)</p></td>
+<td><p>1/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>RotationTrackML60min</p></td>
+<td><p>Mid-Level Rotation Tracks 3-6km AGL (60 min. accum.)</p></td>
+<td><p>1/s</p></td>
+</tr>
+<tr class="row-even"><td><p>RSMIN</p></td>
+<td><p>Minimal stomatal resistance</p></td>
+<td><p>s/m</p></td>
+</tr>
+<tr class="row-odd"><td><p>DEPMN</p></td>
+<td><p>Minimum dew point depression</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>MINRH</p></td>
+<td><p>Minimum Relative Humidity</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>QMIN</p></td>
+<td><p>Minimum specific humidity at 2m</p></td>
+<td><p>kg/kg</p></td>
+</tr>
+<tr class="row-even"><td><p>TMIN</p></td>
+<td><p>Minimum temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>Entire Atmosphere</p></td>
+<td><p>Missing200</p></td>
+<td><p>200</p></td>
+</tr>
+<tr class="row-even"><td><p>MIXHT</p></td>
+<td><p>mixed layer depth</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>MIXHT</p></td>
+<td><p>Mixed Layer Depth</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>MIXL</p></td>
+<td><p>Mixed Layer Depth</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>MLYNO</p></td>
+<td><p>Model Layer number (From bottom up)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>MTHT</p></td>
+<td><p>Model terrain height</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>MRCONO</p></td>
+<td><p>Moderate risk convective outlook</p></td>
+<td><p>categorical</p></td>
+</tr>
+<tr class="row-even"><td><p>MSTAV</p></td>
+<td><p>Moisture availability</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>UFLX</p></td>
+<td><p>Momentum flux, u component</p></td>
+<td><p>N/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>VFLX</p></td>
+<td><p>Momentum flux, v component</p></td>
+<td><p>N/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>MNTSF</p></td>
+<td><p>Montgomery stream function</p></td>
+<td><p>m^2/s^2</p></td>
+</tr>
+<tr class="row-even"><td><p>MSLET</p></td>
+<td><p>MSLP (Eta model reduction)</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-odd"><td><p>MSLPM</p></td>
+<td><p>MSLP (MAPS System Reduction)</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-even"><td><p>NLGSP</p></td>
+<td><p>Natural Log of Surface Pressure</p></td>
+<td><p>ln(kPa)</p></td>
+</tr>
+<tr class="row-odd"><td><p>NBDSF</p></td>
+<td><p>Near IR Beam Downward Solar Flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>NBSALB</p></td>
+<td><p>Near IR, Black Sky Albedo</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>NDDSF</p></td>
+<td><p>Near IR Diffuse Downward Solar Flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>NWSALB</p></td>
+<td><p>Near IR, White Sky Albedo</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>AOHFLX</p></td>
+<td><p>Net Air-Ocean Heat Flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>NLWRCS</p></td>
+<td><p>Net Long-Wave Radiation Flux, Clear Sky</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>NLWRS</p></td>
+<td><p>Net long wave radiation flux (surface)</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>NLWRT</p></td>
+<td><p>Net long wave radiation flux (top of atmosphere)</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>NLWRF</p></td>
+<td><p>Net Long-Wave Radiation Flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>NSWRFCS</p></td>
+<td><p>Net Short-Wave Radiation Flux, Clear Sky</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>NSWRS</p></td>
+<td><p>Net short-wave radiation flux (surface)</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>NSWRT</p></td>
+<td><p>Net short-wave radiation flux (top of atmosphere)</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>NSWRF</p></td>
+<td><p>Net Short Wave Radiation Flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>NTAT</p></td>
+<td><p>Nominal Top of the Atmosphere</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>CDLYR</p></td>
+<td><p>Non-convective cloud cover</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>CDLYR</p></td>
+<td><p>Non-Convective Cloud Cover
+non-dim</p></td>
+<td><p>%
+CD</p></td>
+</tr>
+<tr class="row-odd"><td><p>NWSTR</p></td>
+<td><p>Normalised Waves Stress</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>NDVI</p></td>
+<td><p>Normalized Difference Vegetation Index</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>NCIP</p></td>
+<td><p>Number concentration for ice particles</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>NCIP</p></td>
+<td><p>Number concentration for ice particles</p></td>
+<td><p>non-dim</p></td>
+</tr>
+<tr class="row-odd"><td><p>MIXLY</p></td>
+<td><p>Number of mixed layers next to surface</p></td>
+<td><p>integer</p></td>
+</tr>
+<tr class="row-even"><td><p>NPIXU</p></td>
+<td><p>Number Of Pixels Used</p></td>
+<td><p>Numeric</p></td>
+</tr>
+<tr class="row-odd"><td><p>RLYRS</p></td>
+<td><p>Number of soil layers in root zone</p></td>
+<td><p>non-dim</p></td>
+</tr>
+<tr class="row-even"><td><p>RLYRS</p></td>
+<td><p>Number of soil layers in root zone</p></td>
+<td><p>Numeric</p></td>
+</tr>
+<tr class="row-odd"><td><p>RLYRS</p></td>
+<td><p>Number of soil layers in root zone</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>OHC</p></td>
+<td><p>Ocean Heat Content</p></td>
+<td><p>J/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>OITL</p></td>
+<td><p>Ocean Isotherm Level (1/10 deg C)</p></td>
+<td><p>C</p></td>
+</tr>
+<tr class="row-even"><td><p>NONE</p></td>
+<td><p>Ocean Isotherm Level</p></td>
+<td><p>1/10 ℃</p></td>
+</tr>
+<tr class="row-odd"><td><p>OITL</p></td>
+<td><p>Ocean Isotherm Level</p></td>
+<td><p>1/10 ℃</p></td>
+</tr>
+<tr class="row-even"><td><p>NONE</p></td>
+<td><p>Ocean Mixed Layer</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>OML</p></td>
+<td><p>Ocean Mixed Layer</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>P2OMLT</p></td>
+<td><p>Ocean Mixed Layer Potential Density (Reference 2000m)</p></td>
+<td><p>kg/m^3</p></td>
+</tr>
+<tr class="row-odd"><td><p>OMLU</p></td>
+<td><p>Ocean Mixed Layer U Velocity</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>OMLV</p></td>
+<td><p>Ocean Mixed Layer V Velocity</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>ELEV</p></td>
+<td><p>Ocean Surface Elevation Relative to Geoid</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>OMGALF</p></td>
+<td><p>Omega (Dp/Dt) divide by density</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>EWATR</p></td>
+<td><p>Open water evaporation (standing water)</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>OSD</p></td>
+<td><p>Ordered Sequence of Data</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>OSEQ</p></td>
+<td><p>Ordered Sequence of Data</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>OZCON</p></td>
+<td><p>Ozone Concentration (PPB)</p></td>
+<td><p>PPB</p></td>
+</tr>
+<tr class="row-odd"><td><p>OZMAX1</p></td>
+<td><p>Ozone Daily Max from 1-hour Average</p></td>
+<td><p>ppbV</p></td>
+</tr>
+<tr class="row-even"><td><p>OZMAX8</p></td>
+<td><p>Ozone Daily Max from 8-hour Average</p></td>
+<td><p>ppbV</p></td>
+</tr>
+<tr class="row-odd"><td><p>O3MR</p></td>
+<td><p>Ozone Mixing Ratio</p></td>
+<td><p>kg * kg^-1</p></td>
+</tr>
+<tr class="row-even"><td><p>O3MR</p></td>
+<td><p>Ozone mixing ratio</p></td>
+<td><p>kg/kg</p></td>
+</tr>
+<tr class="row-odd"><td><p>O3MR</p></td>
+<td><p>Ozone Mixing Ratio</p></td>
+<td><p>kg/kg</p></td>
+</tr>
+<tr class="row-even"><td><p>POZO</p></td>
+<td><p>Ozone production from col ozone term</p></td>
+<td><p>kg/kg/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>POZT</p></td>
+<td><p>Ozone production from temperature term</p></td>
+<td><p>kg/kg/s</p></td>
+</tr>
+<tr class="row-even"><td><p>POZ</p></td>
+<td><p>Ozone production</p></td>
+<td><p>kg/kg/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>TOZ</p></td>
+<td><p>Ozone tendency</p></td>
+<td><p>kg/kg/s</p></td>
+</tr>
+<tr class="row-even"><td><p>VDFOZ</p></td>
+<td><p>Ozone vertical diffusion</p></td>
+<td><p>kg/kg/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>SIGPAR</p></td>
+<td><p>Parallel Conductivity</p></td>
+<td><p>S*m^1</p></td>
+</tr>
+<tr class="row-even"><td><p>PRATMP</p></td>
+<td><p>Parallel Temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLI</p></td>
+<td><p>Parcel lifted index (to 500 mb)</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>PLSMDEN</p></td>
+<td><p>Particle Number Density</p></td>
+<td><p>m^3</p></td>
+</tr>
+<tr class="row-odd"><td><p>PMTC</p></td>
+<td><p>Particulate matter (coarse)</p></td>
+<td><p>mg * m^-3</p></td>
+</tr>
+<tr class="row-even"><td><p>PMTC</p></td>
+<td><p>Particulate matter (coarse)</p></td>
+<td><p>mm*g/m^3</p></td>
+</tr>
+<tr class="row-odd"><td><p>LPMTF</p></td>
+<td><p>Particulate matter (fine)</p></td>
+<td><p>log10(mg * m^-3)</p></td>
+</tr>
+<tr class="row-even"><td><p>LPMTF</p></td>
+<td><p>Particulate matter (fine)</p></td>
+<td><p>log10(mm*g/m^3)</p></td>
+</tr>
+<tr class="row-odd"><td><p>PMTF</p></td>
+<td><p>Particulate matter (fine)</p></td>
+<td><p>mg * m^-3</p></td>
+</tr>
+<tr class="row-even"><td><p>PMTF</p></td>
+<td><p>Particulate matter (fine)</p></td>
+<td><p>mm*g/m^3</p></td>
+</tr>
+<tr class="row-odd"><td><p>PPERTS</p></td>
+<td><p>Peak Period of The Total Swell</p></td>
+<td><p>s</p></td>
+</tr>
+<tr class="row-even"><td><p>PPERWW</p></td>
+<td><p>Peak Period of The Wind Waves</p></td>
+<td><p>s</p></td>
+</tr>
+<tr class="row-odd"><td><p>PWPER</p></td>
+<td><p>Peak Wave Period</p></td>
+<td><p>s</p></td>
+</tr>
+<tr class="row-even"><td><p>SIGPED</p></td>
+<td><p>Pedersen Conductivity</p></td>
+<td><p>S*m^1</p></td>
+</tr>
+<tr class="row-odd"><td><p>CPOFP</p></td>
+<td><p>Percent frozen precipitation</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>PCTP1</p></td>
+<td><p>Percent pcpn in 1st 6-h sub-period of 24 hr period</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>PCTP2</p></td>
+<td><p>Percent pcpn in 2nd 6-h sub-period of 24 hr period</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>PCTP3</p></td>
+<td><p>Percent pcpn in 3rd 6-h sub-period of 24 hr period</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>PCTP4</p></td>
+<td><p>Percent pcpn in 4th 6-h sub-period of 24 hr period</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>PPSUB</p></td>
+<td><p>Percent precipitation in a sub-period of an overall period (Encoded as per cent accumulation over the sub-period)</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>PMAXWH</p></td>
+<td><p>Period of Maximum Individual Wave Height</p></td>
+<td><p>s</p></td>
+</tr>
+<tr class="row-even"><td><p>PRPTMP</p></td>
+<td><p>Perpendicular Temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>PHOTAR</p></td>
+<td><p>Photosynthetically Active Radiation</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>PIXST</p></td>
+<td><p>Pixel scene type</p></td>
+<td><p>(Code table 4.218)</p></td>
+</tr>
+<tr class="row-odd"><td><p>BLD</p></td>
+<td><p>Planetary Boundary Layer</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>HPBL</p></td>
+<td><p>Planetary boundary layer height</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>HPBL</p></td>
+<td><p>Planetary Boundary Layer Height</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>PLBL</p></td>
+<td><p>Planetary Boundary Layer</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>PBLR</p></td>
+<td><p>Planetary boundary layer regime</p></td>
+<td><p>(Code table 4.209)</p></td>
+</tr>
+<tr class="row-even"><td><p>PBLREG</p></td>
+<td><p>Planetary Boundary Layer Regime</p></td>
+<td><p>See Table 4.209</p></td>
+</tr>
+<tr class="row-odd"><td><p>CNWAT</p></td>
+<td><p>Plant canopy surface water</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>PDMAX1</p></td>
+<td><p>PM 2.5 Daily Max from 1-hour Average</p></td>
+<td><p>ug/m^3</p></td>
+</tr>
+<tr class="row-odd"><td><p>PDMAX24</p></td>
+<td><p>PM 2.5 Daily Max from 24-hour Average</p></td>
+<td><p>ug/m^3</p></td>
+</tr>
+<tr class="row-even"><td><p>PEVAP</p></td>
+<td><p>Potential Evaporation</p></td>
+<td><p>kg m-2</p></td>
+</tr>
+<tr class="row-odd"><td><p>PEVAP</p></td>
+<td><p>Potential evaporation</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>PEVAP</p></td>
+<td><p>Potential Evaporation</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>PEVPR</p></td>
+<td><p>Potential Evaporation Rage</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>PEVPR</p></td>
+<td><p>Potential evaporation rate</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>PEVPR</p></td>
+<td><p>Potential Evaporation Rate</p></td>
+<td><p>W m-2</p></td>
+</tr>
+<tr class="row-even"><td><p>THZ0</p></td>
+<td><p>Potential temperature at top of viscous sublayer</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>POT</p></td>
+<td><p>Potential temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>POT</p></td>
+<td><p>Potential temperature (theta)</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>PV</p></td>
+<td><p>Potential vorticity</p></td>
+<td><p>K *m^-2 *kg^-1 *s^-1</p></td>
+</tr>
+<tr class="row-even"><td><p>PV</p></td>
+<td><p>Potential vorticity</p></td>
+<td><p>K *m^-2* kg^-1 *s^-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>PVL</p></td>
+<td><p>Potential Vorticity</p></td>
+<td><p>K * m^2/kg^1*s^1</p></td>
+</tr>
+<tr class="row-even"><td><p>PVORT</p></td>
+<td><p>Potential vorticity</p></td>
+<td><p>K * m^2 * kg^-1* s^-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>PVMWW</p></td>
+<td><p>Potential Vorticity (Mass-Weighted)</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>PWC</p></td>
+<td><p>Precipitable water category</p></td>
+<td><p>(Code table 4.202)</p></td>
+</tr>
+<tr class="row-odd"><td><p>PWCAT</p></td>
+<td><p>Precipitable Water Category</p></td>
+<td><p>See Table 4.202</p></td>
+</tr>
+<tr class="row-even"><td><p>P WAT</p></td>
+<td><p>Precipitable Water</p></td>
+<td><p>kg m-2</p></td>
+</tr>
+<tr class="row-odd"><td><p>PWAT</p></td>
+<td><p>Precipitable water</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>PRCP</p></td>
+<td><p>Precipitation</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>PRATE</p></td>
+<td><p>Precipitation Rate</p></td>
+<td><p>kg m-2 s-1</p></td>
+</tr>
+<tr class="row-even"><td><p>PRATE</p></td>
+<td><p>Precipitation rate</p></td>
+<td><p>mm / s</p></td>
+</tr>
+<tr class="row-odd"><td><p>PTYPE</p></td>
+<td><p>Precipitation type</p></td>
+<td><p>(Code table 4.201)</p></td>
+</tr>
+<tr class="row-even"><td><p>PTYPE</p></td>
+<td><p>Precipitation Type</p></td>
+<td><p>See Table 4.201</p></td>
+</tr>
+<tr class="row-odd"><td><p>PR</p></td>
+<td><p>Precip rate</p></td>
+<td><p>mm/hr</p></td>
+</tr>
+<tr class="row-even"><td><p>(See note 3)</p></td>
+<td><p>Predominant Weather</p></td>
+<td><p>Numeric</p></td>
+</tr>
+<tr class="row-odd"><td><p>PWTHER</p></td>
+<td><p>Predominant Weather</p></td>
+<td><p>Numeric (See note 3)</p></td>
+</tr>
+<tr class="row-even"><td><p>PALT</p></td>
+<td><p>Pressure altitude</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>PRESA</p></td>
+<td><p>Pressure anomaly</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-even"><td><p>PCBB</p></td>
+<td><p>Pressure at Cumulonimbus Bas</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-odd"><td><p>PCBT</p></td>
+<td><p>Pressure at Cumulonimbus To</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-even"><td><p>PECBB</p></td>
+<td><p>Pressure at Embedded Cumulonimbus Bas</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-odd"><td><p>PECBT</p></td>
+<td><p>Pressure at Embedded Cumulonimbus To</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-even"><td><p>PRESDEV</p></td>
+<td><p>Pressure deviation from ground to level</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-odd"><td><p>PRESD</p></td>
+<td><p>Pressure deviation from mean sea level</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-even"><td><p>PRESN</p></td>
+<td><p>Pressure (nearest grid point)</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-odd"><td><p>PLPL</p></td>
+<td><p>Pressure of level from which parcel was lifted</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-even"><td><p>PLPL</p></td>
+<td><p>Pressure of most parcel with highest theta-e in lowest 300 mb</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-odd"><td><p>P</p></td>
+<td><p>Pressure</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-even"><td><p>PRES</p></td>
+<td><p>Pressure</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-odd"><td><p>PRES</p></td>
+<td><p>Pressure</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-even"><td><p>PRMSL</p></td>
+<td><p>Pressure reduced to MSL</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-odd"><td><p>PTEND</p></td>
+<td><p>Pressure tendency</p></td>
+<td><p>Pa/s</p></td>
+</tr>
+<tr class="row-even"><td><p>DIRPW</p></td>
+<td><p>Primary wave direction</p></td>
+<td><p>Degree</p></td>
+</tr>
+<tr class="row-odd"><td><p>PERPW</p></td>
+<td><p>Primary wave mean period</p></td>
+<td><p>s</p></td>
+</tr>
+<tr class="row-even"><td><p>POP</p></td>
+<td><p>Probability of 0.01 inches of precipitation</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>POP</p></td>
+<td><p>Probability of 0.01 inch of precipitation (POP)</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>PROCON</p></td>
+<td><p>Probability of Convection</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>PPFFG</p></td>
+<td><p>Probability of Excessive Rain</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>CPOZP</p></td>
+<td><p>Probability of Freezing Precipitation</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>PFREZPREC</p></td>
+<td><p>Probability of Freezing Precipitation</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>CPOFP</p></td>
+<td><p>Probability of Frozen Precipitation</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>PFROZPREC</p></td>
+<td><p>Probability of Frozen Precipitation</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>PPFFG</p></td>
+<td><p>Probability of precipitation exceeding flash flood guidance values</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>POSH</p></td>
+<td><p>Probability of Severe Hail (POSH)</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>WarmRainProbability</p></td>
+<td><p>Probability of Warm Rain</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>CWR</p></td>
+<td><p>Probability of Wetting Rain, exceeding in 0.10” in a given time period</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>PTAN</p></td>
+<td><p>Prob of Temperature above normal</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>PTBN</p></td>
+<td><p>Prob of Temperature below normal</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>PTNN</p></td>
+<td><p>Prob of Temperature near normal</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>PPAN</p></td>
+<td><p>Prob of Total Precipitation above normal</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>PPBN</p></td>
+<td><p>Prob of Total Precipitation below normal</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>PPNN</p></td>
+<td><p>Prob of Total Precipitation near normal</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>PROTDEN</p></td>
+<td><p>Proton Density</p></td>
+<td><p>m^3</p></td>
+</tr>
+<tr class="row-odd"><td><p>DIFPFLUX</p></td>
+<td><p>Proton Flux (Differential)</p></td>
+<td><p>(m^2*s*sr*eV)^1</p></td>
+</tr>
+<tr class="row-even"><td><p>INTPFLUX</p></td>
+<td><p>Proton Flux (Integral)</p></td>
+<td><p>(m^2*s*sr)^1</p></td>
+</tr>
+<tr class="row-odd"><td><p>PROTTMP</p></td>
+<td><p>Proton Temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>EPOT</p></td>
+<td><p>Pseudo-adiabatic potential temperature or equivalent potential temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>MountainMapperQPE12H</p></td>
+<td><p>QPE - Mountain Mapper (12 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>MountainMapperQPE01H</p></td>
+<td><p>QPE - Mountain Mapper (1 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>MountainMapperQPE24H</p></td>
+<td><p>QPE - Mountain Mapper (24 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>MountainMapperQPE03H</p></td>
+<td><p>QPE - Mountain Mapper (3 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>MountainMapperQPE48H</p></td>
+<td><p>QPE - Mountain Mapper (48 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>MountainMapperQPE06H</p></td>
+<td><p>QPE - Mountain Mapper (6 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>MountainMapperQPE72H</p></td>
+<td><p>QPE - Mountain Mapper (72 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>GaugeOnlyQPE12H</p></td>
+<td><p>QPE - Radar Gauge Only (12 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>GaugeOnlyQPE01H</p></td>
+<td><p>QPE - Radar Gauge Only (1 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>GaugeOnlyQPE24H</p></td>
+<td><p>QPE - Radar Gauge Only (24 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>GaugeOnlyQPE03H</p></td>
+<td><p>QPE - Radar Gauge Only (3 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>GaugeOnlyQPE48H</p></td>
+<td><p>QPE - Radar Gauge Only (48 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>GaugeOnlyQPE06H</p></td>
+<td><p>QPE - Radar Gauge Only (6 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>GaugeOnlyQPE72H</p></td>
+<td><p>QPE - Radar Gauge Only (72 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>RadarOnlyQPE12H</p></td>
+<td><p>QPE - Radar Only (12 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>RadarOnlyQPE01H</p></td>
+<td><p>QPE - Radar Only (1 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>RadarOnlyQPE24H</p></td>
+<td><p>QPE - Radar Only (24 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>RadarOnlyQPE03H</p></td>
+<td><p>QPE - Radar Only (3 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>RadarOnlyQPE48H</p></td>
+<td><p>QPE - Radar Only (48 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>RadarOnlyQPE06H</p></td>
+<td><p>QPE - Radar Only (6 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>RadarOnlyQPE72H</p></td>
+<td><p>QPE - Radar Only (72 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>GaugeCorrQPE12H</p></td>
+<td><p>QPE - Radar with Gauge Bias Correction (12 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>GaugeCorrQPE01H</p></td>
+<td><p>QPE - Radar with Gauge Bias Correction (1 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>GaugeCorrQPE24H</p></td>
+<td><p>QPE - Radar with Gauge Bias Correction (24 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>GaugeCorrQPE03H</p></td>
+<td><p>QPE - Radar with Gauge Bias Correction (3 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>GaugeCorrQPE48H</p></td>
+<td><p>QPE - Radar with Gauge Bias Correction (48 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>GaugeCorrQPE06H</p></td>
+<td><p>QPE - Radar with Gauge Bias Correction (6 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>GaugeCorrQPE72H</p></td>
+<td><p>QPE - Radar with Gauge Bias Correction (72 hr. accum.)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>PrecipRate</p></td>
+<td><p>Radar Precipitation Rate (SPR)</p></td>
+<td><p>mm/hr</p></td>
+</tr>
+<tr class="row-even"><td><p>RadarQualityIndex</p></td>
+<td><p>Radar Quality Index (RQI)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>RDSP1</p></td>
+<td><p>Radar spectra (1)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>RDSP2</p></td>
+<td><p>Radar spectra (2)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>RDSP3</p></td>
+<td><p>Radar spectra (3)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>RDLNUM</p></td>
+<td><p>Radial number (2pi/lambda)</p></td>
+<td><p>m-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>SWRAD</p></td>
+<td><p>Radiance (with respect to wave length)</p></td>
+<td><p>W * m^-3 *sr^-1</p></td>
+</tr>
+<tr class="row-even"><td><p>LWRAD</p></td>
+<td><p>Radiance (with respect to wave number)</p></td>
+<td><p>W * m^-1 *sr^-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>EPSR</p></td>
+<td><p>Radiative emissivity</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>EPSR</p></td>
+<td><p>Radiative emissivity</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>FRAIN</p></td>
+<td><p>Rain fraction of total cloud water</p></td>
+<td><p>Proportion</p></td>
+</tr>
+<tr class="row-even"><td><p>FRAIN</p></td>
+<td><p>Rain Fraction of Total Liquid Water</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>FRAIN</p></td>
+<td><p>Rain Fraction of Total Liquid Water</p></td>
+<td><p>non-dim</p></td>
+</tr>
+<tr class="row-even"><td><p>FRAIN</p></td>
+<td><p>Rain Fraction of Total Liquid Water</p></td>
+<td><p>Proportion</p></td>
+</tr>
+<tr class="row-odd"><td><p>RWMR</p></td>
+<td><p>Rain Mixing Ratio</p></td>
+<td><p>kg kg-1</p></td>
+</tr>
+<tr class="row-even"><td><p>RWMR</p></td>
+<td><p>Rain mixing ratio</p></td>
+<td><p>kg/kg</p></td>
+</tr>
+<tr class="row-odd"><td><p>RPRATE</p></td>
+<td><p>Rain Precipitation Rate</p></td>
+<td><p>kg m-2s-1</p></td>
+</tr>
+<tr class="row-even"><td><p>RPRATE</p></td>
+<td><p>Rain Precipitation Rate</p></td>
+<td><p>mm/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>RDRIP</p></td>
+<td><p>Rate of water dropping from canopy to ground</p></td>
+<td><p>unknown</p></td>
+</tr>
+<tr class="row-even"><td><p>ground</p></td>
+<td><p>Rate of water dropping from canopy to</p></td>
+<td><p>RDRIP</p></td>
+</tr>
+<tr class="row-odd"><td><p>MergedReflectivityComposite</p></td>
+<td><p>Raw Composite Reflectivity Mosaic</p></td>
+<td><p>dBZ</p></td>
+</tr>
+<tr class="row-even"><td><p>MergedBaseReflectivity</p></td>
+<td><p>Raw Merged Base Reflectivity</p></td>
+<td><p>dBZ</p></td>
+</tr>
+<tr class="row-odd"><td><p>RFL06</p></td>
+<td><p>Reflectance in 0.6 Micron Channel</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>RFL08</p></td>
+<td><p>Reflectance in 0.8 Micron Channel</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>RFL16</p></td>
+<td><p>Reflectance in 1.6 Micron Channel</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>RFL39</p></td>
+<td><p>Reflectance in 3.9 Micron Channel</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>Reflectivity0C</p></td>
+<td><p>Reflectivity at 0C</p></td>
+<td><p>dBZ</p></td>
+</tr>
+<tr class="row-even"><td><p>ReflectivityM10C</p></td>
+<td><p>Reflectivity at -10C</p></td>
+<td><p>dBZ</p></td>
+</tr>
+<tr class="row-odd"><td><p>ReflectivityM15C</p></td>
+<td><p>Reflectivity at -15C</p></td>
+<td><p>dBZ</p></td>
+</tr>
+<tr class="row-even"><td><p>REFD</p></td>
+<td><p>Reflectivity at 1 km AGL</p></td>
+<td><p>dB</p></td>
+</tr>
+<tr class="row-odd"><td><p>ReflectivityM20C</p></td>
+<td><p>Reflectivity at -20C</p></td>
+<td><p>dBZ</p></td>
+</tr>
+<tr class="row-even"><td><p>ReflectivityM5C</p></td>
+<td><p>Reflectivity at -5C</p></td>
+<td><p>dBZ</p></td>
+</tr>
+<tr class="row-odd"><td><p>ReflectivityAtLowestAltitude</p></td>
+<td><p>Reflectivity At Lowest Altitude (RALA)</p></td>
+<td><p>dBZ</p></td>
+</tr>
+<tr class="row-even"><td><p>REFD</p></td>
+<td><p>Reflectivity</p></td>
+<td><p>dB</p></td>
+</tr>
+<tr class="row-odd"><td><p>RAZA</p></td>
+<td><p>Relative Azimuth Angle</p></td>
+<td><p>Degree</p></td>
+</tr>
+<tr class="row-even"><td><p>RELD</p></td>
+<td><p>Relative divergence</p></td>
+<td><p>s^-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>REV</p></td>
+<td><p>Relative Error Variance</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>RH</p></td>
+<td><p>Relative humidity</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>R H</p></td>
+<td><p>Relative Humidity</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>RHPW</p></td>
+<td><p>Relative Humidity with Respect to Precipitable Water</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>RELV</p></td>
+<td><p>Relative vorticity</p></td>
+<td><p>s^-1</p></td>
+</tr>
+<tr class="row-even"><td><p>RSSC</p></td>
+<td><p>Remotely sensed snow cover</p></td>
+<td><p>(Code table 4.215)</p></td>
+</tr>
+<tr class="row-odd"><td><p>RI</p></td>
+<td><p>Richardson number</p></td>
+<td><p>Numeric</p></td>
+</tr>
+<tr class="row-even"><td><p>RI</p></td>
+<td><p>Richardson Number</p></td>
+<td><p>Numeric</p></td>
+</tr>
+<tr class="row-odd"><td><p>FRIME</p></td>
+<td><p>Rime Factor</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>RIME</p></td>
+<td><p>Rime Factor</p></td>
+<td><p>non-dim</p></td>
+</tr>
+<tr class="row-odd"><td><p>RIME</p></td>
+<td><p>Rime factor</p></td>
+<td><p>Numeric</p></td>
+</tr>
+<tr class="row-even"><td><p>RIME</p></td>
+<td><p>Rime Factor</p></td>
+<td><p>Numeric</p></td>
+</tr>
+<tr class="row-odd"><td><p>RIME</p></td>
+<td><p>Rime Factor</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>SFCRH</p></td>
+<td><p>Roughness length for heat</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>SALTY</p></td>
+<td><p>Salinity</p></td>
+<td><p>kg/kg</p></td>
+</tr>
+<tr class="row-even"><td><p>SLTFL</p></td>
+<td><p>Salt Flux</p></td>
+<td><p>mm*s</p></td>
+</tr>
+<tr class="row-odd"><td><p>SATD</p></td>
+<td><p>Saturation deficit</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-even"><td><p>SAT D</p></td>
+<td><p>Saturation Deficit</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-odd"><td><p>SATOSM</p></td>
+<td><p>Saturation Of Soil Moisture</p></td>
+<td><p>kg/m^3</p></td>
+</tr>
+<tr class="row-even"><td><p>SCALB</p></td>
+<td><p>Scaled albedo</p></td>
+<td><p>Numeric</p></td>
+</tr>
+<tr class="row-odd"><td><p>SCBT</p></td>
+<td><p>Scaled brightness temperature</p></td>
+<td><p>Numeric</p></td>
+</tr>
+<tr class="row-even"><td><p>SCCTP</p></td>
+<td><p>Scaled cloud top pressure</p></td>
+<td><p>Numeric</p></td>
+</tr>
+<tr class="row-odd"><td><p>SCLI</p></td>
+<td><p>Scaled lifted index</p></td>
+<td><p>Numeric</p></td>
+</tr>
+<tr class="row-even"><td><p>SCPW</p></td>
+<td><p>Scaled precipitable water</p></td>
+<td><p>Numeric</p></td>
+</tr>
+<tr class="row-odd"><td><p>SCRAD</p></td>
+<td><p>Scaled radiance</p></td>
+<td><p>Numeric</p></td>
+</tr>
+<tr class="row-even"><td><p>SCST</p></td>
+<td><p>Scaled skin temperature</p></td>
+<td><p>Numeric</p></td>
+</tr>
+<tr class="row-odd"><td><p>SCESTUWIND</p></td>
+<td><p>Scatterometer Estimated U Wind Component</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>SCESTVWIND</p></td>
+<td><p>Scatterometer Estimated V Wind Component</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>SCINT</p></td>
+<td><p>Scintillation</p></td>
+<td><p>Numeric</p></td>
+</tr>
+<tr class="row-even"><td><p>SEAB</p></td>
+<td><p>Sea Bottom</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>SeamlessHSR</p></td>
+<td><p>Seamless Hybrid Scan Reflectivity (SHSR)</p></td>
+<td><p>dBZ</p></td>
+</tr>
+<tr class="row-even"><td><p>SeamlessHSRHeight</p></td>
+<td><p>Seamless Hybrid Scan Reflectivity (SHSR) Height</p></td>
+<td><p>km</p></td>
+</tr>
+<tr class="row-odd"><td><p>SSHG</p></td>
+<td><p>Sea Surface Height Relative to Geoid</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>DIRSW</p></td>
+<td><p>Secondary wave direction</p></td>
+<td><p>Degree</p></td>
+</tr>
+<tr class="row-odd"><td><p>PERSW</p></td>
+<td><p>Secondary wave mean periods</p></td>
+<td><p>s</p></td>
+</tr>
+<tr class="row-even"><td><p>s</p></td>
+<td><p>Seconds prior to initial reference time (defined in Section 1)</p></td>
+<td><p>TSEC</p></td>
+</tr>
+<tr class="row-odd"><td><p>TSEC</p></td>
+<td><p>Seconds prior to initial reference time</p></td>
+<td><p>s</p></td>
+</tr>
+<tr class="row-even"><td><p>TSEC</p></td>
+<td><p>Seconds Prior To Initial Reference Time</p></td>
+<td><p>s</p></td>
+</tr>
+<tr class="row-odd"><td><p>SHTFL</p></td>
+<td><p>Sensible heat net flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>SHI</p></td>
+<td><p>Severe Hail Index (SHI)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>SCBL</p></td>
+<td><p>Shallow convective cloud bottom level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>SCBL</p></td>
+<td><p>Shallow Convective Cloud Bottom Level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>SCCBT</p></td>
+<td><p>Shallow Convective Cloud Bottom Level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>SCCTL</p></td>
+<td><p>Shallow Convective Cloud Top Level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>SCTL</p></td>
+<td><p>Shallow convective cloud top level</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>SCTL</p></td>
+<td><p>Shallow Convective Cloud Top Level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>SHAHR</p></td>
+<td><p>Shallow Convective Heating rate</p></td>
+<td><p>K/s</p></td>
+</tr>
+<tr class="row-even"><td><p>SHAMR</p></td>
+<td><p>Shallow Convective Moistening Rate</p></td>
+<td><p>kg kg-1 s-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>SHAMR</p></td>
+<td><p>Shallow Convective Moistening Rate</p></td>
+<td><p>kg/kg*s</p></td>
+</tr>
+<tr class="row-even"><td><p>SWAVR</p></td>
+<td><p>Short wave radiation flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>SGCVV</p></td>
+<td><p>Sigma coordinate vertical velocity</p></td>
+<td><p>s^-1</p></td>
+</tr>
+<tr class="row-even"><td><p>SIGL</p></td>
+<td><p>Sigma Level</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>SHAILPRO</p></td>
+<td><p>Significant Hail probability</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>SIGHAILPROB</p></td>
+<td><p>Significant Hail probability</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>HTSGW</p></td>
+<td><p>Significant height of combined wind waves and swell</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>SWELL</p></td>
+<td><p>Significant height of swell waves</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>WVHGT</p></td>
+<td><p>Significant height of wind waves (m)</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>SIGTRNDPROB</p></td>
+<td><p>Significant Tornado probability</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>STORPROB</p></td>
+<td><p>Significant Tornado probability</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>SIGWINDPROB</p></td>
+<td><p>Significant Wind probability</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>SWINDPRO</p></td>
+<td><p>Significant Wind probability
+Silt loam</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>SBC123</p></td>
+<td><p>Simulated Brightness Counts for GOES 12, Channel 3</p></td>
+<td><p>Byte</p></td>
+</tr>
+<tr class="row-odd"><td><p>SBC124</p></td>
+<td><p>Simulated Brightness Counts for GOES 12, Channel 4</p></td>
+<td><p>Byte</p></td>
+</tr>
+<tr class="row-even"><td><p>SBTA1610</p></td>
+<td><p>Simulated Brightness Temperature for ABI GOES-16, Band-10</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>SBTA1611</p></td>
+<td><p>Simulated Brightness Temperature for ABI GOES-16, Band-11</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>SBTA1612</p></td>
+<td><p>Simulated Brightness Temperature for ABI GOES-16, Band-12</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>SBTA1613</p></td>
+<td><p>Simulated Brightness Temperature for ABI GOES-16, Band-13</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>SBTA1614</p></td>
+<td><p>Simulated Brightness Temperature for ABI GOES-16, Band-14</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>SBTA1615</p></td>
+<td><p>Simulated Brightness Temperature for ABI GOES-16, Band-15</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>SBTA1616</p></td>
+<td><p>Simulated Brightness Temperature for ABI GOES-16, Band-16</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>SBTA167</p></td>
+<td><p>Simulated Brightness Temperature for ABI GOES-16, Band-7</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>SBTA168</p></td>
+<td><p>Simulated Brightness Temperature for ABI GOES-16, Band-8</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>SBTA169</p></td>
+<td><p>Simulated Brightness Temperature for ABI GOES-16, Band-9</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>SBTA1710</p></td>
+<td><p>Simulated Brightness Temperature for ABI GOES-17, Band-10</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>SBTA1711</p></td>
+<td><p>Simulated Brightness Temperature for ABI GOES-17, Band-11</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>SBTA1712</p></td>
+<td><p>Simulated Brightness Temperature for ABI GOES-17, Band-12</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>SBTA1713</p></td>
+<td><p>Simulated Brightness Temperature for ABI GOES-17, Band-13</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>SBTA1714</p></td>
+<td><p>Simulated Brightness Temperature for ABI GOES-17, Band-14</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>SBTA1715</p></td>
+<td><p>Simulated Brightness Temperature for ABI GOES-17, Band-15</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>SBTA1716</p></td>
+<td><p>Simulated Brightness Temperature for ABI GOES-17, Band-16</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>SBTA177</p></td>
+<td><p>Simulated Brightness Temperature for ABI GOES-17, Band-7</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>SBTA178</p></td>
+<td><p>Simulated Brightness Temperature for ABI GOES-17, Band-8</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>SBTA179</p></td>
+<td><p>Simulated Brightness Temperature for ABI GOES-17, Band-9</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>AMSRE10</p></td>
+<td><p>Simulated Brightness Temperature for AMSRE on Aqua, Channel 10</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>AMSRE11</p></td>
+<td><p>Simulated Brightness Temperature for AMSRE on Aqua, Channel 11</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>AMSRE12</p></td>
+<td><p>Simulated Brightness Temperature for AMSRE on Aqua, Channel 12</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>AMSRE9</p></td>
+<td><p>Simulated Brightness Temperature for AMSRE on Aqua, Channel 9</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>SBT112</p></td>
+<td><p>Simulated Brightness Temperature for GOES 11, Channel 2</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>SBT113</p></td>
+<td><p>Simulated Brightness Temperature for GOES 11, Channel 3</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>SBT114</p></td>
+<td><p>Simulated Brightness Temperature for GOES 11, Channel 4</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>SBT115</p></td>
+<td><p>Simulated Brightness Temperature for GOES 11, Channel 5</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>SBT122</p></td>
+<td><p>Simulated Brightness Temperature for GOES 12, Channel 2</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>SBT123</p></td>
+<td><p>Simulated Brightness Temperature for GOES 12, Channel 3</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>SBT124</p></td>
+<td><p>Simulated Brightness Temperature for GOES 12, Channel 4</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>SBT125</p></td>
+<td><p>Simulated Brightness Temperature for GOES 12, Channel 5</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>SBT124</p></td>
+<td><p>Simulated Brightness Temperature for GOES E Infrared</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>SBT123</p></td>
+<td><p>Simulated Brightness Temperature for GOES E Water Vapor</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>SBT114</p></td>
+<td><p>Simulated Brightness Temperature for GOES W Infrared</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>SBT113</p></td>
+<td><p>Simulated Brightness Temperature for GOES W Water Vapor</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>SRFA161</p></td>
+<td><p>Simulated Reflectance Factor for ABI GOES-16, Band-1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>SRFA162</p></td>
+<td><p>Simulated Reflectance Factor for ABI GOES-16, Band-2</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>SRFA163</p></td>
+<td><p>Simulated Reflectance Factor for ABI GOES-16, Band-3</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>SRFA164</p></td>
+<td><p>Simulated Reflectance Factor for ABI GOES-16, Band-4</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>SRFA165</p></td>
+<td><p>Simulated Reflectance Factor for ABI GOES-16, Band-5</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>SRFA166</p></td>
+<td><p>Simulated Reflectance Factor for ABI GOES-16, Band-6</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>SRFA171</p></td>
+<td><p>Simulated Reflectance Factor for ABI GOES-17, Band-1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>SRFA172</p></td>
+<td><p>Simulated Reflectance Factor for ABI GOES-17, Band-2</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>SRFA173</p></td>
+<td><p>Simulated Reflectance Factor for ABI GOES-17, Band-3</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>SRFA174</p></td>
+<td><p>Simulated Reflectance Factor for ABI GOES-17, Band-4</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>SRFA175</p></td>
+<td><p>Simulated Reflectance Factor for ABI GOES-17, Band-5</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>SRFA176</p></td>
+<td><p>Simulated Reflectance Factor for ABI GOES-17, Band-6</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>SKTMP</p></td>
+<td><p>Skin Temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>SRCONO</p></td>
+<td><p>Slight risk convective outlook</p></td>
+<td><p>categorical</p></td>
+</tr>
+<tr class="row-even"><td><p>SSGSO</p></td>
+<td><p>Slope Of Sub-Grid Scale Orography</p></td>
+<td><p>Numeric</p></td>
+</tr>
+<tr class="row-odd"><td><p>SNOAG</p></td>
+<td><p>Snow age</p></td>
+<td><p>day</p></td>
+</tr>
+<tr class="row-even"><td><p>SNOAG</p></td>
+<td><p>Snow Age</p></td>
+<td><p>day</p></td>
+</tr>
+<tr class="row-odd"><td><p>SALBD</p></td>
+<td><p>Snow Albedo</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>SCE</p></td>
+<td><p>Snow Cover by elevation (snow=0-252,neither=253,clouds=254)</p></td>
+<td><p>dm</p></td>
+</tr>
+<tr class="row-odd"><td><p>SCP</p></td>
+<td><p>Snow Cover</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>SC</p></td>
+<td><p>Snow Cover (snow=250,clouds=100,neither=50)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>SNOWC</p></td>
+<td><p>Snow cover</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>SNOWC</p></td>
+<td><p>Snow Cover</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>SDEN</p></td>
+<td><p>Snow Density</p></td>
+<td><p>kg m-3</p></td>
+</tr>
+<tr class="row-even"><td><p>SDEN</p></td>
+<td><p>Snow Density</p></td>
+<td><p>kg/m^3</p></td>
+</tr>
+<tr class="row-odd"><td><p>SNOD</p></td>
+<td><p>Snow depth</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>SNO D</p></td>
+<td><p>Snow Depth</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>SDWE</p></td>
+<td><p>Snow Depth Water Equivalent</p></td>
+<td><p>kg m-2</p></td>
+</tr>
+<tr class="row-even"><td><p>SDWE</p></td>
+<td><p>Snow Depth Water Equivalent</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>SEVAP</p></td>
+<td><p>Snow Evaporation</p></td>
+<td><p>kg m-2</p></td>
+</tr>
+<tr class="row-even"><td><p>SEVAP</p></td>
+<td><p>Snow Evaporation</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>SRWEQ</p></td>
+<td><p>Snowfall Rate Water Equivalent</p></td>
+<td><p>kg m-2 s-1</p></td>
+</tr>
+<tr class="row-even"><td><p>SRWEQ</p></td>
+<td><p>Snowfall rate water equivalent</p></td>
+<td><p>mm / s</p></td>
+</tr>
+<tr class="row-odd"><td><p>SNFALB</p></td>
+<td><p>Snow free albedo</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>SNFALB</p></td>
+<td><p>Snow-Free Albedo</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>SNO M</p></td>
+<td><p>Snow Melt</p></td>
+<td><p>kg m-2</p></td>
+</tr>
+<tr class="row-even"><td><p>SNOM</p></td>
+<td><p>Snow melt</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>SNMR</p></td>
+<td><p>Snow Mixing Ratio</p></td>
+<td><p>kg kg-1</p></td>
+</tr>
+<tr class="row-even"><td><p>SNMR</p></td>
+<td><p>Snow mixing ratio</p></td>
+<td><p>kg/kg</p></td>
+</tr>
+<tr class="row-odd"><td><p>SNOHF</p></td>
+<td><p>Snow phase change heat flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>SNOHF</p></td>
+<td><p>Snow Phase Change Heat Flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>SPRATE</p></td>
+<td><p>Snow Precipitation Rate</p></td>
+<td><p>kg m-2s-1</p></td>
+</tr>
+<tr class="row-even"><td><p>SPRATE</p></td>
+<td><p>Snow Precipitation Rate</p></td>
+<td><p>mm/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>SNOWT</p></td>
+<td><p>Snow temperature, depth-avg</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>SNOT</p></td>
+<td><p>Snow temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>SNO T</p></td>
+<td><p>Snow temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>SNOT</p></td>
+<td><p>Snow Temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>SCE</p></td>
+<td><p>Snow water equivalent</p></td>
+<td><p>cm</p></td>
+</tr>
+<tr class="row-even"><td><p>SWEPN</p></td>
+<td><p>Snow water equivalent percent of normal</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>SOILM</p></td>
+<td><p>Soil moisture content</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>SOILM</p></td>
+<td><p>Soil Moisture</p></td>
+<td><p>kg/m^3</p></td>
+</tr>
+<tr class="row-odd"><td><p>RCSOL</p></td>
+<td><p>Soil moisture parameter in canopy conductance</p></td>
+<td><p>Fraction</p></td>
+</tr>
+<tr class="row-even"><td><p>RCSOL</p></td>
+<td><p>Soil moisture parameter in canopy conductance</p></td>
+<td><p>Proportion</p></td>
+</tr>
+<tr class="row-odd"><td><p>SOILP</p></td>
+<td><p>Soil Porosity</p></td>
+<td><p>m^3/m^3</p></td>
+</tr>
+<tr class="row-even"><td><p>POROS</p></td>
+<td><p>Soil porosity</p></td>
+<td><p>Proportion</p></td>
+</tr>
+<tr class="row-odd"><td><p>TSOIL</p></td>
+<td><p>Soil temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>SOTYP</p></td>
+<td><p>Soil type</p></td>
+<td><p>index</p></td>
+</tr>
+<tr class="row-odd"><td><p>EUVIRR</p></td>
+<td><p>Solar EUV Irradiance</p></td>
+<td><p>W*m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>RCS</p></td>
+<td><p>Solar parameter in canopy conductance</p></td>
+<td><p>Fraction</p></td>
+</tr>
+<tr class="row-odd"><td><p>RCS</p></td>
+<td><p>Solar parameter in canopy conductance</p></td>
+<td><p>Proportion</p></td>
+</tr>
+<tr class="row-even"><td><p>SP</p></td>
+<td><p>Solar photosphere</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>SWHR</p></td>
+<td><p>Solar Radiative Heating Rate</p></td>
+<td><p>K/s</p></td>
+</tr>
+<tr class="row-even"><td><p>SOLRF</p></td>
+<td><p>Solar Radio Emissions</p></td>
+<td><p>W*m^2*Hz^1</p></td>
+</tr>
+<tr class="row-odd"><td><p>SPECIRR</p></td>
+<td><p>Solar Spectral Irradiance</p></td>
+<td><p>W*m^2*n*m^1</p></td>
+</tr>
+<tr class="row-even"><td><p>XLONG</p></td>
+<td><p>Solar X-ray Flux (XRS Long)</p></td>
+<td><p>W*m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>XSHRT</p></td>
+<td><p>Solar X-ray Flux (XRS Short)</p></td>
+<td><p>W*m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>SOLZA</p></td>
+<td><p>Solar Zenith Angle</p></td>
+<td><p>Degree</p></td>
+</tr>
+<tr class="row-odd"><td><p>AMSL</p></td>
+<td><p>Specific Altitude Above Mean Sea Level</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>QZ0</p></td>
+<td><p>Specific humidity at top of viscous sublayer</p></td>
+<td><p>kg/kg</p></td>
+</tr>
+<tr class="row-odd"><td><p>SPF H</p></td>
+<td><p>Specific Humidity</p></td>
+<td><p>kg kg-1</p></td>
+</tr>
+<tr class="row-even"><td><p>SPFH</p></td>
+<td><p>Specific humidity</p></td>
+<td><p>kg/kg</p></td>
+</tr>
+<tr class="row-odd"><td><p>HTGL</p></td>
+<td><p>Specified Height Level Above Ground</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>SRCS</p></td>
+<td><p>Specified radius from the center of the Sun</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>DWWW</p></td>
+<td><p>Spectal directional width of the wind waves</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>SPFTR</p></td>
+<td><p>Spectral Peakedness Factor</p></td>
+<td><p>s^-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>SICED</p></td>
+<td><p>Speed of ice drift</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>SPRDF</p></td>
+<td><p>Spread F</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>HSTDV</p></td>
+<td><p>Standard deviation of height</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>SDSGSO</p></td>
+<td><p>Standard Deviation Of Sub-Grid Scale Orography</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>TSD1D</p></td>
+<td><p>Standard Dev. of IR Temp. over 1x1 deg. area</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>HLCY</p></td>
+<td><p>Storm relative helicity</p></td>
+<td><p>J/kg</p></td>
+</tr>
+<tr class="row-odd"><td><p>SSRUN</p></td>
+<td><p>Storm surface runoff</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>SURGE</p></td>
+<td><p>Storm Surge</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>STPA</p></td>
+<td><p>Storm total precip accum</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>STRM</p></td>
+<td><p>Stream function</p></td>
+<td><p>m^2/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>SBSNO</p></td>
+<td><p>Sublimation (evaporation from snow)</p></td>
+<td><p>W m-2</p></td>
+</tr>
+<tr class="row-even"><td><p>SBSNO</p></td>
+<td><p>Sublimation (evaporation from snow)</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>SUN</p></td>
+<td><p>Sunshine duration (ECMWF proposal, not WMO approved)</p></td>
+<td><p>s</p></td>
+</tr>
+<tr class="row-even"><td><p>SUNSD</p></td>
+<td><p>Sunshine Duration</p></td>
+<td><p>s</p></td>
+</tr>
+<tr class="row-odd"><td><p>SUNS</p></td>
+<td><p>SunShine</p></td>
+<td><p>Numeric</p></td>
+</tr>
+<tr class="row-even"><td><p>SIPD</p></td>
+<td><p>Supercooled Large Droplet Icing</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>SIPD</p></td>
+<td><p>Supercooled Large Droplet (SLD) Icing</p></td>
+<td><p>See Table 4.207See Note (1)</p></td>
+</tr>
+<tr class="row-even"><td><p>SLDP</p></td>
+<td><p>Supercooled Large Droplet (SLD) Probabilitysee note 1</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>SLDP</p></td>
+<td><p>Supercooled Large Droplet (SLD) Probability</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>SuperLayerCompositeReflectivity</p></td>
+<td><p>Super Layer Composite Reflectivity (33-60 kft)</p></td>
+<td><p>dBZ</p></td>
+</tr>
+<tr class="row-odd"><td><p>AKHS</p></td>
+<td><p>Surface exchange coefficients for T and Q divided by delta z</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>AKMS</p></td>
+<td><p>Surface exchange coefficients for U and V divided by delta z</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>LFTX</p></td>
+<td><p>Surface Lifted Index</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>SLI</p></td>
+<td><p>Surface lifted index</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>PrecipType</p></td>
+<td><p>Surface Precipitation Type (SPT)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>SFCR</p></td>
+<td><p>Surface roughness</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>SSST</p></td>
+<td><p>Surface Salinity Trend</p></td>
+<td><p>psu per day</p></td>
+</tr>
+<tr class="row-even"><td><p>SLTYP</p></td>
+<td><p>Surface Slope Type</p></td>
+<td><p>Index</p></td>
+</tr>
+<tr class="row-odd"><td><p>ModelSurfaceTemperature</p></td>
+<td><p>Surface Temperature</p></td>
+<td><p>C</p></td>
+</tr>
+<tr class="row-even"><td><p>SSTT</p></td>
+<td><p>Surface Temperature Trend</p></td>
+<td><p>degree per day</p></td>
+</tr>
+<tr class="row-odd"><td><p>SSTOR</p></td>
+<td><p>Surface water storage</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>Surge</p></td>
+<td><p>Surge Height</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>SX</p></td>
+<td><p>Sweat index</p></td>
+<td><p>Numeric</p></td>
+</tr>
+<tr class="row-even"><td><p>TMPA</p></td>
+<td><p>Temperature anomaly</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>T</p></td>
+<td><p>Temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>TMP</p></td>
+<td><p>Temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>TMPSWP</p></td>
+<td><p>Temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>RCT</p></td>
+<td><p>Temperature parameter in canopy conductance</p></td>
+<td><p>Fraction</p></td>
+</tr>
+<tr class="row-odd"><td><p>RCT</p></td>
+<td><p>Temperature parameter in canopy conductance</p></td>
+<td><p>Proportion</p></td>
+</tr>
+<tr class="row-even"><td><p>TTDIA</p></td>
+<td><p>Temperature Tendency By All Physics</p></td>
+<td><p>K/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>TTRAD</p></td>
+<td><p>Temperature tendency by all radiation</p></td>
+<td><p>K*s^-1</p></td>
+</tr>
+<tr class="row-even"><td><p>TTRAD</p></td>
+<td><p>Temperature tendency by all radiation</p></td>
+<td><p>K/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>TTPHY</p></td>
+<td><p>Temperature Tendency By Non-radiation Physics</p></td>
+<td><p>K/s</p></td>
+</tr>
+<tr class="row-even"><td><p>WTEND</p></td>
+<td><p>Tendency of vertical velocity
+The Associated Legendre Functions of the first kind are defined by</p></td>
+<td><p>m/s^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>MASK</p></td>
+<td><p>Thematic Mask</p></td>
+<td><p>Numeric</p></td>
+</tr>
+<tr class="row-even"><td><p>THICK</p></td>
+<td><p>Thickness</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>TSC</p></td>
+<td><p>Thunderstorm coverage</p></td>
+<td><p>(Code table 4.204)</p></td>
+</tr>
+<tr class="row-even"><td><p>TSMT</p></td>
+<td><p>Thunderstorm maximum tops</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>TSTM</p></td>
+<td><p>Thunderstorm probability</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>TSTM</p></td>
+<td><p>Thunderstorm Probability</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>TACONCP</p></td>
+<td><p>Time-integrated air concentration of caesium pollutant</p></td>
+<td><p>Bq*s/m^3</p></td>
+</tr>
+<tr class="row-even"><td><p>TACONIP</p></td>
+<td><p>Time-integrated air concentration of iodine pollutant</p></td>
+<td><p>Bq*s/m^3</p></td>
+</tr>
+<tr class="row-odd"><td><p>TACONRDP</p></td>
+<td><p>Time-integrated air concentration of radioactive pollutant</p></td>
+<td><p>Bq*s/m^3</p></td>
+</tr>
+<tr class="row-even"><td><p>PTOR</p></td>
+<td><p>Tornado probability</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>TORPROB</p></td>
+<td><p>Tornado probability</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>TRNDPROB</p></td>
+<td><p>Tornado probability</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCDC</p></td>
+<td><p>Total cloud cover</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>TCOLI</p></td>
+<td><p>Total column-integrated cloud ice</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCOLI</p></td>
+<td><p>Total Column-Integrated Cloud Ice</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>TCOLW</p></td>
+<td><p>Total column-integrated cloud water</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCOLW</p></td>
+<td><p>Total Column-Integrated Cloud Water</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>TCOLC</p></td>
+<td><p>Total column-integrated condensate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCOLC</p></td>
+<td><p>Total Column-Integrated Condensate</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>TCOLM</p></td>
+<td><p>Total column-integrated melting ice</p></td>
+<td><p>kg m-2</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCOLM</p></td>
+<td><p>Total column-integrated melting ice</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>TCIOZ</p></td>
+<td><p>Total Column Integrated Ozone</p></td>
+<td><p>Dobson</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCOLR</p></td>
+<td><p>Total Column Integrated Rain</p></td>
+<td><p>kg m-2</p></td>
+</tr>
+<tr class="row-even"><td><p>TCOLR</p></td>
+<td><p>Total column integrated rain</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCOLR</p></td>
+<td><p>Total Column Integrated Rain</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>TCOLS</p></td>
+<td><p>Total Column Integrated Snow</p></td>
+<td><p>kg m-2</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCOLS</p></td>
+<td><p>Total column integrated snow</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>TCOLS</p></td>
+<td><p>Total Column Integrated Snow</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCLSW</p></td>
+<td><p>Total column-integrated supercooled liquid water</p></td>
+<td><p>kg m-2</p></td>
+</tr>
+<tr class="row-even"><td><p>TCLSW</p></td>
+<td><p>Total column-integrated supercooled liquid water</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCIWV</p></td>
+<td><p>Total Column Integrated Water Vapour</p></td>
+<td><p>kg m-2</p></td>
+</tr>
+<tr class="row-even"><td><p>TCIWV</p></td>
+<td><p>Total Column Integrated Water Vapour</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCOLG</p></td>
+<td><p>Total Column Integrate Graupel</p></td>
+<td><p>kg/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>TCWAT</p></td>
+<td><p>Total Column Water (Vertically integrated total water (vapour+cloud water/ice)</p></td>
+<td><p>kg m-2</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCWAT</p></td>
+<td><p>Total Column Water(Vertically integrated total water (vapour+cloud water/ice)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>TCOND</p></td>
+<td><p>Total Condensate</p></td>
+<td><p>kg * kg^-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCOND</p></td>
+<td><p>Total condensate</p></td>
+<td><p>kg/kg</p></td>
+</tr>
+<tr class="row-even"><td><p>TCOND</p></td>
+<td><p>Total Condensate</p></td>
+<td><p>kg/kg</p></td>
+</tr>
+<tr class="row-odd"><td><p>THFLX</p></td>
+<td><p>Total Downward Heat Flux at Surface</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>TIPD</p></td>
+<td><p>Total Icing Potential Diagnostic</p></td>
+<td><p>non-dim</p></td>
+</tr>
+<tr class="row-odd"><td><p>TIPD</p></td>
+<td><p>Total Icing Potential Diagnostic</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>TOZNE</p></td>
+<td><p>Total ozone</p></td>
+<td><p>Dobson</p></td>
+</tr>
+<tr class="row-odd"><td><p>A PCP</p></td>
+<td><p>Total Precipitation</p></td>
+<td><p>kg m-2</p></td>
+</tr>
+<tr class="row-even"><td><p>APCP</p></td>
+<td><p>Total precipitation</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>APCPN</p></td>
+<td><p>Total precipitation (nearest grid point)</p></td>
+<td><p>kg/m2</p></td>
+</tr>
+<tr class="row-even"><td><p>APCPN</p></td>
+<td><p>Total precipitation (nearest grid point)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>TPRATE</p></td>
+<td><p>Total Precipitation Rate</p></td>
+<td><p>kg m-2s-1</p></td>
+</tr>
+<tr class="row-even"><td><p>TPRATE</p></td>
+<td><p>Total Precipitation Rate</p></td>
+<td><p>mm/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>PRSIGSV</p></td>
+<td><p>Total Probability of Extreme Severe Thunderstorms (Days 2,3)</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>PRSIGSVR</p></td>
+<td><p>Total Probability of Extreme Severe Thunderstorms (Days 2,3)</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>PRSVR</p></td>
+<td><p>Total Probability of Severe Thunderstorms (Days 2,3)</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>ASNOW</p></td>
+<td><p>Total Snowfall</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>TOTSN</p></td>
+<td><p>Total snowfall</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>TSRATE</p></td>
+<td><p>Total Snowfall Rate</p></td>
+<td><p>m s-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>TSRATE</p></td>
+<td><p>Total Snowfall Rate</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>TSRWE</p></td>
+<td><p>Total Snowfall Rate Water Equivalent</p></td>
+<td><p>kg m-2s-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>TSRWE</p></td>
+<td><p>Total Snowfall Rate Water Equivalent</p></td>
+<td><p>mm/s</p></td>
+</tr>
+<tr class="row-even"><td><p>TSNOW</p></td>
+<td><p>Total Snow</p></td>
+<td><p>kg/m2</p></td>
+</tr>
+<tr class="row-odd"><td><p>TSNOW</p></td>
+<td><p>Total Snow</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>TSNOWP</p></td>
+<td><p>Total Snow Precipitation</p></td>
+<td><p>kg m-2</p></td>
+</tr>
+<tr class="row-odd"><td><p>TSNOWP</p></td>
+<td><p>Total Snow Precipitation</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>TTX</p></td>
+<td><p>Total totals index</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>TWATP</p></td>
+<td><p>Total Water Precipitation</p></td>
+<td><p>kg m-2</p></td>
+</tr>
+<tr class="row-even"><td><p>TWATP</p></td>
+<td><p>Total Water Precipitation</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>TTHDP</p></td>
+<td><p>Transient thermocline depth</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>TRANSO</p></td>
+<td><p>Transpiration Stree-Onset(Soil Moisture)</p></td>
+<td><p>kg/m^3</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMREF</p></td>
+<td><p>Transpiration stress-onset (soil moisture)</p></td>
+<td><p>Proportion</p></td>
+</tr>
+<tr class="row-even"><td><p>TRANS</p></td>
+<td><p>Transpiration</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCHP</p></td>
+<td><p>Tropical Cyclone Heat Potential</p></td>
+<td><p>J/m^2*K</p></td>
+</tr>
+<tr class="row-even"><td><p>TRO</p></td>
+<td><p>Tropopause</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>TRBBS</p></td>
+<td><p>Turbulence base</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>TURBB</p></td>
+<td><p>Turbulence Base</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>TURB</p></td>
+<td><p>Turbulence</p></td>
+<td><p>(Code table 4.208)</p></td>
+</tr>
+<tr class="row-even"><td><p>TPFI</p></td>
+<td><p>Turbulence Potential Forecast Index</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>TURB</p></td>
+<td><p>Turbulence</p></td>
+<td><p>See Table 4.208</p></td>
+</tr>
+<tr class="row-even"><td><p>TRBTP</p></td>
+<td><p>Turbulence top</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>TURBT</p></td>
+<td><p>Turbulence Top</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>TKE</p></td>
+<td><p>Turbulent Kinetic Energy</p></td>
+<td><p>J kg-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>TKE</p></td>
+<td><p>Turbulent kinetic energy</p></td>
+<td><p>J/kg</p></td>
+</tr>
+<tr class="row-even"><td><p>UOGRD</p></td>
+<td><p>u-component of current</p></td>
+<td><p>cm/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>UOGRD</p></td>
+<td><p>u-component of current</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>MAXUW</p></td>
+<td><p>U Component of Hourly Maximum 10m Wind Speed</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>UICE</p></td>
+<td><p>u-component of ice drift</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>UGUST</p></td>
+<td><p>u-component of wind gust</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>UGRD</p></td>
+<td><p>u-component of wind</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>USTM</p></td>
+<td><p>U-component storm motion</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>USTM</p></td>
+<td><p>U-Component Storm Motion</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>USSD</p></td>
+<td><p>U-component Surface Stokes Drift</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>UVI</p></td>
+<td><p>Ultra Violet Index</p></td>
+<td><p>J/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>UPHL</p></td>
+<td><p>Updraft Helicity in Layer 2-5 km AGL</p></td>
+<td><p>m^2/s^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>UPHL</p></td>
+<td><p>Updraft Helicity</p></td>
+<td><p>m^2/s^2</p></td>
+</tr>
+<tr class="row-even"><td><p>ULSM</p></td>
+<td><p>Upper layer soil moisture</p></td>
+<td><p>kg/m^3</p></td>
+</tr>
+<tr class="row-odd"><td><p>ULST</p></td>
+<td><p>Upper layer soil temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>ULWRF</p></td>
+<td><p>Upward Long-Wave Rad. Flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>ULWRF</p></td>
+<td><p>Upward long-wave radiation flux
+Upward Long-W/m^2</p></td>
+<td><p>W/m^2
+ULWRF</p></td>
+</tr>
+<tr class="row-even"><td><p>USWRF</p></td>
+<td><p>Upward Short-Wave Rad. Flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>USWRF</p></td>
+<td><p>Upward short-wave radiation flux
+Upward Short-W/m^2</p></td>
+<td><p>W/m^2
+USWRF</p></td>
+</tr>
+<tr class="row-even"><td><p>UTRF</p></td>
+<td><p>Upward Total radiation Flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>DUVB</p></td>
+<td><p>UV-B downward solar flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>UVI</p></td>
+<td><p>UV Index</p></td>
+<td><p>J/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>UVIUCS</p></td>
+<td><p>UV Index (Under Clear Sky)</p></td>
+<td><p>Numeric</p></td>
+</tr>
+<tr class="row-even"><td><p>VAPP</p></td>
+<td><p>Vapor pressure</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-odd"><td><p>VAPP</p></td>
+<td><p>Vapor Pressure</p></td>
+<td><p>Pa</p></td>
+</tr>
+<tr class="row-even"><td><p>VOGRD</p></td>
+<td><p>v-component of current</p></td>
+<td><p>cm/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>VOGRD</p></td>
+<td><p>v-component of current</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>MAXVW</p></td>
+<td><p>V Component of Hourly Maximum 10m Wind Speed</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>VICE</p></td>
+<td><p>v-component of ice drift</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>UGUST</p></td>
+<td><p>v-component of wind gust</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>VGRD</p></td>
+<td><p>v-component of wind</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>VSTM</p></td>
+<td><p>V-component storm motion</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>VSTM</p></td>
+<td><p>V-Component Storm Motion</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>VSSD</p></td>
+<td><p>V-component Surface Stokes Drift</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>VEGT</p></td>
+<td><p>Vegetation canopy temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>VGTYP</p></td>
+<td><p>Vegetation Type</p></td>
+<td><p>Integer 0-13</p></td>
+</tr>
+<tr class="row-odd"><td><p>VEG</p></td>
+<td><p>Vegetation</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>SPEED</p></td>
+<td><p>Velocity Magnitude (Speed)</p></td>
+<td><p>m*s^1</p></td>
+</tr>
+<tr class="row-odd"><td><p>LMV</p></td>
+<td><p>Velocity Point Model Surface</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>VPOT</p></td>
+<td><p>Velocity potential</p></td>
+<td><p>m^2/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>VRATE</p></td>
+<td><p>Ventilation Rate</p></td>
+<td><p>m^2/s</p></td>
+</tr>
+<tr class="row-even"><td><p>VDFHR</p></td>
+<td><p>Vertical Diffusion Heating rate</p></td>
+<td><p>K/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>VDFVA</p></td>
+<td><p>Vertical Diffusion Meridional Acceleration</p></td>
+<td><p>m/s^2</p></td>
+</tr>
+<tr class="row-even"><td><p>VDFMR</p></td>
+<td><p>Vertical Diffusion Moistening Rate</p></td>
+<td><p>kg/kg*s</p></td>
+</tr>
+<tr class="row-odd"><td><p>VDFUA</p></td>
+<td><p>Vertical Diffusion Zonal Acceleration</p></td>
+<td><p>m/s^2</p></td>
+</tr>
+<tr class="row-even"><td><p>VEDH</p></td>
+<td><p>Vertical Eddy Diffusivity Heat exchange</p></td>
+<td><p>m^2/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>VTEC</p></td>
+<td><p>Vertical Electron Content</p></td>
+<td><p>m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>VII</p></td>
+<td><p>Vertically Integrated Ice (VII)</p></td>
+<td><p>kg/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>VILIQ</p></td>
+<td><p>Vertically-integrated liquid</p></td>
+<td><p>kg/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>MRMSVILDensity</p></td>
+<td><p>Vertically Integrated Liquid (VIL) Density</p></td>
+<td><p>g/m^3</p></td>
+</tr>
+<tr class="row-odd"><td><p>MRMSVIL</p></td>
+<td><p>Vertically Integrated Liquid (VIL)</p></td>
+<td><p>kg/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>VIL</p></td>
+<td><p>Vertically Integrated Liquid (VIL)</p></td>
+<td><p>kg/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>VWSH</p></td>
+<td><p>Vertical speed shear</p></td>
+<td><p>s^-1</p></td>
+</tr>
+<tr class="row-even"><td><p>VWSH</p></td>
+<td><p>Vertical speed sheer</p></td>
+<td><p>s^-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>VUCSH</p></td>
+<td><p>Vertical u-component shear</p></td>
+<td><p>s^-1</p></td>
+</tr>
+<tr class="row-even"><td><p>VVCSH</p></td>
+<td><p>Vertical v-component shear</p></td>
+<td><p>s^-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>DZDT</p></td>
+<td><p>Vertical velocity geometric</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>VVEL</p></td>
+<td><p>Vertical velocity pressure</p></td>
+<td><p>Pa/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>VPTMP</p></td>
+<td><p>Virtual potential temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>VTMP</p></td>
+<td><p>Virtual temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>VIS</p></td>
+<td><p>Visibility</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>VBDSF</p></td>
+<td><p>Visible Beam Downward Solar Flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>SBSALB</p></td>
+<td><p>Visible, Black Sky Albedo</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>VDDSF</p></td>
+<td><p>Visible Diffuse Downward Solar Flux</p></td>
+<td><p>W/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>Visible</p></td>
+<td><p>Visible Imagery</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>SWSALB</p></td>
+<td><p>Visible, White Sky Albedo</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>VASH</p></td>
+<td><p>Volcanic ash</p></td>
+<td><p>(Code table 4.206)</p></td>
+</tr>
+<tr class="row-even"><td><p>VAFTD</p></td>
+<td><p>Volcanic Ash Forecast Transport and Dispersion</p></td>
+<td><p>log10(kg/m^3)</p></td>
+</tr>
+<tr class="row-odd"><td><p>VOLASH</p></td>
+<td><p>Volcanic Ash</p></td>
+<td><p>See Table 4.206</p></td>
+</tr>
+<tr class="row-even"><td><p>VOLDEC</p></td>
+<td><p>Volumetric Direct Evaporation Cease(Soil Moisture)</p></td>
+<td><p>m^3/m^3</p></td>
+</tr>
+<tr class="row-odd"><td><p>VSOSM</p></td>
+<td><p>Volumetric Saturation Of Soil Moisture</p></td>
+<td><p>m^3/m^3</p></td>
+</tr>
+<tr class="row-even"><td><p>SOILW</p></td>
+<td><p>Volumetric soil moisture content</p></td>
+<td><p>Proportion</p></td>
+</tr>
+<tr class="row-odd"><td><p>VSOILM</p></td>
+<td><p>Volumetric Soil Moisture</p></td>
+<td><p>m^3/m^3</p></td>
+</tr>
+<tr class="row-even"><td><p>VOLTSO</p></td>
+<td><p>Volumetric Transpiration Stree-Onset(Soil Moisture)</p></td>
+<td><p>m^3/m^3</p></td>
+</tr>
+<tr class="row-odd"><td><p>VWILTM</p></td>
+<td><p>Volumetric Wilting Moisture</p></td>
+<td><p>m^3/m^3</p></td>
+</tr>
+<tr class="row-even"><td><p>WCINC</p></td>
+<td><p>Water condensate added by precip assimilation</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>WCCONV</p></td>
+<td><p>Water Condensate Flux Convergance (Vertical Int)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>WCVFLX</p></td>
+<td><p>Water Condensate Meridional Flux (Vertical Int)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>WCUFLX</p></td>
+<td><p>Water Condensate Zonal Flux (Vertical Int)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>WEASD</p></td>
+<td><p>Water Equivalent of Accumulated Snow Depth</p></td>
+<td><p>kg m-2</p></td>
+</tr>
+<tr class="row-odd"><td><p>WEASD</p></td>
+<td><p>Water equivalent of accumulated snow depth</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>WATR</p></td>
+<td><p>Water runoff</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>TEMPWTR</p></td>
+<td><p>Water temperature</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-even"><td><p>WVINC</p></td>
+<td><p>Water vapor added by precip assimilation</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>WVCONV</p></td>
+<td><p>Water Vapor Flux Convergance (Vertical Int)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>WaterVapor</p></td>
+<td><p>Water Vapor Imagery</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>WVVFLX</p></td>
+<td><p>Water Vapor Meridional Flux (Vertical Int)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-even"><td><p>WVUFLX</p></td>
+<td><p>Water Vapor Zonal Flux (Vertical Int)</p></td>
+<td><p>mm</p></td>
+</tr>
+<tr class="row-odd"><td><p>WDIRW</p></td>
+<td><p>Wave Directional Width</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>WESP</p></td>
+<td><p>Wave Engery Spectrum</p></td>
+<td><p>s/m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>WVSP1</p></td>
+<td><p>Wave spectra (1)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>WVSP2</p></td>
+<td><p>Wave spectra (2)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>WVSP3</p></td>
+<td><p>Wave spectra (3)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>WSTP</p></td>
+<td><p>Wave Steepness</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>WSTR</p></td>
+<td><p>Wave Stress</p></td>
+<td><p>N/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>wxType</p></td>
+<td><p>Weather</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>ModelWetbulbTemperature</p></td>
+<td><p>Wet Bulb Temperature</p></td>
+<td><p>C</p></td>
+</tr>
+<tr class="row-even"><td><p>WHTCOR</p></td>
+<td><p>White Light Coronagraph Radiance</p></td>
+<td><p>W*s*r^1*m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>WHTRAD</p></td>
+<td><p>White Light Radiance</p></td>
+<td><p>W*s*r^1*m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>WILT</p></td>
+<td><p>Wilting Point</p></td>
+<td><p>kg/m^3</p></td>
+</tr>
+<tr class="row-odd"><td><p>WILT</p></td>
+<td><p>Wilting point</p></td>
+<td><p>Proportion</p></td>
+</tr>
+<tr class="row-even"><td><p>WCI</p></td>
+<td><p>Wind chill factor</p></td>
+<td><p>K</p></td>
+</tr>
+<tr class="row-odd"><td><p>WDIR</p></td>
+<td><p>Wind direction (from which blowing)</p></td>
+<td><p>deg</p></td>
+</tr>
+<tr class="row-even"><td><p>WMIXE</p></td>
+<td><p>Wind mixing energy</p></td>
+<td><p>J</p></td>
+</tr>
+<tr class="row-odd"><td><p>WINDPROB</p></td>
+<td><p>Wind probability</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-even"><td><p>WINDPROB</p></td>
+<td><p>Wind Probability</p></td>
+<td><p>%</p></td>
+</tr>
+<tr class="row-odd"><td><p>WGS</p></td>
+<td><p>Wind speed gust</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>PWS</p></td>
+<td><p>Wind speed</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>WIND</p></td>
+<td><p>Wind speed</p></td>
+<td><p>m/s</p></td>
+</tr>
+<tr class="row-even"><td><p>HGT X</p></td>
+<td><p>X-gradient of Height</p></td>
+<td><p>m^-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>LPS X</p></td>
+<td><p>X-gradient of Log Pressure</p></td>
+<td><p>m^-1</p></td>
+</tr>
+<tr class="row-even"><td><p>XRAYRAD</p></td>
+<td><p>X-Ray Radiance</p></td>
+<td><p>W*s*r^1*m^2</p></td>
+</tr>
+<tr class="row-odd"><td><p>HGT Y</p></td>
+<td><p>Y-gradient of Height</p></td>
+<td><p>m^-1</p></td>
+</tr>
+<tr class="row-even"><td><p>LPS Y</p></td>
+<td><p>Y-gradient of Log Pressure</p></td>
+<td><p>m^-1</p></td>
+</tr>
+<tr class="row-odd"><td><p>UGWD</p></td>
+<td><p>Zonal flux of gravity wave stress</p></td>
+<td><p>N/m^2</p></td>
+</tr>
+<tr class="row-even"><td><p>U-GWD</p></td>
+<td><p>Zonal Flux of Gravity Wave Stress</p></td>
+<td><p>N/m^2</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="dev.html" class="btn btn-neutral float-left" title="Development Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="about.html" class="btn btn-neutral float-right" title="About Unidata AWIPS" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2018, NSF Unidata.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

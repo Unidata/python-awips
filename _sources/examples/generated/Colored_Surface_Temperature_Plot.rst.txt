@@ -1,7 +1,7 @@
 ================================
 Colored Surface Temperature Plot
 ================================
-`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/website/examples/notebooks/Colored_Surface_Temperature_Plot.ipynb>`_
+`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Colored_Surface_Temperature_Plot.ipynb>`_
 Python-AWIPS Tutorial Notebook
 
 --------------

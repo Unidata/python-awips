@@ -50,7 +50,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../datatypes.html">Available Data Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Data Plotting Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../dev.html">Development Guide</a></li>
-<li class="toctree-l1"><a class="reference external" href="http://unidata.github.io/awips2/appendix/appendix-grid-parameters/">AWIPS Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gridparms.html">Grid Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../about.html">About Unidata AWIPS</a></li>
 </ul>
 
@@ -79,19 +79,28 @@
            <div itemprop="articleBody">
              
   <h1>Source code for awips.gfe.IFPClient</h1><div class="highlight"><pre>
-<span></span><span class="c1">#</span>
-<span class="c1"># Provides a Python-based interface for executing GFE requests.</span>
-<span class="c1">#</span>
-<span class="c1">#</span>
-<span class="c1">#     SOFTWARE HISTORY</span>
-<span class="c1">#</span>
-<span class="c1">#    Date            Ticket#       Engineer       Description</span>
-<span class="c1">#    ------------    ----------    -----------    --------------------------</span>
-<span class="c1">#    07/26/12                      dgilling       Initial Creation.</span>
-<span class="c1">#</span>
-<span class="c1">#</span>
+<span></span><span class="c1">##</span>
+<span class="c1"># This software was developed and / or modified by Raytheon Company,</span>
+<span class="c1"># pursuant to Contract DG133W-05-CQ-1067 with the US Government.</span>
+<span class="c1"># </span>
+<span class="c1"># U.S. EXPORT CONTROLLED TECHNICAL DATA</span>
+<span class="c1"># This software product contains export-restricted data whose</span>
+<span class="c1"># export/transfer/disclosure is restricted by U.S. law. Dissemination</span>
+<span class="c1"># to non-U.S. persons whether in the United States or abroad requires</span>
+<span class="c1"># an export license or other authorization.</span>
+<span class="c1"># </span>
+<span class="c1"># Contractor Name:        Raytheon Company</span>
+<span class="c1"># Contractor Address:     6825 Pine Street, Suite 340</span>
+<span class="c1">#                         Mail Stop B8</span>
+<span class="c1">#                         Omaha, NE 68106</span>
+<span class="c1">#                         402.291.0100</span>
+<span class="c1"># </span>
+<span class="c1"># See the AWIPS II Master Rights File (&quot;Master Rights File.pdf&quot;) for</span>
+<span class="c1"># further licensing information.</span>
+<span class="c1">##</span>
 
 <span class="kn">from</span> <span class="nn">awips</span> <span class="kn">import</span> <span class="n">ThriftClient</span>
+
 <span class="kn">from</span> <span class="nn">dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.db.objects</span> <span class="kn">import</span> <span class="n">DatabaseID</span>
 <span class="kn">from</span> <span class="nn">dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.db.objects</span> <span class="kn">import</span> <span class="n">ParmID</span>
 <span class="kn">from</span> <span class="nn">dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.request</span> <span class="kn">import</span> <span class="n">CommitGridsRequest</span>
@@ -104,6 +113,21 @@
 <span class="kn">from</span> <span class="nn">dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.gfe.server.message</span> <span class="kn">import</span> <span class="n">ServerResponse</span>
 
 
+<span class="c1">#</span>
+<span class="c1"># Provides a Python-based interface for executing GFE requests.</span>
+<span class="c1">#   </span>
+<span class="c1">#</span>
+<span class="c1">#    </span>
+<span class="c1">#     SOFTWARE HISTORY</span>
+<span class="c1">#    </span>
+<span class="c1">#    Date            Ticket#       Engineer       Description</span>
+<span class="c1">#    ------------    ----------    -----------    --------------------------</span>
+<span class="c1">#    07/26/12                      dgilling       Initial Creation.</span>
+<span class="c1">#    08/31/23                      srcarter@ucar  From MJ - replace type with isinstance</span>
+<span class="c1"># </span>
+<span class="c1">#</span>
+
+
 <div class="viewcode-block" id="IFPClient"><a class="viewcode-back" href="../../../api/IFPClient.html#awips.gfe.IFPClient.IFPClient">[docs]</a><span class="k">class</span> <span class="nc">IFPClient</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">progName</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__thrift</span> <span class="o">=</span> <span class="n">ThriftClient</span><span class="o">.</span><span class="n">ThriftClient</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
@@ -114,15 +138,14 @@
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sr</span><span class="o">.</span><span class="n">getPayload</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">site</span> <span class="o">=</span> <span class="n">sr</span><span class="o">.</span><span class="n">getPayload</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__siteId</span> <span class="o">=</span> <span class="n">site</span>
-
+        
 <div class="viewcode-block" id="IFPClient.commitGrid"><a class="viewcode-back" href="../../../api/IFPClient.html#awips.gfe.IFPClient.IFPClient.commitGrid">[docs]</a>    <span class="k">def</span> <span class="nf">commitGrid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">CommitGridRequest</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__commitGrid</span><span class="p">([</span><span class="n">request</span><span class="p">])</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">__isHomogenousIterable</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">CommitGridRequest</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__commitGrid</span><span class="p">([</span><span class="n">cgr</span> <span class="k">for</span> <span class="n">cgr</span> <span class="ow">in</span> <span class="n">request</span><span class="p">])</span>
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Invalid type: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">request</span><span class="p">))</span> <span class="o">+</span>
-                        <span class="s2">&quot; for commitGrid(). Only accepts CommitGridRequest or lists of CommitGridRequest.&quot;</span><span class="p">)</span></div>
-
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Invalid type: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">request</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; specified to commitGrid(). Only accepts CommitGridRequest or lists of CommitGridRequest.&quot;</span><span class="p">)</span></div>
+    
     <span class="k">def</span> <span class="nf">__commitGrid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requests</span><span class="p">):</span>
         <span class="n">ssr</span> <span class="o">=</span> <span class="n">ServerResponse</span><span class="p">()</span>
         <span class="n">request</span> <span class="o">=</span> <span class="n">CommitGridsRequest</span><span class="p">()</span>
@@ -130,26 +153,24 @@
         <span class="n">sr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__makeRequest</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
         <span class="n">ssr</span><span class="o">.</span><span class="n">setMessages</span><span class="p">(</span><span class="n">sr</span><span class="o">.</span><span class="n">getMessages</span><span class="p">())</span>
         <span class="k">return</span> <span class="n">ssr</span>
-
-<div class="viewcode-block" id="IFPClient.getParmList"><a class="viewcode-back" href="../../../api/IFPClient.html#awips.gfe.IFPClient.IFPClient.getParmList">[docs]</a>    <span class="k">def</span> <span class="nf">getParmList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pid</span><span class="p">):</span>
-        <span class="n">argType</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">argType</span> <span class="ow">is</span> <span class="n">DatabaseID</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__getParmList</span><span class="p">([</span><span class="n">pid</span><span class="p">])</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">__isHomogenousIterable</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="n">DatabaseID</span><span class="p">):</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__getParmList</span><span class="p">([</span><span class="n">dbid</span> <span class="k">for</span> <span class="n">dbid</span> <span class="ow">in</span> <span class="n">pid</span><span class="p">])</span>
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Invalid type: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">argType</span><span class="p">)</span> <span class="o">+</span>
-                        <span class="s2">&quot; for getParmList(). Only accepts DatabaseID or lists of DatabaseID.&quot;</span><span class="p">)</span></div>
-
+    
+<div class="viewcode-block" id="IFPClient.getParmList"><a class="viewcode-back" href="../../../api/IFPClient.html#awips.gfe.IFPClient.IFPClient.getParmList">[docs]</a>    <span class="k">def</span> <span class="nf">getParmList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">argType</span><span class="p">,</span> <span class="n">DatabaseID</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__getParmList</span><span class="p">([</span><span class="nb">id</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">__isHomogenousIterable</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">DatabaseID</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__getParmList</span><span class="p">([</span><span class="n">dbid</span> <span class="k">for</span> <span class="n">dbid</span> <span class="ow">in</span> <span class="nb">id</span><span class="p">])</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Invalid type: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">argType</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; specified to getParmList(). Only accepts DatabaseID or lists of DatabaseID.&quot;</span><span class="p">)</span>        </div>
+    
     <span class="k">def</span> <span class="nf">__getParmList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">):</span>
         <span class="n">ssr</span> <span class="o">=</span> <span class="n">ServerResponse</span><span class="p">()</span>
         <span class="n">request</span> <span class="o">=</span> <span class="n">GetParmListRequest</span><span class="p">()</span>
         <span class="n">request</span><span class="o">.</span><span class="n">setDbIds</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
         <span class="n">sr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__makeRequest</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
         <span class="n">ssr</span><span class="o">.</span><span class="n">setMessages</span><span class="p">(</span><span class="n">sr</span><span class="o">.</span><span class="n">getMessages</span><span class="p">())</span>
-        <span class="n">parmlist</span> <span class="o">=</span> <span class="n">sr</span><span class="o">.</span><span class="n">getPayload</span><span class="p">()</span> <span class="k">if</span> <span class="n">sr</span><span class="o">.</span><span class="n">getPayload</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
-        <span class="n">ssr</span><span class="o">.</span><span class="n">setPayload</span><span class="p">(</span><span class="n">parmlist</span><span class="p">)</span>
+        <span class="nb">list</span> <span class="o">=</span> <span class="n">sr</span><span class="o">.</span><span class="n">getPayload</span><span class="p">()</span> <span class="k">if</span> <span class="n">sr</span><span class="o">.</span><span class="n">getPayload</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
+        <span class="n">ssr</span><span class="o">.</span><span class="n">setPayload</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ssr</span>
-
+    
     <span class="k">def</span> <span class="nf">__isHomogenousIterable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iterable</span><span class="p">,</span> <span class="n">classType</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">iterator</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>
@@ -159,23 +180,22 @@
         <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
         <span class="k">return</span> <span class="kc">True</span>
-
+    
 <div class="viewcode-block" id="IFPClient.getGridInventory"><a class="viewcode-back" href="../../../api/IFPClient.html#awips.gfe.IFPClient.IFPClient.getGridInventory">[docs]</a>    <span class="k">def</span> <span class="nf">getGridInventory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parmID</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parmID</span><span class="p">,</span> <span class="n">ParmID</span><span class="p">):</span>
             <span class="n">sr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__getGridInventory</span><span class="p">([</span><span class="n">parmID</span><span class="p">])</span>
-            <span class="n">inventoryList</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="nb">list</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">inventoryList</span> <span class="o">=</span> <span class="n">sr</span><span class="o">.</span><span class="n">getPayload</span><span class="p">()[</span><span class="n">parmID</span><span class="p">]</span>
+                <span class="nb">list</span> <span class="o">=</span> <span class="n">sr</span><span class="o">.</span><span class="n">getPayload</span><span class="p">()[</span><span class="n">parmID</span><span class="p">]</span>
             <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
                 <span class="c1"># no-op, we&#39;ve already default the TimeRange list to empty</span>
                 <span class="k">pass</span>
-            <span class="n">sr</span><span class="o">.</span><span class="n">setPayload</span><span class="p">(</span><span class="n">inventoryList</span><span class="p">)</span>
+            <span class="n">sr</span><span class="o">.</span><span class="n">setPayload</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">sr</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">__isHomogenousIterable</span><span class="p">(</span><span class="n">parmID</span><span class="p">,</span> <span class="n">ParmID</span><span class="p">):</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__getGridInventory</span><span class="p">([</span><span class="n">pid</span> <span class="k">for</span> <span class="n">pid</span> <span class="ow">in</span> <span class="n">parmID</span><span class="p">])</span>
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Invalid type: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">parmID</span><span class="p">))</span> <span class="o">+</span>
-                        <span class="s2">&quot; specified to getGridInventory(). Accepts ParmID or lists of ParmID.&quot;</span><span class="p">)</span></div>
-
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__getGridInventory</span><span class="p">([</span><span class="nb">id</span> <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">parmID</span><span class="p">])</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Invalid type: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">parmID</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; specified to getGridInventory(). Only accepts ParmID or lists of ParmID.&quot;</span><span class="p">)</span></div>
+    
     <span class="k">def</span> <span class="nf">__getGridInventory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parmIDs</span><span class="p">):</span>
         <span class="n">ssr</span> <span class="o">=</span> <span class="n">ServerResponse</span><span class="p">()</span>
         <span class="n">request</span> <span class="o">=</span> <span class="n">GetGridInventoryRequest</span><span class="p">()</span>
@@ -185,7 +205,7 @@
         <span class="n">trs</span> <span class="o">=</span> <span class="n">sr</span><span class="o">.</span><span class="n">getPayload</span><span class="p">()</span> <span class="k">if</span> <span class="n">sr</span><span class="o">.</span><span class="n">getPayload</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{}</span>
         <span class="n">ssr</span><span class="o">.</span><span class="n">setPayload</span><span class="p">(</span><span class="n">trs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ssr</span>
-
+    
 <div class="viewcode-block" id="IFPClient.getSelectTR"><a class="viewcode-back" href="../../../api/IFPClient.html#awips.gfe.IFPClient.IFPClient.getSelectTR">[docs]</a>    <span class="k">def</span> <span class="nf">getSelectTR</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="n">request</span> <span class="o">=</span> <span class="n">GetSelectTimeRangeRequest</span><span class="p">()</span>
         <span class="n">request</span><span class="o">.</span><span class="n">setName</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
@@ -194,7 +214,7 @@
         <span class="n">ssr</span><span class="o">.</span><span class="n">setMessages</span><span class="p">(</span><span class="n">sr</span><span class="o">.</span><span class="n">getMessages</span><span class="p">())</span>
         <span class="n">ssr</span><span class="o">.</span><span class="n">setPayload</span><span class="p">(</span><span class="n">sr</span><span class="o">.</span><span class="n">getPayload</span><span class="p">())</span>
         <span class="k">return</span> <span class="n">ssr</span></div>
-
+        
 <div class="viewcode-block" id="IFPClient.getSiteID"><a class="viewcode-back" href="../../../api/IFPClient.html#awips.gfe.IFPClient.IFPClient.getSiteID">[docs]</a>    <span class="k">def</span> <span class="nf">getSiteID</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ssr</span> <span class="o">=</span> <span class="n">ServerResponse</span><span class="p">()</span>
         <span class="n">request</span> <span class="o">=</span> <span class="n">GetActiveSitesRequest</span><span class="p">()</span>
@@ -203,7 +223,7 @@
         <span class="n">ids</span> <span class="o">=</span> <span class="n">sr</span><span class="o">.</span><span class="n">getPayload</span><span class="p">()</span> <span class="k">if</span> <span class="n">sr</span><span class="o">.</span><span class="n">getPayload</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
         <span class="n">sr</span><span class="o">.</span><span class="n">setPayload</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">sr</span></div>
-
+    
     <span class="k">def</span> <span class="nf">__makeRequest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">request</span><span class="o">.</span><span class="n">setSiteID</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__siteId</span><span class="p">)</span>
@@ -213,7 +233,7 @@
             <span class="n">request</span><span class="o">.</span><span class="n">setWorkstationID</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__wsId</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
             <span class="k">pass</span>
-
+        
         <span class="n">sr</span> <span class="o">=</span> <span class="n">ServerResponse</span><span class="p">()</span>
         <span class="n">response</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">try</span><span class="p">:</span>
@@ -229,7 +249,7 @@
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
             <span class="c1"># not a server response, nothing else to do</span>
             <span class="k">pass</span>
-
+            
         <span class="k">return</span> <span class="n">sr</span></div>
 </pre></div>
 

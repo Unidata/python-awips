@@ -1,7 +1,7 @@
 ===================================
 Watch Warning and Advisory Plotting
 ===================================
-`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/website/examples/notebooks/Watch_Warning_and_Advisory_Plotting.ipynb>`_
+`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Watch_Warning_and_Advisory_Plotting.ipynb>`_
 Python-AWIPS Tutorial Notebook
 
 --------------

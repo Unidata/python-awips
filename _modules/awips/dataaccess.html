@@ -50,7 +50,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../datatypes.html">Available Data Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Data Plotting Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../dev.html">Development Guide</a></li>
-<li class="toctree-l1"><a class="reference external" href="http://unidata.github.io/awips2/appendix/appendix-grid-parameters/">AWIPS Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gridparms.html">Grid Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../about.html">About Unidata AWIPS</a></li>
 </ul>
 
@@ -79,7 +79,28 @@
            <div itemprop="articleBody">
              
   <h1>Source code for awips.dataaccess</h1><div class="highlight"><pre>
-<span></span><span class="c1">#</span>
+<span></span><span class="c1">##</span>
+<span class="c1"># This software was developed and / or modified by Raytheon Company,</span>
+<span class="c1"># pursuant to Contract DG133W-05-CQ-1067 with the US Government.</span>
+<span class="c1">#</span>
+<span class="c1"># U.S. EXPORT CONTROLLED TECHNICAL DATA</span>
+<span class="c1"># This software product contains export-restricted data whose</span>
+<span class="c1"># export/transfer/disclosure is restricted by U.S. law. Dissemination</span>
+<span class="c1"># to non-U.S. persons whether in the United States or abroad requires</span>
+<span class="c1"># an export license or other authorization.</span>
+<span class="c1">#</span>
+<span class="c1"># Contractor Name:        Raytheon Company</span>
+<span class="c1"># Contractor Address:     6825 Pine Street, Suite 340</span>
+<span class="c1">#                         Mail Stop B8</span>
+<span class="c1">#                         Omaha, NE 68106</span>
+<span class="c1">#                         402.291.0100</span>
+<span class="c1">#</span>
+<span class="c1"># See the AWIPS II Master Rights File (&quot;Master Rights File.pdf&quot;) for</span>
+<span class="c1"># further licensing information.</span>
+<span class="c1">##</span>
+
+
+<span class="c1">#</span>
 <span class="c1"># __init__.py for awips.dataaccess package</span>
 <span class="c1">#</span>
 <span class="c1">#</span>
@@ -99,20 +120,12 @@
 <span class="c1">#</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;IData&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;IDataRequest&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;IGeometryData&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;IGridData&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;IGeometryData&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;INotificationFilter&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;INotificationSubscriber&#39;</span>
-<span class="p">]</span>
+
+           <span class="p">]</span>
 
 <span class="kn">import</span> <span class="nn">abc</span>
-<span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">with_metaclass</span>
 
-
-<div class="viewcode-block" id="IDataRequest"><a class="viewcode-back" href="../../api/IDataRequest.html#awips.dataaccess.IDataRequest">[docs]</a><span class="k">class</span> <span class="nc">IDataRequest</span><span class="p">(</span><span class="n">with_metaclass</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">,</span> <span class="nb">object</span><span class="p">)):</span>
+<div class="viewcode-block" id="IDataRequest"><a class="viewcode-back" href="../../api/IDataRequest.html#awips.dataaccess.IDataRequest">[docs]</a><span class="k">class</span> <span class="nc">IDataRequest</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An IDataRequest to be submitted to the DataAccessLayer to retrieve data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -232,7 +245,8 @@
         <span class="k">return</span></div></div>
 
 
-<span class="k">class</span> <span class="nc">IData</span><span class="p">(</span><span class="n">with_metaclass</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">,</span> <span class="nb">object</span><span class="p">)):</span>
+
+<span class="k">class</span> <span class="nc">IData</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An IData representing data returned from the DataAccessLayer.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -292,6 +306,7 @@
         <span class="k">return</span>
 
 
+
 <span class="k">class</span> <span class="nc">IGridData</span><span class="p">(</span><span class="n">IData</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An IData representing grid data that is returned by the DataAccessLayer.</span>
@@ -337,6 +352,7 @@
 <span class="sd">            second element is a numpy array of lats</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span>
+
 
 
 <span class="k">class</span> <span class="nc">IGeometryData</span><span class="p">(</span><span class="n">IData</span><span class="p">):</span>
@@ -417,7 +433,7 @@
         <span class="k">return</span>
 
 
-<span class="k">class</span> <span class="nc">INotificationSubscriber</span><span class="p">(</span><span class="n">with_metaclass</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">,</span> <span class="nb">object</span><span class="p">)):</span>
+<span class="k">class</span> <span class="nc">INotificationSubscriber</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An INotificationSubscriber representing a notification filter returned from</span>
 <span class="sd">    the DataNotificationLayer.</span>
@@ -440,8 +456,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Closes the notification subscriber&quot;&quot;&quot;</span>
         <span class="k">pass</span>
 
-
-<span class="k">class</span> <span class="nc">INotificationFilter</span><span class="p">(</span><span class="n">with_metaclass</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">,</span> <span class="nb">object</span><span class="p">)):</span>
+<span class="k">class</span> <span class="nc">INotificationFilter</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents data required to filter a set of URIs and</span>
 <span class="sd">    return a corresponding list of IDataRequest to retrieve data for.</span>

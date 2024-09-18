@@ -50,7 +50,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../datatypes.html">Available Data Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Data Plotting Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../dev.html">Development Guide</a></li>
-<li class="toctree-l1"><a class="reference external" href="http://unidata.github.io/awips2/appendix/appendix-grid-parameters/">AWIPS Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gridparms.html">Grid Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../about.html">About Unidata AWIPS</a></li>
 </ul>
 
@@ -80,14 +80,34 @@
            <div itemprop="articleBody">
              
   <h1>Source code for awips.dataaccess.CombinedTimeQuery</h1><div class="highlight"><pre>
-<span></span><span class="c1">#</span>
+<span></span><span class="c1"># #</span>
+<span class="c1"># This software was developed and / or modified by Raytheon Company,</span>
+<span class="c1"># pursuant to Contract DG133W-05-CQ-1067 with the US Government.</span>
+<span class="c1"># </span>
+<span class="c1"># U.S. EXPORT CONTROLLED TECHNICAL DATA</span>
+<span class="c1"># This software product contains export-restricted data whose</span>
+<span class="c1"># export/transfer/disclosure is restricted by U.S. law. Dissemination</span>
+<span class="c1"># to non-U.S. persons whether in the United States or abroad requires</span>
+<span class="c1"># an export license or other authorization.</span>
+<span class="c1"># </span>
+<span class="c1"># Contractor Name:        Raytheon Company</span>
+<span class="c1"># Contractor Address:     6825 Pine Street, Suite 340</span>
+<span class="c1">#                         Mail Stop B8</span>
+<span class="c1">#                         Omaha, NE 68106</span>
+<span class="c1">#                         402.291.0100</span>
+<span class="c1"># </span>
+<span class="c1"># See the AWIPS II Master Rights File (&quot;Master Rights File.pdf&quot;) for</span>
+<span class="c1"># further licensing information.</span>
+<span class="c1"># #</span>
+
+<span class="c1">#</span>
 <span class="c1"># Method for performing a DAF time query where all parameter/level/location</span>
 <span class="c1"># combinations must be available at the same time.</span>
 <span class="c1">#</span>
-<span class="c1">#</span>
-<span class="c1">#</span>
+<span class="c1">#  </span>
+<span class="c1">#    </span>
 <span class="c1">#     SOFTWARE HISTORY</span>
-<span class="c1">#</span>
+<span class="c1">#    </span>
 <span class="c1">#    Date            Ticket#       Engineer       Description</span>
 <span class="c1">#    ------------    ----------    -----------    --------------------------</span>
 <span class="c1">#    06/22/16         #5591        bsteffen       Initial Creation.</span>
@@ -95,10 +115,8 @@
 
 <span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">DataAccessLayer</span>
 
-
 <div class="viewcode-block" id="getAvailableTimes"><a class="viewcode-back" href="../../../api/CombinedTimeQuery.html#awips.dataaccess.CombinedTimeQuery.getAvailableTimes">[docs]</a><span class="k">def</span> <span class="nf">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">__getAvailableTimesForEachParameter</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="p">)</span></div>
-
 
 <span class="k">def</span> <span class="nf">__getAvailableTimesForEachParameter</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="n">parameters</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">getParameters</span><span class="p">()</span>
@@ -118,7 +136,6 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">__getAvailableTimesForEachLevel</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="p">)</span>
 
-
 <span class="k">def</span> <span class="nf">__getAvailableTimesForEachLevel</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="n">levels</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">getLevels</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">levels</span><span class="p">:</span>
@@ -137,7 +154,6 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">__getAvailableTimesForEachLocation</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="p">)</span>
 
-
 <span class="k">def</span> <span class="nf">__getAvailableTimesForEachLocation</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="n">locations</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">getLocationNames</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">locations</span><span class="p">:</span>
@@ -155,14 +171,14 @@
         <span class="k">return</span> <span class="n">times</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="p">)</span>
-
-
+        
+        
 <span class="k">def</span> <span class="nf">__cloneRequest</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="n">datatype</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">getDatatype</span><span class="p">(),</span>
-                                          <span class="n">parameters</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">getParameters</span><span class="p">(),</span>
-                                          <span class="n">levels</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">getLevels</span><span class="p">(),</span>
-                                          <span class="n">locationNames</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">getLocationNames</span><span class="p">(),</span>
-                                          <span class="n">envelope</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">getEnvelope</span><span class="p">(),</span>
+    <span class="k">return</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="n">datatype</span>      <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">getDatatype</span><span class="p">(),</span>
+                                          <span class="n">parameters</span>    <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">getParameters</span><span class="p">(),</span>
+                                          <span class="n">levels</span>        <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">getLevels</span><span class="p">(),</span>
+                                          <span class="n">locationNames</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">getLocationNames</span><span class="p">(),</span>
+                                          <span class="n">envelope</span>      <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">getEnvelope</span><span class="p">(),</span>
                                           <span class="o">**</span><span class="n">request</span><span class="o">.</span><span class="n">getIdentifiers</span><span class="p">())</span>
 </pre></div>
 

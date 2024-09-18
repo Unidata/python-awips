@@ -52,7 +52,7 @@
 <li class="toctree-l1"><a class="reference internal" href="datatypes.html">Available Data Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/index.html">Data Plotting Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev.html">Development Guide</a></li>
-<li class="toctree-l1"><a class="reference external" href="http://unidata.github.io/awips2/appendix/appendix-grid-parameters/">AWIPS Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gridparms.html">Grid Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About Unidata AWIPS</a></li>
 </ul>
 
@@ -83,7 +83,7 @@
   <section id="python-awips-data-access-framework">
 <h1>Python AWIPS Data Access Framework<a class="headerlink" href="#python-awips-data-access-framework" title="Permalink to this heading"></a></h1>
 <p>The python-awips package provides a data access framework for requesting meteorological and geographic datasets from an <a class="reference external" href="http://unidata.github.io/awips2/#edex">EDEX</a> server.</p>
-<p><a class="reference external" href="http://unidata.github.io/awips2">AWIPS</a> is a weather display and analysis package developed by the National Weather Service for operational forecasting. <a class="reference external" href="http://www.unidata.ucar.edu/software/awips2/">NSF Unidata</a> supports a non-operational open-source release of the AWIPS software (<a class="reference external" href="http://unidata.github.io/awips2/#edex">EDEX</a>, <a class="reference external" href="http://unidata.github.io/awips2/#cave">CAVE</a>, and <a class="reference external" href="https://github.com/Unidata/python-awips">python-awips</a>).</p>
+<p><a class="reference external" href="http://unidata.github.io/awips2">AWIPS</a> is a weather display and analysis package developed by the National Weather Service for operational forecasting.  UCAR’s <a class="reference external" href="http://www.unidata.ucar.edu/software/awips2/">Unidata Program Center</a> supports a non-operational open-source release of the AWIPS software (<a class="reference external" href="http://unidata.github.io/awips2/#edex">EDEX</a>, <a class="reference external" href="http://unidata.github.io/awips2/#cave">CAVE</a>, and <a class="reference external" href="https://github.com/Unidata/python-awips">python-awips</a>).</p>
 <section id="pre-requisite-software">
 <h2>Pre-requisite Software<a class="headerlink" href="#pre-requisite-software" title="Permalink to this heading"></a></h2>
 <dl class="simple">
@@ -118,7 +118,8 @@ The package can be installed with either of the two well known package managers:
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">Unidata</span><span class="o">/</span><span class="n">python</span><span class="o">-</span><span class="n">awips</span><span class="o">.</span><span class="n">git</span>
 <span class="n">cd</span> <span class="n">python</span><span class="o">-</span><span class="n">awips</span>
 <span class="n">conda</span> <span class="n">env</span> <span class="n">create</span> <span class="o">-</span><span class="n">f</span> <span class="n">environment</span><span class="o">.</span><span class="n">yml</span>
-<span class="n">conda</span> <span class="n">activate</span> <span class="n">python</span><span class="o">-</span><span class="n">awips</span><span class="o">-</span><span class="n">v20</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">python3</span><span class="o">-</span><span class="n">awips</span>
+<span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span> <span class="o">--</span><span class="n">force</span>
 <span class="n">jupyter</span> <span class="n">notebook</span> <span class="n">examples</span>
 </pre></div>
 </div>

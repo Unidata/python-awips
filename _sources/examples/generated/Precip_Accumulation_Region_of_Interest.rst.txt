@@ -1,7 +1,7 @@
 ======================================
 Precip Accumulation Region of Interest
 ======================================
-`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/website/examples/notebooks/Precip_Accumulation_Region_of_Interest.ipynb>`_
+`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Precip_Accumulation_Region_of_Interest.ipynb>`_
 Python-AWIPS Tutorial Notebook
 
 --------------

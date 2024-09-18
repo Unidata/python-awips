@@ -1,7 +1,7 @@
 ===================
 Colorized Grid Data
 ===================
-`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/website/examples/notebooks/Colorized_Grid_Data.ipynb>`_
+`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Colorized_Grid_Data.ipynb>`_
 Python-AWIPS Tutorial Notebook
 
 --------------
@@ -12,8 +12,8 @@ Objectives
 -  Create a colorized plot for the continental US of model data (grib).
 -  Access the model data from an EDEX server and limit the data returned
    by using model specific parameters.
--  Use both *pcolormesh* and *contourf* to create colorized plots, and
-   compare the differences between the two.
+-  Use both **pcolormesh** and **contourf** to create colorized plots,
+   and compare the differences between the two.
 
 --------------
 

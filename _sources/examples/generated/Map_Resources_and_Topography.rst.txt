@@ -1,7 +1,7 @@
 ============================
 Map Resources and Topography
 ============================
-`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/website/examples/notebooks/Map_Resources_and_Topography.ipynb>`_
+`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Map_Resources_and_Topography.ipynb>`_
 Python-AWIPS Tutorial Notebook
 
 --------------

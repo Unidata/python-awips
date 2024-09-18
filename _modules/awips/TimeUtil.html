@@ -50,7 +50,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../datatypes.html">Available Data Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Data Plotting Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../dev.html">Development Guide</a></li>
-<li class="toctree-l1"><a class="reference external" href="http://unidata.github.io/awips2/appendix/appendix-grid-parameters/">AWIPS Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gridparms.html">Grid Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../about.html">About Unidata AWIPS</a></li>
 </ul>
 
@@ -79,7 +79,26 @@
            <div itemprop="articleBody">
              
   <h1>Source code for awips.TimeUtil</h1><div class="highlight"><pre>
-<span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span></span><span class="c1">##</span>
+<span class="c1"># This software was developed and / or modified by Raytheon Company,</span>
+<span class="c1"># pursuant to Contract DG133W-05-CQ-1067 with the US Government.</span>
+<span class="c1"># </span>
+<span class="c1"># U.S. EXPORT CONTROLLED TECHNICAL DATA</span>
+<span class="c1"># This software product contains export-restricted data whose</span>
+<span class="c1"># export/transfer/disclosure is restricted by U.S. law. Dissemination</span>
+<span class="c1"># to non-U.S. persons whether in the United States or abroad requires</span>
+<span class="c1"># an export license or other authorization.</span>
+<span class="c1"># </span>
+<span class="c1"># Contractor Name:        Raytheon Company</span>
+<span class="c1"># Contractor Address:     6825 Pine Street, Suite 340</span>
+<span class="c1">#                         Mail Stop B8</span>
+<span class="c1">#                         Omaha, NE 68106</span>
+<span class="c1">#                         402.291.0100</span>
+<span class="c1"># </span>
+<span class="c1"># See the AWIPS II Master Rights File (&quot;Master Rights File.pdf&quot;) for</span>
+<span class="c1"># further licensing information.</span>
+<span class="c1">##</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
 <span class="c1"># This software is in the public domain, furnished &quot;as is&quot;, without technical</span>
 <span class="c1"># support, and with no warranty, express or implied, as to its usefulness for</span>
 <span class="c1"># any purpose.</span>
@@ -90,8 +109,8 @@
 <span class="c1"># Author: hansen/romberg</span>
 <span class="c1"># ----------------------------------------------------------------------------</span>
 
-<span class="kn">import</span> <span class="nn">string</span>
 <span class="kn">import</span> <span class="nn">time</span>
+
 
 <span class="c1"># Given the timeStr, return the offset (in seconds)</span>
 <span class="c1"># from the current time.</span>
@@ -101,7 +120,7 @@
 <span class="c1"># negative for time in the past.</span>
 <span class="c1">#</span>
 <span class="c1"># May still want it to be normalized to the most recent midnight.</span>
-<span class="c1">#</span>
+<span class="c1"># </span>
 <span class="c1"># NOTES about synchronizing:</span>
 <span class="c1"># --With synchronizing on, the &quot;current time&quot; for all processes started</span>
 <span class="c1">#   within a given hour will be the same.</span>
@@ -114,7 +133,7 @@
 <span class="c1">#     For example, if someone starts the GFE at 12:59 and someone</span>
 <span class="c1">#     else starts it at 1:01, they will have different offsets and</span>
 <span class="c1">#     current times.</span>
-<span class="c1"># --With synchronizing off, when the process starts, the current time</span>
+<span class="c1"># --With synchronizing off, when the process starts, the current time </span>
 <span class="c1">#   matches the drtTime in the command line.  However, with synchronizing</span>
 <span class="c1">#   on, the current time will be offset by the fraction of the hour at</span>
 <span class="c1">#   which the process was started. Examples:</span>
@@ -125,15 +144,14 @@
 <span class="c1">#     Synchronizing on:</span>
 <span class="c1">#        GFE Spatial Editor at StartUp: 20040616_0030</span>
 <span class="c1">#</span>
-
-
 <div class="viewcode-block" id="determineDrtOffset"><a class="viewcode-back" href="../../api/TimeUtil.html#awips.TimeUtil.determineDrtOffset">[docs]</a><span class="k">def</span> <span class="nf">determineDrtOffset</span><span class="p">(</span><span class="n">timeStr</span><span class="p">):</span>
     <span class="n">launchStr</span> <span class="o">=</span> <span class="n">timeStr</span>
     <span class="c1"># Check for time difference</span>
-    <span class="k">if</span> <span class="n">timeStr</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">timeStr</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span> <span class="o">&gt;=</span><span class="mi">0</span><span class="p">:</span>
         <span class="n">times</span> <span class="o">=</span> <span class="n">timeStr</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
         <span class="n">t1</span> <span class="o">=</span> <span class="n">makeTime</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">t2</span> <span class="o">=</span> <span class="n">makeTime</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="c1">#print &quot;time offset&quot;, t1-t2, (t1-t2)/3600</span>
         <span class="k">return</span> <span class="n">t1</span><span class="o">-</span><span class="n">t2</span><span class="p">,</span> <span class="n">launchStr</span>
     <span class="c1"># Check for synchronized mode</span>
     <span class="n">synch</span> <span class="o">=</span> <span class="mi">0</span>
@@ -141,31 +159,33 @@
         <span class="n">timeStr</span> <span class="o">=</span> <span class="n">timeStr</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
         <span class="n">synch</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">drt_t</span> <span class="o">=</span> <span class="n">makeTime</span><span class="p">(</span><span class="n">timeStr</span><span class="p">)</span>
+    <span class="c1">#print &quot;input&quot;, year, month, day, hour, minute</span>
     <span class="n">gm</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">gmtime</span><span class="p">()</span>
     <span class="n">cur_t</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">gm</span><span class="p">)</span>
-
+    
     <span class="c1"># Synchronize to most recent hour</span>
     <span class="c1"># i.e. &quot;truncate&quot; cur_t to most recent hour.</span>
+    <span class="c1">#print &quot;gmtime&quot;, gm</span>
     <span class="k">if</span> <span class="n">synch</span><span class="p">:</span>
         <span class="n">cur_t</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">((</span><span class="n">gm</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">gm</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">gm</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">gm</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-        <span class="n">curStr</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%4s%2s%2s</span><span class="s1">_</span><span class="si">%2s</span><span class="s1">00</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">gm</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">repr</span><span class="p">(</span><span class="n">gm</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
-                                        <span class="nb">repr</span><span class="p">(</span><span class="n">gm</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="nb">repr</span><span class="p">(</span><span class="n">gm</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
-        <span class="n">curStr</span> <span class="o">=</span> <span class="n">curStr</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">)</span>
+        <span class="n">curStr</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">_%H00</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">gm</span><span class="p">)</span>
         <span class="n">launchStr</span> <span class="o">=</span> <span class="n">timeStr</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="n">curStr</span>
-
-    <span class="n">offset</span> <span class="o">=</span> <span class="n">drt_t</span> <span class="o">-</span> <span class="n">cur_t</span>
+    
+    <span class="c1">#print &quot;drt, cur&quot;, drt_t, cur_t</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="n">drt_t</span> <span class="o">-</span> <span class="n">cur_t</span>    
+    <span class="c1">#print &quot;offset&quot;, offset, offset/3600, launchStr</span>
     <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">offset</span><span class="p">),</span> <span class="n">launchStr</span></div>
 
-
 <div class="viewcode-block" id="makeTime"><a class="viewcode-back" href="../../api/TimeUtil.html#awips.TimeUtil.makeTime">[docs]</a><span class="k">def</span> <span class="nf">makeTime</span><span class="p">(</span><span class="n">timeStr</span><span class="p">):</span>
-    <span class="n">year</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">atoi</span><span class="p">(</span><span class="n">timeStr</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span>
-    <span class="n">month</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">atoi</span><span class="p">(</span><span class="n">timeStr</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">])</span>
-    <span class="n">day</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">atoi</span><span class="p">(</span><span class="n">timeStr</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">])</span>
-    <span class="n">hour</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">atoi</span><span class="p">(</span><span class="n">timeStr</span><span class="p">[</span><span class="mi">9</span><span class="p">:</span><span class="mi">11</span><span class="p">])</span>
-    <span class="n">minute</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">atoi</span><span class="p">(</span><span class="n">timeStr</span><span class="p">[</span><span class="mi">11</span><span class="p">:</span><span class="mi">13</span><span class="p">])</span>
+    <span class="n">year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">timeStr</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span>
+    <span class="n">month</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">timeStr</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">])</span>
+    <span class="n">day</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">timeStr</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">])</span>
+    <span class="n">hour</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">timeStr</span><span class="p">[</span><span class="mi">9</span><span class="p">:</span><span class="mi">11</span><span class="p">])</span>
+    <span class="n">minute</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">timeStr</span><span class="p">[</span><span class="mi">11</span><span class="p">:</span><span class="mi">13</span><span class="p">])</span>
     <span class="c1"># Do not use daylight savings because gmtime is not in daylight</span>
     <span class="c1"># savings time.</span>
     <span class="k">return</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">((</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span></div>
+
 </pre></div>
 
            </div>
