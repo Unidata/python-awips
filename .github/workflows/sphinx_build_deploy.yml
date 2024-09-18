@@ -4,10 +4,9 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - website
+      - v20
     paths:
       - 'docs/**'
-      - 'examples/**'
       
 jobs:
   release: 
