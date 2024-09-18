@@ -507,8 +507,8 @@ to download and render for large (CONUS) maps.
         request.addIdentifier('cwa', 'BOU')
 
 See the `Maps Database Reference
-Page <http://unidata.github.io/awips2/python/maps-database/#mapdatacw>`__
-for available database tables, column names, and types.
+Page <https://unidata.github.io/awips2/appendix/maps-database>`__ for
+available database tables, column names, and types.
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html>`__
 
