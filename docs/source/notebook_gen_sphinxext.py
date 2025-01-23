@@ -23,7 +23,7 @@ def setup(app):
         parallel_write_safe=True
     )
 
-notebook_source_dir = '../../examples/notebooks'
+notebook_source_dir = 'examples/notebooks'
 generated_source_dir = 'examples/generated'
 
 
