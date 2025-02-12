@@ -1,0 +1,23 @@
+[build-system]
+requires = [
+    "setuptools"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "python-awips"
+version = "23.4.1"
+authors = [
+    { name="NSF Unidata", email="support-awips@ucar.edu" },
+]
+description = "A framework for requesting AWIPS meteorological datasets from an EDEX server"
+readme = "README.rst"
+license = { file = "LICENSE" }
+requires-python = ">=3.8"
+dependencies = [ "numpy"]
+[project.optional-dependencies]
+cdm = ["pyproj>=1.9.4"]
+dev = ["ipython[all]>=3.1"]
+doc = ["sphinx>=1.4", "sphinx-gallery", "doc8"]
+examples = ["cartopy>=0.13.1", "metpy>=0.4.0"]
+
