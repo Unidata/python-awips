@@ -1,9 +1,9 @@
 AWIPS Python Data Access Framework
 ==================================
 
-|License| |PyPI| |Conda| |CondaDownloads| |circleci| |Travis| |LatestDocs|
+|License| |PyPI| |Conda| |CondaDownloads| |circleci| |LatestDocs|
 
-|Codacy| |Scrutinizer| |CodeClimate| |PRWelcome|
+|Scrutinizer| |PRWelcome|
 
 .. |License| image:: https://img.shields.io/pypi/l/python-awips.svg
     :target: https://pypi.python.org/pypi/python-awips/
