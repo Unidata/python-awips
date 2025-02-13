@@ -18,20 +18,8 @@ AWIPS Python Data Access Framework
         :alt: PyPI Downloads
 
 .. |LatestDocs| image:: https://readthedocs.org/projects/pip/badge/?version=latest
-        :target: http://python-awips.readthedocs.org/en/latest/
+        :target: https://unidata.github.io/python-awips/index.htm
         :alt: Latest Doc Build Status
-
-.. |Travis| image:: https://travis-ci.org/Unidata/python-awips.svg?branch=main
-        :target: https://travis-ci.org/Unidata/python-awips
-        :alt: Travis Build Status
-
-.. |Codacy| image:: https://api.codacy.com/project/badge/Grade/e281f05c69164779814cad93eb3585cc
-        :target: https://www.codacy.com/app/mjames/python-awips
-        :alt: Codacy issues
-
-.. |CodeClimate| image:: https://codeclimate.com/github/Unidata/python-awips/badges/gpa.svg
-    :target: https://codeclimate.com/github/Unidata/python-awips
-    :alt: Code Climate
 
 .. |Scrutinizer| image:: https://scrutinizer-ci.com/g/Unidata/python-awips/badges/quality-score.png?b=main
     :target: https://scrutinizer-ci.com/g/Unidata/python-awips/?branch=main)
@@ -43,7 +31,7 @@ AWIPS Python Data Access Framework
 
 .. |PRWelcome|
     image:: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=round-square
-    :target: https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github
+    :target: https://github.com/Unidata/python-awips
     :alt: PRs Welcome
 
 .. |circleci|
