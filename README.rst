@@ -60,7 +60,7 @@ Install
 - micromamba install -c conda-forge python-awips
 
 Micromamba (or Conda) Environment
------------------
+---------------------------------
 
 - git clone https://github.com/Unidata/python-awips.git
 - cd python-awips
