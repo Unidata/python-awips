@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en">
 <head>
@@ -5,19 +7,15 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Python AWIPS Data Access Framework &mdash; python-awips  documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
+      <script src="_static/doctools.js?v=888ff710"></script>
+      <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
@@ -36,9 +34,6 @@
           <a href="#" class="icon icon-home">
             python-awips
           </a>
-              <div class="version">
-                20.1
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -89,7 +84,7 @@
 <dl class="simple">
 <dt>In order to effictively use python-awips you’ll need to have these installed already:</dt><dd><ul class="simple">
 <li><p>python3</p></li>
-<li><p>conda</p></li>
+<li><p>micromamba (or conda)</p></li>
 <li><p>git <em>(for the source code and examples installation)</em></p></li>
 </ul>
 </dd>
@@ -105,9 +100,9 @@ The package can be installed with either of the two well known package managers:
 </pre></div>
 </div>
 </section>
-<section id="conda-install">
-<h3>Conda Install<a class="headerlink" href="#conda-install" title="Permalink to this heading"></a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">python</span><span class="o">-</span><span class="n">awips</span>
+<section id="micromamba-conda-install">
+<h3>Micromamba (conda) Install<a class="headerlink" href="#micromamba-conda-install" title="Permalink to this heading"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">micromamba</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">python</span><span class="o">-</span><span class="n">awips</span>
 </pre></div>
 </div>
 </section>
@@ -117,9 +112,9 @@ The package can be installed with either of the two well known package managers:
 <p>Below are instructions on how to install the source code of python-awips, with all included example notebooks.  This will create a new conda environment called <code class="docutils literal notranslate"><span class="pre">python3-awips</span></code> and start up a browser for the jupyter notebook examples.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">Unidata</span><span class="o">/</span><span class="n">python</span><span class="o">-</span><span class="n">awips</span><span class="o">.</span><span class="n">git</span>
 <span class="n">cd</span> <span class="n">python</span><span class="o">-</span><span class="n">awips</span>
-<span class="n">conda</span> <span class="n">env</span> <span class="n">create</span> <span class="o">-</span><span class="n">f</span> <span class="n">environment</span><span class="o">.</span><span class="n">yml</span>
-<span class="n">conda</span> <span class="n">activate</span> <span class="n">python3</span><span class="o">-</span><span class="n">awips</span>
-<span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span> <span class="o">--</span><span class="n">force</span>
+<span class="n">micromamba</span> <span class="n">env</span> <span class="n">create</span> <span class="o">-</span><span class="n">f</span> <span class="n">environment</span><span class="o">.</span><span class="n">yml</span>
+<span class="n">micromamba</span> <span class="n">activate</span> <span class="n">python</span><span class="o">-</span><span class="n">awips</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
 <span class="n">jupyter</span> <span class="n">notebook</span> <span class="n">examples</span>
 </pre></div>
 </div>
@@ -142,7 +137,7 @@ The package can be installed with either of the two well known package managers:
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2018, NSF Unidata.</p>
+    <p>&#169; Copyright 2025, NSF Unidata.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

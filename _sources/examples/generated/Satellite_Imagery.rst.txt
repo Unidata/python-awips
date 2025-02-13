@@ -62,7 +62,9 @@ visualization.
     import cartopy.feature as cfeat
     import matplotlib.pyplot as plt
     from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
-    import datetime
+    from datetime import datetime, UTC
+    from pytz import timezone as tz
+
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Satellite_Imagery.html>`__
 
@@ -79,7 +81,7 @@ and set the data type to **satellite**.
 .. code:: ipython3
 
     # Create an EDEX data request
-    DataAccessLayer.changeEDEXHost("edex-cloud.unidata.ucar.edu")
+    DataAccessLayer.changeEDEXHost("edex-beta.unidata.ucar.edu")
     request = DataAccessLayer.newDataRequest()
     request.setDatatype("satellite")
 
@@ -893,9 +895,11 @@ about the data (metadata).
         request.setParameters("CH-13-10.35um")
     
         # Filter results by time
-        utc = datetime.datetime.utcnow()
+        utc = datetime.now(UTC)
         times = DataAccessLayer.getAvailableTimes(request)
-        hourdiff = utc - datetime.datetime.strptime(str(times[-1]),'%Y-%m-%d %H:%M:%S')
+        sTime = datetime.strptime(str(times[-1]),'%Y-%m-%d %H:%M:%S')
+        sTime = sTime.replace(tzinfo=tz('UTC'))
+        hourdiff = utc - sTime
         hours,days = hourdiff.seconds/3600,hourdiff.days
         minute = str((hourdiff.seconds - (3600 * hours)) / 60)
         offsetStr = ''

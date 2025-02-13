@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en">
 <head>
@@ -5,19 +7,15 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ModelSounding &mdash; python-awips  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
-        <script src="../_static/doctools.js?v=888ff710"></script>
-        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
+      <script src="../_static/doctools.js?v=888ff710"></script>
+      <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
@@ -37,9 +35,6 @@
           <a href="../index.html" class="icon icon-home">
             python-awips
           </a>
-              <div class="version">
-                20.1
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -55,11 +50,7 @@
 <li class="toctree-l2"><a class="reference internal" href="PyData.html">PyData</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PyGridData.html">PyGridData</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PyGeometryData.html">PyGeometryData</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">ModelSounding</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.ModelSounding.changeEDEXHost"><code class="docutils literal notranslate"><span class="pre">changeEDEXHost()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.ModelSounding.getSounding"><code class="docutils literal notranslate"><span class="pre">getSounding()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ModelSounding</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ThriftClientRouter.html">ThriftClientRouter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ThriftClient.html">ThriftClient</a></li>
 <li class="toctree-l2"><a class="reference internal" href="TimeUtil.html">TimeUtil</a></li>
@@ -101,38 +92,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-awips.dataaccess.ModelSounding">
-<span id="modelsounding"></span><h1>ModelSounding<a class="headerlink" href="#module-awips.dataaccess.ModelSounding" title="Permalink to this heading"></a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="awips.dataaccess.ModelSounding.changeEDEXHost">
-<span class="sig-prename descclassname"><span class="pre">awips.dataaccess.ModelSounding.</span></span><span class="sig-name descname"><span class="pre">changeEDEXHost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/ModelSounding.html#changeEDEXHost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.ModelSounding.changeEDEXHost" title="Permalink to this definition"></a></dt>
-<dd><p>Changes the EDEX host the Data Access Framework is communicating with.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>host: the EDEX host to connect to</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="awips.dataaccess.ModelSounding.getSounding">
-<span class="sig-prename descclassname"><span class="pre">awips.dataaccess.ModelSounding.</span></span><span class="sig-name descname"><span class="pre">getSounding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modelName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weatherElements</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">samplePoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeRange</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/ModelSounding.html#getSounding"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.ModelSounding.getSounding" title="Permalink to this definition"></a></dt>
-<dd><p>Performs a series of Data Access Framework requests to retrieve a sounding object
-based on the specified request parameters.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>modelName: the grid model datasetid to use as the basis of the sounding.
-weatherElements: a list of parameters to return in the sounding.
-levels: a list of levels to sample the given weather elements at
-samplePoint: a lat/lon pair to perform the sampling of data at.
-timeRange: (optional) a list of times, or a TimeRange to specify
-which forecast hours to use. If not specified, will default to all forecast hours.</p>
-</dd>
-<dt>Returns:</dt><dd><p>A _SoundingCube instance, which acts a 3-tiered dictionary, keyed
-by DataTime, then by level and finally by weather element. If no
-data is available for the given request parameters, None is returned.</p>
-</dd>
-</dl>
-</dd></dl>
-
+  <section id="modelsounding">
+<h1>ModelSounding<a class="headerlink" href="#modelsounding" title="Permalink to this heading"></a></h1>
 </section>
 
 
@@ -146,7 +107,7 @@ data is available for the given request parameters, None is returned.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2018, NSF Unidata.</p>
+    <p>&#169; Copyright 2025, NSF Unidata.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

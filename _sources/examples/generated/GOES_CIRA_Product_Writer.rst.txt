@@ -87,7 +87,7 @@ and set the data type to **satellite**.
 .. code:: ipython3
 
     # Create an EDEX data request
-    DataAccessLayer.changeEDEXHost("edex-cloud.unidata.ucar.edu")
+    DataAccessLayer.changeEDEXHost("edex-beta.unidata.ucar.edu")
     request = DataAccessLayer.newDataRequest()
     request.setDatatype("satellite")
 
@@ -265,7 +265,7 @@ whereever this notebook lives.
 
 ::
 
-   outputDir = '/Users/scarter/test_dir/output/'
+   outputDir = '/Users/awips/test_dir/output/'
 
 .. code:: ipython3
 

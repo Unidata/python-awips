@@ -61,7 +61,7 @@ subsequent imports are for data manipulation and visualization.
 
     from awips.dataaccess import DataAccessLayer
     from dynamicserialize.dstypes.com.raytheon.uf.common.time import TimeRange
-    from datetime import datetime, timedelta
+    from datetime import datetime, timedelta, UTC
     import numpy as np
     import cartopy.crs as ccrs
     import cartopy.feature as cfeature
@@ -118,7 +118,7 @@ request object.
 .. code:: ipython3
 
     # EDEX Request
-    edexServer = "edex-cloud.unidata.ucar.edu"
+    edexServer = "edex-beta.unidata.ucar.edu"
     DataAccessLayer.changeEDEXHost(edexServer)
     request = DataAccessLayer.newDataRequest("obs")
     
@@ -171,7 +171,7 @@ take to run.
 .. code:: ipython3
 
     # Time range
-    lastHourDateTime = datetime.utcnow() - timedelta(hours = 1)
+    lastHourDateTime = datetime.now(UTC) - timedelta(hours = 1)
     start = lastHourDateTime.strftime('%Y-%m-%d %H')
     beginRange = datetime.strptime( start + ":00:00", "%Y-%m-%d %H:%M:%S")
     endRange = datetime.strptime( start + ":59:59", "%Y-%m-%d %H:%M:%S")
@@ -367,7 +367,7 @@ Finally, we display the plot!
 **datetime:**
 
 -  `datetime.datetime <https://docs.python.org/3/library/datetime.html#datetime-objects>`__
--  `datetime.utcnow() <https://docs.python.org/3/library/datetime.html?#datetime.datetime.utcnow>`__
+-  `datetime.now(UTC) <https://docs.python.org/3/library/datetime.html?#datetime.datetime.utcnow>`__
 -  `datetime.timedelta <https://docs.python.org/3/library/datetime.html#timedelta-objects>`__
 -  `datetime.strftime() and
    datetime.strptime() <https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior>`__

@@ -94,7 +94,7 @@ and an identifier on the request.
 .. code:: ipython3
 
     # Set the edex server
-    DataAccessLayer.changeEDEXHost("edex-cloud.unidata.ucar.edu")
+    DataAccessLayer.changeEDEXHost("edex-beta.unidata.ucar.edu")
     request = DataAccessLayer.newDataRequest()
     
     # Set data type

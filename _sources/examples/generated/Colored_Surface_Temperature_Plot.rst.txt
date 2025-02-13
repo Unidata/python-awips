@@ -54,7 +54,7 @@ visualization.
 
     from awips.dataaccess import DataAccessLayer
     from dynamicserialize.dstypes.com.raytheon.uf.common.time import TimeRange
-    from datetime import datetime, timedelta
+    from datetime import datetime, timedelta, UTC
     import numpy as np
     import cartopy.crs as ccrs
     import warnings
@@ -95,7 +95,7 @@ just created.
 .. code:: ipython3
 
     # New obs request
-    edexServer = "edex-cloud.unidata.ucar.edu"
+    edexServer = "edex-beta.unidata.ucar.edu"
     DataAccessLayer.changeEDEXHost(edexServer)
     request = DataAccessLayer.newDataRequest("obs", envelope=envelope)
     params = ["temperature", "longitude", "latitude", "stationName"]
@@ -115,9 +115,9 @@ server to get our results, which are kept in the **obs** variable.
 .. code:: ipython3
 
     # Get records from the last 15 minutes
-    lastHourDateTime = datetime.utcnow() - timedelta(minutes = 15)
+    lastHourDateTime = datetime.now(UTC) - timedelta(minutes = 15)
     start = lastHourDateTime.strftime('%Y-%m-%d %H:%M:%S')
-    end = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+    end = datetime.now(UTC).strftime('%Y-%m-%d %H:%M:%S')
     
     beginRange = datetime.strptime( start , "%Y-%m-%d %H:%M:%S")
     endRange = datetime.strptime( end , "%Y-%m-%d %H:%M:%S")

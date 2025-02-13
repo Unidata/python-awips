@@ -70,7 +70,7 @@ that EDEX
 .. code:: ipython3
 
     # Unidata's cloud EDEX instance is used in this example
-    edex_url = "edex-cloud.unidata.ucar.edu"
+    edex_url = "edex-beta.unidata.ucar.edu"
     DataAccessLayer.changeEDEXHost(edex_url)
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html>`__

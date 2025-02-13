@@ -82,7 +82,7 @@ subsequent imports are for data manipulation and visualization.
 
     from awips.dataaccess import DataAccessLayer
     from dynamicserialize.dstypes.com.raytheon.uf.common.time import TimeRange
-    from datetime import datetime, timedelta
+    from datetime import datetime, timedelta, UTC
     import numpy as np
     import cartopy.crs as ccrs
     from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
@@ -265,7 +265,7 @@ First we establish a connection to Unidata’s public EDEX server.
 .. code:: ipython3
 
     # EDEX connection
-    edexServer = "edex-cloud.unidata.ucar.edu"
+    edexServer = "edex-beta.unidata.ucar.edu"
     DataAccessLayer.changeEDEXHost(edexServer)
 
 Maps Request and Response
@@ -360,9 +360,9 @@ we can use it in both of their data requests to EDEX.
 .. code:: ipython3
 
     # Filter for the last hour
-    lastHourDateTime = datetime.utcnow() - timedelta(minutes = 60)
+    lastHourDateTime = datetime.now(UTC) - timedelta(minutes = 60)
     start = lastHourDateTime.strftime('%Y-%m-%d %H:%M:%S')
-    end = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+    end = datetime.now(UTC).strftime('%Y-%m-%d %H:%M:%S')
     
     beginRange = datetime.strptime( start , "%Y-%m-%d %H:%M:%S")
     endRange = datetime.strptime( end , "%Y-%m-%d %H:%M:%S")
@@ -648,7 +648,7 @@ Additional Documentation
 **datetime:**
 
 -  `datetime.datetime <https://docs.python.org/3/library/datetime.html#datetime-objects>`__
--  `datetime.utcnow() <https://docs.python.org/3/library/datetime.html?#datetime.datetime.utcnow>`__
+-  `datetime.now(UTC) <https://docs.python.org/3/library/datetime.html?#datetime.datetime.utcnow>`__
 -  `datetime.timedelta <https://docs.python.org/3/library/datetime.html#timedelta-objects>`__
 -  `datetime.strftime() and
    datetime.strptime() <https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior>`__

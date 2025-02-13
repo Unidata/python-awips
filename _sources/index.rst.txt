@@ -14,7 +14,7 @@ Pre-requisite Software
 
 In order to effictively use python-awips you'll need to have these installed already:
   - python3
-  - conda
+  - micromamba (or conda)
   - git *(for the source code and examples installation)*
 
 Package-Only Install
@@ -31,12 +31,12 @@ Pip Install
     pip install python-awips
 
 
-Conda Install
+Micromamba (conda) Install
 ~~~~~~~~~~~~~
 
 ::
 
-    conda install -c conda-forge python-awips
+    micromamba install -c conda-forge python-awips
 
 
 
@@ -49,9 +49,9 @@ Below are instructions on how to install the source code of python-awips, with a
 
     git clone https://github.com/Unidata/python-awips.git
     cd python-awips
-    conda env create -f environment.yml
-    conda activate python3-awips
-    python setup.py install --force
+    micromamba env create -f environment.yml
+    micromamba activate python-awips
+    pip install .
     jupyter notebook examples
     
     

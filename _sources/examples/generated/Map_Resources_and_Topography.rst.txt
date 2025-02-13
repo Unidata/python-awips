@@ -61,7 +61,7 @@ visualization.
     import numpy.ma as ma
     from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
     from cartopy.feature import ShapelyFeature,NaturalEarthFeature
-    from shapely.ops import cascaded_union
+    from shapely.ops import unary_union
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html>`__
 
@@ -78,7 +78,7 @@ and set the data type to **maps**.
 .. code:: ipython3
 
     # Server, Data Request Type, and Database Table
-    DataAccessLayer.changeEDEXHost("edex-cloud.unidata.ucar.edu")
+    DataAccessLayer.changeEDEXHost("edex-beta.unidata.ucar.edu")
     request = DataAccessLayer.newDataRequest('maps')
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html>`__
@@ -162,7 +162,7 @@ to refine our query to EDEX.
     
     
     # All WFO counties merged to a single Polygon
-    merged_counties = cascaded_union(counties)
+    merged_counties = unary_union(counties)
     envelope = merged_counties.buffer(2)
     boundaries=[merged_counties]
     

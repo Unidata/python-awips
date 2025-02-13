@@ -71,7 +71,7 @@ manipulation and visualization.
 
 .. code:: ipython3
 
-    from datetime import datetime, timedelta
+    from datetime import datetime, timedelta, UTC
     
     import numpy as np
     import matplotlib.patches as mpatches
@@ -168,7 +168,7 @@ and set the data type to **warning**, and set the Parameters to
 
 .. code:: ipython3
 
-    DataAccessLayer.changeEDEXHost("edex-cloud.unidata.ucar.edu")
+    DataAccessLayer.changeEDEXHost("edex-beta.unidata.ucar.edu")
     request = DataAccessLayer.newDataRequest()
     request.setDatatype("warning")
     params = ["phensig", "sig"]
@@ -211,9 +211,9 @@ will take to run.
 .. code:: ipython3
 
     # Get records from the last 12 hours
-    lastHourDateTime = datetime.utcnow() - timedelta(hours = 12)
+    lastHourDateTime = datetime.now(UTC) - timedelta(hours = 12)
     start = lastHourDateTime.strftime('%Y-%m-%d %H:%M:%S')
-    end = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+    end = datetime.now(UTC).strftime('%Y-%m-%d %H:%M:%S')
     
     beginRange = datetime.strptime( start , "%Y-%m-%d %H:%M:%S")
     endRange = datetime.strptime( end , "%Y-%m-%d %H:%M:%S")
@@ -335,7 +335,7 @@ phensig.
             # set the geometries based on whether it's a MultiPolygon or Polygon
             if poly.geom_type == 'MultiPolygon':
                 geometries = np.array([])
-                geometries = np.append(geometries,MultiPolygon(poly))
+                geometries = np.append(geometries,MultiPolygon(poly).geoms)
             else:
                 geometries = np.array([])
                 geometries = np.append(geometries,Polygon(poly))

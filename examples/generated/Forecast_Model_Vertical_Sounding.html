@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en">
 <head>
@@ -5,19 +7,15 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Forecast Model Vertical Sounding &mdash; python-awips  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=b3ba4146"></script>
-        <script src="../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=b3ba4146"></script>
+      <script src="../../_static/doctools.js?v=888ff710"></script>
+      <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -37,9 +35,6 @@
           <a href="../../index.html" class="icon icon-home">
             python-awips
           </a>
-              <div class="version">
-                20.1
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -175,14 +170,14 @@ Documentation</a></div>
 import is coming directly from python-awips and allows us to connect to
 an EDEX server. The subsequent imports are for data manipulation and
 visualization.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">awips.dataaccess</span> <span class="kn">import</span> <span class="n">DataAccessLayer</span><span class="p">,</span> <span class="n">ModelSounding</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">metpy.plots</span> <span class="kn">import</span> <span class="n">SkewT</span><span class="p">,</span> <span class="n">Hodograph</span>
-<span class="kn">from</span> <span class="nn">metpy.units</span> <span class="kn">import</span> <span class="n">units</span>
-<span class="kn">from</span> <span class="nn">mpl_toolkits.axes_grid1.inset_locator</span> <span class="kn">import</span> <span class="n">inset_axes</span>
-<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
-<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">awips.dataaccess</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataAccessLayer</span><span class="p">,</span> <span class="n">ModelSounding</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">metpy.plots</span><span class="w"> </span><span class="kn">import</span> <span class="n">SkewT</span><span class="p">,</span> <span class="n">Hodograph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">metpy.units</span><span class="w"> </span><span class="kn">import</span> <span class="n">units</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpl_toolkits.axes_grid1.inset_locator</span><span class="w"> </span><span class="kn">import</span> <span class="n">inset_axes</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">sqrt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">shapely.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">Point</span>
 </pre></div>
 </div>
 <p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html">Top</a></p>
@@ -193,7 +188,7 @@ visualization.</p>
 <p>First we establish a connection to Unidata’s public EDEX server. This
 sets the proper server on the <strong>DataAccessLayer</strong>, which we will use
 numerous times throughout the notebook.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">server</span> <span class="o">=</span> <span class="s1">&#39;edex-cloud.unidata.ucar.edu&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">server</span> <span class="o">=</span> <span class="s1">&#39;edex-beta.unidata.ucar.edu&#39;</span>
 <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -237,7 +232,7 @@ data object from python-awips to retrieve all the relevant information.</p>
 <p>This function takes the model name, location, and time as attributes,
 and returns arrays for pressure, temperature, dewpoint, and the u and v
 wind components.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_surface_data</span><span class="p">(</span><span class="n">modelName</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_surface_data</span><span class="p">(</span><span class="n">modelName</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; model name, location, and timeRange desire &quot;&quot;&quot;</span>
 
     <span class="c1"># request data and sort response</span>
@@ -276,7 +271,7 @@ function), and also takes the instantiated pressure, temperature,
 dewpoint, and wind vector arrays.</p>
 <p>It returns the fully populated pressure, temperature, dewpoint,
 u-component, v-component, and computed wind arrays.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_levels_data</span><span class="p">(</span><span class="n">modelName</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">pressure</span><span class="p">,</span> <span class="n">temp</span><span class="p">,</span> <span class="n">dpt</span><span class="p">,</span> <span class="n">ucomp</span><span class="p">,</span> <span class="n">vcomp</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_levels_data</span><span class="p">(</span><span class="n">modelName</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">pressure</span><span class="p">,</span> <span class="n">temp</span><span class="p">,</span> <span class="n">dpt</span><span class="p">,</span> <span class="n">ucomp</span><span class="p">,</span> <span class="n">vcomp</span><span class="p">):</span>
 
     <span class="c1"># Get isobaric levels with our requested parameters</span>
     <span class="n">parms</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">,</span><span class="s1">&#39;DpT&#39;</span><span class="p">,</span><span class="s1">&#39;uW&#39;</span><span class="p">,</span><span class="s1">&#39;vW&#39;</span><span class="p">]</span>
@@ -341,7 +336,7 @@ was used to create this function.</p>
 <p>The function takes the model name, reference time, and the pressure,
 temperature, dewpoint, u-component, v-component, and wind arrays. It
 plots a skewT and hodograph using metpy.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_skewT</span><span class="p">(</span><span class="n">modelName</span><span class="p">,</span> <span class="n">pressure</span><span class="p">,</span> <span class="n">temp</span><span class="p">,</span> <span class="n">dpt</span><span class="p">,</span> <span class="n">ucomp</span><span class="p">,</span> <span class="n">vcomp</span><span class="p">,</span> <span class="n">wind</span><span class="p">,</span> <span class="n">refTime</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_skewT</span><span class="p">(</span><span class="n">modelName</span><span class="p">,</span> <span class="n">pressure</span><span class="p">,</span> <span class="n">temp</span><span class="p">,</span> <span class="n">dpt</span><span class="p">,</span> <span class="n">ucomp</span><span class="p">,</span> <span class="n">vcomp</span><span class="p">,</span> <span class="n">wind</span><span class="p">,</span> <span class="n">refTime</span><span class="p">):</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
 
     <span class="c1"># Skew-T</span>
@@ -504,7 +499,7 @@ Data</a></p></li>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2018, NSF Unidata.</p>
+    <p>&#169; Copyright 2025, NSF Unidata.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
