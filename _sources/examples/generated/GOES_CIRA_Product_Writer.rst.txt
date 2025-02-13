@@ -87,7 +87,7 @@ and set the data type to **satellite**.
 .. code:: ipython3
 
     # Create an EDEX data request
-    DataAccessLayer.changeEDEXHost("edex-beta.unidata.ucar.edu")
+    DataAccessLayer.changeEDEXHost("edex-cloud.unidata.ucar.edu")
     request = DataAccessLayer.newDataRequest()
     request.setDatatype("satellite")
 

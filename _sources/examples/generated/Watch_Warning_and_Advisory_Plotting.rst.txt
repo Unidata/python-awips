@@ -168,7 +168,7 @@ and set the data type to **warning**, and set the Parameters to
 
 .. code:: ipython3
 
-    DataAccessLayer.changeEDEXHost("edex-beta.unidata.ucar.edu")
+    DataAccessLayer.changeEDEXHost("edex-cloud.unidata.ucar.edu")
     request = DataAccessLayer.newDataRequest()
     request.setDatatype("warning")
     params = ["phensig", "sig"]

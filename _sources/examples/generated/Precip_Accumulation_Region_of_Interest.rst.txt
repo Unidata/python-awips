@@ -109,7 +109,7 @@ just created.
 
 .. code:: ipython3
 
-    DataAccessLayer.changeEDEXHost("edex-beta.unidata.ucar.edu")
+    DataAccessLayer.changeEDEXHost("edex-cloud.unidata.ucar.edu")
     request = DataAccessLayer.newDataRequest("grid", envelope=conus_envelope)
 
 2.3 Refine the Request

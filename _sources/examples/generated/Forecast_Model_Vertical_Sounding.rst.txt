@@ -88,7 +88,7 @@ numerous times throughout the notebook.
 
 .. code:: ipython3
 
-    server = 'edex-beta.unidata.ucar.edu'
+    server = 'edex-cloud.unidata.ucar.edu'
     DataAccessLayer.changeEDEXHost(server)
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html>`__

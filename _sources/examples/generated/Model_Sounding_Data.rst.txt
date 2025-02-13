@@ -92,7 +92,7 @@ parameters and an identifier on the request.
 
 .. code:: ipython3
 
-    DataAccessLayer.changeEDEXHost("edex-beta.unidata.ucar.edu")
+    DataAccessLayer.changeEDEXHost("edex-cloud.unidata.ucar.edu")
     request = DataAccessLayer.newDataRequest("modelsounding")
     forecastModel = "GFS"
     request.addIdentifier("reportType", forecastModel)

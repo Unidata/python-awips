@@ -265,7 +265,7 @@ First we establish a connection to Unidata’s public EDEX server.
 .. code:: ipython3
 
     # EDEX connection
-    edexServer = "edex-beta.unidata.ucar.edu"
+    edexServer = "edex-cloud.unidata.ucar.edu"
     DataAccessLayer.changeEDEXHost(edexServer)
 
 Maps Request and Response

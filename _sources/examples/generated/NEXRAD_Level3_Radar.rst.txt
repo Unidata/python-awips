@@ -72,7 +72,7 @@ numerous times throughout the notebook.
 
 .. code:: ipython3
 
-    DataAccessLayer.changeEDEXHost("edex-beta.unidata.ucar.edu")
+    DataAccessLayer.changeEDEXHost("edex-cloud.unidata.ucar.edu")
     request = DataAccessLayer.newDataRequest("radar")
 
 `Top <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html>`__

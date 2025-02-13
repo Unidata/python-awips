@@ -78,7 +78,7 @@ and set the data type to **maps**.
 .. code:: ipython3
 
     # Server, Data Request Type, and Database Table
-    DataAccessLayer.changeEDEXHost("edex-beta.unidata.ucar.edu")
+    DataAccessLayer.changeEDEXHost("edex-cloud.unidata.ucar.edu")
     request = DataAccessLayer.newDataRequest('maps')
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html>`__
