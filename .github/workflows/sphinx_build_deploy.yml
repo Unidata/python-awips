@@ -4,11 +4,9 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - website
+      - v23
     paths:
       - 'docs/**'
-      - 'examples/**'
-      
 jobs:
   release: 
     name: Build
