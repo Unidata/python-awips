@@ -38,6 +38,8 @@ jobs:
     environment:
       name: PyPI
       url: https://pypi.org/project/python-awips/
+    permissions:
+      id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
     runs-on: ubuntu-latest
     steps:
     - name: Download packages
@@ -47,7 +49,4 @@ jobs:
         name: artifact
 
     - name: Publish Package
-      uses: pypa/gh-action-pypi-publish@v1.4.2
-      with:
-        user: __token__
-        password: ${{ secrets.PYPI_TOKEN }}
+      uses: pypa/gh-action-pypi-publish@v1.12.4
