@@ -69,15 +69,16 @@ Install
 
   or
 
-- conda install -c conda-forge python-awips
+- micromamba install -c conda-forge python-awips
 
-Conda Environment
+Micromamba (or Conda) Environment
 -----------------
 
 - git clone https://github.com/Unidata/python-awips.git
 - cd python-awips
-- conda env create -f environment.yml
-- conda activate python3-awips
+- micromamba env create -f environment.yml
+- micromamba activate python-awips
+- pip install .
 - jupyter notebook examples
 
 
