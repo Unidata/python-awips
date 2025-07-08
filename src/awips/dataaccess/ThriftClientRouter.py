@@ -41,7 +41,7 @@
 #    08/01/16        2416          tgurney        Add getNotificationFilter()
 #    10/13/16        5916          bsteffen       Correct grid shape, allow lazy grid lat/lon
 #    10/26/16        5919          njensen        Speed up geometry creation in getGeometryData()
-#
+#    07/08/25                      tiffanym@ucar  Update tostring to tobytes
 
 
 import numpy
@@ -168,7 +168,7 @@ class ThriftClientRouter(object):
         for wkb in response.getGeometryWKBs():
             # the wkb is a numpy.ndarray of dtype int8
             # convert the bytearray to a byte string and load it
-            geometries.append(shapely.wkb.loads(wkb.tostring()))
+            geometries.append(shapely.wkb.loads(wkb.tobytes()))
 
         retVal = []
         for geoDataRecord in response.getGeoData():
