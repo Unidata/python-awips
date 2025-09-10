@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "python-awips"
-version = "23.1"
+version = "23.1.1"
 authors = [
     { name="NSF Unidata", email="support-awips@ucar.edu" },
 ]
