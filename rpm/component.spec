@@ -1,6 +1,6 @@
 %global __os_install_post %(echo '%{__os_install_post}' | sed -e 's!/usr/lib[^[:space:]]*/brp-python-bytecompile[[:space:]].*$!!g')
 %define _build_arch %(uname -i)
-%define _python_awips_version %(grep ^ver /awips2/repo/python-awips/setup.py | cut -d '"' -f 2)
+%define _python_awips_version %(grep ^version /awips2/repo/python-awips/pyproject.toml | cut -d '"' -f 2)
 %define _python_build_loc %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 #
 # Python AWIPS Spec File
@@ -68,12 +68,9 @@ fi
 cd %{_python_build_loc}/python-awips
 
 pushd . > /dev/null
-/awips2/python/bin/python setup.py clean
-RC=$?
-if [ ${RC} -ne 0 ]; then
-   exit 1
-fi
-/awips2/python/bin/python setup.py build
+
+/awips2/python/bin/python -m pip install build
+/awips2/python/bin/python -m build --wheel --no-isolation
 RC=$?
 if [ ${RC} -ne 0 ]; then
    exit 1
@@ -86,9 +83,15 @@ AWIPS_SRC_DIR="%{_baseline_workspace}/python-awips"
 pushd . > /dev/null
 cd %{_python_build_loc}/python-awips
 export LD_LIBRARY_PATH=/awips2/python/lib
-/awips2/python/bin/python setup.py install \
-   --root=%{_build_root} \
-   --prefix=/awips2/python
+
+
+# Install wheel into AWIPS Python prefix
+/awips2/python/bin/python -m pip install \
+    --root=%{_build_root} \
+    --prefix=/awips2/python \
+    --no-deps \
+    dist/*.whl
+
 RC=$?
 if [ ${RC} -ne 0 ]; then
    exit 1
