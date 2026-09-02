@@ -36,6 +36,6 @@ jobs:
         shell: micromamba-shell {0}
         run: |
           pytest \
-            --nbmake examples/notebooks/*.ipynb \
+            --nbmake examples/notebooks \
             --ignore=examples/notebooks/GOES_CIRA_Product_Writer.ipynb \
             --nbmake-timeout=600
