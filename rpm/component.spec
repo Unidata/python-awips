@@ -25,7 +25,7 @@ Requires: awips2-python-six
 Requires: awips2-python-shapely
 Provides: awips2-python-awips = %{version}
 
-Obsoletes: awips2-python-ufpy < 15.1.3-1
+Obsoletes: awips2-python-awips < 15.1.3-1
 Obsoletes: awips2-python-dynamicserialize < 15.1.3-1
 Obsoletes: awips2-python-thrift < 20080411p1-4
 
