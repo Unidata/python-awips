@@ -28,25 +28,49 @@ find /awips2/repo/awips2/ -path '*/pythonPackages/dynamicserialize' \
 
 echo "Updating dynamicserialize/dstypes"
 # Update __all__  for every package under dstypes
-for package in $(find src/dynamicserialize/dstypes -name __init__.py -printf '%h ')
+# Update __all__ for every package under dstypes
+while IFS= read -r -d '' package
 do
-    pushd $package > /dev/null
-    # find non-hidden packages
-    subpackages=$(find . -maxdepth 1 -type d ! -name ".*" -printf '%f\n' | sort)
+    pushd "$package" > /dev/null
 
-    # find non-hidden python modules
-    modules=$(find . -maxdepth 1 -type f \( -name "*.py" ! -name "__init__.py" ! -name ".*" \) -printf '%f\n' | sed 's/\.py//' | sort)
+    # Read subpackages and modules into actual Bash arrays
+    mapfile -t subpackages < <(
+        find . -mindepth 1 -maxdepth 1 \
+            -type d ! -name ".*" \
+            -printf '%f\n' |
+        sort
+    )
 
-    # join subpackages and modules into a single list, modules first
+    mapfile -t modules < <(
+        find . -maxdepth 1 \
+            -type f \
+            -name "*.py" \
+            ! -name "__init__.py" \
+            ! -name ".*" \
+            -printf '%f\n' |
+        sed 's/\.py$//' |
+        sort
+    )
+
     all=("${subpackages[@]}" "${modules[@]}")
-    joined=$(printf ",\n            \'%s\'" "${all[@]}")
 
-    #replace the current __all__ definition with the rebuilt __all__, which now includes all contributed packages and modules.
-    #-0777 allows us to match the multi-line __all__ definition
-    perl -0777 -p -i -e "s/__all__ = \[[^\]]*\]/__all__ = \[$(echo \"${joined:1}\")\n          \]/g" __init__.py
+    if (( ${#all[@]} > 0 )); then
+        joined=$(printf "    '%s',\n" "${all[@]}")
+        replacement=$'__all__ = [\n'"${joined}"$'\n]'
+    else
+        replacement='__all__ = []'
+    fi
+
+    REPLACEMENT="$replacement" perl -0777 -pi -e \
+        's/__all__ = \[[^\]]*\]/$ENV{REPLACEMENT}/g' \
+        __init__.py
 
     popd > /dev/null
-done
+done < <(
+    find src/dynamicserialize/dstypes \
+        -name "__init__.py" \
+        -printf '%h\0'
+)
 
 echo "Done"
 
