@@ -36,7 +36,6 @@ sys.path.insert(0, os.path.abspath('../..'))
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.intersphinx',
     'sphinx.ext.viewcode',
     'sphinx.ext.autosectionlabel',
     'notebook_gen_sphinxext'
@@ -297,11 +296,3 @@ texinfo_documents = [
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
 
-# Set up mapping for other projects' docs
-intersphinx_mapping = {
-    'matplotlib': ('https://matplotlib.org/stable/', None),
-    'numpy': ('https://numpy.org/doc/stable/', None),
-    'scipy': ('https://docs.scipy.org/doc/scipy/', None),
-    'pint': ('https://pint.readthedocs.io/en/stable/', None),
-    'python': ('https://docs.python.org/3/', None),
-}
