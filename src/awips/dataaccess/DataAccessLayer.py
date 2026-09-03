@@ -19,7 +19,7 @@
 #    Oct 07, 2016   ----     mjames@ucar Added getForecastRun
 #    Oct 18, 2016   5916     bsteffen    Add setLazyLoadGridLatLon
 #    Oct 11, 2018   ----     mjames@ucar Added getMetarObs() getSynopticObs()
-#
+#    Sep 03, 2026          tiffanym@ucar Cleaned up inconsistent indentation
 
 import sys
 import warnings
@@ -184,49 +184,39 @@ def getForecastRun(cycle, times):
 
 def getAvailableTimes(request, refTimeOnly=False):
     """
-    Get the times of available data to the request.
+    Get the times of available data for the request.
 
-    Args:
-            request: the IDataRequest to get data for
-            refTimeOnly: optional, use True if only unique refTimes should be
-                returned (without a forecastHr)
-
-    Returns:
-            a list of DataTimes
+    :param request: IDataRequest for which to retrieve available times.
+    :param bool refTimeOnly: If True, return only unique reference times
+        without forecast hours.
+    :return: A list of DataTime objects.
     """
     return router.getAvailableTimes(request, refTimeOnly)
 
 
-def getGridData(request, times=[]):
+def getAvailableTimes(request, refTimeOnly=False):
     """
-    Gets the grid data that matches the request at the specified times.  Each
-    combination of parameter, level, and dataTime will be returned as a
-    separate IGridData.
+    Get the times of available data for the request.
 
-    Args:
-            request: the IDataRequest to get data for
-            times: a list of DataTimes, a TimeRange, or None if the data is time
-                agnostic
-
-    Returns:
-            a list of IGridData
+    :param request: IDataRequest for which to retrieve available times.
+    :param bool refTimeOnly: If True, return only unique reference times
+        without forecast hours.
+    :return: A list of DataTime objects.
     """
     return router.getGridData(request, times)
 
 
 def getGeometryData(request, times=[]):
     """
-    Gets the geometry data that matches the request at the specified times.
-    Each combination of geometry, level, and dataTime will be returned as a
-    separate IGeometryData.
+    Get geometry data matching the request at the specified times.
 
-    Args:
-            request: the IDataRequest to get data for
-            times: a list of DataTimes, a TimeRange, or None if the data is time
-                agnostic
+    Each combination of geometry, level, and data time is returned as a
+    separate IGeometryData object.
 
-    Returns:
-       a list of IGeometryData
+    :param request: IDataRequest for which to retrieve geometry data.
+    :param times: List of DataTime objects, a TimeRange, or None for
+        time-agnostic data.
+    :return: A list of IGeometryData objects.
     """
     return router.getGeometryData(request, times)
 

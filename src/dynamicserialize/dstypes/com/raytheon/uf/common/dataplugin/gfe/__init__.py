@@ -26,8 +26,18 @@
 #
 ##    
 
-__all__ = [" 'config db discrete grid request server slice svcbu weather', 'GridDataHistory'"
-          ]
+__all__ = [
+    'config',
+    'db',
+    'discrete',
+    'grid',
+    'request',
+    'server',
+    'slice',
+    'svcbu',
+    'weather',
+    'GridDataHistory',
+]
 
 from .GridDataHistory import GridDataHistory
 

@@ -18,8 +18,13 @@
 # further licensing information.
 ##
 
-__all__ = [" '', 'Body Header Message Property WsId'"
-          ]
+__all__ = [
+    'Body',
+    'Header',
+    'Message',
+    'Property',
+    'WsId',
+]
 
 #
 # Package definition for com.raytheon.uf.common.message
