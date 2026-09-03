@@ -91,9 +91,9 @@ pythonToThriftMap = {
     numpy.int32: TType.I32,
     numpy.ndarray: TType.LIST,
     numpy.object_: TType.STRING,  # making an assumption here
-    numpy.bytes_: TType.STRING,
+    numpy.string_: TType.STRING,
     # numpy.bytes_ is the same as numpy.string_
-    numpy.str_: TType.STRING,
+    numpy.unicode_: TType.STRING,
     # numpy.str_ is the same as numpy.unicode_
     numpy.float64: TType.DOUBLE,
     numpy.int16: TType.I16,
@@ -104,7 +104,7 @@ pythonToThriftMap = {
 primitiveSupport = (TType.BYTE, TType.I16, TType.I32, TType.I64,
                     SelfDescribingBinaryProtocol.FLOAT, TType.DOUBLE)
 
-BYTE_STRING_TYPES = {numpy.bytes_, bytes}
+BYTE_STRING_TYPES = {numpy.string_, numpy.bytes_, bytes}
 
 
 class ThriftSerializationContext(object):

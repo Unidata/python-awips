@@ -33,17 +33,7 @@
 #
 #
 
-__all__ = [
-            'ByteDataRecord',
-            'DataUriMetadataIdentifier',
-            'DoubleDataRecord',
-            'FloatDataRecord',
-            'IntegerDataRecord',
-            'LongDataRecord',
-            'NoMetadataIdentifier',
-            'RecordAndMetadata',
-            'ShortDataRecord',
-            'StringDataRecord'
+__all__ = [" '', 'ByteDataRecord DataUriMetadataIdentifier DoubleDataRecord FloatDataRecord IntegerDataRecord LongDataRecord NoMetadataIdentifier RecordAndMetadata ShortDataRecord StringDataRecord'"
           ]
 
 from .ByteDataRecord import ByteDataRecord

@@ -33,8 +33,7 @@
 #
 
 
-__all__ = [           
-           'Point',        
-           ]
+__all__ = [" '', 'Point'"
+          ]
 
 from .Point import Point

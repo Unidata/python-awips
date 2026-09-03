@@ -26,8 +26,7 @@
 #
 ##    
 
-__all__ = [
-            'JobProgress',
+__all__ = [" '', 'JobProgress'"
           ]
 
 from .JobProgress import JobProgress
