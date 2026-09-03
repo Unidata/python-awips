@@ -42,6 +42,10 @@ extensions = [
     'notebook_gen_sphinxext'
 ]
 
+# Prefix automatically generated section labels with the document path
+# to prevent duplicate labels such as "Objectives" and "Imports".
+autosectionlabel_prefix_document = True
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
@@ -74,7 +78,7 @@ version = '23.1.1'
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = 'en'
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
@@ -147,7 +151,7 @@ html_theme = 'sphinx_rtd_theme'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = []
 
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
@@ -295,9 +299,9 @@ texinfo_documents = [
 
 # Set up mapping for other projects' docs
 intersphinx_mapping = {
-                       'matplotlib': ('http://matplotlib.org/', None),
-                       'numpy': ('http://docs.scipy.org/doc/numpy/', None),
-                       'scipy': ('http://docs.scipy.org/doc/scipy/reference/', None),
-                       'pint': ('http://pint.readthedocs.org/en/stable/', None),
-                       'python': ('http://docs.python.org', None)
-                       }
+    'matplotlib': ('https://matplotlib.org/stable/', None),
+    'numpy': ('https://numpy.org/doc/stable/', None),
+    'scipy': ('https://docs.scipy.org/doc/scipy/', None),
+    'pint': ('https://pint.readthedocs.io/en/stable/', None),
+    'python': ('https://docs.python.org/3/', None),
+}

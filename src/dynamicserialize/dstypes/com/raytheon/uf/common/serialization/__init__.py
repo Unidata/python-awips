@@ -33,7 +33,9 @@
 #
 
 
-__all__ = [" 'comm', 'SerializableExceptionWrapper'"
-          ]
+__all__ = [
+    'comm',
+    'SerializableExceptionWrapper',
+]
 
 from .SerializableExceptionWrapper import SerializableExceptionWrapper

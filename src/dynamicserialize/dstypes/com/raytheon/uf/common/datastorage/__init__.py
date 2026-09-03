@@ -33,8 +33,12 @@
 #
 
 
-__all__ = [" 'records', 'Request StorageProperties StorageStatus'"
-          ]
+__all__ = [
+    'records',
+    'Request',
+    'StorageProperties',
+    'StorageStatus',
+]
 
 from .Request import Request
 from .StorageProperties import StorageProperties
