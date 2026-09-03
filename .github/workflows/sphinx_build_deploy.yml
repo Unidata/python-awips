@@ -24,6 +24,7 @@ concurrency:
 
 jobs:
   build-and-publish:
+    if: github.repository == 'Unidata/python-awips'
     name: Build and publish documentation
     runs-on: ubuntu-latest
     timeout-minutes: 60
