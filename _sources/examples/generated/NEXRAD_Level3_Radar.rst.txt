@@ -1,7 +1,7 @@
 ===================
 NEXRAD Level3 Radar
 ===================
-`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/NEXRAD_Level3_Radar.ipynb>`_
+`Notebook <https://nbviewer.org/github/Unidata/python-awips/blob/v23/examples/notebooks/NEXRAD_Level3_Radar.ipynb>`_
 Python-AWIPS Tutorial Notebook
 
 --------------
@@ -9,10 +9,10 @@ Python-AWIPS Tutorial Notebook
 Objectives
 ==========
 
--  Use python-awips to connect to an edex server
--  Define and filter data request for radar data
--  Plot NEXRAD 3 algorithm, precipitation, and derived products (not
-   base data)
+- Use python-awips to connect to an edex server
+- Define and filter data request for radar data
+- Plot NEXRAD 3 algorithm, precipitation, and derived products (not base
+  data)
 
 --------------
 
@@ -32,7 +32,7 @@ Table of Contents
 |     `3.3 Radar Product IDs and
   Names <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#radar-product-ids-and-names>`__\ 
 | `4 Function:
-  make_map() <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#function-make-map>`__\ 
+  make_map() <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#function-makemap>`__\ 
 | `5 Plot the
   Data! <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#plot-the-data>`__\ 
 | `6 See
@@ -40,7 +40,7 @@ Table of Contents
 |     `6.1 Related
   Notebooks <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#related-notebooks>`__\ 
 |     `6.2 Additional
-  Documentation <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#additional-documentation>`__\ 
+  Documention <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#additional-documention>`__\ 
 
 1 Imports
 ---------
@@ -56,6 +56,7 @@ visualization.
     from awips.dataaccess import DataAccessLayer
     import matplotlib.pyplot as plt
     import cartopy.crs as ccrs
+    import cartopy.feature as cfeature
     import numpy as np
     from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
 
@@ -92,7 +93,7 @@ We can take a look at what “locations” are available for our radar
 request. For radar, we’ll see that radar station names are returned when
 looking at the availalbe location names.
 
-For this example we’ll use Baltimore, MD/Washington DC as our region of
+For this example we’ll use Baltimore, MD/Washington, DC as our region of
 interest. You can easily look up other station IDs and where they are
 using `this NWS
 webpage <https://radar.weather.gov/station/KMHX/standard>`__.
@@ -109,7 +110,7 @@ webpage <https://radar.weather.gov/station/KMHX/standard>`__.
 
 .. parsed-literal::
 
-    ['kabr', 'kabx', 'kakq', 'kama', 'kamx', 'kapx', 'karx', 'katx', 'kbbx', 'kbgm', 'kbhx', 'kbis', 'kblx', 'kbmx', 'kbox', 'kbro', 'kbuf', 'kbyx', 'kcae', 'kcbw', 'kcbx', 'kccx', 'kcle', 'kclx', 'kcrp', 'kcxx', 'kcys', 'kdax', 'kddc', 'kdfx', 'kdgx', 'kdix', 'kdlh', 'kdmx', 'kdox', 'kdtx', 'kdvn', 'kdyx', 'keax', 'kemx', 'kenx', 'keox', 'kepz', 'kesx', 'kevx', 'kewx', 'keyx', 'kfcx', 'kfdr', 'kfdx', 'kffc', 'kfsd', 'kfsx', 'kftg', 'kfws', 'kggw', 'kgjx', 'kgld', 'kgrb', 'kgrk', 'kgrr', 'kgsp', 'kgwx', 'kgyx', 'khdc', 'khdx', 'khgx', 'khnx', 'khpx', 'khtx', 'kict', 'kicx', 'kiln', 'kilx', 'kind', 'kinx', 'kiwa', 'kiwx', 'kjax', 'kjgx', 'kjkl', 'klbb', 'klch', 'klgx', 'klnx', 'klot', 'klrx', 'klsx', 'kltx', 'klvx', 'klwx', 'klzk', 'kmaf', 'kmax', 'kmbx', 'kmhx', 'kmkx', 'kmlb', 'kmob', 'kmpx', 'kmqt', 'kmrx', 'kmsx', 'kmtx', 'kmux', 'kmvx', 'kmxx', 'knkx', 'knqa', 'koax', 'kohx', 'kokx', 'kotx', 'kpah', 'kpbz', 'kpdt', 'kpoe', 'kpux', 'krax', 'krgx', 'kriw', 'krlx', 'krtx', 'ksfx', 'ksgf', 'kshv', 'ksjt', 'ksox', 'ksrx', 'ktbw', 'ktfx', 'ktlh', 'ktlx', 'ktwx', 'ktyx', 'kudx', 'kuex', 'kvax', 'kvbx', 'kvnx', 'kvtx', 'kvwx', 'kyux', 'pabc', 'pacg', 'paec', 'pahg', 'paih', 'pakc', 'papd', 'phki', 'phkm', 'phmo', 'phwa', 'rkjk', 'rksg', 'tadw', 'tatl', 'tbna', 'tbos', 'tbwi', 'tclt', 'tcmh', 'tcvg', 'tdal', 'tday', 'tdca', 'tden', 'tdfw', 'tdtw', 'tewr', 'tfll', 'thou', 'tiad', 'tiah', 'tich', 'tids', 'tjfk', 'tjua', 'tlas', 'tlve', 'tmci', 'tmco', 'tmdw', 'tmem', 'tmia', 'tmke', 'tmsp', 'tmsy', 'tokc', 'tord', 'tpbi', 'tphl', 'tphx', 'tpit', 'trdu', 'tsdf', 'tsju', 'tslc', 'tstl', 'ttpa', 'ttul']
+    ['kabr', 'kabx', 'kakq', 'kama', 'kamx', 'kapx', 'karx', 'katx', 'kbbx', 'kbgm', 'kbhx', 'kbis', 'kblx', 'kbmx', 'kbox', 'kbro', 'kbuf', 'kbyx', 'kcae', 'kcbw', 'kcbx', 'kccx', 'kcle', 'kclx', 'kcrp', 'kcxx', 'kcys', 'kdax', 'kddc', 'kdfx', 'kdgx', 'kdix', 'kdlh', 'kdmx', 'kdox', 'kdtx', 'kdvn', 'kdyx', 'keax', 'kemx', 'kenx', 'keox', 'kepz', 'kesx', 'kevx', 'kewx', 'keyx', 'kfcx', 'kfdr', 'kfdx', 'kffc', 'kfsd', 'kfsx', 'kftg', 'kfws', 'kggw', 'kgjx', 'kgld', 'kgrb', 'kgrk', 'kgrr', 'kgsp', 'kgwx', 'kgyx', 'khdc', 'khdx', 'khgx', 'khnx', 'khpx', 'khtx', 'kict', 'kicx', 'kiln', 'kilx', 'kind', 'kinx', 'kiwa', 'kiwx', 'kjax', 'kjgx', 'kjkl', 'klbb', 'klch', 'klgx', 'klnx', 'klot', 'klrx', 'klsx', 'kltx', 'klvx', 'klwx', 'klzk', 'kmaf', 'kmax', 'kmbx', 'kmhx', 'kmkx', 'kmlb', 'kmob', 'kmpx', 'kmqt', 'kmrx', 'kmsx', 'kmtx', 'kmux', 'kmvx', 'kmxx', 'knkx', 'knqa', 'koax', 'kohx', 'kokx', 'kotx', 'kpah', 'kpbz', 'kpdt', 'kpoe', 'kpux', 'krax', 'krgx', 'kriw', 'krlx', 'krtx', 'ksfx', 'ksgf', 'kshv', 'ksjt', 'ksox', 'ksrx', 'ktbw', 'ktfx', 'ktlh', 'ktlx', 'ktwx', 'ktyx', 'kudx', 'kuex', 'kvax', 'kvbx', 'kvnx', 'kvtx', 'kvwx', 'kyux', 'pabc', 'pacg', 'paec', 'pahg', 'paih', 'pakc', 'papd', 'phki', 'phkm', 'phmo', 'phwa', 'rkjk', 'rksg', 'tadw', 'tatl', 'tbna', 'tbos', 'tbwi', 'tclt', 'tcmh', 'tcvg', 'tdal', 'tday', 'tdca', 'tden', 'tdfw', 'tdtw', 'tewr', 'tfll', 'thou', 'tiad', 'tiah', 'tich', 'tids', 'tjfk', 'tjua', 'tlas', 'tlve', 'tmci', 'tmco', 'tmdw', 'tmem', 'tmia', 'tmke', 'tmsp', 'tmsy', 'tokc', 'tord', 'tpbi', 'tphl', 'tphx', 'tpit', 'trdu', 'tsdf', 'tsju', 'tslc', 'tstl', 'ttul']
 
 
 3.2 Available Parameters
@@ -128,7 +129,7 @@ parameters appear different from the others.
 
 .. parsed-literal::
 
-    ['134', '135', '141', '153', '154', '159', '161', '163', '165', '166', '169', '170', '172', '173', '176', '177', '32', '37', '56', '57', '58', '81', '99', 'CC', 'CZ', 'Composite Refl', 'Correlation Coeff', 'DAA', 'DHR', 'DPA', 'DPR', 'DUA', 'DVL', 'Diff Reflectivity', 'Digital Hybrid Scan Refl', 'Digital Inst Precip Rate', 'Digital Precip Array', 'Digital Vert Integ Liq', 'EET', 'Enhanced Echo Tops', 'HC', 'HHC', 'HV', 'HZ', 'Hybrid Hydrometeor Class', 'Hydrometeor Class', 'KDP', 'MD', 'ML', 'Melting Layer', 'Mesocyclone', 'OHA', 'One Hour Accum', 'One Hour Unbiased Accum', 'Reflectivity', 'SRM', 'STA', 'STI', 'Specific Diff Phase', 'Storm Rel Velocity', 'Storm Total Accum', 'Storm Track', 'User Select Accum', 'V', 'VIL', 'Velocity', 'Vert Integ Liq', 'ZDR']
+    ['134', '135', '141', '153', '154', '159', '161', '163', '165', '166', '169', '170', '172', '173', '176', '177', '197', '32', '37', '56', '57', '58', '81', '99', 'CC', 'CZ', 'Composite Refl', 'Correlation Coeff', 'DAA', 'DHR', 'DPA', 'DPR', 'DUA', 'DVL', 'Diff Reflectivity', 'Digital Hybrid Scan Refl', 'Digital Inst Precip Rate', 'Digital Precip Array', 'Digital Vert Integ Liq', 'EET', 'Enhanced Echo Tops', 'HC', 'HHC', 'HV', 'HZ', 'Hybrid Hydrometeor Class', 'Hydrometeor Class', 'KDP', 'MD', 'ML', 'Melting Layer', 'Mesocyclone', 'OHA', 'One Hour Accum', 'One Hour Unbiased Accum', 'RRC', 'Rain Rate Classification', 'Reflectivity', 'SRM', 'STA', 'STI', 'Specific Diff Phase', 'Storm Rel Velocity', 'Storm Total Accum', 'Storm Track', 'User Select Accum', 'V', 'VIL', 'Velocity', 'Vert Integ Liq', 'ZDR']
 
 
 3.3 Radar Product IDs and Names
@@ -151,8 +152,8 @@ previous code cell.
 
 .. parsed-literal::
 
-    ['134', '135', '141', '153', '154', '159', '161', '163', '165', '166', '169', '170', '172', '173', '176', '177', '32', '37', '56', '57', '58', '81', '99']
-    ['Composite Refl', 'Correlation Coeff', 'Diff Reflectivity', 'Digital Hybrid Scan Refl', 'Digital Inst Precip Rate', 'Digital Precip Array', 'Digital Vert Integ Liq', 'Enhanced Echo Tops', 'Hybrid Hydrometeor Class', 'Hydrometeor Class', 'Melting Layer', 'Mesocyclone', 'One Hour Accum', 'One Hour Unbiased Accum', 'Reflectivity', 'Specific Diff Phase', 'Storm Rel Velocity', 'Storm Total Accum', 'Storm Track', 'User Select Accum', 'Velocity', 'Vert Integ Liq']
+    ['134', '135', '141', '153', '154', '159', '161', '163', '165', '166', '169', '170', '172', '173', '176', '177', '197', '32', '37', '56', '57', '58', '81', '99']
+    ['Composite Refl', 'Correlation Coeff', 'Diff Reflectivity', 'Digital Hybrid Scan Refl', 'Digital Inst Precip Rate', 'Digital Precip Array', 'Digital Vert Integ Liq', 'Enhanced Echo Tops', 'Hybrid Hydrometeor Class', 'Hydrometeor Class', 'Melting Layer', 'Mesocyclone', 'One Hour Accum', 'One Hour Unbiased Accum', 'Rain Rate Classification', 'Reflectivity', 'Specific Diff Phase', 'Storm Rel Velocity', 'Storm Total Accum', 'Storm Track', 'User Select Accum', 'Velocity', 'Vert Integ Liq']
 
 
 `Top <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html>`__
@@ -176,6 +177,7 @@ added, along with lat/lon grids.
                                subplot_kw=dict(projection=projection))
         ax.set_extent(bbox)
         ax.coastlines(resolution='50m')
+        ax.add_feature(cfeature.STATES, linestyle=':', edgecolor='black', linewidth=0.5)
         gl = ax.gridlines(draw_labels=True)
         gl.top_labels = gl.right_labels = False
         gl.xformatter = LONGITUDE_FORMATTER
@@ -191,7 +193,7 @@ added, along with lat/lon grids.
 
 Here we’ll create a plot for each of the Radar Product Names from our
 *productNames* array from the `previous
-section <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html#Radar-Product-IDs-and-Names>`__.
+section <#Radar-Product-IDs-and-Names>`__.
 
 .. code:: ipython3
 
@@ -244,22 +246,23 @@ section <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3
                            + grid.getLocationName() + " (" + prod + "), (" + grid.getUnit() + ") " \
                            + "valid " + str(grid.getDataTime().getRefTime()))
             plt.show()
+            plt.gcf().canvas.draw()
 
 
 .. parsed-literal::
 
     
     Recs :  1
-    Time : 2024-05-22 21:53:42
+    Time : 2025-02-12 23:42:47
     Name : klwx_0.0_464_464
     Prod : Composite Refl
-    Range: 5.0  to  60.0  (Unit : dBZ )
+    Range: 5.0  to  40.0  (Unit : dBZ )
     Size : (464, 464)
     
 
 
 
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_21_1.png
+.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_20_1.png
 
 
 .. parsed-literal::
@@ -268,39 +271,39 @@ section <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3
     No levels found for Diff Reflectivity
     
     Recs :  1
-    Time : 2024-05-22 21:57:59
+    Time : 2025-02-12 23:48:37
     Name : klwx_0.0_230_360_0.0_359.0
     Prod : Digital Hybrid Scan Refl
-    Range: -16.0  to  57.0  (Unit : dBZ )
+    Range: -29.0  to  39.5  (Unit : dBZ )
     Size : (230, 360)
     
 
 
 
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_21_3.png
+.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_20_3.png
 
 
 .. parsed-literal::
 
     
     Recs :  1
-    Time : 2024-05-22 21:57:59
+    Time : 2025-02-12 23:48:37
     Name : klwx_0.0_920_360_0.0_359.0
     Prod : Digital Inst Precip Rate
-    Range: 7.0555557e-09  to  4.0117888e-05  (Unit : m*sec^-1 )
+    Range: 7.0555557e-09  to  2.998611e-06  (Unit : m*sec^-1 )
     Size : (920, 360)
     
 
 
 
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_21_5.png
+.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_20_5.png
 
 
 .. parsed-literal::
 
     
     Recs :  1
-    Time : 2024-05-22 21:57:59
+    Time : 2025-02-12 23:48:37
     Name : klwx_0.0_13_13
     Prod : Digital Precip Array
     Range: -60.0  to  690.0  (Unit : count )
@@ -309,30 +312,30 @@ section <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3
 
 
 
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_21_7.png
+.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_20_7.png
 
 
 .. parsed-literal::
 
     
     Recs :  1
-    Time : 2024-05-22 21:53:42
+    Time : 2025-02-12 23:48:37
     Name : klwx_0.0_460_360_0.0_359.0
     Prod : Digital Vert Integ Liq
-    Range: 0.0  to  46.34034  (Unit : kg*m^-2 )
+    Range: 0.0  to  2.2850013  (Unit : kg*m^-2 )
     Size : (460, 360)
     
 
 
 
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_21_9.png
+.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_20_9.png
 
 
 .. parsed-literal::
 
     
     Recs :  1
-    Time : 2024-05-22 21:53:42
+    Time : 2025-02-12 23:48:37
     Name : klwx_0.0_346_360_0.0_359.0
     Prod : Enhanced Echo Tops
     Range: nan  to  nan  (Unit : m )
@@ -341,23 +344,23 @@ section <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3
 
 
 
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_21_11.png
+.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_20_11.png
 
 
 .. parsed-literal::
 
     
     Recs :  1
-    Time : 2024-05-22 21:57:59
+    Time : 2025-02-12 23:48:37
     Name : klwx_0.0_920_360_0.0_359.0
     Prod : Hybrid Hydrometeor Class
-    Range: 1.0  to  10.0  (Unit : count )
+    Range: 1.0  to  9.0  (Unit : count )
     Size : (920, 360)
     
 
 
 
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_21_13.png
+.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_20_13.png
 
 
 .. parsed-literal::
@@ -368,32 +371,48 @@ section <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3
     Recs :  0
     
     Recs :  1
-    Time : 2024-05-22 21:57:59
+    Time : 2025-02-12 23:48:37
     Name : klwx_0.0_115_360_359.0_359.0
     Prod : One Hour Accum
-    Range: 0.0  to  0.0254  (Unit : m )
+    Range: 0.0  to  0.00254  (Unit : m )
     Size : (115, 360)
     
 
 
 
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_21_15.png
+.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_20_15.png
 
 
 .. parsed-literal::
 
     
     Recs :  1
-    Time : 2024-05-22 21:57:59
+    Time : 2025-02-12 23:48:37
     Name : klwx_0.0_920_360_0.0_359.0
     Prod : One Hour Unbiased Accum
-    Range: 2.54e-05  to  0.030784799  (Unit : m )
+    Range: 2.5482457e-05  to  0.0048997905  (Unit : m )
     Size : (920, 360)
     
 
 
 
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_21_17.png
+.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_20_17.png
+
+
+.. parsed-literal::
+
+    
+    Recs :  1
+    Time : 2025-02-12 23:48:37
+    Name : klwx_0.0_920_360_0.0_359.0
+    Prod : Rain Rate Classification
+    Range: 3.0  to  10.0  (Unit : count )
+    Size : (920, 360)
+    
+
+
+
+.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_20_19.png
 
 
 .. parsed-literal::
@@ -403,16 +422,16 @@ section <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3
     No levels found for Storm Rel Velocity
     
     Recs :  1
-    Time : 2024-05-22 21:57:59
+    Time : 2025-02-12 23:48:37
     Name : klwx_0.0_920_360_0.0_359.0
     Prod : Storm Total Accum
-    Range: 0.000254  to  0.051054  (Unit : m )
+    Range: 0.000254  to  0.062484  (Unit : m )
     Size : (920, 360)
     
 
 
 
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_21_19.png
+.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_20_21.png
 
 
 .. parsed-literal::
@@ -423,16 +442,16 @@ section <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3
     No levels found for Velocity
     
     Recs :  1
-    Time : 2024-05-22 21:57:59
+    Time : 2025-02-12 23:48:37
     Name : klwx_0.0_116_116
     Prod : Vert Integ Liq
-    Range: 1.0  to  45.0  (Unit : kg*m^-2 )
+    Range: 1.0  to  1.0  (Unit : kg*m^-2 )
     Size : (116, 116)
     
 
 
 
-.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_21_21.png
+.. image:: NEXRAD_Level3_Radar_files/NEXRAD_Level3_Radar_20_23.png
 
 
 `Top <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html>`__
@@ -445,25 +464,24 @@ section <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3
 6.1 Related Notebooks
 ~~~~~~~~~~~~~~~~~~~~~
 
--  `Grid Levels and
-   Parameters <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html>`__
+- `Grid Levels and
+  Parameters <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html>`__
 
-6.2 Additional Documentation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+6.2 Additional Documention
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **python-awips**
 
--  `DataAccessLayer.changeEDEXHost() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost>`__
--  `DataAccessLayer.newDataRequest() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.newDataRequest>`__
--  `DataAccessLayer.getRadarProductIDs() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getRadarProductIDs>`__
--  `DataAccessLayer.getRadarProductNames() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getRadarProductNames>`__
+- `DataAccessLayer.changeEDEXHost() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost>`__
+- `DataAccessLayer.newDataRequest() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.newDataRequest>`__
+- `DataAccessLayer.getRadarProductIDs() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getRadarProductIDs>`__
+- `DataAccessLayer.getRadarProductNames() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getRadarProductNames>`__
 
 **matplotlib**
 
--  `matplotlib.pyplot() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html>`__
--  `matplotlib.pyplot.axes() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.axes.html>`__
--  `matplotlib.pyplot.figure() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html>`__
+- `matplotlib.pyplot() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html>`__
+- `matplotlib.pyplot.axes() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.axes.html>`__
+- `matplotlib.pyplot.figure() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html>`__
 
 `Top <https://unidata.github.io/python-awips/examples/generated/NEXRAD_Level3_Radar.html>`__
 
---------------

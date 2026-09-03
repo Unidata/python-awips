@@ -1,7 +1,7 @@
 ===================================
 Watch Warning and Advisory Plotting
 ===================================
-`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Watch_Warning_and_Advisory_Plotting.ipynb>`_
+`Notebook <https://nbviewer.org/github/Unidata/python-awips/blob/v23/examples/notebooks/Watch_Warning_and_Advisory_Plotting.ipynb>`_
 Python-AWIPS Tutorial Notebook
 
 --------------
@@ -9,17 +9,17 @@ Python-AWIPS Tutorial Notebook
 Objectives
 ==========
 
--  Create a colorized plot with `Warnings, Watches, Advisories and
-   Statements (WWAs) <https://weather.cod.edu/notes/criteria/>`__
--  Use python-awips to connect to an EDEX server
--  Create and filter the data request specifically for a warning data
-   type
--  Create and use accurate time filter for data requests
--  Define and use functions
--  Define and use dictionaries
--  Colorize shapes based on a dictionary
--  Overlay warnings, watches, and advisories with state and political
-   maps
+- Create a colorized plot with `Warnings, Watches, Advisories and
+  Statements (WWAs) <https://weather.cod.edu/notes/criteria/>`__
+- Use python-awips to connect to an EDEX server
+- Create and filter the data request specifically for a warning data
+  type
+- Create and use accurate time filter for data requests
+- Define and use functions
+- Define and use dictionaries
+- Colorize shapes based on a dictionary
+- Overlay warnings, watches, and advisories with state and political
+  maps
 
 --------------
 
@@ -29,11 +29,11 @@ Table of Contents
 | `1
   Imports <https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#imports>`__\ 
 | `2 Function:
-  make_map() <https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#function-make-map>`__\ 
+  make_map() <https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#function-makemap>`__\ 
 | `3 Function:
-  get_color() <https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#function-get-color>`__\ 
-| `4 Function:
-  get_title() <https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#function-get-title>`__\ 
+  get_color() <https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#function-getcolor>`__\ 
+| `4 Function
+  get_title() <https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#function-gettitle>`__\ 
 | `5 Initial
   Setup <https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html#initial-setup>`__\ 
 |     `5.1 EDEX
@@ -160,11 +160,10 @@ object <http://unidata.github.io/python-awips/api/IDataRequest.html>`__
 and set the data type to **warning**, and set the Parameters to
 **phensig** and **sig**.
 
-.. container:: alert-info
-
-   Note: Remember, to see all available parameters use the
-   DataAccess.getAvailableParameters() method as shown in the Grid
-   Levels and Parameters Notebook.
+> **Note:** Remember, to see all available parameters use the
+`DataAccess.getAvailableParameters() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableParameters>`__
+method as shown in the `Grid Levels and Parameters
+Notebook. <http://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html#get-available-parameters>`__
 
 .. code:: ipython3
 
@@ -230,24 +229,25 @@ will take to run.
 ~~~~~~~~~~~~~~~~
 
 Now that we have our ``request`` and TimeRange ``timerange`` objects
-ready, it’s time to request the data array from EDEX.
+ready, we’re ready to get the data array from EDEX.
 
-.. container:: alert-info
-
-   Note: Above we set timerange to be 12 hours worth of data. This can
-   return on the order of ~2000 records and can take a little while to
-   run.
+> **Note:** Above we set **timerange** to be 12 hours worth of data.
+This can return on the order of ~2000 records and can take a little
+while to run.
 
 .. code:: ipython3
 
     # Get response
     response = DataAccessLayer.getGeometryData(request, timerange)
+    assert response, (
+        f"No watch, warning, or advisory records returned for {timerange}"
+    )
     print("Using " + str(len(response)) + " records")
 
 
 .. parsed-literal::
 
-    Using 1502 records
+    Using 2330 records
 
 
 7.2 Extract Phensigs, Geometries, and Times
@@ -379,7 +379,7 @@ phensig.
 
 .. parsed-literal::
 
-    14  Unique Phensigs
+    28  Unique Phensigs
 
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html>`__
@@ -412,11 +412,11 @@ function <https://scitools.org.uk/cartopy/docs/v0.14/matplotlib/feature_interfac
 8.2 Draw the Plot and Legend for WWAs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Here is where we finally get ot draw something! The very first few lines
+Here is where we finally get to draw something! The very first few lines
 of this section are constants that we can manually “switch on and off”
 for what records we want displayed. By default we have all significance
 types drawn. If we want to “turn off” any of the significance records,
-simply set it’s corresponding constant to false, and re-run this cell to
+simply set its corresponding constant to false, and re-run this cell to
 see how that plot compares.
 
 The next step involves creating the objects that are used to define the
@@ -514,10 +514,11 @@ all the features to the axes, and add the legend as well.
     
     # Show the plot
     plt.show()
+    plt.gcf().canvas.draw()
 
 
 
-.. image:: Watch_Warning_and_Advisory_Plotting_files/Watch_Warning_and_Advisory_Plotting_34_0.png
+.. image:: Watch_Warning_and_Advisory_Plotting_files/Watch_Warning_and_Advisory_Plotting_33_0.png
 
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html>`__
@@ -527,50 +528,48 @@ all the features to the axes, and add the legend as well.
 9 See Also
 ----------
 
--  `National Weather Service WWA Definitions (Baltimore
-   Office) <https://www.weather.gov/lwx/warningsdefined#:~:text=A%20Winter%20Storm%20Warning%20is%20issued%20when%20a,combination%20of%20snow%20and%2For%20ice%20accumulation%20with%20wind.>`__
--  `College of Dupage WWA
-   Definitions <https://weather.cod.edu/notes/criteria/>`__
--  `Phensig
-   Explanation <https://www.weather.gov/media/vtec/VTEC_explanation4-20.pdf>`__
+- `National Weather Service WWA Definitions (Baltimore
+  Office) <https://www.weather.gov/lwx/warningsdefined#:~:text=A%20Winter%20Storm%20Warning%20is%20issued%20when%20a,combination%20of%20snow%20and%2For%20ice%20accumulation%20with%20wind.>`__
+- `College of Dupage WWA
+  Definitions <https://weather.cod.edu/notes/criteria/>`__
+- `Phensig
+  Explanation <https://www.weather.gov/media/vtec/VTEC_explanation4-20.pdf>`__
 
 9.1 Related Notebooks
 ~~~~~~~~~~~~~~~~~~~~~
 
--  `Grid Levels and
-   Parameters <http://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html>`__
+- `Grid Levels and
+  Parameters <http://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html>`__
 
 9.2 Additional Documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **python-awips**
 
--  `DataAccessLayer.changeEDEXHost() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost>`__
--  `DataAccessLayer.newDataRequest() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.newDataRequest>`__
--  `DataAccessLayer.getAvailableParameters() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableParameters>`__
--  `IDataRequest <http://unidata.github.io/python-awips/api/IDataRequest.html>`__
--  `GeometryData <http://unidata.github.io/python-awips/api/PyGeometryData.html>`__
+- `DataAccessLayer.changeEDEXHost() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost>`__
+- `DataAccessLayer.newDataRequest() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.newDataRequest>`__
+- `DataAccessLayer.getAvailableParameters() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableParameters>`__
+- `IDataRequest <http://unidata.github.io/python-awips/api/IDataRequest.html>`__
+- `GeometryData <http://unidata.github.io/python-awips/api/PyGeometryData.html>`__
 
 **datetime**
 
--  `datetime.datetime <https://docs.python.org/3/library/datetime.html#datetime-objects>`__
--  `datetime.timedelta <https://docs.python.org/3/library/datetime.html#timedelta-objects>`__
+- `datetime.datetime <https://docs.python.org/3/library/datetime.html#datetime-objects>`__
+- `datetime.timedelta <https://docs.python.org/3/library/datetime.html#timedelta-objects>`__
 
 **cartopy**
 
--  `cartopy feature
-   interface <https://scitools.org.uk/cartopy/docs/v0.14/matplotlib/feature_interface.html>`__
--  `cartopy.feature.ShaeplyFeature <https://scitools.org.uk/cartopy/docs/latest/reference/generated/cartopy.feature.ShapelyFeature.html>`__
+- `cartopy feature
+  interface <https://scitools.org.uk/cartopy/docs/v0.14/matplotlib/feature_interface.html>`__
+- `cartopy.feature.ShaeplyFeature <https://scitools.org.uk/cartopy/docs/latest/reference/generated/cartopy.feature.ShapelyFeature.html>`__
 
 **matplotlib**
 
--  `matplotlib.pyplot() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html>`__
--  `matplotlib.pyplot.legend() <https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.legend.html>`__
--  `matplotlib.pyplot.axes() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.axes.html>`__
--  `matplotlib.pyplot.figure() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html>`__
--  `matplotlib.pyplot.title() <https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.title.html>`__
--  `matplotlib.pathes.Patch <https://matplotlib.org/stable/api/_as_gen/matplotlib.patches.Patch.html#matplotlib.patches.Patch>`__
+- `matplotlib.pyplot() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html>`__
+- `matplotlib.pyplot.legend() <https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.legend.html>`__
+- `matplotlib.pyplot.axes() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.axes.html>`__
+- `matplotlib.pyplot.figure() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html>`__
+- `matplotlib.pyplot.title() <https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.title.html>`__
+- `matplotlib.pathes.Patch <https://matplotlib.org/stable/api/_as_gen/matplotlib.patches.Patch.html#matplotlib.patches.Patch>`__
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Watch_Warning_and_Advisory_Plotting.html>`__
-
---------------

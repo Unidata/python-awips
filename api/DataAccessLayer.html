@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -13,9 +13,9 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
-      <script src="../_static/doctools.js?v=888ff710"></script>
-      <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
@@ -45,7 +45,26 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">API Documentation</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">DataAccessLayer</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">DataAccessLayer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.changeEDEXHost"><code class="docutils literal notranslate"><span class="pre">changeEDEXHost()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getAvailableLevels"><code class="docutils literal notranslate"><span class="pre">getAvailableLevels()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getAvailableLocationNames"><code class="docutils literal notranslate"><span class="pre">getAvailableLocationNames()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getAvailableParameters"><code class="docutils literal notranslate"><span class="pre">getAvailableParameters()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getAvailableTimes"><code class="docutils literal notranslate"><span class="pre">getAvailableTimes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getForecastRun"><code class="docutils literal notranslate"><span class="pre">getForecastRun()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getGeometryData"><code class="docutils literal notranslate"><span class="pre">getGeometryData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getIdentifierValues"><code class="docutils literal notranslate"><span class="pre">getIdentifierValues()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getMetarObs"><code class="docutils literal notranslate"><span class="pre">getMetarObs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getOptionalIdentifiers"><code class="docutils literal notranslate"><span class="pre">getOptionalIdentifiers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getRadarProductIDs"><code class="docutils literal notranslate"><span class="pre">getRadarProductIDs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getRadarProductNames"><code class="docutils literal notranslate"><span class="pre">getRadarProductNames()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getRequiredIdentifiers"><code class="docutils literal notranslate"><span class="pre">getRequiredIdentifiers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getSupportedDatatypes"><code class="docutils literal notranslate"><span class="pre">getSupportedDatatypes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getSynopticObs"><code class="docutils literal notranslate"><span class="pre">getSynopticObs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.newDataRequest"><code class="docutils literal notranslate"><span class="pre">newDataRequest()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.setLazyLoadGridLatLon"><code class="docutils literal notranslate"><span class="pre">setLazyLoadGridLatLon()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="IDataRequest.html">IDataRequest (newDataRequest())</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PyData.html">PyData</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PyGridData.html">PyGridData</a></li>
@@ -92,8 +111,250 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="dataaccesslayer">
-<h1>DataAccessLayer<a class="headerlink" href="#dataaccesslayer" title="Permalink to this heading"></a></h1>
+  <section id="module-awips.dataaccess.DataAccessLayer">
+<span id="dataaccesslayer"></span><h1>DataAccessLayer<a class="headerlink" href="#module-awips.dataaccess.DataAccessLayer" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.dataaccess.DataAccessLayer.changeEDEXHost">
+<span class="sig-prename descclassname"><span class="pre">awips.dataaccess.DataAccessLayer.</span></span><span class="sig-name descname"><span class="pre">changeEDEXHost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newHostName</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/DataAccessLayer.html#changeEDEXHost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.DataAccessLayer.changeEDEXHost" title="Link to this definition"></a></dt>
+<dd><p>Changes the EDEX host the Data Access Framework is communicating with. Only
+works if using the native Python client implementation, otherwise, this
+method will throw a TypeError.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>newHostName: the EDEX host to connect to</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.dataaccess.DataAccessLayer.getAvailableLevels">
+<span class="sig-prename descclassname"><span class="pre">awips.dataaccess.DataAccessLayer.</span></span><span class="sig-name descname"><span class="pre">getAvailableLevels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/DataAccessLayer.html#getAvailableLevels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.DataAccessLayer.getAvailableLevels" title="Link to this definition"></a></dt>
+<dd><p>Gets the available levels that match the request without actually
+requesting the data.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>request: the request to find matching levels for</p>
+</dd>
+<dt>Returns:</dt><dd><p>a list of strings of available levels.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.dataaccess.DataAccessLayer.getAvailableLocationNames">
+<span class="sig-prename descclassname"><span class="pre">awips.dataaccess.DataAccessLayer.</span></span><span class="sig-name descname"><span class="pre">getAvailableLocationNames</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/DataAccessLayer.html#getAvailableLocationNames"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.DataAccessLayer.getAvailableLocationNames" title="Link to this definition"></a></dt>
+<dd><p>Gets the available location names that match the request without actually
+requesting the data.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>request: the request to find matching location names for</p>
+</dd>
+<dt>Returns:</dt><dd><p>a list of strings of available location names.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.dataaccess.DataAccessLayer.getAvailableParameters">
+<span class="sig-prename descclassname"><span class="pre">awips.dataaccess.DataAccessLayer.</span></span><span class="sig-name descname"><span class="pre">getAvailableParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/DataAccessLayer.html#getAvailableParameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.DataAccessLayer.getAvailableParameters" title="Link to this definition"></a></dt>
+<dd><p>Gets the available parameters names that match the request without actually
+requesting the data.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>request: the request to find matching parameter names for</p>
+</dd>
+<dt>Returns:</dt><dd><p>a list of strings of available parameter names.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.dataaccess.DataAccessLayer.getAvailableTimes">
+<span class="sig-prename descclassname"><span class="pre">awips.dataaccess.DataAccessLayer.</span></span><span class="sig-name descname"><span class="pre">getAvailableTimes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refTimeOnly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/DataAccessLayer.html#getAvailableTimes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.DataAccessLayer.getAvailableTimes" title="Link to this definition"></a></dt>
+<dd><p>Get the times of available data for the request.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – IDataRequest for which to retrieve available times.</p></li>
+<li><p><strong>refTimeOnly</strong> (<em>bool</em>) – If True, return only unique reference times
+without forecast hours.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of DataTime objects.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.dataaccess.DataAccessLayer.getForecastRun">
+<span class="sig-prename descclassname"><span class="pre">awips.dataaccess.DataAccessLayer.</span></span><span class="sig-name descname"><span class="pre">getForecastRun</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cycle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/DataAccessLayer.html#getForecastRun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.DataAccessLayer.getForecastRun" title="Link to this definition"></a></dt>
+<dd><p>Get the latest forecast run (list of objects) from all
+all cycles and times returned from DataAccessLayer “grid”
+response.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>cycle: Forecast cycle reference time
+times: All available times/cycles</p>
+</dd>
+<dt>Returns:</dt><dd><p>DataTime array for a single forecast run</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.dataaccess.DataAccessLayer.getGeometryData">
+<span class="sig-prename descclassname"><span class="pre">awips.dataaccess.DataAccessLayer.</span></span><span class="sig-name descname"><span class="pre">getGeometryData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/DataAccessLayer.html#getGeometryData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.DataAccessLayer.getGeometryData" title="Link to this definition"></a></dt>
+<dd><p>Get geometry data matching the request at the specified times.</p>
+<p>Each combination of geometry, level, and data time is returned as a
+separate IGeometryData object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – IDataRequest for which to retrieve geometry data.</p></li>
+<li><p><strong>times</strong> – List of DataTime objects, a TimeRange, or None for
+time-agnostic data.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of IGeometryData objects.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.dataaccess.DataAccessLayer.getIdentifierValues">
+<span class="sig-prename descclassname"><span class="pre">awips.dataaccess.DataAccessLayer.</span></span><span class="sig-name descname"><span class="pre">getIdentifierValues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">identifierKey</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/DataAccessLayer.html#getIdentifierValues"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.DataAccessLayer.getIdentifierValues" title="Link to this definition"></a></dt>
+<dd><p>Gets the allowed values for a particular identifier on this datatype.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>request: the request to find identifier values for
+identifierKey: the identifier to find values for</p>
+</dd>
+<dt>Returns:</dt><dd><p>a list of strings of allowed values for the specified identifier</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.dataaccess.DataAccessLayer.getMetarObs">
+<span class="sig-prename descclassname"><span class="pre">awips.dataaccess.DataAccessLayer.</span></span><span class="sig-name descname"><span class="pre">getMetarObs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/DataAccessLayer.html#getMetarObs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.DataAccessLayer.getMetarObs" title="Link to this definition"></a></dt>
+<dd><p>Processes a DataAccessLayer “obs” response into a dictionary,
+with special consideration for multi-value parameters
+“presWeather”, “skyCover”, and “skyLayerBase”.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>response: DAL getGeometry() list</p>
+</dd>
+<dt>Returns:</dt><dd><p>A dictionary of METAR obs</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.dataaccess.DataAccessLayer.getOptionalIdentifiers">
+<span class="sig-prename descclassname"><span class="pre">awips.dataaccess.DataAccessLayer.</span></span><span class="sig-name descname"><span class="pre">getOptionalIdentifiers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/DataAccessLayer.html#getOptionalIdentifiers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.DataAccessLayer.getOptionalIdentifiers" title="Link to this definition"></a></dt>
+<dd><p>Gets the optional identifiers for this request.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>request: the request to find optional identifiers for</p>
+</dd>
+<dt>Returns:</dt><dd><p>a list of strings of optional identifiers</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.dataaccess.DataAccessLayer.getRadarProductIDs">
+<span class="sig-prename descclassname"><span class="pre">awips.dataaccess.DataAccessLayer.</span></span><span class="sig-name descname"><span class="pre">getRadarProductIDs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">availableParms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/DataAccessLayer.html#getRadarProductIDs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.DataAccessLayer.getRadarProductIDs" title="Link to this definition"></a></dt>
+<dd><p>Get only the numeric idetifiers for NEXRAD3 products.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>availableParms: Full list of radar parameters</p>
+</dd>
+<dt>Returns:</dt><dd><p>List of filtered parameters</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.dataaccess.DataAccessLayer.getRadarProductNames">
+<span class="sig-prename descclassname"><span class="pre">awips.dataaccess.DataAccessLayer.</span></span><span class="sig-name descname"><span class="pre">getRadarProductNames</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">availableParms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/DataAccessLayer.html#getRadarProductNames"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.DataAccessLayer.getRadarProductNames" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>Get only the named idetifiers for NEXRAD3 products.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Args:</dt><dd><p>availableParms: Full list of radar parameters</p>
+</dd>
+<dt>Returns:</dt><dd><p>List of filtered parameters</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.dataaccess.DataAccessLayer.getRequiredIdentifiers">
+<span class="sig-prename descclassname"><span class="pre">awips.dataaccess.DataAccessLayer.</span></span><span class="sig-name descname"><span class="pre">getRequiredIdentifiers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/DataAccessLayer.html#getRequiredIdentifiers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.DataAccessLayer.getRequiredIdentifiers" title="Link to this definition"></a></dt>
+<dd><p>Gets the required identifiers for this request.  These identifiers
+must be set on a request for the request of this datatype to succeed.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>request: the request to find required identifiers for</p>
+</dd>
+<dt>Returns:</dt><dd><p>a list of strings of required identifiers</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.dataaccess.DataAccessLayer.getSupportedDatatypes">
+<span class="sig-prename descclassname"><span class="pre">awips.dataaccess.DataAccessLayer.</span></span><span class="sig-name descname"><span class="pre">getSupportedDatatypes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/DataAccessLayer.html#getSupportedDatatypes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.DataAccessLayer.getSupportedDatatypes" title="Link to this definition"></a></dt>
+<dd><p>Gets the datatypes that are supported by the framework</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>a list of strings of supported datatypes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.dataaccess.DataAccessLayer.getSynopticObs">
+<span class="sig-prename descclassname"><span class="pre">awips.dataaccess.DataAccessLayer.</span></span><span class="sig-name descname"><span class="pre">getSynopticObs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/DataAccessLayer.html#getSynopticObs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.DataAccessLayer.getSynopticObs" title="Link to this definition"></a></dt>
+<dd><p>Processes a DataAccessLayer “sfcobs” response into a dictionary
+of available parameters.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>response: DAL getGeometry() list</p>
+</dd>
+<dt>Returns:</dt><dd><p>A dictionary of synop obs</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.dataaccess.DataAccessLayer.newDataRequest">
+<span class="sig-prename descclassname"><span class="pre">awips.dataaccess.DataAccessLayer.</span></span><span class="sig-name descname"><span class="pre">newDataRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datatype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/DataAccessLayer.html#newDataRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.DataAccessLayer.newDataRequest" title="Link to this definition"></a></dt>
+<dd><p>Creates a new instance of IDataRequest suitable for the runtime environment.
+All args are optional and exist solely for convenience.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>datatype: the datatype to create a request for
+parameters: a list of parameters to set on the request
+levels: a list of levels to set on the request
+locationNames: a list of locationNames to set on the request
+envelope: an envelope to limit the request
+kwargs: any leftover kwargs will be set as identifiers</p>
+</dd>
+<dt>Returns:</dt><dd><p>a new IDataRequest</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.dataaccess.DataAccessLayer.setLazyLoadGridLatLon">
+<span class="sig-prename descclassname"><span class="pre">awips.dataaccess.DataAccessLayer.</span></span><span class="sig-name descname"><span class="pre">setLazyLoadGridLatLon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lazyLoadGridLatLon</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/DataAccessLayer.html#setLazyLoadGridLatLon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.DataAccessLayer.setLazyLoadGridLatLon" title="Link to this definition"></a></dt>
+<dd><p>Provide a hint to the Data Access Framework indicating whether to load the
+lat/lon data for a grid immediately or wait until it is needed. This is
+provided as a performance tuning hint and should not affect the way the
+Data Access Framework is used. Depending on the internal implementation of
+the Data Access Framework this hint might be ignored. Examples of when this
+should be set to True are when the lat/lon information is not used or when
+it is used only if certain conditions within the data are met. It could be
+set to False if it is guaranteed that all lat/lon information is needed and
+it would be better to get any performance overhead for generating the
+lat/lon data out of the way during the initial request.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>lazyLoadGridLatLon: Boolean value indicating whether to lazy load.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 

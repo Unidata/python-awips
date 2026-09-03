@@ -1,7 +1,7 @@
 =========================
 Regional Surface Obs Plot
 =========================
-`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Regional_Surface_Obs_Plot.ipynb>`_
+`Notebook <https://nbviewer.org/github/Unidata/python-awips/blob/v23/examples/notebooks/Regional_Surface_Obs_Plot.ipynb>`_
 Python-AWIPS Tutorial Notebook
 
 --------------
@@ -9,12 +9,12 @@ Python-AWIPS Tutorial Notebook
 Objectives
 ==========
 
--  Use python-awips to connect to an edex server
--  Create a plot for a regional area of the United States (Florida)
--  Define and filter data request for METAR and Synoptic surface obs
--  Use the maps database to request and draw state boundaries (no use of
-   Cartopy.Feature in this example)
--  Stylize and plot surface data using Metpy
+- Use python-awips to connect to an edex server
+- Create a plot for a regional area of the United States (Florida)
+- Define and filter data request for METAR and Synoptic surface obs
+- Use the maps database to request and draw state boundaries (no use of
+  Cartopy.Feature in this example)
+- Stylize and plot surface data using Metpy
 
 --------------
 
@@ -24,13 +24,13 @@ Table of Contents
 | `1
   Imports <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#imports>`__\ 
 | `2 Function:
-  get_cloud_cover() <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#function-get-cloud-cover>`__\ 
+  get_cloud_cover() <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#function-getcloudcover>`__\ 
 | `3 Function:
-  make_map() <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#function-make-map>`__\ 
+  make_map() <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#function-makemap>`__\ 
 | `4 Function:
-  extract_plotting_data() <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#function-extract-plotting-data>`__\ 
+  extract_plotting_data() <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#function-extractplottingdata>`__\ 
 | `5 Function:
-  plot_data() <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#function-plot-data>`__\ 
+  plot_data() <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#function-plotdata>`__\ 
 | `6 Initial
   Setup <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#initial-setup>`__\ 
 |     `6.1 Initial EDEX
@@ -70,8 +70,8 @@ Table of Contents
 |     `9.2 Additional
   Documentation <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html#additional-documentation>`__\ 
 
-Imports
--------
+1 Imports
+---------
 
 The imports below are used throughout the notebook. Note the first two
 imports are coming directly from python-awips and allow us to connect to
@@ -98,8 +98,8 @@ subsequent imports are for data manipulation and visualization.
 
 --------------
 
-Function: get_cloud_cover()
----------------------------
+2 Function: get_cloud_cover()
+-----------------------------
 
 Returns the cloud coverage values as integer codes (0 through 8).
 
@@ -121,8 +121,8 @@ Returns the cloud coverage values as integer codes (0 through 8).
 
 --------------
 
-Function: make_map()
---------------------
+3 Function: make_map()
+----------------------
 
 In order to plot more than one image, it’s easiest to define common
 logic in a function. Here, a new function called **make_map** is
@@ -146,18 +146,18 @@ gridlines are added for context.
 
 --------------
 
-Function: extract_plotting_data()
----------------------------------
+4 Function: extract_plotting_data()
+-----------------------------------
 
 Grab the simple variables out of the response data we have (attaching
 correct units), and put them into a dictionary that we will hand the
 plotting function later:
 
--  Get wind components from speed and direction
--  Convert cloud coverage values to integer codes [0 - 8]
--  Assign temperature, dewpoint, and sea level pressure the the correct
-   units
--  Account for missing values (by using ``nan``)
+- Get wind components from speed and direction
+- Convert cloud coverage values to integer codes [0 - 8]
+- Assign temperature, dewpoint, and sea level pressure the the correct
+  units
+- Account for missing values (by using ``nan``)
 
 .. code:: ipython3
 
@@ -210,8 +210,8 @@ plotting function later:
 
 --------------
 
-Function: plot_data()
----------------------
+5 Function: plot_data()
+-----------------------
 
 This function makes use of Metpy.StationPlotLayout and Metpy.StationPlot
 to add all surface observation data to our plot. The logic is very
@@ -242,8 +242,8 @@ temperature - Precipitation - Cloud coverage (for METARS)
 
 --------------
 
-Initial Setup
--------------
+6 Initial Setup
+---------------
 
 Connect to an EDEX server and define several `new data request
 objects <http://unidata.github.io/python-awips/api/IDataRequest.html>`__.
@@ -257,8 +257,8 @@ sfc) <#Define-Synoptic-Request>`__
 Some of the request use filters, so we’ll also create several filters
 than can be used for the various data requests as well.
 
-Initial EDEX Connection
-~~~~~~~~~~~~~~~~~~~~~~~
+6.1 Initial EDEX Connection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 First we establish a connection to Unidata’s public EDEX server.
 
@@ -268,8 +268,8 @@ First we establish a connection to Unidata’s public EDEX server.
     edexServer = "edex-cloud.unidata.ucar.edu"
     DataAccessLayer.changeEDEXHost(edexServer)
 
-Maps Request and Response
-~~~~~~~~~~~~~~~~~~~~~~~~~
+6.2 Maps Request and Response
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The maps data request will give us data to draw our state outlines of
 interest (Florida and its neighboring states). We will retrieve the data
@@ -280,6 +280,7 @@ and Synoptic data requests.
 
     # Define the maps request
     maps_request = DataAccessLayer.newDataRequest('maps')
+    
     # filter for multiple states
     maps_request.addIdentifier('table', 'mapdata.states')
     maps_request.addIdentifier('geomField', 'the_geom')
@@ -288,6 +289,9 @@ and Synoptic data requests.
     maps_request.setParameters('state','name','lat','lon')
     maps_request.setLocationNames('FL','GA','MS','AL','SC','LA')
     maps_response = DataAccessLayer.getGeometryData(maps_request)
+    assert maps_response, (
+        "No state geometries returned for the regional map"
+    )
     print("Found " + str(len(maps_response)) + " MultiPolygons")
 
 
@@ -296,20 +300,22 @@ and Synoptic data requests.
     Found 6 MultiPolygons
 
 
-Define Geographic Filter
-~~~~~~~~~~~~~~~~~~~~~~~~
+6.3 Define Geographic Filter
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The previous EDEX request limited the data by using a **parameter** for
 the maps database called **state**. We can take the results from that
 filter and get a geographic **envelope** based on the Florida polygon
 that was returned from the previous cell.
 
-   **Warning**: Without such a filter you may be requesting many tens of
-   thousands of records.
+> **Note:** Without such a filter you may be requesting many tens of
+thousands of records.
 
 .. code:: ipython3
 
     # Append each geometry to a numpy array
+    states = np.array([])
+    bounds = None
     states = np.array([])
     for ob in maps_response:
         print(ob.getString('name'), ob.getString('state'), ob.getNumber('lat'), ob.getNumber('lon'))
@@ -320,17 +326,18 @@ that was returned from the previous cell.
             fl_lat = ob.getNumber('lat')
             fl_lon = ob.getNumber('lon')
     
-    if bounds is None:
-        print("Error, no record found for Florida!")
+    assert bounds is not None, (
+        "Florida was not present in the returned state geometries"
+    )
     
-    else:    
-        # buffer our bounds by +/i degrees lat/lon
-        bbox=[bounds[0]-3,bounds[2]+3,bounds[1]-1.5,bounds[3]+1.5]
+      
+    # buffer our bounds by +/i degrees lat/lon
+    bbox=[bounds[0]-3,bounds[2]+3,bounds[1]-1.5,bounds[3]+1.5]
     
-        # Create envelope geometry
-        envelope = Polygon([(bbox[0],bbox[2]),(bbox[0],bbox[3]),
-                            (bbox[1], bbox[3]),(bbox[1],bbox[2]),
-                            (bbox[0],bbox[2])])
+    # Create envelope geometry
+    envelope = Polygon([(bbox[0],bbox[2]),(bbox[0],bbox[3]),
+                        (bbox[1], bbox[3]),(bbox[1],bbox[2]),
+                        (bbox[0],bbox[2])])
         
     print(envelope)
 
@@ -343,19 +350,18 @@ that was returned from the previous cell.
     Alabama AL 32.79354 -86.82676
     Mississippi MS 32.75201 -89.66553
     South Carolina SC 33.93574 -80.89899
-    POLYGON ((-90.63429260299995 23.02105161600002, -90.63429260299995 32.50101280200016, -77.03199876199994 32.50101280200016, -77.03199876199994 23.02105161600002, -90.63429260299995 23.02105161600002))
+    POLYGON ((-90.63429260299995 23.021051616000022, -90.63429260299995 32.50101280200016, -77.03199876199994 32.50101280200016, -77.03199876199994 23.021051616000022, -90.63429260299995 23.021051616000022))
 
 
-Define Time Filter
-~~~~~~~~~~~~~~~~~~
+6.4 Define Time Filter
+~~~~~~~~~~~~~~~~~~~~~~
 
 Both the METAR and Synoptic datasets should be filtered by time to avoid
 requesting an unreasonable amount of data. By defining one filter now,
 we can use it in both of their data requests to EDEX.
 
-   **Note**: Here we will use the most recent hour as our default
-   filter. Try adjusting the timerange and see the difference in the
-   final plots.
+> **Note:** Here we will use the most recent hour as our default filter.
+Try adjusting the timerange and see the difference in the final plots.
 
 .. code:: ipython3
 
@@ -373,11 +379,11 @@ we can use it in both of their data requests to EDEX.
 
 .. parsed-literal::
 
-    (Nov 11 22 19:00:54 , Nov 11 22 20:00:54 )
+    (Sep 02 26 19:45:49 , Sep 02 26 20:45:49 )
 
 
-Define Common Parameters for Data Requests
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+6.5 Define Common Parameters for Data Requests
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 METAR obs and Synoptic obs share several of the same parameters. By
 defining them here, they can be reused for both of the requests and this
@@ -396,8 +402,8 @@ makes our code more efficient.
     ['timeObs', 'longitude', 'latitude', 'temperature', 'dewpoint', 'windDir', 'windSpeed', 'seaLevelPress', 'presWeather', 'skyLayerBase']
 
 
-Define METAR Request
-~~~~~~~~~~~~~~~~~~~~
+6.6 Define METAR Request
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 To get METAR data we must use the **obs** datatype. To help limit the
 amount of data returned, we will narrow the request by using a
@@ -421,11 +427,11 @@ geographic **envelope**, setting the request **parameters**, and using
 
 .. parsed-literal::
 
-    DefaultDataRequest(datatype=obs, identifiers={}, parameters=['timeObs', 'longitude', 'latitude', 'temperature', 'dewpoint', 'windDir', 'windSpeed', 'seaLevelPress', 'presWeather', 'skyLayerBase', 'stationName', 'skyCover'], levels=[], locationNames=[], envelope=<dynamicserialize.dstypes.com.vividsolutions.jts.geom.Envelope.Envelope object at 0x13abe40a0>)
+    DefaultDataRequest(datatype=obs, identifiers={}, parameters=['timeObs', 'longitude', 'latitude', 'temperature', 'dewpoint', 'windDir', 'windSpeed', 'seaLevelPress', 'presWeather', 'skyLayerBase', 'stationName', 'skyCover'], levels=[], locationNames=[], envelope=<dynamicserialize.dstypes.org.locationtech.jts.geom.Envelope.Envelope object at 0x7f38c5b02a50>)
 
 
-Define Synoptic Request
-~~~~~~~~~~~~~~~~~~~~~~~
+6.7 Define Synoptic Request
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Similar to the request above, we will limit the amount of data returned
 by using a geographic **envelope**, setting the request **parameters**,
@@ -451,49 +457,62 @@ However, in order to access synoptic observations we will use the
 
 .. parsed-literal::
 
-    DefaultDataRequest(datatype=sfcobs, identifiers={}, parameters=['timeObs', 'longitude', 'latitude', 'temperature', 'dewpoint', 'windDir', 'windSpeed', 'seaLevelPress', 'presWeather', 'skyLayerBase', 'stationId'], levels=[], locationNames=[], envelope=<dynamicserialize.dstypes.com.vividsolutions.jts.geom.Envelope.Envelope object at 0x105048bb0>)
+    DefaultDataRequest(datatype=sfcobs, identifiers={}, parameters=['timeObs', 'longitude', 'latitude', 'temperature', 'dewpoint', 'windDir', 'windSpeed', 'seaLevelPress', 'presWeather', 'skyLayerBase', 'stationId'], levels=[], locationNames=[], envelope=<dynamicserialize.dstypes.org.locationtech.jts.geom.Envelope.Envelope object at 0x7f38c5964f50>)
 
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html>`__
 
 --------------
 
-Get the Data!
--------------
+7 Get the Data!
+---------------
 
 We have already obtained our maps data, but we still have to collect our
 observation data.
 
-Get the EDEX Responses
-~~~~~~~~~~~~~~~~~~~~~~
+7.1 Get the EDEX Responses
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code:: ipython3
 
     # METARs data
     metar_response = DataAccessLayer.getGeometryData(metar_request,timerange)
+    assert metar_response, (
+        f"No METAR records returned for {timerange}"
+    )
+    
     # function getMetarObs was added in python-awips 18.1.4
     metars = DataAccessLayer.getMetarObs(metar_response)
+    assert metars["temperature"], (
+        "METAR records were returned, but none contained temperature data"
+    )
     print("Found " + str(len(metar_response)) + " METAR records")
     print("\tUsing " + str(len(metars['temperature'])) + " temperature records")
     
     # Synoptic data
     syn_response = DataAccessLayer.getGeometryData(syn_request,timerange)
+    assert syn_response, (
+        f"No synoptic records returned for {timerange}"
+    )
     # function getSynopticObs was added in python-awips 18.1.4
     synoptic = DataAccessLayer.getSynopticObs(syn_response)
+    assert synoptic["temperature"], (
+        "Synoptic records were returned, but none contained temperature data"
+    )
     print("Found " + str(len(syn_response)) + " Synoptic records")
     print("\tUsing " + str(len(synoptic['temperature'])) + " temperature records")
 
 
 .. parsed-literal::
 
-    Found 4116 METAR records
-    	Using 179 temperature records
-    Found 259 Synoptic records
-    	Using 63 temperature records
+    Found 3828 METAR records
+    	Using 162 temperature records
+    Found 234 Synoptic records
+    	Using 104 temperature records
 
 
-Extract Plotting Data
-~~~~~~~~~~~~~~~~~~~~~
+7.2 Extract Plotting Data
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code:: ipython3
 
@@ -508,19 +527,19 @@ Extract Plotting Data
 
 .. parsed-literal::
 
-    179 METARs stations
-    63 Synoptic stations
+    162 METARs stations
+    104 Synoptic stations
 
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html>`__
 
 --------------
 
-Plot the Data
--------------
+8 Plot the Data
+---------------
 
-Draw the Region
-~~~~~~~~~~~~~~~
+8.1 Draw the Region
+~~~~~~~~~~~~~~~~~~~
 
 Here we will draw our region by using the **states** polygons we
 retreived from EDEX `earlier in this
@@ -536,22 +555,15 @@ latitude and longitude for additional context.
     shape_feature = ShapelyFeature(states,ccrs.PlateCarree(), 
                         facecolor='none', linestyle="-",edgecolor='#000000',linewidth=2)
     ax.add_feature(shape_feature)
+    fig.canvas.draw()
 
 
 
-
-.. parsed-literal::
-
-    <cartopy.mpl.feature_artist.FeatureArtist at 0x13b2ae5e0>
+.. image:: Regional_Surface_Obs_Plot_files/Regional_Surface_Obs_Plot_41_0.png
 
 
-
-
-.. image:: Regional_Surface_Obs_Plot_files/Regional_Surface_Obs_Plot_42_1.png
-
-
-Plot METAR Data
-~~~~~~~~~~~~~~~
+8.2 Plot METAR Data
+~~~~~~~~~~~~~~~~~~~
 
 On the same axes (**ax**) and figure (**fig**) plot the METAR data.
 
@@ -563,16 +575,17 @@ On the same axes (**ax**) and figure (**fig**) plot the METAR data.
     plot_data(metars_data, title, ax, 'obs')
     # Display the figure
     fig
+    fig.canvas.draw()
 
 
 
 
-.. image:: Regional_Surface_Obs_Plot_files/Regional_Surface_Obs_Plot_44_0.png
+.. image:: Regional_Surface_Obs_Plot_files/Regional_Surface_Obs_Plot_43_0.png
 
 
 
-Plot Synoptic Data
-~~~~~~~~~~~~~~~~~~
+8.3 Plot Synoptic Data
+~~~~~~~~~~~~~~~~~~~~~~
 
 On a new axes and figure (**ax_syn**, **fig_syn**) plot the map and
 synoptic data.
@@ -589,14 +602,15 @@ synoptic data.
     title = str(syn_response[-1].getDataTime()) + " | SYNOP Surface Obs | " + edexServer
     # Draw the synoptic data
     plot_data(synoptic_data, title, ax_syn, 'sfcobs')
+    fig_syn.canvas.draw()
 
 
 
-.. image:: Regional_Surface_Obs_Plot_files/Regional_Surface_Obs_Plot_46_0.png
+.. image:: Regional_Surface_Obs_Plot_files/Regional_Surface_Obs_Plot_45_0.png
 
 
-Plot both METAR and Synoptic Data
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+8.4 Plot both METAR and Synoptic Data
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Add the synoptic data to our first axes and figure (**ax**, **fig**)
 that already contains our map and METARs data.
@@ -609,11 +623,12 @@ that already contains our map and METARs data.
     plot_data(synoptic_data, title, ax, 'sfcobs')
     # Display the figure
     fig
+    fig.canvas.draw()
 
 
 
 
-.. image:: Regional_Surface_Obs_Plot_files/Regional_Surface_Obs_Plot_48_0.png
+.. image:: Regional_Surface_Obs_Plot_files/Regional_Surface_Obs_Plot_47_0.png
 
 
 
@@ -621,61 +636,59 @@ that already contains our map and METARs data.
 
 --------------
 
-See Also
---------
+9 See Also
+----------
 
--  `Aviation Weather Center Static METAR Plots
-   Information <https://www.aviationweather.gov/metar/help?page=plot>`__
+- `Aviation Weather Center Static METAR Plots
+  Information <https://www.aviationweather.gov/metar/help?page=plot>`__
 
-Related Notebooks
-~~~~~~~~~~~~~~~~~
+9.1 Related Notebooks
+~~~~~~~~~~~~~~~~~~~~~
 
--  `Metar Station Plot with
-   MetPy <http://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html>`__
--  `Map Resources and
-   Topography <http://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html>`__
+- `Metar Station Plot with
+  MetPy <http://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html>`__
+- `Map Resources and
+  Topography <http://unidata.github.io/python-awips/examples/generated/Map_Resources_and_Topography.html>`__
 
-Additional Documentation
-~~~~~~~~~~~~~~~~~~~~~~~~
+9.2 Additional Documentation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **python-awips:**
 
--  `DataAccessLayer.changeEDEXHost() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost>`__
--  `DataAccessLayer.newDataRequest() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.newDataRequest>`__
--  `IDataRequest <http://unidata.github.io/python-awips/api/IDataRequest.html>`__
--  `DataAccessLayer.getGeometryData <http://unidata.github.io/python-awips/api/PyGeometryData.html>`__
+- `DataAccessLayer.changeEDEXHost() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost>`__
+- `DataAccessLayer.newDataRequest() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.newDataRequest>`__
+- `IDataRequest <http://unidata.github.io/python-awips/api/IDataRequest.html>`__
+- `DataAccessLayer.getGeometryData <http://unidata.github.io/python-awips/api/PyGeometryData.html>`__
 
 **datetime:**
 
--  `datetime.datetime <https://docs.python.org/3/library/datetime.html#datetime-objects>`__
--  `datetime.now(UTC) <https://docs.python.org/3/library/datetime.html?#datetime.datetime.utcnow>`__
--  `datetime.timedelta <https://docs.python.org/3/library/datetime.html#timedelta-objects>`__
--  `datetime.strftime() and
-   datetime.strptime() <https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior>`__
+- `datetime.datetime <https://docs.python.org/3/library/datetime.html#datetime-objects>`__
+- `datetime.now(UTC) <https://docs.python.org/3/library/datetime.html?#datetime.datetime.utcnow>`__
+- `datetime.timedelta <https://docs.python.org/3/library/datetime.html#timedelta-objects>`__
+- `datetime.strftime() and
+  datetime.strptime() <https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior>`__
 
 **numpy:**
 
--  `np.array <https://numpy.org/doc/stable/reference/generated/numpy.array.html>`__
+- `np.array <https://numpy.org/doc/stable/reference/generated/numpy.array.html>`__
 
 **cartopy:**
 
--  `cartopy projection
-   list <https://scitools.org.uk/cartopy/docs/v0.14/crs/projections.html?#cartopy-projection-list>`__
+- `cartopy projection
+  list <https://scitools.org.uk/cartopy/docs/v0.14/crs/projections.html?#cartopy-projection-list>`__
 
 **matplotlib:**
 
--  `matplotlib.pyplot() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html>`__
--  `matplotlib.pyplot.figure() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html>`__
--  `ax.set_extent <https://matplotlib.org/stable/api/image_api.html?highlight=set_extent#matplotlib.image.AxesImage.set_extent>`__
--  `ax.set_title <https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_title.html>`__
+- `matplotlib.pyplot() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html>`__
+- `matplotlib.pyplot.figure() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html>`__
+- `ax.set_extent <https://matplotlib.org/stable/api/image_api.html?highlight=set_extent#matplotlib.image.AxesImage.set_extent>`__
+- `ax.set_title <https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_title.html>`__
 
 **metpy:**
 
--  `metpy.calc.wind_components <https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.wind_components.html>`__
--  `metpy.plots.StationPlot() <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.StationPlot.html>`__
--  `metpy.plots.StationPlotLayout() <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.StationPlotLayout.html>`__
--  `metpy.units <https://unidata.github.io/MetPy/latest/api/generated/metpy.units.html>`__
+- `metpy.calc.wind_components <https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.wind_components.html>`__
+- `metpy.plots.StationPlot() <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.StationPlot.html>`__
+- `metpy.plots.StationPlotLayout() <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.StationPlotLayout.html>`__
+- `metpy.units <https://unidata.github.io/MetPy/latest/api/generated/metpy.units.html>`__
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Regional_Surface_Obs_Plot.html>`__
-
---------------

@@ -1,7 +1,7 @@
 ================================
 Colored Surface Temperature Plot
 ================================
-`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Colored_Surface_Temperature_Plot.ipynb>`_
+`Notebook <https://nbviewer.org/github/Unidata/python-awips/blob/v23/examples/notebooks/Colored_Surface_Temperature_Plot.ipynb>`_
 Python-AWIPS Tutorial Notebook
 
 --------------
@@ -9,10 +9,10 @@ Python-AWIPS Tutorial Notebook
 Objectives
 ==========
 
--  Use python-awips to connect to an edex server
--  Define and filter data request for METAR surface obs
--  Define a color threshold and use it to plot a useful map
--  Create a product similar to existing products in GEMPAK and CAVE
+- Use python-awips to connect to an edex server
+- Define and filter data request for METAR surface obs
+- Define a color threshold and use it to plot a useful map
+- Create a product similar to existing products in GEMPAK and CAVE
 
 --------------
 
@@ -26,11 +26,11 @@ Table of Contents
 |     `2.1 Geographic
   Filter <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#geographic-filter>`__\ 
 |     `2.2 EDEX
-  Connnection <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#edex-connection>`__\ 
+  Connection <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#edex-connection>`__\ 
 | `3 Filter by
   Time <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#filter-by-time>`__\ 
 | `4 Access and Convert Temp
-  Data <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot#access-and-convert-temp-data>`__\ 
+  Data <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#access-and-convert-temp-data>`__\ 
 | `5 Define Temperature
   Thresholds <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#define-temperature-thresholds>`__\ 
 | `6 Plot the
@@ -38,9 +38,7 @@ Table of Contents
 | `7 See
   Also <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#see-also>`__\ 
 |     `7.1 Additional
-  Documentation <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#additional-documentation>`__\ 
-
---------------
+  Documention <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#additional-documention>`__\ 
 
 1 Imports
 ---------
@@ -124,7 +122,18 @@ server to get our results, which are kept in the **obs** variable.
     timerange = TimeRange(beginRange, endRange)
     # Get response
     response = DataAccessLayer.getGeometryData(request,timerange)
+    assert response, (
+        f"No surface observations returned from {edexServer} "
+        f"for {timerange}"
+    )
+    
     obs = DataAccessLayer.getMetarObs(response)
+    assert obs["temperature"], (
+        "Surface observations were returned, but none contained temperature data"
+    )
+    assert len(obs["temperature"]) == len(obs["latitude"]) == len(obs["longitude"]), (
+        "Temperature, latitude, and longitude arrays have different lengths"
+    )
     
     lats = obs['latitude']
     lons = obs['longitude']
@@ -135,8 +144,8 @@ server to get our results, which are kept in the **obs** variable.
 
 .. parsed-literal::
 
-    Found 1704 total records
-    Using 1660 temperature records
+    Found 289 total records
+    Using 282 temperature records
 
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html>`__
@@ -224,11 +233,13 @@ final, colored figure.
         # add these stations and their color to the stationplots
         stationplot = StationPlot(ax, lons, lats, transform=ccrs.PlateCarree(), fontsize=14)
         stationplot.plot_parameter('C', subtair, color=value)   
+    
+    # Force the completed plot to render during automated testing
+    fig.canvas.draw()
 
 
 
-
-.. image:: Colored_Surface_Temperature_Plot_files/Colored_Surface_Temperature_Plot_23_0.png
+.. image:: Colored_Surface_Temperature_Plot_files/Colored_Surface_Temperature_Plot_22_0.png
 
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html>`__
@@ -238,20 +249,18 @@ final, colored figure.
 7 See Also
 ----------
 
-7.1 Additional Documentation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+7.1 Additional Documention
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **python-awips**
 
--  `DataAccessLayer.changeEDEXHost() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost>`__
--  `DataAccessLayer.newDataRequest() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.newDataRequest>`__
+- `DataAccessLayer.changeEDEXHost() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost>`__
+- `DataAccessLayer.newDataRequest() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.newDataRequest>`__
 
 **matplotlib**
 
--  `matplotlib.pyplot() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html>`__
--  `matplotlib.pyplot.axes() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.axes.html>`__
--  `matplotlib.pyplot.figure() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html>`__
+- `matplotlib.pyplot() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html>`__
+- `matplotlib.pyplot.axes() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.axes.html>`__
+- `matplotlib.pyplot.figure() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html>`__
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html>`__
-
---------------

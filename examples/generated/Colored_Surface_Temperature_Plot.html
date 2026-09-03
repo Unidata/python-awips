@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -13,9 +13,9 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=b3ba4146"></script>
-      <script src="../../_static/doctools.js?v=888ff710"></script>
-      <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -107,12 +107,12 @@
            <div itemprop="articleBody">
              
   <section id="colored-surface-temperature-plot">
-<h1>Colored Surface Temperature Plot<a class="headerlink" href="#colored-surface-temperature-plot" title="Permalink to this heading"></a></h1>
-<p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Colored_Surface_Temperature_Plot.ipynb">Notebook</a>
+<h1>Colored Surface Temperature Plot<a class="headerlink" href="#colored-surface-temperature-plot" title="Link to this heading"></a></h1>
+<p><a class="reference external" href="https://nbviewer.org/github/Unidata/python-awips/blob/v23/examples/notebooks/Colored_Surface_Temperature_Plot.ipynb">Notebook</a>
 Python-AWIPS Tutorial Notebook</p>
 <hr class="docutils" />
 <section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading"></a></h2>
+<h2>Objectives<a class="headerlink" href="#objectives" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p>Use python-awips to connect to an edex server</p></li>
 <li><p>Define and filter data request for METAR surface obs</p></li>
@@ -121,7 +121,7 @@ Python-AWIPS Tutorial Notebook</p>
 </ul>
 <hr class="docutils" />
 <section id="table-of-contents">
-<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading"></a></h3>
+<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading"></a></h3>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#imports">1
 Imports</a></div>
@@ -130,10 +130,10 @@ Setup</a></div>
 <div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#geographic-filter">2.1 Geographic
 Filter</a></div>
 <div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#edex-connection">2.2 EDEX
-Connnection</a></div>
+Connection</a></div>
 <div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#filter-by-time">3 Filter by
 Time</a></div>
-<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot#access-and-convert-temp-data">4 Access and Convert Temp
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#access-and-convert-temp-data">4 Access and Convert Temp
 Data</a></div>
 <div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#define-temperature-thresholds">5 Define Temperature
 Thresholds</a></div>
@@ -141,13 +141,12 @@ Thresholds</a></div>
 Data!</a></div>
 <div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#see-also">7 See
 Also</a></div>
-<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#additional-documentation">7.1 Additional
-Documentation</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html#additional-documention">7.1 Additional
+Documention</a></div>
 </div>
 </section>
-<hr class="docutils" />
 <section id="imports">
-<h3>1 Imports<a class="headerlink" href="#imports" title="Permalink to this heading"></a></h3>
+<h3>1 Imports<a class="headerlink" href="#imports" title="Link to this heading"></a></h3>
 <p>The imports below are used throughout the notebook. Note the first
 import is coming directly from python-awips and allows us to connect to
 an EDEX server. The subsequent imports are for data manipulation and
@@ -167,9 +166,9 @@ visualization.</p>
 </section>
 <hr class="docutils" />
 <section id="initial-setup">
-<h3>2 Initial Setup<a class="headerlink" href="#initial-setup" title="Permalink to this heading"></a></h3>
+<h3>2 Initial Setup<a class="headerlink" href="#initial-setup" title="Link to this heading"></a></h3>
 <section id="geographic-filter">
-<h4>2.1 Geographic Filter<a class="headerlink" href="#geographic-filter" title="Permalink to this heading"></a></h4>
+<h4>2.1 Geographic Filter<a class="headerlink" href="#geographic-filter" title="Link to this heading"></a></h4>
 <p>By defining a bounding box for the Continental US (CONUS), we’re able to
 optimize the data request sent to the EDEX server.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># CONUS bounding box and envelope geometry</span>
@@ -181,17 +180,17 @@ optimize the data request sent to the EDEX server.</p>
 </div>
 </section>
 <section id="edex-connection">
-<h4>2.2 EDEX Connection<a class="headerlink" href="#edex-connection" title="Permalink to this heading"></a></h4>
+<h4>2.2 EDEX Connection<a class="headerlink" href="#edex-connection" title="Link to this heading"></a></h4>
 <p>First we establish a connection to Unidata’s public EDEX server. With
 that connection made, we can create a <a class="reference external" href="http://unidata.github.io/python-awips/api/IDataRequest.html">new data request
 object</a>
 and set the data type to <strong>obs</strong>, and use the geographic <strong>envelope</strong> we
 just created.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># New obs request</span>
-<span class="n">edexServer</span> <span class="o">=</span> <span class="s2">&quot;edex-cloud.unidata.ucar.edu&quot;</span>
+<span class="n">edexServer</span> <span class="o">=</span> <span class="s2">"edex-cloud.unidata.ucar.edu"</span>
 <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="n">edexServer</span><span class="p">)</span>
-<span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">&quot;obs&quot;</span><span class="p">,</span> <span class="n">envelope</span><span class="o">=</span><span class="n">envelope</span><span class="p">)</span>
-<span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;temperature&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;stationName&quot;</span><span class="p">]</span>
+<span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">"obs"</span><span class="p">,</span> <span class="n">envelope</span><span class="o">=</span><span class="n">envelope</span><span class="p">)</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"temperature"</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">,</span> <span class="s2">"latitude"</span><span class="p">,</span> <span class="s2">"stationName"</span><span class="p">]</span>
 <span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -200,47 +199,58 @@ just created.</p>
 </section>
 <hr class="docutils" />
 <section id="filter-by-time">
-<h3>3 Filter by Time<a class="headerlink" href="#filter-by-time" title="Permalink to this heading"></a></h3>
+<h3>3 Filter by Time<a class="headerlink" href="#filter-by-time" title="Link to this heading"></a></h3>
 <p>We then want to limit our results based on time, so we create a time
 range for the last 15 minutes, and then send the request to the EDEX
 server to get our results, which are kept in the <strong>obs</strong> variable.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get records from the last 15 minutes</span>
 <span class="n">lastHourDateTime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">UTC</span><span class="p">)</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
-<span class="n">start</span> <span class="o">=</span> <span class="n">lastHourDateTime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
-<span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">UTC</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">lastHourDateTime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">'%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S'</span><span class="p">)</span>
+<span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">UTC</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">'%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S'</span><span class="p">)</span>
 
-<span class="n">beginRange</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span> <span class="n">start</span> <span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
-<span class="n">endRange</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span> <span class="n">end</span> <span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+<span class="n">beginRange</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span> <span class="n">start</span> <span class="p">,</span> <span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S"</span><span class="p">)</span>
+<span class="n">endRange</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span> <span class="n">end</span> <span class="p">,</span> <span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S"</span><span class="p">)</span>
 <span class="n">timerange</span> <span class="o">=</span> <span class="n">TimeRange</span><span class="p">(</span><span class="n">beginRange</span><span class="p">,</span> <span class="n">endRange</span><span class="p">)</span>
 <span class="c1"># Get response</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="n">timerange</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">response</span><span class="p">,</span> <span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"No surface observations returned from </span><span class="si">{</span><span class="n">edexServer</span><span class="si">}</span><span class="s2"> "</span>
+    <span class="sa">f</span><span class="s2">"for </span><span class="si">{</span><span class="n">timerange</span><span class="si">}</span><span class="s2">"</span>
+<span class="p">)</span>
+
 <span class="n">obs</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getMetarObs</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">obs</span><span class="p">[</span><span class="s2">"temperature"</span><span class="p">],</span> <span class="p">(</span>
+    <span class="s2">"Surface observations were returned, but none contained temperature data"</span>
+<span class="p">)</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s2">"temperature"</span><span class="p">])</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s2">"latitude"</span><span class="p">])</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">]),</span> <span class="p">(</span>
+    <span class="s2">"Temperature, latitude, and longitude arrays have different lengths"</span>
+<span class="p">)</span>
 
-<span class="n">lats</span> <span class="o">=</span> <span class="n">obs</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span>
-<span class="n">lons</span> <span class="o">=</span> <span class="n">obs</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">]</span>
+<span class="n">lats</span> <span class="o">=</span> <span class="n">obs</span><span class="p">[</span><span class="s1">'latitude'</span><span class="p">]</span>
+<span class="n">lons</span> <span class="o">=</span> <span class="n">obs</span><span class="p">[</span><span class="s1">'longitude'</span><span class="p">]</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Found &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; total records&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">]))</span> <span class="o">+</span> <span class="s2">&quot; temperature records&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Found "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="p">))</span> <span class="o">+</span> <span class="s2">" total records"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Using "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">'temperature'</span><span class="p">]))</span> <span class="o">+</span> <span class="s2">" temperature records"</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Found</span> <span class="mi">1704</span> <span class="n">total</span> <span class="n">records</span>
-<span class="n">Using</span> <span class="mi">1660</span> <span class="n">temperature</span> <span class="n">records</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Found</span> <span class="mi">289</span> <span class="n">total</span> <span class="n">records</span>
+<span class="n">Using</span> <span class="mi">282</span> <span class="n">temperature</span> <span class="n">records</span>
 </pre></div>
 </div>
 <p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html">Top</a></p>
 </section>
 <hr class="docutils" />
 <section id="access-and-convert-temp-data">
-<h3>4 Access and Convert Temp Data<a class="headerlink" href="#access-and-convert-temp-data" title="Permalink to this heading"></a></h3>
+<h3>4 Access and Convert Temp Data<a class="headerlink" href="#access-and-convert-temp-data" title="Link to this heading"></a></h3>
 <p>We access the <em>temperature</em> data from the <strong>obs</strong> variable which is
 stored in degrees Celsius (°C). To make it more relatable, we then
 convert the data to degrees Fahreheit (°F)</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># # Suppress nan masking warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span><span class="n">category</span> <span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">,</span><span class="n">category</span> <span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">)</span>
 
 <span class="c1"># get all temperature values and convert them from °C to °F</span>
-<span class="n">tair</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-<span class="n">tair</span><span class="p">[</span><span class="n">tair</span> <span class="o">==</span> <span class="o">-</span><span class="mf">9999.0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;nan&#39;</span>
+<span class="n">tair</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">'temperature'</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">tair</span><span class="p">[</span><span class="n">tair</span> <span class="o">==</span> <span class="o">-</span><span class="mf">9999.0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'nan'</span>
 <span class="n">tair</span> <span class="o">=</span> <span class="p">(</span><span class="n">tair</span><span class="o">*</span><span class="mf">1.8</span><span class="p">)</span><span class="o">+</span><span class="mi">32</span>
 </pre></div>
 </div>
@@ -248,7 +258,7 @@ convert the data to degrees Fahreheit (°F)</p>
 </section>
 <hr class="docutils" />
 <section id="define-temperature-thresholds">
-<h3>5 Define Temperature Thresholds<a class="headerlink" href="#define-temperature-thresholds" title="Permalink to this heading"></a></h3>
+<h3>5 Define Temperature Thresholds<a class="headerlink" href="#define-temperature-thresholds" title="Link to this heading"></a></h3>
 <p>In order to distinguish the temperatures, we’ll create a color map to
 separate the values into different colors. This mapping will be used
 when plotting the temperature values on the map of the United States.</p>
@@ -257,14 +267,14 @@ when plotting the temperature values on the map of the United States.</p>
 affects the final plot.</p>
 </div></blockquote>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thresholds</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;15&#39;</span><span class="p">:</span> <span class="s1">&#39;purple&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;25&#39;</span><span class="p">:</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;35&#39;</span><span class="p">:</span> <span class="s1">&#39;royalblue&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;45&#39;</span><span class="p">:</span> <span class="s1">&#39;darkgreen&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;55&#39;</span><span class="p">:</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;65&#39;</span><span class="p">:</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;75&#39;</span><span class="p">:</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;85&#39;</span><span class="p">:</span> <span class="s1">&#39;red&#39;</span>
+    <span class="s1">'15'</span><span class="p">:</span> <span class="s1">'purple'</span><span class="p">,</span>
+    <span class="s1">'25'</span><span class="p">:</span> <span class="s1">'c'</span><span class="p">,</span>
+    <span class="s1">'35'</span><span class="p">:</span> <span class="s1">'royalblue'</span><span class="p">,</span>
+    <span class="s1">'45'</span><span class="p">:</span> <span class="s1">'darkgreen'</span><span class="p">,</span>
+    <span class="s1">'55'</span><span class="p">:</span> <span class="s1">'green'</span><span class="p">,</span>
+    <span class="s1">'65'</span><span class="p">:</span> <span class="s1">'y'</span><span class="p">,</span>
+    <span class="s1">'75'</span><span class="p">:</span> <span class="s1">'orange'</span><span class="p">,</span>
+    <span class="s1">'85'</span><span class="p">:</span> <span class="s1">'red'</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -272,7 +282,7 @@ affects the final plot.</p>
 </section>
 <hr class="docutils" />
 <section id="plot-the-data">
-<h3>6 Plot the Data!<a class="headerlink" href="#plot-the-data" title="Permalink to this heading"></a></h3>
+<h3>6 Plot the Data!<a class="headerlink" href="#plot-the-data" title="Link to this heading"></a></h3>
 <p>Here we create a plot and cycle through all the values from our color
 mapping. For each segement of our color mapping, mask the temperature
 values to only include the relevent temperatures and draw those on the
@@ -280,8 +290,8 @@ plot. Do this for every segment of the color mapping to produce the
 final, colored figure.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">12</span><span class="p">),</span><span class="n">subplot_kw</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">LambertConformal</span><span class="p">()))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_extent</span><span class="p">(</span><span class="n">bbox</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">coastlines</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="s1">&#39;50m&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot; | Surface Temps (degF) | &quot;</span> <span class="o">+</span> <span class="n">edexServer</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">coastlines</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="s1">'50m'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">())</span> <span class="o">+</span> <span class="s2">" | Surface Temps (degF) | "</span> <span class="o">+</span> <span class="n">edexServer</span><span class="p">)</span>
 
 <span class="c1"># get the temperature limit (x) and color (value)</span>
 <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">thresholds</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -290,26 +300,29 @@ final, colored figure.</p>
 
     <span class="c1"># pair down the temperature values to a subset</span>
     <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="nb">max</span><span class="p">(</span><span class="n">thresholds</span><span class="p">):</span>
-        <span class="n">subtair</span><span class="p">[(</span><span class="n">subtair</span> <span class="o">&lt;</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">))]</span> <span class="o">=</span> <span class="s1">&#39;nan&#39;</span>
+        <span class="n">subtair</span><span class="p">[(</span><span class="n">subtair</span> <span class="o">&lt;</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">))]</span> <span class="o">=</span> <span class="s1">'nan'</span>
     <span class="k">elif</span> <span class="n">x</span><span class="o">==</span><span class="nb">min</span><span class="p">(</span><span class="n">thresholds</span><span class="p">):</span>
-        <span class="n">subtair</span><span class="p">[(</span><span class="n">subtair</span> <span class="o">&gt;=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="mi">10</span><span class="p">)]</span> <span class="o">=</span> <span class="s1">&#39;nan&#39;</span>
+        <span class="n">subtair</span><span class="p">[(</span><span class="n">subtair</span> <span class="o">&gt;=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="mi">10</span><span class="p">)]</span> <span class="o">=</span> <span class="s1">'nan'</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">subtair</span><span class="p">[(</span><span class="n">subtair</span> <span class="o">&lt;</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">))]</span> <span class="o">=</span> <span class="s1">&#39;nan&#39;</span>
-        <span class="n">subtair</span><span class="p">[(</span><span class="n">subtair</span> <span class="o">&gt;=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="mi">10</span><span class="p">)]</span> <span class="o">=</span> <span class="s1">&#39;nan&#39;</span>
+        <span class="n">subtair</span><span class="p">[(</span><span class="n">subtair</span> <span class="o">&lt;</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">))]</span> <span class="o">=</span> <span class="s1">'nan'</span>
+        <span class="n">subtair</span><span class="p">[(</span><span class="n">subtair</span> <span class="o">&gt;=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="mi">10</span><span class="p">)]</span> <span class="o">=</span> <span class="s1">'nan'</span>
 
     <span class="c1"># add these stations and their color to the stationplots</span>
     <span class="n">stationplot</span> <span class="o">=</span> <span class="n">StationPlot</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">lons</span><span class="p">,</span> <span class="n">lats</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-    <span class="n">stationplot</span><span class="o">.</span><span class="n">plot_parameter</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">subtair</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
+    <span class="n">stationplot</span><span class="o">.</span><span class="n">plot_parameter</span><span class="p">(</span><span class="s1">'C'</span><span class="p">,</span> <span class="n">subtair</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
+
+<span class="c1"># Force the completed plot to render during automated testing</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../../_images/Colored_Surface_Temperature_Plot_23_0.png" src="../../_images/Colored_Surface_Temperature_Plot_23_0.png" />
+<img alt="../../_images/Colored_Surface_Temperature_Plot_22_0.png" src="../../_images/Colored_Surface_Temperature_Plot_22_0.png" />
 <p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html">Top</a></p>
 </section>
 <hr class="docutils" />
 <section id="see-also">
-<h3>7 See Also<a class="headerlink" href="#see-also" title="Permalink to this heading"></a></h3>
-<section id="additional-documentation">
-<h4>7.1 Additional Documentation<a class="headerlink" href="#additional-documentation" title="Permalink to this heading"></a></h4>
+<h3>7 See Also<a class="headerlink" href="#see-also" title="Link to this heading"></a></h3>
+<section id="additional-documention">
+<h4>7.1 Additional Documention<a class="headerlink" href="#additional-documention" title="Link to this heading"></a></h4>
 <p><strong>python-awips</strong></p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost">DataAccessLayer.changeEDEXHost()</a></p></li>
@@ -322,7 +335,6 @@ final, colored figure.</p>
 <li><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html">matplotlib.pyplot.figure()</a></p></li>
 </ul>
 <p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html">Top</a></p>
-<hr class="docutils" />
 </section>
 </section>
 </section>

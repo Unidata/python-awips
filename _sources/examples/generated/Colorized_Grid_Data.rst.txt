@@ -1,7 +1,7 @@
 ===================
 Colorized Grid Data
 ===================
-`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Colorized_Grid_Data.ipynb>`_
+`Notebook <https://nbviewer.org/github/Unidata/python-awips/blob/v23/examples/notebooks/Colorized_Grid_Data.ipynb>`_
 Python-AWIPS Tutorial Notebook
 
 --------------
@@ -9,11 +9,11 @@ Python-AWIPS Tutorial Notebook
 Objectives
 ==========
 
--  Create a colorized plot for the continental US of model data (grib).
--  Access the model data from an EDEX server and limit the data returned
-   by using model specific parameters.
--  Use both **pcolormesh** and **contourf** to create colorized plots,
-   and compare the differences between the two.
+- Create a colorized plot for the continental US of model data (grib).
+- Access the model data from an EDEX server and limit the data returned
+  by using model specific parameters.
+- Use both *pcolormesh* and *contourf* to create colorized plots, and
+  compare the differences between the two.
 
 --------------
 
@@ -27,7 +27,7 @@ Table of Contents
 | `3 Limit Results Based on
   Time <https://unidata.github.io/python-awips/examples/generated/Colorized_Grid_Data.html#limit-results-based-on-time>`__\ 
 | `4 Function:
-  make_map() <https://unidata.github.io/python-awips/examples/generated/Colorized_Grid_Data.html#function-make-map>`__\ 
+  make_map() <https://unidata.github.io/python-awips/examples/generated/Colorized_Grid_Data.html#function-makemap>`__\ 
 | `5 Use the Grid
   Data! <https://unidata.github.io/python-awips/examples/generated/Colorized_Grid_Data.html#use-the-grid-data>`__\ 
 |     `5.1 Plot Using
@@ -40,8 +40,6 @@ Table of Contents
   Notebooks <https://unidata.github.io/python-awips/examples/generated/Colorized_Grid_Data.html#related-notebooks>`__\ 
 |     `6.2 Additional
   Documentation <https://unidata.github.io/python-awips/examples/generated/Colorized_Grid_Data.html#additional-documentation>`__\ 
-
---------------
 
 1 Imports
 ---------
@@ -88,7 +86,7 @@ in meters), respectively.
 
 .. parsed-literal::
 
-    DefaultDataRequest(datatype=grid, identifiers={}, parameters=['T'], levels=[<dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.level.Level.Level object at 0x11127bfd0>], locationNames=['RAP13'], envelope=None)
+    DefaultDataRequest(datatype=grid, identifiers={}, parameters=['T'], levels=[<dynamicserialize.dstypes.com.raytheon.uf.common.dataplugin.level.Level.Level object at 0x7f90b8cd6510>], locationNames=['RAP13'], envelope=None)
 
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Colorized_Grid_Data.html>`__
@@ -101,17 +99,27 @@ in meters), respectively.
 Models produce many different time variants during their runs, so let’s
 limit the data to the most recent time and forecast run.
 
-   **Note**: You can play around with different times and forecast runs
+   **Note:** You can play around with different times and forecast runs
    to see the differences.
 
 .. code:: ipython3
 
     cycles = DataAccessLayer.getAvailableTimes(request, True)
     times = DataAccessLayer.getAvailableTimes(request)
+    
+    assert cycles, "No forecast cycles returned for the requested grid"
+    assert times, "No forecast times returned for the requested grid"
+    
     fcstRun = DataAccessLayer.getForecastRun(cycles[-1], times)
+    
+    assert fcstRun, "No forecast run could be constructed from the latest cycle"
     
     # Get the most recent grid data
     response = DataAccessLayer.getGridData(request, [fcstRun[0]])
+    
+    assert response, (
+        f"No grid data returned for forecast time {fcstRun[0]}"
+    )
     
     print('Number of available times:', len(times))
     print('Number of available forecast runs:', len(fcstRun))
@@ -119,8 +127,8 @@ limit the data to the most recent time and forecast run.
 
 .. parsed-literal::
 
-    Number of available times: 74
-    Number of available forecast runs: 8
+    Number of available times: 550
+    Number of available forecast runs: 22
 
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Colorized_Grid_Data.html>`__
@@ -184,7 +192,7 @@ to create a colorized plot. We use our **make_map** function to create a
 subplot and then we create a color scale (cs) and colorbar (cbar) with a
 label for our plot.
 
-   **Note**: You may see a warning appear with a red background, this is
+   **Note:** You may see a warning appear with a red background, this is
    okay, and will go away with subsequent runs of the cell.
 
 .. code:: ipython3
@@ -196,16 +204,11 @@ label for our plot.
     cbar.set_label(grid.getLocationName() +" "+ grid.getLevel() + " " \
                    + grid.getParameter() + " (" + destUnit + ") " \
                    + "valid " + str(grid.getDataTime().getRefTime()))
-
-
-.. parsed-literal::
-
-    /Users/scarter/opt/miniconda3/envs/python3-awips/lib/python3.9/site-packages/cartopy/mpl/geoaxes.py:1598: UserWarning: The input coordinates to pcolormesh are interpreted as cell centers, but are not monotonically increasing or decreasing. This may lead to incorrectly calculated cell edges, in which case, please supply explicit cell edges to pcolormesh.
-      X, Y, C, shading = self._pcolorargs('pcolormesh', *args,
+    fig.canvas.draw()
 
 
 
-.. image:: Colorized_Grid_Data_files/Colorized_Grid_Data_21_1.png
+.. image:: Colorized_Grid_Data_files/Colorized_Grid_Data_19_0.png
 
 
 5.2 Plot Using contourf
@@ -226,10 +229,11 @@ a label for our plot.
     cbar2.set_label(grid.getLocationName() +" "+ grid.getLevel() + " " \
                    + grid.getParameter() + " (" + destUnit + ") " \
                    + "valid " + str(grid.getDataTime().getRefTime()))
+    fig2.canvas.draw()
 
 
 
-.. image:: Colorized_Grid_Data_files/Colorized_Grid_Data_23_0.png
+.. image:: Colorized_Grid_Data_files/Colorized_Grid_Data_21_0.png
 
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Colorized_Grid_Data.html>`__
@@ -242,24 +246,24 @@ a label for our plot.
 6.1 Related Notebooks
 ~~~~~~~~~~~~~~~~~~~~~
 
--  `Grid Levels and
-   Parameters <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html>`__
+- `Grid Levels and
+  Parameters <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html>`__
 
 6.2 Additional Documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**python-awips:**
+**python-awips:** \*
+`awips.DataAccessLayer <http://unidata.github.io/python-awips/api/DataAccessLayer.html>`__
+\*
+`awips.PyGridData <http://unidata.github.io/python-awips/api/PyGridData.html>`__
 
--  `awips.DataAccessLayer <http://unidata.github.io/python-awips/api/DataAccessLayer.html>`__
--  `awips.PyGridData <http://unidata.github.io/python-awips/api/PyGridData.html>`__
-
-**matplotlib:**
-
--  `matplotlib.pyplot <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.html>`__
--  `matplotlib.pyplot.subplot <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.subplot.html>`__
--  `matplotlib.pyplot.pcolormesh <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.pcolormesh.html>`__
--  `matplotlib.pyplot.contourf <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.contourf.html>`__
+**matplotlib:** \*
+`matplotlib.pyplot <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.html>`__
+\*
+`matplotlib.pyplot.subplot <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.subplot.html>`__
+\*
+`matplotlib.pyplot.pcolormesh <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.pcolormesh.html>`__
+\*
+`matplotlib.pyplot.contourf <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.contourf.html>`__
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Colorized_Grid_Data.html>`__
-
---------------

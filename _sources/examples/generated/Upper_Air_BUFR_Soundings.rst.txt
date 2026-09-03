@@ -1,7 +1,7 @@
 ========================
 Upper Air BUFR Soundings
 ========================
-`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Upper_Air_BUFR_Soundings.ipynb>`_
+`Notebook <https://nbviewer.org/github/Unidata/python-awips/blob/v23/examples/notebooks/Upper_Air_BUFR_Soundings.ipynb>`_
 Python-AWIPS Tutorial Notebook
 
 --------------
@@ -9,17 +9,17 @@ Python-AWIPS Tutorial Notebook
 Objectives
 ==========
 
--  Retrieve an Upper Air vertical profile from EDEX
--  Plot a Skew-T/Log-P chart with
-   `Matplotlib <https://matplotlib.org/>`__ and
-   `MetPy <https://unidata.github.io/MetPy/latest/index.html>`__
--  Understand the **bufrua** plugin returns separate objects for
-   parameters at *mandatory levels* and at *significant temperature
-   levels*
+- Retrieve an Upper Air vertical profile from EDEX
+- Plot a Skew-T/Log-P chart with
+  `Matplotlib <https://matplotlib.org/>`__ and
+  `MetPy <https://unidata.github.io/MetPy/latest/index.html>`__
+- Understand the **bufrua** plugin returns separate objects for
+  parameters at *mandatory levels* and at *significant temperature
+  levels*
 
-   -  *Significant temperature levels* are used to plot the pressure,
-      temperature and dewpoint lines
-   -  *Mandatory levels* are used to plot the wind profile
+  - *Significant temperature levels* are used to plot the pressure,
+    temperature and dewpoint lines
+  - *Mandatory levels* are used to plot the wind profile
 
 --------------
 
@@ -106,9 +106,7 @@ and an identifier on the request.
 Here we populate arrays of all the parameters that will be necessary for
 plotting the Skew-T. The ``MAN_PARAMS`` are the *mandatory levels* and
 the ``SIGT_PARAMS`` are the *significant temperature* parameters that
-were both mentioned in the `objectives
-section <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html#objectives>`__
-above.
+were both mentioned in the `objectives section <#Objectives>`__ above.
 
 Also request the station name and elevation to use in the figure title
 later on.
@@ -144,7 +142,7 @@ ID you’re interested in is.
 
 .. parsed-literal::
 
-    ['21824', '21946', '24266', '24343', '24641', '24688', '24959', '25123', '25703', '25913', '31004', '31088', '31300', '31369', '31510', '31538', '31770', '31873', '32061', '32098', '32150', '32389', '32477', '32540', '32618', '47122', '47138', '47158', '47401', '47412', '47582', '47646', '47678', '47807', '47827', '47909', '47918', '47945', '47971', '47991', '70026', '70133', '70200', '70219', '70231', '70261', '70273', '70308', '70316', '70326', '70350', '70361', '70398', '70414', '71043', '71081', '71082', '71109', '71119', '71603', '71722', '71802', '71811', '71815', '71816', '71823', '71845', '71867', '71906', '71907', '71909', '71913', '71917', '71924', '71925', '71926', '71934', '71945', '71957', '71964', '72201', '72202', '72206', '72208', '72210', '72214', '72215', '72221', '72230', '72233', '72235', '72240', '72248', '72249', '72250', '72251', '72261', '72265', '72274', '72293', '72305', '72317', '72318', '72327', '72340', '72357', '72363', '72364', '72365', '72376', '72381', '72388', '72393', '72402', '72403', '72426', '72440', '72451', '72456', '72469', '72476', '72489', '72493', '72501', '72518', '72520', '72528', '72558', '72562', '72572', '72582', '72597', '72632', '72634', '72645', '72649', '72659', '72662', '72672', '72681', '72694', '72712', '72747', '72764', '72768', '72776', '72786', '72797', '74004', '74005', '74389', '74455', '74560', '74794', '78016', '78384', '78397', '78486', '78526', '78583', '78866', '78954', '78970', '78988', '80001', '91165', '91212', '91285', '91334', '91348', '91366', '91376', '91408', '91413', '91610', '91643', '91680', '91765', '94120', '94203', '94299', '94332', '94461', '94510', '94578', '94637', '94638', '94653', '94659', '94672', '94711', '94776', '94996']
+    ['21824', '21946', '24266', '24343', '24641', '24688', '24959', '25123', '25703', '25913', '31004', '31088', '31300', '31369', '31510', '31538', '31770', '31873', '32061', '32098', '32150', '32389', '32477', '32540', '32618', '47058', '47122', '47138', '47158', '47401', '47412', '47582', '47600', '47646', '47678', '47778', '47807', '47827', '47909', '47918', '47945', '47971', '47991', '70026', '70133', '70200', '70219', '70231', '70261', '70273', '70308', '70316', '70326', '70350', '70361', '70398', '70414', '71043', '71081', '71082', '71109', '71119', '71603', '71722', '71802', '71811', '71815', '71816', '71823', '71845', '71867', '71906', '71907', '71909', '71913', '71917', '71924', '71925', '71926', '71934', '71945', '71957', '71964', '72201', '72202', '72206', '72208', '72210', '72215', '72230', '72233', '72235', '72240', '72248', '72249', '72250', '72251', '72261', '72265', '72274', '72293', '72305', '72317', '72318', '72327', '72340', '72357', '72363', '72364', '72365', '72376', '72381', '72388', '72393', '72402', '72403', '72426', '72440', '72451', '72456', '72476', '72489', '72493', '72501', '72518', '72520', '72528', '72558', '72562', '72572', '72582', '72597', '72632', '72634', '72645', '72649', '72659', '72662', '72672', '72681', '72694', '72712', '72747', '72764', '72768', '72776', '72786', '72797', '74389', '74455', '74560', '74794', '76225', '76256', '76394', '76405', '76458', '76526', '76612', '76644', '76654', '76679', '76692', '76805', '78016', '78384', '78397', '78486', '78526', '78583', '78954', '78970', '78988', '80001', '91165', '91212', '91285', '91334', '91348', '91376', '91408', '91413', '91643', '91680', '91765', '94120', '94203', '94299', '94326', '94332', '94461', '94510', '94578', '94637', '94653', '94659', '94672', '94711', '94995', '94996']
 
 
 2.4 Setting the Location Name
@@ -172,6 +170,9 @@ limit the data to the most recent time and forecast run.
 
     # Get all times
     datatimes = DataAccessLayer.getAvailableTimes(request)
+    assert datatimes, (
+        "No upper-air sounding times returned"
+    )
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html>`__
 
@@ -190,6 +191,10 @@ help verify we received the data we were interested in.
 
     # Get most recent record
     response = DataAccessLayer.getGeometryData(request,times=datatimes[-1].validPeriod)
+    assert response, (
+        f"No upper-air sounding data returned for "
+        f"{datatimes[-1].validPeriod}"
+    )
     obj = response[0]
     
     print("parms    = " + str(obj.getParameters()))
@@ -203,13 +208,13 @@ help verify we received the data we were interested in.
 
 .. parsed-literal::
 
-    parms    = ['tpSigT', 'prSigT', 'tdSigT']
+    parms    = ['staElev', 'staName']
     site     = 72562
     geom     = POINT (-100.7005615234375 41.14971923828125)
-    datetime = 2023-05-25 12:00:00
-    reftime  = May 25 23 12:00:00 GMT
+    datetime = 2025-02-12 12:00:00 (0)
+    reftime  = Feb 12 25 12:00:00 GMT
     fcstHour = 0
-    period   = (May 25 23 12:00:00 , May 25 23 12:00:00 )
+    period   = (Feb 12 25 12:00:00 , Feb 12 25 12:00:00 )
 
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html>`__
@@ -253,6 +258,9 @@ arrays, we sort and mask missing data.
             tpUnit = ob.getUnit("tpSigT")
             tdSig = np.append(tdSig,ob.getNumber("tdSigT"))
             continue
+    
+    assert manGeos, "No mandatory-level sounding records were found"
+    assert sigtGeos, "No significant-temperature sounding records were found"
     
     # Sort mandatory levels (but not sigT levels) because of the 1000.MB interpolation inclusion
     ps = prMan.argsort()[::-1]
@@ -334,10 +342,11 @@ Create and display SkewT and Hodograph plots using MetPy.
     
     # Show the plot
     plt.show()
+    plt.gcf().canvas.draw()
 
 
 
-.. image:: Upper_Air_BUFR_Soundings_files/Upper_Air_BUFR_Soundings_28_0.png
+.. image:: Upper_Air_BUFR_Soundings_files/Upper_Air_BUFR_Soundings_27_0.png
 
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html>`__
@@ -350,34 +359,32 @@ Create and display SkewT and Hodograph plots using MetPy.
 7.1 Related Notebooks
 ~~~~~~~~~~~~~~~~~~~~~
 
--  `Grid Levels and
-   Parameters <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html>`__
--  `Model Sounding
-   Data <http://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html>`__
--  `Forecast Model Vertical
-   Sounding <http://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html>`__
+- `Grid Levels and
+  Parameters <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html>`__
+- `Model Sounding
+  Data <http://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html>`__
+- `Forecast Model Vertical
+  Sounding <http://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html>`__
 
 7.2 Additional Documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **python-awips:**
 
--  `awips.DataAccessLayer <http://unidata.github.io/python-awips/api/DataAccessLayer.html>`__
--  `awips.PyGeometryData <http://unidata.github.io/python-awips/api/PyGeometryData.html>`__
+- `awips.DataAccessLayer <http://unidata.github.io/python-awips/api/DataAccessLayer.html>`__
+- `awips.PyGeometryData <http://unidata.github.io/python-awips/api/PyGeometryData.html>`__
 
 **matplotlib:**
 
--  `matplotlib.pyplot <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.html>`__
+- `matplotlib.pyplot <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.html>`__
 
 **MetPy**
 
--  `metpy.wind_components <https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.wind_components.html>`__
--  `metpy.lcl <https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.lcl.html>`__
-   (Lifted Condensation Level)
--  `metpy.parcel_profile <https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.parcel_profile.html>`__
--  `metpy.skewt <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.SkewT.html>`__
--  `metpy.hodograph <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.Hodograph.html>`__
+- `metpy.wind_components <https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.wind_components.html>`__
+- `metpy.lcl <https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.lcl.html>`__
+  (Lifted Condensation Level)
+- `metpy.parcel_profile <https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.parcel_profile.html>`__
+- `metpy.skewt <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.SkewT.html>`__
+- `metpy.hodograph <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.Hodograph.html>`__
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Upper_Air_BUFR_Soundings.html>`__
-
---------------

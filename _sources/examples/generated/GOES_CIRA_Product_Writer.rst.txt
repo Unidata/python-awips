@@ -1,7 +1,7 @@
 ========================
 GOES CIRA Product Writer
 ========================
-`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/GOES_CIRA_Product_Writer.ipynb>`_
+`Notebook <https://nbviewer.org/github/Unidata/python-awips/blob/v23/examples/notebooks/GOES_CIRA_Product_Writer.ipynb>`_
 Python-AWIPS Tutorial Notebook
 
 --------------
@@ -9,13 +9,12 @@ Python-AWIPS Tutorial Notebook
 Objectives
 ==========
 
--  Use python-awips to connect to an EDEX server
--  Define and filter the data request specifically for new `CIRA GOES16
-   data
-   products <https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#additional-documentation>`__
--  Resize the products to their native resolution
--  Write the individual bands (channels) locally
--  Combine and write the RGB product locally
+- Use python-awips to connect to an EDEX server
+- Define and filter the data request specifically for new `CIRA GOES16
+  data products <#Additional-Documentation>`__
+- Resize the products to their native resolution
+- Write the individual bands (channels) locally
+- Combine and write the RGB product locally
 
 --------------
 
@@ -31,25 +30,27 @@ Table of Contents
 |     `2.2 Parameter
   Definition <https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#parameter-definition>`__\ 
 | `3 Function:
-  set_size() <https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#function-set-size>`__\ 
+  set_size() <https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#function-setsize>`__\ 
 | `4 Function:
-  write_img() <https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#function-write-img>`__\ 
+  write_img() <https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#function-writeimg>`__\ 
 | `5 Get the Data and Write it
   Out! <https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#get-the-data-and-write-it-out>`__\ 
 |     `5.1 Filter the
   Data <https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#filter-the-data>`__\ 
-|     `5.2 Define Output
+| `6 Print Available Location
+  Names <https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#print-available-location-names>`__\ 
+| `7 Print Available Identifiers and
+  Values <https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#print-available-identifiers-and-values>`__\ 
+|     `7.1 Define Output
   Location <https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#define-output-location>`__\ 
-|     `5.3 Write Out GOES
+|     `7.2 Write Out GOES
   Images <https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#write-out-goes-images>`__\ 
-| `6 See
+| `8 See
   Also <https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#see-also>`__\ 
-|     `6.1 Related
+|     `8.1 Related
   Notebooks <https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#related-notebooks>`__\ 
-|     `6.2 Additional
+|     `8.2 Additional
   Documentation <https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#additional-documentation>`__\ 
-
---------------
 
 1 Imports
 ---------
@@ -205,6 +206,8 @@ modify these values if you wish to print out an image of another size
         
         # Write out the figure
         plt.savefig(name, dpi=DPI, bbox_inches='tight', pad_inches=0)
+        #plt.show()
+        plt.close()
 
 `Top <https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html>`__
 
@@ -223,17 +226,17 @@ pick which images we’re wanting to print out. We’re specifying
 (for the new CIRA products) and the **three channels** for the RBG
 composites.
 
-   **Tip**: More information could be gathered by looking at all the
+   **Tip:** More information could be gathered by looking at all the
    available location names (sectors), identifiers (entities), and
    parameters (channels). To see those run the following lines of code
    after the dataType has been set to satellite on the request object:
 
 ::
 
-   ## Print Available Location Names
+   ## 6 Print Available Location Names
    print((DataAccessLayer.getAvailableLocationNames(request))
       
-   ## Print Available Identifiers and Values
+   ## 7 Print Available Identifiers and Values
    ids = DataAccessLayer.getOptionalIdentifiers(request)
    print(ids)
    for id in ids:
@@ -253,14 +256,14 @@ composites.
     ch3 = "CH-03-0.87um"
     channels = [ch1, ch2, ch3]
 
-5.2 Define Output Location
+7.1 Define Output Location
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Here we define a folder for where the satellite images will be written
 to. The default directory is a new folder called ‘output’ that lives
 whereever this notebook lives.
 
-   **Tip**: If you specify the fully qualified path, it will no longer
+   **Tip:** If you specify the fully qualified path, it will no longer
    depend on where this notebook is located. For example (for a Mac):
 
 ::
@@ -287,7 +290,7 @@ whereever this notebook lives.
     Output directory exists!
 
 
-5.3 Write Out GOES Images
+7.2 Write Out GOES Images
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code:: ipython3
@@ -368,17 +371,17 @@ whereever this notebook lives.
 
 .. parsed-literal::
 
-    selected time: [<DataTime instance: 2021-05-28 06:51:14 >]
+    selected time: [<DataTime instance: 2025-02-11 23:06:17 >]
     writing output/CLDSNOW-ECONUS-CH-01-0.47um.png
     writing output/CLDSNOW-ECONUS-CH-02-0.64um.png
     writing output/CLDSNOW-ECONUS-CH-03-0.87um.png
     writing output/CLDSNOW-ECONUS-RGB.png
-    selected time: [<DataTime instance: 2021-05-28 06:51:14 >]
+    selected time: [<DataTime instance: 2025-02-11 23:21:17 >]
     writing output/DBRDUST-ECONUS-CH-01-0.47um.png
     writing output/DBRDUST-ECONUS-CH-02-0.64um.png
     writing output/DBRDUST-ECONUS-CH-03-0.87um.png
     writing output/DBRDUST-ECONUS-RGB.png
-    selected time: [<DataTime instance: 2021-05-28 06:56:14 >]
+    selected time: [<DataTime instance: 2025-02-11 23:41:17 >]
     writing output/GEOCOLR-ECONUS-CH-01-0.47um.png
     writing output/GEOCOLR-ECONUS-CH-02-0.64um.png
     writing output/GEOCOLR-ECONUS-CH-03-0.87um.png
@@ -389,76 +392,116 @@ whereever this notebook lives.
 
 .. parsed-literal::
 
-    <Figure size 432x288 with 0 Axes>
-
-
-
-.. image:: GOES_CIRA_Product_Writer_files/GOES_CIRA_Product_Writer_25_2.png
+    <Figure size 640x480 with 0 Axes>
 
 
 
 .. parsed-literal::
 
-    <Figure size 432x288 with 0 Axes>
-
-
-
-.. image:: GOES_CIRA_Product_Writer_files/GOES_CIRA_Product_Writer_25_4.png
+    <Figure size 640x480 with 0 Axes>
 
 
 
 .. parsed-literal::
 
-    <Figure size 432x288 with 0 Axes>
+    <Figure size 640x480 with 0 Axes>
 
 
 
-.. image:: GOES_CIRA_Product_Writer_files/GOES_CIRA_Product_Writer_25_6.png
+.. parsed-literal::
+
+    <Figure size 640x480 with 0 Axes>
+
+
+
+.. parsed-literal::
+
+    <Figure size 640x480 with 0 Axes>
+
+
+
+.. parsed-literal::
+
+    <Figure size 640x480 with 0 Axes>
+
+
+
+.. parsed-literal::
+
+    <Figure size 640x480 with 0 Axes>
+
+
+
+.. parsed-literal::
+
+    <Figure size 640x480 with 0 Axes>
+
+
+
+.. parsed-literal::
+
+    <Figure size 640x480 with 0 Axes>
+
+
+
+.. parsed-literal::
+
+    <Figure size 640x480 with 0 Axes>
+
+
+
+.. parsed-literal::
+
+    <Figure size 640x480 with 0 Axes>
+
+
+
+.. parsed-literal::
+
+    <Figure size 640x480 with 0 Axes>
 
 
 `Top <https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html>`__
 
 --------------
 
-6 See Also
+8 See Also
 ----------
 
-6.1 Related Notebooks
+8.1 Related Notebooks
 ~~~~~~~~~~~~~~~~~~~~~
 
--  `Satellite
-   Imagery <http://unidata.github.io/python-awips/examples/generated/Satellite_Imagery.html>`__
+- `Satellite
+  Imagery <http://unidata.github.io/python-awips/examples/generated/Satellite_Imagery.html>`__
 
-6.2 Additional Documentation
+8.2 Additional Documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **CIRA Quick Guides**
 
--  `DEBRA-Dust <https://rammb.cira.colostate.edu/training/visit/quick_guides/QuickGuide_DEBRA-Dust_20210217.pdf>`__
--  `Cloud-Snow <https://rammb.cira.colostate.edu/training/visit/quick_guides/GOES_Cloud_Snow_Discriminator_Quick_Guide_20190814.pdf>`__
--  `GEOCOLOR <https://rammb.cira.colostate.edu/training/visit/quick_guides/QuickGuide_CIRA_Geocolor_20171019.pdf>`__
+- `DEBRA-Dust <https://rammb.cira.colostate.edu/training/visit/quick_guides/QuickGuide_DEBRA-Dust_20210217.pdf>`__
+- `Cloud-Snow <https://rammb.cira.colostate.edu/training/visit/quick_guides/GOES_Cloud_Snow_Discriminator_Quick_Guide_20190814.pdf>`__
+- `GEOCOLOR <https://rammb.cira.colostate.edu/training/visit/quick_guides/QuickGuide_CIRA_Geocolor_20171019.pdf>`__
 
 **python-awips**
 
--  `DataAccessLayer.changeEDEXHost() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost>`__
--  `DataAccessLayer.newDataRequest() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.newDataRequest>`__
--  `DataAccessLayer.getAvailableLocationNames() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableLocationNames>`__
--  `DataAccessLayer.getOptionalIdentifiers() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getOptionalIdentifiers>`__
--  `DataAccessLayer.getIdentifierValues() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getIdentifierValues>`__
--  `DataAccessLayer.getAvailableTimes() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableTimes>`__
--  `IDataRequest <http://unidata.github.io/python-awips/api/IDataRequest.html>`__
+- `DataAccessLayer.changeEDEXHost() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost>`__
+- `DataAccessLayer.newDataRequest() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.newDataRequest>`__
+- `DataAccessLayer.getAvailableLocationNames() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableLocationNames>`__
+- `DataAccessLayer.getOptionalIdentifiers() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getOptionalIdentifiers>`__
+- `DataAccessLayer.getIdentifierValues() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getIdentifierValues>`__
+- `DataAccessLayer.getAvailableTimes() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableTimes>`__
+- `IDataRequest <http://unidata.github.io/python-awips/api/IDataRequest.html>`__
 
 **matplotlib**
 
--  `matplotlib.pyplot() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html>`__
--  `matplotlib.pyplot.axes() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.axes.html>`__
--  `matplotlib.pyplot.figure() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html>`__
+- `matplotlib.pyplot() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html>`__
+- `matplotlib.pyplot.axes() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.axes.html>`__
+- `matplotlib.pyplot.figure() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html>`__
 
 **numpy**
 
--  `numpy.clip() <https://numpy.org/doc/stable/reference/generated/numpy.clip.html>`__
--  `numpy.dstack() <https://numpy.org/doc/stable/reference/generated/numpy.dstack.html>`__
+- `numpy.clip() <https://numpy.org/doc/stable/reference/generated/numpy.clip.html>`__
+- `numpy.dstack() <https://numpy.org/doc/stable/reference/generated/numpy.dstack.html>`__
 
 `Top <https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html>`__
-
---------------

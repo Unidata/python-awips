@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -13,9 +13,9 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=b3ba4146"></script>
-      <script src="../../_static/doctools.js?v=888ff710"></script>
-      <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -110,12 +110,12 @@
            <div itemprop="articleBody">
              
   <section id="forecast-model-vertical-sounding">
-<h1>Forecast Model Vertical Sounding<a class="headerlink" href="#forecast-model-vertical-sounding" title="Permalink to this heading"></a></h1>
-<p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Forecast_Model_Vertical_Sounding.ipynb">Notebook</a>
+<h1>Forecast Model Vertical Sounding<a class="headerlink" href="#forecast-model-vertical-sounding" title="Link to this heading"></a></h1>
+<p><a class="reference external" href="https://nbviewer.org/github/Unidata/python-awips/blob/v23/examples/notebooks/Forecast_Model_Vertical_Sounding.ipynb">Notebook</a>
 Python-AWIPS Tutorial Notebook</p>
 <hr class="docutils" />
 <section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading"></a></h2>
+<h2>Objectives<a class="headerlink" href="#objectives" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p>Use python-awips to connect to an edex server</p></li>
 <li><p>Request data using the <a class="reference external" href="http://unidata.github.io/python-awips/api/ModelSounding.html">ModelSounding
@@ -136,23 +136,23 @@ plots</p></li>
 </ul>
 <hr class="docutils" />
 <section id="table-of-contents">
-<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading"></a></h3>
+<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading"></a></h3>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#imports">1
 Imports</a></div>
-<div class="line"><a class="reference external" href="http://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#edex-connection">2 EDEX
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#edex-connection">2 EDEX
 Connection</a></div>
 <div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#define-useful-variables">3 Define Useful
 Variables</a></div>
-<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#function-get-surface-data">4 Function:
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#function-getsurfacedata">4 Function:
 get_surface_data()</a></div>
-<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#function-get-levels-data">5 Function:
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#function-getlevelsdata">5 Function:
 get_levels_data()</a></div>
-<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#function-plot-skewt">6 Function:
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#function-plotskewt">6 Function:
 plot_skewT()</a></div>
 <div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#retrieve-necessary-plotting-data">7 Retrieve Necessary Plotting
 Data</a></div>
-<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#skew-t-log-p">8
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#skew-tlog-p">8
 Skew-T/Log-P</a></div>
 <div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html#model-sounding-comparison">9 Model Sounding
 Comparison</a></div>
@@ -165,7 +165,7 @@ Documentation</a></div>
 </div>
 </section>
 <section id="imports">
-<h3>1 Imports<a class="headerlink" href="#imports" title="Permalink to this heading"></a></h3>
+<h3>1 Imports<a class="headerlink" href="#imports" title="Link to this heading"></a></h3>
 <p>The imports below are used throughout the notebook. Note the first
 import is coming directly from python-awips and allows us to connect to
 an EDEX server. The subsequent imports are for data manipulation and
@@ -184,11 +184,11 @@ visualization.</p>
 </section>
 <hr class="docutils" />
 <section id="edex-connection">
-<h3>2 EDEX Connection<a class="headerlink" href="#edex-connection" title="Permalink to this heading"></a></h3>
+<h3>2 EDEX Connection<a class="headerlink" href="#edex-connection" title="Link to this heading"></a></h3>
 <p>First we establish a connection to Unidata’s public EDEX server. This
 sets the proper server on the <strong>DataAccessLayer</strong>, which we will use
 numerous times throughout the notebook.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">server</span> <span class="o">=</span> <span class="s1">&#39;edex-cloud.unidata.ucar.edu&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">server</span> <span class="o">=</span> <span class="s1">'edex-cloud.unidata.ucar.edu'</span>
 <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -196,34 +196,44 @@ numerous times throughout the notebook.</p>
 </section>
 <hr class="docutils" />
 <section id="define-useful-variables">
-<h3>3 Define Useful Variables<a class="headerlink" href="#define-useful-variables" title="Permalink to this heading"></a></h3>
+<h3>3 Define Useful Variables<a class="headerlink" href="#define-useful-variables" title="Link to this heading"></a></h3>
 <p>The plotting in this notebook needs a model name, a location point
 (defined by latitude and longitude), and the most recent time range with
 the initial forecast run.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note the order is Lon,Lat and not Lat,Lon</span>
 <span class="n">point</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mf">104.67</span><span class="p">,</span><span class="mf">39.87</span><span class="p">)</span>
-<span class="n">model</span><span class="o">=</span><span class="s2">&quot;NAM40&quot;</span>
+<span class="n">model</span><span class="o">=</span><span class="s2">"NAM40"</span>
 
 <span class="c1"># Get latest forecast cycle run</span>
-<span class="n">timeReq</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">&quot;grid&quot;</span><span class="p">)</span>
+<span class="n">timeReq</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">"grid"</span><span class="p">)</span>
 <span class="n">timeReq</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+
 <span class="n">cycles</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">timeReq</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 <span class="n">times</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">timeReq</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">cycles</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"Expected at least two forecast cycles for </span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">, "</span>
+    <span class="sa">f</span><span class="s2">"but received </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">cycles</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+<span class="p">)</span>
+<span class="k">assert</span> <span class="n">times</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"No forecast times returned for </span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">"</span>
+
 <span class="n">fcstRun</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getForecastRun</span><span class="p">(</span><span class="n">cycles</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">times</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="n">fcstRun</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"No forecast run constructed for </span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">"</span>
 
 <span class="n">timeRange</span> <span class="o">=</span> <span class="p">[</span><span class="n">fcstRun</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using &quot;</span> <span class="o">+</span> <span class="n">model</span> <span class="o">+</span> <span class="s2">&quot; forecast time &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">timeRange</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Using "</span> <span class="o">+</span> <span class="n">model</span> <span class="o">+</span> <span class="s2">" forecast time "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">timeRange</span><span class="p">))</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Using</span> <span class="n">NAM40</span> <span class="n">forecast</span> <span class="n">time</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2023</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">25</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">&gt;</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Using</span> <span class="n">NAM40</span> <span class="n">forecast</span> <span class="n">time</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">DataTime</span> <span class="n">instance</span><span class="p">:</span> <span class="mi">2026</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">02</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&gt;</span><span class="p">]</span>
 </pre></div>
 </div>
 <p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html">Top</a></p>
 </section>
 <hr class="docutils" />
 <section id="function-get-surface-data">
-<h3>4 Function: get_surface_data()<a class="headerlink" href="#function-get-surface-data" title="Permalink to this heading"></a></h3>
+<h3>4 Function: get_surface_data()<a class="headerlink" href="#function-get-surface-data" title="Link to this heading"></a></h3>
 <p>This function is used to get the initial forecast model data for surface
 height. This is done separately from the rest of the heights to
 determine the surface pressure. It uses the
@@ -233,25 +243,25 @@ data object from python-awips to retrieve all the relevant information.</p>
 and returns arrays for pressure, temperature, dewpoint, and the u and v
 wind components.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_surface_data</span><span class="p">(</span><span class="n">modelName</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; model name, location, and timeRange desire &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">""" model name, location, and timeRange desire """</span>
 
     <span class="c1"># request data and sort response</span>
     <span class="n">pressure</span><span class="p">,</span><span class="n">temp</span><span class="p">,</span><span class="n">dpt</span><span class="p">,</span><span class="n">ucomp</span><span class="p">,</span><span class="n">vcomp</span> <span class="o">=</span> <span class="p">[],[],[],[],[]</span>
-    <span class="n">use_parms</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">,</span><span class="s1">&#39;DpT&#39;</span><span class="p">,</span><span class="s1">&#39;uW&#39;</span><span class="p">,</span><span class="s1">&#39;vW&#39;</span><span class="p">,</span><span class="s1">&#39;P&#39;</span><span class="p">]</span>
-    <span class="n">use_level</span> <span class="o">=</span> <span class="s2">&quot;0.0FHAG&quot;</span>
+    <span class="n">use_parms</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'T'</span><span class="p">,</span><span class="s1">'DpT'</span><span class="p">,</span><span class="s1">'uW'</span><span class="p">,</span><span class="s1">'vW'</span><span class="p">,</span><span class="s1">'P'</span><span class="p">]</span>
+    <span class="n">use_level</span> <span class="o">=</span> <span class="s2">"0.0FHAG"</span>
 
     <span class="n">sndObject</span> <span class="o">=</span> <span class="n">ModelSounding</span><span class="o">.</span><span class="n">getSounding</span><span class="p">(</span><span class="n">modelName</span><span class="p">,</span> <span class="n">use_parms</span><span class="p">,</span> <span class="p">[</span><span class="n">use_level</span><span class="p">],</span> <span class="n">location</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sndObject</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">time</span> <span class="ow">in</span> <span class="n">sndObject</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">:</span>
-            <span class="n">pressure</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">sndObject</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">[</span><span class="n">time</span><span class="p">][</span><span class="n">use_level</span><span class="p">][</span><span class="s1">&#39;P&#39;</span><span class="p">]))</span>
-            <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">sndObject</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">[</span><span class="n">time</span><span class="p">][</span><span class="n">use_level</span><span class="p">][</span><span class="s1">&#39;T&#39;</span><span class="p">]))</span>
-            <span class="n">dpt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">sndObject</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">[</span><span class="n">time</span><span class="p">][</span><span class="n">use_level</span><span class="p">][</span><span class="s1">&#39;DpT&#39;</span><span class="p">]))</span>
-            <span class="n">ucomp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">sndObject</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">[</span><span class="n">time</span><span class="p">][</span><span class="n">use_level</span><span class="p">][</span><span class="s1">&#39;uW&#39;</span><span class="p">]))</span>
-            <span class="n">vcomp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">sndObject</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">[</span><span class="n">time</span><span class="p">][</span><span class="n">use_level</span><span class="p">][</span><span class="s1">&#39;vW&#39;</span><span class="p">]))</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Found surface record at &quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">%.1f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">pressure</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;MB&quot;</span><span class="p">)</span>
+            <span class="n">pressure</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">sndObject</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">[</span><span class="n">time</span><span class="p">][</span><span class="n">use_level</span><span class="p">][</span><span class="s1">'P'</span><span class="p">]))</span>
+            <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">sndObject</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">[</span><span class="n">time</span><span class="p">][</span><span class="n">use_level</span><span class="p">][</span><span class="s1">'T'</span><span class="p">]))</span>
+            <span class="n">dpt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">sndObject</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">[</span><span class="n">time</span><span class="p">][</span><span class="n">use_level</span><span class="p">][</span><span class="s1">'DpT'</span><span class="p">]))</span>
+            <span class="n">ucomp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">sndObject</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">[</span><span class="n">time</span><span class="p">][</span><span class="n">use_level</span><span class="p">][</span><span class="s1">'uW'</span><span class="p">]))</span>
+            <span class="n">vcomp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">sndObject</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">[</span><span class="n">time</span><span class="p">][</span><span class="n">use_level</span><span class="p">][</span><span class="s1">'vW'</span><span class="p">]))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Found surface record at "</span> <span class="o">+</span> <span class="s2">"</span><span class="si">%.1f</span><span class="s2">"</span> <span class="o">%</span> <span class="n">pressure</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">"MB"</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;sndObject returned empty for query [&quot;</span>
-                        <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span><span class="n">modelName</span><span class="p">,</span> <span class="n">use_parms</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">use_level</span><span class="p">))</span> <span class="o">+</span><span class="s2">&quot;]&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"sndObject returned empty for query ["</span>
+                        <span class="o">+</span> <span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span><span class="n">modelName</span><span class="p">,</span> <span class="n">use_parms</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">use_level</span><span class="p">))</span> <span class="o">+</span><span class="s2">"]"</span><span class="p">)</span>
 
     <span class="c1"># return information for plotting</span>
     <span class="k">return</span> <span class="n">pressure</span><span class="p">,</span><span class="n">temp</span><span class="p">,</span><span class="n">dpt</span><span class="p">,</span><span class="n">ucomp</span><span class="p">,</span><span class="n">vcomp</span>
@@ -261,7 +271,7 @@ wind components.</p>
 </section>
 <hr class="docutils" />
 <section id="function-get-levels-data">
-<h3>5 Function: get_levels_data()<a class="headerlink" href="#function-get-levels-data" title="Permalink to this heading"></a></h3>
+<h3>5 Function: get_levels_data()<a class="headerlink" href="#function-get-levels-data" title="Link to this heading"></a></h3>
 <p>This function is similar to <em>get_surface_data()</em>, except it gets data
 values for presure heights above the surface. It uses the
 <a class="reference external" href="http://unidata.github.io/python-awips/api/ModelSounding.html">ModelSounding</a>
@@ -274,8 +284,8 @@ u-component, v-component, and computed wind arrays.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_levels_data</span><span class="p">(</span><span class="n">modelName</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">pressure</span><span class="p">,</span> <span class="n">temp</span><span class="p">,</span> <span class="n">dpt</span><span class="p">,</span> <span class="n">ucomp</span><span class="p">,</span> <span class="n">vcomp</span><span class="p">):</span>
 
     <span class="c1"># Get isobaric levels with our requested parameters</span>
-    <span class="n">parms</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">,</span><span class="s1">&#39;DpT&#39;</span><span class="p">,</span><span class="s1">&#39;uW&#39;</span><span class="p">,</span><span class="s1">&#39;vW&#39;</span><span class="p">]</span>
-    <span class="n">levelReq</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="n">envelope</span><span class="o">=</span><span class="n">point</span><span class="p">)</span>
+    <span class="n">parms</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'T'</span><span class="p">,</span><span class="s1">'DpT'</span><span class="p">,</span><span class="s1">'uW'</span><span class="p">,</span><span class="s1">'vW'</span><span class="p">]</span>
+    <span class="n">levelReq</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">"grid"</span><span class="p">,</span> <span class="n">envelope</span><span class="o">=</span><span class="n">point</span><span class="p">)</span>
     <span class="n">levelReq</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
     <span class="n">levelReq</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">parms</span><span class="p">))</span>
     <span class="n">availableLevels</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableLevels</span><span class="p">(</span><span class="n">levelReq</span><span class="p">)</span>
@@ -284,45 +294,45 @@ u-component, v-component, and computed wind arrays.</p>
     <span class="n">levels</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">lvl</span> <span class="ow">in</span> <span class="n">availableLevels</span><span class="p">:</span>
         <span class="n">name</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">lvl</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;MB&#39;</span> <span class="ow">in</span> <span class="n">name</span> <span class="ow">and</span> <span class="s1">&#39;_&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">'MB'</span> <span class="ow">in</span> <span class="n">name</span> <span class="ow">and</span> <span class="s1">'_'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
             <span class="c1"># If this level is above (less than in mb) our 0.0FHAG record</span>
-            <span class="k">if</span> <span class="nb">float</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;MB&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">pressure</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="nb">float</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'MB'</span><span class="p">,</span><span class="s1">''</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">pressure</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
                 <span class="n">levels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lvl</span><span class="p">)</span>
 
     <span class="c1"># Get Sounding</span>
     <span class="n">sndObject</span> <span class="o">=</span> <span class="n">ModelSounding</span><span class="o">.</span><span class="n">getSounding</span><span class="p">(</span><span class="n">modelName</span><span class="p">,</span> <span class="n">parms</span><span class="p">,</span> <span class="n">levels</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">sndObject</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;sndObject returned empty for query [&quot;</span>
-                        <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">parms</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">levels</span><span class="p">))</span> <span class="o">+</span><span class="s2">&quot;]&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"sndObject returned empty for query ["</span>
+                        <span class="o">+</span> <span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">parms</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">levels</span><span class="p">))</span> <span class="o">+</span><span class="s2">"]"</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">time</span> <span class="ow">in</span> <span class="n">sndObject</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">lvl</span> <span class="ow">in</span> <span class="n">sndObject</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">[</span><span class="n">time</span><span class="p">]</span><span class="o">.</span><span class="n">levels</span><span class="p">():</span>
             <span class="k">for</span> <span class="n">parm</span> <span class="ow">in</span> <span class="n">sndObject</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">[</span><span class="n">time</span><span class="p">][</span><span class="n">lvl</span><span class="p">]</span><span class="o">.</span><span class="n">parameters</span><span class="p">():</span>
-                <span class="k">if</span> <span class="n">parm</span> <span class="o">==</span> <span class="s2">&quot;T&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">parm</span> <span class="o">==</span> <span class="s2">"T"</span><span class="p">:</span>
                     <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">sndObject</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">[</span><span class="n">time</span><span class="p">][</span><span class="n">lvl</span><span class="p">][</span><span class="n">parm</span><span class="p">]))</span>
-                <span class="k">elif</span> <span class="n">parm</span> <span class="o">==</span> <span class="s2">&quot;DpT&quot;</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">parm</span> <span class="o">==</span> <span class="s2">"DpT"</span><span class="p">:</span>
                     <span class="n">dpt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">sndObject</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">[</span><span class="n">time</span><span class="p">][</span><span class="n">lvl</span><span class="p">][</span><span class="n">parm</span><span class="p">]))</span>
-                <span class="k">elif</span> <span class="n">parm</span> <span class="o">==</span> <span class="s1">&#39;uW&#39;</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">parm</span> <span class="o">==</span> <span class="s1">'uW'</span><span class="p">:</span>
                     <span class="n">ucomp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">sndObject</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">[</span><span class="n">time</span><span class="p">][</span><span class="n">lvl</span><span class="p">][</span><span class="n">parm</span><span class="p">]))</span>
-                <span class="k">elif</span> <span class="n">parm</span> <span class="o">==</span> <span class="s1">&#39;vW&#39;</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">parm</span> <span class="o">==</span> <span class="s1">'vW'</span><span class="p">:</span>
                     <span class="n">vcomp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">sndObject</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">[</span><span class="n">time</span><span class="p">][</span><span class="n">lvl</span><span class="p">][</span><span class="n">parm</span><span class="p">]))</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;WHAT IS THIS&quot;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">"WHAT IS THIS"</span><span class="p">)</span>
                     <span class="nb">print</span><span class="p">(</span><span class="n">sndObject</span><span class="o">.</span><span class="n">_dataDict</span><span class="p">[</span><span class="n">time</span><span class="p">][</span><span class="n">lvl</span><span class="p">][</span><span class="n">parm</span><span class="p">])</span>
             <span class="c1"># Pressure is our requested level rather than a returned parameter</span>
-            <span class="n">pressure</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">lvl</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;MB&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)))</span>
+            <span class="n">pressure</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">lvl</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'MB'</span><span class="p">,</span><span class="s1">''</span><span class="p">)))</span>
 
     <span class="c1"># convert to numpy.array()</span>
     <span class="n">pressure</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pressure</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
     <span class="n">temp</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="o">-</span> <span class="mf">273.15</span><span class="p">)</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">degC</span>
     <span class="n">dpt</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dpt</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="o">-</span> <span class="mf">273.15</span><span class="p">)</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">degC</span>
-    <span class="n">ucomp</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ucomp</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="o">*</span> <span class="n">units</span><span class="p">(</span><span class="s1">&#39;m/s&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;knots&#39;</span><span class="p">)</span>
-    <span class="n">vcomp</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">vcomp</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="o">*</span> <span class="n">units</span><span class="p">(</span><span class="s1">&#39;m/s&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;knots&#39;</span><span class="p">)</span>
+    <span class="n">ucomp</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ucomp</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="o">*</span> <span class="n">units</span><span class="p">(</span><span class="s1">'m/s'</span><span class="p">))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">'knots'</span><span class="p">)</span>
+    <span class="n">vcomp</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">vcomp</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="o">*</span> <span class="n">units</span><span class="p">(</span><span class="s1">'m/s'</span><span class="p">))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">'knots'</span><span class="p">)</span>
     <span class="n">wind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">ucomp</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">vcomp</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">levels</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; levels between &quot;</span> <span class="o">+</span>
-          <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%.1f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">max</span><span class="p">(</span><span class="n">pressure</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; and &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%.1f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">min</span><span class="p">(</span><span class="n">pressure</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;MB&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Using "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">levels</span><span class="p">))</span> <span class="o">+</span> <span class="s2">" levels between "</span> <span class="o">+</span>
+          <span class="nb">str</span><span class="p">(</span><span class="s2">"</span><span class="si">%.1f</span><span class="s2">"</span> <span class="o">%</span> <span class="nb">max</span><span class="p">(</span><span class="n">pressure</span><span class="p">))</span> <span class="o">+</span> <span class="s2">" and "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">"</span><span class="si">%.1f</span><span class="s2">"</span> <span class="o">%</span> <span class="nb">min</span><span class="p">(</span><span class="n">pressure</span><span class="p">))</span> <span class="o">+</span> <span class="s2">"MB"</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pressure</span><span class="p">,</span><span class="n">temp</span><span class="p">,</span><span class="n">dpt</span><span class="p">,</span><span class="n">ucomp</span><span class="p">,</span><span class="n">vcomp</span><span class="p">,</span><span class="n">wind</span>
 </pre></div>
 </div>
@@ -330,47 +340,48 @@ u-component, v-component, and computed wind arrays.</p>
 </section>
 <hr class="docutils" />
 <section id="function-plot-skewt">
-<h3>6 Function: plot_skewT()<a class="headerlink" href="#function-plot-skewt" title="Permalink to this heading"></a></h3>
+<h3>6 Function: plot_skewT()<a class="headerlink" href="#function-plot-skewt" title="Link to this heading"></a></h3>
 <p>Since we’re plotting many different models for comparison, all that code
 was used to create this function.</p>
 <p>The function takes the model name, reference time, and the pressure,
 temperature, dewpoint, u-component, v-component, and wind arrays. It
 plots a skewT and hodograph using metpy.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_skewT</span><span class="p">(</span><span class="n">modelName</span><span class="p">,</span> <span class="n">pressure</span><span class="p">,</span> <span class="n">temp</span><span class="p">,</span> <span class="n">dpt</span><span class="p">,</span> <span class="n">ucomp</span><span class="p">,</span> <span class="n">vcomp</span><span class="p">,</span> <span class="n">wind</span><span class="p">,</span> <span class="n">refTime</span><span class="p">):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">'figure.figsize'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
 
     <span class="c1"># Skew-T</span>
     <span class="n">skew</span> <span class="o">=</span> <span class="n">SkewT</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-    <span class="n">skew</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pressure</span><span class="p">,</span> <span class="n">temp</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">skew</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pressure</span><span class="p">,</span> <span class="n">dpt</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">skew</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pressure</span><span class="p">,</span> <span class="n">temp</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">skew</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pressure</span><span class="p">,</span> <span class="n">dpt</span><span class="p">,</span> <span class="s1">'g'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">skew</span><span class="o">.</span><span class="n">plot_barbs</span><span class="p">(</span><span class="n">pressure</span><span class="p">,</span> <span class="n">ucomp</span><span class="p">,</span> <span class="n">vcomp</span><span class="p">)</span>
     <span class="n">skew</span><span class="o">.</span><span class="n">plot_dry_adiabats</span><span class="p">()</span>
     <span class="n">skew</span><span class="o">.</span><span class="n">plot_moist_adiabats</span><span class="p">()</span>
-    <span class="n">skew</span><span class="o">.</span><span class="n">plot_mixing_lines</span><span class="p">(</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+    <span class="n">skew</span><span class="o">.</span><span class="n">plot_mixing_lines</span><span class="p">(</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">':'</span><span class="p">)</span>
 
     <span class="n">skew</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">pressure</span><span class="p">))</span>
     <span class="n">skew</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
 
     <span class="c1"># Title</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">modelName</span> <span class="o">+</span> <span class="s2">&quot; (&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">point</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;) &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">refTime</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">modelName</span> <span class="o">+</span> <span class="s2">" ("</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">point</span><span class="p">)</span> <span class="o">+</span> <span class="s2">") "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">refTime</span><span class="p">))</span>
 
     <span class="c1"># Hodograph</span>
-    <span class="n">ax_hod</span> <span class="o">=</span> <span class="n">inset_axes</span><span class="p">(</span><span class="n">skew</span><span class="o">.</span><span class="n">ax</span><span class="p">,</span> <span class="s1">&#39;40%&#39;</span><span class="p">,</span> <span class="s1">&#39;40%&#39;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax_hod</span> <span class="o">=</span> <span class="n">inset_axes</span><span class="p">(</span><span class="n">skew</span><span class="o">.</span><span class="n">ax</span><span class="p">,</span> <span class="s1">'40%'</span><span class="p">,</span> <span class="s1">'40%'</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">h</span> <span class="o">=</span> <span class="n">Hodograph</span><span class="p">(</span><span class="n">ax_hod</span><span class="p">,</span> <span class="n">component_range</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">wind</span><span class="o">.</span><span class="n">magnitude</span><span class="p">))</span>
     <span class="n">h</span><span class="o">.</span><span class="n">add_grid</span><span class="p">(</span><span class="n">increment</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
     <span class="n">h</span><span class="o">.</span><span class="n">plot_colormapped</span><span class="p">(</span><span class="n">ucomp</span><span class="p">,</span> <span class="n">vcomp</span><span class="p">,</span> <span class="n">wind</span><span class="p">)</span>
 
     <span class="c1"># Dotted line at 0C isotherm</span>
-    <span class="n">l</span> <span class="o">=</span> <span class="n">skew</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">skew</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'c'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">'-'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 </pre></div>
 </div>
 <p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html">Top</a></p>
 </section>
 <hr class="docutils" />
 <section id="retrieve-necessary-plotting-data">
-<h3>7 Retrieve Necessary Plotting Data<a class="headerlink" href="#retrieve-necessary-plotting-data" title="Permalink to this heading"></a></h3>
+<h3>7 Retrieve Necessary Plotting Data<a class="headerlink" href="#retrieve-necessary-plotting-data" title="Link to this heading"></a></h3>
 <p>First we get the initial data at surface level using the
 get_surface_data function, and then pass those initial data arrays onto
 the get_levels_data request to finish populating for additional heights
@@ -382,42 +393,45 @@ store them in variables to use later on.</p>
 <span class="n">p</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">w</span> <span class="o">=</span> <span class="n">get_levels_data</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">point</span><span class="p">,</span><span class="n">timeRange</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Found</span> <span class="n">surface</span> <span class="n">record</span> <span class="n">at</span> <span class="mf">833.2</span><span class="n">MB</span>
-<span class="n">Using</span> <span class="mi">32</span> <span class="n">levels</span> <span class="n">between</span> <span class="mf">833.2</span> <span class="ow">and</span> <span class="mf">50.0</span><span class="n">MB</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Found</span> <span class="n">surface</span> <span class="n">record</span> <span class="n">at</span> <span class="mf">830.6</span><span class="n">MB</span>
+<span class="n">Using</span> <span class="mi">32</span> <span class="n">levels</span> <span class="n">between</span> <span class="mf">830.6</span> <span class="ow">and</span> <span class="mf">50.0</span><span class="n">MB</span>
 </pre></div>
 </div>
 <p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html">Top</a></p>
 </section>
 <hr class="docutils" />
 <section id="skew-t-log-p">
-<h3>8 Skew-T/Log-P<a class="headerlink" href="#skew-t-log-p" title="Permalink to this heading"></a></h3>
+<h3>8 Skew-T/Log-P<a class="headerlink" href="#skew-t-log-p" title="Link to this heading"></a></h3>
 <p>Here we use our plot_skewT function to generate our skewT &amp; hodograph
 charts for the data we retreived so far. This is where the pressure,
 temperature, dewpoint, and wind data is needed.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_skewT</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">timeRange</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
-<img alt="../../_images/Forecast_Model_Vertical_Sounding_25_0.png" src="../../_images/Forecast_Model_Vertical_Sounding_25_0.png" />
+<img alt="../../_images/Forecast_Model_Vertical_Sounding_24_0.png" src="../../_images/Forecast_Model_Vertical_Sounding_24_0.png" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Figure</span> <span class="n">size</span> <span class="mi">1200</span><span class="n">x1400</span> <span class="k">with</span> <span class="mi">0</span> <span class="n">Axes</span><span class="o">&gt;</span>
+</pre></div>
+</div>
 <p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html">Top</a></p>
 </section>
 <hr class="docutils" />
 <section id="model-sounding-comparison">
-<h3>9 Model Sounding Comparison<a class="headerlink" href="#model-sounding-comparison" title="Permalink to this heading"></a></h3>
+<h3>9 Model Sounding Comparison<a class="headerlink" href="#model-sounding-comparison" title="Link to this heading"></a></h3>
 <p>Now that we know how to retreive and plot the data for one model, we can
 run a loop to retreive data for various models and plot them for
 comparison. In this example we’ll also plot RAP13 and GFS20 data to
 compare with NAM40.</p>
 <p>This is also where our functions become so important, because we can
 easily recall all that logic and keep this for-loop fairly simple.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">models</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;RAP13&quot;</span><span class="p">,</span> <span class="s2">&quot;GFS20&quot;</span><span class="p">,</span> <span class="s2">&quot;NAM40&quot;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">models</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"RAP13"</span><span class="p">,</span> <span class="s2">"GFS20"</span><span class="p">,</span> <span class="s2">"NAM40"</span><span class="p">]</span>
 
 <span class="k">for</span> <span class="n">modelName</span> <span class="ow">in</span> <span class="n">models</span><span class="p">:</span>
-    <span class="n">timeReq</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">&quot;grid&quot;</span><span class="p">)</span>
+    <span class="n">timeReq</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">"grid"</span><span class="p">)</span>
     <span class="n">timeReq</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="n">modelName</span><span class="p">)</span>
     <span class="n">cycles</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">timeReq</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
     <span class="n">times</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">timeReq</span><span class="p">)</span>
     <span class="n">fr</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getForecastRun</span><span class="p">(</span><span class="n">cycles</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">times</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using &quot;</span> <span class="o">+</span> <span class="n">modelName</span> <span class="o">+</span> <span class="s2">&quot; forecast time &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">fr</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Using "</span> <span class="o">+</span> <span class="n">modelName</span> <span class="o">+</span> <span class="s2">" forecast time "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">fr</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
     <span class="n">tr</span> <span class="o">=</span> <span class="p">[</span><span class="n">fr</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
 
     <span class="n">p</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">u</span><span class="p">,</span><span class="n">v</span> <span class="o">=</span> <span class="n">get_surface_data</span><span class="p">(</span><span class="n">modelName</span><span class="p">,</span><span class="n">point</span><span class="p">,</span><span class="n">tr</span><span class="p">)</span>
@@ -427,31 +441,40 @@ easily recall all that logic and keep this for-loop fairly simple.</p>
     <span class="n">plot_skewT</span><span class="p">(</span><span class="n">modelName</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">tr</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Using</span> <span class="n">RAP13</span> <span class="n">forecast</span> <span class="n">time</span> <span class="mi">2023</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">25</span> <span class="mi">19</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
-<span class="n">Found</span> <span class="n">surface</span> <span class="n">record</span> <span class="n">at</span> <span class="mf">839.4</span><span class="n">MB</span>
-<span class="n">Using</span> <span class="mi">32</span> <span class="n">levels</span> <span class="n">between</span> <span class="mf">839.4</span> <span class="ow">and</span> <span class="mf">100.0</span><span class="n">MB</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Using</span> <span class="n">RAP13</span> <span class="n">forecast</span> <span class="n">time</span> <span class="mi">2026</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">02</span> <span class="mi">19</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">Found</span> <span class="n">surface</span> <span class="n">record</span> <span class="n">at</span> <span class="mf">836.5</span><span class="n">MB</span>
+<span class="n">Using</span> <span class="mi">32</span> <span class="n">levels</span> <span class="n">between</span> <span class="mf">836.5</span> <span class="ow">and</span> <span class="mf">100.0</span><span class="n">MB</span>
 </pre></div>
 </div>
-<img alt="../../_images/Forecast_Model_Vertical_Sounding_28_1.png" src="../../_images/Forecast_Model_Vertical_Sounding_28_1.png" />
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Using</span> <span class="n">GFS20</span> <span class="n">forecast</span> <span class="n">time</span> <span class="mi">2023</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">25</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
-<span class="n">Found</span> <span class="n">surface</span> <span class="n">record</span> <span class="n">at</span> <span class="mf">842.5</span><span class="n">MB</span>
-<span class="n">Using</span> <span class="mi">32</span> <span class="n">levels</span> <span class="n">between</span> <span class="mf">842.5</span> <span class="ow">and</span> <span class="mf">100.0</span><span class="n">MB</span>
+<img alt="../../_images/Forecast_Model_Vertical_Sounding_27_1.png" src="../../_images/Forecast_Model_Vertical_Sounding_27_1.png" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Using</span> <span class="n">GFS20</span> <span class="n">forecast</span> <span class="n">time</span> <span class="mi">2026</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">02</span> <span class="mi">06</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">Found</span> <span class="n">surface</span> <span class="n">record</span> <span class="n">at</span> <span class="mf">839.3</span><span class="n">MB</span>
+<span class="n">Using</span> <span class="mi">32</span> <span class="n">levels</span> <span class="n">between</span> <span class="mf">839.3</span> <span class="ow">and</span> <span class="mf">100.0</span><span class="n">MB</span>
 </pre></div>
 </div>
-<img alt="../../_images/Forecast_Model_Vertical_Sounding_28_3.png" src="../../_images/Forecast_Model_Vertical_Sounding_28_3.png" />
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Using</span> <span class="n">NAM40</span> <span class="n">forecast</span> <span class="n">time</span> <span class="mi">2023</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">25</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
-<span class="n">Found</span> <span class="n">surface</span> <span class="n">record</span> <span class="n">at</span> <span class="mf">833.8</span><span class="n">MB</span>
-<span class="n">Using</span> <span class="mi">32</span> <span class="n">levels</span> <span class="n">between</span> <span class="mf">833.8</span> <span class="ow">and</span> <span class="mf">50.0</span><span class="n">MB</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Figure</span> <span class="n">size</span> <span class="mi">1200</span><span class="n">x1400</span> <span class="k">with</span> <span class="mi">0</span> <span class="n">Axes</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<img alt="../../_images/Forecast_Model_Vertical_Sounding_28_5.png" src="../../_images/Forecast_Model_Vertical_Sounding_28_5.png" />
+<img alt="../../_images/Forecast_Model_Vertical_Sounding_27_4.png" src="../../_images/Forecast_Model_Vertical_Sounding_27_4.png" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Using</span> <span class="n">NAM40</span> <span class="n">forecast</span> <span class="n">time</span> <span class="mi">2026</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">02</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">Found</span> <span class="n">surface</span> <span class="n">record</span> <span class="n">at</span> <span class="mf">830.6</span><span class="n">MB</span>
+<span class="n">Using</span> <span class="mi">32</span> <span class="n">levels</span> <span class="n">between</span> <span class="mf">830.6</span> <span class="ow">and</span> <span class="mf">50.0</span><span class="n">MB</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Figure</span> <span class="n">size</span> <span class="mi">1200</span><span class="n">x1400</span> <span class="k">with</span> <span class="mi">0</span> <span class="n">Axes</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<img alt="../../_images/Forecast_Model_Vertical_Sounding_27_7.png" src="../../_images/Forecast_Model_Vertical_Sounding_27_7.png" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Figure</span> <span class="n">size</span> <span class="mi">1200</span><span class="n">x1400</span> <span class="k">with</span> <span class="mi">0</span> <span class="n">Axes</span><span class="o">&gt;</span>
+</pre></div>
+</div>
 <p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html">Top</a></p>
 </section>
 <hr class="docutils" />
 <section id="see-also">
-<h3>10 See Also<a class="headerlink" href="#see-also" title="Permalink to this heading"></a></h3>
+<h3>10 See Also<a class="headerlink" href="#see-also" title="Link to this heading"></a></h3>
 <section id="related-notebooks">
-<h4>10.1 Related Notebooks<a class="headerlink" href="#related-notebooks" title="Permalink to this heading"></a></h4>
+<h4>10.1 Related Notebooks<a class="headerlink" href="#related-notebooks" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html">Grid Levels and
 Parameters</a></p></li>
@@ -462,7 +485,7 @@ Data</a></p></li>
 </ul>
 </section>
 <section id="additional-documentation">
-<h4>10.2 Additional Documentation<a class="headerlink" href="#additional-documentation" title="Permalink to this heading"></a></h4>
+<h4>10.2 Additional Documentation<a class="headerlink" href="#additional-documentation" title="Link to this heading"></a></h4>
 <p><strong>python-awips:</strong></p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html">awips.DataAccessLayer</a></p></li>
@@ -482,7 +505,6 @@ Data</a></p></li>
 <li><p><a class="reference external" href="https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.Hodograph.html">metpy.hodograph</a></p></li>
 </ul>
 <p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Forecast_Model_Vertical_Sounding.html">Top</a></p>
-<hr class="docutils" />
 </section>
 </section>
 </section>

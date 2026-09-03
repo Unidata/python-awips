@@ -1,0 +1,217 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>awips.ThriftClient &mdash; python-awips  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            python-awips
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../datatypes.html">Available Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Data Plotting Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev.html">Development Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gridparms.html">Grid Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About Unidata AWIPS</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">python-awips</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">awips.ThriftClient</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for awips.ThriftClient</h1><div class="highlight"><pre>
+<span></span><span class="c1">##</span>
+<span class="c1"># This software was developed and / or modified by Raytheon Company,</span>
+<span class="c1"># pursuant to Contract DG133W-05-CQ-1067 with the US Government.</span>
+<span class="c1"># </span>
+<span class="c1"># U.S. EXPORT CONTROLLED TECHNICAL DATA</span>
+<span class="c1"># This software product contains export-restricted data whose</span>
+<span class="c1"># export/transfer/disclosure is restricted by U.S. law. Dissemination</span>
+<span class="c1"># to non-U.S. persons whether in the United States or abroad requires</span>
+<span class="c1"># an export license or other authorization.</span>
+<span class="c1"># </span>
+<span class="c1"># Contractor Name:        Raytheon Company</span>
+<span class="c1"># Contractor Address:     6825 Pine Street, Suite 340</span>
+<span class="c1">#                         Mail Stop B8</span>
+<span class="c1">#                         Omaha, NE 68106</span>
+<span class="c1">#                         402.291.0100</span>
+<span class="c1"># </span>
+<span class="c1"># See the AWIPS II Master Rights File ("Master Rights File.pdf") for</span>
+<span class="c1"># further licensing information.</span>
+<span class="c1">##</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">http.client</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dynamicserialize</span><span class="w"> </span><span class="kn">import</span> <span class="n">DynamicSerializationManager</span>
+
+
+<span class="c1">#</span>
+<span class="c1"># Provides a Python-based interface for executing Thrift requests.</span>
+<span class="c1">#   </span>
+<span class="c1">#</span>
+<span class="c1">#    </span>
+<span class="c1">#     SOFTWARE HISTORY</span>
+<span class="c1">#    </span>
+<span class="c1">#    Date            Ticket#       Engineer       Description</span>
+<span class="c1">#    ------------    ----------    -----------    --------------------------</span>
+<span class="c1">#    09/20/10                      dgilling       Initial Creation.</span>
+<span class="c1">#    </span>
+<span class="c1"># </span>
+<span class="c1">#</span>
+
+
+<div class="viewcode-block" id="ThriftClient">
+<a class="viewcode-back" href="../../api/ThriftClient.html#awips.ThriftClient.ThriftClient">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ThriftClient</span><span class="p">:</span>
+    
+    <span class="c1"># How to call this constructor:</span>
+    <span class="c1">#   1. Pass in all arguments separately (e.g., </span>
+    <span class="c1">#      ThriftClient.ThriftClient("localhost", 9581, "/services"))</span>
+    <span class="c1">#      will return a Thrift client pointed at http://localhost:9581/services.</span>
+    <span class="c1">#   2. Pass in all arguments through the host string (e.g., </span>
+    <span class="c1">#      ThriftClient.ThriftClient("localhost:9581/services"))</span>
+    <span class="c1">#      will return a Thrift client pointed at http://localhost:9581/services.</span>
+    <span class="c1">#   3. Pass in host/port arguments through the host string (e.g., </span>
+    <span class="c1">#      ThriftClient.ThriftClient("localhost:9581", "/services"))</span>
+    <span class="c1">#      will return a Thrift client pointed at http://localhost:9581/services.</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">9581</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="s2">"/services"</span><span class="p">):</span>
+        <span class="n">hostParts</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"/"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">hostParts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">hostString</span> <span class="o">=</span> <span class="n">hostParts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__uri</span> <span class="o">=</span> <span class="s2">"/"</span> <span class="o">+</span> <span class="n">hostParts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__httpConn</span> <span class="o">=</span> <span class="n">http</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">HTTPConnection</span><span class="p">(</span><span class="n">hostString</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">port</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__httpConn</span> <span class="o">=</span> <span class="n">http</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">HTTPConnection</span><span class="p">(</span><span class="n">host</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__httpConn</span> <span class="o">=</span> <span class="n">http</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">HTTPConnection</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+            
+            <span class="bp">self</span><span class="o">.</span><span class="n">__uri</span> <span class="o">=</span> <span class="n">uri</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">__dsm</span> <span class="o">=</span> <span class="n">DynamicSerializationManager</span><span class="o">.</span><span class="n">DynamicSerializationManager</span><span class="p">()</span>
+        
+<div class="viewcode-block" id="ThriftClient.sendRequest">
+<a class="viewcode-back" href="../../api/ThriftClient.html#awips.ThriftClient.ThriftClient.sendRequest">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">sendRequest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="s2">"/thrift"</span><span class="p">):</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dsm</span><span class="o">.</span><span class="n">serializeObject</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">__httpConn</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__httpConn</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">"POST"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__uri</span> <span class="o">+</span> <span class="n">uri</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+        
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__httpConn</span><span class="o">.</span><span class="n">getresponse</span><span class="p">()</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ThriftRequestException</span><span class="p">(</span><span class="s2">"Unable to post request to server"</span><span class="p">)</span>
+        
+        <span class="n">rval</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dsm</span><span class="o">.</span><span class="n">deserializeBytes</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__httpConn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        
+        <span class="c1"># let's verify we have an instance of ServerErrorResponse</span>
+        <span class="c1"># IF we do, through an exception up to the caller along</span>
+        <span class="c1"># with the original Java stack trace</span>
+        <span class="c1"># ELSE: we have a valid response and pass it back</span>
+        <span class="k">try</span><span class="p">:</span>
+           <span class="n">forceError</span> <span class="o">=</span> <span class="n">rval</span><span class="o">.</span><span class="n">getException</span><span class="p">()</span>          
+           <span class="k">raise</span> <span class="n">ThriftRequestException</span><span class="p">(</span><span class="n">forceError</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        
+        <span class="k">return</span> <span class="n">rval</span></div>
+</div>
+
+    
+    
+<div class="viewcode-block" id="ThriftRequestException">
+<a class="viewcode-back" href="../../api/ThriftClient.html#awips.ThriftClient.ThriftRequestException">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ThriftRequestException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameter</span> <span class="o">=</span> <span class="n">value</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameter</span><span class="p">)</span></div>
+
+    
+        
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, NSF Unidata.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

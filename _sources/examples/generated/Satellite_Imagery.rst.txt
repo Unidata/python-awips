@@ -1,7 +1,7 @@
 =================
 Satellite Imagery
 =================
-`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Satellite_Imagery.ipynb>`_
+`Notebook <https://nbviewer.org/github/Unidata/python-awips/blob/v23/examples/notebooks/Satellite_Imagery.ipynb>`_
 Python-AWIPS Tutorial Notebook
 
 --------------
@@ -9,11 +9,11 @@ Python-AWIPS Tutorial Notebook
 Objectives
 ==========
 
--  Use python-awips to connect to an EDEX server
--  Investigate available satellite imagery
--  Define and filter request specifically for GOES mesoscale imagery
--  Access satellite data in gridded format
--  Create rendered images using `Matplotlib <https://matplotlib.org>`__
+- Use python-awips to connect to an EDEX server
+- Investigate available satellite imagery
+- Define and filter request specifically for GOES mesoscale imagery
+- Access satellite data in gridded format
+- Create rendered images using `Matplotlib <https://matplotlib.org>`__
 
 --------------
 
@@ -25,7 +25,7 @@ Table of Contents
 | `2 EDEX
   Connection <https://unidata.github.io/python-awips/examples/generated/Satellite_Imagery.html#edex-connection>`__\ 
 | `3 Function:
-  make_map() <https://unidata.github.io/python-awips/examples/generated/Satellite_Imagery.html#function-make-map>`__\ 
+  make_map() <https://unidata.github.io/python-awips/examples/generated/Satellite_Imagery.html#function-makemap>`__\ 
 | `4 Investigate Available
   Data <https://unidata.github.io/python-awips/examples/generated/Satellite_Imagery.html#investigate-available-data>`__\ 
 |     `4.1
@@ -64,7 +64,6 @@ visualization.
     from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
     from datetime import datetime, UTC
     from pytz import timezone as tz
-
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Satellite_Imagery.html>`__
 
@@ -139,8 +138,8 @@ identifiers satellite data uses.
     Available Identifiers:
      - source
      - physicalElement
-     - creatingEntity
      - sectorID
+     - creatingEntity
 
 
 4.1 Sources
@@ -176,7 +175,7 @@ identifiers satellite data uses.
 .. parsed-literal::
 
     physicalElement:
-    ['Imager 6.7-6.5 micron IR (WV)', 'CH-02-0.64um', 'VMP-151.30hPa', 'CTT', 'CH-07-3.90um', 'VTP-878.60hPa', 'VMP-706.60hPa', 'CH-12-9.61um', 'VMP-496.60hPa', 'SI', 'CH-06-2.25um', 'NTP', 'DVL', 'CL', 'VMP-71.50hPa', 'DustLow', 'VTP-931.50hPa', 'VTP-103.00hPa', 'LI', 'VMP-555.20hPa', 'Imager 12 micron IR', 'IceTemp', 'CF2', 'VMP-729.90hPa', 'VTP-407.50hPa', 'CAPE', 'HHC', 'VMP-1014.00hPa', 'VMP-535.20hPa', 'VTP-777.80hPa', 'VTP-535.20hPa', 'VTP-904.90hPa', 'CH-10-7.34um', 'VTP-1014.00hPa', 'ACTP', 'VTP-661.20hPa', 'IceAge3', 'VTP-9.51hPa', 'GLM_Flash_Extent_Density', 'GLM_Flash_Extent_Density_w5u1', 'CF3', 'VMP-852.80hPa', 'CSM', 'TT', 'IceAge8', 'VTP-706.60hPa', 'GLM_Minimum_Flash_Area_w5u1', 'SmokeMed', 'CH-09-6.95um', 'VMP-753.60hPa', 'VMP-878.60hPa', 'VTP-459.70hPa', 'DustMed', 'VMP-103.00hPa', 'CH-08-6.19um', 'VTP-151.30hPa', 'VTP-575.50hPa', 'VMP-407.50hPa', 'VMP-661.20hPa', 'VMP-777.80hPa', 'FDC Temp', 'DHR', 'IceMask', 'GLM_Total_Optical_Energy_w5u1_tile', 'CH-15-12.30um', 'VTP-29.12hPa', 'MVFR_Fog_Prob', 'CF5', 'VMP-359.00hPa', 'VMP-827.40hPa', 'VMP-986.10hPa', 'CTH', 'SSTF', 'VMP-201.00hPa', 'VMP-300.00hPa', 'FDC Power', 'VTP-852.80hPa', 'VMP-575.50hPa', 'CH-13-10.35um', 'Fog_Depth', 'TCF', 'CH-04-1.38um', 'DustHigh', 'VTP-683.70hPa', 'Imager Visible', 'GLM_Minimum_Flash_Area', 'VTP-729.90hPa', 'IFR_Fog_Prob', 'VMP-958.60hPa', 'VTP-753.60hPa', 'VMP-931.50hPa', 'VTP-555.20hPa', 'CH-05-1.61um', 'VTP-201.00hPa', 'RRQPE', 'LST', 'AOD', 'FSC', 'COD', 'VTP-827.40hPa', 'IceThickness', 'N1P', 'LIFR_Fog_Prob', 'VMP-596.30hPa', 'VTP-496.60hPa', 'TPW', 'VMP-904.90hPa', 'VMP-683.70hPa', 'VTP-802.40hPa', 'VTP-958.60hPa', 'VTP-596.30hPa', 'Fire_Mask', 'FDC Area', 'CH-11-8.50um', 'VMP-51.53hPa', 'EET', 'VTP-247.40hPa', 'VMP-802.40hPa', 'CTP', 'CH-01-0.47um', 'CH-16-13.30um', 'VMP-617.50hPa', 'VTP-51.53hPa', 'SST', 'VTP-617.50hPa', 'CF1', 'GLM_Total_Optical_Energy_tile', 'VMP-9.51hPa', 'VMP-247.40hPa', 'CF4', 'Imager 3.5-4.0 micron IR (Fog)', 'IceConc', 'SmokeHigh', 'KI', 'VTP-300.00hPa', 'VTP-20.92hPa', 'VTP-359.00hPa', 'Imager 11 micron IR', 'SmokeLow', 'VMP-20.92hPa', 'VMP-29.12hPa', 'VMP-459.70hPa', 'CH-03-0.87um', 'VTP-71.50hPa', 'CH-14-11.20um', 'VTP-986.10hPa']
+    ['Imager 6.7-6.5 micron IR (WV)', 'CH-02-0.64um', 'VMP-151.30hPa', 'CH-07-3.90um', 'CTT', 'VTP-878.60hPa', 'VMP-706.60hPa', 'CH-12-9.61um', 'VMP-496.60hPa', 'SI', 'CH-06-2.25um', 'NTP', 'DVL', 'CL', 'VMP-71.50hPa', 'VTP-931.50hPa', 'VTP-103.00hPa', 'LI', 'VMP-555.20hPa', 'Imager 12 micron IR', 'IceTemp', 'VMP-729.90hPa', 'CF2', 'VTP-407.50hPa', 'HHC', 'CAPE', 'VMP-1014.00hPa', 'VMP-535.20hPa', 'VTP-777.80hPa', 'VTP-535.20hPa', 'VTP-904.90hPa', 'CH-10-7.34um', 'VTP-1014.00hPa', 'ACTP', 'VTP-661.20hPa', 'IceAge3', 'VTP-9.51hPa', 'GLM_Flash_Extent_Density', 'GLM_Flash_Extent_Density_w5u1', 'CF3', 'VMP-852.80hPa', 'CSM', 'TT', 'IceAge8', 'VTP-706.60hPa', 'GLM_Minimum_Flash_Area_w5u1', 'CH-09-6.95um', 'VMP-753.60hPa', 'VMP-878.60hPa', 'VTP-459.70hPa', 'VMP-103.00hPa', 'CH-08-6.19um', 'VTP-151.30hPa', 'VTP-575.50hPa', 'VMP-407.50hPa', 'VMP-661.20hPa', 'VMP-777.80hPa', 'FDC Temp', 'DHR', 'IceMask', 'GLM_Total_Optical_Energy_w5u1_tile', 'CPSD', 'CH-15-12.30um', 'VTP-29.12hPa', 'MVFR_Fog_Prob', 'CF5', 'VMP-359.00hPa', 'VMP-827.40hPa', 'VMP-986.10hPa', 'CTH', 'SSTF', 'VMP-201.00hPa', 'VMP-300.00hPa', 'Smoke', 'FDC Power', 'VTP-852.80hPa', 'VMP-575.50hPa', 'CH-13-10.35um', 'Fog_Depth', 'TCF', 'CH-04-1.38um', 'VTP-683.70hPa', 'Imager Visible', 'GLM_Minimum_Flash_Area', 'VTP-729.90hPa', 'IFR_Fog_Prob', 'VMP-958.60hPa', 'VTP-753.60hPa', 'VMP-931.50hPa', 'VTP-555.20hPa', 'CH-05-1.61um', 'VTP-201.00hPa', 'RRQPE', 'LST', 'AOD', 'FSC', 'VTP-827.40hPa', 'COD', 'IceThickness', 'Dust', 'N1P', 'LIFR_Fog_Prob', 'VMP-596.30hPa', 'VTP-496.60hPa', 'TPW', 'VMP-904.90hPa', 'VMP-683.70hPa', 'VTP-958.60hPa', 'VTP-802.40hPa', 'VTP-596.30hPa', 'Fire_Mask', 'FDC Area', 'CH-11-8.50um', 'VMP-51.53hPa', 'EET', 'VTP-247.40hPa', 'VMP-802.40hPa', 'CTP', 'CH-01-0.47um', 'CH-16-13.30um', 'VMP-617.50hPa', 'VTP-51.53hPa', 'SST', 'VTP-617.50hPa', 'GLM_Total_Optical_Energy_tile', 'CF1', 'VMP-9.51hPa', 'VMP-247.40hPa', 'CF4', 'Imager 3.5-4.0 micron IR (Fog)', 'IceConc', 'KI', 'VTP-300.00hPa', 'VTP-20.92hPa', 'VTP-359.00hPa', 'Imager 11 micron IR', 'VMP-20.92hPa', 'VMP-29.12hPa', 'VMP-459.70hPa', 'CH-03-0.87um', 'VTP-71.50hPa', 'CH-14-11.20um', 'VTP-986.10hPa']
 
 
 4.3 Creating Entities
@@ -212,7 +211,7 @@ identifiers satellite data uses.
 .. parsed-literal::
 
     sectorID:
-    ['EMESO-2', 'WCONUS', 'AKREGI', 'WMESO-1', 'WMESO-2', 'WFD', 'NEXRCOMP', 'ECONUS', 'AREA3100', 'Antarctic', 'PRREGI', 'EMESO-1', 'AREA3101', 'AREA0700', 'Arctic', 'AREA0600', 'EFD']
+    ['WCONUS', 'EMESO-2', 'AKREGI', 'WMESO-1', 'NEXRCOMP', 'WMESO-2', 'WFD', 'AREA3100', 'ECONUS', 'ASREGI', 'Antarctic', 'PRREGI', 'EMESO-1', 'AREA3101', 'AREA0700', 'Arctic', 'AREA0600', 'EFD']
 
 
 4.5 All Products
@@ -258,6 +257,8 @@ identifiers satellite data uses.
         - CH-14-11.20um
         - CH-15-12.30um
         - CH-16-13.30um
+     - ASREGI
+        - CH-13-10.35um
      - WCONUS
         - ACTP
         - AOD
@@ -286,9 +287,7 @@ identifiers satellite data uses.
         - CL
         - CSM
         - CTH
-        - DustHigh
-        - DustLow
-        - DustMed
+        - Dust
         - FDC Area
         - FDC Power
         - FDC Temp
@@ -301,9 +300,7 @@ identifiers satellite data uses.
         - LST
         - MVFR_Fog_Prob
         - SI
-        - SmokeHigh
-        - SmokeLow
-        - SmokeMed
+        - Smoke
         - TCF
         - TPW
         - TT
@@ -404,9 +401,7 @@ identifiers satellite data uses.
         - CSM
         - CTH
         - CTT
-        - DustHigh
-        - DustLow
-        - DustMed
+        - Dust
         - FDC Area
         - FDC Power
         - FDC Temp
@@ -431,9 +426,7 @@ identifiers satellite data uses.
         - SI
         - SST
         - SSTF
-        - SmokeHigh
-        - SmokeLow
-        - SmokeMed
+        - Smoke
         - TCF
         - TPW
         - TT
@@ -465,9 +458,7 @@ identifiers satellite data uses.
         - CSM
         - CTH
         - CTT
-        - DustHigh
-        - DustLow
-        - DustMed
+        - Dust
         - FDC Area
         - FDC Power
         - FDC Temp
@@ -476,9 +467,7 @@ identifiers satellite data uses.
         - LI
         - LST
         - SI
-        - SmokeHigh
-        - SmokeLow
-        - SmokeMed
+        - Smoke
         - TCF
         - TPW
         - TT
@@ -510,9 +499,7 @@ identifiers satellite data uses.
         - CSM
         - CTH
         - CTT
-        - DustHigh
-        - DustLow
-        - DustMed
+        - Dust
         - FDC Area
         - FDC Power
         - FDC Temp
@@ -521,9 +508,7 @@ identifiers satellite data uses.
         - LI
         - LST
         - SI
-        - SmokeHigh
-        - SmokeLow
-        - SmokeMed
+        - Smoke
         - TCF
         - TPW
         - TT
@@ -564,12 +549,11 @@ identifiers satellite data uses.
         - CH-16-13.30um
         - CL
         - COD
+        - CPSD
         - CSM
         - CTH
         - CTP
-        - DustHigh
-        - DustLow
-        - DustMed
+        - Dust
         - FDC Area
         - FDC Power
         - FDC Temp
@@ -582,9 +566,7 @@ identifiers satellite data uses.
         - LST
         - MVFR_Fog_Prob
         - SI
-        - SmokeHigh
-        - SmokeLow
-        - SmokeMed
+        - Smoke
         - TCF
         - TPW
         - TT
@@ -683,13 +665,12 @@ identifiers satellite data uses.
         - CH-16-13.30um
         - CL
         - COD
+        - CPSD
         - CSM
         - CTH
         - CTP
         - CTT
-        - DustHigh
-        - DustLow
-        - DustMed
+        - Dust
         - FDC Area
         - FDC Power
         - FDC Temp
@@ -714,9 +695,7 @@ identifiers satellite data uses.
         - SI
         - SST
         - SSTF
-        - SmokeHigh
-        - SmokeLow
-        - SmokeMed
+        - Smoke
         - TCF
         - TPW
         - TT
@@ -745,12 +724,11 @@ identifiers satellite data uses.
         - CH-15-12.30um
         - CH-16-13.30um
         - CL
+        - CPSD
         - CSM
         - CTH
         - CTT
-        - DustHigh
-        - DustLow
-        - DustMed
+        - Dust
         - FDC Area
         - FDC Power
         - FDC Temp
@@ -759,13 +737,104 @@ identifiers satellite data uses.
         - LI
         - LST
         - SI
-        - SmokeHigh
-        - SmokeLow
-        - SmokeMed
+        - Smoke
         - TCF
         - TPW
         - TT
      - EMESO-2
+        - ACTP
+        - CAPE
+        - CF1
+        - CF2
+        - CF3
+        - CF4
+        - CF5
+        - CH-01-0.47um
+        - CH-02-0.64um
+        - CH-03-0.87um
+        - CH-04-1.38um
+        - CH-05-1.61um
+        - CH-06-2.25um
+        - CH-07-3.90um
+        - CH-08-6.19um
+        - CH-09-6.95um
+        - CH-10-7.34um
+        - CH-11-8.50um
+        - CH-12-9.61um
+        - CH-13-10.35um
+        - CH-14-11.20um
+        - CH-15-12.30um
+        - CH-16-13.30um
+        - CL
+        - CPSD
+        - CSM
+        - CTH
+        - CTT
+        - Dust
+        - FDC Area
+        - FDC Power
+        - FDC Temp
+        - Fire_Mask
+        - KI
+        - LI
+        - LST
+        - SI
+        - Smoke
+        - TCF
+        - TPW
+        - TT
+     - PRREGI
+        - CH-01-0.47um
+        - CH-02-0.64um
+        - CH-03-0.87um
+        - CH-04-1.38um
+        - CH-05-1.61um
+        - CH-06-2.25um
+        - CH-07-3.90um
+        - CH-08-6.19um
+        - CH-09-6.95um
+        - CH-10-7.34um
+        - CH-13-10.35um
+        - CH-15-12.30um
+    NEXRCOMP
+     - NEXRCOMP
+        - DHR
+        - DVL
+        - EET
+        - HHC
+        - N1P
+        - NTP
+    UNIWISC
+     - AREA0600
+        - Imager 6.7-6.5 micron IR (WV)
+     - AREA0700
+        - Imager 11 micron IR
+     - AREA3100
+        - Imager 11 micron IR
+     - AREA3101
+        - Imager 6.7-6.5 micron IR (WV)
+     - Antarctic
+        - Imager 11 micron IR
+        - Imager 12 micron IR
+        - Imager 3.5-4.0 micron IR (Fog)
+        - Imager 6.7-6.5 micron IR (WV)
+        - Imager Visible
+     - Arctic
+        - Imager 11 micron IR
+        - Imager 12 micron IR
+        - Imager 3.5-4.0 micron IR (Fog)
+        - Imager 6.7-6.5 micron IR (WV)
+        - Imager Visible
+    CLDSNOW
+     - ECONUS
+        - CH-01-0.47um
+        - CH-02-0.64um
+        - CH-03-0.87um
+    DBRDUST
+     - ECONUS
+        - CH-01-0.47um
+        - CH-02-0.64um
+        - CH-03-0.87um
         - ACTP
         - CAPE
         - CF1
@@ -868,7 +937,7 @@ identifiers satellite data uses.
         - CH-03-0.87um
 
 
-Top
+`Top <https://unidata.github.io/python-awips/examples/generated/Satellite_Imagery.html>`__
 
 --------------
 
@@ -897,6 +966,10 @@ about the data (metadata).
         # Filter results by time
         utc = datetime.now(UTC)
         times = DataAccessLayer.getAvailableTimes(request)
+        assert times, (
+        f"No satellite times returned for {sector}, "
+        "parameter CH-13-10.35um"
+    )
         sTime = datetime.strptime(str(times[-1]),'%Y-%m-%d %H:%M:%S')
         sTime = sTime.replace(tzinfo=tz('UTC'))
         hourdiff = utc - sTime
@@ -910,6 +983,9 @@ about the data (metadata).
             offsetStr = str(days) + " days ago"
     
         response = DataAccessLayer.getGridData(request, [times[-1]])
+        assert response, (
+        f"No satellite grid returned for {sector} at {times[-1]}"
+    )
         grid = response[0]
         data = grid.getRawData()
         
@@ -933,24 +1009,25 @@ about the data (metadata).
         # Set the colorbar label
         cbar.set_label(sector + " " + grid.getParameter() + " " \
         + str(grid.getDataTime().getRefTime()))
+        fig.canvas.draw()
 
 
 .. parsed-literal::
 
-    Latest image available: 2024-01-30 21:20:28 (0.018333333333333333hr 0.0m ago)
+    Latest image available: 2025-02-12 23:56:25 (0.02hr 0.0m ago)
     Image grid size: (500, 500)
-    Image grid extent: [-81.83639, -68.16361, 32.285526, 45.709965]
-    Latest image available: 2024-01-30 21:20:55 (0.011666666666666667hr 0.0m ago)
+    Image grid extent: [np.float32(-97.02021), np.float32(-82.868774), np.float32(26.70658), np.float32(38.9646)]
+    Latest image available: 2025-02-12 23:56:55 (0.012777777777777779hr 0.0m ago)
     Image grid size: (500, 500)
-    Image grid extent: [-95.20762, -80.19988, 30.912949, 44.27834]
+    Image grid extent: [np.float32(-95.20762), np.float32(-80.19988), np.float32(30.912949), np.float32(44.27834)]
 
 
 
-.. image:: Satellite_Imagery_files/Satellite_Imagery_26_1.png
+.. image:: Satellite_Imagery_files/Satellite_Imagery_25_1.png
 
 
 
-.. image:: Satellite_Imagery_files/Satellite_Imagery_26_2.png
+.. image:: Satellite_Imagery_files/Satellite_Imagery_25_2.png
 
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Satellite_Imagery.html>`__
@@ -963,28 +1040,26 @@ about the data (metadata).
 6.1 Related Notebooks
 ~~~~~~~~~~~~~~~~~~~~~
 
--  `GOES CIRA Product
-   Writer <http://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html>`__
+- `GOES CIRA Product
+  Writer <http://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html>`__
 
 6.2 Additional Documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **python-awips**
 
--  `DataAccessLayer.changeEDEXHost() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost>`__
--  `DataAccessLayer.newDataRequest() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.newDataRequest>`__
--  `DataAccessLayer.getAvailableLocationNames() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableLocationNames>`__
--  `DataAccessLayer.getOptionalIdentifiers() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getOptionalIdentifiers>`__
--  `DataAccessLayer.getIdentifierValues() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getIdentifierValues>`__
--  `DataAccessLayer.getAvailableTimes() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableTimes>`__
--  `IDataRequest <http://unidata.github.io/python-awips/api/IDataRequest.html>`__
+- `DataAccessLayer.changeEDEXHost() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost>`__
+- `DataAccessLayer.newDataRequest() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.newDataRequest>`__
+- `DataAccessLayer.getAvailableLocationNames() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableLocationNames>`__
+- `DataAccessLayer.getOptionalIdentifiers() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getOptionalIdentifiers>`__
+- `DataAccessLayer.getIdentifierValues() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getIdentifierValues>`__
+- `DataAccessLayer.getAvailableTimes() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableTimes>`__
+- `IDataRequest <http://unidata.github.io/python-awips/api/IDataRequest.html>`__
 
 **matplotlib**
 
--  `matplotlib.pyplot() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html>`__
--  `matplotlib.pyplot.axes() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.axes.html>`__
--  `matplotlib.pyplot.figure() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html>`__
+- `matplotlib.pyplot() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html>`__
+- `matplotlib.pyplot.axes() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.axes.html>`__
+- `matplotlib.pyplot.figure() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html>`__
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Satellite_Imagery.html>`__
-
---------------

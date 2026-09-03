@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -13,9 +13,9 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
-      <script src="../_static/doctools.js?v=888ff710"></script>
-      <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
@@ -56,7 +56,11 @@
 <li class="toctree-l2"><a class="reference internal" href="TimeUtil.html">TimeUtil</a></li>
 <li class="toctree-l2"><a class="reference internal" href="RadarCommon.html">RadarCommon</a></li>
 <li class="toctree-l2"><a class="reference internal" href="IFPClient.html">IFPClient</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">DateTimeConverter</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">DateTimeConverter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#awips.DateTimeConverter.constructTimeRange"><code class="docutils literal notranslate"><span class="pre">constructTimeRange()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.DateTimeConverter.convertToDateTime"><code class="docutils literal notranslate"><span class="pre">convertToDateTime()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="CombinedTimeQuery.html">CombinedTimeQuery</a></li>
 </ul>
 </li>
@@ -92,8 +96,41 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="datetimeconverter">
-<h1>DateTimeConverter<a class="headerlink" href="#datetimeconverter" title="Permalink to this heading"></a></h1>
+  <section id="module-awips.DateTimeConverter">
+<span id="datetimeconverter"></span><h1>DateTimeConverter<a class="headerlink" href="#module-awips.DateTimeConverter" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.DateTimeConverter.constructTimeRange">
+<span class="sig-prename descclassname"><span class="pre">awips.DateTimeConverter.</span></span><span class="sig-name descname"><span class="pre">constructTimeRange</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/DateTimeConverter.html#constructTimeRange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.DateTimeConverter.constructTimeRange" title="Link to this definition"></a></dt>
+<dd><p>Builds a python dynamicserialize TimeRange object from the given
+arguments.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>args*: must be a TimeRange or a pair of objects that can be </dt><dd><p>converted to a datetime via convertToDateTime().</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><p>A TimeRange.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.DateTimeConverter.convertToDateTime">
+<span class="sig-prename descclassname"><span class="pre">awips.DateTimeConverter.</span></span><span class="sig-name descname"><span class="pre">convertToDateTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeArg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/DateTimeConverter.html#convertToDateTime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.DateTimeConverter.convertToDateTime" title="Link to this definition"></a></dt>
+<dd><p>Converts the given object to a python datetime object. Supports native 
+python representations like datetime and struct_time, but also
+the dynamicserialize types like Date and Timestamp. Raises TypeError
+if no conversion can be performed.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>timeArg: a python object representing a date and time. Supported
+types include datetime, struct_time, float, int, long and the
+dynamicserialize types Date and Timestamp.</p>
+</dd>
+<dt>Returns:</dt><dd><p>A datetime that represents the same date/time as the passed in object.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 

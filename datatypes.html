@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -13,9 +13,9 @@
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
-      <script src="_static/doctools.js?v=888ff710"></script>
-      <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
@@ -84,30 +84,30 @@
            <div itemprop="articleBody">
              
   <section id="available-data-types">
-<h1>Available Data Types<a class="headerlink" href="#available-data-types" title="Permalink to this heading"></a></h1>
+<h1>Available Data Types<a class="headerlink" href="#available-data-types" title="Link to this heading"></a></h1>
 <section id="satellite">
-<h2>satellite<a class="headerlink" href="#satellite" title="Permalink to this heading"></a></h2>
+<h2>satellite<a class="headerlink" href="#satellite" title="Link to this heading"></a></h2>
 <ul>
 <li><p>2-D NumPy Array</p></li>
 <li><p>returned by: <a class="reference external" href="api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getGridData">awips.dataaccess.DataAccessLayer.getGridData(request, times=[])</a></p></li>
 <li><p>example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Contrust a full satellite product tree</span>
-<span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="s2">&quot;edex-cloud.unidata.ucar.edu)</span>
-<span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">&quot;satellite&quot;</span><span class="p">)</span>
-<span class="n">creatingEntities</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getIdentifierValues</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;creatingEntity&quot;</span><span class="p">)</span>
+<span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="s2">"edex-cloud.unidata.ucar.edu)</span>
+<span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">"satellite"</span><span class="p">)</span>
+<span class="n">creatingEntities</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getIdentifierValues</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">"creatingEntity"</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">creatingEntities</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
-    <span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">&quot;satellite&quot;</span><span class="p">)</span>
-    <span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s2">&quot;creatingEntity&quot;</span><span class="p">,</span> <span class="n">entity</span><span class="p">)</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">"satellite"</span><span class="p">)</span>
+    <span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s2">"creatingEntity"</span><span class="p">,</span> <span class="n">entity</span><span class="p">)</span>
     <span class="n">availableSectors</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableLocationNames</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
     <span class="n">availableSectors</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">sector</span> <span class="ow">in</span> <span class="n">availableSectors</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; - &quot;</span> <span class="o">+</span> <span class="n">sector</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">" - "</span> <span class="o">+</span> <span class="n">sector</span><span class="p">)</span>
         <span class="n">request</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="n">sector</span><span class="p">)</span>
         <span class="n">availableProducts</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableParameters</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
         <span class="n">availableProducts</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">availableProducts</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;    - &quot;</span> <span class="o">+</span> <span class="n">product</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"    - "</span> <span class="o">+</span> <span class="n">product</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
@@ -115,7 +115,7 @@
 <p>—</p>
 </section>
 <section id="binlightning">
-<h2>binlightning<a class="headerlink" href="#binlightning" title="Permalink to this heading"></a></h2>
+<h2>binlightning<a class="headerlink" href="#binlightning" title="Link to this heading"></a></h2>
 <ul>
 <li><p>Shapely Point:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">POINT</span> <span class="p">(</span><span class="o">-</span><span class="mf">65.65293884277344</span> <span class="o">-</span><span class="mf">16.94915580749512</span><span class="p">)</span>
@@ -124,9 +124,9 @@
 </li>
 <li><p>returned by: <a class="reference external" href="api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getGeometryData">awips.dataaccess.DataAccessLayer.getGeometryData(request, times=[])</a></p></li>
 <li><p>example (GLM):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">&quot;binlightning&quot;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;GLMgr&quot;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s2">&quot;intensity&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">"binlightning"</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s2">"source"</span><span class="p">,</span> <span class="s2">"GLMgr"</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s2">"intensity"</span><span class="p">)</span>
 <span class="n">times</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">times</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 <span class="k">for</span> <span class="n">ob</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
@@ -138,16 +138,16 @@
 <p>—</p>
 </section>
 <section id="grid">
-<h2>grid<a class="headerlink" href="#grid" title="Permalink to this heading"></a></h2>
+<h2>grid<a class="headerlink" href="#grid" title="Link to this heading"></a></h2>
 <ul>
 <li><p>2-D NumPy Array</p></li>
 <li><p>returned by: <a class="reference external" href="api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getGridData">awips.dataaccess.DataAccessLayer.getGridData(request, times=[])</a></p></li>
 <li><p>example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">()</span>
-<span class="n">request</span><span class="o">.</span><span class="n">setDatatype</span><span class="p">(</span><span class="s2">&quot;grid&quot;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="s2">&quot;RAP13&quot;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">setLevels</span><span class="p">(</span><span class="s2">&quot;2.0FHAG&quot;</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setDatatype</span><span class="p">(</span><span class="s2">"grid"</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="s2">"RAP13"</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s2">"T"</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setLevels</span><span class="p">(</span><span class="s2">"2.0FHAG"</span><span class="p">)</span>
 <span class="n">cycles</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 <span class="n">times</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 <span class="n">fcstRun</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getForecastRun</span><span class="p">(</span><span class="n">cycles</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">times</span><span class="p">)</span>
@@ -162,7 +162,7 @@
 <p>—</p>
 </section>
 <section id="warning">
-<h2>warning<a class="headerlink" href="#warning" title="Permalink to this heading"></a></h2>
+<h2>warning<a class="headerlink" href="#warning" title="Link to this heading"></a></h2>
 <ul>
 <li><p>Shapely MultiPolygon, Polygon:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MULTIPOLYGON</span> <span class="p">((</span><span class="o">-</span><span class="mf">92.092348410</span> <span class="mf">46.782322971</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mf">92.092348410</span> <span class="mf">46.782322971</span><span class="p">),</span>
@@ -176,8 +176,8 @@
 <li><p>returned by: <a class="reference external" href="api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getGeometryData">awips.dataaccess.DataAccessLayer.getGeometryData(request, times=[])</a></p></li>
 <li><p>example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">()</span>
-<span class="n">request</span><span class="o">.</span><span class="n">setDatatype</span><span class="p">(</span><span class="s2">&quot;warning&quot;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s1">&#39;phensig&#39;</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setDatatype</span><span class="p">(</span><span class="s2">"warning"</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s1">'phensig'</span><span class="p">)</span>
 <span class="n">times</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">times</span><span class="p">[</span><span class="o">-</span><span class="mi">50</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 <span class="k">for</span> <span class="n">ob</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
@@ -192,15 +192,15 @@
 <p>—</p>
 </section>
 <section id="radar">
-<h2>radar<a class="headerlink" href="#radar" title="Permalink to this heading"></a></h2>
+<h2>radar<a class="headerlink" href="#radar" title="Link to this heading"></a></h2>
 <ul>
 <li><p>2-D NumPy Array</p></li>
 <li><p>returned by: <a class="reference external" href="api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getGridData">awips.dataaccess.DataAccessLayer.getGridData(request, times=[])</a></p></li>
 <li><p>also returned by: <a class="reference external" href="api/RadarCommon.html">RadarCommon.get_hdf5_data(idra)</a></p></li>
 <li><p>example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">&quot;radar&quot;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="s2">&quot;kmhx&quot;</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s2">&quot;Digital Hybrid Scan Refl&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">"radar"</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="s2">"kmhx"</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s2">"Digital Hybrid Scan Refl"</span><span class="p">)</span>
 <span class="n">availableLevels</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableLevels</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 <span class="n">times</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGridData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="p">[</span><span class="n">times</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>

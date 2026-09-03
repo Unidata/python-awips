@@ -1,7 +1,7 @@
 ======================================
 Precip Accumulation Region of Interest
 ======================================
-`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Precip_Accumulation_Region_of_Interest.ipynb>`_
+`Notebook <https://nbviewer.org/github/Unidata/python-awips/blob/v23/examples/notebooks/Precip_Accumulation_Region_of_Interest.ipynb>`_
 Python-AWIPS Tutorial Notebook
 
 --------------
@@ -9,13 +9,13 @@ Python-AWIPS Tutorial Notebook
 Objectives
 ==========
 
--  Access the model data from an EDEX server and limit the data returned
-   by using model specific parameters
--  Calculate the total precipitation over several model runs
--  Create a colorized plot for the continental US of the accumulated
-   precipitation data
--  Calculate and identify area of highest of precipitation
--  Use higher resolution data to draw region of interest
+- Access the model data from an EDEX server and limit the data returned
+  by using model specific parameters
+- Calculate the total precipitation over several model runs
+- Create a colorized plot for the continental US of the accumulated
+  precipitation data
+- Calculate and identify area of highest of precipitation
+- Use higher resolution data to draw region of interest
 
 --------------
 
@@ -29,15 +29,15 @@ Table of Contents
 |     `2.1 Geographic
   Filter <https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#geographic-filter>`__\ 
 |     `2.2 EDEX
-  Connnection <https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#edex-connection>`__\ 
+  Connection <https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#edex-connection>`__\ 
 |     `2.3 Refine the
   Request <https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#refine-the-request>`__\ 
 |     `2.4 Get
   Times <https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#get-times>`__\ 
 | `3 Function:
-  calculate_accumulated_precip() <https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#function-calculate-accumulated-precip>`__\ 
-| `4 Function:
-  make_map() <https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.htmlt#function-make-map>`__\ 
+  calculate_accumulated_precip() <https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#function-calculateaccumulatedprecip>`__\ 
+| `4 Fuction:
+  make_map() <https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#fuction-makemap>`__\ 
 | `5 Get the
   Data! <https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#get-the-data>`__\ 
 | `6 Plot the
@@ -55,7 +55,7 @@ Table of Contents
 |     `7.3 Plot
   ROI <https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#plot-roi>`__\ 
 | `8 See
-  Also <https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest#see-also>`__\ 
+  Also <https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#see-also>`__\ 
 |     `8.1 Related
   Notebooks <https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html#related-notebooks>`__\ 
 |     `8.2 Additional
@@ -134,7 +134,13 @@ We need to get the available times and cycles for our model data
 
     cycles = DataAccessLayer.getAvailableTimes(request, True)
     times = DataAccessLayer.getAvailableTimes(request)
+    
+    assert cycles, "No GFS1p0 forecast cycles returned"
+    assert times, "No GFS1p0 forecast times returned"
+    
     fcstRun = DataAccessLayer.getForecastRun(cycles[-1], times)
+    
+    assert fcstRun, "No GFS1p0 forecast run could be constructed"
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html>`__
 
@@ -158,6 +164,9 @@ point in x and y coordinates.
     
         for i, tt in enumerate(forecastRun):
             response = DataAccessLayer.getGridData(dataRequest, [tt])
+            assert response, (
+        f"No precipitation grid returned for forecast time {tt}"
+    )
             grid = response[0]
             if i>0:
                 data += grid.getRawData()
@@ -210,7 +219,10 @@ bounding box.
 .. code:: ipython3
 
     ## get the grid response from edex
-    response = DataAccessLayer.getGridData(request, [fcstRun[-1]])    
+    response = DataAccessLayer.getGridData(request, [fcstRun[-1]])  
+    assert response, (
+        f"No GFS1p0 grid returned for forecast time {fcstRun[-1]}"
+    )
     ## take the first result to get the location information from
     grid = response[0]
     
@@ -236,31 +248,48 @@ bounding box.
 
 .. parsed-literal::
 
-    0.0 10.0625 6.0
-    0.0 21.75 12.0
-    0.0 35.1875 18.0
-    0.0 43.5 24.0
-    0.0 45.5625 42.0
-    0.0 47.9375 48.0
-    0.0 52.0625 54.0
-    0.0 56.375 60.0
-    0.0 86.625 66.0
-    0.0 92.4375 72.0
-    0.0 94.375 78.0
-    0.0 95.375 84.0
-    0.0 98.3125 90.0
-    0.0 100.125 96.0
-    0.0 101.6875 102.0
-    0.0 104.0 108.0
-    0.0 107.1875 114.0
-    0.0 115.25 120.0
-    0.0 129.0 126.0
-    0.0 136.375 132.0
-    0.0 141.125 138.0
-    0.0 145.25 144.0
-    0.0 147.375 150.0
-    0.0 5.802169
-    POINT (-124 42)
+    0.0 22.1875 6.0
+    0.0 43.1875 12.0
+    0.0 55.8125 18.0
+    0.0 57.9375 24.0
+    0.0 96.75 30.0
+    0.0 111.0625 36.0
+    0.0 126.375 42.0
+    0.0 137.75 48.0
+    0.0 140.25 54.0
+    0.0 140.4375 60.0
+    0.0 140.4375 66.0
+    0.0 140.4375 72.0
+    0.0 140.5625 78.0
+    0.0 155.125 84.0
+    0.0 155.1875 90.0
+    0.0 155.3125 96.0
+    0.0 155.375 102.0
+    0.0 155.375 108.0
+    0.0 155.375 114.0
+    0.0 155.375 120.0
+    0.0 155.375 126.0
+    0.0 155.375 132.0
+    0.0 155.375 138.0
+    0.0 155.375 144.0
+    0.0 155.8125 150.0
+    0.0 159.5 156.0
+    0.0 160.125 162.0
+    0.0 160.1875 168.0
+    0.0 160.3125 174.0
+    0.0 160.375 180.0
+    0.0 160.4375 186.0
+    0.0 160.4375 192.0
+    0.0 160.4375 198.0
+    0.0 160.4375 204.0
+    0.0 160.8125 210.0
+    0.0 160.875 216.0
+    0.0 160.875 222.0
+    0.0 160.875 228.0
+    0.0 160.875 234.0
+    0.0 160.875 240.0
+    0.0 inch 6.3336615562438965 inch
+    POINT (-88 36)
 
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html>`__
@@ -288,18 +317,19 @@ Plot our data on our CONUS map.
                transform=ccrs.PlateCarree(),marker="+",facecolor='black')
     
     ax.add_geometries([roi_polygon], ccrs.PlateCarree(), facecolor='none', edgecolor='white', linewidth=2)
+    fig.canvas.draw()
 
 
 
 
 .. parsed-literal::
 
-    <cartopy.mpl.feature_artist.FeatureArtist at 0x13eb32340>
+    <cartopy.mpl.feature_artist.FeatureArtist at 0x7fac68c0ccd0>
 
 
 
 
-.. image:: Precip_Accumulation_Region_of_Interest_files/Precip_Accumulation_Region_of_Interest_27_1.png
+.. image:: Precip_Accumulation_Region_of_Interest_files/Precip_Accumulation_Region_of_Interest_26_1.png
 
 
 6.2 Create Region of Interest Image
@@ -320,18 +350,19 @@ a new plot.
     
     ax.scatter(maxPoint.x, maxPoint.y, s=300,
                transform=ccrs.PlateCarree(),marker="+",facecolor='black')
+    fig.canvas.draw()
 
 
 
 
 .. parsed-literal::
 
-    <matplotlib.collections.PathCollection at 0x13ed521c0>
+    <matplotlib.collections.PathCollection at 0x7fac67d102d0>
 
 
 
 
-.. image:: Precip_Accumulation_Region_of_Interest_files/Precip_Accumulation_Region_of_Interest_29_1.png
+.. image:: Precip_Accumulation_Region_of_Interest_files/Precip_Accumulation_Region_of_Interest_28_1.png
 
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html>`__
@@ -356,14 +387,31 @@ a higher resolution model (GFS20 vs. GFS1.0).
     
     roiCycles = DataAccessLayer.getAvailableTimes(roiRequest, True)
     roiTimes = DataAccessLayer.getAvailableTimes(roiRequest)
-    roiFcstRun = DataAccessLayer.getForecastRun(roiCycles[-1], roiTimes)
+    
+    assert roiCycles, "No GFS20 forecast cycles returned"
+    assert roiTimes, "No GFS20 forecast times returned"
+    
+    roiFcstRun = DataAccessLayer.getForecastRun(
+        roiCycles[-1],
+        roiTimes
+    )
+    
+    assert roiFcstRun, "No GFS20 forecast run could be constructed"
 
 7.2 Calculate Data
 ~~~~~~~~~~~~~~~~~~
 
 .. code:: ipython3
 
-    roiResponse = DataAccessLayer.getGridData(roiRequest, [roiFcstRun[-1]])  
+    roiResponse = DataAccessLayer.getGridData(
+        roiRequest,
+        [roiFcstRun[-1]]
+    )
+    
+    assert roiResponse, (
+        f"No GFS20 ROI grid returned for {roiFcstRun[-1]}"
+    )
+    
     print(roiResponse)
     roiGrid = roiResponse[0]
     
@@ -376,37 +424,61 @@ a higher resolution model (GFS20 vs. GFS1.0).
 
 .. parsed-literal::
 
-    [<awips.dataaccess.PyGridData.PyGridData object at 0x13ecb4eb0>]
-    0.0 22.5625 3.0
-    0.0 35.375 6.0
-    0.0 38.375 9.0
-    0.0 38.375 12.0
-    0.0 41.375 15.0
-    0.0 48.625 18.0
-    0.0 73.0625 30.0
-    0.0 94.9375 33.0
-    0.0 96.125 36.0
-    0.0 97.0 39.0
-    0.0 99.375 45.0
-    0.0 100.0625 48.0
-    0.0 100.25 51.0
-    0.0 100.4375 57.0
-    0.0 100.4375 63.0
-    0.0 118.25 66.0
-    0.0 127.625 69.0
-    0.0 131.125 75.0
-    0.0 131.375 78.0
-    0.0 131.5 81.0
-    0.0 131.875 84.0
-    0.0 132.875 90.0
-    0.0 133.375 96.0
-    0.0 139.1875 102.0
-    0.0 141.625 120.0
-    0.0 141.75 126.0
-    0.0 142.1875 132.0
-    0.0 143.375 138.0
-    0.0 148.6875 144.0
-    0.0 156.25 150.0
+    [<awips.dataaccess.PyGridData.PyGridData object at 0x7fac67d43890>]
+    0.0 45.4375 3.0
+    0.0 47.9375 6.0
+    0.0 48.1875 9.0
+    0.0 51.75 12.0
+    0.0 71.1875 15.0
+    0.0 72.375 18.0
+    0.0 72.4375 21.0
+    0.0 81.75 24.0
+    0.0 107.5 27.0
+    0.0 131.8125 30.0
+    0.0 141.6875 33.0
+    0.0 149.9375 36.0
+    0.0 159.5 39.0
+    0.0 171.5625 42.0
+    0.0 181.9375 45.0
+    0.0 186.0 48.0
+    0.0 187.75 51.0
+    0.0 189.625 54.0
+    0.0 189.875 57.0
+    0.0 189.875 60.0
+    0.0 189.875 63.0
+    0.0 189.875 66.0
+    0.0 189.875 69.0
+    0.0 189.875 72.0
+    0.0 190.0625 75.0
+    0.0 190.0625 78.0
+    0.0 200.375 81.0
+    0.0 200.8125 84.0
+    0.0 200.875 90.0
+    0.0 201.0625 96.0
+    0.0 201.1875 102.0
+    0.0 201.25 108.0
+    0.0 201.25 114.0
+    0.0 201.25 120.0
+    0.0 201.25 126.0
+    0.0 201.25 132.0
+    0.0 201.25 138.0
+    0.0 201.25 144.0
+    0.0 201.375 150.0
+    0.0 205.9375 156.0
+    0.0 206.75 162.0
+    0.0 206.9375 168.0
+    0.0 207.0625 174.0
+    0.0 207.1875 180.0
+    0.0 207.1875 186.0
+    0.0 207.1875 192.0
+    0.0 207.1875 198.0
+    0.0 207.1875 204.0
+    0.0 207.875 210.0
+    0.0 208.25 216.0
+    0.0 208.25 222.0
+    0.0 208.25 228.0
+    0.0 208.25 234.0
+    0.0 208.25 240.0
 
 
 7.3 Plot ROI
@@ -424,24 +496,19 @@ a higher resolution model (GFS20 vs. GFS1.0).
     
     ax.scatter(maxPoint.x, maxPoint.y, s=300,
                transform=ccrs.PlateCarree(),marker="+",facecolor='black')
-
-
-.. parsed-literal::
-
-    /Users/scarter/opt/miniconda3/envs/python3-awips/lib/python3.9/site-packages/cartopy/mpl/geoaxes.py:1702: UserWarning: The input coordinates to pcolormesh are interpreted as cell centers, but are not monotonically increasing or decreasing. This may lead to incorrectly calculated cell edges, in which case, please supply explicit cell edges to pcolormesh.
-      X, Y, C, shading = self._pcolorargs('pcolormesh', *args,
+    fig.canvas.draw()
 
 
 
 
 .. parsed-literal::
 
-    <matplotlib.collections.PathCollection at 0x13edc39a0>
+    <matplotlib.collections.PathCollection at 0x7fac67c23390>
 
 
 
 
-.. image:: Precip_Accumulation_Region_of_Interest_files/Precip_Accumulation_Region_of_Interest_37_2.png
+.. image:: Precip_Accumulation_Region_of_Interest_files/Precip_Accumulation_Region_of_Interest_36_1.png
 
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html>`__
@@ -454,25 +521,24 @@ a higher resolution model (GFS20 vs. GFS1.0).
 8.1 Related Notebooks
 ~~~~~~~~~~~~~~~~~~~~~
 
--  `Colorized Grid
-   Data <https://unidata.github.io/python-awips/examples/generated/Colorized_Grid_Data.html>`__
--  `Grid Levels and
-   Parameters <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html>`__
+- `Colorized Grid
+  Data <https://unidata.github.io/python-awips/examples/generated/Colorized_Grid_Data.html>`__
+- `Grid Levels and
+  Parameters <https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html>`__
 
 8.2 Additional Documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**python-awips:**
+**python-awips:** \*
+`awips.DataAccessLayer <http://unidata.github.io/python-awips/api/DataAccessLayer.html>`__
+\*
+`awips.PyGridData <http://unidata.github.io/python-awips/api/PyGridData.html>`__
 
--  `awips.DataAccessLayer <http://unidata.github.io/python-awips/api/DataAccessLayer.html>`__
--  `awips.PyGridData <http://unidata.github.io/python-awips/api/PyGridData.html>`__
-
-**matplotlib:**
-
--  `matplotlib.pyplot <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.html>`__
--  `matplotlib.pyplot.subplot <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.subplot.html>`__
--  `matplotlib.pyplot.pcolormesh <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.pcolormesh.html>`__
+**matplotlib:** \*
+`matplotlib.pyplot <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.html>`__
+\*
+`matplotlib.pyplot.subplot <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.subplot.html>`__
+\*
+`matplotlib.pyplot.pcolormesh <https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.pcolormesh.html>`__
 
 `Top <https://unidata.github.io/python-awips/examples/generated/Precip_Accumulation_Region_of_Interest.html>`__
-
---------------

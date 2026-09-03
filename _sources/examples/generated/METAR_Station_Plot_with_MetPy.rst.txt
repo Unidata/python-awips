@@ -1,7 +1,7 @@
 =============================
 METAR Station Plot with MetPy
 =============================
-`Notebook <http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/METAR_Station_Plot_with_MetPy.ipynb>`_
+`Notebook <https://nbviewer.org/github/Unidata/python-awips/blob/v23/examples/notebooks/METAR_Station_Plot_with_MetPy.ipynb>`_
 Python-AWIPS Tutorial Notebook
 
 --------------
@@ -9,11 +9,11 @@ Python-AWIPS Tutorial Notebook
 Objectives
 ==========
 
--  Use python-awips to connect to an edex server
--  Define and filter data request for METAR surface obs
--  Extract necessary data and reformat it for plotting
--  Stylize and plot METAR station data using Cartopy, Matplotlib, and
-   MetPy
+- Use python-awips to connect to an edex server
+- Define and filter data request for METAR surface obs
+- Extract necessary data and reformat it for plotting
+- Stylize and plot METAR station data using Cartopy, Matplotlib, and
+  MetPy
 
 --------------
 
@@ -23,7 +23,7 @@ Table of Contents
 | `1
   Imports <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#imports>`__\ 
 | `2 Function:
-  get_cloud_cover() <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#function-get-cloud-cover>`__\ 
+  get_cloud_cover() <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#function-getcloudcover>`__\ 
 | `3 Initial
   Setup <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html#initial-setup>`__\ 
 |     `3.1 Initial EDEX
@@ -194,6 +194,11 @@ ready, we’re ready to get the data array from EDEX.
 
     # Get response
     response = DataAccessLayer.getGeometryData(request,timerange)
+    
+    assert response, (
+        f"No METAR records returned from {edexServer} "
+        f"for {timerange}"
+    )
 
 5.2 Extract all Parameters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -204,9 +209,9 @@ to keep track of all data and unique station IDs. We also create a
 boolean to help us only grab the first entry for ``skyCover`` related to
 a station id.
 
-   **Note**: The way the data responses are returned, we recieve many
-   ``skyCover`` entries for each station ID, but we only want to keep
-   track of the most recent one (first one returned).
+> **Note:** The way the data responses are returned, we recieve many
+``skyCover`` entries for each station ID, but we only want to keep track
+of the most recent one (first one returned).
 
 After defining these variables, we are ready to start looping through
 our response data. If the response is an entry of ``skyCover``, and this
@@ -248,6 +253,13 @@ set all the remaining parameters.
                             obs[param].append(ob.getString(param))
                     else:
                         obs[param].append(None)
+    
+        assert obs["stationName"], (
+            "METAR records were returned, but no usable stations were extracted"
+        )
+        assert obs["latitude"], "No METAR latitude values were extracted"
+        assert obs["longitude"], "No METAR longitude values were extracted"
+        assert obs["temperature"], "No METAR temperatures were extracted"
 
 5.3 Populate the Data Dictionary
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -330,11 +342,7 @@ Finally, we display the plot!
     custom_layout.plot(stationplot, data)
     
     plt.show()
-
-
-
-.. image:: METAR_Station_Plot_with_MetPy_files/METAR_Station_Plot_with_MetPy_26_0.png
-
+    plt.gcf().canvas.draw()
 
 `Top <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html>`__
 
@@ -343,61 +351,59 @@ Finally, we display the plot!
 7 See Also
 ----------
 
--  `Aviation Weather Center Static METAR Plots
-   Information <https://www.aviationweather.gov/metar/help?page=plot>`__
+- `Aviation Weather Center Static METAR Plots
+  Information <https://www.aviationweather.gov/metar/help?page=plot>`__
 
 7.1 Related Notebooks
 ~~~~~~~~~~~~~~~~~~~~~
 
--  `Grid Levels and
-   Parameters <http://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html>`__
--  `Colored Surface Temperature
-   Plot <http://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html>`__
+- `Grid Levels and
+  Parameters <http://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html>`__
+- `Colored Surface Temperature
+  Plot <http://unidata.github.io/python-awips/examples/generated/Colored_Surface_Temperature_Plot.html>`__
 
 7.2 Additional Documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **python-awips:**
 
--  `DataAccessLayer.changeEDEXHost() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost>`__
--  `DataAccessLayer.newDataRequest() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.newDataRequest>`__
--  `IDataRequest <http://unidata.github.io/python-awips/api/IDataRequest.html>`__
--  `DataAccessLayer.getGeometryData <http://unidata.github.io/python-awips/api/PyGeometryData.html>`__
+- `DataAccessLayer.changeEDEXHost() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.changeEDEXHost>`__
+- `DataAccessLayer.newDataRequest() <http://unidata.github.io/python-awips/api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.newDataRequest>`__
+- `IDataRequest <http://unidata.github.io/python-awips/api/IDataRequest.html>`__
+- `DataAccessLayer.getGeometryData <http://unidata.github.io/python-awips/api/PyGeometryData.html>`__
 
 **datetime:**
 
--  `datetime.datetime <https://docs.python.org/3/library/datetime.html#datetime-objects>`__
--  `datetime.now(UTC) <https://docs.python.org/3/library/datetime.html?#datetime.datetime.utcnow>`__
--  `datetime.timedelta <https://docs.python.org/3/library/datetime.html#timedelta-objects>`__
--  `datetime.strftime() and
-   datetime.strptime() <https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior>`__
+- `datetime.datetime <https://docs.python.org/3/library/datetime.html#datetime-objects>`__
+- `datetime.now(UTC) <https://docs.python.org/3/library/datetime.html?#datetime.datetime.utcnow>`__
+- `datetime.timedelta <https://docs.python.org/3/library/datetime.html#timedelta-objects>`__
+- `datetime.strftime() and
+  datetime.strptime() <https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior>`__
 
 **numpy:**
 
--  `np.array <https://numpy.org/doc/stable/reference/generated/numpy.array.html>`__
+- `np.array <https://numpy.org/doc/stable/reference/generated/numpy.array.html>`__
 
 **cartopy:**
 
--  `cartopy projection
-   list <https://scitools.org.uk/cartopy/docs/v0.14/crs/projections.html?#cartopy-projection-list>`__
--  `cartopy feature
-   interface <https://scitools.org.uk/cartopy/docs/v0.14/matplotlib/feature_interface.html>`__
+- `cartopy projection
+  list <https://scitools.org.uk/cartopy/docs/v0.14/crs/projections.html?#cartopy-projection-list>`__
+- `cartopy feature
+  interface <https://scitools.org.uk/cartopy/docs/v0.14/matplotlib/feature_interface.html>`__
 
 **matplotlib:**
 
--  `matplotlib.pyplot() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html>`__
--  `matplotlib.pyplot.figure() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html>`__
--  `matplotlib.pyplot.figure.add_subplot <https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure.add_subplot>`__
--  `ax.set_extent <https://matplotlib.org/stable/api/image_api.html?highlight=set_extent#matplotlib.image.AxesImage.set_extent>`__
--  `ax.set_title <https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_title.html>`__
+- `matplotlib.pyplot() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.html>`__
+- `matplotlib.pyplot.figure() <https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html>`__
+- `matplotlib.pyplot.figure.add_subplot <https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure.add_subplot>`__
+- `ax.set_extent <https://matplotlib.org/stable/api/image_api.html?highlight=set_extent#matplotlib.image.AxesImage.set_extent>`__
+- `ax.set_title <https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_title.html>`__
 
 **metpy:**
 
--  `metpy.calc.wind_components <https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.wind_components.html>`__
--  `metpy.plots.StationPlot() <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.StationPlot.html>`__
--  `metpy.plots.StationPlotLayout() <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.StationPlotLayout.html>`__
--  `metpy.units <https://unidata.github.io/MetPy/latest/api/generated/metpy.units.html>`__
+- `metpy.calc.wind_components <https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.wind_components.html>`__
+- `metpy.plots.StationPlot() <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.StationPlot.html>`__
+- `metpy.plots.StationPlotLayout() <https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.StationPlotLayout.html>`__
+- `metpy.units <https://unidata.github.io/MetPy/latest/api/generated/metpy.units.html>`__
 
 `Top <https://unidata.github.io/python-awips/examples/generated/METAR_Station_Plot_with_MetPy.html>`__
-
---------------

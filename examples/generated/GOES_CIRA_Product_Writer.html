@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -13,9 +13,9 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=b3ba4146"></script>
-      <script src="../../_static/doctools.js?v=888ff710"></script>
-      <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -58,7 +58,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#function-set-size">3 Function: set_size()</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#function-write-img">4 Function: write_img()</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#get-the-data-and-write-it-out">5 Get the Data and Write it Out!</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#see-also">6 See Also</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#see-also">8 See Also</a></li>
 </ul>
 </li>
 </ul>
@@ -106,24 +106,23 @@
            <div itemprop="articleBody">
              
   <section id="goes-cira-product-writer">
-<h1>GOES CIRA Product Writer<a class="headerlink" href="#goes-cira-product-writer" title="Permalink to this heading"></a></h1>
-<p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/GOES_CIRA_Product_Writer.ipynb">Notebook</a>
+<h1>GOES CIRA Product Writer<a class="headerlink" href="#goes-cira-product-writer" title="Link to this heading"></a></h1>
+<p><a class="reference external" href="https://nbviewer.org/github/Unidata/python-awips/blob/v23/examples/notebooks/GOES_CIRA_Product_Writer.ipynb">Notebook</a>
 Python-AWIPS Tutorial Notebook</p>
 <hr class="docutils" />
 <section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading"></a></h2>
+<h2>Objectives<a class="headerlink" href="#objectives" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p>Use python-awips to connect to an EDEX server</p></li>
-<li><p>Define and filter the data request specifically for new <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#additional-documentation">CIRA GOES16
-data
-products</a></p></li>
+<li><p>Define and filter the data request specifically for new <a class="reference external" href="#Additional-Documentation">CIRA GOES16
+data products</a></p></li>
 <li><p>Resize the products to their native resolution</p></li>
 <li><p>Write the individual bands (channels) locally</p></li>
 <li><p>Combine and write the RGB product locally</p></li>
 </ul>
 <hr class="docutils" />
 <section id="table-of-contents">
-<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading"></a></h3>
+<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading"></a></h3>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#imports">1
 Imports</a></div>
@@ -133,29 +132,32 @@ Setup</a></div>
 Connection</a></div>
 <div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#parameter-definition">2.2 Parameter
 Definition</a></div>
-<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#function-set-size">3 Function:
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#function-setsize">3 Function:
 set_size()</a></div>
-<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#function-write-img">4 Function:
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#function-writeimg">4 Function:
 write_img()</a></div>
 <div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#get-the-data-and-write-it-out">5 Get the Data and Write it
 Out!</a></div>
 <div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#filter-the-data">5.1 Filter the
 Data</a></div>
-<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#define-output-location">5.2 Define Output
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#print-available-location-names">6 Print Available Location
+Names</a></div>
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#print-available-identifiers-and-values">7 Print Available Identifiers and
+Values</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#define-output-location">7.1 Define Output
 Location</a></div>
-<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#write-out-goes-images">5.3 Write Out GOES
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#write-out-goes-images">7.2 Write Out GOES
 Images</a></div>
-<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#see-also">6 See
+<div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#see-also">8 See
 Also</a></div>
-<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#related-notebooks">6.1 Related
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#related-notebooks">8.1 Related
 Notebooks</a></div>
-<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#additional-documentation">6.2 Additional
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html#additional-documentation">8.2 Additional
 Documentation</a></div>
 </div>
 </section>
-<hr class="docutils" />
 <section id="imports">
-<h3>1 Imports<a class="headerlink" href="#imports" title="Permalink to this heading"></a></h3>
+<h3>1 Imports<a class="headerlink" href="#imports" title="Link to this heading"></a></h3>
 <p>The imports below are used throughout the notebook. Note the first
 import is coming directly from python-awips and allows us to connect to
 an EDEX server. The subsequent imports are for data manipulation and
@@ -173,22 +175,22 @@ visualization.</p>
 </section>
 <hr class="docutils" />
 <section id="initial-setup">
-<h3>2 Initial Setup<a class="headerlink" href="#initial-setup" title="Permalink to this heading"></a></h3>
+<h3>2 Initial Setup<a class="headerlink" href="#initial-setup" title="Link to this heading"></a></h3>
 <section id="edex-connection">
-<h4>2.1 EDEX Connection<a class="headerlink" href="#edex-connection" title="Permalink to this heading"></a></h4>
+<h4>2.1 EDEX Connection<a class="headerlink" href="#edex-connection" title="Link to this heading"></a></h4>
 <p>First we establish a connection to Unidata’s public EDEX server. With
 that connection made, we can create a <a class="reference external" href="http://unidata.github.io/python-awips/api/IDataRequest.html">new data request
 object</a>
 and set the data type to <strong>satellite</strong>.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an EDEX data request</span>
-<span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="s2">&quot;edex-cloud.unidata.ucar.edu&quot;</span><span class="p">)</span>
+<span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="s2">"edex-cloud.unidata.ucar.edu"</span><span class="p">)</span>
 <span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">()</span>
-<span class="n">request</span><span class="o">.</span><span class="n">setDatatype</span><span class="p">(</span><span class="s2">&quot;satellite&quot;</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setDatatype</span><span class="p">(</span><span class="s2">"satellite"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="parameter-definition">
-<h4>2.2 Parameter Definition<a class="headerlink" href="#parameter-definition" title="Permalink to this heading"></a></h4>
+<h4>2.2 Parameter Definition<a class="headerlink" href="#parameter-definition" title="Link to this heading"></a></h4>
 <p>After establishing the python-awips specific objects, we create a few
 other parameters that will be used for the data query based off of known
 values: projection, and extent.</p>
@@ -196,7 +198,7 @@ values: projection, and extent.</p>
 <span class="c1"># Set up the projection using known parameters (from the netcdf of GOES products)</span>
 <span class="n">globe</span> <span class="o">=</span> <span class="n">ccrs</span><span class="o">.</span><span class="n">Globe</span><span class="p">(</span><span class="n">semimajor_axis</span><span class="o">=</span><span class="mf">6378137.0</span><span class="p">,</span> <span class="n">semiminor_axis</span><span class="o">=</span><span class="mf">6356752.5</span><span class="p">,</span> <span class="n">ellipse</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 <span class="n">sat_h</span> <span class="o">=</span> <span class="mf">35785830.0</span>
-<span class="n">proj</span> <span class="o">=</span> <span class="n">ccrs</span><span class="o">.</span><span class="n">Geostationary</span><span class="p">(</span><span class="n">globe</span><span class="o">=</span><span class="n">globe</span><span class="p">,</span> <span class="n">central_longitude</span><span class="o">=-</span><span class="mf">75.0</span><span class="p">,</span> <span class="n">satellite_height</span><span class="o">=</span><span class="n">sat_h</span><span class="p">,</span> <span class="n">sweep_axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">proj</span> <span class="o">=</span> <span class="n">ccrs</span><span class="o">.</span><span class="n">Geostationary</span><span class="p">(</span><span class="n">globe</span><span class="o">=</span><span class="n">globe</span><span class="p">,</span> <span class="n">central_longitude</span><span class="o">=-</span><span class="mf">75.0</span><span class="p">,</span> <span class="n">satellite_height</span><span class="o">=</span><span class="n">sat_h</span><span class="p">,</span> <span class="n">sweep_axis</span><span class="o">=</span><span class="s1">'x'</span><span class="p">)</span>
 
 <span class="c1"># Define the extents for ECONUS and WCONUS in goes native coords</span>
 <span class="c1"># (originally taken from netcdf GOES data)</span>
@@ -208,7 +210,7 @@ values: projection, and extent.</p>
 </section>
 <hr class="docutils" />
 <section id="function-set-size">
-<h3>3 Function: set_size()<a class="headerlink" href="#function-set-size" title="Permalink to this heading"></a></h3>
+<h3>3 Function: set_size()<a class="headerlink" href="#function-set-size" title="Link to this heading"></a></h3>
 <p>Here we’re defining a function that will allow us to pass in the
 dimensions of the output file we desire in pixels. Default Python
 methods require the size to be set in inches, which is confusing in our
@@ -218,7 +220,7 @@ don’t want that.</p>
 <p>This function allows the exact final image to be specified based in
 pixels, with no padding or buffers.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">set_size</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">h</span><span class="p">,</span> <span class="n">plt</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; w, h: width, height in pixels &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">""" w, h: width, height in pixels """</span>
 
     <span class="c1"># Convert from pixels to inches</span>
     <span class="n">DPI</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span><span class="o">.</span><span class="n">get_dpi</span><span class="p">()</span>
@@ -248,7 +250,7 @@ pixels, with no padding or buffers.</p>
 </section>
 <hr class="docutils" />
 <section id="function-write-img">
-<h3>4 Function: write_img()<a class="headerlink" href="#function-write-img" title="Permalink to this heading"></a></h3>
+<h3>4 Function: write_img()<a class="headerlink" href="#function-write-img" title="Link to this heading"></a></h3>
 <p>Next, we’re defining another function which takes the image data, file
 name, projection, extent, reference time, and whether or not to print
 out a footnote.</p>
@@ -273,29 +275,31 @@ modify these values if you wish to print out an image of another size
     <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="n">proj</span><span class="p">)</span>
 
     <span class="c1"># Draw GOES data</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">proj</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">'gray'</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">proj</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">)</span>
 
     <span class="c1"># Add Coastlines and States</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">coastlines</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="s1">&#39;50m&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;magenta&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeat</span><span class="o">.</span><span class="n">STATES</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;magenta&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">gridlines</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;cyan&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">xlocs</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">linestyle</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,(</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">)))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">coastlines</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="s1">'50m'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'magenta'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeat</span><span class="o">.</span><span class="n">STATES</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">'magenta'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">gridlines</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">'cyan'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">xlocs</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">linestyle</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,(</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">)))</span>
 
     <span class="c1"># Create and draw the footnote if needed</span>
     <span class="k">if</span> <span class="n">footnote</span><span class="p">:</span>
-        <span class="n">footnoteStr</span> <span class="o">=</span> <span class="s1">&#39;   CIRA-&#39;</span><span class="o">+</span><span class="n">name</span><span class="p">[</span><span class="mi">7</span><span class="p">:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;-&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">reftime</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">footnoteStr</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">xycoords</span><span class="o">=</span><span class="s1">&#39;axes fraction&#39;</span><span class="p">,</span> <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;offset points&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">)</span>
+        <span class="n">footnoteStr</span> <span class="o">=</span> <span class="s1">'   CIRA-'</span><span class="o">+</span><span class="n">name</span><span class="p">[</span><span class="mi">7</span><span class="p">:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span><span class="o">+</span><span class="s1">'-'</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">reftime</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">footnoteStr</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">xycoords</span><span class="o">=</span><span class="s1">'axes fraction'</span><span class="p">,</span> <span class="n">textcoords</span><span class="o">=</span><span class="s1">'offset points'</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">'top'</span><span class="p">)</span>
 
     <span class="c1"># Write out the figure</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">DPI</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">pad_inches</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">DPI</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">'tight'</span><span class="p">,</span> <span class="n">pad_inches</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="c1">#plt.show()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
 <p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html">Top</a></p>
 </section>
 <hr class="docutils" />
 <section id="get-the-data-and-write-it-out">
-<h3>5 Get the Data and Write it Out!<a class="headerlink" href="#get-the-data-and-write-it-out" title="Permalink to this heading"></a></h3>
+<h3>5 Get the Data and Write it Out!<a class="headerlink" href="#get-the-data-and-write-it-out" title="Link to this heading"></a></h3>
 <section id="filter-the-data">
-<h4>5.1 Filter the Data<a class="headerlink" href="#filter-the-data" title="Permalink to this heading"></a></h4>
+<h4>5.1 Filter the Data<a class="headerlink" href="#filter-the-data" title="Link to this heading"></a></h4>
 <p>Define exactly what data we want to be printing out. This notebook is
 designed to loop through and print out multiple images, so here we can
 pick which images we’re wanting to print out. We’re specifying
@@ -303,15 +307,15 @@ pick which images we’re wanting to print out. We’re specifying
 (for the new CIRA products) and the <strong>three channels</strong> for the RBG
 composites.</p>
 <blockquote>
-<div><p><strong>Tip</strong>: More information could be gathered by looking at all the
+<div><p><strong>Tip:</strong> More information could be gathered by looking at all the
 available location names (sectors), identifiers (entities), and
 parameters (channels). To see those run the following lines of code
 after the dataType has been set to satellite on the request object:</p>
 </div></blockquote>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## Print Available Location Names</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## 6 Print Available Location Names</span>
 <span class="nb">print</span><span class="p">((</span><span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableLocationNames</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
 
-<span class="c1">## Print Available Identifiers and Values</span>
+<span class="c1">## 7 Print Available Identifiers and Values</span>
 <span class="n">ids</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getOptionalIdentifiers</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
 <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">:</span>
@@ -319,42 +323,42 @@ after the dataType has been set to satellite on the request object:</p>
 </pre></div>
 </div>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define Location names</span>
-<span class="n">sectors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ECONUS&quot;</span><span class="p">]</span>
+<span class="n">sectors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"ECONUS"</span><span class="p">]</span>
 
 <span class="c1"># Define creatingEntity Identifiers</span>
-<span class="n">entities</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;CLDSNOW&quot;</span><span class="p">,</span> <span class="s2">&quot;DBRDUST&quot;</span><span class="p">,</span> <span class="s2">&quot;GEOCOLR&quot;</span><span class="p">]</span>
+<span class="n">entities</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"CLDSNOW"</span><span class="p">,</span> <span class="s2">"DBRDUST"</span><span class="p">,</span> <span class="s2">"GEOCOLR"</span><span class="p">]</span>
 
 <span class="c1"># Define parameters</span>
-<span class="n">ch1</span> <span class="o">=</span> <span class="s2">&quot;CH-01-0.47um&quot;</span>
-<span class="n">ch2</span> <span class="o">=</span> <span class="s2">&quot;CH-02-0.64um&quot;</span>
-<span class="n">ch3</span> <span class="o">=</span> <span class="s2">&quot;CH-03-0.87um&quot;</span>
+<span class="n">ch1</span> <span class="o">=</span> <span class="s2">"CH-01-0.47um"</span>
+<span class="n">ch2</span> <span class="o">=</span> <span class="s2">"CH-02-0.64um"</span>
+<span class="n">ch3</span> <span class="o">=</span> <span class="s2">"CH-03-0.87um"</span>
 <span class="n">channels</span> <span class="o">=</span> <span class="p">[</span><span class="n">ch1</span><span class="p">,</span> <span class="n">ch2</span><span class="p">,</span> <span class="n">ch3</span><span class="p">]</span>
 </pre></div>
 </div>
 </section>
 <section id="define-output-location">
-<h4>5.2 Define Output Location<a class="headerlink" href="#define-output-location" title="Permalink to this heading"></a></h4>
+<h4>7.1 Define Output Location<a class="headerlink" href="#define-output-location" title="Link to this heading"></a></h4>
 <p>Here we define a folder for where the satellite images will be written
 to. The default directory is a new folder called ‘output’ that lives
 whereever this notebook lives.</p>
 <blockquote>
-<div><p><strong>Tip</strong>: If you specify the fully qualified path, it will no longer
+<div><p><strong>Tip:</strong> If you specify the fully qualified path, it will no longer
 depend on where this notebook is located. For example (for a Mac):</p>
 </div></blockquote>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">outputDir</span> <span class="o">=</span> <span class="s1">&#39;/Users/awips/test_dir/output/&#39;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">outputDir</span> <span class="o">=</span> <span class="s1">'/Users/awips/test_dir/output/'</span>
 </pre></div>
 </div>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define name of the desired end directory</span>
-<span class="n">outputDir</span> <span class="o">=</span> <span class="s1">&#39;output/&#39;</span>
+<span class="n">outputDir</span> <span class="o">=</span> <span class="s1">'output/'</span>
 
 <span class="c1"># Check to see if this folder exists</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">outputDir</span><span class="p">):</span>
     <span class="c1"># If not, create the directory</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Creating new output directory: &#39;</span><span class="p">,</span><span class="n">outputDir</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'Creating new output directory: '</span><span class="p">,</span><span class="n">outputDir</span><span class="p">)</span>
     <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">outputDir</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="c1"># If so, let the user know</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Output directory exists!&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'Output directory exists!'</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Output directory exists!
@@ -362,7 +366,7 @@ depend on where this notebook is located. For example (for a Mac):</p>
 </div>
 </section>
 <section id="write-out-goes-images">
-<h4>5.3 Write Out GOES Images<a class="headerlink" href="#write-out-goes-images" title="Permalink to this heading"></a></h4>
+<h4>7.2 Write Out GOES Images<a class="headerlink" href="#write-out-goes-images" title="Link to this heading"></a></h4>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># First loop through the sectors (location names)</span>
 <span class="k">for</span> <span class="n">sector</span> <span class="ow">in</span> <span class="n">sectors</span><span class="p">:</span>
 
@@ -371,27 +375,27 @@ depend on where this notebook is located. For example (for a Mac):</p>
 
     <span class="c1"># Next loop through the Products (entities)</span>
     <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">entities</span><span class="p">:</span>
-        <span class="c1"># Reset the time and channel variables since we&#39;re on a new product</span>
+        <span class="c1"># Reset the time and channel variables since we're on a new product</span>
         <span class="n">time</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">R</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">G</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">B</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="c1"># Set the product</span>
-        <span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s2">&quot;creatingEntity&quot;</span><span class="p">,</span> <span class="n">entity</span><span class="p">)</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s2">"creatingEntity"</span><span class="p">,</span> <span class="n">entity</span><span class="p">)</span>
 
         <span class="c1"># Cycle through the channels (parameters)</span>
         <span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="n">channels</span><span class="p">:</span>
             <span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
 
-            <span class="c1"># Set the time for this product if it hasn&#39;t been set</span>
+            <span class="c1"># Set the time for this product if it hasn't been set</span>
             <span class="c1"># If it has been set, then we proceed with that value</span>
             <span class="c1"># so that all bands in for the one product are pulled</span>
             <span class="c1"># from the same time</span>
             <span class="k">if</span><span class="p">(</span><span class="n">time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
                 <span class="n">times</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
                 <span class="n">time</span> <span class="o">=</span> <span class="p">[</span><span class="n">times</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;selected time:&quot;</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">"selected time:"</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
 
             <span class="c1"># Request the data from EDEX</span>
             <span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGridData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
@@ -410,10 +414,10 @@ depend on where this notebook is located. For example (for a Mac):</p>
                 <span class="n">G</span> <span class="o">=</span> <span class="n">data</span>
 
             <span class="c1"># Create the single channel name</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="n">outputDir</span><span class="o">+</span><span class="n">entity</span><span class="o">+</span><span class="s1">&#39;-&#39;</span><span class="o">+</span><span class="n">sector</span><span class="o">+</span><span class="s1">&#39;-&#39;</span><span class="o">+</span><span class="n">channel</span><span class="o">+</span><span class="s1">&#39;.png&#39;</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">outputDir</span><span class="o">+</span><span class="n">entity</span><span class="o">+</span><span class="s1">'-'</span><span class="o">+</span><span class="n">sector</span><span class="o">+</span><span class="s1">'-'</span><span class="o">+</span><span class="n">channel</span><span class="o">+</span><span class="s1">'.png'</span>
 
             <span class="c1"># Write out the single channel</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;writing&#39;</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">'writing'</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
             <span class="n">write_img</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">proj</span><span class="p">,</span> <span class="n">extent</span><span class="p">,</span> <span class="n">reftime</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
         <span class="c1"># --- End of channel loop</span>
@@ -426,28 +430,28 @@ depend on where this notebook is located. For example (for a Mac):</p>
         <span class="n">RGB</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dstack</span><span class="p">([</span><span class="n">R</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">B</span><span class="p">])</span>
 
         <span class="c1"># Create RGB name</span>
-        <span class="n">rgbName</span> <span class="o">=</span> <span class="n">outputDir</span><span class="o">+</span><span class="n">entity</span><span class="o">+</span><span class="s1">&#39;-&#39;</span><span class="o">+</span><span class="n">sector</span><span class="o">+</span><span class="s1">&#39;-RGB.png&#39;</span>
+        <span class="n">rgbName</span> <span class="o">=</span> <span class="n">outputDir</span><span class="o">+</span><span class="n">entity</span><span class="o">+</span><span class="s1">'-'</span><span class="o">+</span><span class="n">sector</span><span class="o">+</span><span class="s1">'-RGB.png'</span>
         <span class="c1"># Write out the RGB image</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;writing&#39;</span><span class="p">,</span> <span class="n">rgbName</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">'writing'</span><span class="p">,</span> <span class="n">rgbName</span><span class="p">)</span>
         <span class="n">write_img</span><span class="p">(</span><span class="n">RGB</span><span class="p">,</span> <span class="n">rgbName</span><span class="p">,</span> <span class="n">proj</span><span class="p">,</span> <span class="n">extent</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
     <span class="c1"># --- End of entity loop</span>
 <span class="c1">#--- End of sector loop</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Done!&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Done!'</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>selected time: [&lt;DataTime instance: 2021-05-28 06:51:14 &gt;]
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>selected time: [&lt;DataTime instance: 2025-02-11 23:06:17 &gt;]
 writing output/CLDSNOW-ECONUS-CH-01-0.47um.png
 writing output/CLDSNOW-ECONUS-CH-02-0.64um.png
 writing output/CLDSNOW-ECONUS-CH-03-0.87um.png
 writing output/CLDSNOW-ECONUS-RGB.png
-selected time: [&lt;DataTime instance: 2021-05-28 06:51:14 &gt;]
+selected time: [&lt;DataTime instance: 2025-02-11 23:21:17 &gt;]
 writing output/DBRDUST-ECONUS-CH-01-0.47um.png
 writing output/DBRDUST-ECONUS-CH-02-0.64um.png
 writing output/DBRDUST-ECONUS-CH-03-0.87um.png
 writing output/DBRDUST-ECONUS-RGB.png
-selected time: [&lt;DataTime instance: 2021-05-28 06:56:14 &gt;]
+selected time: [&lt;DataTime instance: 2025-02-11 23:41:17 &gt;]
 writing output/GEOCOLR-ECONUS-CH-01-0.47um.png
 writing output/GEOCOLR-ECONUS-CH-02-0.64um.png
 writing output/GEOCOLR-ECONUS-CH-03-0.87um.png
@@ -455,33 +459,57 @@ writing output/GEOCOLR-ECONUS-RGB.png
 Done!
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Figure</span> <span class="n">size</span> <span class="mi">432</span><span class="n">x288</span> <span class="k">with</span> <span class="mi">0</span> <span class="n">Axes</span><span class="o">&gt;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Figure</span> <span class="n">size</span> <span class="mi">640</span><span class="n">x480</span> <span class="k">with</span> <span class="mi">0</span> <span class="n">Axes</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<img alt="../../_images/GOES_CIRA_Product_Writer_25_2.png" src="../../_images/GOES_CIRA_Product_Writer_25_2.png" />
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Figure</span> <span class="n">size</span> <span class="mi">432</span><span class="n">x288</span> <span class="k">with</span> <span class="mi">0</span> <span class="n">Axes</span><span class="o">&gt;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Figure</span> <span class="n">size</span> <span class="mi">640</span><span class="n">x480</span> <span class="k">with</span> <span class="mi">0</span> <span class="n">Axes</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<img alt="../../_images/GOES_CIRA_Product_Writer_25_4.png" src="../../_images/GOES_CIRA_Product_Writer_25_4.png" />
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Figure</span> <span class="n">size</span> <span class="mi">432</span><span class="n">x288</span> <span class="k">with</span> <span class="mi">0</span> <span class="n">Axes</span><span class="o">&gt;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Figure</span> <span class="n">size</span> <span class="mi">640</span><span class="n">x480</span> <span class="k">with</span> <span class="mi">0</span> <span class="n">Axes</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<img alt="../../_images/GOES_CIRA_Product_Writer_25_6.png" src="../../_images/GOES_CIRA_Product_Writer_25_6.png" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Figure</span> <span class="n">size</span> <span class="mi">640</span><span class="n">x480</span> <span class="k">with</span> <span class="mi">0</span> <span class="n">Axes</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Figure</span> <span class="n">size</span> <span class="mi">640</span><span class="n">x480</span> <span class="k">with</span> <span class="mi">0</span> <span class="n">Axes</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Figure</span> <span class="n">size</span> <span class="mi">640</span><span class="n">x480</span> <span class="k">with</span> <span class="mi">0</span> <span class="n">Axes</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Figure</span> <span class="n">size</span> <span class="mi">640</span><span class="n">x480</span> <span class="k">with</span> <span class="mi">0</span> <span class="n">Axes</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Figure</span> <span class="n">size</span> <span class="mi">640</span><span class="n">x480</span> <span class="k">with</span> <span class="mi">0</span> <span class="n">Axes</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Figure</span> <span class="n">size</span> <span class="mi">640</span><span class="n">x480</span> <span class="k">with</span> <span class="mi">0</span> <span class="n">Axes</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Figure</span> <span class="n">size</span> <span class="mi">640</span><span class="n">x480</span> <span class="k">with</span> <span class="mi">0</span> <span class="n">Axes</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Figure</span> <span class="n">size</span> <span class="mi">640</span><span class="n">x480</span> <span class="k">with</span> <span class="mi">0</span> <span class="n">Axes</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Figure</span> <span class="n">size</span> <span class="mi">640</span><span class="n">x480</span> <span class="k">with</span> <span class="mi">0</span> <span class="n">Axes</span><span class="o">&gt;</span>
+</pre></div>
+</div>
 <p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html">Top</a></p>
 </section>
 </section>
 <hr class="docutils" />
 <section id="see-also">
-<h3>6 See Also<a class="headerlink" href="#see-also" title="Permalink to this heading"></a></h3>
+<h3>8 See Also<a class="headerlink" href="#see-also" title="Link to this heading"></a></h3>
 <section id="related-notebooks">
-<h4>6.1 Related Notebooks<a class="headerlink" href="#related-notebooks" title="Permalink to this heading"></a></h4>
+<h4>8.1 Related Notebooks<a class="headerlink" href="#related-notebooks" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p><a class="reference external" href="http://unidata.github.io/python-awips/examples/generated/Satellite_Imagery.html">Satellite
 Imagery</a></p></li>
 </ul>
 </section>
 <section id="additional-documentation">
-<h4>6.2 Additional Documentation<a class="headerlink" href="#additional-documentation" title="Permalink to this heading"></a></h4>
+<h4>8.2 Additional Documentation<a class="headerlink" href="#additional-documentation" title="Link to this heading"></a></h4>
 <p><strong>CIRA Quick Guides</strong></p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://rammb.cira.colostate.edu/training/visit/quick_guides/QuickGuide_DEBRA-Dust_20210217.pdf">DEBRA-Dust</a></p></li>
@@ -510,7 +538,6 @@ Imagery</a></p></li>
 <li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dstack.html">numpy.dstack()</a></p></li>
 </ul>
 <p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/GOES_CIRA_Product_Writer.html">Top</a></p>
-<hr class="docutils" />
 </section>
 </section>
 </section>

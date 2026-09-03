@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -13,9 +13,9 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
-      <script src="../_static/doctools.js?v=888ff710"></script>
-      <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
@@ -55,7 +55,17 @@
 <li class="toctree-l2"><a class="reference internal" href="ThriftClient.html">ThriftClient</a></li>
 <li class="toctree-l2"><a class="reference internal" href="TimeUtil.html">TimeUtil</a></li>
 <li class="toctree-l2"><a class="reference internal" href="RadarCommon.html">RadarCommon</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">IFPClient</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">IFPClient</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#awips.gfe.IFPClient.IFPClient"><code class="docutils literal notranslate"><span class="pre">IFPClient</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#awips.gfe.IFPClient.IFPClient.commitGrid"><code class="docutils literal notranslate"><span class="pre">IFPClient.commitGrid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#awips.gfe.IFPClient.IFPClient.getGridInventory"><code class="docutils literal notranslate"><span class="pre">IFPClient.getGridInventory()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#awips.gfe.IFPClient.IFPClient.getParmList"><code class="docutils literal notranslate"><span class="pre">IFPClient.getParmList()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#awips.gfe.IFPClient.IFPClient.getSelectTR"><code class="docutils literal notranslate"><span class="pre">IFPClient.getSelectTR()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#awips.gfe.IFPClient.IFPClient.getSiteID"><code class="docutils literal notranslate"><span class="pre">IFPClient.getSiteID()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="DateTimeConverter.html">DateTimeConverter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CombinedTimeQuery.html">CombinedTimeQuery</a></li>
 </ul>
@@ -92,8 +102,38 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="ifpclient">
-<h1>IFPClient<a class="headerlink" href="#ifpclient" title="Permalink to this heading"></a></h1>
+  <section id="module-awips.gfe.IFPClient">
+<span id="ifpclient"></span><h1>IFPClient<a class="headerlink" href="#module-awips.gfe.IFPClient" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="awips.gfe.IFPClient.IFPClient">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">awips.gfe.IFPClient.</span></span><span class="sig-name descname"><span class="pre">IFPClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">site</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/gfe/IFPClient.html#IFPClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.gfe.IFPClient.IFPClient" title="Link to this definition"></a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="awips.gfe.IFPClient.IFPClient.commitGrid">
+<span class="sig-name descname"><span class="pre">commitGrid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/gfe/IFPClient.html#IFPClient.commitGrid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.gfe.IFPClient.IFPClient.commitGrid" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="awips.gfe.IFPClient.IFPClient.getGridInventory">
+<span class="sig-name descname"><span class="pre">getGridInventory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parmID</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/gfe/IFPClient.html#IFPClient.getGridInventory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.gfe.IFPClient.IFPClient.getGridInventory" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="awips.gfe.IFPClient.IFPClient.getParmList">
+<span class="sig-name descname"><span class="pre">getParmList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/gfe/IFPClient.html#IFPClient.getParmList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.gfe.IFPClient.IFPClient.getParmList" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="awips.gfe.IFPClient.IFPClient.getSelectTR">
+<span class="sig-name descname"><span class="pre">getSelectTR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/gfe/IFPClient.html#IFPClient.getSelectTR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.gfe.IFPClient.IFPClient.getSelectTR" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="awips.gfe.IFPClient.IFPClient.getSiteID">
+<span class="sig-name descname"><span class="pre">getSiteID</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/gfe/IFPClient.html#IFPClient.getSiteID"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.gfe.IFPClient.IFPClient.getSiteID" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 
 

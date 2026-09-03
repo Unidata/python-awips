@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -13,9 +13,9 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=b3ba4146"></script>
-      <script src="../../_static/doctools.js?v=888ff710"></script>
-      <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -108,12 +108,12 @@
            <div itemprop="articleBody">
              
   <section id="model-sounding-data">
-<h1>Model Sounding Data<a class="headerlink" href="#model-sounding-data" title="Permalink to this heading"></a></h1>
-<p><a class="reference external" href="http://nbviewer.ipython.org/github/Unidata/python-awips/blob/master/examples/notebooks/Model_Sounding_Data.ipynb">Notebook</a>
+<h1>Model Sounding Data<a class="headerlink" href="#model-sounding-data" title="Link to this heading"></a></h1>
+<p><a class="reference external" href="https://nbviewer.org/github/Unidata/python-awips/blob/v23/examples/notebooks/Model_Sounding_Data.ipynb">Notebook</a>
 Python-AWIPS Tutorial Notebook</p>
 <hr class="docutils" />
 <section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading"></a></h2>
+<h2>Objectives<a class="headerlink" href="#objectives" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p>Use python-awips to connect to an edex server</p></li>
 <li><p>Define and filter data request for model sounding data</p></li>
@@ -126,7 +126,7 @@ plots</p></li>
 </ul>
 <hr class="docutils" />
 <section id="table-of-contents">
-<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading"></a></h3>
+<h3>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading"></a></h3>
 <div class="line-block">
 <div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#imports">1
 Imports</a></div>
@@ -144,8 +144,8 @@ Time</a></div>
 Data!</a></div>
 <div class="line"><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#use-the-data">6 Use the
 Data!</a></div>
-<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#prepare-data-objects">6.1 Prepare Data
-Objects</a></div>
+<div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#prepare-data-objects">6.1 Prepare data
+objects</a></div>
 <div class="line">    <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#calculate-dewpoint-from-specific-humidity">6.2 Calculate Dewpoint from Specific
 Humidity</a></div>
 <div class="line">        <a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html#method-1">6.2.1 Method
@@ -165,7 +165,7 @@ Documentation</a></div>
 </div>
 </section>
 <section id="imports">
-<h3>1 Imports<a class="headerlink" href="#imports" title="Permalink to this heading"></a></h3>
+<h3>1 Imports<a class="headerlink" href="#imports" title="Link to this heading"></a></h3>
 <p>The imports below are used throughout the notebook. Note the first
 import is coming directly from python-awips and allows us to connect to
 an EDEX server. The subsequent imports are for data manipulation and
@@ -184,26 +184,26 @@ visualization.</p>
 </section>
 <hr class="docutils" />
 <section id="edex-connection">
-<h3>2 EDEX Connection<a class="headerlink" href="#edex-connection" title="Permalink to this heading"></a></h3>
+<h3>2 EDEX Connection<a class="headerlink" href="#edex-connection" title="Link to this heading"></a></h3>
 <p>First we establish a connection to Unidata’s public EDEX server. With
 that connection made, we can create a <a class="reference external" href="http://unidata.github.io/python-awips/api/IDataRequest.html">new data request
 object</a>
 and set the data type to <strong>modelsounding</strong>, and define additional
 parameters and an identifier on the request.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="s2">&quot;edex-cloud.unidata.ucar.edu&quot;</span><span class="p">)</span>
-<span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">&quot;modelsounding&quot;</span><span class="p">)</span>
-<span class="n">forecastModel</span> <span class="o">=</span> <span class="s2">&quot;GFS&quot;</span>
-<span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s2">&quot;reportType&quot;</span><span class="p">,</span> <span class="n">forecastModel</span><span class="p">)</span>
-<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s2">&quot;pressure&quot;</span><span class="p">,</span><span class="s2">&quot;temperature&quot;</span><span class="p">,</span><span class="s2">&quot;specHum&quot;</span><span class="p">,</span><span class="s2">&quot;uComp&quot;</span><span class="p">,</span><span class="s2">&quot;vComp&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">changeEDEXHost</span><span class="p">(</span><span class="s2">"edex-cloud.unidata.ucar.edu"</span><span class="p">)</span>
+<span class="n">request</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">newDataRequest</span><span class="p">(</span><span class="s2">"modelsounding"</span><span class="p">)</span>
+<span class="n">forecastModel</span> <span class="o">=</span> <span class="s2">"GFS"</span>
+<span class="n">request</span><span class="o">.</span><span class="n">addIdentifier</span><span class="p">(</span><span class="s2">"reportType"</span><span class="p">,</span> <span class="n">forecastModel</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">setParameters</span><span class="p">(</span><span class="s2">"pressure"</span><span class="p">,</span><span class="s2">"temperature"</span><span class="p">,</span><span class="s2">"specHum"</span><span class="p">,</span><span class="s2">"uComp"</span><span class="p">,</span><span class="s2">"vComp"</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html">Top</a></p>
 </section>
 <hr class="docutils" />
 <section id="setting-location">
-<h3>3 Setting Location<a class="headerlink" href="#setting-location" title="Permalink to this heading"></a></h3>
+<h3>3 Setting Location<a class="headerlink" href="#setting-location" title="Link to this heading"></a></h3>
 <section id="available-location-names">
-<h4>3.1 Available Location Names<a class="headerlink" href="#available-location-names" title="Permalink to this heading"></a></h4>
+<h4>3.1 Available Location Names<a class="headerlink" href="#available-location-names" title="Link to this heading"></a></h4>
 <p>When working with a new data type, it is often useful to investigate all
 available options for a particular setting. Shown below is how to see
 all available location names for a data request with type
@@ -215,1015 +215,1015 @@ you’re interested in is.</p>
 <span class="nb">list</span><span class="p">(</span><span class="n">locations</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
- <span class="s1">&#39;1V4&#39;</span><span class="p">,</span>
- <span class="s1">&#39;3J2&#39;</span><span class="p">,</span>
- <span class="s1">&#39;4BL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;4BQ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;4HV&#39;</span><span class="p">,</span>
- <span class="s1">&#39;4OM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;5AF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;5AG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;5SZ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;6RO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;8V7&#39;</span><span class="p">,</span>
- <span class="s1">&#39;9B6&#39;</span><span class="p">,</span>
- <span class="s1">&#39;A#2&#39;</span><span class="p">,</span>
- <span class="s1">&#39;A#3&#39;</span><span class="p">,</span>
- <span class="s1">&#39;A#4&#39;</span><span class="p">,</span>
- <span class="s1">&#39;A#5&#39;</span><span class="p">,</span>
- <span class="s1">&#39;A#6&#39;</span><span class="p">,</span>
- <span class="s1">&#39;A#7&#39;</span><span class="p">,</span>
- <span class="s1">&#39;A#8&#39;</span><span class="p">,</span>
- <span class="s1">&#39;A#9&#39;</span><span class="p">,</span>
- <span class="s1">&#39;A#A&#39;</span><span class="p">,</span>
- <span class="s1">&#39;A#B&#39;</span><span class="p">,</span>
- <span class="s1">&#39;ABL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;ADM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;AFA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;AGR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;AHN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;AIA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;AIH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;AJO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;ANJ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;APX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;AQQ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;ATH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;ATL1&#39;</span><span class="p">,</span>
- <span class="s1">&#39;ATL2&#39;</span><span class="p">,</span>
- <span class="s1">&#39;ATL3&#39;</span><span class="p">,</span>
- <span class="s1">&#39;ATL4&#39;</span><span class="p">,</span>
- <span class="s1">&#39;ATLH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;AWH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;AWR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;B#1&#39;</span><span class="p">,</span>
- <span class="s1">&#39;B#2&#39;</span><span class="p">,</span>
- <span class="s1">&#39;B#3&#39;</span><span class="p">,</span>
- <span class="s1">&#39;B#4&#39;</span><span class="p">,</span>
- <span class="s1">&#39;B#5&#39;</span><span class="p">,</span>
- <span class="s1">&#39;B#6&#39;</span><span class="p">,</span>
- <span class="s1">&#39;B#7&#39;</span><span class="p">,</span>
- <span class="s1">&#39;B#8&#39;</span><span class="p">,</span>
- <span class="s1">&#39;B#9&#39;</span><span class="p">,</span>
- <span class="s1">&#39;B#A&#39;</span><span class="p">,</span>
- <span class="s1">&#39;B#B&#39;</span><span class="p">,</span>
- <span class="s1">&#39;B#C&#39;</span><span class="p">,</span>
- <span class="s1">&#39;B#D&#39;</span><span class="p">,</span>
- <span class="s1">&#39;B#E&#39;</span><span class="p">,</span>
- <span class="s1">&#39;B#F&#39;</span><span class="p">,</span>
- <span class="s1">&#39;B#G&#39;</span><span class="p">,</span>
- <span class="s1">&#39;B#H&#39;</span><span class="p">,</span>
- <span class="s1">&#39;B#J&#39;</span><span class="p">,</span>
- <span class="s1">&#39;B#K&#39;</span><span class="p">,</span>
- <span class="s1">&#39;B#L&#39;</span><span class="p">,</span>
- <span class="s1">&#39;B#M&#39;</span><span class="p">,</span>
- <span class="s1">&#39;B#N&#39;</span><span class="p">,</span>
- <span class="s1">&#39;B#O&#39;</span><span class="p">,</span>
- <span class="s1">&#39;B#P&#39;</span><span class="p">,</span>
- <span class="s1">&#39;B#Q&#39;</span><span class="p">,</span>
- <span class="s1">&#39;B#S&#39;</span><span class="p">,</span>
- <span class="s1">&#39;BAB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;BDG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;BDP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;BFL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;BGTL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;BH1&#39;</span><span class="p">,</span>
- <span class="s1">&#39;BH2&#39;</span><span class="p">,</span>
- <span class="s1">&#39;BH3&#39;</span><span class="p">,</span>
- <span class="s1">&#39;BH4&#39;</span><span class="p">,</span>
- <span class="s1">&#39;BH5&#39;</span><span class="p">,</span>
- <span class="s1">&#39;BHK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;BID&#39;</span><span class="p">,</span>
- <span class="s1">&#39;BIR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;BLS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;BLU&#39;</span><span class="p">,</span>
- <span class="s1">&#39;BMX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;BNA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;BOD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;BRA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;BTL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;BVR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C01&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C02&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C03&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C04&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C06&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C07&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C08&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C09&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C10&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C11&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C12&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C13&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C14&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C17&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C18&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C19&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C20&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C21&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C22&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C23&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C24&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C25&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C27&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C28&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C30&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C31&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C32&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C33&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C34&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C35&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C36&#39;</span><span class="p">,</span>
- <span class="s1">&#39;C7H&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CAI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CAN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CBE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CBN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CHE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CKN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CLD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CLE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CLN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;COL1&#39;</span><span class="p">,</span>
- <span class="s1">&#39;COL2&#39;</span><span class="p">,</span>
- <span class="s1">&#39;COL3&#39;</span><span class="p">,</span>
- <span class="s1">&#39;COL4&#39;</span><span class="p">,</span>
- <span class="s1">&#39;COT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CQV&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CRL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CRR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CTY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CVM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CVS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CWEU&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CWFN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CWKX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CWLB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CWLO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CWLT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CWLW&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CWMW&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CWOS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CWPH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CWQG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CWSA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CWSE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CWZB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CWZC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CWZV&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYAH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYAW&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYBK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYBU&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYCB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYCG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYCX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYDA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYEG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYEV&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYFB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYFO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYFS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYGQ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYHM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYHZ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYJT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYLH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYLJ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYMD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYMO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYMT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYMX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYOC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYOW&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYPA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYPE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYPL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYPQ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYQA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYQD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYQG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYQH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYQI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYQK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYQQ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYQR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYQT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYQX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYQY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYRB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYSM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYSY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYTH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYTL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYTS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYUL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYUX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYVO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYVP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYVQ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYVR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYVV&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYWA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYWG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYWO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYXC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYXE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYXH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYXS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYXU&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYXX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYXY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYXZ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYYB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYYC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYYE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYYJ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYYQ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYYR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYYT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYYZ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYZF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYZS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYZT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;CYZV&#39;</span><span class="p">,</span>
- <span class="s1">&#39;DEN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;DOV&#39;</span><span class="p">,</span>
- <span class="s1">&#39;DPG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;DSC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;DSD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;DTX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;DVN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;DYS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;E28&#39;</span><span class="p">,</span>
- <span class="s1">&#39;E74&#39;</span><span class="p">,</span>
- <span class="s1">&#39;EAT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;EAX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;EDW&#39;</span><span class="p">,</span>
- <span class="s1">&#39;EFL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;EMP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;END&#39;</span><span class="p">,</span>
- <span class="s1">&#39;ENL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;ESTC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;FCS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;FDR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;FFC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;FHU&#39;</span><span class="p">,</span>
- <span class="s1">&#39;FLG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;FLP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;FPK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;FRI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;FSI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;FTR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;FWD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;G#1&#39;</span><span class="p">,</span>
- <span class="s1">&#39;G#2&#39;</span><span class="p">,</span>
- <span class="s1">&#39;G#3&#39;</span><span class="p">,</span>
- <span class="s1">&#39;G#4&#39;</span><span class="p">,</span>
- <span class="s1">&#39;G#5&#39;</span><span class="p">,</span>
- <span class="s1">&#39;G#6&#39;</span><span class="p">,</span>
- <span class="s1">&#39;G#7&#39;</span><span class="p">,</span>
- <span class="s1">&#39;G#8&#39;</span><span class="p">,</span>
- <span class="s1">&#39;G#9&#39;</span><span class="p">,</span>
- <span class="s1">&#39;G#A&#39;</span><span class="p">,</span>
- <span class="s1">&#39;G#B&#39;</span><span class="p">,</span>
- <span class="s1">&#39;G#C&#39;</span><span class="p">,</span>
- <span class="s1">&#39;G#D&#39;</span><span class="p">,</span>
- <span class="s1">&#39;G#E&#39;</span><span class="p">,</span>
- <span class="s1">&#39;G#F&#39;</span><span class="p">,</span>
- <span class="s1">&#39;G#G&#39;</span><span class="p">,</span>
- <span class="s1">&#39;G001&#39;</span><span class="p">,</span>
- <span class="s1">&#39;G003&#39;</span><span class="p">,</span>
- <span class="s1">&#39;G004&#39;</span><span class="p">,</span>
- <span class="s1">&#39;G005&#39;</span><span class="p">,</span>
- <span class="s1">&#39;G007&#39;</span><span class="p">,</span>
- <span class="s1">&#39;G009&#39;</span><span class="p">,</span>
- <span class="s1">&#39;GDP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;GDV&#39;</span><span class="p">,</span>
- <span class="s1">&#39;GLRY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;GMX1&#39;</span><span class="p">,</span>
- <span class="s1">&#39;GNB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;GNC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;GRF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;GTB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;GTP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;GVL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;GVS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;GYX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;H02&#39;</span><span class="p">,</span>
- <span class="s1">&#39;HAY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;HGR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;HMN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;HOM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;HOO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;HSI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;HYR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;HYS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;ICC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;IGM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;ILN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;ILS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;ILX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;IMT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;INK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;IPX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;JACK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;JDN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;K40B&#39;</span><span class="p">,</span>
- <span class="s1">&#39;K9V9&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KABE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KABI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KABQ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KABR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KABY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KACK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KACT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KACV&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KACY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KAGC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KAGS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KAHN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KAK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KALB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KALI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KALO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KALS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KALW&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KAMA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KAN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KANB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KAND&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KAOO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KAPA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KAPN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KART&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KASE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KAST&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KATL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KATY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KAUG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KAUS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KAUW&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KAVL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KAVP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KAXN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KAYS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KAZO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBAF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBCE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBDE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBDL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBDR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBED&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBFD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBFF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBFI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBFL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBGM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBGR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBHB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBHM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBIH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBIL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBIS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBJC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBJI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBKE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBKW&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBLF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBLH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBLI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBML&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBNA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBNO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBNV&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBOI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBOS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBPT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBQK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBRD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBRL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBRO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBTL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBTM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBTR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBTV&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBUF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBUR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBVI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBVX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBVY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBWG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBWI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBYI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KBZN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCAE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCAK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCAR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCDC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCDR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCDS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCEC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCEF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCGI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCGX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCHA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCHH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCHO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCHS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCID&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCIU&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCKB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCKL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCLE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCLL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCLM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCLT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCMH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCMI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCMX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCNM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCNU&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCOD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCOE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCON&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCOS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCOU&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCPR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCRE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCRP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCRQ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCRW&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCSG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCSV&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCTB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCVG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCWA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KCYS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KDAB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KDAG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KDAL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KDAN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KDAY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KDBQ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KDCA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KDDC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KDEC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KDEN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KDET&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KDFW&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KDHN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KDHT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KDIK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KDLH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KDLS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KDMN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KDPA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KDRA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KDRO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KDRT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KDSM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KDTW&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KDUG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KDUJ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KEAT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KEAU&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KECG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KEED&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KEGE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KEKN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KEKO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KEL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KELD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KELM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KELO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KELP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KELY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KENV&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KEPH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KEPO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KEPZ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KERI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KESF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KEUG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KEVV&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KEWB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KEWN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KEWR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KEYW&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KFAM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KFAR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KFAT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KFAY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KFCA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KFDY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KFKL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KFLG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KFLL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KFLO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KFMN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KFMY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KFNT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KFOE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KFPR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KFRM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KFSD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KFSM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KFTW&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KFTY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KFVE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KFVX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KFWA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KFXE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KFYV&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGAG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGCC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGCK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGCN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGEG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGFK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGFL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGGG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGGW&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGJT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGLD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGLH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGLS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGMU&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGNR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGNV&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGON&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGPT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGRB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGRI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGRR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGSO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGSP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGTF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGUC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGUP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGWO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGYY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KGZH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KHAT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KHBR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KHDN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KHIB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KHIO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KHKY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KHLG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KHLN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KHOB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KHON&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KHOT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KHOU&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KHPN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KHQM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KHRL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KHRO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KHSV&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KHTH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KHTS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KHUF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KHUL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KHUT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KHVN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KHVR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KHYA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KIAD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KIAG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KIAH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KICT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KIDA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KIL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KILG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KILM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KIND&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KINK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KINL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KINT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KINW&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KIPL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KIPT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KISN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KISP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KITH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KIWD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KJAC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KJAN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KJAX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KJBR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KJFK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KJHW&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KJKL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KJLN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KJMS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KJST&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KJXN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KKL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLAF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLAN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLAR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLAS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLAX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLBB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLBE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLBF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLCB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLCH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLEB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLEX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLFK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLFT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLGA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLGB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLGU&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLIT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLMT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLND&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLNK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLOL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLOZ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLRD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLSE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLUK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLVS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLWB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLWM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLWS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLWT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLYH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KLZK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMAF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMBS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMCB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMCE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMCI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMCN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMCO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMCW&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMDN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMDT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMDW&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMEI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMEM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMFD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMFE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMFR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMGM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMGW&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMHE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMHK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMHT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMHX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMIA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMIV&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMKC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMKE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMKG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMKL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMLB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMLC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMLI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMLS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMLT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMLU&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMMU&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMOB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMOT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMPV&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMQT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMRB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMRY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMSL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMSN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMSO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMSP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMSS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMSY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMTJ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMTN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMWH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KMYR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KNA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KNEW&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KNL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KNSI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KOAK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KOFK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KOGD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KOKC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KOLM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KOMA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KONT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KOPF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KOQU&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KORD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KORF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KORH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KOSH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KOTH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KOTM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KP11&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KP38&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPAE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPAH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPBF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPBI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPDK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPDT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPDX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPFN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPGA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPHF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPHL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPHN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPHX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPIA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPIB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPIE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPIH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPIR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPIT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPKB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPLN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPMD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPNC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPNE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPNS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPOU&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPQI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPRB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPRC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPSC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPSM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPSP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPTK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPUB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPVD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPVU&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KPWM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KRAD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KRAP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KRBL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KRDD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KRDG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KRDM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KRDU&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KRFD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KRIC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KRIW&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KRKD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KRKS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KRNO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KRNT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KROA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KROC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KROW&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KRSL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KRST&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KRSW&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KRUM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KRWF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KRWI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KRWL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSAC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSAF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSAN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSAT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSAV&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSBA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSBN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSBP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSBY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSCH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSCK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSDF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSDM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSDY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSEA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSEP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSFF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSFO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSGF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSGU&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSHR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSHV&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSJC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSJT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSLC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSLE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSLK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSLN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSMF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSMX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSNA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSNS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSPI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSPS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSRQ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSSI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSTJ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSTL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSTP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSTS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSUN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSUS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSUX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSVE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSWF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KSYR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KTCC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KTCL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KTCS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KTEB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KTIW&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KTLH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KTMB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KTOL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KTOP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KTPA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KTPH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KTRI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KTRK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KTRM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KTTD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KTTN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KTUL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KTUP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KTUS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KTVC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KTVL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KTWF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KTXK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KTYR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KTYS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KUCA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KUIN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KUKI&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KUNV&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KVCT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KVEL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KVLD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KVNY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KVRB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KWJF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KWMC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KWRL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KWYS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KY22&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KY26&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KYKM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KYKN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KYNG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KYUM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;KZZV&#39;</span><span class="p">,</span>
- <span class="s1">&#39;LAA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;LAP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;LBY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;LDL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;LHX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;LIC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;LOR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;LRR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;LSF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;LUS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;LVM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;LW1&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MAC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MAX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MAZ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MDPC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MDPP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MDSD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MDST&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MGFL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MGGT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MGHT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MGPB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MGSJ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MHAM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MHCA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MHCH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MHLC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MHLE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MHLM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MHNJ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MHPL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MHRO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MHSR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MHTE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MHTG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MHYR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MIB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MIE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MKJP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MKJS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MLD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMAA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMAS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMBT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMCE&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMCL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMCN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMCS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMCU&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMCV&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMCZ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMDO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMGL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMGM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMHO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMLP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMMA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMMD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMML&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMMM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMMT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMMX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMMY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMMZ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMNL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMPR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMRX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMSD&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMSP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMTC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMTJ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMTM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMTO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMTP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMUN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMVR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMZC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMZH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MMZO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MNMG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MNPC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MOR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MPBO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MPCH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MPDA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MPMG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MPSA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MPTO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MPX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MRCH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MRF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MRLB&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MRLM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MROC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MRPV&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MRS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MSAC&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MSLP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MSSS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MTCH&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MTL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MTPP&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MTV&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MTY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MUBA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MUBY&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MUCA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MUCL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MUCM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MUCU&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MUGM&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MUGT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MUHA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MUMO&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MUMZ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MUNG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MUVR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MUVT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MWCR&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MYBS&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MYEG&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MYGF&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MYGW&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MYL&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MYNN&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MZBZ&#39;</span><span class="p">,</span>
- <span class="s1">&#39;MZT&#39;</span><span class="p">,</span>
- <span class="s1">&#39;NCK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;NGX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;NHK&#39;</span><span class="p">,</span>
- <span class="s1">&#39;NID&#39;</span><span class="p">,</span>
- <span class="s1">&#39;NKX&#39;</span><span class="p">,</span>
- <span class="s1">&#39;NOA&#39;</span><span class="p">,</span>
- <span class="s1">&#39;NRU&#39;</span><span class="p">,</span>
- <span class="s1">&#39;NTD&#39;</span><span class="p">,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">'1V4'</span><span class="p">,</span>
+ <span class="s1">'2I0'</span><span class="p">,</span>
+ <span class="s1">'2IS'</span><span class="p">,</span>
+ <span class="s1">'3J2'</span><span class="p">,</span>
+ <span class="s1">'4BL'</span><span class="p">,</span>
+ <span class="s1">'4BQ'</span><span class="p">,</span>
+ <span class="s1">'4HV'</span><span class="p">,</span>
+ <span class="s1">'4OM'</span><span class="p">,</span>
+ <span class="s1">'5AF'</span><span class="p">,</span>
+ <span class="s1">'5AG'</span><span class="p">,</span>
+ <span class="s1">'5SZ'</span><span class="p">,</span>
+ <span class="s1">'6RO'</span><span class="p">,</span>
+ <span class="s1">'82MN'</span><span class="p">,</span>
+ <span class="s1">'8V7'</span><span class="p">,</span>
+ <span class="s1">'95E'</span><span class="p">,</span>
+ <span class="s1">'9B6'</span><span class="p">,</span>
+ <span class="s1">'A#2'</span><span class="p">,</span>
+ <span class="s1">'A#3'</span><span class="p">,</span>
+ <span class="s1">'A#4'</span><span class="p">,</span>
+ <span class="s1">'A#5'</span><span class="p">,</span>
+ <span class="s1">'A#6'</span><span class="p">,</span>
+ <span class="s1">'A#7'</span><span class="p">,</span>
+ <span class="s1">'A#8'</span><span class="p">,</span>
+ <span class="s1">'A#9'</span><span class="p">,</span>
+ <span class="s1">'A#A'</span><span class="p">,</span>
+ <span class="s1">'A#B'</span><span class="p">,</span>
+ <span class="s1">'A#C'</span><span class="p">,</span>
+ <span class="s1">'A#D'</span><span class="p">,</span>
+ <span class="s1">'A#E'</span><span class="p">,</span>
+ <span class="s1">'ABL'</span><span class="p">,</span>
+ <span class="s1">'ADM'</span><span class="p">,</span>
+ <span class="s1">'AFA'</span><span class="p">,</span>
+ <span class="s1">'AGR'</span><span class="p">,</span>
+ <span class="s1">'AHN'</span><span class="p">,</span>
+ <span class="s1">'AIH'</span><span class="p">,</span>
+ <span class="s1">'AJO'</span><span class="p">,</span>
+ <span class="s1">'AKO'</span><span class="p">,</span>
+ <span class="s1">'ALTA'</span><span class="p">,</span>
+ <span class="s1">'ANJ'</span><span class="p">,</span>
+ <span class="s1">'APPL'</span><span class="p">,</span>
+ <span class="s1">'APX'</span><span class="p">,</span>
+ <span class="s1">'AQQ'</span><span class="p">,</span>
+ <span class="s1">'ATH'</span><span class="p">,</span>
+ <span class="s1">'ATL1'</span><span class="p">,</span>
+ <span class="s1">'ATL2'</span><span class="p">,</span>
+ <span class="s1">'ATL3'</span><span class="p">,</span>
+ <span class="s1">'ATL4'</span><span class="p">,</span>
+ <span class="s1">'ATL5'</span><span class="p">,</span>
+ <span class="s1">'ATL6'</span><span class="p">,</span>
+ <span class="s1">'ATLH'</span><span class="p">,</span>
+ <span class="s1">'AWH'</span><span class="p">,</span>
+ <span class="s1">'AWR'</span><span class="p">,</span>
+ <span class="s1">'B#1'</span><span class="p">,</span>
+ <span class="s1">'B#2'</span><span class="p">,</span>
+ <span class="s1">'B#3'</span><span class="p">,</span>
+ <span class="s1">'B#4'</span><span class="p">,</span>
+ <span class="s1">'B#5'</span><span class="p">,</span>
+ <span class="s1">'B#6'</span><span class="p">,</span>
+ <span class="s1">'B#7'</span><span class="p">,</span>
+ <span class="s1">'B#8'</span><span class="p">,</span>
+ <span class="s1">'B#9'</span><span class="p">,</span>
+ <span class="s1">'B#A'</span><span class="p">,</span>
+ <span class="s1">'B#B'</span><span class="p">,</span>
+ <span class="s1">'B#C'</span><span class="p">,</span>
+ <span class="s1">'B#D'</span><span class="p">,</span>
+ <span class="s1">'B#E'</span><span class="p">,</span>
+ <span class="s1">'B#F'</span><span class="p">,</span>
+ <span class="s1">'B#G'</span><span class="p">,</span>
+ <span class="s1">'B#H'</span><span class="p">,</span>
+ <span class="s1">'B#J'</span><span class="p">,</span>
+ <span class="s1">'B#K'</span><span class="p">,</span>
+ <span class="s1">'B#L'</span><span class="p">,</span>
+ <span class="s1">'B#M'</span><span class="p">,</span>
+ <span class="s1">'B#N'</span><span class="p">,</span>
+ <span class="s1">'B#O'</span><span class="p">,</span>
+ <span class="s1">'B#P'</span><span class="p">,</span>
+ <span class="s1">'B#Q'</span><span class="p">,</span>
+ <span class="s1">'B#S'</span><span class="p">,</span>
+ <span class="s1">'B#T'</span><span class="p">,</span>
+ <span class="s1">'B#U'</span><span class="p">,</span>
+ <span class="s1">'B#V'</span><span class="p">,</span>
+ <span class="s1">'B#W'</span><span class="p">,</span>
+ <span class="s1">'B#X'</span><span class="p">,</span>
+ <span class="s1">'B015'</span><span class="p">,</span>
+ <span class="s1">'B40'</span><span class="p">,</span>
+ <span class="s1">'B41'</span><span class="p">,</span>
+ <span class="s1">'B42'</span><span class="p">,</span>
+ <span class="s1">'B43'</span><span class="p">,</span>
+ <span class="s1">'B44'</span><span class="p">,</span>
+ <span class="s1">'B45'</span><span class="p">,</span>
+ <span class="s1">'B46'</span><span class="p">,</span>
+ <span class="s1">'B47'</span><span class="p">,</span>
+ <span class="s1">'B48'</span><span class="p">,</span>
+ <span class="s1">'B49'</span><span class="p">,</span>
+ <span class="s1">'BAB'</span><span class="p">,</span>
+ <span class="s1">'BAX'</span><span class="p">,</span>
+ <span class="s1">'BBD'</span><span class="p">,</span>
+ <span class="s1">'BDG'</span><span class="p">,</span>
+ <span class="s1">'BDP'</span><span class="p">,</span>
+ <span class="s1">'BDS'</span><span class="p">,</span>
+ <span class="s1">'BFL'</span><span class="p">,</span>
+ <span class="s1">'BFX'</span><span class="p">,</span>
+ <span class="s1">'BGTL'</span><span class="p">,</span>
+ <span class="s1">'BH1'</span><span class="p">,</span>
+ <span class="s1">'BH2'</span><span class="p">,</span>
+ <span class="s1">'BH3'</span><span class="p">,</span>
+ <span class="s1">'BH4'</span><span class="p">,</span>
+ <span class="s1">'BH5'</span><span class="p">,</span>
+ <span class="s1">'BHK'</span><span class="p">,</span>
+ <span class="s1">'BID'</span><span class="p">,</span>
+ <span class="s1">'BIR'</span><span class="p">,</span>
+ <span class="s1">'BIV'</span><span class="p">,</span>
+ <span class="s1">'BKY'</span><span class="p">,</span>
+ <span class="s1">'BLS'</span><span class="p">,</span>
+ <span class="s1">'BLU'</span><span class="p">,</span>
+ <span class="s1">'BMX'</span><span class="p">,</span>
+ <span class="s1">'BNA'</span><span class="p">,</span>
+ <span class="s1">'BNY'</span><span class="p">,</span>
+ <span class="s1">'BOD'</span><span class="p">,</span>
+ <span class="s1">'BON'</span><span class="p">,</span>
+ <span class="s1">'BPK'</span><span class="p">,</span>
+ <span class="s1">'BRA'</span><span class="p">,</span>
+ <span class="s1">'BS1'</span><span class="p">,</span>
+ <span class="s1">'BS2'</span><span class="p">,</span>
+ <span class="s1">'BS3'</span><span class="p">,</span>
+ <span class="s1">'BTL'</span><span class="p">,</span>
+ <span class="s1">'BVR'</span><span class="p">,</span>
+ <span class="s1">'BYG'</span><span class="p">,</span>
+ <span class="s1">'C01'</span><span class="p">,</span>
+ <span class="s1">'C02'</span><span class="p">,</span>
+ <span class="s1">'C03'</span><span class="p">,</span>
+ <span class="s1">'C04'</span><span class="p">,</span>
+ <span class="s1">'C06'</span><span class="p">,</span>
+ <span class="s1">'C07'</span><span class="p">,</span>
+ <span class="s1">'C08'</span><span class="p">,</span>
+ <span class="s1">'C09'</span><span class="p">,</span>
+ <span class="s1">'C10'</span><span class="p">,</span>
+ <span class="s1">'C11'</span><span class="p">,</span>
+ <span class="s1">'C12'</span><span class="p">,</span>
+ <span class="s1">'C13'</span><span class="p">,</span>
+ <span class="s1">'C14'</span><span class="p">,</span>
+ <span class="s1">'C18'</span><span class="p">,</span>
+ <span class="s1">'C19'</span><span class="p">,</span>
+ <span class="s1">'C22'</span><span class="p">,</span>
+ <span class="s1">'C23'</span><span class="p">,</span>
+ <span class="s1">'C25'</span><span class="p">,</span>
+ <span class="s1">'C27'</span><span class="p">,</span>
+ <span class="s1">'C28'</span><span class="p">,</span>
+ <span class="s1">'C32'</span><span class="p">,</span>
+ <span class="s1">'C33'</span><span class="p">,</span>
+ <span class="s1">'C34'</span><span class="p">,</span>
+ <span class="s1">'C35'</span><span class="p">,</span>
+ <span class="s1">'C36'</span><span class="p">,</span>
+ <span class="s1">'C7H'</span><span class="p">,</span>
+ <span class="s1">'CAI'</span><span class="p">,</span>
+ <span class="s1">'CAN'</span><span class="p">,</span>
+ <span class="s1">'CBE'</span><span class="p">,</span>
+ <span class="s1">'CBN'</span><span class="p">,</span>
+ <span class="s1">'CCL'</span><span class="p">,</span>
+ <span class="s1">'CCR'</span><span class="p">,</span>
+ <span class="s1">'CFC'</span><span class="p">,</span>
+ <span class="s1">'CHE'</span><span class="p">,</span>
+ <span class="s1">'CHRL'</span><span class="p">,</span>
+ <span class="s1">'CKN'</span><span class="p">,</span>
+ <span class="s1">'CLD'</span><span class="p">,</span>
+ <span class="s1">'CLE'</span><span class="p">,</span>
+ <span class="s1">'CLN'</span><span class="p">,</span>
+ <span class="s1">'CND'</span><span class="p">,</span>
+ <span class="s1">'CNLK'</span><span class="p">,</span>
+ <span class="s1">'CNN'</span><span class="p">,</span>
+ <span class="s1">'COA'</span><span class="p">,</span>
+ <span class="s1">'COL1'</span><span class="p">,</span>
+ <span class="s1">'COL2'</span><span class="p">,</span>
+ <span class="s1">'COL3'</span><span class="p">,</span>
+ <span class="s1">'COL4'</span><span class="p">,</span>
+ <span class="s1">'COT'</span><span class="p">,</span>
+ <span class="s1">'COV'</span><span class="p">,</span>
+ <span class="s1">'CQV'</span><span class="p">,</span>
+ <span class="s1">'CRL'</span><span class="p">,</span>
+ <span class="s1">'CRR'</span><span class="p">,</span>
+ <span class="s1">'CSQ'</span><span class="p">,</span>
+ <span class="s1">'CTY'</span><span class="p">,</span>
+ <span class="s1">'CVD'</span><span class="p">,</span>
+ <span class="s1">'CVM'</span><span class="p">,</span>
+ <span class="s1">'CVS'</span><span class="p">,</span>
+ <span class="s1">'CWEU'</span><span class="p">,</span>
+ <span class="s1">'CWFN'</span><span class="p">,</span>
+ <span class="s1">'CWKX'</span><span class="p">,</span>
+ <span class="s1">'CWLB'</span><span class="p">,</span>
+ <span class="s1">'CWLO'</span><span class="p">,</span>
+ <span class="s1">'CWLT'</span><span class="p">,</span>
+ <span class="s1">'CWLW'</span><span class="p">,</span>
+ <span class="s1">'CWMW'</span><span class="p">,</span>
+ <span class="s1">'CWOS'</span><span class="p">,</span>
+ <span class="s1">'CWPH'</span><span class="p">,</span>
+ <span class="s1">'CWQG'</span><span class="p">,</span>
+ <span class="s1">'CWSA'</span><span class="p">,</span>
+ <span class="s1">'CWSE'</span><span class="p">,</span>
+ <span class="s1">'CWZB'</span><span class="p">,</span>
+ <span class="s1">'CWZC'</span><span class="p">,</span>
+ <span class="s1">'CWZV'</span><span class="p">,</span>
+ <span class="s1">'CYAH'</span><span class="p">,</span>
+ <span class="s1">'CYAW'</span><span class="p">,</span>
+ <span class="s1">'CYBK'</span><span class="p">,</span>
+ <span class="s1">'CYBU'</span><span class="p">,</span>
+ <span class="s1">'CYCB'</span><span class="p">,</span>
+ <span class="s1">'CYCG'</span><span class="p">,</span>
+ <span class="s1">'CYCX'</span><span class="p">,</span>
+ <span class="s1">'CYDA'</span><span class="p">,</span>
+ <span class="s1">'CYDF'</span><span class="p">,</span>
+ <span class="s1">'CYEG'</span><span class="p">,</span>
+ <span class="s1">'CYEV'</span><span class="p">,</span>
+ <span class="s1">'CYFB'</span><span class="p">,</span>
+ <span class="s1">'CYFO'</span><span class="p">,</span>
+ <span class="s1">'CYFS'</span><span class="p">,</span>
+ <span class="s1">'CYGQ'</span><span class="p">,</span>
+ <span class="s1">'CYHM'</span><span class="p">,</span>
+ <span class="s1">'CYHZ'</span><span class="p">,</span>
+ <span class="s1">'CYJT'</span><span class="p">,</span>
+ <span class="s1">'CYKF'</span><span class="p">,</span>
+ <span class="s1">'CYLH'</span><span class="p">,</span>
+ <span class="s1">'CYLJ'</span><span class="p">,</span>
+ <span class="s1">'CYMD'</span><span class="p">,</span>
+ <span class="s1">'CYMO'</span><span class="p">,</span>
+ <span class="s1">'CYMT'</span><span class="p">,</span>
+ <span class="s1">'CYMX'</span><span class="p">,</span>
+ <span class="s1">'CYOC'</span><span class="p">,</span>
+ <span class="s1">'CYOW'</span><span class="p">,</span>
+ <span class="s1">'CYPA'</span><span class="p">,</span>
+ <span class="s1">'CYPE'</span><span class="p">,</span>
+ <span class="s1">'CYPL'</span><span class="p">,</span>
+ <span class="s1">'CYPQ'</span><span class="p">,</span>
+ <span class="s1">'CYQA'</span><span class="p">,</span>
+ <span class="s1">'CYQD'</span><span class="p">,</span>
+ <span class="s1">'CYQG'</span><span class="p">,</span>
+ <span class="s1">'CYQH'</span><span class="p">,</span>
+ <span class="s1">'CYQI'</span><span class="p">,</span>
+ <span class="s1">'CYQK'</span><span class="p">,</span>
+ <span class="s1">'CYQM'</span><span class="p">,</span>
+ <span class="s1">'CYQQ'</span><span class="p">,</span>
+ <span class="s1">'CYQR'</span><span class="p">,</span>
+ <span class="s1">'CYQT'</span><span class="p">,</span>
+ <span class="s1">'CYQX'</span><span class="p">,</span>
+ <span class="s1">'CYQY'</span><span class="p">,</span>
+ <span class="s1">'CYRB'</span><span class="p">,</span>
+ <span class="s1">'CYSJ'</span><span class="p">,</span>
+ <span class="s1">'CYSM'</span><span class="p">,</span>
+ <span class="s1">'CYSY'</span><span class="p">,</span>
+ <span class="s1">'CYTH'</span><span class="p">,</span>
+ <span class="s1">'CYTL'</span><span class="p">,</span>
+ <span class="s1">'CYTS'</span><span class="p">,</span>
+ <span class="s1">'CYUL'</span><span class="p">,</span>
+ <span class="s1">'CYUX'</span><span class="p">,</span>
+ <span class="s1">'CYVO'</span><span class="p">,</span>
+ <span class="s1">'CYVP'</span><span class="p">,</span>
+ <span class="s1">'CYVQ'</span><span class="p">,</span>
+ <span class="s1">'CYVR'</span><span class="p">,</span>
+ <span class="s1">'CYVV'</span><span class="p">,</span>
+ <span class="s1">'CYWA'</span><span class="p">,</span>
+ <span class="s1">'CYWG'</span><span class="p">,</span>
+ <span class="s1">'CYWO'</span><span class="p">,</span>
+ <span class="s1">'CYXC'</span><span class="p">,</span>
+ <span class="s1">'CYXE'</span><span class="p">,</span>
+ <span class="s1">'CYXH'</span><span class="p">,</span>
+ <span class="s1">'CYXS'</span><span class="p">,</span>
+ <span class="s1">'CYXU'</span><span class="p">,</span>
+ <span class="s1">'CYXX'</span><span class="p">,</span>
+ <span class="s1">'CYXY'</span><span class="p">,</span>
+ <span class="s1">'CYXZ'</span><span class="p">,</span>
+ <span class="s1">'CYYB'</span><span class="p">,</span>
+ <span class="s1">'CYYC'</span><span class="p">,</span>
+ <span class="s1">'CYYE'</span><span class="p">,</span>
+ <span class="s1">'CYYG'</span><span class="p">,</span>
+ <span class="s1">'CYYJ'</span><span class="p">,</span>
+ <span class="s1">'CYYL'</span><span class="p">,</span>
+ <span class="s1">'CYYQ'</span><span class="p">,</span>
+ <span class="s1">'CYYR'</span><span class="p">,</span>
+ <span class="s1">'CYYT'</span><span class="p">,</span>
+ <span class="s1">'CYYZ'</span><span class="p">,</span>
+ <span class="s1">'CYZF'</span><span class="p">,</span>
+ <span class="s1">'CYZS'</span><span class="p">,</span>
+ <span class="s1">'CYZT'</span><span class="p">,</span>
+ <span class="s1">'CYZV'</span><span class="p">,</span>
+ <span class="s1">'CYZX'</span><span class="p">,</span>
+ <span class="s1">'CZC'</span><span class="p">,</span>
+ <span class="s1">'D07'</span><span class="p">,</span>
+ <span class="s1">'D55'</span><span class="p">,</span>
+ <span class="s1">'DDOR'</span><span class="p">,</span>
+ <span class="s1">'DEN'</span><span class="p">,</span>
+ <span class="s1">'DOV'</span><span class="p">,</span>
+ <span class="s1">'DPG'</span><span class="p">,</span>
+ <span class="s1">'DSC'</span><span class="p">,</span>
+ <span class="s1">'DSD'</span><span class="p">,</span>
+ <span class="s1">'DTX'</span><span class="p">,</span>
+ <span class="s1">'DVN'</span><span class="p">,</span>
+ <span class="s1">'DYS'</span><span class="p">,</span>
+ <span class="s1">'E28'</span><span class="p">,</span>
+ <span class="s1">'E74'</span><span class="p">,</span>
+ <span class="s1">'EAX'</span><span class="p">,</span>
+ <span class="s1">'EDW'</span><span class="p">,</span>
+ <span class="s1">'EFL'</span><span class="p">,</span>
+ <span class="s1">'ELZB'</span><span class="p">,</span>
+ <span class="s1">'EMF'</span><span class="p">,</span>
+ <span class="s1">'EMP'</span><span class="p">,</span>
+ <span class="s1">'END'</span><span class="p">,</span>
+ <span class="s1">'ENL'</span><span class="p">,</span>
+ <span class="s1">'EON'</span><span class="p">,</span>
+ <span class="s1">'ESTC'</span><span class="p">,</span>
+ <span class="s1">'EVR'</span><span class="p">,</span>
+ <span class="s1">'EVW'</span><span class="p">,</span>
+ <span class="s1">'FCS'</span><span class="p">,</span>
+ <span class="s1">'FDR'</span><span class="p">,</span>
+ <span class="s1">'FFC'</span><span class="p">,</span>
+ <span class="s1">'FHU'</span><span class="p">,</span>
+ <span class="s1">'FLG'</span><span class="p">,</span>
+ <span class="s1">'FLK'</span><span class="p">,</span>
+ <span class="s1">'FLP'</span><span class="p">,</span>
+ <span class="s1">'FNB'</span><span class="p">,</span>
+ <span class="s1">'FPK'</span><span class="p">,</span>
+ <span class="s1">'FPS7'</span><span class="p">,</span>
+ <span class="s1">'FRI'</span><span class="p">,</span>
+ <span class="s1">'FRO'</span><span class="p">,</span>
+ <span class="s1">'FRS'</span><span class="p">,</span>
+ <span class="s1">'FSI'</span><span class="p">,</span>
+ <span class="s1">'FSTK'</span><span class="p">,</span>
+ <span class="s1">'FTR'</span><span class="p">,</span>
+ <span class="s1">'FTSR'</span><span class="p">,</span>
+ <span class="s1">'FWD'</span><span class="p">,</span>
+ <span class="s1">'FZP'</span><span class="p">,</span>
+ <span class="s1">'G#1'</span><span class="p">,</span>
+ <span class="s1">'G#2'</span><span class="p">,</span>
+ <span class="s1">'G#3'</span><span class="p">,</span>
+ <span class="s1">'G#4'</span><span class="p">,</span>
+ <span class="s1">'G#5'</span><span class="p">,</span>
+ <span class="s1">'G#6'</span><span class="p">,</span>
+ <span class="s1">'G#7'</span><span class="p">,</span>
+ <span class="s1">'G#8'</span><span class="p">,</span>
+ <span class="s1">'G#9'</span><span class="p">,</span>
+ <span class="s1">'G#A'</span><span class="p">,</span>
+ <span class="s1">'G#B'</span><span class="p">,</span>
+ <span class="s1">'G#C'</span><span class="p">,</span>
+ <span class="s1">'G#D'</span><span class="p">,</span>
+ <span class="s1">'G#E'</span><span class="p">,</span>
+ <span class="s1">'G#F'</span><span class="p">,</span>
+ <span class="s1">'G#G'</span><span class="p">,</span>
+ <span class="s1">'G001'</span><span class="p">,</span>
+ <span class="s1">'G003'</span><span class="p">,</span>
+ <span class="s1">'G004'</span><span class="p">,</span>
+ <span class="s1">'G005'</span><span class="p">,</span>
+ <span class="s1">'G007'</span><span class="p">,</span>
+ <span class="s1">'G009'</span><span class="p">,</span>
+ <span class="s1">'G010'</span><span class="p">,</span>
+ <span class="s1">'G011'</span><span class="p">,</span>
+ <span class="s1">'GDP'</span><span class="p">,</span>
+ <span class="s1">'GDV'</span><span class="p">,</span>
+ <span class="s1">'GLRY'</span><span class="p">,</span>
+ <span class="s1">'GMX1'</span><span class="p">,</span>
+ <span class="s1">'GNB'</span><span class="p">,</span>
+ <span class="s1">'GNC'</span><span class="p">,</span>
+ <span class="s1">'GRF'</span><span class="p">,</span>
+ <span class="s1">'GRMM'</span><span class="p">,</span>
+ <span class="s1">'GRUN'</span><span class="p">,</span>
+ <span class="s1">'GTB'</span><span class="p">,</span>
+ <span class="s1">'GTP'</span><span class="p">,</span>
+ <span class="s1">'GVH'</span><span class="p">,</span>
+ <span class="s1">'GVL'</span><span class="p">,</span>
+ <span class="s1">'GVS'</span><span class="p">,</span>
+ <span class="s1">'GVY'</span><span class="p">,</span>
+ <span class="s1">'GYX'</span><span class="p">,</span>
+ <span class="s1">'H02'</span><span class="p">,</span>
+ <span class="s1">'HAY'</span><span class="p">,</span>
+ <span class="s1">'HGR'</span><span class="p">,</span>
+ <span class="s1">'HLD'</span><span class="p">,</span>
+ <span class="s1">'HMM'</span><span class="p">,</span>
+ <span class="s1">'HMN'</span><span class="p">,</span>
+ <span class="s1">'HNR'</span><span class="p">,</span>
+ <span class="s1">'HOM'</span><span class="p">,</span>
+ <span class="s1">'HOO'</span><span class="p">,</span>
+ <span class="s1">'HSI'</span><span class="p">,</span>
+ <span class="s1">'HYR'</span><span class="p">,</span>
+ <span class="s1">'ICC'</span><span class="p">,</span>
+ <span class="s1">'IGM'</span><span class="p">,</span>
+ <span class="s1">'IJD'</span><span class="p">,</span>
+ <span class="s1">'ILN'</span><span class="p">,</span>
+ <span class="s1">'ILS'</span><span class="p">,</span>
+ <span class="s1">'ILX'</span><span class="p">,</span>
+ <span class="s1">'IMT'</span><span class="p">,</span>
+ <span class="s1">'INK'</span><span class="p">,</span>
+ <span class="s1">'INV'</span><span class="p">,</span>
+ <span class="s1">'IPX'</span><span class="p">,</span>
+ <span class="s1">'ISQ'</span><span class="p">,</span>
+ <span class="s1">'IVNH'</span><span class="p">,</span>
+ <span class="s1">'JACK'</span><span class="p">,</span>
+ <span class="s1">'JAYV'</span><span class="p">,</span>
+ <span class="s1">'JCT'</span><span class="p">,</span>
+ <span class="s1">'JDN'</span><span class="p">,</span>
+ <span class="s1">'JHN'</span><span class="p">,</span>
+ <span class="s1">'JOES'</span><span class="p">,</span>
+ <span class="s1">'JPB'</span><span class="p">,</span>
+ <span class="s1">'JWG'</span><span class="p">,</span>
+ <span class="s1">'K13K'</span><span class="p">,</span>
+ <span class="s1">'K1A6'</span><span class="p">,</span>
+ <span class="s1">'K1H2'</span><span class="p">,</span>
+ <span class="s1">'K20V'</span><span class="p">,</span>
+ <span class="s1">'K2G4'</span><span class="p">,</span>
+ <span class="s1">'K2V5'</span><span class="p">,</span>
+ <span class="s1">'K36U'</span><span class="p">,</span>
+ <span class="s1">'K3LF'</span><span class="p">,</span>
+ <span class="s1">'K40B'</span><span class="p">,</span>
+ <span class="s1">'K48I'</span><span class="p">,</span>
+ <span class="s1">'K4MB'</span><span class="p">,</span>
+ <span class="s1">'K4S3'</span><span class="p">,</span>
+ <span class="s1">'K5J0'</span><span class="p">,</span>
+ <span class="s1">'K8K2'</span><span class="p">,</span>
+ <span class="s1">'K9D1'</span><span class="p">,</span>
+ <span class="s1">'K9K7'</span><span class="p">,</span>
+ <span class="s1">'K9K8'</span><span class="p">,</span>
+ <span class="s1">'K9V9'</span><span class="p">,</span>
+ <span class="s1">'KAAT'</span><span class="p">,</span>
+ <span class="s1">'KABE'</span><span class="p">,</span>
+ <span class="s1">'KABI'</span><span class="p">,</span>
+ <span class="s1">'KABQ'</span><span class="p">,</span>
+ <span class="s1">'KABR'</span><span class="p">,</span>
+ <span class="s1">'KABY'</span><span class="p">,</span>
+ <span class="s1">'KACK'</span><span class="p">,</span>
+ <span class="s1">'KACT'</span><span class="p">,</span>
+ <span class="s1">'KACV'</span><span class="p">,</span>
+ <span class="s1">'KACY'</span><span class="p">,</span>
+ <span class="s1">'KAEL'</span><span class="p">,</span>
+ <span class="s1">'KAFJ'</span><span class="p">,</span>
+ <span class="s1">'KAFO'</span><span class="p">,</span>
+ <span class="s1">'KAGC'</span><span class="p">,</span>
+ <span class="s1">'KAGS'</span><span class="p">,</span>
+ <span class="s1">'KAHN'</span><span class="p">,</span>
+ <span class="s1">'KAIA'</span><span class="p">,</span>
+ <span class="s1">'KAIB'</span><span class="p">,</span>
+ <span class="s1">'KAK'</span><span class="p">,</span>
+ <span class="s1">'KAKP'</span><span class="p">,</span>
+ <span class="s1">'KALB'</span><span class="p">,</span>
+ <span class="s1">'KALI'</span><span class="p">,</span>
+ <span class="s1">'KALO'</span><span class="p">,</span>
+ <span class="s1">'KALS'</span><span class="p">,</span>
+ <span class="s1">'KALW'</span><span class="p">,</span>
+ <span class="s1">'KAMA'</span><span class="p">,</span>
+ <span class="s1">'KAN'</span><span class="p">,</span>
+ <span class="s1">'KANB'</span><span class="p">,</span>
+ <span class="s1">'KAND'</span><span class="p">,</span>
+ <span class="s1">'KAOO'</span><span class="p">,</span>
+ <span class="s1">'KAPA'</span><span class="p">,</span>
+ <span class="s1">'KAPN'</span><span class="p">,</span>
+ <span class="s1">'KAQP'</span><span class="p">,</span>
+ <span class="s1">'KARA'</span><span class="p">,</span>
+ <span class="s1">'KARR'</span><span class="p">,</span>
+ <span class="s1">'KART'</span><span class="p">,</span>
+ <span class="s1">'KASE'</span><span class="p">,</span>
+ <span class="s1">'KAST'</span><span class="p">,</span>
+ <span class="s1">'KATL'</span><span class="p">,</span>
+ <span class="s1">'KATY'</span><span class="p">,</span>
+ <span class="s1">'KAUG'</span><span class="p">,</span>
+ <span class="s1">'KAUS'</span><span class="p">,</span>
+ <span class="s1">'KAUW'</span><span class="p">,</span>
+ <span class="s1">'KAVL'</span><span class="p">,</span>
+ <span class="s1">'KAVP'</span><span class="p">,</span>
+ <span class="s1">'KAXN'</span><span class="p">,</span>
+ <span class="s1">'KAYS'</span><span class="p">,</span>
+ <span class="s1">'KAZO'</span><span class="p">,</span>
+ <span class="s1">'KBAF'</span><span class="p">,</span>
+ <span class="s1">'KBBG'</span><span class="p">,</span>
+ <span class="s1">'KBBW'</span><span class="p">,</span>
+ <span class="s1">'KBCE'</span><span class="p">,</span>
+ <span class="s1">'KBDE'</span><span class="p">,</span>
+ <span class="s1">'KBDL'</span><span class="p">,</span>
+ <span class="s1">'KBDR'</span><span class="p">,</span>
+ <span class="s1">'KBED'</span><span class="p">,</span>
+ <span class="s1">'KBFD'</span><span class="p">,</span>
+ <span class="s1">'KBFF'</span><span class="p">,</span>
+ <span class="s1">'KBFI'</span><span class="p">,</span>
+ <span class="s1">'KBFL'</span><span class="p">,</span>
+ <span class="s1">'KBFM'</span><span class="p">,</span>
+ <span class="s1">'KBGM'</span><span class="p">,</span>
+ <span class="s1">'KBGR'</span><span class="p">,</span>
+ <span class="s1">'KBHB'</span><span class="p">,</span>
+ <span class="s1">'KBHM'</span><span class="p">,</span>
+ <span class="s1">'KBIE'</span><span class="p">,</span>
+ <span class="s1">'KBIH'</span><span class="p">,</span>
+ <span class="s1">'KBIL'</span><span class="p">,</span>
+ <span class="s1">'KBIS'</span><span class="p">,</span>
+ <span class="s1">'KBJC'</span><span class="p">,</span>
+ <span class="s1">'KBJI'</span><span class="p">,</span>
+ <span class="s1">'KBKE'</span><span class="p">,</span>
+ <span class="s1">'KBKW'</span><span class="p">,</span>
+ <span class="s1">'KBKX'</span><span class="p">,</span>
+ <span class="s1">'KBLF'</span><span class="p">,</span>
+ <span class="s1">'KBLH'</span><span class="p">,</span>
+ <span class="s1">'KBLI'</span><span class="p">,</span>
+ <span class="s1">'KBMG'</span><span class="p">,</span>
+ <span class="s1">'KBMI'</span><span class="p">,</span>
+ <span class="s1">'KBML'</span><span class="p">,</span>
+ <span class="s1">'KBNA'</span><span class="p">,</span>
+ <span class="s1">'KBNO'</span><span class="p">,</span>
+ <span class="s1">'KBNV'</span><span class="p">,</span>
+ <span class="s1">'KBOI'</span><span class="p">,</span>
+ <span class="s1">'KBOS'</span><span class="p">,</span>
+ <span class="s1">'KBPI'</span><span class="p">,</span>
+ <span class="s1">'KBPT'</span><span class="p">,</span>
+ <span class="s1">'KBQK'</span><span class="p">,</span>
+ <span class="s1">'KBRD'</span><span class="p">,</span>
+ <span class="s1">'KBRL'</span><span class="p">,</span>
+ <span class="s1">'KBRO'</span><span class="p">,</span>
+ <span class="s1">'KBTL'</span><span class="p">,</span>
+ <span class="s1">'KBTM'</span><span class="p">,</span>
+ <span class="s1">'KBTR'</span><span class="p">,</span>
+ <span class="s1">'KBTV'</span><span class="p">,</span>
+ <span class="s1">'KBUF'</span><span class="p">,</span>
+ <span class="s1">'KBUR'</span><span class="p">,</span>
+ <span class="s1">'KBVI'</span><span class="p">,</span>
+ <span class="s1">'KBVN'</span><span class="p">,</span>
+ <span class="s1">'KBVO'</span><span class="p">,</span>
+ <span class="s1">'KBVX'</span><span class="p">,</span>
+ <span class="s1">'KBVY'</span><span class="p">,</span>
+ <span class="s1">'KBWG'</span><span class="p">,</span>
+ <span class="s1">'KBWI'</span><span class="p">,</span>
+ <span class="s1">'KBYI'</span><span class="p">,</span>
+ <span class="s1">'KBZN'</span><span class="p">,</span>
+ <span class="s1">'KC1'</span><span class="p">,</span>
+ <span class="s1">'KCAD'</span><span class="p">,</span>
+ <span class="s1">'KCAE'</span><span class="p">,</span>
+ <span class="s1">'KCAK'</span><span class="p">,</span>
+ <span class="s1">'KCAR'</span><span class="p">,</span>
+ <span class="s1">'KCDC'</span><span class="p">,</span>
+ <span class="s1">'KCDR'</span><span class="p">,</span>
+ <span class="s1">'KCDS'</span><span class="p">,</span>
+ <span class="s1">'KCEC'</span><span class="p">,</span>
+ <span class="s1">'KCEF'</span><span class="p">,</span>
+ <span class="s1">'KCEZ'</span><span class="p">,</span>
+ <span class="s1">'KCFV'</span><span class="p">,</span>
+ <span class="s1">'KCGI'</span><span class="p">,</span>
+ <span class="s1">'KCGX'</span><span class="p">,</span>
+ <span class="s1">'KCHA'</span><span class="p">,</span>
+ <span class="s1">'KCHH'</span><span class="p">,</span>
+ <span class="s1">'KCHO'</span><span class="p">,</span>
+ <span class="s1">'KCHS'</span><span class="p">,</span>
+ <span class="s1">'KCIC'</span><span class="p">,</span>
+ <span class="s1">'KCID'</span><span class="p">,</span>
+ <span class="s1">'KCIU'</span><span class="p">,</span>
+ <span class="s1">'KCKB'</span><span class="p">,</span>
+ <span class="s1">'KCKL'</span><span class="p">,</span>
+ <span class="s1">'KCLE'</span><span class="p">,</span>
+ <span class="s1">'KCLL'</span><span class="p">,</span>
+ <span class="s1">'KCLM'</span><span class="p">,</span>
+ <span class="s1">'KCLT'</span><span class="p">,</span>
+ <span class="s1">'KCMH'</span><span class="p">,</span>
+ <span class="s1">'KCMI'</span><span class="p">,</span>
+ <span class="s1">'KCMX'</span><span class="p">,</span>
+ <span class="s1">'KCNB'</span><span class="p">,</span>
+ <span class="s1">'KCNK'</span><span class="p">,</span>
+ <span class="s1">'KCNM'</span><span class="p">,</span>
+ <span class="s1">'KCNU'</span><span class="p">,</span>
+ <span class="s1">'KCNY'</span><span class="p">,</span>
+ <span class="s1">'KCOD'</span><span class="p">,</span>
+ <span class="s1">'KCOE'</span><span class="p">,</span>
+ <span class="s1">'KCON'</span><span class="p">,</span>
+ <span class="s1">'KCOS'</span><span class="p">,</span>
+ <span class="s1">'KCOU'</span><span class="p">,</span>
+ <span class="s1">'KCPR'</span><span class="p">,</span>
+ <span class="s1">'KCRE'</span><span class="p">,</span>
+ <span class="s1">'KCRP'</span><span class="p">,</span>
+ <span class="s1">'KCRQ'</span><span class="p">,</span>
+ <span class="s1">'KCRW'</span><span class="p">,</span>
+ <span class="s1">'KCSG'</span><span class="p">,</span>
+ <span class="s1">'KCSM'</span><span class="p">,</span>
+ <span class="s1">'KCSV'</span><span class="p">,</span>
+ <span class="s1">'KCTB'</span><span class="p">,</span>
+ <span class="s1">'KCVG'</span><span class="p">,</span>
+ <span class="s1">'KCXO'</span><span class="p">,</span>
+ <span class="s1">'KCYS'</span><span class="p">,</span>
+ <span class="s1">'KDAB'</span><span class="p">,</span>
+ <span class="s1">'KDAF'</span><span class="p">,</span>
+ <span class="s1">'KDAG'</span><span class="p">,</span>
+ <span class="s1">'KDAL'</span><span class="p">,</span>
+ <span class="s1">'KDAN'</span><span class="p">,</span>
+ <span class="s1">'KDAY'</span><span class="p">,</span>
+ <span class="s1">'KDBQ'</span><span class="p">,</span>
+ <span class="s1">'KDCA'</span><span class="p">,</span>
+ <span class="s1">'KDDC'</span><span class="p">,</span>
+ <span class="s1">'KDEC'</span><span class="p">,</span>
+ <span class="s1">'KDEH'</span><span class="p">,</span>
+ <span class="s1">'KDEN'</span><span class="p">,</span>
+ <span class="s1">'KDET'</span><span class="p">,</span>
+ <span class="s1">'KDFW'</span><span class="p">,</span>
+ <span class="s1">'KDHN'</span><span class="p">,</span>
+ <span class="s1">'KDHT'</span><span class="p">,</span>
+ <span class="s1">'KDIK'</span><span class="p">,</span>
+ <span class="s1">'KDLH'</span><span class="p">,</span>
+ <span class="s1">'KDLL'</span><span class="p">,</span>
+ <span class="s1">'KDLS'</span><span class="p">,</span>
+ <span class="s1">'KDMN'</span><span class="p">,</span>
+ <span class="s1">'KDNV'</span><span class="p">,</span>
+ <span class="s1">'KDPA'</span><span class="p">,</span>
+ <span class="s1">'KDRA'</span><span class="p">,</span>
+ <span class="s1">'KDRO'</span><span class="p">,</span>
+ <span class="s1">'KDRT'</span><span class="p">,</span>
+ <span class="s1">'KDSM'</span><span class="p">,</span>
+ <span class="s1">'KDTL'</span><span class="p">,</span>
+ <span class="s1">'KDTW'</span><span class="p">,</span>
+ <span class="s1">'KDUB'</span><span class="p">,</span>
+ <span class="s1">'KDUG'</span><span class="p">,</span>
+ <span class="s1">'KDUJ'</span><span class="p">,</span>
+ <span class="s1">'KEAR'</span><span class="p">,</span>
+ <span class="s1">'KEAT'</span><span class="p">,</span>
+ <span class="s1">'KEAU'</span><span class="p">,</span>
+ <span class="s1">'KECG'</span><span class="p">,</span>
+ <span class="s1">'KECS'</span><span class="p">,</span>
+ <span class="s1">'KEE0'</span><span class="p">,</span>
+ <span class="s1">'KEED'</span><span class="p">,</span>
+ <span class="s1">'KEET'</span><span class="p">,</span>
+ <span class="s1">'KEGE'</span><span class="p">,</span>
+ <span class="s1">'KEHA'</span><span class="p">,</span>
+ <span class="s1">'KEKN'</span><span class="p">,</span>
+ <span class="s1">'KEKO'</span><span class="p">,</span>
+ <span class="s1">'KEKQ'</span><span class="p">,</span>
+ <span class="s1">'KEL'</span><span class="p">,</span>
+ <span class="s1">'KELD'</span><span class="p">,</span>
+ <span class="s1">'KELM'</span><span class="p">,</span>
+ <span class="s1">'KELN'</span><span class="p">,</span>
+ <span class="s1">'KELO'</span><span class="p">,</span>
+ <span class="s1">'KELP'</span><span class="p">,</span>
+ <span class="s1">'KELY'</span><span class="p">,</span>
+ <span class="s1">'KEMM'</span><span class="p">,</span>
+ <span class="s1">'KEMP'</span><span class="p">,</span>
+ <span class="s1">'KENV'</span><span class="p">,</span>
+ <span class="s1">'KENW'</span><span class="p">,</span>
+ <span class="s1">'KEPH'</span><span class="p">,</span>
+ <span class="s1">'KEPO'</span><span class="p">,</span>
+ <span class="s1">'KEPZ'</span><span class="p">,</span>
+ <span class="s1">'KERI'</span><span class="p">,</span>
+ <span class="s1">'KERY'</span><span class="p">,</span>
+ <span class="s1">'KESC'</span><span class="p">,</span>
+ <span class="s1">'KESF'</span><span class="p">,</span>
+ <span class="s1">'KEUG'</span><span class="p">,</span>
+ <span class="s1">'KEVV'</span><span class="p">,</span>
+ <span class="s1">'KEWB'</span><span class="p">,</span>
+ <span class="s1">'KEWN'</span><span class="p">,</span>
+ <span class="s1">'KEWR'</span><span class="p">,</span>
+ <span class="s1">'KEYW'</span><span class="p">,</span>
+ <span class="s1">'KFAM'</span><span class="p">,</span>
+ <span class="s1">'KFAR'</span><span class="p">,</span>
+ <span class="s1">'KFAT'</span><span class="p">,</span>
+ <span class="s1">'KFAY'</span><span class="p">,</span>
+ <span class="s1">'KFDY'</span><span class="p">,</span>
+ <span class="s1">'KFKL'</span><span class="p">,</span>
+ <span class="s1">'KFLD'</span><span class="p">,</span>
+ <span class="s1">'KFLG'</span><span class="p">,</span>
+ <span class="s1">'KFLL'</span><span class="p">,</span>
+ <span class="s1">'KFLO'</span><span class="p">,</span>
+ <span class="s1">'KFMH'</span><span class="p">,</span>
+ <span class="s1">'KFMN'</span><span class="p">,</span>
+ <span class="s1">'KFMY'</span><span class="p">,</span>
+ <span class="s1">'KFNL'</span><span class="p">,</span>
+ <span class="s1">'KFNT'</span><span class="p">,</span>
+ <span class="s1">'KFOD'</span><span class="p">,</span>
+ <span class="s1">'KFOE'</span><span class="p">,</span>
+ <span class="s1">'KFPR'</span><span class="p">,</span>
+ <span class="s1">'KFRM'</span><span class="p">,</span>
+ <span class="s1">'KFSD'</span><span class="p">,</span>
+ <span class="s1">'KFSM'</span><span class="p">,</span>
+ <span class="s1">'KFTK'</span><span class="p">,</span>
+ <span class="s1">'KFTW'</span><span class="p">,</span>
+ <span class="s1">'KFTY'</span><span class="p">,</span>
+ <span class="s1">'KFVE'</span><span class="p">,</span>
+ <span class="s1">'KFVX'</span><span class="p">,</span>
+ <span class="s1">'KFWA'</span><span class="p">,</span>
+ <span class="s1">'KFXE'</span><span class="p">,</span>
+ <span class="s1">'KFYV'</span><span class="p">,</span>
+ <span class="s1">'KGAG'</span><span class="p">,</span>
+ <span class="s1">'KGBD'</span><span class="p">,</span>
+ <span class="s1">'KGBG'</span><span class="p">,</span>
+ <span class="s1">'KGCC'</span><span class="p">,</span>
+ <span class="s1">'KGCK'</span><span class="p">,</span>
+ <span class="s1">'KGCN'</span><span class="p">,</span>
+ <span class="s1">'KGEG'</span><span class="p">,</span>
+ <span class="s1">'KGEY'</span><span class="p">,</span>
+ <span class="s1">'KGFK'</span><span class="p">,</span>
+ <span class="s1">'KGFL'</span><span class="p">,</span>
+ <span class="s1">'KGGG'</span><span class="p">,</span>
+ <span class="s1">'KGGW'</span><span class="p">,</span>
+ <span class="s1">'KGJT'</span><span class="p">,</span>
+ <span class="s1">'KGKL'</span><span class="p">,</span>
+ <span class="s1">'KGLD'</span><span class="p">,</span>
+ <span class="s1">'KGLH'</span><span class="p">,</span>
+ <span class="s1">'KGLS'</span><span class="p">,</span>
+ <span class="s1">'KGMU'</span><span class="p">,</span>
+ <span class="s1">'KGNR'</span><span class="p">,</span>
+ <span class="s1">'KGNV'</span><span class="p">,</span>
+ <span class="s1">'KGON'</span><span class="p">,</span>
+ <span class="s1">'KGPI'</span><span class="p">,</span>
+ <span class="s1">'KGPT'</span><span class="p">,</span>
+ <span class="s1">'KGRB'</span><span class="p">,</span>
+ <span class="s1">'KGRI'</span><span class="p">,</span>
+ <span class="s1">'KGRK'</span><span class="p">,</span>
+ <span class="s1">'KGRR'</span><span class="p">,</span>
+ <span class="s1">'KGSB'</span><span class="p">,</span>
+ <span class="s1">'KGSO'</span><span class="p">,</span>
+ <span class="s1">'KGSP'</span><span class="p">,</span>
+ <span class="s1">'KGTF'</span><span class="p">,</span>
+ <span class="s1">'KGUC'</span><span class="p">,</span>
+ <span class="s1">'KGUP'</span><span class="p">,</span>
+ <span class="s1">'KGUY'</span><span class="p">,</span>
+ <span class="s1">'KGWO'</span><span class="p">,</span>
+ <span class="s1">'KGXA'</span><span class="p">,</span>
+ <span class="s1">'KGXY'</span><span class="p">,</span>
+ <span class="s1">'KGYY'</span><span class="p">,</span>
+ <span class="s1">'KGZH'</span><span class="p">,</span>
+ <span class="s1">'KHAT'</span><span class="p">,</span>
+ <span class="s1">'KHBG'</span><span class="p">,</span>
+ <span class="s1">'KHBR'</span><span class="p">,</span>
+ <span class="s1">'KHCO'</span><span class="p">,</span>
+ <span class="s1">'KHDE'</span><span class="p">,</span>
+ <span class="s1">'KHDN'</span><span class="p">,</span>
+ <span class="s1">'KHFD'</span><span class="p">,</span>
+ <span class="s1">'KHFJ'</span><span class="p">,</span>
+ <span class="s1">'KHIB'</span><span class="p">,</span>
+ <span class="s1">'KHIE'</span><span class="p">,</span>
+ <span class="s1">'KHIO'</span><span class="p">,</span>
+ <span class="s1">'KHJH'</span><span class="p">,</span>
+ <span class="s1">'KHKY'</span><span class="p">,</span>
+ <span class="s1">'KHLC'</span><span class="p">,</span>
+ <span class="s1">'KHLG'</span><span class="p">,</span>
+ <span class="s1">'KHLN'</span><span class="p">,</span>
+ <span class="s1">'KHNR'</span><span class="p">,</span>
+ <span class="s1">'KHOB'</span><span class="p">,</span>
+ <span class="s1">'KHON'</span><span class="p">,</span>
+ <span class="s1">'KHOT'</span><span class="p">,</span>
+ <span class="s1">'KHOU'</span><span class="p">,</span>
+ <span class="s1">'KHPN'</span><span class="p">,</span>
+ <span class="s1">'KHQM'</span><span class="p">,</span>
+ <span class="s1">'KHRL'</span><span class="p">,</span>
+ <span class="s1">'KHRO'</span><span class="p">,</span>
+ <span class="s1">'KHSV'</span><span class="p">,</span>
+ <span class="s1">'KHTH'</span><span class="p">,</span>
+ <span class="s1">'KHTS'</span><span class="p">,</span>
+ <span class="s1">'KHUF'</span><span class="p">,</span>
+ <span class="s1">'KHUL'</span><span class="p">,</span>
+ <span class="s1">'KHUT'</span><span class="p">,</span>
+ <span class="s1">'KHVN'</span><span class="p">,</span>
+ <span class="s1">'KHVR'</span><span class="p">,</span>
+ <span class="s1">'KHXD'</span><span class="p">,</span>
+ <span class="s1">'KHYA'</span><span class="p">,</span>
+ <span class="s1">'KHYS'</span><span class="p">,</span>
+ <span class="s1">'KIAD'</span><span class="p">,</span>
+ <span class="s1">'KIAG'</span><span class="p">,</span>
+ <span class="s1">'KIAH'</span><span class="p">,</span>
+ <span class="s1">'KICR'</span><span class="p">,</span>
+ <span class="s1">'KICT'</span><span class="p">,</span>
+ <span class="s1">'KIDA'</span><span class="p">,</span>
+ <span class="s1">'KIDI'</span><span class="p">,</span>
+ <span class="s1">'KIEN'</span><span class="p">,</span>
+ <span class="s1">'KIJX'</span><span class="p">,</span>
+ <span class="s1">'KIKK'</span><span class="p">,</span>
+ <span class="s1">'KIL'</span><span class="p">,</span>
+ <span class="s1">'KILG'</span><span class="p">,</span>
+ <span class="s1">'KILM'</span><span class="p">,</span>
+ <span class="s1">'KIML'</span><span class="p">,</span>
+ <span class="s1">'KIMM'</span><span class="p">,</span>
+ <span class="s1">'KIND'</span><span class="p">,</span>
+ <span class="s1">'KINK'</span><span class="p">,</span>
+ <span class="s1">'KINL'</span><span class="p">,</span>
+ <span class="s1">'KINT'</span><span class="p">,</span>
+ <span class="s1">'KINW'</span><span class="p">,</span>
+ <span class="s1">'KIOB'</span><span class="p">,</span>
+ <span class="s1">'KIOW'</span><span class="p">,</span>
+ <span class="s1">'KIPL'</span><span class="p">,</span>
+ <span class="s1">'KIPT'</span><span class="p">,</span>
+ <span class="s1">'KISM'</span><span class="p">,</span>
+ <span class="s1">'KISN'</span><span class="p">,</span>
+ <span class="s1">'KISO'</span><span class="p">,</span>
+ <span class="s1">'KISP'</span><span class="p">,</span>
+ <span class="s1">'KISW'</span><span class="p">,</span>
+ <span class="s1">'KITH'</span><span class="p">,</span>
+ <span class="s1">'KIWD'</span><span class="p">,</span>
+ <span class="s1">'KIXA'</span><span class="p">,</span>
+ <span class="s1">'KJAC'</span><span class="p">,</span>
+ <span class="s1">'KJAN'</span><span class="p">,</span>
+ <span class="s1">'KJAX'</span><span class="p">,</span>
+ <span class="s1">'KJBR'</span><span class="p">,</span>
+ <span class="s1">'KJFK'</span><span class="p">,</span>
+ <span class="s1">'KJHW'</span><span class="p">,</span>
+ <span class="s1">'KJKL'</span><span class="p">,</span>
+ <span class="s1">'KJLN'</span><span class="p">,</span>
+ <span class="s1">'KJMR'</span><span class="p">,</span>
+ <span class="s1">'KJMS'</span><span class="p">,</span>
+ <span class="s1">'KJST'</span><span class="p">,</span>
+ <span class="s1">'KJVL'</span><span class="p">,</span>
+ <span class="s1">'KJXN'</span><span class="p">,</span>
+ <span class="s1">'KJYR'</span><span class="p">,</span>
+ <span class="s1">'KK68'</span><span class="p">,</span>
+ <span class="s1">'KKL'</span><span class="p">,</span>
+ <span class="s1">'KLAF'</span><span class="p">,</span>
+ <span class="s1">'KLAN'</span><span class="p">,</span>
+ <span class="s1">'KLAR'</span><span class="p">,</span>
+ <span class="s1">'KLAS'</span><span class="p">,</span>
+ <span class="s1">'KLAX'</span><span class="p">,</span>
+ <span class="s1">'KLBB'</span><span class="p">,</span>
+ <span class="s1">'KLBE'</span><span class="p">,</span>
+ <span class="s1">'KLBF'</span><span class="p">,</span>
+ <span class="s1">'KLBL'</span><span class="p">,</span>
+ <span class="s1">'KLBX'</span><span class="p">,</span>
+ <span class="s1">'KLCB'</span><span class="p">,</span>
+ <span class="s1">'KLCG'</span><span class="p">,</span>
+ <span class="s1">'KLCH'</span><span class="p">,</span>
+ <span class="s1">'KLCK'</span><span class="p">,</span>
+ <span class="s1">'KLDM'</span><span class="p">,</span>
+ <span class="s1">'KLDN'</span><span class="p">,</span>
+ <span class="s1">'KLEB'</span><span class="p">,</span>
+ <span class="s1">'KLEE'</span><span class="p">,</span>
+ <span class="s1">'KLEW'</span><span class="p">,</span>
+ <span class="s1">'KLEX'</span><span class="p">,</span>
+ <span class="s1">'KLFK'</span><span class="p">,</span>
+ <span class="s1">'KLFT'</span><span class="p">,</span>
+ <span class="s1">'KLG'</span><span class="p">,</span>
+ <span class="s1">'KLGA'</span><span class="p">,</span>
+ <span class="s1">'KLGB'</span><span class="p">,</span>
+ <span class="s1">'KLGU'</span><span class="p">,</span>
+ <span class="s1">'KLIT'</span><span class="p">,</span>
+ <span class="s1">'KLJF'</span><span class="p">,</span>
+ <span class="s1">'KLKN'</span><span class="p">,</span>
+ <span class="s1">'KLMT'</span><span class="p">,</span>
+ <span class="s1">'KLND'</span><span class="p">,</span>
+ <span class="s1">'KLNK'</span><span class="p">,</span>
+ <span class="s1">'KLNL'</span><span class="p">,</span>
+ <span class="s1">'KLNR'</span><span class="p">,</span>
+ <span class="s1">'KLNS'</span><span class="p">,</span>
+ <span class="s1">'KLOL'</span><span class="p">,</span>
+ <span class="s1">'KLOZ'</span><span class="p">,</span>
+ <span class="s1">'KLRD'</span><span class="p">,</span>
+ <span class="s1">'KLRU'</span><span class="p">,</span>
+ <span class="s1">'KLS'</span><span class="p">,</span>
+ <span class="s1">'KLSE'</span><span class="p">,</span>
+ <span class="s1">'KLUK'</span><span class="p">,</span>
+ <span class="s1">'KLVK'</span><span class="p">,</span>
+ <span class="s1">'KLVS'</span><span class="p">,</span>
+ <span class="s1">'KLWB'</span><span class="p">,</span>
+ <span class="s1">'KLWM'</span><span class="p">,</span>
+ <span class="s1">'KLWS'</span><span class="p">,</span>
+ <span class="s1">'KLWT'</span><span class="p">,</span>
+ <span class="s1">'KLWV'</span><span class="p">,</span>
+ <span class="s1">'KLXL'</span><span class="p">,</span>
+ <span class="s1">'KLXN'</span><span class="p">,</span>
+ <span class="s1">'KLYH'</span><span class="p">,</span>
+ <span class="s1">'KLZK'</span><span class="p">,</span>
+ <span class="s1">'KMAF'</span><span class="p">,</span>
+ <span class="s1">'KMBL'</span><span class="p">,</span>
+ <span class="s1">'KMBS'</span><span class="p">,</span>
+ <span class="s1">'KMCB'</span><span class="p">,</span>
+ <span class="s1">'KMCE'</span><span class="p">,</span>
+ <span class="s1">'KMCI'</span><span class="p">,</span>
+ <span class="s1">'KMCN'</span><span class="p">,</span>
+ <span class="s1">'KMCO'</span><span class="p">,</span>
+ <span class="s1">'KMCW'</span><span class="p">,</span>
+ <span class="s1">'KMDH'</span><span class="p">,</span>
+ <span class="s1">'KMDN'</span><span class="p">,</span>
+ <span class="s1">'KMDT'</span><span class="p">,</span>
+ <span class="s1">'KMDW'</span><span class="p">,</span>
+ <span class="s1">'KMDZ'</span><span class="p">,</span>
+ <span class="s1">'KMEI'</span><span class="p">,</span>
+ <span class="s1">'KMEM'</span><span class="p">,</span>
+ <span class="s1">'KMFD'</span><span class="p">,</span>
+ <span class="s1">'KMFE'</span><span class="p">,</span>
+ <span class="s1">'KMFR'</span><span class="p">,</span>
+ <span class="s1">'KMGC'</span><span class="p">,</span>
+ <span class="s1">'KMGM'</span><span class="p">,</span>
+ <span class="s1">'KMGW'</span><span class="p">,</span>
+ <span class="s1">'KMHE'</span><span class="p">,</span>
+ <span class="s1">'KMHK'</span><span class="p">,</span>
+ <span class="s1">'KMHR'</span><span class="p">,</span>
+ <span class="s1">'KMHT'</span><span class="p">,</span>
+ <span class="s1">'KMHV'</span><span class="p">,</span>
+ <span class="s1">'KMHX'</span><span class="p">,</span>
+ <span class="s1">'KMIA'</span><span class="p">,</span>
+ <span class="s1">'KMIB'</span><span class="p">,</span>
+ <span class="s1">'KMIV'</span><span class="p">,</span>
+ <span class="s1">'KMKC'</span><span class="p">,</span>
+ <span class="s1">'KMKE'</span><span class="p">,</span>
+ <span class="s1">'KMKG'</span><span class="p">,</span>
+ <span class="s1">'KMKL'</span><span class="p">,</span>
+ <span class="s1">'KMKX'</span><span class="p">,</span>
+ <span class="s1">'KMLB'</span><span class="p">,</span>
+ <span class="s1">'KMLC'</span><span class="p">,</span>
+ <span class="s1">'KMLI'</span><span class="p">,</span>
+ <span class="s1">'KMLS'</span><span class="p">,</span>
+ <span class="s1">'KMLT'</span><span class="p">,</span>
+ <span class="s1">'KMLU'</span><span class="p">,</span>
+ <span class="s1">'KMML'</span><span class="p">,</span>
+ <span class="s1">'KMMU'</span><span class="p">,</span>
+ <span class="s1">'KMNM'</span><span class="p">,</span>
+ <span class="s1">'KMOB'</span><span class="p">,</span>
+ <span class="s1">'KMOP'</span><span class="p">,</span>
+ <span class="s1">'KMOT'</span><span class="p">,</span>
+ <span class="s1">'KMPH'</span><span class="p">,</span>
+ <span class="s1">'KMPV'</span><span class="p">,</span>
+ <span class="s1">'KMQT'</span><span class="p">,</span>
+ <span class="s1">'KMRB'</span><span class="p">,</span>
+ <span class="s1">'KMRJ'</span><span class="p">,</span>
+ <span class="s1">'KMRY'</span><span class="p">,</span>
+ <span class="s1">'KMSL'</span><span class="p">,</span>
+ <span class="s1">'KMSN'</span><span class="p">,</span>
+ <span class="s1">'KMSO'</span><span class="p">,</span>
+ <span class="s1">'KMSP'</span><span class="p">,</span>
+ <span class="s1">'KMSS'</span><span class="p">,</span>
+ <span class="s1">'KMSV'</span><span class="p">,</span>
+ <span class="s1">'KMSY'</span><span class="p">,</span>
+ <span class="s1">'KMTH'</span><span class="p">,</span>
+ <span class="s1">'KMTJ'</span><span class="p">,</span>
+ <span class="s1">'KMTN'</span><span class="p">,</span>
+ <span class="s1">'KMTO'</span><span class="p">,</span>
+ <span class="s1">'KMTW'</span><span class="p">,</span>
+ <span class="s1">'KMVL'</span><span class="p">,</span>
+ <span class="s1">'KMWH'</span><span class="p">,</span>
+ <span class="s1">'KMYR'</span><span class="p">,</span>
+ <span class="s1">'KMYZ'</span><span class="p">,</span>
+ <span class="s1">'KNA'</span><span class="p">,</span>
+ <span class="s1">'KNEW'</span><span class="p">,</span>
+ <span class="s1">'KNL'</span><span class="p">,</span>
+ <span class="s1">'KNSI'</span><span class="p">,</span>
+ <span class="s1">'KOAJ'</span><span class="p">,</span>
+ <span class="s1">'KOAK'</span><span class="p">,</span>
+ <span class="s1">'KOFK'</span><span class="p">,</span>
+ <span class="s1">'KOGA'</span><span class="p">,</span>
+ <span class="s1">'KOGB'</span><span class="p">,</span>
+ <span class="s1">'KOGD'</span><span class="p">,</span>
+ <span class="s1">'KOKC'</span><span class="p">,</span>
+ <span class="s1">'KOLM'</span><span class="p">,</span>
+ <span class="s1">'KOLU'</span><span class="p">,</span>
+ <span class="s1">'KOMA'</span><span class="p">,</span>
+ <span class="s1">'KONL'</span><span class="p">,</span>
+ <span class="s1">'KONT'</span><span class="p">,</span>
+ <span class="s1">'KOPF'</span><span class="p">,</span>
+ <span class="s1">'KOQU'</span><span class="p">,</span>
+ <span class="s1">'KORD'</span><span class="p">,</span>
+ <span class="s1">'KORE'</span><span class="p">,</span>
+ <span class="s1">'KORF'</span><span class="p">,</span>
+ <span class="s1">'KORH'</span><span class="p">,</span>
+ <span class="s1">'KOSH'</span><span class="p">,</span>
+ <span class="s1">'KOTH'</span><span class="p">,</span>
+ <span class="s1">'KOTM'</span><span class="p">,</span>
+ <span class="s1">'KOTX'</span><span class="p">,</span>
+ <span class="s1">'KOVO'</span><span class="p">,</span>
+ <span class="s1">'KOWB'</span><span class="p">,</span>
+ <span class="s1">'KP11'</span><span class="p">,</span>
+ <span class="s1">'KP28'</span><span class="p">,</span>
+ <span class="s1">'KP38'</span><span class="p">,</span>
+ <span class="s1">'KP59'</span><span class="p">,</span>
+ <span class="s1">'KP60'</span><span class="p">,</span>
+ <span class="s1">'KPAE'</span><span class="p">,</span>
+ <span class="s1">'KPAH'</span><span class="p">,</span>
+ <span class="s1">'KPBF'</span><span class="p">,</span>
+ <span class="s1">'KPBG'</span><span class="p">,</span>
+ <span class="s1">'KPBI'</span><span class="p">,</span>
+ <span class="s1">'KPDK'</span><span class="p">,</span>
+ <span class="s1">'KPDT'</span><span class="p">,</span>
+ <span class="s1">'KPDX'</span><span class="p">,</span>
+ <span class="s1">'KPEQ'</span><span class="p">,</span>
+ <span class="s1">'KPFN'</span><span class="p">,</span>
+ <span class="s1">'KPGA'</span><span class="p">,</span>
+ <span class="s1">'KPGV'</span><span class="p">,</span>
+ <span class="s1">'KPHD'</span><span class="p">,</span>
+ <span class="s1">'KPHF'</span><span class="p">,</span>
+ <span class="s1">'KPHG'</span><span class="p">,</span>
+ <span class="s1">'KPHL'</span><span class="p">,</span>
+ <span class="s1">'KPHN'</span><span class="p">,</span>
+ <span class="s1">'KPHX'</span><span class="p">,</span>
+ <span class="s1">'KPIA'</span><span class="p">,</span>
+ <span class="s1">'KPIB'</span><span class="p">,</span>
+ <span class="s1">'KPIE'</span><span class="p">,</span>
+ <span class="s1">'KPIH'</span><span class="p">,</span>
+ <span class="s1">'KPIR'</span><span class="p">,</span>
+ <span class="s1">'KPIT'</span><span class="p">,</span>
+ <span class="s1">'KPKB'</span><span class="p">,</span>
+ <span class="s1">'KPLN'</span><span class="p">,</span>
+ <span class="s1">'KPMD'</span><span class="p">,</span>
+ <span class="s1">'KPNA'</span><span class="p">,</span>
+ <span class="s1">'KPNC'</span><span class="p">,</span>
+ <span class="s1">'KPNE'</span><span class="p">,</span>
+ <span class="s1">'KPNS'</span><span class="p">,</span>
+ <span class="s1">'KPNT'</span><span class="p">,</span>
+ <span class="s1">'KPOB'</span><span class="p">,</span>
+ <span class="s1">'KPOE'</span><span class="p">,</span>
+ <span class="s1">'KPOF'</span><span class="p">,</span>
+ <span class="s1">'KPOU'</span><span class="p">,</span>
+ <span class="s1">'KPOY'</span><span class="p">,</span>
+ <span class="s1">'KPQI'</span><span class="p">,</span>
+ <span class="s1">'KPRB'</span><span class="p">,</span>
+ <span class="s1">'KPRC'</span><span class="p">,</span>
+ <span class="s1">'KPSC'</span><span class="p">,</span>
+ <span class="s1">'KPSF'</span><span class="p">,</span>
+ <span class="s1">'KPSM'</span><span class="p">,</span>
+ <span class="s1">'KPSO'</span><span class="p">,</span>
+ <span class="s1">'KPSP'</span><span class="p">,</span>
+ <span class="s1">'KPTK'</span><span class="p">,</span>
+ <span class="s1">'KPUB'</span><span class="p">,</span>
  <span class="o">...</span><span class="p">]</span>
 </pre></div>
 </div>
 </section>
 <section id="setting-the-location-name">
-<h4>3.2 Setting the Location Name<a class="headerlink" href="#setting-the-location-name" title="Permalink to this heading"></a></h4>
+<h4>3.2 Setting the Location Name<a class="headerlink" href="#setting-the-location-name" title="Link to this heading"></a></h4>
 <p>In this case we’re setting the location name to <code class="docutils literal notranslate"><span class="pre">KFRM</span></code> which is the
 Municipal Airport in Fairmont, Minnesota.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">request</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="s2">&quot;KFRM&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">request</span><span class="o">.</span><span class="n">setLocationNames</span><span class="p">(</span><span class="s2">"KFRM"</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html">Top</a></p>
@@ -1231,58 +1231,66 @@ Municipal Airport in Fairmont, Minnesota.</p>
 </section>
 <hr class="docutils" />
 <section id="filtering-by-time">
-<h3>4 Filtering by Time<a class="headerlink" href="#filtering-by-time" title="Permalink to this heading"></a></h3>
+<h3>4 Filtering by Time<a class="headerlink" href="#filtering-by-time" title="Link to this heading"></a></h3>
 <p>Models produce many different time variants during their runs, so let’s
 limit the data to the most recent time and forecast run.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cycles</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 <span class="n">times</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">fcstRun</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getForecastRun</span><span class="p">(</span><span class="n">cycles</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">times</span><span class="p">)</span>
-    <span class="nb">list</span><span class="p">(</span><span class="n">fcstRun</span><span class="p">)</span>
-    <span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span><span class="n">request</span><span class="p">,[</span><span class="n">fcstRun</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No times available&#39;</span><span class="p">)</span>
-    <span class="n">exit</span>
+<span class="k">assert</span> <span class="n">cycles</span><span class="p">,</span> <span class="s2">"No model-sounding forecast cycles returned"</span>
+<span class="k">assert</span> <span class="n">times</span><span class="p">,</span> <span class="s2">"No model-sounding forecast times returned"</span>
+
+<span class="n">fcstRun</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getForecastRun</span><span class="p">(</span><span class="n">cycles</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">times</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="n">fcstRun</span><span class="p">,</span> <span class="s2">"No model-sounding forecast run could be constructed"</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">DataAccessLayer</span><span class="o">.</span><span class="n">getGeometryData</span><span class="p">(</span>
+    <span class="n">request</span><span class="p">,</span>
+    <span class="p">[</span><span class="n">fcstRun</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+<span class="p">)</span>
+
+<span class="k">assert</span> <span class="n">response</span><span class="p">,</span> <span class="p">(</span>
+    <span class="sa">f</span><span class="s2">"No model-sounding data returned for KFRM at </span><span class="si">{</span><span class="n">fcstRun</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html">Top</a></p>
 </section>
 <hr class="docutils" />
 <section id="get-the-data">
-<h3>5 Get the Data!<a class="headerlink" href="#get-the-data" title="Permalink to this heading"></a></h3>
+<h3>5 Get the Data!<a class="headerlink" href="#get-the-data" title="Link to this heading"></a></h3>
 <p>Here we can now request our data response from the EDEX server with our
 defined time filter. Printing out some data about the response verifies
 we received the data we were interested in.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">obj</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;parms    = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getParameters</span><span class="p">()))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;site     = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getLocationName</span><span class="p">()))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;geom     = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">()))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;datetime = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;reftime  = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getRefTime</span><span class="p">()))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;fcstHour = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getFcstTime</span><span class="p">()))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;period   = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getValidPeriod</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"parms    = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getParameters</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"site     = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getLocationName</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"geom     = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"datetime = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"reftime  = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getRefTime</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"fcstHour = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getFcstTime</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"period   = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getValidPeriod</span><span class="p">()))</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">parms</span>    <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;pressure&#39;</span><span class="p">,</span> <span class="s1">&#39;vComp&#39;</span><span class="p">,</span> <span class="s1">&#39;uComp&#39;</span><span class="p">,</span> <span class="s1">&#39;specHum&#39;</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">parms</span>    <span class="o">=</span> <span class="p">[</span><span class="s1">'temperature'</span><span class="p">,</span> <span class="s1">'pressure'</span><span class="p">,</span> <span class="s1">'vComp'</span><span class="p">,</span> <span class="s1">'uComp'</span><span class="p">,</span> <span class="s1">'specHum'</span><span class="p">]</span>
 <span class="n">site</span>     <span class="o">=</span> <span class="n">KFRM</span>
-<span class="n">geom</span>     <span class="o">=</span> <span class="n">POINT</span> <span class="p">(</span><span class="o">-</span><span class="mf">94.41999816894531</span> <span class="mf">43.65000152587891</span><span class="p">)</span>
-<span class="n">datetime</span> <span class="o">=</span> <span class="mi">2022</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">19</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
-<span class="n">reftime</span>  <span class="o">=</span> <span class="n">Aug</span> <span class="mi">19</span> <span class="mi">22</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="n">GMT</span>
+<span class="n">geom</span>     <span class="o">=</span> <span class="n">POINT</span> <span class="p">(</span><span class="o">-</span><span class="mf">94.41999816894531</span> <span class="mf">43.650001525878906</span><span class="p">)</span>
+<span class="n">datetime</span> <span class="o">=</span> <span class="mi">2025</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">12</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">reftime</span>  <span class="o">=</span> <span class="n">Feb</span> <span class="mi">12</span> <span class="mi">25</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="n">GMT</span>
 <span class="n">fcstHour</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">period</span>   <span class="o">=</span> <span class="p">(</span><span class="n">Aug</span> <span class="mi">19</span> <span class="mi">22</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="p">,</span> <span class="n">Aug</span> <span class="mi">19</span> <span class="mi">22</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="p">)</span>
+<span class="n">period</span>   <span class="o">=</span> <span class="p">(</span><span class="n">Feb</span> <span class="mi">12</span> <span class="mi">25</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="p">,</span> <span class="n">Feb</span> <span class="mi">12</span> <span class="mi">25</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="p">)</span>
 </pre></div>
 </div>
 <p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html">Top</a></p>
 </section>
 <hr class="docutils" />
 <section id="use-the-data">
-<h3>6 Use the Data!<a class="headerlink" href="#use-the-data" title="Permalink to this heading"></a></h3>
+<h3>6 Use the Data!<a class="headerlink" href="#use-the-data" title="Link to this heading"></a></h3>
 <p>Since we filtered on time, and requested the data in the previous cell,
 we now have a <code class="docutils literal notranslate"><span class="pre">response</span></code> object we can work with.</p>
 <section id="prepare-data-objects">
-<h4>6.1 Prepare Data Objects<a class="headerlink" href="#prepare-data-objects" title="Permalink to this heading"></a></h4>
+<h4>6.1 Prepare data objects<a class="headerlink" href="#prepare-data-objects" title="Link to this heading"></a></h4>
 <p>Here we construct arrays for each parameter to plot (temperature,
 pressure, moisture (spec. humidity), wind components, and cloud cover).
 We have two sets of arrays for temperature and pressure, where the
@@ -1296,21 +1304,21 @@ the same length, and for the specific humidty to not equal zero.</p>
 
 <span class="c1"># Cycle through all response objects to populate new arrays</span>
 <span class="k">for</span> <span class="n">ob</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
-    <span class="n">tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">&quot;temperature&quot;</span><span class="p">))</span>
-    <span class="n">prs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prs</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">&quot;pressure&quot;</span><span class="p">))</span>
-    <span class="n">uc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">uc</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">&quot;uComp&quot;</span><span class="p">))</span>
-    <span class="n">vc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vc</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">&quot;vComp&quot;</span><span class="p">))</span>
-    <span class="c1"># don&#39;t include data with 0 specific humidity</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">&quot;specHum&quot;</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">):</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">"temperature"</span><span class="p">))</span>
+    <span class="n">prs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prs</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">"pressure"</span><span class="p">))</span>
+    <span class="n">uc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">uc</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">"uComp"</span><span class="p">))</span>
+    <span class="n">vc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vc</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">"vComp"</span><span class="p">))</span>
+    <span class="c1"># don't include data with 0 specific humidity</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">"specHum"</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">):</span>
         <span class="k">continue</span>
-    <span class="n">sh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sh</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">&quot;specHum&quot;</span><span class="p">))</span>
-    <span class="n">prs2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prs2</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">&quot;pressure&quot;</span><span class="p">))</span>
-    <span class="n">tmp2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp2</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">&quot;temperature&quot;</span><span class="p">))</span>
+    <span class="n">sh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sh</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">"specHum"</span><span class="p">))</span>
+    <span class="n">prs2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prs2</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">"pressure"</span><span class="p">))</span>
+    <span class="n">tmp2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp2</span><span class="p">,</span><span class="n">ob</span><span class="o">.</span><span class="n">getNumber</span><span class="p">(</span><span class="s2">"temperature"</span><span class="p">))</span>
 </pre></div>
 </div>
 </section>
 <section id="calculate-dewpoint-from-specific-humidity">
-<h4>6.2 Calculate Dewpoint from Specific Humidity<a class="headerlink" href="#calculate-dewpoint-from-specific-humidity" title="Permalink to this heading"></a></h4>
+<h4>6.2 Calculate Dewpoint from Specific Humidity<a class="headerlink" href="#calculate-dewpoint-from-specific-humidity" title="Link to this heading"></a></h4>
 <p>Because the modelsounding plugin does not return dewpoint values, we
 must calculate the profile ourselves. Here are three examples of
 dewpoint calculated from specific humidity, including a manual
@@ -1329,25 +1337,33 @@ later in the notebook).</p>
 </pre></div>
 </div>
 <section id="method-1">
-<h5>6.2.1 Method 1<a class="headerlink" href="#method-1" title="Permalink to this heading"></a></h5>
+<h5>6.2.1 Method 1<a class="headerlink" href="#method-1" title="Link to this heading"></a></h5>
 <p>Here we’ll calculate the dewpoint using MetPy calculated mixing ratio
 and the vapor pressure.</p>
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rmix</span> <span class="o">=</span> <span class="p">(</span><span class="n">sh</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">sh</span><span class="p">))</span> <span class="o">*</span><span class="mi">1000</span> <span class="o">*</span> <span class="n">units</span><span class="p">(</span><span class="s1">&#39;g/kg&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rmix</span> <span class="o">=</span> <span class="p">(</span><span class="n">sh</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">sh</span><span class="p">))</span> <span class="o">*</span><span class="mi">1000</span> <span class="o">*</span> <span class="n">units</span><span class="p">(</span><span class="s1">'g/kg'</span><span class="p">)</span>
 <span class="n">e</span> <span class="o">=</span> <span class="n">vapor_pressure</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">rmix</span><span class="p">)</span>
 <span class="n">td</span> <span class="o">=</span> <span class="n">dewpoint</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">td</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="o">-</span><span class="mf">17.861027609224152</span> <span class="o">-</span><span class="mf">18.296283305867178</span> <span class="o">-</span><span class="mf">18.61873165139778</span> <span class="o">-</span><span class="mf">18.956045264648424</span> <span class="o">-</span><span class="mf">19.17502589815922</span> <span class="o">-</span><span class="mf">19.67533661570917</span> <span class="o">-</span><span class="mf">20.060517352662544</span> <span class="o">-</span><span class="mf">20.60677624765424</span> <span class="o">-</span><span class="mf">21.034562441122517</span> <span class="o">-</span><span class="mf">20.47030103586505</span> <span class="o">-</span><span class="mf">20.095639271448306</span> <span class="o">-</span><span class="mf">19.765441774539482</span> <span class="o">-</span><span class="mf">19.47765111329744</span> <span class="o">-</span><span class="mf">19.118520675916415</span> <span class="o">-</span><span class="mf">19.039256945399615</span> <span class="o">-</span><span class="mf">19.220687869449876</span> <span class="o">-</span><span class="mf">19.659848697746412</span> <span class="o">-</span><span class="mf">20.35989694232248</span> <span class="o">-</span><span class="mf">21.34132106267046</span> <span class="o">-</span><span class="mf">22.510151905707176</span> <span class="o">-</span><span class="mf">23.891435648286034</span> <span class="o">-</span><span class="mf">25.377619126624808</span> <span class="o">-</span><span class="mf">26.823631224180673</span> <span class="o">-</span><span class="mf">28.373325286396692</span> <span class="o">-</span><span class="mf">29.322811329792188</span> <span class="o">-</span><span class="mf">29.28950476725845</span> <span class="o">-</span><span class="mf">32.316697089981005</span> <span class="o">-</span><span class="mf">37.609577734507525</span> <span class="o">-</span><span class="mf">42.2249867107964</span> <span class="o">-</span><span class="mf">46.4725928841666</span> <span class="o">-</span><span class="mf">50.779120288769434</span> <span class="o">-</span><span class="mf">59.06429640317202</span> <span class="o">-</span><span class="mf">70.0497515867722</span> <span class="o">-</span><span class="mf">70.71615305853982</span><span class="p">]</span> <span class="n">degree_Celsius</span>
 </pre></div>
 </div>
 </section>
 <section id="method-2">
-<h5>6.2.2 Method 2<a class="headerlink" href="#method-2" title="Permalink to this heading"></a></h5>
+<h5>6.2.2 Method 2<a class="headerlink" href="#method-2" title="Link to this heading"></a></h5>
 <p>Here we’ll calculate dewpoint using MetPy while assuming the mixing
 ratio is equal to the specific humidity.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">td2</span> <span class="o">=</span> <span class="n">dewpoint</span><span class="p">(</span><span class="n">vapor_pressure</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">sh</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">td2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="o">-</span><span class="mf">17.872374594539878</span> <span class="o">-</span><span class="mf">18.307233712088532</span> <span class="o">-</span><span class="mf">18.62941615219512</span> <span class="o">-</span><span class="mf">18.966463858936493</span> <span class="o">-</span><span class="mf">19.185307466171594</span> <span class="o">-</span><span class="mf">19.685223771445862</span> <span class="o">-</span><span class="mf">20.07013889228719</span> <span class="o">-</span><span class="mf">20.616005053394304</span> <span class="o">-</span><span class="mf">21.04352622946604</span> <span class="o">-</span><span class="mf">20.479887317174047</span> <span class="o">-</span><span class="mf">20.105720862492916</span> <span class="o">-</span><span class="mf">19.776017591322585</span> <span class="o">-</span><span class="mf">19.4887197093349</span> <span class="o">-</span><span class="mf">19.130208537923124</span> <span class="o">-</span><span class="mf">19.051303531109</span> <span class="o">-</span><span class="mf">19.23283161612025</span> <span class="o">-</span><span class="mf">19.671828764230696</span> <span class="o">-</span><span class="mf">20.371455840693898</span> <span class="o">-</span><span class="mf">21.352206267145135</span> <span class="o">-</span><span class="mf">22.520243304233674</span> <span class="o">-</span><span class="mf">23.900618221790864</span> <span class="o">-</span><span class="mf">25.385905205061363</span> <span class="o">-</span><span class="mf">26.831154201846743</span> <span class="o">-</span><span class="mf">28.38009666226398</span> <span class="o">-</span><span class="mf">29.329310144996413</span> <span class="o">-</span><span class="mf">29.296431567874123</span> <span class="o">-</span><span class="mf">32.322083827390884</span> <span class="o">-</span><span class="mf">37.61282774776876</span> <span class="o">-</span><span class="mf">42.22705759872292</span> <span class="o">-</span><span class="mf">46.4739459966614</span> <span class="o">-</span><span class="mf">50.77998341031628</span> <span class="o">-</span><span class="mf">59.064612626911355</span> <span class="o">-</span><span class="mf">70.04982150804739</span> <span class="o">-</span><span class="mf">70.7162224435676</span><span class="p">]</span> <span class="n">degree_Celsius</span>
 </pre></div>
 </div>
 </section>
 <section id="method-3">
-<h5>6.2.3 Method 3<a class="headerlink" href="#method-3" title="Permalink to this heading"></a></h5>
+<h5>6.2.3 Method 3<a class="headerlink" href="#method-3" title="Link to this heading"></a></h5>
 <p>Here we use logic from the NCEP AWIPS soundingrequest plugin. This logic
 was based on <a class="reference external" href="https://github.com/Unidata/awips2-ncep/blob/unidata_16.2.2/edex/gov.noaa.nws.ncep.edex.plugin.soundingrequest/src/gov/noaa/nws/ncep/edex/plugin/soundingrequest/handler/MergeSounding.java#L1783">GEMPAK and NSHARP
 calculations</a>.</p>
@@ -1359,6 +1375,10 @@ calculations</a>.</p>
 <span class="n">vaps</span> <span class="o">=</span>  <span class="mf">6.112</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="mf">17.67</span> <span class="o">*</span> <span class="n">ntmp</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">ntmp</span> <span class="o">+</span> <span class="mf">243.5</span><span class="p">))</span>
 <span class="n">vapr</span> <span class="o">=</span> <span class="n">rh</span> <span class="o">*</span> <span class="n">vaps</span> <span class="o">/</span> <span class="mi">100</span>
 <span class="n">dwpc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mf">243.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">6.112</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">vapr</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">vapr</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">6.112</span><span class="p">)</span> <span class="o">-</span> <span class="mf">17.67</span><span class="p">))</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">degC</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dwpc</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="o">-</span><span class="mf">17.856866063572326</span> <span class="o">-</span><span class="mf">18.292352624634983</span> <span class="o">-</span><span class="mf">18.61495502652454</span> <span class="o">-</span><span class="mf">18.95242234278033</span> <span class="o">-</span><span class="mf">19.17148109212604</span> <span class="o">-</span><span class="mf">19.67201981493028</span> <span class="o">-</span><span class="mf">20.057352947508043</span> <span class="o">-</span><span class="mf">20.603837750203628</span> <span class="o">-</span><span class="mf">21.031774978696657</span> <span class="o">-</span><span class="mf">20.467148227064524</span> <span class="o">-</span><span class="mf">20.09219397247566</span> <span class="o">-</span><span class="mf">19.76170356716989</span> <span class="o">-</span><span class="mf">19.473619844784952</span> <span class="o">-</span><span class="mf">19.11412104616787</span> <span class="o">-</span><span class="mf">19.034640805389554</span> <span class="o">-</span><span class="mf">19.21600817115405</span> <span class="o">-</span><span class="mf">19.655258048229165</span> <span class="o">-</span><span class="mf">20.355545859726377</span> <span class="o">-</span><span class="mf">21.337356589010316</span> <span class="o">-</span><span class="mf">22.5066427651069</span> <span class="o">-</span><span class="mf">23.88844692083168</span> <span class="o">-</span><span class="mf">25.37514098495366</span> <span class="o">-</span><span class="mf">26.82158360694533</span> <span class="o">-</span><span class="mf">28.3716989735814</span> <span class="o">-</span><span class="mf">29.321328899510995</span> <span class="o">-</span><span class="mf">29.287762680418876</span> <span class="o">-</span><span class="mf">32.315822657544324</span> <span class="o">-</span><span class="mf">37.609884107908435</span> <span class="o">-</span><span class="mf">42.22590892550121</span> <span class="o">-</span><span class="mf">46.47386041955892</span> <span class="o">-</span><span class="mf">50.7805953411855</span> <span class="o">-</span><span class="mf">59.065935666579605</span> <span class="o">-</span><span class="mf">70.05132888695185</span> <span class="o">-</span><span class="mf">70.71771826198025</span><span class="p">]</span> <span class="n">degree_Celsius</span>
 </pre></div>
 </div>
 <p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html">Top</a></p>
@@ -1367,7 +1387,7 @@ calculations</a>.</p>
 </section>
 <hr class="docutils" />
 <section id="plot-the-data">
-<h3>7 Plot the Data!<a class="headerlink" href="#plot-the-data" title="Permalink to this heading"></a></h3>
+<h3>7 Plot the Data!<a class="headerlink" href="#plot-the-data" title="Link to this heading"></a></h3>
 <p>Create and display SkewT and Hodograph plots using MetPy.</p>
 <p>Since we’re displaying all three dewpoint plots, we also create a
 “zoomed in” view to highlight the slight differences between the three
@@ -1379,10 +1399,10 @@ calculations.</p>
 <span class="n">skew</span> <span class="o">=</span> <span class="n">SkewT</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
 
 <span class="c1"># Plot the data</span>
-<span class="n">skew</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pfull</span><span class="p">,</span> <span class="n">tfull</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">skew</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">td</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">skew</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">td2</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">skew</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">dwpc</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">skew</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pfull</span><span class="p">,</span> <span class="n">tfull</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">skew</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">td</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">skew</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">td2</span><span class="p">,</span> <span class="s1">'y'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">skew</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">dwpc</span><span class="p">,</span> <span class="s1">'g'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">skew</span><span class="o">.</span><span class="n">plot_barbs</span><span class="p">(</span><span class="n">pfull</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
 <span class="c1"># set the domain and range (these may need to be adjusted</span>
 <span class="c1"># depending on the exact data for best viewing purposes)</span>
@@ -1390,41 +1410,41 @@ calculations.</p>
 <span class="n">skew</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">70</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
 
 <span class="c1"># Add title to the plot</span>
-<span class="c1"># format: &quot;2022-08-18 18Z FH 0  | GFS KFRM (43.65,-94.42)&quot;</span>
-<span class="n">datetime</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">())[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">6</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;Z&quot;</span>
+<span class="c1"># format: "2022-08-18 18Z FH 0  | GFS KFRM (43.65,-94.42)"</span>
+<span class="n">datetime</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">())[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">6</span><span class="p">]</span><span class="o">+</span><span class="s2">"Z"</span>
 <span class="n">forecastHr</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getDataTime</span><span class="p">()</span><span class="o">.</span><span class="n">getFcstTime</span><span class="p">())</span>
 <span class="n">site</span> <span class="o">=</span> <span class="n">ob</span><span class="o">.</span><span class="n">getLocationName</span><span class="p">()</span>
-<span class="n">lat</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
-<span class="n">lon</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
-<span class="n">coords</span> <span class="o">=</span> <span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="n">lat</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> <span class="n">lon</span> <span class="o">+</span><span class="s2">&quot;)&quot;</span>
+<span class="n">lat</span> <span class="o">=</span> <span class="s2">"</span><span class="si">{:.2f}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+<span class="n">lon</span> <span class="o">=</span> <span class="s2">"</span><span class="si">{:.2f}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ob</span><span class="o">.</span><span class="n">getGeometry</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<span class="n">coords</span> <span class="o">=</span> <span class="s2">"("</span> <span class="o">+</span> <span class="n">lat</span> <span class="o">+</span> <span class="s2">", "</span> <span class="o">+</span> <span class="n">lon</span> <span class="o">+</span><span class="s2">")"</span>
 
-<span class="n">title</span> <span class="o">=</span> <span class="n">datetime</span> <span class="o">+</span> <span class="s2">&quot; FH &quot;</span> <span class="o">+</span> <span class="n">forecastHr</span> <span class="o">+</span> <span class="s2">&quot; | &quot;</span> <span class="o">+</span> <span class="n">forecastModel</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">site</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">coords</span>
+<span class="n">title</span> <span class="o">=</span> <span class="n">datetime</span> <span class="o">+</span> <span class="s2">" FH "</span> <span class="o">+</span> <span class="n">forecastHr</span> <span class="o">+</span> <span class="s2">" | "</span> <span class="o">+</span> <span class="n">forecastModel</span> <span class="o">+</span> <span class="s2">" "</span> <span class="o">+</span> <span class="n">site</span> <span class="o">+</span> <span class="s2">" "</span> <span class="o">+</span> <span class="n">coords</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
 
-<span class="c1"># Create a secondary axes for the &quot;zoomed in&quot; view</span>
-<span class="n">zoom_ax</span> <span class="o">=</span> <span class="n">inset_axes</span><span class="p">(</span><span class="n">skew</span><span class="o">.</span><span class="n">ax</span><span class="p">,</span> <span class="s1">&#39;35%&#39;</span><span class="p">,</span> <span class="s1">&#39;35%&#39;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="c1"># Create a secondary axes for the "zoomed in" view</span>
+<span class="n">zoom_ax</span> <span class="o">=</span> <span class="n">inset_axes</span><span class="p">(</span><span class="n">skew</span><span class="o">.</span><span class="n">ax</span><span class="p">,</span> <span class="s1">'35%'</span><span class="p">,</span> <span class="s1">'35%'</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
                      <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">.05</span><span class="p">,</span> <span class="mf">.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
                      <span class="n">bbox_transform</span><span class="o">=</span><span class="n">skew</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
 <span class="c1"># create a secondary plot for zoomed in section</span>
 <span class="n">fig2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">skew2</span> <span class="o">=</span> <span class="n">SkewT</span><span class="p">(</span><span class="n">fig2</span><span class="p">)</span>
 <span class="n">skew2</span><span class="o">.</span><span class="n">ax</span> <span class="o">=</span> <span class="n">zoom_ax</span>
-<span class="n">skew2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">td</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;MetPy calculated mixing ratio&#39;</span><span class="p">)</span>
-<span class="n">skew2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">td2</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;MetPy spec. hum = mixing ratio&#39;</span><span class="p">)</span>
-<span class="n">skew2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">dwpc</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;GEMPAK legacy caluclation&#39;</span><span class="p">)</span>
+<span class="n">skew2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">td</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'MetPy calculated mixing ratio'</span><span class="p">)</span>
+<span class="n">skew2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">td2</span><span class="p">,</span> <span class="s1">'y'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'MetPy spec. hum = mixing ratio'</span><span class="p">)</span>
+<span class="n">skew2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">dwpc</span><span class="p">,</span> <span class="s1">'g'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'GEMPAK legacy caluclation'</span><span class="p">)</span>
 <span class="c1"># create a legend to explain the three lines</span>
 <span class="n">skew2</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="c1"># remove the axis title on the zoomed plot since they</span>
 <span class="c1"># are redundant and just clutter the plot</span>
-<span class="n">skew2</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-<span class="n">skew2</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">skew2</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+<span class="n">skew2</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
 <span class="c1"># these exact bounds may need to change depending on</span>
 <span class="c1"># the most recent data</span>
 <span class="n">skew2</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">970</span><span class="p">,</span> <span class="mi">900</span><span class="p">)</span>
-<span class="n">skew2</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
+<span class="n">skew2</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">29</span><span class="p">,</span> <span class="o">-</span><span class="mi">26</span><span class="p">)</span>
 
-<span class="c1"># draw an indicator in the main plot of the &quot;zoomed in&quot; region</span>
-<span class="n">skew</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">indicate_inset_zoom</span><span class="p">(</span><span class="n">zoom_ax</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="c1"># draw an indicator in the main plot of the "zoomed in" region</span>
+<span class="n">skew</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">indicate_inset_zoom</span><span class="p">(</span><span class="n">zoom_ax</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"black"</span><span class="p">)</span>
 
 <span class="c1"># dispose of the second figure, since creating a new</span>
 <span class="c1"># skewt in metpy automatically creates a new figure</span>
@@ -1432,26 +1452,27 @@ calculations.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig2</span><span class="p">)</span>
 
 <span class="c1"># An example of a slanted line at constant T -- in this case the 0 isotherm</span>
-<span class="n">l</span> <span class="o">=</span> <span class="n">skew</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">l</span> <span class="o">=</span> <span class="n">skew</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'c'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="c1"># Draw hodograph</span>
-<span class="n">ax_hod</span> <span class="o">=</span> <span class="n">inset_axes</span><span class="p">(</span><span class="n">skew</span><span class="o">.</span><span class="n">ax</span><span class="p">,</span> <span class="s1">&#39;40%&#39;</span><span class="p">,</span> <span class="s1">&#39;40%&#39;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax_hod</span> <span class="o">=</span> <span class="n">inset_axes</span><span class="p">(</span><span class="n">skew</span><span class="o">.</span><span class="n">ax</span><span class="p">,</span> <span class="s1">'40%'</span><span class="p">,</span> <span class="s1">'40%'</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">h</span> <span class="o">=</span> <span class="n">Hodograph</span><span class="p">(</span><span class="n">ax_hod</span><span class="p">,</span> <span class="n">component_range</span><span class="o">=</span><span class="n">spd</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">/</span><span class="n">units</span><span class="o">.</span><span class="n">knots</span><span class="p">)</span>
 <span class="n">h</span><span class="o">.</span><span class="n">add_grid</span><span class="p">(</span><span class="n">increment</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="n">h</span><span class="o">.</span><span class="n">plot_colormapped</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">spd</span><span class="p">)</span>
 
 <span class="c1"># Show the plot</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../../_images/Model_Sounding_Data_34_0.png" src="../../_images/Model_Sounding_Data_34_0.png" />
+<img alt="../../_images/Model_Sounding_Data_33_0.png" src="../../_images/Model_Sounding_Data_33_0.png" />
 <p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html">Top</a></p>
 </section>
 <hr class="docutils" />
 <section id="see-also">
-<h3>8 See Also<a class="headerlink" href="#see-also" title="Permalink to this heading"></a></h3>
+<h3>8 See Also<a class="headerlink" href="#see-also" title="Link to this heading"></a></h3>
 <section id="related-notebooks">
-<h4>8.1 Related Notebooks<a class="headerlink" href="#related-notebooks" title="Permalink to this heading"></a></h4>
+<h4>8.1 Related Notebooks<a class="headerlink" href="#related-notebooks" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Grid_Levels_and_Parameters.html">Grid Levels and
 Parameters</a></p></li>
@@ -1462,7 +1483,7 @@ Sounding</a></p></li>
 </ul>
 </section>
 <section id="additional-documentation">
-<h4>8.2 Additional Documentation<a class="headerlink" href="#additional-documentation" title="Permalink to this heading"></a></h4>
+<h4>8.2 Additional Documentation<a class="headerlink" href="#additional-documentation" title="Link to this heading"></a></h4>
 <p><strong>python-awips:</strong></p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://unidata.github.io/python-awips/api/DataAccessLayer.html">awips.DataAccessLayer</a></p></li>
@@ -1482,7 +1503,6 @@ Sounding</a></p></li>
 <li><p><a class="reference external" href="https://unidata.github.io/MetPy/latest/api/generated/metpy.plots.Hodograph.html">metpy.hodograph</a></p></li>
 </ul>
 <p><a class="reference external" href="https://unidata.github.io/python-awips/examples/generated/Model_Sounding_Data.html">Top</a></p>
-<hr class="docutils" />
 </section>
 </section>
 </section>
