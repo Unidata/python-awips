@@ -194,14 +194,17 @@ def getAvailableTimes(request, refTimeOnly=False):
     return router.getAvailableTimes(request, refTimeOnly)
 
 
-def getAvailableTimes(request, refTimeOnly=False):
+def getGridData(request, times=[]):
     """
-    Get the times of available data for the request.
+    Get grid data matching the request at the specified times.
 
-    :param request: IDataRequest for which to retrieve available times.
-    :param bool refTimeOnly: If True, return only unique reference times
-        without forecast hours.
-    :return: A list of DataTime objects.
+    Each combination of grid, level, and data time is returned as a
+    separate IGridData object.
+
+    :param request: IDataRequest for which to retrieve grid data.
+    :param times: List of DataTime objects, a TimeRange, or None for
+        time-agnostic data.
+    :return: A list of IGridData objects.
     """
     return router.getGridData(request, times)
 
