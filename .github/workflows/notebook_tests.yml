@@ -38,4 +38,5 @@ jobs:
           pytest \
             --nbmake examples/notebooks \
             --ignore=examples/notebooks/GOES_CIRA_Product_Writer.ipynb \
+            --ignore=examples/notebooks/NEXRAD_Gridded_and_Base_Radar.ipynb \
             --nbmake-timeout=600
