@@ -53,6 +53,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getAvailableTimes"><code class="docutils literal notranslate"><span class="pre">getAvailableTimes()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getForecastRun"><code class="docutils literal notranslate"><span class="pre">getForecastRun()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getGeometryData"><code class="docutils literal notranslate"><span class="pre">getGeometryData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getGridData"><code class="docutils literal notranslate"><span class="pre">getGridData()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getIdentifierValues"><code class="docutils literal notranslate"><span class="pre">getIdentifierValues()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getMetarObs"><code class="docutils literal notranslate"><span class="pre">getMetarObs()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#awips.dataaccess.DataAccessLayer.getOptionalIdentifiers"><code class="docutils literal notranslate"><span class="pre">getOptionalIdentifiers()</span></code></a></li>
@@ -213,6 +214,26 @@ time-agnostic data.</p></li>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A list of IGeometryData objects.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="awips.dataaccess.DataAccessLayer.getGridData">
+<span class="sig-prename descclassname"><span class="pre">awips.dataaccess.DataAccessLayer.</span></span><span class="sig-name descname"><span class="pre">getGridData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/awips/dataaccess/DataAccessLayer.html#getGridData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#awips.dataaccess.DataAccessLayer.getGridData" title="Link to this definition"></a></dt>
+<dd><p>Get grid data matching the request at the specified times.</p>
+<p>Each combination of grid, level, and data time is returned as a
+separate IGridData object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – IDataRequest for which to retrieve grid data.</p></li>
+<li><p><strong>times</strong> – List of DataTime objects, a TimeRange, or None for
+time-agnostic data.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of IGridData objects.</p>
 </dd>
 </dl>
 </dd></dl>

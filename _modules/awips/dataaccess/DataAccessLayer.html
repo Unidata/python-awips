@@ -274,18 +274,6 @@
 
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""</span>
-<span class="sd">    Get the times of available data for the request.</span>
-
-<span class="sd">    :param request: IDataRequest for which to retrieve available times.</span>
-<span class="sd">    :param bool refTimeOnly: If True, return only unique reference times</span>
-<span class="sd">        without forecast hours.</span>
-<span class="sd">    :return: A list of DataTime objects.</span>
-<span class="sd">    """</span>
-    <span class="k">return</span> <span class="n">router</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="p">)</span>
-
-
 <div class="viewcode-block" id="getAvailableTimes">
 <a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getAvailableTimes">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -296,6 +284,24 @@
 <span class="sd">    :param bool refTimeOnly: If True, return only unique reference times</span>
 <span class="sd">        without forecast hours.</span>
 <span class="sd">    :return: A list of DataTime objects.</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="n">router</span><span class="o">.</span><span class="n">getAvailableTimes</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">refTimeOnly</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="getGridData">
+<a class="viewcode-back" href="../../../api/DataAccessLayer.html#awips.dataaccess.DataAccessLayer.getGridData">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">getGridData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="p">[]):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Get grid data matching the request at the specified times.</span>
+
+<span class="sd">    Each combination of grid, level, and data time is returned as a</span>
+<span class="sd">    separate IGridData object.</span>
+
+<span class="sd">    :param request: IDataRequest for which to retrieve grid data.</span>
+<span class="sd">    :param times: List of DataTime objects, a TimeRange, or None for</span>
+<span class="sd">        time-agnostic data.</span>
+<span class="sd">    :return: A list of IGridData objects.</span>
 <span class="sd">    """</span>
     <span class="k">return</span> <span class="n">router</span><span class="o">.</span><span class="n">getGridData</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span></div>
 
