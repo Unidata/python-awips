@@ -27,7 +27,7 @@
 ##    
 
 __all__ = [
-            'JobProgress',
-          ]
+    'JobProgress',
+]
 
 from .JobProgress import JobProgress

@@ -27,17 +27,17 @@
 ##    
 
 __all__ = [
-            'GridDataHistory',
-            'config',
-            'db',
-            'discrete',
-            'grid',
-            'request',
-            'server',
-            'slice',
-            'svcbu',
-            'weather'
-          ]
+    'config',
+    'db',
+    'discrete',
+    'grid',
+    'request',
+    'server',
+    'slice',
+    'svcbu',
+    'weather',
+    'GridDataHistory',
+]
 
 from .GridDataHistory import GridDataHistory
 

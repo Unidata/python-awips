@@ -92,9 +92,7 @@ pythonToThriftMap = {
     numpy.ndarray: TType.LIST,
     numpy.object_: TType.STRING,  # making an assumption here
     numpy.bytes_: TType.STRING,
-    # numpy.bytes_ is the same as numpy.string_
     numpy.str_: TType.STRING,
-    # numpy.str_ is the same as numpy.unicode_
     numpy.float64: TType.DOUBLE,
     numpy.int16: TType.I16,
     numpy.int8: TType.BYTE,

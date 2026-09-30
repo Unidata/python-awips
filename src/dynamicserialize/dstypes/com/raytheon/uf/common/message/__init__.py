@@ -19,12 +19,12 @@
 ##
 
 __all__ = [
-            'Body',
-            'Header',
-            'Message',
-            'Property',
-            'WsId'
-          ]
+    'Body',
+    'Header',
+    'Message',
+    'Property',
+    'WsId',
+]
 
 #
 # Package definition for com.raytheon.uf.common.message

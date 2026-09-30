@@ -20,7 +20,7 @@ The AWIPS ingest and request processes are a highly distributed
 system, and the messaging broken `Qpid <#qpid>`_ is used for
 inter-process communication.
 
-.. figure:: http://www.unidata.ucar.edu/software/awips2/images/awips2_coms.png
+.. figure:: https://assets.unidata.ucar.edu/software/awips2/images/awips2_coms.png
    :align: center
    :alt: image
 
@@ -79,7 +79,7 @@ Two-Dimensional), **GFE** (Graphical Forecast Editor), and **NCP**
 (National Centers Perspective). CAVE is started with the command
 ``/awips2/cave/cave.sh`` or ``cave.sh``
 
-.. figure:: http://www.unidata.ucar.edu/software/awips2/images/Unidata_AWIPS2_CAVE.png
+.. figure:: https://assets.unidata.ucar.edu/software/awips2/images/Unidata_AWIPS2_CAVE.png
    :align: center
    :alt: CAVE
 

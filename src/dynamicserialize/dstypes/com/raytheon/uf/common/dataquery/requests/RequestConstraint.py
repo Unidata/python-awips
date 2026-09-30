@@ -27,6 +27,7 @@
 #     Jun 27, 2016    5725          tgurney        Add NOT IN
 #     Jul 22, 2016    2416          tgurney        Add evaluate()
 #     Jun 26, 2019    7888          tgurney        Python 3 fixes
+#     Mar 11, 2022    8764          tgurney        Python 3.8 re.escape fix
 #     Aug 31, 2023                  srcarter@ucar  Small formatting and logic changes
 #
 
@@ -99,7 +100,7 @@ class RequestConstraint(object):
     def _makeRegex(self, pattern, flags):
         """Make a pattern using % wildcard into a regex"""
         pattern = re.escape(pattern)
-        pattern = pattern.replace('\\%', '.*')
+        pattern = pattern.replace('%', '.*')
         pattern = pattern.replace('_', '.')
         pattern = pattern + '$'
         return re.compile(pattern, flags)

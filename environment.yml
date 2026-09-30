@@ -5,7 +5,7 @@
    - python
    - numpy
    - nomkl
-   - matplotlib
+   - matplotlib<3.11
    - cartopy
    - jupyter
    - netcdf4
@@ -23,4 +23,6 @@
    - shapely
    - six
    - pip
+   - nbmake
+   - pytz
 #  - python-awips  

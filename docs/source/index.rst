@@ -32,7 +32,7 @@ Pip Install
 
 
 Micromamba (conda) Install
-~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
 

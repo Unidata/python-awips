@@ -175,6 +175,14 @@ class Level(PersistableDataObject):
         retVal += str(self.masterLevel.getName())
         return retVal
 
+    def __repr__(self):
+        if (
+            self.masterLevel is not None
+            and self.masterLevel.getName() == "TILT"
+        ):
+            return repr(str(self))
+        return object.__repr__(self)
+
     def getId(self):
         return self.id
 

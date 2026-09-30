@@ -489,7 +489,7 @@ nexrad = {
 	},
 	"56": {
 		"layer": 0,
-		"name": "Storm Rel Velocity",
+		"name": "Storm Relative Velocity",
 		"ctable": ['NWS8bitVel', -100., 1.],
 		"scale": [-100, 100],
 		"res": 1.0,
@@ -497,7 +497,8 @@ nexrad = {
 		"range": 230,
 		"lvls": 16,
 		"id": 56,
-		"unit": "kts"
+		"unit": "kts",
+		"displayUnit": "kts"
 	},
 	"57": {
 		"layer": 0,
@@ -1089,33 +1090,41 @@ nexrad = {
 	},
 	"153": {
 		"layer": 0,
-		"name": "Reflectivity",
+		"name": "Super-Resolution Base Reflectivity",
 		"res": 0.25,
 		"mnemo": "HZ",
+		"ctable": ['NWSStormClearReflectivity', -20., 0.5],
+		"scale": [-20., 75.],
 		"range": 460,
 		"lvls": 256,
 		"id": 153,
-		"unit": "dBZ/10"
+		"unit": "dBZ/10",
+		"displayUnit": "dBZ"
 	},
 	"154": {
 		"layer": 0,
-		"name": "Velocity",
+		"name": "Super-Resolution Base Velocity",
 		"res": 0.25,
 		"mnemo": "HV",
+		"ctable": ['NWS8bitVel', -100., 1.],
+		"scale": [-100., 100.],
 		"range": 300,
 		"lvls": 256,
 		"id": 154,
-		"unit": "(m/s)/10"
+		"unit": "(m/s)/10",
+		"displayUnit": "kts"
 	},
 	"155": {
 		"layer": 0,
-		"name": "Spec Width",
+		"name": "Super-Resolution Spectrum Width",
 		"res": 0.25,
 		"mnemo": "HSW",
+		"ctable": ['NWSSpectrumWidth', 0., 1.],
 		"range": 300,
 		"lvls": 256,
 		"id": 155,
-		"unit": "(m/s)/10"
+		"unit": "(m/s)/10",
+		"displayUnit": "kts"
 	},
 	"158": {
 		"layer": 0,
@@ -1130,14 +1139,16 @@ nexrad = {
 	},
 	"159": {
 		"layer": 0,
-		"name": "Diff Reflectivity",
+		"name": "Digital Differential Reflectivity",
 		"res": 0.25,
 		"mnemo": "ZDR",
 		"range": 300,
-    	"ctable": ['NWSStormClearReflectivity', -4.0, 5.0],
+		"ctable": ['NWSStormClearReflectivity', -4.0, 5.0],
+		"cmap": "Spectral_r",
 		"lvls": 256,
 		"id": 159,
-		"unit": "dB"
+		"unit": "dB",
+		"displayUnit": "dB"
 	},
 	"160": {
 		"layer": 0,
@@ -1151,13 +1162,15 @@ nexrad = {
 	},
 	"161": {
 		"layer": 0,
-		"name": "Correlation Coeff",
+		"name": "Digital Correlation Coefficient",
 		"res": 0.25,
 		"mnemo": "CC",
 		"range": 300,
+		"cmap": "viridis",
 		"lvls": 256,
 		"id": 161,
-		"unit": ""
+		"unit": "",
+		"displayUnit": ""
 	},
 	"162": {
 		"layer": 0,
@@ -1171,13 +1184,15 @@ nexrad = {
 	},
 	"163": {
 		"layer": 0,
-		"name": "Specific Diff Phase",
+		"name": "Digital Specific Differential Phase",
 		"res": 0.25,
 		"mnemo": "KDP",
 		"range": 300,
+		"cmap": "turbo",
 		"lvls": 256,
 		"id": 163,
-		"unit": "deg/km"
+		"unit": "deg/km",
+		"displayUnit": "deg/km"
 	},
 	"164": {
 		"layer": 0,
@@ -1191,13 +1206,16 @@ nexrad = {
 	},
 	"165": {
 		"layer": 0,
-		"name": "Hydrometeor Class",
+		"name": "Digital Hydrometeor Classification",
 		"res": 0.25,
 		"mnemo": "HC",
 		"range": 300,
+		"cmap": "tab20",
 		"lvls": 256,
 		"id": 165,
-		"unit": "/10"
+		"unit": "/10",
+		"displayUnit": "category",
+		"categorical": True
 	},
 	"166": {
 		"layer": 0,
@@ -2023,3 +2041,4 @@ def checkForDowngrade(pPhen, pSig, cPhen, cSig):
             return 0
     else:
         return 0
+

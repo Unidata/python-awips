@@ -35,7 +35,7 @@
 
 
 __all__ = [
-            'CompressedDataRecord'
-          ]
+    'CompressedDataRecord',
+]
 from .CompressedDataRecord import CompressedDataRecord
 

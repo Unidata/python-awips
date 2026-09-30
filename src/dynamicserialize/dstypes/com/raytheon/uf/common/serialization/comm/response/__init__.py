@@ -34,7 +34,7 @@
 
 
 __all__ = [
-           'ServerErrorResponse',
-           ]
+    'ServerErrorResponse',
+]
 
 from .ServerErrorResponse import ServerErrorResponse
